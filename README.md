@@ -21,11 +21,11 @@ sdl is supported on:
 
 [tVintris](examples/tvintris)
 
-![tVintris screenshot](/examples/sdl/tvintris/images/tvintris.png)
+![tVintris screenshot](/examples/tvintris/images/tvintris.png)
 
-You can run the tVintris example from the V root folder like this :
+You can run the tVintris example like this :
 ```
-v run vlib/sdl/examples/tvintris/tvintris.v
+v run examples/tvintris/tvintris.v
 ```
 
 ## Dependencies
