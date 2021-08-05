@@ -24,7 +24,7 @@ fn main() {
 		C.SDL_RenderClear(renderer)
 		C.SDL_RenderPresent(renderer)
 	}
-	
+
 	C.SDL_DestroyRenderer(renderer)
 	C.SDL_DestroyWindow(window)
 	C.SDL_Quit()
