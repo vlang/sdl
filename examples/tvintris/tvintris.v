@@ -255,7 +255,7 @@ fn (mut sdlc SdlContext) set_sdl_context(w int, h int, titl string) {
 	njoy := C.SDL_NumJoysticks()
 	for i in 0..njoy {
 		C.SDL_JoystickOpen(i)
-		jn := tos_clone(sdl.joystick_name_for_index(i))
+		jn := unsafe { tos_clone(sdl.joystick_name_for_index(i)) }
 		println('JOY NAME $jn')
 		for j in 0..n_joy_max {
 			if sdlc.jnames[j] == jn {
@@ -373,7 +373,7 @@ fn main() {
 			match ev {
 				C.SDL_QUIT { should_close = true }
 				C.SDL_KEYDOWN {
-					key := evt.key.keysym.sym
+					key := unsafe { evt.key.keysym.sym }
 					if key == C.SDLK_ESCAPE {
 					        should_close = true
 					        break
@@ -382,16 +382,16 @@ fn main() {
 					game2.handle_key(key)
 				}
 				C.SDL_JOYBUTTONDOWN {
-					jb := int(evt.jbutton.button)
-					joyid := evt.jbutton.which
+					jb := unsafe { int(evt.jbutton.button) }
+					joyid := unsafe { evt.jbutton.which }
 //					println('JOY BUTTON $jb $joyid')
 					game.handle_jbutton(jb, joyid)
 					game2.handle_jbutton(jb, joyid)
 				}
 				C.SDL_JOYHATMOTION {
-					jh := int(evt.jhat.hat)
-					jv := int(evt.jhat.value)
-					joyid := evt.jhat.which
+					jh := unsafe { int(evt.jhat.hat) }
+					jv := unsafe { int(evt.jhat.value) }
+					joyid := unsafe { evt.jhat.which }
 //					println('JOY HAT $jh $jv $joyid')
 					game.handle_jhat(jh, jv, joyid)
 					game2.handle_jhat(jh, jv, joyid)
@@ -527,7 +527,7 @@ fn (mut g Game) init_game() {
 	g.generate_tetro()
 	g.field = []
 	// Generate the field, fill it with 0's, add -1's on each edge
-	for i in 0..field_height + 2 {
+	for _ in 0..field_height + 2 {
 		mut row := [0].repeat(field_width + 2)
 		row[0] = - 1
 		row[field_width + 1] = - 1
