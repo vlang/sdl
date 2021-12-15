@@ -14,60 +14,60 @@ import math
 import sdl
 import sdl.image as img
 import sdl.mixer as mix
-import sdl.ttf as ttf
-[inline] fn sdl_fill_rect(s &SDL_Surface,r &SDL_Rect,c &SDL_Color){sdl.fill_rect(s,r,c)}
+import sdl.ttf
+[inline] fn sdl_fill_rect(s &C.SDL_Surface,r &C.SDL_Rect,c &C.SDL_Color){sdl.fill_rect(s,r,c)}
 
 const (
-	Title = 'tVintris'
-	BASE = os.dir( os.real_path( os.executable() ) )
-	FontName = BASE + '/../../assets/fonts/RobotoMono-Regular.ttf'
-	MusicName = BASE + '/sounds/TwintrisThosenine.mod'
-	SndBlockName = BASE + '/sounds/block.wav'
-	SndLineName = BASE + '/sounds/single.wav'
-	SndDoubleName = BASE + '/sounds/triple.wav'
-	VLogo = BASE + '/images/v-logo_30_30.png'
-	BlockSize = 20 // pixels
-	FieldHeight = 20 // # of blocks
-	FieldWidth = 10
-	TetroSize = 4
-	WinWidth = BlockSize * FieldWidth * 3
-	WinHeight = BlockSize * FieldHeight
-	TimerPeriod = 250 // ms
-	TextSize = 16
-	AudioBufSize = 1024
+	title = 'tVintris'
+	base = os.dir( os.real_path( os.executable() ) )
+	font_name = base + '/../../assets/fonts/RobotoMono-Regular.ttf'
+	music_name = base + '/sounds/TwintrisThosenine.mod'
+	snd_block_name = base + '/sounds/block.wav'
+	snd_line_name = base + '/sounds/single.wav'
+	snd_double_name = base + '/sounds/triple.wav'
+	v_logo = base + '/images/v-logo_30_30.png'
+	block_size = 20 // pixels
+	field_height = 20 // # of blocks
+	field_width = 10
+	tetro_size = 4
+	win_width = block_size * field_width * 3
+	win_height = block_size * field_height
+	timer_period = 250 // ms
+	text_size = 16
+	audio_buf_size = 1024
 
-	P2FIRE = C.SDLK_l
-	P2UP = C.SDLK_UP
-	P2DOWN = C.SDLK_DOWN
-	P2LEFT = C.SDLK_LEFT
-	P2RIGHT = C.SDLK_RIGHT
+	p2_fire = C.SDLK_l
+	p2_up = C.SDLK_UP
+	p2_down = C.SDLK_DOWN
+	p2_left = C.SDLK_LEFT
+	p2_right = C.SDLK_RIGHT
 
-	P1FIRE = C.SDLK_s
-	P1UP = C.SDLK_w
-	P1DOWN = C.SDLK_x
-	P1LEFT = C.SDLK_a
-	P1RIGHT = C.SDLK_d
+	p1_fire = C.SDLK_s
+	p1_up = C.SDLK_w
+	p1_down = C.SDLK_x
+	p1_left = C.SDLK_a
+	p1_right = C.SDLK_d
 
-	NJOYMAX = 2
+	n_joy_max = 2
 	// joystick name => enter your own device name
-	JOYP1NAME = 'Generic X-Box pad'
+	joy_p1_name = 'Generic X-Box pad'
 	// following are joystick button number
-	JBP1FIRE = 1
+	jb_p1_fire = 1
 	// following are joystick hat value
-	JHP1UP = 1
-	JHP1DOWN = 4
-	JHP1LEFT = 8
-	JHP1RIGHT = 3
+	jh_p1_up = 1
+	jh_p1_down = 4
+	jh_p1_left = 8
+	jh_p1_right = 3
 
 	// joystick name => enter your own device name
-	JOYP2NAME = 'RedOctane Guitar Hero X-plorer'
+	joy_p2_name = 'RedOctane Guitar Hero X-plorer'
 	// following are joystick button number
-	JBP2FIRE = 0
+	jb_p2_fire = 0
 	// following are joystick hat value
-	JHP2UP = 4
-	JHP2DOWN = 1
-	JHP2LEFT = 8
-	JHP2RIGHT = 2
+	jh_p2_up = 4
+	jh_p2_down = 1
+	jh_p2_left = 8
+	jh_p2_right = 2
 )
 
 const (
@@ -77,7 +77,7 @@ const (
 
 const (
 	// Tetros' 4 possible states are encoded in binaries
-	BTetros = [
+	b_tetros = [
 		// 0000 0
 		// 0000 0
 		// 0110 6
@@ -113,28 +113,28 @@ const (
 		[1111, 9, 1111, 9],
 	]
 	// Each tetro has its unique color
-	Colors = [
-		SDL_Color{byte(0), byte(0), byte(0), byte(0)},		// unused ?
-		SDL_Color{byte(0), byte(0x62), byte(0xc0), byte(0)},	// quad : darkblue 0062c0
-		SDL_Color{byte(0xca), byte(0x7d), byte(0x5f), byte(0)},	// tricorn : lightbrown ca7d5f
-		SDL_Color{byte(0), byte(0xc1), byte(0xbf), byte(0)},	// short topright : lightblue 00c1bf
-		SDL_Color{byte(0), byte(0xc1), byte(0), byte(0)},	// short topleft : lightgreen 00c100
-		SDL_Color{byte(0xbf), byte(0xbe), byte(0), byte(0)},	// long topleft : yellowish bfbe00
-		SDL_Color{byte(0xd1), byte(0), byte(0xbf), byte(0)},	// long topright : pink d100bf
-		SDL_Color{byte(0xd1), byte(0), byte(0), byte(0)},	// longest : lightred d10000
-		SDL_Color{byte(0), byte(170), byte(170), byte(0)},	// unused ?
+	colors = [
+		C.SDL_Color{byte(0), byte(0), byte(0), byte(0)},		// unused ?
+		C.SDL_Color{byte(0), byte(0x62), byte(0xc0), byte(0)},	// quad : darkblue 0062c0
+		C.SDL_Color{byte(0xca), byte(0x7d), byte(0x5f), byte(0)},	// tricorn : lightbrown ca7d5f
+		C.SDL_Color{byte(0), byte(0xc1), byte(0xbf), byte(0)},	// short topright : lightblue 00c1bf
+		C.SDL_Color{byte(0), byte(0xc1), byte(0), byte(0)},	// short topleft : lightgreen 00c100
+		C.SDL_Color{byte(0xbf), byte(0xbe), byte(0), byte(0)},	// long topleft : yellowish bfbe00
+		C.SDL_Color{byte(0xd1), byte(0), byte(0xbf), byte(0)},	// long topright : pink d100bf
+		C.SDL_Color{byte(0xd1), byte(0), byte(0), byte(0)},	// longest : lightred d10000
+		C.SDL_Color{byte(0), byte(170), byte(170), byte(0)},	// unused ?
 	]
 	// Background color
-	BackgroundColor = SDL_Color{byte(0), byte(0), byte(0), byte(0)}
+	background_color = C.SDL_Color{byte(0), byte(0), byte(0), byte(0)}
 	// Foreground color
-	ForegroundColor = SDL_Color{byte(0), byte(170), byte(170), byte(0)}
+	foreground_color = C.SDL_Color{byte(0), byte(170), byte(170), byte(0)}
 	// Text color
-	TextColor = SDL_Color{byte(0xca), byte(0x7d), byte(0x5f), byte(0)}
+	text_color = C.SDL_Color{byte(0xca), byte(0x7d), byte(0x5f), byte(0)}
 )
 
-// TODO: type Tetro [TetroSize]struct{ x, y int }
+// TODO: type Tetro [tetro_size]struct{ x, y int }
 struct Block {
-	mut:
+mut:
 	x int
 	y int
 }
@@ -157,7 +157,7 @@ pub mut:
 	h		int
 	window          voidptr
 	renderer        voidptr
-	screen          &SDL_Surface
+	screen          &C.SDL_Surface
 	texture         voidptr
 //	AUDIO
 	actx		AudioContext
@@ -165,7 +165,7 @@ pub mut:
 	jnames		[2]string
 	jids		[2]int
 //	V logo
-	v_logo		&SDL_Surface
+	v_logo		&C.SDL_Surface
 	tv_logo		voidptr
 }
 
@@ -227,7 +227,7 @@ mut:
 	font            voidptr
 }
 
-fn (sdlc mut SdlContext) set_sdl_context(w int, h int, title string) {
+fn (mut sdlc SdlContext) set_sdl_context(w int, h int, titl string) {
 	C.SDL_Init(C.SDL_INIT_VIDEO | C.SDL_INIT_AUDIO | C.SDL_INIT_JOYSTICK)
 	C.atexit(C.SDL_Quit)
 	C.TTF_Init()
@@ -235,7 +235,7 @@ fn (sdlc mut SdlContext) set_sdl_context(w int, h int, title string) {
 	bpp := 32
 	sdl.create_window_and_renderer(w, h, 0, &sdlc.window, &sdlc.renderer)
 //	C.SDL_CreateWindowAndRenderer(w, h, 0, voidptr(&sdlc.window), voidptr(&sdlc.renderer))
-	C.SDL_SetWindowTitle(sdlc.window, title.str)
+	C.SDL_SetWindowtitle(sdlc.window, titl.str)
 	sdlc.w = w
 	sdlc.h = h
 	sdlc.screen = sdl.create_rgb_surface(0, w, h, bpp, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000)
@@ -243,14 +243,14 @@ fn (sdlc mut SdlContext) set_sdl_context(w int, h int, title string) {
 
 	C.Mix_Init(C.MIX_INIT_MOD)
 	C.atexit(C.Mix_Quit)
-	if C.Mix_OpenAudio(48000,C.MIX_DEFAULT_FORMAT,2,AudioBufSize) < 0 {
+	if C.Mix_OpenAudio(48000,C.MIX_DEFAULT_FORMAT,2,audio_buf_size) < 0 {
 		println('couldn\'t open audio')
 	}
-	println('opening music $MusicName')
-	sdlc.actx.music = C.Mix_LoadMUS(MusicName.str)
-	sdlc.actx.waves[0] = C.Mix_LoadWAV(SndBlockName.str)
-	sdlc.actx.waves[1] = C.Mix_LoadWAV(SndLineName.str)
-	sdlc.actx.waves[2] = C.Mix_LoadWAV(SndDoubleName.str)
+	println('opening music $music_name')
+	sdlc.actx.music = C.Mix_LoadMUS(music_name.str)
+	sdlc.actx.waves[0] = C.Mix_LoadWAV(snd_block_name.str)
+	sdlc.actx.waves[1] = C.Mix_LoadWAV(snd_line_name.str)
+	sdlc.actx.waves[2] = C.Mix_LoadWAV(snd_double_name.str)
 	sdlc.actx.volume = C.SDL_MIX_MAXVOLUME
 	if C.Mix_PlayMusic(sdlc.actx.music, 1) != -1 {
 		C.Mix_VolumeMusic(sdlc.actx.volume)
@@ -260,7 +260,7 @@ fn (sdlc mut SdlContext) set_sdl_context(w int, h int, title string) {
 		C.SDL_JoystickOpen(i)
 		jn := tos_clone(sdl.joystick_name_for_index(i))
 		println('JOY NAME $jn')
-		for j in 0..NJOYMAX {
+		for j in 0..n_joy_max {
 			if sdlc.jnames[j] == jn {
 				println('FOUND JOYSTICK $j $jn ID=$i')
 				sdlc.jids[j] = i
@@ -272,8 +272,8 @@ fn (sdlc mut SdlContext) set_sdl_context(w int, h int, title string) {
 	if (imgres & flags) != flags {
 		println('error initializing image library.')
 	}
-	println('opening logo $VLogo')
-	sdlc.v_logo = img.load(VLogo)
+	println('opening logo $v_logo')
+	sdlc.v_logo = img.load(v_logo)
 	if !isnil(sdlc.v_logo) {
 //		println('got v_logo=$sdlc.v_logo')
 		sdlc.tv_logo = sdl.create_texture_from_surface(sdlc.renderer, sdlc.v_logo)
@@ -285,12 +285,12 @@ fn (sdlc mut SdlContext) set_sdl_context(w int, h int, title string) {
 fn main() {
 	println('tVintris -- tribute to venerable Twintris')
 	mut game := &Game{ font: 0 }
-	game.sdl.jnames[0] = JOYP1NAME
-	game.sdl.jnames[1] = JOYP2NAME
+	game.sdl.jnames[0] = joy_p1_name
+	game.sdl.jnames[1] = joy_p2_name
 	game.sdl.jids[0] = -1
 	game.sdl.jids[1] = -1
-	game.sdl.set_sdl_context(WinWidth, WinHeight, Title)
-	game.font = C.TTF_OpenFont(FontName.str, TextSize)
+	game.sdl.set_sdl_context(win_width, win_height, title)
+	game.font = C.TTF_OpenFont(font_name.str, text_size)
 	seed := time.now().unix
 	mut game2 := &Game{ font: 0 }
 	game2.sdl = game.sdl
@@ -304,33 +304,33 @@ fn main() {
 	// delay uses milliseconds so 1000 ms / 30 frames (30fps) roughly = 33.3333 ms/frame
 	time_per_frame := 1000.0 / 30.0
 
-	game.k_fire = P1FIRE
-	game.k_up = P1UP
-	game.k_down = P1DOWN
-	game.k_left = P1LEFT
-	game.k_right = P1RIGHT
-	game.jb_fire = JBP1FIRE
-	game.jh_up = JHP1UP
-	game.jh_down = JHP1DOWN
-	game.jh_left = JHP1LEFT
-	game.jh_right = JHP1RIGHT
+	game.k_fire = p1_fire
+	game.k_up = p1_up
+	game.k_down = p1_down
+	game.k_left = p1_left
+	game.k_right = p1_right
+	game.jb_fire = jb_p1_fire
+	game.jh_up = jh_p1_up
+	game.jh_down = jh_p1_down
+	game.jh_left = jh_p1_left
+	game.jh_right = jh_p1_right
 	game.ofs_x = 0
 	game.seed_ini = seed
 	game.init_game()
 	game.state = .running
 	go game.run() // Run the game loop in a new thread
 
-	game2.k_fire = P2FIRE
-	game2.k_up = P2UP
-	game2.k_down = P2DOWN
-	game2.k_left = P2LEFT
-	game2.k_right = P2RIGHT
-	game2.jb_fire = JBP2FIRE
-	game2.jh_up = JHP2UP
-	game2.jh_down = JHP2DOWN
-	game2.jh_left = JHP2LEFT
-	game2.jh_right = JHP2RIGHT
-	game2.ofs_x = WinWidth * 2 / 3
+	game2.k_fire = p2_fire
+	game2.k_up = p2_up
+	game2.k_down = p2_down
+	game2.k_left = p2_left
+	game2.k_right = p2_right
+	game2.jb_fire = jb_p2_fire
+	game2.jh_up = jh_p2_up
+	game2.jh_down = jh_p2_down
+	game2.jh_left = jh_p2_left
+	game2.jh_right = jh_p2_right
+	game2.ofs_x = win_width * 2 / 3
 	game2.seed_ini = seed
 	game2.init_game()
 	game2.state = .running
@@ -443,7 +443,7 @@ fn main() {
 enum Action {
         idle space fire
 }
-fn (game mut Game) handle_key(key int) {
+fn (mut game Game) handle_key(key int) {
 	// global keys
 	mut action := Action.idle
 	match key {
@@ -486,7 +486,7 @@ fn (game mut Game) handle_key(key int) {
 	}
 }
 
-fn (game mut Game) handle_jbutton(jb int, joyid int) {
+fn (mut game Game) handle_jbutton(jb int, joyid int) {
 	if joyid != game.joy_id {
 		return
 	}
@@ -508,7 +508,7 @@ fn (game mut Game) handle_jbutton(jb int, joyid int) {
 	}
 }
 
-fn (game mut Game) handle_jhat(jh int, jv int, joyid int) {
+fn (mut game Game) handle_jhat(jh int, jv int, joyid int) {
 	if joyid != game.joy_id {
 		return
 	}
@@ -524,7 +524,7 @@ fn (game mut Game) handle_jhat(jh int, jv int, joyid int) {
 	}
 }
 
-fn (g mut Game) init_game() {
+fn (mut g Game) init_game() {
 	g.score = 0
 	g.tetro_total = 0
 	g.tetro_stats = [0, 0, 0, 0, 0, 0, 0]
@@ -533,23 +533,23 @@ fn (g mut Game) init_game() {
 	g.generate_tetro()
 	g.field = []
 	// Generate the field, fill it with 0's, add -1's on each edge
-	for i in 0..FieldHeight + 2 {
-		mut row := [0].repeat(FieldWidth + 2)
+	for i in 0..field_height + 2 {
+		mut row := [0].repeat(field_width + 2)
 		row[0] = - 1
-		row[FieldWidth + 1] = - 1
+		row[field_width + 1] = - 1
 		g.field << row
 	}
 	mut first_row := g.field[0]
-	mut last_row := g.field[FieldHeight + 1]
-	for j in 0..FieldWidth + 2 {
+	mut last_row := g.field[field_height + 1]
+	for j in 0..field_width + 2 {
 		first_row[j] = - 1
 		last_row[j] = - 1
 	}
 }
 
-fn (g mut Game) parse_tetros() {
-	for b_tetros in BTetros {
-		for b_tetro in b_tetros {
+fn (mut g Game) parse_tetros() {
+	for b_tetro_1 in b_tetros {
+		for b_tetro in b_tetro_1 {
 			for t in parse_binary_tetro(b_tetro) {
 				g.tetros_cache << t
 			}
@@ -557,7 +557,7 @@ fn (g mut Game) parse_tetros() {
 	}
 }
 
-fn (g mut Game) run() {
+fn (mut g Game) run() {
 	for {
 		if g.state == .running {
 			g.move_tetro()
@@ -576,15 +576,15 @@ fn (g mut Game) run() {
 				}
 			}
 		}
-		time.sleep_ms(TimerPeriod)      // medium delay between game step
+		time.sleep_ms(timer_period)      // medium delay between game step
 	}
 }
 
-fn (game mut Game) rotate_tetro() {
+fn (mut game Game) rotate_tetro() {
 	// Rotate the tetro
 	old_rotation_idx := game.rotation_idx
 	game.rotation_idx++
-	if game.rotation_idx == TetroSize {
+	if game.rotation_idx == tetro_size {
 		game.rotation_idx = 0
 	}
 	game.get_tetro()
@@ -597,7 +597,7 @@ fn (game mut Game) rotate_tetro() {
 	}
 }
 
-fn (g mut Game) move_tetro() {
+fn (mut g Game) move_tetro() {
 	// Check each block in current tetro
 	for block in g.tetro {
 		y := block.y + g.pos_y + 1
@@ -623,9 +623,9 @@ fn (g mut Game) move_tetro() {
 	g.pos_y++
 }
 
-fn (g mut Game) move_right(dx int) bool {
+fn (mut g Game) move_right(dx int) bool {
 	// Reached left/right edge or another tetro?
-	for i in 0..TetroSize {
+	for i in 0..tetro_size {
 		tetro := g.tetro[i]
 		y := tetro.y + g.pos_y
 		x := tetro.x + g.pos_x + dx
@@ -641,14 +641,14 @@ fn (g mut Game) move_right(dx int) bool {
 
 fn (g &Game) delete_completed_lines() int {
 	mut n := 0
-	for y := FieldHeight; y >= 1; y-- {
+	for y := field_height; y >= 1; y-- {
 		n += g.delete_completed_line(y)
 	}
 	return n
 }
 
 fn (g &Game) delete_completed_line(y int) int {
-	for x := 1; x <= FieldWidth; x++ {
+	for x := 1; x <= field_width; x++ {
 		f := g.field[y]
 		if f[x] == 0 {
 			return 0
@@ -656,7 +656,7 @@ fn (g &Game) delete_completed_line(y int) int {
 	}
 	// Move everything down by 1 position
 	for yy := y - 1; yy >= 1; yy-- {
-		for x := 1; x <= FieldWidth; x++ {
+		for x := 1; x <= field_width; x++ {
 			mut a := g.field[yy + 1]
 			b := g.field[yy]
 			a[x] = b[x]
@@ -666,17 +666,17 @@ fn (g &Game) delete_completed_line(y int) int {
 }
 
 // Draw a rand tetro index
-fn (g mut Game) rand_tetro() int {
+fn (mut g Game) rand_tetro() int {
 	cur := g.tetro_next
 	g.tetro_next = rand.rand_r(&g.seed)
-	g.tetro_next = g.tetro_next % BTetros.len
+	g.tetro_next = g.tetro_next % b_tetros.len
 	return cur
 }
 
 // Place a new tetro on top
-fn (g mut Game) generate_tetro() {
+fn (mut g Game) generate_tetro() {
 	g.pos_y = 0
-	g.pos_x = FieldWidth / 2 - TetroSize / 2
+	g.pos_x = field_width / 2 - tetro_size / 2
 	g.tetro_idx = g.rand_tetro()
 //	println('idx=${g.tetro_idx}')
 	g.tetro_stats[g.tetro_idx]+= 2 -1
@@ -686,13 +686,13 @@ fn (g mut Game) generate_tetro() {
 }
 
 // Get the right tetro from cache
-fn (g mut Game) get_tetro() {
-	idx := g.tetro_idx * TetroSize * TetroSize + g.rotation_idx * TetroSize
-	g.tetro = g.tetros_cache[idx .. idx + TetroSize]
+fn (mut g Game) get_tetro() {
+	idx := g.tetro_idx * tetro_size * tetro_size + g.rotation_idx * tetro_size
+	g.tetro = g.tetros_cache[idx .. idx + tetro_size]
 }
 
 fn (g &Game) drop_tetro() {
-	for i in 0..TetroSize {
+	for i in 0..tetro_size {
 		tetro := g.tetro[i]
 		x := tetro.x + g.pos_x
 		y := tetro.y + g.pos_y
@@ -704,22 +704,22 @@ fn (g &Game) drop_tetro() {
 }
 
 fn (g &Game) draw_tetro() {
-	for i in 0..TetroSize {
+	for i in 0..tetro_size {
 		tetro := g.tetro[i]
 		g.draw_block(g.pos_y + tetro.y, g.pos_x + tetro.x, g.tetro_idx + 1)
 	}
 }
 
-fn (g &Game) draw_block(i, j, color_idx int) {
-	rect := SDL_Rect {g.ofs_x + (j - 1) * BlockSize, (i - 1) * BlockSize,
-		BlockSize - 1, BlockSize - 1}
-	col := Colors[color_idx]
+fn (g &Game) draw_block(i int, j int, color_idx int) {
+	rect := C.SDL_Rect {g.ofs_x + (j - 1) * block_size, (i - 1) * block_size,
+		block_size - 1, block_size - 1}
+	col := colors[color_idx]
 	sdl_fill_rect(g.sdl.screen, &rect, &col)
 }
 
 fn (g &Game) draw_field() {
-	for i := 1; i < FieldHeight + 1; i++ {
-		for j := 1; j < FieldWidth + 1; j++ {
+	for i := 1; i < field_height + 1; i++ {
+		for j := 1; j < field_width + 1; j++ {
 			f := g.field[i]
 			if f[j] > 0 {
 				g.draw_block(i, j, f[j])
@@ -735,27 +735,27 @@ fn (g &Game) draw_v_logo() {
 	texw := 0
 	texh := 0
 	C.SDL_QueryTexture(g.sdl.tv_logo, 0, 0, &texw, &texh)
-	dstrect := SDL_Rect { (WinWidth / 2) - (texw / 2), 20, texw, texh }
+	dstrect := C.SDL_Rect { (win_width / 2) - (texw / 2), 20, texw, texh }
 	// Currently we can't seem to use sdl.render_copy when we need to pass a nil pointer (eg: srcrect to be NULL)
 //	sdl.render_copy(g.sdl.renderer, tv_logo, 0, &dstrect)
 	C.SDL_RenderCopy(g.sdl.renderer, g.sdl.tv_logo, voidptr(0), voidptr(&dstrect))
 }
 
-fn (g &Game) draw_text(x int, y int, text string, tcol SDL_Color) {
+fn (g &Game) draw_text(x int, y int, text string, tcol C.SDL_Color) {
 	_tcol := C.SDL_Color{tcol.r, tcol.g, tcol.b, tcol.a}
 	tsurf := C.TTF_RenderText_Solid(g.font, text.str, _tcol)
 	ttext := C.SDL_CreateTextureFromSurface(g.sdl.renderer, tsurf)
 	texw := 0
 	texh := 0
 	C.SDL_QueryTexture(ttext, 0, 0, &texw, &texh)
-	dstrect := SDL_Rect { x, y, texw, texh }
+	dstrect := C.SDL_Rect { x, y, texw, texh }
 //	sdl.render_copy(g.sdl.renderer, ttext, 0, &dstrect)
 	C.SDL_RenderCopy(g.sdl.renderer, ttext, voidptr(0), voidptr(&dstrect))
 	C.SDL_DestroyTexture(ttext)
 	sdl.free_surface(tsurf)
 }
 
-[inline] fn (g &Game) draw_ptext(x int, y int, text string, tcol SDL_Color) {
+[inline] fn (g &Game) draw_ptext(x int, y int, text string, tcol C.SDL_Color) {
 	g.draw_text(g.ofs_x + x, y, text, tcol)
 }
 
@@ -763,15 +763,15 @@ fn (g &Game) draw_text(x int, y int, text string, tcol SDL_Color) {
 fn (g &Game) draw_begin() {
 //	println('about to clear')
 	C.SDL_RenderClear(g.sdl.renderer)
-	mut rect := SDL_Rect {0,0,g.sdl.w,g.sdl.h}
-	col := SDL_Color{byte(00), byte(00), byte(0), byte(0)}
-//	sdl_fill_rect(g.sdl.screen, &rect, BackgroundColor)
+	mut rect := C.SDL_Rect {0,0,g.sdl.w,g.sdl.h}
+	col := C.SDL_Color{byte(00), byte(00), byte(0), byte(0)}
+//	sdl_fill_rect(g.sdl.screen, &rect, background_color)
 	sdl_fill_rect(g.sdl.screen, &rect, col)
 
-	rect = SDL_Rect {BlockSize * FieldWidth + 2,0,2,g.sdl.h}
-	sdl_fill_rect(g.sdl.screen, &rect, ForegroundColor)
-	rect = SDL_Rect {WinWidth - BlockSize * FieldWidth - 4,0,2,g.sdl.h}
-	sdl_fill_rect(g.sdl.screen, &rect, ForegroundColor)
+	rect = C.SDL_Rect {block_size * field_width + 2,0,2,g.sdl.h}
+	sdl_fill_rect(g.sdl.screen, &rect, foreground_color)
+	rect = C.SDL_Rect {win_width - block_size * field_width - 4,0,2,g.sdl.h}
+	sdl_fill_rect(g.sdl.screen, &rect, foreground_color)
 
 	mut idx := 0
 	for st in g.tetro_stats {
@@ -779,10 +779,10 @@ fn (g &Game) draw_begin() {
 		if g.tetro_total > 0 {
 			s += 90 * st / g.tetro_total
 		}
-		w := BlockSize
+		w := block_size
 		h := s * 4 * w / 100
-		rect = SDL_Rect {(WinWidth - 7 * (w + 1)) / 2 + idx * (w + 1), WinHeight * 3 / 4 - h, w, h}
-		sdl_fill_rect(g.sdl.screen, &rect, Colors[idx + 1])
+		rect = C.SDL_Rect {(win_width - 7 * (w + 1)) / 2 + idx * (w + 1), win_height * 3 / 4 - h, w, h}
+		sdl_fill_rect(g.sdl.screen, &rect, colors[idx + 1])
 		idx++
 	}
 }
@@ -795,20 +795,20 @@ fn (g &Game) draw_middle() {
 
 fn (g &Game) draw_score() {
 	if g.font != voidptr(0) {
-		g.draw_ptext(1, 2, 'score: ' + g.score.str() + ' nxt=' + g.tetro_next.str(), TextColor)
+		g.draw_ptext(1, 2, 'score: ' + g.score.str() + ' nxt=' + g.tetro_next.str(), text_color)
 		if g.state == .gameover {
-			g.draw_ptext(1, WinHeight / 2 + 0 * TextSize, 'Game Over', TextColor)
-			g.draw_ptext(1, WinHeight / 2 + 2 * TextSize, 'FIRE to restart', TextColor)
+			g.draw_ptext(1, win_height / 2 + 0 * text_size, 'Game Over', text_color)
+			g.draw_ptext(1, win_height / 2 + 2 * text_size, 'FIRE to restart', text_color)
 		} else if g.state == .paused {
-			g.draw_ptext(1, WinHeight / 2 + 0 * TextSize, 'Game Paused', TextColor)
-			g.draw_ptext(1, WinHeight / 2 + 2 * TextSize, 'SPACE to resume', TextColor)
+			g.draw_ptext(1, win_height / 2 + 0 * text_size, 'Game Paused', text_color)
+			g.draw_ptext(1, win_height / 2 + 2 * text_size, 'SPACE to resume', text_color)
 		}
 	}
 }
 
 fn (g &Game) draw_stats() {
 	if g.font != voidptr(0) {
-		g.draw_text(WinWidth / 3 + 10, WinHeight * 3 / 4 + 0 * TextSize, 'stats: ' + g.tetro_total.str() + ' tetros', TextColor)
+		g.draw_text(win_width / 3 + 10, win_height * 3 / 4 + 0 * text_size, 'stats: ' + g.tetro_total.str() + ' tetros', text_color)
 		mut stats := ''
 		for st in g.tetro_stats {
 			mut s := 0
@@ -818,7 +818,7 @@ fn (g &Game) draw_stats() {
 			stats += ' '
 			stats += s.str()
 		}
-		g.draw_text(WinWidth / 3 - 8, WinHeight * 3 / 4 + 2 * TextSize, stats, TextColor)
+		g.draw_text(win_width / 3 - 8, win_height * 3 / 4 + 2 * text_size, stats, text_color)
 	}
 }
 
@@ -840,7 +840,7 @@ fn parse_binary_tetro(t_ int) []Block {
 		for j := 3; j >= 0; j-- {
 			bin := digit % 2
 			digit /= 2
-			if bin == 1 || (horizontal && i == TetroSize - 1) {
+			if bin == 1 || (horizontal && i == tetro_size - 1) {
 				// TODO: res[cnt].x = j
 				// res[cnt].y = i
 				mut point := &res[cnt]

@@ -1,26 +1,26 @@
 module mixer
 import sdl
 
-#flag windows -I @VROOT/thirdparty/SDL2_mixer/include
-#flag windows -L @VROOT/thirdparty/SDL2_mixer/lib/x64
+#flag windows -I @VMODROOT/thirdparty/SDL2_mixer/include
+#flag windows -L @VMODROOT/thirdparty/SDL2_mixer/lib/x64
 #flag windows -lSDL2_mixer
 
 #include <SDL_mixer.h>
 
 
 pub const (
-	MIX_CHANNEL_POST = -2
-	MIX_MAX_VOLUME = C.MIX_MAX_VOLUME
-	MIX_CHANNELS = 8
-	MIX_DEFAULT_FREQUENCY = 22050
-	MIX_DEFAULT_FORMAT = C.MIX_DEFAULT_FORMAT
+	mix_channel_post = -2
+	mix_max_volume = C.MIX_MAX_VOLUME
+	mix_channels = 8
+	mix_default_frequency = 22050
+	mix_default_format = C.MIX_DEFAULT_FORMAT
 
-    MIX_INIT_FLAC = 0x00000001
-    MIX_INIT_MOD = 0x00000002
-    MIX_INIT_MP3 = 0x00000008
-    MIX_INIT_OGG = 0x00000010
-    MIX_INIT_MID = 0x00000020
-    MIX_INIT_OPUS = 0x00000040
+    mix_init_flac = 0x00000001
+    mix_init_mod = 0x00000002
+    mix_init_mp3 = 0x00000008
+    mix_init_ogg = 0x00000010
+    mix_init_mid = 0x00000020
+    mix_init_opus = 0x00000040
 )
 
 // Structs
@@ -42,13 +42,13 @@ fn C.Mix_Init(flags int) int
 fn C.Mix_OpenAudio(frequency int, format u16, channels int, chunksize int) int
 fn C.Mix_CloseAudio()
 
-fn C.Mix_LoadMUS(file byteptr) voidptr // *Mix_Music
-fn C.Mix_LoadMUS_RW(src &SDL_RWops, freesrc int) voidptr // *Mix_Music
-fn C.Mix_LoadWAV(file byteptr) voidptr // *Mix_Chunk
-fn C.Mix_LoadWAV_RW(src &SDL_RWops, freesrc int) voidptr // *Mix_Chunk
+fn C.Mix_LoadMUS(file byteptr) &C.Mix_Music
+fn C.Mix_LoadMUS_RW(src &SDL_RWops, freesrc int) &C.Mix_Music
+fn C.Mix_LoadWAV(file byteptr) &C.Mix_Chunk
+fn C.Mix_LoadWAV_RW(src &SDL_RWops, freesrc int) &C.Mix_Chunk
 
 // Music
-fn C.Mix_FadeInMusic(music &Mix_Music, loops int, ms int) int
+fn C.Mix_FadeInMusic(music &C.Mix_Music, loops int, ms int) int
 fn C.Mix_PlayMusic(music &SDL_AudioSpec, loops int) int
 fn C.Mix_VolumeMusic(volume int) int
 fn C.Mix_PauseMusic()
@@ -59,13 +59,13 @@ fn C.Mix_PausedMusic() int
 fn C.Mix_HaltMusic() int
 fn C.Mix_FadeOutMusic(ms int) int
 fn C.Mix_HookMusicFinished(cb fn())
-fn C.Mix_FreeMusic(music &Mix_Music)
+fn C.Mix_FreeMusic(music &C.Mix_Music)
 
 // Channels
-fn C.Mix_VolumeChunk(chunk &Mix_Chunk, volume int) int
-fn C.Mix_PlayChannel(channel int, chunk &Mix_Chunk, loops int) int
-fn C.Mix_FadeInChannel(channel int, chunk &Mix_Chunk, loops int, ms int) int
-fn C.Mix_PlayChannelTimed(channel int, chunk &Mix_Chunk, loops int, ticks int) int
+fn C.Mix_VolumeChunk(chunk &C.Mix_Chunk, volume int) int
+fn C.Mix_PlayChannel(channel int, chunk &C.Mix_Chunk, loops int) int
+fn C.Mix_FadeInChannel(channel int, chunk &C.Mix_Chunk, loops int, ms int) int
+fn C.Mix_PlayChannelTimed(channel int, chunk &C.Mix_Chunk, loops int, ticks int) int
 fn C.Mix_Pause(channel int)
 fn C.Mix_Resume(channel int)
 fn C.Mix_HaltChannel(channel int) int
@@ -74,8 +74,8 @@ fn C.Mix_FadeOutChannel(channel int, ms int) int
 fn C.Mix_ChannelFinished(cb fn (int))
 fn C.Mix_Playing(channel int) int
 fn C.Mix_Paused(channel int) int
-fn C.Mix_GetChunk(channel int) voidptr //Mix_Chunk
-fn C.Mix_FreeChunk(chunk &Mix_Chunk)
+fn C.Mix_GetChunk(channel int) &C.Mix_Chunk
+fn C.Mix_FreeChunk(chunk &C.Mix_Chunk)
 fn C.Mix_ReserveChannels(num int) int
 
 // Groups
@@ -89,8 +89,8 @@ fn C.Mix_FadeOutGroup(tag int, ms int) int
 fn C.Mix_HaltGroup(tag int) int
 
 // Effects
-type EffectFunc fn (int, voidptr, int, voidptr) // int chan, void *stream, int len, void *udata
-type EffectDone fn (int, voidptr) // int chan, void *udata
+type EffectFunc = fn (int, voidptr, int, voidptr) // int chan, void *stream, int len, void *udata
+type EffectDone = fn (int, voidptr) // int chan, void *udata
 
 fn C.Mix_RegisterEffect(channel int, f EffectFunc, d EffectDone, arg voidptr) int
 fn C.Mix_UnregisterEffect(channel int, f EffectFunc) int
