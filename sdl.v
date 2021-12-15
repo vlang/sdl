@@ -5,11 +5,14 @@
 module sdl
 
 $if linux || darwin || solaris {
-	#pkgconfig --cflags --libs sdl2
 	#flag -lSDL2_ttf -lSDL2_mixer -lSDL2_image
+	#pkgconfig --cflags --libs sdl2
+}
+$if linux {
+	#flag -D_REENTRANT
 	#flag -I /usr/include/SDL2
 }
-#flag linux -D_REENTRANT
+
 
 /*
 #flag linux `sdl2-config --cflags --libs`  -lSDL2_ttf -lSDL2_mixer -lSDL2_image

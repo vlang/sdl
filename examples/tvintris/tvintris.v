@@ -663,7 +663,6 @@ fn (g &Game) delete_completed_line(y int) int {
 fn (mut g Game) rand_tetro() int {
 	cur := g.tetro_next
 	g.tetro_next = rand.int_in_range(0, b_tetros.len)
-	//g.tetro_next = g.tetro_next % b_tetros.len
 	return cur
 }
 
