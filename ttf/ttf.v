@@ -87,9 +87,9 @@ fn C.TTF_SizeUNICODE(font &C.TTF_Font, text &u16, w &int, h &int) int
    colorkey, giving a transparent background, and the 1 pixel is set to the text color.
    This function returns the new surface, or NULL if there was an error.
 */
-fn C.TTF_RenderText_Solid(font &C.TTF_Font, text &byte, fg SDL_Color) &C.SDL_Surface
-fn C.TTF_RenderUTF8_Solid(font &C.TTF_Font, text &byte, fg SDL_Color) &C.SDL_Surface
-fn C.TTF_RenderUNICODE_Solid(font &C.TTF_Font, text &u16, fg SDL_Color) &C.SDL_Surface
+fn C.TTF_RenderText_Solid(font &C.TTF_Font, text &byte, fg C.SDL_Color) &C.SDL_Surface
+fn C.TTF_RenderUTF8_Solid(font &C.TTF_Font, text &byte, fg C.SDL_Color) &C.SDL_Surface
+fn C.TTF_RenderUNICODE_Solid(font &C.TTF_Font, text &u16, fg C.SDL_Color) &C.SDL_Surface
 
 /* Create an 8-bit palettized surface and render the given glyph at fast quality with the given font and color.  The 0 pixel is the
    colorkey, giving a transparent background, and the 1 pixel is set to the text color.  The glyph is rendered without any padding or
@@ -100,9 +100,9 @@ fn C.TTF_RenderGlyph_Solid(font &C.TTF_Font, ch u16, fg C.SDL_Color) &C.SDL_Surf
 /* Create an 8-bit palettized surface and render the given text at high quality with the given font and colors.  The 0 pixel is background,
    while other pixels have varying degrees of the foreground color. This function returns the new surface, or NULL if there was an error.
 */
-fn C.TTF_RenderText_Shaded(font &C.TTF_Font, text &byte, fg SDL_Color, bg SDL_Color) &C.SDL_Surface
-fn C.TTF_RenderUTF8_Shaded(font &C.TTF_Font, text &byte, fg SDL_Color, bg SDL_Color) &C.SDL_Surface
-fn C.TTF_RenderUNICODE_Shaded(font &C.TTF_Font, text &u16, fg SDL_Color, bg SDL_Color) &C.SDL_Surface
+fn C.TTF_RenderText_Shaded(font &C.TTF_Font, text &byte, fg C.SDL_Color, bg C.SDL_Color) &C.SDL_Surface
+fn C.TTF_RenderUTF8_Shaded(font &C.TTF_Font, text &byte, fg C.SDL_Color, bg C.SDL_Color) &C.SDL_Surface
+fn C.TTF_RenderUNICODE_Shaded(font &C.TTF_Font, text &u16, fg C.SDL_Color, bg C.SDL_Color) &C.SDL_Surface
 
 /* Create an 8-bit palettized surface and render the given glyph at high quality with the given font and colors.  The 0 pixel is background,
    while other pixels have varying degrees of the foreground color. The glyph is rendered without any padding or centering in the X
@@ -113,18 +113,18 @@ fn C.TTF_RenderGlyph_Shaded(font &C.TTF_Font, ch u16, fg C.SDL_Color) &C.SDL_Sur
 /* Create a 32-bit ARGB surface and render the given text at high quality, using alpha blending to dither the font with the given color.
    This function returns the new surface, or NULL if there was an error.
 */
-fn C.TTF_RenderText_Blended(font &C.TTF_Font, text &byte, fg SDL_Color, bg SDL_Color) &C.SDL_Surface
-fn C.TTF_RenderUTF8_Blended(font &C.TTF_Font, text &byte, fg SDL_Color, bg SDL_Color) &C.SDL_Surface
-fn C.TTF_RenderUNICODE_Blended(font &C.TTF_Font, text &u16, fg SDL_Color, bg SDL_Color) &C.SDL_Surface
+fn C.TTF_RenderText_Blended(font &C.TTF_Font, text &byte, fg C.SDL_Color, bg C.SDL_Color) &C.SDL_Surface
+fn C.TTF_RenderUTF8_Blended(font &C.TTF_Font, text &byte, fg C.SDL_Color, bg C.SDL_Color) &C.SDL_Surface
+fn C.TTF_RenderUNICODE_Blended(font &C.TTF_Font, text &u16, fg C.SDL_Color, bg C.SDL_Color) &C.SDL_Surface
 
 
 /* Create a 32-bit ARGB surface and render the given text at high quality, using alpha blending to dither the font with the given color.
    Text is wrapped to multiple lines on line endings and on word boundaries if it extends beyond wrapLength in pixels.
    This function returns the new surface, or NULL if there was an error.
 */
-fn C.TTF_RenderText_Blended_Wrapped(font &C.TTF_Font, text &byte, fg SDL_Color, wrap_length u32) &C.SDL_Surface
-fn C.TTF_RenderUTF8_Blended_Wrapped(font &C.TTF_Font, text &byte, fg SDL_Color, wrap_length u32) &C.SDL_Surface
-fn C.TTF_RenderUNICODE_Blended_Wrapped(font &C.TTF_Font, text &u16, fg SDL_Color, wrap_length u32) &C.SDL_Surface
+fn C.TTF_RenderText_Blended_Wrapped(font &C.TTF_Font, text &byte, fg C.SDL_Color, wrap_length u32) &C.SDL_Surface
+fn C.TTF_RenderUTF8_Blended_Wrapped(font &C.TTF_Font, text &byte, fg C.SDL_Color, wrap_length u32) &C.SDL_Surface
+fn C.TTF_RenderUNICODE_Blended_Wrapped(font &C.TTF_Font, text &u16, fg C.SDL_Color, wrap_length u32) &C.SDL_Surface
 
 /* Create a 32-bit ARGB surface and render the given glyph at high quality, using alpha blending to dither the font with the given color.
    The glyph is rendered without any padding or centering in the X direction, and aligned normally in the Y direction.

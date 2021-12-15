@@ -39,6 +39,7 @@ pub struct C.Mix_Music {}
 
 // MIX
 fn C.Mix_Init(flags int) int
+fn C.Mix_Quit()
 fn C.Mix_OpenAudio(frequency int, format u16, channels int, chunksize int) int
 fn C.Mix_CloseAudio()
 

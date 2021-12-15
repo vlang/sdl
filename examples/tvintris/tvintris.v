@@ -194,9 +194,6 @@ mut:
 	jh_down          int
 	jh_left          int
 	jh_right         int
-	// game rand seed
-	seed            int
-	seed_ini            int
 	// Position of the current tetro
 	pos_x        int
 	pos_y        int
@@ -235,7 +232,7 @@ fn (mut sdlc SdlContext) set_sdl_context(w int, h int, titl string) {
 	bpp := 32
 	sdl.create_window_and_renderer(w, h, 0, &sdlc.window, &sdlc.renderer)
 //	C.SDL_CreateWindowAndRenderer(w, h, 0, voidptr(&sdlc.window), voidptr(&sdlc.renderer))
-	C.SDL_SetWindowtitle(sdlc.window, titl.str)
+	C.SDL_SetWindowTitle(sdlc.window, titl.str)
 	sdlc.w = w
 	sdlc.h = h
 	sdlc.screen = sdl.create_rgb_surface(0, w, h, bpp, 0x00FF0000, 0x0000FF00, 0x000000FF, 0xFF000000)
@@ -291,7 +288,6 @@ fn main() {
 	game.sdl.jids[1] = -1
 	game.sdl.set_sdl_context(win_width, win_height, title)
 	game.font = C.TTF_OpenFont(font_name.str, text_size)
-	seed := time.now().unix
 	mut game2 := &Game{ font: 0 }
 	game2.sdl = game.sdl
 	game2.font = game.font
@@ -315,7 +311,6 @@ fn main() {
 	game.jh_left = jh_p1_left
 	game.jh_right = jh_p1_right
 	game.ofs_x = 0
-	game.seed_ini = seed
 	game.init_game()
 	game.state = .running
 	go game.run() // Run the game loop in a new thread
@@ -331,7 +326,6 @@ fn main() {
 	game2.jh_left = jh_p2_left
 	game2.jh_right = jh_p2_right
 	game2.ofs_x = win_width * 2 / 3
-	game2.seed_ini = seed
 	game2.init_game()
 	game2.state = .running
 	go game2.run() // Run the game loop in a new thread
@@ -373,9 +367,10 @@ fn main() {
 		g.draw_end()
 
 //		game.handle_events()            // CRASHES if done in function ???
-		evt := SDL_Event{}
+		evt := C.SDL_Event{}
 		for 0 < sdl.poll_event(&evt) {
-			match int(evt.@type) {
+			ev := unsafe { int(evt.@type) }
+			match ev {
 				C.SDL_QUIT { should_close = true }
 				C.SDL_KEYDOWN {
 					key := evt.key.keysym.sym
@@ -529,7 +524,6 @@ fn (mut g Game) init_game() {
 	g.tetro_total = 0
 	g.tetro_stats = [0, 0, 0, 0, 0, 0, 0]
 	g.parse_tetros()
-	g.seed = g.seed_ini
 	g.generate_tetro()
 	g.field = []
 	// Generate the field, fill it with 0's, add -1's on each edge
@@ -576,7 +570,7 @@ fn (mut g Game) run() {
 				}
 			}
 		}
-		time.sleep_ms(timer_period)      // medium delay between game step
+		time.sleep(timer_period * time.millisecond) // medium delay between game step
 	}
 }
 
@@ -668,7 +662,7 @@ fn (g &Game) delete_completed_line(y int) int {
 // Draw a rand tetro index
 fn (mut g Game) rand_tetro() int {
 	cur := g.tetro_next
-	g.tetro_next = rand.rand_r(&g.seed)
+	g.tetro_next = rand.int()
 	g.tetro_next = g.tetro_next % b_tetros.len
 	return cur
 }
@@ -742,8 +736,8 @@ fn (g &Game) draw_v_logo() {
 }
 
 fn (g &Game) draw_text(x int, y int, text string, tcol C.SDL_Color) {
-	_tcol := C.SDL_Color{tcol.r, tcol.g, tcol.b, tcol.a}
-	tsurf := C.TTF_RenderText_Solid(g.font, text.str, _tcol)
+	tcol_ := C.SDL_Color{tcol.r, tcol.g, tcol.b, tcol.a}
+	tsurf := C.TTF_RenderText_Solid(g.font, text.str, tcol_)
 	ttext := C.SDL_CreateTextureFromSurface(g.sdl.renderer, tsurf)
 	texw := 0
 	texh := 0
