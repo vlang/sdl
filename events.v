@@ -1,5 +1,6 @@
 module sdl
 
+[typedef]
 pub union C.SDL_Event {
 pub:
 	@type u32
