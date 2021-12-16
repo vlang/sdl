@@ -4,14 +4,15 @@ import sdl
 
 fn main() {
 	C.SDL_Init(C.SDL_INIT_VIDEO)
-	window := C.SDL_CreateWindow('Hello SDL2', 300, 300, 500, 300, 0)
+	window := C.SDL_CreateWindow('Hello SDL2'.str, 300, 300, 500, 300, 0)
 	renderer := C.SDL_CreateRenderer(window, -1, C.SDL_RENDERER_ACCELERATED | C.SDL_RENDERER_PRESENTVSYNC)
 
 	mut should_close := false
 	for {
-		evt := SDL_Event{}
+		evt := C.SDL_Event{}
 		for 0 < sdl.poll_event(&evt) {
-			match int(evt.@type) {
+			etyp := unsafe { int(evt.@type) }
+			match etyp {
 				C.SDL_QUIT { should_close = true }
 				else {}
 			}
