@@ -38,6 +38,9 @@ v run examples/tvintris/tvintris.v
 #### Ubuntu
 `$ sudo apt install libsdl2-ttf-dev libsdl2-mixer-dev libsdl2-image-dev`
 
+#### Arch
+ `$ sudo pacman -S sdl2 sdl2_image sdl2_mixer sdl2_ttf`
+
 #### ClearLinux
 `$ sudo swupd bundle-add devpkg-SDL2_ttf devpkg-SDL2_mixer devpkg-SDL2_image`
 
