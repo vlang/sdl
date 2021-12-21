@@ -3,13 +3,13 @@
 `sdl` is a SDL2 V module and a wrapper around `libSDL2`.
 The module strives to support 100% of the SDL2 API.
 
-So you, amung many other things, can do:
+So you, among many other things, can do:
 - basic graphics (2D drawing)
 - input handling (keyboard/gamepad/joystick events)
 - sounds
 - music
 
-Current APIs is available:
+Current available APIs:
 - audio      (SDL_audio.h)
 - blendmode  (SDL_blendmode.h)
 - clipboard  (SDL_clipboard.h)
@@ -40,7 +40,7 @@ Current APIs is available:
 - video      (SDL_video.h)
 - vulkan     (SDL_vulkan.h)
 
-Current SDL2 modules is available:
+Current available SDL2 modules:
 - [image](image/README.md), for image load, save and render support
 - ttf, for TTF font support and text rendering
 - mixer, for audio mixing

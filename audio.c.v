@@ -26,10 +26,10 @@ module sdl
 */
 // There are macros in SDL 2.0 and later to query these bits.
 
-type AudioFormat = u16
+pub type AudioFormat = u16
 
 // Audio flags
-const (
+pub const (
 	audio_mask_bitsize  = C.SDL_AUDIO_MASK_BITSIZE
 	audio_mask_datatype = C.SDL_AUDIO_MASK_DATATYPE
 	audio_mask_endian   = C.SDL_AUDIO_MASK_ENDIAN
@@ -49,7 +49,7 @@ const (
 // Audio format flags
 //
 // Defaults to LSB byte order.
-const (
+pub const (
 	audio_u8     = C.AUDIO_U8 // 0x0008, Unsigned 8-bit samples
 	audio_s8     = C.AUDIO_S8 // 0x8008, Signed 8-bit samples
 	audio_u16lsb = C.AUDIO_U16LSB // 0x0010, Unsigned 16-bit samples
@@ -61,21 +61,21 @@ const (
 )
 
 // int32 support
-const (
+pub const (
 	audio_s32lsb = C.AUDIO_S32LSB // 0x8020, 32-bit integer samples
 	audio_s32msb = C.AUDIO_S32MSB // 0x9020, As above, but big-endian byte order
 	audio_s32    = C.AUDIO_S32 // AUDIO_S32LSB
 )
 
 // float32 support
-const (
+pub const (
 	audio_f32lsb = C.AUDIO_F32LSB // 0x8120, 32-bit floating point samples
 	audio_f32msb = C.AUDIO_F32MSB // 0x9120, As above, but big-endian byte order
 	audio_f32    = C.AUDIO_F32
 )
 
 // Native audio byte ordering
-const (
+pub const (
 	audio_u16sys = C.AUDIO_U16SYS
 	audio_s16sys = C.AUDIO_S16SYS
 	audio_s32sys = C.AUDIO_S32SYS
@@ -85,7 +85,7 @@ const (
 // Allow change flags
 //
 // Which audio format changes are allowed when opening a device.
-const (
+pub const (
 	audio_allow_frequency_change = C.SDL_AUDIO_ALLOW_FREQUENCY_CHANGE // 0x00000001
 	audio_allow_format_change    = C.SDL_AUDIO_ALLOW_FORMAT_CHANGE // 0x00000002
 	audio_allow_channels_change  = C.SDL_AUDIO_ALLOW_CHANNELS_CHANGE // 0x00000004
@@ -106,7 +106,7 @@ const (
 // you like. Just open your audio device with a NULL callback.
 //
 // `typedef void (SDLCALL * SDL_AudioCallback) (void *userdata, Uint8 * stream)`
-type AudioCallback = fn (userdata voidptr, stream &byte)
+pub type AudioCallback = fn (userdata voidptr, stream &byte)
 
 // AudioSpec
 //
@@ -137,14 +137,14 @@ struct C.SDL_AudioSpec {
 pub type AudioSpec = C.SDL_AudioSpec
 
 // `typedef void (SDLCALL * SDL_AudioFilter) (struct SDL_AudioCVT * cvt, SDL_AudioFormat format)`
-type AudioFilter = fn (cvt &AudioCVT, format AudioFormat)
+pub type AudioFilter = fn (cvt &AudioCVT, format AudioFormat)
 
 //  Upper limit of filters in SDL_AudioCVT
 //
 // The maximum number of SDL_AudioFilter functions in SDL_AudioCVT is
 // currently limited to 9. The SDL_AudioCVT.filters array has 10 pointers,
 // one of which is the terminating NULL pointer.
-const audiocvt_max_filters = C.SDL_AUDIOCVT_MAX_FILTERS
+pub const audiocvt_max_filters = C.SDL_AUDIOCVT_MAX_FILTERS
 
 // 9
 
@@ -237,17 +237,17 @@ fn C.SDL_GetCurrentAudioDriver() &char
 
 // open_audio opens the audio device with the desired parameters, and
 // returns 0 if successful, placing the actual hardware parameters in the
-// structure pointed to by \c obtained.  If \c obtained is NULL, the audio
+// structure pointed to by `obtained`.  If `obtained` is NULL, the audio
 // data passed to the callback function will be guaranteed to be in the
 // requested format, and will be automatically converted to the hardware
 // audio format if necessary.  This function returns -1 if it failed
 // to open the audio device, or couldn't set up the audio thread.
 //
 // When filling in the desired audio spec structure,
-//   - \c desired->freq should be the desired audio frequency in samples-per-
+//   - `desired->freq` should be the desired audio frequency in samples-per-
 //     second.
-//   - \c desired->format should be the desired audio format.
-//   - \c desired->samples is the desired size of the audio buffer, in
+//   - `desired->format` should be the desired audio format.
+//   - `desired->samples` is the desired size of the audio buffer, in
 //     samples.  This number should be a power of two, and may be adjusted by
 //     the audio driver to a value more suitable for the hardware.  Good values
 //     seem to range between 512 and 8096 inclusive, depending on the
@@ -257,11 +257,11 @@ fn C.SDL_GetCurrentAudioDriver() &char
 //     both right and left channels in LR ordering.
 //     Note that the number of samples is directly related to time by the
 //     following formula:  \code ms = (samples*1000)/freq \endcode
-//   - \c desired->size is the size in bytes of the audio buffer, and is
+//   - `desired->size` is the size in bytes of the audio buffer, and is
 //     calculated by SDL_OpenAudio().
-//   - \c desired->silence is the value used to set the buffer to silence,
+//   - `desired->silence` is the value used to set the buffer to silence,
 //     and is calculated by SDL_OpenAudio().
-//   - \c desired->callback should be set to a function that will be called
+//   - `desired->callback` should be set to a function that will be called
 //     when the audio device is ready for more data.  It is passed a pointer
 //     to the audio buffer, and the length in bytes of the audio buffer.
 //     This function usually runs in a separate thread, and so you should
@@ -270,11 +270,11 @@ fn C.SDL_GetCurrentAudioDriver() &char
 //     pointer here, and call SDL_QueueAudio() with some frequency, to queue
 //     more audio samples to be played (or for capture devices, call
 //     SDL_DequeueAudio() with some frequency, to obtain audio samples).
-//   - \c desired->userdata is passed as the first parameter to your callback
+//   - `desired->userdata` is passed as the first parameter to your callback
 //     function. If you passed a NULL callback, this value is ignored.
 //
 // The audio device starts out playing silence when it's opened, and should
-// be enabled for playing by calling \c SDL_PauseAudio(0) when you are ready
+// be enabled for playing by calling `SDL_PauseAudio`(0) when you are ready
 // for your audio callback function to be called.  Since the audio driver
 // may modify the requested size of the audio buffer, you should allocate
 // any local mixing buffers after you open the audio device.
@@ -433,7 +433,7 @@ pub fn free_wav(audio_buf &byte) {
 fn C.SDL_BuildAudioCVT(cvt &C.SDL_AudioCVT, src_format C.SDL_AudioFormat, src_channels byte, src_rate int, dst_format C.SDL_AudioFormat, dst_channels byte, dst_rate int) int
 
 // build_audio_cvt takes a source format and rate and a destination format
-// and rate, and initializes the \c cvt structure with information needed
+// and rate, and initializes the `cvt` structure with information needed
 // by SDL_ConvertAudio() to convert a buffer of audio data from one format
 // to the other. An unsupported format causes an error and -1 will be returned.
 //
@@ -447,16 +447,16 @@ pub fn build_audio_cvt(cvt &AudioCVT, src_format AudioFormat, src_channels byte,
 fn C.SDL_ConvertAudio(cvt &C.SDL_AudioCVT) int
 
 // convert_audio
-// Once you have initialized the \c cvt structure using SDL_BuildAudioCVT(),
-// created an audio buffer \c cvt->buf, and filled it with \c cvt->len bytes of
+// Once you have initialized the `cvt` structure using SDL_BuildAudioCVT(),
+// created an audio buffer `cvt->buf`, and filled it with `cvt->len` bytes of
 // audio data in the source format, this function will convert it in-place
 // to the desired format.
 //
 // The data conversion may expand the size of the audio data, so the buffer
-// \c cvt->buf should be allocated after the \c cvt structure is initialized by
-// SDL_BuildAudioCVT(), and should be \c cvt->len*cvt->len_mult bytes long.
+// `cvt->buf` should be allocated after the `cvt` structure is initialized by
+// SDL_BuildAudioCVT(), and should be `cvt->len`*cvt->len_mult bytes long.
 //
-// returns 0 on success or -1 if \c cvt->buf is NULL.
+// returns 0 on success or -1 if `cvt->buf` is NULL.
 pub fn convert_audio(cvt &AudioCVT) int {
 	return C.SDL_ConvertAudio(cvt)
 }
