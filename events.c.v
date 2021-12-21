@@ -48,8 +48,8 @@ pub enum EventType {
 	// Called on Android in onPause()
 	app_didenterbackground = C.SDL_APP_DIDENTERBACKGROUND
 	// The application is about to enter the foreground
-	//    Called on iOS in applicationWillEnterForeground()
-	//    Called on Android in onResume()
+	// Called on iOS in applicationWillEnterForeground()
+	// Called on Android in onResume()
 	app_willenterforeground = C.SDL_APP_WILLENTERFOREGROUND
 	// The application is now interactive
 	// Called on iOS in applicationDidBecomeActive()
@@ -110,9 +110,7 @@ pub enum EventType {
 	lastevent = C.SDL_LASTEVENT // 0xFFFF
 }
 
-/**
- *  \brief Fields shared by every event
-*/
+// CommonEvent is fields shared by every event
 [typedef]
 struct C.SDL_CommonEvent {
 pub:
@@ -122,9 +120,7 @@ pub:
 
 pub type CommonEvent = C.SDL_CommonEvent
 
-/**
- *  \brief Window state change event data (event.window.*)
-*/
+// WindowEvent is window state change event data (event.window.*)
 [typedef]
 struct C.SDL_WindowEvent {
 pub:
@@ -141,9 +137,7 @@ pub:
 
 pub type WindowEvent = C.SDL_WindowEvent
 
-/**
- *  \brief Keyboard button event structure (event.key.*)
-*/
+// KeyboardEvent is Keyboard button event structure (event.key.*)
 [typedef]
 struct C.SDL_KeyboardEvent {
 pub:
@@ -159,9 +153,7 @@ pub:
 
 pub type KeyboardEvent = C.SDL_KeyboardEvent
 
-/**
- *  \brief Keyboard text editing event structure (event.edit.*)
-*/
+// TextEditingEvent is keyboard text editing event structure (event.edit.*)
 [typedef]
 struct C.SDL_TextEditingEvent {
 pub:
@@ -175,9 +167,7 @@ pub:
 
 pub type TextEditingEvent = C.SDL_TextEditingEvent
 
-/**
- *  \brief Keyboard text input event structure (event.text.*)
-*/
+// TextInputEvent is keyboard text input event structure (event.text.*)
 [typedef]
 struct C.SDL_TextInputEvent {
 pub:
@@ -189,9 +179,7 @@ pub:
 
 pub type TextInputEvent = C.SDL_TextInputEvent
 
-/**
- *  \brief Mouse motion event structure (event.motion.*)
-*/
+// MouseMotionEvent is mouse motion event structure (event.motion.*)
 [typedef]
 struct C.SDL_MouseMotionEvent {
 pub:
@@ -208,9 +196,7 @@ pub:
 
 pub type MouseMotionEvent = C.SDL_MouseMotionEvent
 
-/**
- *  \brief Mouse button event structure (event.button.*)
-*/
+// MouseButtonEvent is mouse button event structure (event.button.*)
 [typedef]
 struct C.SDL_MouseButtonEvent {
 pub:
@@ -228,9 +214,7 @@ pub:
 
 pub type MouseButtonEvent = C.SDL_MouseButtonEvent
 
-/**
- *  \brief Mouse wheel event structure (event.wheel.*)
-*/
+// MouseWheelEvent is mouse wheel event structure (event.wheel.*)
 [typedef]
 struct C.SDL_MouseWheelEvent {
 pub:
@@ -245,9 +229,7 @@ pub:
 
 pub type MouseWheelEvent = C.SDL_MouseWheelEvent
 
-/**
- *  \brief Joystick axis motion event structure (event.jaxis.*)
-*/
+// JoyAxisEvent is joystick axis motion event structure (event.jaxis.*)
 [typedef]
 struct C.SDL_JoyAxisEvent {
 pub:
@@ -264,9 +246,7 @@ pub:
 
 pub type JoyAxisEvent = C.SDL_JoyAxisEvent
 
-/**
- *  \brief Joystick trackball motion event structure (event.jball.*)
-*/
+// JoyBallEvent is joystick trackball motion event structure (event.jball.*)
 [typedef]
 struct C.SDL_JoyBallEvent {
 pub:
@@ -283,9 +263,7 @@ pub:
 
 pub type JoyBallEvent = C.SDL_JoyBallEvent
 
-/**
- *  \brief Joystick hat position change event structure (event.jhat.*)
-*/
+// JoyHatEvent is joystick hat position change event structure (event.jhat.*)
 [typedef]
 struct C.SDL_JoyHatEvent {
 pub:
@@ -294,21 +272,17 @@ pub:
 	which     JoystickID // C.SDL_JoystickID // The joystick instance id
 	hat       byte       // The joystick hat index
 	value     byte       // The hat position value.
-	/*
-	* \sa ::SDL_HAT_LEFTUP ::SDL_HAT_UP ::SDL_HAT_RIGHTUP
-	 * \sa ::SDL_HAT_LEFT ::SDL_HAT_CENTERED ::SDL_HAT_RIGHT
-	 * \sa ::SDL_HAT_LEFTDOWN ::SDL_HAT_DOWN ::SDL_HAT_RIGHTDOWN
-	 * Note that zero means the POV is centered.
-	*/
+	// See also: ::SDL_HAT_LEFTUP ::SDL_HAT_UP ::SDL_HAT_RIGHTUP
+	// See also: ::SDL_HAT_LEFT ::SDL_HAT_CENTERED ::SDL_HAT_RIGHT
+	// See also: ::SDL_HAT_LEFTDOWN ::SDL_HAT_DOWN ::SDL_HAT_RIGHTDOWN
+	// Note that zero means the POV is centered.
 	padding1 byte
 	padding2 byte
 }
 
 pub type JoyHatEvent = C.SDL_JoyHatEvent
 
-/**
- *  \brief Joystick button event structure (event.jbutton.*)
-*/
+// JoyButtonEvent is joystick button event structure (event.jbutton.*)
 [typedef]
 struct C.SDL_JoyButtonEvent {
 pub:
@@ -323,9 +297,7 @@ pub:
 
 pub type JoyButtonEvent = C.SDL_JoyButtonEvent
 
-/**
- *  \brief Joystick device event structure (event.jdevice.*)
-*/
+// JoyDeviceEvent is joystick device event structure (event.jdevice.*)
 [typedef]
 struct C.SDL_JoyDeviceEvent {
 pub:
@@ -336,9 +308,7 @@ pub:
 
 pub type JoyDeviceEvent = C.SDL_JoyDeviceEvent
 
-/**
- *  \brief Game controller axis motion event structure (event.caxis.*)
-*/
+// ControllerAxisEvent is game controller axis motion event structure (event.caxis.*)
 [typedef]
 struct C.SDL_ControllerAxisEvent {
 pub:
@@ -355,9 +325,7 @@ pub:
 
 pub type ControllerAxisEvent = C.SDL_ControllerAxisEvent
 
-/**
- *  \brief Game controller button event structure (event.cbutton.*)
-*/
+// ControllerButtonEvent is game controller button event structure (event.cbutton.*)
 [typedef]
 struct C.SDL_ControllerButtonEvent {
 pub:
@@ -372,9 +340,7 @@ pub:
 
 pub type ControllerButtonEvent = C.SDL_ControllerButtonEvent
 
-/**
- *  \brief Controller device event structure (event.cdevice.*)
-*/
+// ControllerDeviceEvent is controller device event structure (event.cdevice.*)
 [typedef]
 struct C.SDL_ControllerDeviceEvent {
 pub:
@@ -385,9 +351,7 @@ pub:
 
 pub type ControllerDeviceEvent = C.SDL_ControllerDeviceEvent
 
-/**
- *  \brief Audio device event structure (event.adevice.*)
-*/
+// AudioDeviceEvent is audio device event structure (event.adevice.*)
 [typedef]
 struct C.SDL_AudioDeviceEvent {
 pub:
@@ -402,9 +366,7 @@ pub:
 
 pub type AudioDeviceEvent = C.SDL_AudioDeviceEvent
 
-/**
- *  \brief Touch finger event structure (event.tfinger.*)
-*/
+// TouchFingerEvent is touch finger event structure (event.tfinger.*)
 [typedef]
 struct C.SDL_TouchFingerEvent {
 pub:
@@ -421,9 +383,7 @@ pub:
 
 pub type TouchFingerEvent = C.SDL_TouchFingerEvent
 
-/**
- *  \brief Multiple Finger Gesture Event (event.mgesture.*)
-*/
+// MultiGestureEvent is Multiple Finger Gesture Event (event.mgesture.*)
 [typedef]
 struct C.SDL_MultiGestureEvent {
 pub:
@@ -440,9 +400,7 @@ pub:
 
 pub type MultiGestureEvent = C.SDL_MultiGestureEvent
 
-/**
- * \brief Dollar Gesture Event (event.dgesture.*)
-*/
+// DollarGestureEvent is Dollar Gesture Event (event.dgesture.*)
 [typedef]
 struct C.SDL_DollarGestureEvent {
 pub:
@@ -458,11 +416,10 @@ pub:
 
 pub type DollarGestureEvent = C.SDL_DollarGestureEvent
 
-/**
- *  \brief An event used to request a file open by the system (event.drop.*)
- *         This event is enabled by default, you can disable it with SDL_EventState().
- *  \note If this event is enabled, you must free the filename in the event.
-*/
+// DropEvent is an event used to request a file open by the system (event.drop.*)
+// This event is enabled by default, you can disable it with SDL_EventState().
+// NOTE If this event is enabled, you must free the filename in the event.
+
 [typedef]
 struct C.SDL_DropEvent {
 pub:
@@ -474,9 +431,7 @@ pub:
 
 pub type DropEvent = C.SDL_DropEvent
 
-/**
- *  \brief The "quit requested" event
-*/
+// QuitEvent is the "quit requested" event
 [typedef]
 struct C.SDL_QuitEvent {
 pub:
@@ -486,9 +441,7 @@ pub:
 
 pub type QuitEvent = C.SDL_QuitEvent
 
-/**
- *  \brief OS Specific event
-*/
+// OSEvent is an OS Specific event
 [typedef]
 struct C.SDL_OSEvent {
 pub:
@@ -498,9 +451,7 @@ pub:
 
 pub type OSEvent = C.SDL_OSEvent
 
-/**
- *  \brief A user-defined event type (event.user.*)
-*/
+// UserEvent is an user-defined event type (event.user.*)
 [typedef]
 struct C.SDL_UserEvent {
 pub:
@@ -514,12 +465,10 @@ pub:
 
 pub type UserEvent = C.SDL_UserEvent
 
-/**
- *  \brief A video driver dependent system event (event.syswm.*)
- *         This event is disabled by default, you can enable it with SDL_EventState()
- *
- *  \note If you want to use this event, you should include SDL_syswm.h.
-*/
+// SysWMmsg is a video driver dependent system event (event.syswm.*)
+// This event is disabled by default, you can enable it with SDL_EventState()
+//
+// NOTE If you want to use this event, you should include SDL_syswm.h.
 [typedef]
 struct C.SDL_SysWMmsg {
 }
@@ -536,9 +485,7 @@ pub:
 
 pub type SysWMEvent = C.SDL_SysWMEvent
 
-/**
- *  \brief General event structure
-*/
+// Event is a general event structure.
 [typedef]
 pub union C.SDL_Event {
 pub:
@@ -569,27 +516,23 @@ pub:
 	mgesture MultiGestureEvent  // C.SDL_MultiGestureEvent  // Gesture event data
 	dgesture DollarGestureEvent // C.SDL_DollarGestureEvent // Gesture event data
 	drop     DropEvent // C.SDL_DropEvent // Drag and drop event data
-	/*
-	This is necessary for ABI compatibility between Visual C++ and GCC
-       Visual C++ will respect the push pack pragma and use 52 bytes for
-       this structure, and GCC will use the alignment of the largest datatype
-       within the union, which is 8 bytes.
-
-       So... we'll add padding to force the size to be 56 bytes for both.
-	*/
+	// This is necessary for ABI compatibility between Visual C++ and GCC
+	// Visual C++ will respect the push pack pragma and use 52 bytes for
+	// this structure, and GCC will use the alignment of the largest datatype
+	// within the union, which is 8 bytes.
+	// So... we'll add padding to force the size to be 56 bytes for both.
 	padding [56]byte
 }
 
 pub type Event = C.SDL_Event
 
-/**
- *  Pumps the event loop, gathering events from the input devices.
- *
- *  This function updates the event queue and internal input device state.
- *
- *  This should only be run in the thread that sets the video mode.
-*/
 fn C.SDL_PumpEvents()
+
+// pump_events pumps the event loop, gathering events from the input devices.
+//
+// This function updates the event queue and internal input device state.
+//
+// This should only be run in the thread that sets the video mode.
 pub fn pump_events() {
 	C.SDL_PumpEvents()
 }
@@ -601,34 +544,32 @@ pub enum EventAction {
 	getevent = C.SDL_GETEVENT
 }
 
-/**
- *  Checks the event queue for messages and optionally returns them.
- *
- *  If \c action is ::SDL_ADDEVENT, up to \c numevents events will be added to
- *  the back of the event queue.
- *
- *  If \c action is ::SDL_PEEKEVENT, up to \c numevents events at the front
- *  of the event queue, within the specified minimum and maximum type,
- *  will be returned and will not be removed from the queue.
- *
- *  If \c action is ::SDL_GETEVENT, up to \c numevents events at the front
- *  of the event queue, within the specified minimum and maximum type,
- *  will be returned and will be removed from the queue.
- *
- *  \return The number of events actually stored, or -1 if there was an error.
- *
- *  This function is thread-safe.
-*/
 fn C.SDL_PeepEvents(events &C.SDL_Event, numevents int, action C.SDL_eventaction, min_type u32, max_type u32) int
+
+// peep_events checks the event queue for messages and optionally returns them.
+//
+// If `action` is ::SDL_ADDEVENT, up to `numevents` events will be added to
+// the back of the event queue.
+//
+// If `action` is ::SDL_PEEKEVENT, up to `numevents` events at the front
+// of the event queue, within the specified minimum and maximum type,
+// will be returned and will not be removed from the queue.
+//
+// If `action` is ::SDL_GETEVENT, up to `numevents` events at the front
+// of the event queue, within the specified minimum and maximum type,
+// will be returned and will be removed from the queue.
+//
+// returns The number of events actually stored, or -1 if there was an error.
+//
+// This function is thread-safe.
 pub fn peep_events(events &Event, numevents int, action EventAction, min_type u32, max_type u32) int {
 	return C.SDL_PeepEvents(unsafe { &C.SDL_Event(events) }, numevents, unsafe { C.SDL_eventaction(action) },
 		min_type, max_type)
 }
 
-/**
- *  Checks to see if certain event types are in the event queue.
-*/
 fn C.SDL_HasEvent(@type u32) bool
+
+// has_event checks to see if certain event types are in the event queue.
 pub fn has_event(@type EventType) bool {
 	return C.SDL_HasEvent(u32(@type))
 }
@@ -638,13 +579,12 @@ pub fn has_events(min_type u32, max_type u32) bool {
 	return C.SDL_HasEvents(min_type, max_type)
 }
 
-/**
- *  This function clears events from the event queue
- *  This function only affects currently queued events. If you want to make
- *  sure that all pending OS events are flushed, you can call SDL_PumpEvents()
- *  on the main thread immediately before the flush call.
-*/
 fn C.SDL_FlushEvent(@type u32)
+
+// flush_event clears events from the event queue
+// This function only affects currently queued events. If you want to make
+// sure that all pending OS events are flushed, you can call SDL_PumpEvents()
+// on the main thread immediately before the flush call.
 pub fn flush_event(@type u32) {
 	C.SDL_FlushEvent(@type)
 }
@@ -654,144 +594,135 @@ pub fn flush_events(min_type u32, max_type u32) {
 	C.SDL_FlushEvents(min_type, max_type)
 }
 
-/**
- *  \brief Polls for currently pending events.
- *
- *  \return 1 if there are any pending events, or 0 if there are none available.
- *
- *  \param event If not NULL, the next event is removed from the queue and
- *               stored in that area.
-*/
 fn C.SDL_PollEvent(event &C.SDL_Event) int
+
+// poll_event polls for currently pending events.
+//
+// returns 1 if there are any pending events, or 0 if there are none available.
+//
+// `event` If not NULL, the next event is removed from the queue and
+// stored in that area.
 pub fn poll_event(event &C.SDL_Event) int {
 	return C.SDL_PollEvent(event)
 }
 
-/**
- *  \brief Waits indefinitely for the next available event.
- *
- *  \return 1, or 0 if there was an error while waiting for events.
- *
- *  \param event If not NULL, the next event is removed from the queue and
- *               stored in that area.
-*/
 fn C.SDL_WaitEvent(event &C.SDL_Event) int
+
+// wait_event waits indefinitely for the next available event.
+//
+// returns 1, or 0 if there was an error while waiting for events.
+//
+// `event` If not NULL, the next event is removed from the queue and
+// stored in that area.
 pub fn wait_event(event &C.SDL_Event) int {
 	return C.SDL_WaitEvent(event)
 }
 
-/**
- *  \brief Waits until the specified timeout (in milliseconds) for the next
- *         available event.
- *
- *  \return 1, or 0 if there was an error while waiting for events.
- *
- *  \param event If not NULL, the next event is removed from the queue and
- *               stored in that area.
- *  \param timeout The timeout (in milliseconds) to wait for next event.
-*/
 fn C.SDL_WaitEventTimeout(event &C.SDL_Event, timeout int) int
+
+// wait_event_timeout waits until the specified timeout (in milliseconds) for the next
+// available event.
+//
+// returns 1, or 0 if there was an error while waiting for events.
+//
+// `event` If not NULL, the next event is removed from the queue and
+// stored in that area.
+// `timeout` The timeout (in milliseconds) to wait for next event.
 pub fn wait_event_timeout(event &C.SDL_Event, timeout int) int {
 	return C.SDL_WaitEventTimeout(event, timeout)
 }
 
-/**
- *  \brief Add an event to the event queue.
- *
- *  \return 1 on success, 0 if the event was filtered, or -1 if the event queue
- *          was full or there was some other error.
-*/
 fn C.SDL_PushEvent(event &C.SDL_Event) int
+
+// push_event adds an event to the event queue.
+//
+// returns 1 on success, 0 if the event was filtered, or -1 if the event queue
+// was full or there was some other error.
 pub fn push_event(event &C.SDL_Event) int {
 	return C.SDL_PushEvent(event)
 }
 
-/**
- *  Sets up a filter to process all events before they change internal state and
- *  are posted to the internal event queue.
- *
- *  The filter is prototyped as:
- *  \code
- *      int SDL_EventFilter(void *userdata, SDL_Event * event);
- *  \endcode
- *
- *  If the filter returns 1, then the event will be added to the internal queue.
- *  If it returns 0, then the event will be dropped from the queue, but the
- *  internal state will still be updated.  This allows selective filtering of
- *  dynamically arriving events.
- *
- *  \warning  Be very careful of what you do in the event filter function, as
- *            it may run in a different thread!
- *
- *  There is one caveat when dealing with the ::SDL_QuitEvent event type.  The
- *  event filter is only called when the window manager desires to close the
- *  application window.  If the event filter returns 1, then the window will
- *  be closed, otherwise the window will remain open if possible.
- *
- *  If the quit event is generated by an interrupt signal, it will bypass the
- *  internal queue and be delivered to the application at the next event poll.
-*/
 fn C.SDL_SetEventFilter(filter C.SDL_EventFilter, userdata voidptr)
+
+// set_event_filter sets up a filter to process all events before they change
+// internal state and are posted to the internal event queue.
+//
+// The filter is prototyped as:
+/*
+```
+int SDL_EventFilter(void *userdata, SDL_Event * event);
+```
+*/
+//
+// If the filter returns 1, then the event will be added to the internal queue.
+// If it returns 0, then the event will be dropped from the queue, but the
+// internal state will still be updated.  This allows selective filtering of
+// dynamically arriving events.
+//
+// WARNING Be very careful of what you do in the event filter function, as
+// it may run in a different thread!
+//
+// There is one caveat when dealing with the ::SDL_QuitEvent event type.  The
+// event filter is only called when the window manager desires to close the
+// application window.  If the event filter returns 1, then the window will
+// be closed, otherwise the window will remain open if possible.
+//
+// If the quit event is generated by an interrupt signal, it will bypass the
+// internal queue and be delivered to the application at the next event poll.
 pub fn set_event_filter(filter C.SDL_EventFilter, userdata voidptr) {
 	C.SDL_SetEventFilter(filter, userdata)
 }
 
-/**
- *  Return the current event filter - can be used to "chain" filters.
- *  If there is no event filter set, this function returns SDL_FALSE.
-*/
 fn C.SDL_GetEventFilter(filter &C.SDL_EventFilter, userdata voidptr) bool
+
+// get_event_filter returns the current event filter - can be used to "chain" filters.
+// If there is no event filter set, this function returns SDL_FALSE.
 pub fn get_event_filter(filter &C.SDL_EventFilter, userdata voidptr) bool {
 	return C.SDL_GetEventFilter(filter, userdata)
 }
 
-/**
- *  Add a function which is called when an event is added to the queue.
-*/
 fn C.SDL_AddEventWatch(filter C.SDL_EventFilter, userdata voidptr)
+
+// add_event_watch add a function which is called when an event is added to the queue.
 pub fn add_event_watch(filter C.SDL_EventFilter, userdata voidptr) {
 	C.SDL_AddEventWatch(filter, userdata)
 }
 
-/**
- *  Remove an event watch function added with SDL_AddEventWatch()
-*/
 fn C.SDL_DelEventWatch(filter C.SDL_EventFilter, userdata voidptr)
+
+// del_event_watch removes an event watch function added with SDL_AddEventWatch()
 pub fn del_event_watch(filter C.SDL_EventFilter, userdata voidptr) {
 	C.SDL_DelEventWatch(filter, userdata)
 }
 
-/**
- *  Run the filter function on the current event queue, removing any
- *  events for which the filter returns 0.
-*/
 fn C.SDL_FilterEvents(filter C.SDL_EventFilter, userdata voidptr)
+
+// filter_events runs the filter function on the current event queue, removing any
+// events for which the filter returns 0.
 pub fn filter_events(filter C.SDL_EventFilter, userdata voidptr) {
 	C.SDL_FilterEvents(filter, userdata)
 }
 
-/**
- *  This function allows you to set the state of processing certain events.
- *   - If \c state is set to ::SDL_IGNORE, that event will be automatically
- *     dropped from the event queue and will not be filtered.
- *   - If \c state is set to ::SDL_ENABLE, that event will be processed
- *     normally.
- *   - If \c state is set to ::SDL_QUERY, SDL_EventState() will return the
- *     current processing state of the specified event.
-*/
 fn C.SDL_EventState(@type u32, state int) byte
+
+// event_state allows you to set the state of processing certain events.
+// - If `state` is set to ::SDL_IGNORE, that event will be automatically
+// dropped from the event queue and will not be filtered.
+// - If `state` is set to ::SDL_ENABLE, that event will be processed
+// normally.
+// - If `state` is set to ::SDL_QUERY, SDL_EventState() will return the
+// current processing state of the specified event.
 pub fn event_state(@type u32, state int) byte {
 	return C.SDL_EventState(@type, state)
 }
 
-/**
- *  This function allocates a set of user-defined events, and returns
- *  the beginning event number for that set of events.
- *
- *  If there aren't enough user-defined events left, this function
- *  returns (Uint32)-1
-*/
 fn C.SDL_RegisterEvents(numevents int) u32
+
+// register_events allocates a set of user-defined events, and returns
+// the beginning event number for that set of events.
+//
+// If there aren't enough user-defined events left, this function
+// returns (Uint32)-1
 pub fn register_events(numevents int) u32 {
 	return C.SDL_RegisterEvents(numevents)
 }

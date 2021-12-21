@@ -11,9 +11,9 @@ module sdl
 /*
 extern DECLSPEC int SDLCALL SDL_SetError(SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(1);
 */
-
-// SDL_SetError() unconditionally returns -1.
 fn C.SDL_GetError() &char
+
+// get_error SDL_SetError() unconditionally returns -1.
 pub fn get_error() string {
 	return unsafe { cstring_to_vstring(C.SDL_GetError()) }
 }
@@ -32,9 +32,9 @@ pub enum ErrorCode {
 	unsupported = C.SDL_UNSUPPORTED
 	lasterror = C.SDL_LASTERROR
 }
-
-// SDL_Error() unconditionally returns -1.
 fn C.SDL_Error(code C.SDL_errorcode) int
+
+// error SDL_Error() unconditionally returns -1.
 pub fn error(code ErrorCode) int {
 	return C.SDL_Error(C.SDL_errorcode(code))
 }
