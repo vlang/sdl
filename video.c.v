@@ -251,8 +251,8 @@ pub fn get_video_driver(index int) &char {
  *  \sa SDL_VideoQuit()
 */
 fn C.SDL_VideoInit(driver_name &char) int
-pub fn video_init(driver_name &char) int {
-	return C.SDL_VideoInit(driver_name)
+pub fn video_init(driver_name string) int {
+	return C.SDL_VideoInit(driver_name.str)
 }
 
 /**
@@ -371,8 +371,8 @@ pub fn get_window_pixel_format(window &Window) u32 {
 
 // extern DECLSPEC SDL_Window * SDLCALL SDL_CreateWindow(const char *title,                                                      int x, int y, int w,                                                      int h, Uint32 flags)
 fn C.SDL_CreateWindow(title &char, x int, y int, w int, h int, flags u32) &C.SDL_Window
-pub fn create_window(title &char, x int, y int, w int, h int, flags u32) &Window {
-	return C.SDL_CreateWindow(title, x, y, w, h, flags)
+pub fn create_window(title string, x int, y int, w int, h int, flags u32) &Window {
+	return C.SDL_CreateWindow(title.str, x, y, w, h, flags)
 }
 
 // extern DECLSPEC SDL_Window * SDLCALL SDL_CreateWindowFrom(const void *data)
@@ -419,8 +419,8 @@ pub fn set_window_icon(window &Window, icon &C.SDL_Surface) {
 
 // extern DECLSPEC void* SDLCALL SDL_SetWindowData(SDL_Window * window,                                                const char *name,                                                void *userdata)
 fn C.SDL_SetWindowData(window &C.SDL_Window, name &char, userdata voidptr) voidptr
-pub fn set_window_data(window &Window, name &char, userdata voidptr) voidptr {
-	return C.SDL_SetWindowData(window, name, userdata)
+pub fn set_window_data(window &Window, name string, userdata voidptr) voidptr {
+	return C.SDL_SetWindowData(window, name.str, userdata)
 }
 
 // extern DECLSPEC void *SDLCALL SDL_GetWindowData(SDL_Window * window,                                                const char *name)

@@ -161,7 +161,7 @@ pub fn get_renderer_info(renderer &Renderer, info &RendererInfo) int {
 
 // extern DECLSPEC int SDLCALL SDL_GetRendererOutputSize(SDL_Renderer * renderer,                                                      int *w, int *h)
 fn C.SDL_GetRendererOutputSize(renderer &C.SDL_Renderer, w &int, h &int) int
-pub fn get_renderer_output_size(renderer &C.SDL_Renderer, w &int, h &int) int {
+pub fn get_renderer_output_size(renderer &Renderer, w &int, h &int) int {
 	return C.SDL_GetRendererOutputSize(renderer, w, h)
 }
 
@@ -169,7 +169,7 @@ pub fn get_renderer_output_size(renderer &C.SDL_Renderer, w &int, h &int) int {
  *  \brief Get the output size in pixels of a rendering context.
 */
 fn C.SDL_CreateTexture(renderer &C.SDL_Renderer, format u32, access int, w int, h int) &C.SDL_Texture
-pub fn create_texture(renderer &C.SDL_Renderer, format Format, access TextureAccess, w int, h int) &C.SDL_Texture {
+pub fn create_texture(renderer &Renderer, format Format, access TextureAccess, w int, h int) &Texture {
 	return C.SDL_CreateTexture(renderer, u32(format), int(access), w, h)
 }
 
