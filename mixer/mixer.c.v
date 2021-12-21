@@ -36,7 +36,7 @@ pub fn C.SDL_MIXER_VERSION_ATLEAST(x int, y int, z int) bool
  * use the SDL_MIXER_VERSION() macro.
 */
 fn C.Mix_Linked_Version() &C.SDL_version
-pub fn linked_version() &sdl.Version{
+pub fn linked_version() &sdl.Version {
 	return C.Mix_Linked_Version()
 }
 

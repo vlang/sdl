@@ -10,5 +10,5 @@ module sdl
 pub const (
 	lil_endian = C.SDL_LIL_ENDIAN
 	big_endian = C.SDL_BIG_ENDIAN
-	byteorder = C.SDL_BYTEORDER
+	byteorder  = C.SDL_BYTEORDER
 )

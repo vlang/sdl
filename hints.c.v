@@ -905,18 +905,17 @@ pub enum HintPriority {
  *  lower.  Environment variables are considered to have override priority.
  *
  *  \return SDL_TRUE if the hint was set, SDL_FALSE otherwise
- */
+*/
 fn C.SDL_SetHintWithPriority(name &char, value &char, priority C.SDL_HintPriority) bool
 pub fn set_hint_with_priority(name string, value string, priority HintPriority) bool {
 	return C.SDL_SetHintWithPriority(name.str, value.str, C.SDL_HintPriority(priority))
 }
 
-
 /**
  *  \brief Set a hint with normal priority
  *
  *  \return SDL_TRUE if the hint was set, SDL_FALSE otherwise
- */
+*/
 fn C.SDL_SetHint(name &char, value &char) bool
 pub fn set_hint(name string, value string) bool {
 	return C.SDL_SetHint(name.str, value.str)
@@ -926,7 +925,7 @@ pub fn set_hint(name string, value string) bool {
  *  \brief Get a hint
  *
  *  \return The string value of a hint variable.
- */
+*/
 fn C.SDL_GetHint(name &char) &char
 pub fn get_hint(name string) string {
 	return unsafe { cstring_to_vstring(C.SDL_GetHint(name.str)) }
@@ -936,7 +935,7 @@ pub fn get_hint(name string) string {
  *  \brief Get a hint
  *
  *  \return The boolean value of a hint variable.
- */
+*/
 fn C.SDL_GetHintBoolean(name &char, default_value bool) bool
 pub fn get_hint_boolean(name string, default_value bool) bool {
 	return C.SDL_GetHintBoolean(name.str, default_value)
@@ -954,7 +953,7 @@ type HintCallback = fn (userdata voidptr, name &char, old_value &char, new_value
  *  \param name The hint to watch
  *  \param callback The function to call when the hint value changes
  *  \param userdata A pointer to pass to the callback function
- */
+*/
 fn C.SDL_AddHintCallback(name &char, callback HintCallback, userdata voidptr)
 pub fn add_hint_callback(name string, callback HintCallback, userdata voidptr) {
 	C.SDL_AddHintCallback(name.str, callback, userdata)
@@ -966,7 +965,7 @@ pub fn add_hint_callback(name string, callback HintCallback, userdata voidptr) {
  *  \param name The hint being watched
  *  \param callback The function being called when the hint value changes
  *  \param userdata A pointer being passed to the callback function
- */
+*/
 fn C.SDL_DelHintCallback(name &char, callback HintCallback, userdata voidptr)
 pub fn del_hint_callback(name string, callback HintCallback, userdata voidptr) {
 	C.SDL_DelHintCallback(name.str, callback, userdata)
@@ -976,7 +975,7 @@ pub fn del_hint_callback(name string, callback HintCallback, userdata voidptr) {
  *  \brief  Clear all hints
  *
  *  This function is called during SDL_Quit() to free stored hints.
- */
+*/
 fn C.SDL_ClearHints()
 pub fn clear_hints() {
 	C.SDL_ClearHints()

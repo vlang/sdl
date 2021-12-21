@@ -8,9 +8,9 @@ module sdl
 //
 
 const (
-major_version                       = C.SDL_MAJOR_VERSION // 2
-minor_version                       = C.SDL_MINOR_VERSION // 0
-patchlevel                       = C.SDL_PATCHLEVEL      // 8
+	major_version = C.SDL_MAJOR_VERSION // 2
+	minor_version = C.SDL_MINOR_VERSION // 0
+	patchlevel    = C.SDL_PATCHLEVEL // 8
 )
 
 /**
@@ -24,13 +24,14 @@ patchlevel                       = C.SDL_PATCHLEVEL      // 8
  *
  *  \sa SDL_VERSION
  *  \sa SDL_GetVersion
- */
+*/
 [typedef]
 struct C.SDL_version {
 	major byte // major version
 	minor byte // minor version
 	patch byte // update version
 }
+
 pub type Version = C.SDL_version
 
 /**
@@ -47,7 +48,7 @@ pub type Version = C.SDL_version
  *
  *  \sa SDL_version
  *  \sa SDL_GetVersion
- */
+*/
 pub fn C.SDL_VERSION(ver &C.SDL_version)
 
 /**
@@ -57,17 +58,17 @@ pub fn C.SDL_VERSION(ver &C.SDL_version)
     \endverbatim
  *
  *  This assumes that there will never be more than 100 patchlevels.
- */
+*/
 pub fn C.SDL_VERSIONNUM(x int, y int, z int) int
 
 /**
  *  This is the version number macro for the current SDL version.
- */
+*/
 pub fn C.SDL_COMPILEDVERSION() int
 
 /**
  *  This macro will evaluate to true if compiled with SDL at least X.Y.Z.
- */
+*/
 pub fn C.SDL_VERSION_ATLEAST(x int, y int, z int) bool
 
 /**
@@ -93,10 +94,10 @@ pub fn C.SDL_VERSION_ATLEAST(x int, y int, z int) bool
  *  This function may be called safely at any time, even before SDL_Init().
  *
  *  \sa SDL_VERSION
- */
+*/
 fn C.SDL_GetVersion(ver &C.SDL_version)
-pub fn get_version(ver &Version){
-	 C.SDL_GetVersion(ver)
+pub fn get_version(ver &Version) {
+	C.SDL_GetVersion(ver)
 }
 
 /**
@@ -105,7 +106,7 @@ pub fn get_version(ver &Version){
  *  Returns an arbitrary string (a hash value) uniquely identifying the
  *  exact revision of the SDL library in use, and is only useful in comparing
  *  against other revisions. It is NOT an incrementing number.
- */
+*/
 fn C.SDL_GetRevision() &char
 pub fn get_revision() string {
 	return unsafe { cstring_to_vstring(C.SDL_GetRevision()) }
@@ -117,8 +118,8 @@ pub fn get_revision() string {
  *  Returns a number uniquely identifying the exact revision of the SDL
  *  library in use. It is an incrementing number based on commits to
  *  hg.libsdl.org.
- */
+*/
 fn C.SDL_GetRevisionNumber() int
-pub fn get_revision_number() int{
+pub fn get_revision_number() int {
 	return C.SDL_GetRevisionNumber()
 }

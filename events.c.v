@@ -119,6 +119,7 @@ pub:
 	@type     EventType
 	timestamp u32 // In milliseconds, populated using SDL_GetTicks()
 }
+
 pub type CommonEvent = C.SDL_CommonEvent
 
 /**
@@ -581,7 +582,6 @@ pub:
 
 pub type Event = C.SDL_Event
 
-
 /**
  *  Pumps the event loop, gathering events from the input devices.
  *
@@ -621,7 +621,7 @@ pub enum EventAction {
 */
 fn C.SDL_PeepEvents(events &C.SDL_Event, numevents int, action C.SDL_eventaction, min_type u32, max_type u32) int
 pub fn peep_events(events &Event, numevents int, action EventAction, min_type u32, max_type u32) int {
-	return C.SDL_PeepEvents( unsafe {&C.SDL_Event(events)}, numevents, unsafe { C.SDL_eventaction(action) },
+	return C.SDL_PeepEvents(unsafe { &C.SDL_Event(events) }, numevents, unsafe { C.SDL_eventaction(action) },
 		min_type, max_type)
 }
 

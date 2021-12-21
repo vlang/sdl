@@ -26,13 +26,14 @@ pub const (
 )
 
 fn C.SDL_Init(flags u32) int
+
 // init initializes the subsystems specified by `flags`
 pub fn init(flags u32) int {
 	return C.SDL_Init(flags)
 }
 
-
 fn C.SDL_InitSubSystem(flags u32) int
+
 // init_sub_system initializes specific SDL subsystems
 //
 // Subsystem initialization is ref-counted, you must call
@@ -45,14 +46,14 @@ pub fn init_sub_system(flags u32) int {
 }
 
 fn C.SDL_QuitSubSystem(flags u32)
+
 // quit_sub_system cleans up specific SDL subsystems
 pub fn quit_sub_system(flags u32) {
 	C.SDL_QuitSubSystem(flags)
 }
 
-
-
 fn C.SDL_WasInit(flags u32) u32
+
 // was_init returns a mask of the specified subsystems which have
 // previously been initialized.
 //
@@ -62,6 +63,7 @@ pub fn was_init(flags u32) u32 {
 }
 
 fn C.SDL_Quit()
+
 // quit cleans up all initialized subsystems. You should
 // call it upon all exit conditions.
 pub fn quit() {

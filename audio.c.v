@@ -386,14 +386,13 @@ pub fn pause_audio(pause_on int) {
 
 fn C.SDL_PauseAudio(pause_on int)
 
-
 fn C.SDL_PauseAudioDevice(dev C.SDL_AudioDeviceID, pause_on int)
 pub fn pause_audio_device(dev AudioDeviceID, pause_on int) {
 	C.SDL_PauseAudioDevice(C.SDL_AudioDeviceID(dev), pause_on)
 }
 
-
 fn C.SDL_LoadWAV_RW(src &C.SDL_RWops, freesrc int, spec &C.SDL_AudioSpec, audio_buf &&byte, audio_len &u32) &C.SDL_AudioSpec
+
 // load_wav_rw loads a WAVE from the data source, automatically freeing
 // that source if `freesrc` is non-zero.  For example, to load a WAVE file,
 // you could do:
@@ -417,6 +416,7 @@ pub fn load_wav_rw(src &RWops, freesrc int, spec &AudioSpec, audio_buf &&byte, a
 }
 
 fn C.SDL_LoadWAV(file &char, spec &C.SDL_AudioSpec, audio_buf &&byte, audio_len &u32) &C.SDL_AudioSpec
+
 // load_wav loads a WAV from a file.
 // Compatibility convenience function.
 pub fn load_wav(file string, spec &AudioSpec, audio_buf &&byte, audio_len &u32) &AudioSpec {
@@ -424,13 +424,14 @@ pub fn load_wav(file string, spec &AudioSpec, audio_buf &&byte, audio_len &u32) 
 }
 
 fn C.SDL_FreeWAV(audio_buf &byte)
+
 // free_wav frees data previously allocated with SDL_LoadWAV_RW()
 pub fn free_wav(audio_buf &byte) {
 	C.SDL_FreeWAV(audio_buf)
 }
 
-
 fn C.SDL_BuildAudioCVT(cvt &C.SDL_AudioCVT, src_format C.SDL_AudioFormat, src_channels byte, src_rate int, dst_format C.SDL_AudioFormat, dst_channels byte, dst_rate int) int
+
 // build_audio_cvt takes a source format and rate and a destination format
 // and rate, and initializes the \c cvt structure with information needed
 // by SDL_ConvertAudio() to convert a buffer of audio data from one format
@@ -443,8 +444,8 @@ pub fn build_audio_cvt(cvt &AudioCVT, src_format AudioFormat, src_channels byte,
 		C.SDL_AudioFormat(dst_format), dst_channels, dst_rate)
 }
 
-
 fn C.SDL_ConvertAudio(cvt &C.SDL_AudioCVT) int
+
 // convert_audio
 // Once you have initialized the \c cvt structure using SDL_BuildAudioCVT(),
 // created an audio buffer \c cvt->buf, and filled it with \c cvt->len bytes of
@@ -477,6 +478,7 @@ struct C.SDL_AudioStream {
 pub type AudioStream = C.SDL_AudioStream
 
 fn C.SDL_NewAudioStream(src_format C.SDL_AudioFormat, src_channels byte, src_rate int, dst_format C.SDL_AudioFormat, dst_channels byte, dst_rate int) &C.SDL_AudioStream
+
 // new_audio_stream creates a new audio stream
 //
 // `src_format` The format of the source audio
@@ -499,6 +501,7 @@ pub fn new_audio_stream(src_format AudioFormat, src_channels byte, src_rate int,
 }
 
 fn C.SDL_AudioStreamPut(stream &C.SDL_AudioStream, buf voidptr, len int) int
+
 // audio_stream_put adds data to be converted/resampled to the stream
 //
 // `stream` The stream the audio data is being added to
@@ -516,8 +519,8 @@ pub fn audio_stream_put(stream &AudioStream, buf voidptr, len int) int {
 	return C.SDL_AudioStreamPut(stream, buf, len)
 }
 
-
 fn C.SDL_AudioStreamGet(stream &C.SDL_AudioStream, buf voidptr, len int) int
+
 // audio_stream_get gets the converted/resampled data from the stream
 //
 // `stream` The stream the audio is being requested from
@@ -535,8 +538,8 @@ pub fn audio_stream_get(stream &AudioStream, buf voidptr, len int) int {
 	return C.SDL_AudioStreamGet(stream, buf, len)
 }
 
-
 fn C.SDL_AudioStreamAvailable(stream &C.SDL_AudioStream) int
+
 // audio_stream_available gets the number of converted/resampled
 // bytes available. The stream may be
 // buffering data behind the scenes until it has enough to resample
@@ -553,8 +556,8 @@ pub fn audio_stream_available(stream &AudioStream) int {
 	return C.SDL_AudioStreamAvailable(stream)
 }
 
-
 fn C.SDL_AudioStreamFlush(stream &C.SDL_AudioStream) int
+
 // audio_stream_flush tella the stream that you're done
 // sending data, and anything being buffered
 // should be converted/resampled and made available immediately.
@@ -573,8 +576,8 @@ pub fn audio_stream_flush(stream &AudioStream) int {
 	return C.SDL_AudioStreamFlush(stream)
 }
 
-
 fn C.SDL_AudioStreamClear(stream &C.SDL_AudioStream)
+
 // audio_stream_clear cleara any pending data in
 // the stream without converting it
 //
@@ -588,8 +591,8 @@ pub fn audio_stream_clear(stream &AudioStream) {
 	C.SDL_AudioStreamClear(stream)
 }
 
-
 fn C.SDL_FreeAudioStream(stream &C.SDL_AudioStream)
+
 // free_audio_stream frees an audio stream
 //
 // See also: SDL_NewAudioStream
@@ -602,8 +605,8 @@ pub fn free_audio_stream(stream &AudioStream) {
 	C.SDL_FreeAudioStream(stream)
 }
 
-
 fn C.SDL_MixAudio(dst &byte, src &byte, len u32, volume int)
+
 // mix_audio takes two audio buffers of the playing audio format and mixes
 // them, performing addition, volume adjustment, and overflow clipping.
 // The volume ranges from 0 - 128, and should be set to ::SDL_MIX_MAXVOLUME
@@ -613,8 +616,8 @@ pub fn mix_audio(dst &byte, src &byte, len u32, volume int) {
 	C.SDL_MixAudio(dst, src, len, volume)
 }
 
-
 fn C.SDL_MixAudioFormat(dst &byte, src &byte, format C.SDL_AudioFormat, len u32, volume int)
+
 // mix_audio_format works like SDL_MixAudio(), but you specify the audio format instead of
 // using the format of audio device 1. Thus it can be used when no audio
 // device is open at all.
@@ -622,8 +625,8 @@ pub fn mix_audio_format(dst &byte, src &byte, format AudioFormat, len u32, volum
 	C.SDL_MixAudioFormat(dst, src, C.SDL_AudioFormat(format), len, volume)
 }
 
-
 fn C.SDL_QueueAudio(dev C.SDL_AudioDeviceID, data voidptr, len u32) int
+
 // queue_audio queues more audio on non-callback devices.
 //
 // (If you are looking to retrieve queued audio from a non-callback capture
@@ -665,8 +668,8 @@ pub fn queue_audio(dev AudioDeviceID, data voidptr, len u32) int {
 	return C.SDL_QueueAudio(C.SDL_AudioDeviceID(dev), data, len)
 }
 
-
 fn C.SDL_DequeueAudio(dev C.SDL_AudioDeviceID, data voidptr, len u32) u32
+
 // dequeue_audio dequeues more audio on non-callback devices.
 //
 // (If you are looking to queue audio for output on a non-callback playback
@@ -714,6 +717,7 @@ pub fn dequeue_audio(dev AudioDeviceID, data voidptr, len u32) u32 {
 }
 
 fn C.SDL_GetQueuedAudioSize(dev C.SDL_AudioDeviceID) u32
+
 // get_queued_audio_size gets the number of bytes of still-queued audio.
 //
 // For playback device:
@@ -750,8 +754,8 @@ pub fn get_queued_audio_size(dev AudioDeviceID) u32 {
 	return C.SDL_GetQueuedAudioSize(C.SDL_AudioDeviceID(dev))
 }
 
-
 fn C.SDL_ClearQueuedAudio(dev C.SDL_AudioDeviceID)
+
 // clear_queued_audio drops any queued audio data.
 // For playback devices, this is any queued data
 // still waiting to be submitted to the hardware. For capture devices, this
@@ -789,8 +793,8 @@ pub fn clear_queued_audio(dev AudioDeviceID) {
 	C.SDL_ClearQueuedAudio(C.SDL_AudioDeviceID(dev))
 }
 
-
 fn C.SDL_LockAudio()
+
 // Audio lock functions
 //
 // The lock manipulated by these functions protects the callback function.
@@ -800,7 +804,6 @@ fn C.SDL_LockAudio()
 pub fn lock_audio() {
 	C.SDL_LockAudio()
 }
-
 
 fn C.SDL_LockAudioDevice(dev C.SDL_AudioDeviceID)
 
@@ -813,22 +816,19 @@ pub fn unlock_audio() {
 	C.SDL_UnlockAudio()
 }
 
-
 fn C.SDL_UnlockAudioDevice(dev C.SDL_AudioDeviceID)
 pub fn unlock_audio_device(dev AudioDeviceID) {
 	C.SDL_UnlockAudioDevice(C.SDL_AudioDeviceID(dev))
 }
 
-
 fn C.SDL_CloseAudio()
+
 // close_audio shuts down audio processing and closes the audio device.
 pub fn close_audio() {
 	C.SDL_CloseAudio()
 }
 
-
 fn C.SDL_CloseAudioDevice(dev C.SDL_AudioDeviceID)
 pub fn close_audio_device(dev AudioDeviceID) {
 	C.SDL_CloseAudioDevice(C.SDL_AudioDeviceID(dev))
 }
-
