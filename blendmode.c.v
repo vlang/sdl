@@ -7,15 +7,17 @@ module sdl
 // SDL_blendmode.h
 //
 
+// BlendMode is the blend mode used in SDL_RenderCopy() and drawing operations.
 // BlendMode is SDL_BlendMode
 pub enum BlendMode {
-	@none = 0x00000000 // no blending       dstRGBA = srcRGBA
-	blend = 0x00000001 // alpha blending    dstRGB = (srcRGB * srcA) + (dstRGB * (1-srcA)) dstA = srcA + (dstA * (1-srcA))
-	add = 0x00000002 // additive blending   dstRGB = (srcRGB * srcA) + dstRGB dstA = dstA
-	mod = 0x00000004 // color modulate      dstRGB = srcRGB * dstRGB dstA = dstA
-	invalid = 0x7FFFFFFF
+	@none = C.SDL_BLENDMODE_NONE // 0x00000000, no blending       dstRGBA = srcRGBA
+	blend = C.SDL_BLENDMODE_BLEND // 0x00000001, alpha blending    dstRGB = (srcRGB * srcA) + (dstRGB * (1-srcA)) dstA = srcA + (dstA * (1-srcA))
+	add = C.SDL_BLENDMODE_ADD // 0x00000002, additive blending   dstRGB = (srcRGB * srcA) + dstRGB dstA = dstA
+	mod = C.SDL_BLENDMODE_MOD // 0x00000004, color modulate      dstRGB = srcRGB * dstRGB dstA = dstA
+	invalid = C.SDL_BLENDMODE_INVALID // 0x7FFFFFFF
 }
 
+// BlendOperation is the blend operation used when combining source and destination pixel components
 // BlendOperation is C.SDL_BlendOperation
 pub enum BlendOperation {
 	add = C.SDL_BLENDOPERATION_ADD // 0x1, dst + src: supported by all renderers
@@ -25,6 +27,7 @@ pub enum BlendOperation {
 	maximum = C.SDL_BLENDOPERATION_MAXIMUM // 0x5 max(dst, src) : supported by D3D11
 }
 
+// BlendFactor is the normalized factor used to multiply pixel components
 // BlendFactor is C.SDL_BlendFactor
 pub enum BlendFactor {
 	zero = C.SDL_BLENDFACTOR_ZERO // 0x1, 0, 0, 0, 0
@@ -39,9 +42,22 @@ pub enum BlendFactor {
 	one_minus_dst_alpha = C.SDL_BLENDFACTOR_ONE_MINUS_DST_ALPHA // 0xA, 1-dstA, 1-dstA, 1-dstA, 1-dstA
 }
 
-// extern DECLSPEC SDL_BlendMode SDLCALL SDL_ComposeCustomBlendMode(SDL_BlendFactor srcColorFactor, SDL_BlendFactor dstColorFactor, SDL_BlendOperation colorOperation, SDL_BlendFactor srcAlphaFactor, SDL_BlendFactor dstAlphaFactor, SDL_BlendOperation alphaOperation)
 fn C.SDL_ComposeCustomBlendMode(src_color_factor C.SDL_BlendFactor, dst_color_factor C.SDL_BlendFactor, color_operation C.SDL_BlendOperation, src_alpha_factor C.SDL_BlendFactor, dst_alpha_factor C.SDL_BlendFactor, alpha_operation C.SDL_BlendOperation) C.SDL_BlendMode
 
+// compose_custom_blend_mode creates a custom blend mode, which may
+// or may not be supported by a given renderer
+//
+// `srcColorFactor`
+// `dstColorFactor`
+// `colorOperation`
+// `srcAlphaFactor`
+// `dstAlphaFactor`
+// `alphaOperation`
+//
+// The result of the blend mode operation will be:
+// dstRGB = dstRGB * dstColorFactor colorOperation srcRGB * srcColorFactor
+// and
+// dstA = dstA * dstAlphaFactor alphaOperation srcA * srcAlphaFactor
 pub fn compose_custom_blend_mode(src_color_factor BlendFactor, dst_color_factor BlendFactor, color_operation BlendOperation, src_alpha_factor BlendFactor, dst_alpha_factor BlendFactor, alpha_operation BlendOperation) BlendMode {
 	return BlendMode(int(C.SDL_ComposeCustomBlendMode(C.SDL_BlendFactor(src_color_factor),
 		C.SDL_BlendFactor(dst_color_factor), C.SDL_BlendOperation(color_operation), C.SDL_BlendFactor(src_alpha_factor),
