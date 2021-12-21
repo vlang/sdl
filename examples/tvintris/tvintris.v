@@ -141,9 +141,9 @@ enum GameState {
 
 struct AudioContext {
 mut:
-	music  voidptr
+	music  &mix.Music
 	volume int
-	waves  [3]voidptr
+	waves  [3]&mix.Chunk
 }
 
 struct SdlContext {
@@ -217,7 +217,7 @@ mut:
 	// SDL2 context for drawing
 	sdl SdlContext
 	// TTF context for font drawing
-	font voidptr
+	font &ttf.Font
 }
 
 fn (mut sdlc SdlContext) set_sdl_context(w int, h int, titl string) {
