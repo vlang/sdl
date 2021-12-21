@@ -60,8 +60,8 @@ pub fn quit() {
 // surface afterwards by calling:
 // SDL_SetColorKey(image, SDL_RLEACCEL, image->format->colorkey);
 fn C.IMG_LoadTyped_RW(src &C.SDL_RWops, freesrc int, @type &char) &C.SDL_Surface
-pub fn load_typed_rw(src &sdl.RWops, freesrc int, @type &char) &sdl.Surface {
-	return C.IMG_LoadTyped_RW(src, freesrc, @type)
+pub fn load_typed_rw(src &sdl.RWops, freesrc int, @type string) &sdl.Surface {
+	return C.IMG_LoadTyped_RW(src, freesrc, @type.str)
 }
 
 // Convenience functions
