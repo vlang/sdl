@@ -454,7 +454,7 @@ fn C.SDL_ConvertAudio(cvt &C.SDL_AudioCVT) int
 //
 // The data conversion may expand the size of the audio data, so the buffer
 // `cvt->buf` should be allocated after the `cvt` structure is initialized by
-// SDL_BuildAudioCVT(), and should be `cvt->len`*cvt->len_mult bytes long.
+// SDL_BuildAudioCVT(), and should be `cvt->len` * `cvt->len_mult` bytes long.
 //
 // returns 0 on success or -1 if `cvt->buf` is NULL.
 pub fn convert_audio(cvt &AudioCVT) int {
