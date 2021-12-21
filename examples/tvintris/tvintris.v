@@ -70,10 +70,6 @@ const (
 )
 
 const (
-	ttf_version = ttf.version
-)
-
-const (
 	// Tetros' 4 possible states are encoded in binaries
 	b_tetros         = [
 		// 0000 0
@@ -227,8 +223,8 @@ mut:
 fn (mut sdlc SdlContext) set_sdl_context(w int, h int, titl string) {
 	sdl.init(sdl.init_video | sdl.init_audio | sdl.init_joystick)
 	C.atexit(sdl.quit)
-	C.TTF_Init()
-	C.atexit(C.TTF_Quit)
+	ttf.init()
+	C.atexit(ttf.quit)
 	bpp := 32
 	sdl.create_window_and_renderer(w, h, 0, &sdlc.window, &sdlc.renderer)
 	//	C.SDL_CreateWindowAndRenderer(w, h, 0, voidptr(&sdlc.window), voidptr(&sdlc.renderer))
@@ -291,7 +287,7 @@ fn main() {
 	game.sdl.jids[0] = -1
 	game.sdl.jids[1] = -1
 	game.sdl.set_sdl_context(win_width, win_height, title)
-	game.font = C.TTF_OpenFont(font_name.str, text_size)
+	game.font = ttf.open_font(font_name.str, text_size)
 	mut game2 := &Game{
 		font: 0
 	}
@@ -418,7 +414,7 @@ fn main() {
 		sdl.delay(u32(math.floor(time_per_frame - elapsed_time)))
 	}
 	if !isnil(game.font) {
-		C.TTF_CloseFont(game.font)
+		ttf.close_font(game.font)
 	}
 	if !isnil(game.sdl.actx.music) {
 		mix.free_music(game.sdl.actx.music)
@@ -752,7 +748,7 @@ fn (g &Game) draw_v_logo() {
 
 fn (g &Game) draw_text(x int, y int, text string, tcol sdl.Color) {
 	tcol_ := sdl.Color{tcol.r, tcol.g, tcol.b, tcol.a}
-	tsurf := C.TTF_RenderText_Solid(g.font, text.str, tcol_)
+	tsurf := ttf.render_text_solid(g.font, text, tcol_)
 	ttext := sdl.create_texture_from_surface(g.sdl.renderer, tsurf)
 	texw := 0
 	texh := 0
