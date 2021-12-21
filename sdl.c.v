@@ -25,13 +25,14 @@ pub const (
 	init_everything     = u32(C.SDL_INIT_EVERYTHING) // ( SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC | INIT_GAMECONTROLLER )
 )
 
-
+fn C.SDL_Init(flags u32) int
 // init initializes the subsystems specified by `flags`
 pub fn init(flags u32) int {
 	return C.SDL_Init(flags)
 }
-fn C.SDL_Init(flags u32) int
 
+
+fn C.SDL_InitSubSystem(flags u32) int
 // init_sub_system initializes specific SDL subsystems
 //
 // Subsystem initialization is ref-counted, you must call
@@ -42,14 +43,16 @@ fn C.SDL_Init(flags u32) int
 pub fn init_sub_system(flags u32) int {
 	return C.SDL_InitSubSystem(flags)
 }
-fn C.SDL_InitSubSystem(flags u32) int
 
+fn C.SDL_QuitSubSystem(flags u32)
 // quit_sub_system cleans up specific SDL subsystems
 pub fn quit_sub_system(flags u32) {
 	C.SDL_QuitSubSystem(flags)
 }
-fn C.SDL_QuitSubSystem(flags u32)
 
+
+
+fn C.SDL_WasInit(flags u32) u32
 // was_init returns a mask of the specified subsystems which have
 // previously been initialized.
 //
@@ -57,11 +60,10 @@ fn C.SDL_QuitSubSystem(flags u32)
 pub fn was_init(flags u32) u32 {
 	return C.SDL_WasInit(flags)
 }
-fn C.SDL_WasInit(flags u32) u32
 
+fn C.SDL_Quit()
 // quit cleans up all initialized subsystems. You should
 // call it upon all exit conditions.
-fn C.SDL_Quit()
 pub fn quit() {
 	C.SDL_Quit()
 }
