@@ -1,15 +1,49 @@
 # sdl
 
-SDL2 V module -- libSDL2 wrapper.
+`sdl` is a SDL2 V module and a wrapper around `libSDL2`.
+The module strives to support 100% of the SDL2 API.
 
-Current APIs available/tested in examples:
+So you, amung many other things, can do:
 - basic graphics (2D drawing)
-- [Image](image/README.md)
-- TTF font (text rendering)
-- input handling (keyboard/joystick events)
-- sounds (WAV mixing)
-- music (MOD mixing)
-- more to come.. (networking ?)
+- input handling (keyboard/gamepad/joystick events)
+- sounds
+- music
+
+Current APIs is available:
+- audio      (SDL_audio.h)
+- blendmode  (SDL_blendmode.h)
+- clipboard  (SDL_clipboard.h)
+- cpuinfo    (SDL_cpuinfo.h)
+- endian     (SDL_endian.h)
+- error      (SDL_error.h)
+- events     (SDL_events.h)
+- filesystem (SDL_filesystem.h)
+- haptic     (SDL_haptic.h)
+- hints      (SDL_hints.h)
+- joystick   (SDL_joystick.h)
+- keyboard   (SDL_keyboard.h)
+- keycode    (SDL_keycode.h)
+- loadso     (SDL_loadso.h)
+- log        (SDL_log.h)
+- messagebox (SDL_messagebox.h)
+- mouse      (SDL_mouse.h)
+- pixels     (SDL_pixels.h)
+- quit       (SDL_quit.h)
+- rect       (SDL_rect.h)
+- render     (SDL_render.h)
+- rwops      (SDL_rwops.h)
+- scancode   (SDL_scancode.h)
+- sdl        (SDL_sdl.h)
+- surface    (SDL_surface.h)
+- timer      (SDL_timer.h)
+- version    (SDL_version.h)
+- video      (SDL_video.h)
+- vulkan     (SDL_vulkan.h)
+
+Current SDL2 modules is available:
+- [image](image/README.md), for image load, save and render support
+- ttf, for TTF font support and text rendering
+- mixer, for audio mixing
 
 ## Support
 sdl is supported on:
@@ -58,3 +92,4 @@ If you get no music with the above, try:
 - nsauzede
 - spytheman
 - adlesh
+- Larpon
