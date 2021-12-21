@@ -227,7 +227,7 @@ fn (mut sdlc SdlContext) set_sdl_context(w int, h int, titl string) {
 	C.atexit(ttf.quit)
 	bpp := 32
 	sdl.create_window_and_renderer(w, h, 0, &sdlc.window, &sdlc.renderer)
-	//	C.SDL_CreateWindowAndRenderer(w, h, 0, voidptr(&sdlc.window), voidptr(&sdlc.renderer))
+	//	sdl.create_window_and_renderer(w, h, 0, &sdlc.window, &sdlc.renderer)
 	sdl.set_window_title(sdlc.window, titl)
 	sdlc.w = w
 	sdlc.h = h
@@ -262,8 +262,8 @@ fn (mut sdlc SdlContext) set_sdl_context(w int, h int, titl string) {
 			}
 		}
 	}
-	flags := C.IMG_INIT_PNG
-	imgres := img.img_init(flags)
+	flags := int(img.InitFlags.png)
+	imgres := img.init(flags)
 	if (imgres & flags) != flags {
 		println('error initializing image library.')
 	}
@@ -786,7 +786,7 @@ fn (g &Game) draw_begin() {
 		}
 		w := block_size
 		h := s * 4 * w / 100
-		rect = C.SDL_Rect{(win_width - 7 * (w + 1)) / 2 + idx * (w + 1), win_height * 3 / 4 - h, w, h}
+		rect = sdl.Rect{(win_width - 7 * (w + 1)) / 2 + idx * (w + 1), win_height * 3 / 4 - h, w, h}
 		g.fill_rect(g.sdl.screen, &rect, colors[idx + 1])
 		idx++
 	}
