@@ -3,17 +3,16 @@ module main
 import sdl
 
 fn main() {
-	C.SDL_Init(C.SDL_INIT_VIDEO)
-	window := C.SDL_CreateWindow('Hello SDL2'.str, 300, 300, 500, 300, 0)
-	renderer := C.SDL_CreateRenderer(window, -1, C.SDL_RENDERER_ACCELERATED | C.SDL_RENDERER_PRESENTVSYNC)
+	sdl.init(sdl.init_video)
+	window := sdl.create_window('Hello SDL2', 300, 300, 500, 300, 0)
+	renderer := sdl.create_renderer(window, -1, u32(sdl.RendererFlags.accelerated) | u32(sdl.RendererFlags.presentvsync))
 
 	mut should_close := false
 	for {
-		evt := C.SDL_Event{}
+		evt := sdl.Event{}
 		for 0 < sdl.poll_event(&evt) {
-			etyp := unsafe { int(evt.@type) }
-			match etyp {
-				C.SDL_QUIT { should_close = true }
+			match evt.@type {
+				.quit { should_close = true }
 				else {}
 			}
 		}
@@ -21,12 +20,12 @@ fn main() {
 			break
 		}
 
-		C.SDL_SetRenderDrawColor(renderer, 255, 55, 55, 255)
-		C.SDL_RenderClear(renderer)
-		C.SDL_RenderPresent(renderer)
+		sdl.set_render_draw_color(renderer, 255, 55, 55, 255)
+		sdl.render_clear(renderer)
+		sdl.render_present(renderer)
 	}
-	
-	C.SDL_DestroyRenderer(renderer)
-	C.SDL_DestroyWindow(window)
-	C.SDL_Quit()
+
+	sdl.destroy_renderer(renderer)
+	sdl.destroy_window(window)
+	sdl.quit()
 }
