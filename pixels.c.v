@@ -7,6 +7,14 @@ module sdl
 // SDL_pixels.h
 //
 
+// Transparency definitions
+//
+// These define alpha as the opacity of a surface.
+pub const (
+	alpha_opaque      = C.SDL_ALPHA_OPAQUE // 255
+	alpha_transparent = C.SDL_ALPHA_TRANSPARENT // 0
+)
+
 pub enum Format {
 	unknown = C.SDL_PIXELFORMAT_UNKNOWN
 	index1lsb = C.SDL_PIXELFORMAT_INDEX1LSB
@@ -43,14 +51,14 @@ pub enum Format {
 	argb32 = C.SDL_PIXELFORMAT_ARGB32
 	bgra32 = C.SDL_PIXELFORMAT_BGRA32
 	abgr32 = C.SDL_PIXELFORMAT_ABGR32
-	yv12 = C.SDL_PIXELFORMAT_YV12 //*< Planar mode: Y + V + U  (3 planes)
-	iyuv = C.SDL_PIXELFORMAT_IYUV //*< Planar mode: Y + U + V  (3 planes)
-	yuy2 = C.SDL_PIXELFORMAT_YUY2 //*< Packed mode: Y0+U0+Y1+V0 (1 plane)
-	uyvy = C.SDL_PIXELFORMAT_UYVY //*< Packed mode: U0+Y0+V0+Y1 (1 plane)
-	yvyu = C.SDL_PIXELFORMAT_YVYU //*< Packed mode: Y0+V0+Y1+U0 (1 plane)
-	nv12 = C.SDL_PIXELFORMAT_NV12 //*< Planar mode: Y + U/V interleaved  (2 planes)
-	nv21 = C.SDL_PIXELFORMAT_NV21 //*< Planar mode: Y + V/U interleaved  (2 planes)
-	external_oes = C.SDL_PIXELFORMAT_EXTERNAL_OES //*< Android video texture format
+	yv12 = C.SDL_PIXELFORMAT_YV12 // Planar mode: Y + V + U  (3 planes)
+	iyuv = C.SDL_PIXELFORMAT_IYUV // Planar mode: Y + U + V  (3 planes)
+	yuy2 = C.SDL_PIXELFORMAT_YUY2 // Packed mode: Y0+U0+Y1+V0 (1 plane)
+	uyvy = C.SDL_PIXELFORMAT_UYVY // Packed mode: U0+Y0+V0+Y1 (1 plane)
+	yvyu = C.SDL_PIXELFORMAT_YVYU // Packed mode: Y0+V0+Y1+U0 (1 plane)
+	nv12 = C.SDL_PIXELFORMAT_NV12 // Planar mode: Y + U/V interleaved  (2 planes)
+	nv21 = C.SDL_PIXELFORMAT_NV21 // Planar mode: Y + V/U interleaved  (2 planes)
+	external_oes = C.SDL_PIXELFORMAT_EXTERNAL_OES // Android video texture format
 }
 
 [typedef]
@@ -66,6 +74,7 @@ pub type Color = C.SDL_Color
 
 [typedef]
 struct C.SDL_Palette {
+pub mut:
 	ncolors  int
 	colors   &Color
 	version  u32
@@ -74,10 +83,12 @@ struct C.SDL_Palette {
 
 pub type Palette = C.SDL_Palette
 
+// NOTE Everything in the pixel format structure is read-only.
 [typedef]
 struct C.SDL_PixelFormat {
-	format          u32
-	palette         &C.SDL_Palette
+pub:
+	format          Format
+	palette         &Palette
 	bits_per_pixel  byte
 	bytes_per_pixel byte
 	padding         [2]byte
@@ -94,48 +105,46 @@ struct C.SDL_PixelFormat {
 	bshift          byte
 	ashift          byte
 	refcount        int
-	next            &C.SDL_PixelFormat
+	next            &PixelFormat
 }
 
+// PixelFormat is C.SDL_PixelFormat
 pub type PixelFormat = C.SDL_PixelFormat
 
-// extern DECLSPEC const char* SDLCALL SDL_GetPixelFormatName(Uint32 format)
-fn C.SDL_GetPixelFormatName(format u32) &char
+fn C.SDL_GetPixelFormatName(format Format) &char
 
 // get the human readable name of a pixel format
-pub fn get_pixel_format_name(format u32) string {
+pub fn get_pixel_format_name(format Format) string {
 	return unsafe { cstring_to_vstring(C.SDL_GetPixelFormatName(format)) }
 }
 
-fn C.SDL_PixelFormatEnumToMasks(format u32, bpp &int, rmask &u32, gmask &u32, bmask &u32, amask &u32) bool
+fn C.SDL_PixelFormatEnumToMasks(format Format, bpp &int, rmask &u32, gmask &u32, bmask &u32, amask &u32) bool
 
 // pixel_format_enum_to_masks converts one of the enumerated pixel formats to a bpp and RGBA masks.
-/*
-*  returns SDL_TRUE, or SDL_FALSE if the conversion wasn't possible.
- *
- *  \sa SDL_MasksToPixelFormatEnum()
-*/
-pub fn pixel_format_enum_to_masks(format u32, bpp &int, rmask &u32, gmask &u32, bmask &u32, amask &u32) bool {
+//
+// returns SDL_TRUE, or SDL_FALSE if the conversion wasn't possible.
+//
+// See also: SDL_MasksToPixelFormatEnum()
+pub fn pixel_format_enum_to_masks(format Format, bpp &int, rmask &u32, gmask &u32, bmask &u32, amask &u32) bool {
 	return C.SDL_PixelFormatEnumToMasks(format, bpp, rmask, gmask, bmask, amask)
 }
 
 fn C.SDL_MasksToPixelFormatEnum(bpp int, rmask u32, gmask u32, bmask u32, amask u32) u32
 
 // masks_to_pixel_format_enum converts a bpp and RGBA masks to an enumerated pixel format.
-/*
-*  returns The pixel format, or ::SDL_PIXELFORMAT_UNKNOWN if the conversion
- *          wasn't possible.
- *
- *  \sa SDL_PixelFormatEnumToMasks()
-*/
-pub fn masks_to_pixel_format_enum(bpp int, rmask u32, gmask u32, bmask u32, amask u32) u32 {
-	return C.SDL_MasksToPixelFormatEnum(bpp, rmask, gmask, bmask, amask)
+//
+// returns The pixel format, or ::SDL_PIXELFORMAT_UNKNOWN if the conversion
+// wasn't possible.
+//
+// See also: SDL_PixelFormatEnumToMasks()
+pub fn masks_to_pixel_format_enum(bpp int, rmask u32, gmask u32, bmask u32, amask u32) Format {
+	return Format(C.SDL_MasksToPixelFormatEnum(bpp, rmask, gmask, bmask, amask))
 }
 
-fn C.SDL_AllocFormat(pixel_format u32) &C.SDL_PixelFormat
+fn C.SDL_AllocFormat(pixel_format Format) &C.SDL_PixelFormat
 
 // alloc_format creates an SDL_PixelFormat structure from a pixel format enum.
-pub fn alloc_format(pixel_format u32) &PixelFormat {
+pub fn alloc_format(pixel_format Format) &PixelFormat {
 	return C.SDL_AllocFormat(pixel_format)
 }
 
@@ -150,13 +159,12 @@ fn C.SDL_AllocPalette(ncolors int) &C.SDL_Palette
 
 // alloc_palette create a palette structure with the specified
 // number of color entries.
-/*
-*  returns A new palette, or NULL if there wasn't enough memory.
- *
- *  NOTE The palette entries are initialized to white.
- *
- *  \sa SDL_FreePalette()
-*/
+//
+// returns A new palette, or NULL if there wasn't enough memory.
+//
+// NOTE The palette entries are initialized to white.
+//
+// See also: SDL_FreePalette()
 pub fn alloc_palette(ncolors int) &Palette {
 	return C.SDL_AllocPalette(ncolors)
 }
@@ -171,14 +179,13 @@ pub fn set_pixel_format_palette(format &PixelFormat, palette &Palette) int {
 fn C.SDL_SetPaletteColors(palette &C.SDL_Palette, colors &C.SDL_Color, firstcolor int, ncolors int) int
 
 // set_palette_colors sets a range of colors in a palette.
-/*
-*  `palette`    The palette to modify.
- *  `colors`     An array of colors to copy into the palette.
- *  `firstcolor` The index of the first palette entry to modify.
- *  `ncolors`    The number of entries to modify.
- *
- *  return 0 on success, or -1 if not all of the colors could be set.
-*/
+//
+// `palette`    The palette to modify.
+// `colors`     An array of colors to copy into the palette.
+// `firstcolor` The index of the first palette entry to modify.
+// `ncolors`    The number of entries to modify.
+//
+// returns 0 on success, or -1 if not all of the colors could be set.
 pub fn set_palette_colors(palette &Palette, colors &Color, firstcolor int, ncolors int) int {
 	return C.SDL_SetPaletteColors(palette, colors, firstcolor, ncolors)
 }
