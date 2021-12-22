@@ -5,7 +5,6 @@ module sdl
 
 //
 // SDL_timer.h
-// (/usr/include/SDL2/SDL_timer.h)
 //
 
 // TimerCallback is the function prototype for the timer callback function.
