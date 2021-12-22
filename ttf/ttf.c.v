@@ -24,7 +24,7 @@ pub fn linked_version() &sdl.Version {
 }
 
 // ZERO WIDTH NO-BREAKSPACE (Unicode byte order mark)
-const (
+pub const (
 	unicode_bom_native  = C.UNICODE_BOM_NATIVE // 0xFEFF
 	unicode_bom_swapped = C.UNICODE_BOM_SWAPPED // 0xFFFE
 )
@@ -76,7 +76,7 @@ pub fn open_font_index_rw(src &C.SDL_RWops, freesrc int, ptsize int, index int) 
 }
 
 // Set and retrieve the font style
-const (
+pub const (
 	style_normal        = C.TTF_STYLE_NORMAL // 0x00
 	style_bold          = C.TTF_STYLE_BOLD // 0x01
 	style_italic        = C.TTF_STYLE_ITALIC // 0x02
@@ -105,7 +105,7 @@ pub fn set_font_outline(font &Font, outline int) {
 }
 
 // Set and retrieve FreeType hinter settings
-const (
+pub const (
 	hinting_normal = C.TTF_HINTING_NORMAL // 0
 	hinting_light  = C.TTF_HINTING_LIGHT // 1
 	hinting_mono   = C.TTF_HINTING_MONO // 2

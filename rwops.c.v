@@ -7,7 +7,7 @@ module sdl
 // SDL_rwops.h
 //
 
-const (
+pub const (
 	rwops_unknown   = C.SDL_RWOPS_UNKNOWN // 0U, Unknown stream type
 	rwops_winfile   = C.SDL_RWOPS_WINFILE // 1U, Win32 file
 	rwops_stdfile   = C.SDL_RWOPS_STDFILE // 2U, Stdio file
@@ -16,7 +16,7 @@ const (
 	rwops_memory_ro = C.SDL_RWOPS_MEMORY_RO // 5U, Read-Only memory stream
 )
 
-const (
+pub const (
 	rw_seek_set = C.RW_SEEK_SET // 0, Seek from the beginning of data
 	rw_seek_cur = C.RW_SEEK_CUR // 1, Seek relative to current read point
 	rw_seek_end = C.RW_SEEK_END // 2, Seek relative to the end of data

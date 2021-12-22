@@ -18,7 +18,7 @@ module sdl
 // always map to SDLK_0...SDLK_9, regardless of layout.
 type Keycode = int // Sint32 C.SDL_Keycode;
 
-const (
+pub const (
 	sdlk_scancode_mask = C.SDLK_SCANCODE_MASK // (1<<30)
 )
 
@@ -45,7 +45,7 @@ pub enum Keymod {
 	kmod_reserved = C.KMOD_RESERVED // 0x8000
 }
 
-const (
+pub const (
 	kmod_ctrl  = C.KMOD_LCTRL | C.KMOD_RCTRL
 	kmod_shift = C.KMOD_LSHIFT | C.KMOD_RSHIFT
 	kmod_alt   = C.KMOD_LALT | C.KMOD_RALT
