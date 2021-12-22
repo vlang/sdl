@@ -6,7 +6,7 @@ module sdl
 //
 // SDL_hints.h
 //
-const (
+pub const (
 	// A variable controlling how 3D acceleration is used to accelerate the SDL screen surface.
 	//
 	// SDL can try to accelerate the SDL screen surface by using streaming

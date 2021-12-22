@@ -7,7 +7,7 @@ module sdl
 // SDL_haptic.h
 //
 
-const (
+pub const (
 	// Constant effect supported.
 	//
 	// Constant haptic effect.

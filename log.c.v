@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file.
 module sdl
 
-const (
+pub const (
 	max_log_message = C.SDL_MAX_LOG_MESSAGE // 4096
 )
 

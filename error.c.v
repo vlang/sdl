@@ -32,6 +32,7 @@ pub enum ErrorCode {
 	unsupported = C.SDL_UNSUPPORTED
 	lasterror = C.SDL_LASTERROR
 }
+
 fn C.SDL_Error(code C.SDL_errorcode) int
 
 // error SDL_Error() unconditionally returns -1.

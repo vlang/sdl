@@ -7,7 +7,7 @@ module sdl
 // SDL_version.h
 //
 
-const (
+pub const (
 	major_version = C.SDL_MAJOR_VERSION // 2
 	minor_version = C.SDL_MINOR_VERSION // 0
 	patchlevel    = C.SDL_PATCHLEVEL // 8
