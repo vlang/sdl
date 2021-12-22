@@ -7,28 +7,22 @@ module sdl
 // SDL_messagebox.h
 //
 
-/**
- * \brief SDL_MessageBox flags. If supported will display warning icon, etc.
-*/
 // MessageBoxFlags is C.SDL_MessageBoxFlags
+// MessageBox flags. If supported will display warning icon, etc.
 pub enum MessageBoxFlags {
 	messagebox_error = C.SDL_MESSAGEBOX_ERROR // 0x00000010, error dialog
 	messagebox_warning = C.SDL_MESSAGEBOX_WARNING // 0x00000020, warning dialog
 	messagebox_information = C.SDL_MESSAGEBOX_INFORMATION // 0x00000040, informational dialog
 }
 
-/**
- * \brief Flags for SDL_MessageBoxButtonData.
-*/
 // MessageBoxButtonFlags is C.SDL_MessageBoxButtonFlags
+// Flags for SDL_MessageBoxButtonData.
 pub enum MessageBoxButtonFlags {
 	messagebox_button_returnkey_default = C.SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT // 0x00000001, Marks the default button when return is hit
 	messagebox_button_escapekey_default = C.SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT // 0x00000002, Marks the default button when escape is hit
 }
 
-/**
- *  \brief Individual button data.
-*/
+// MessageBoxButtonData is individual button data.
 [typedef]
 struct C.SDL_MessageBoxButtonData {
 	flags    u32   // ::SDL_MessageBoxButtonFlags
@@ -38,9 +32,7 @@ struct C.SDL_MessageBoxButtonData {
 
 pub type MessageBoxButtonData = C.SDL_MessageBoxButtonData
 
-/**
- * \brief RGB value used in a message box color scheme
-*/
+// MessageBoxColor is a RGB value used in a message box color scheme
 [typedef]
 struct C.SDL_MessageBoxColor {
 	r byte
@@ -60,9 +52,7 @@ pub enum MessageBoxColorType {
 	max = C.SDL_MESSAGEBOX_COLOR_MAX
 }
 
-/**
- * \brief A set of colors to use for message box dialogs
-*/
+// MessageBoxColorScheme is a set of colors to use for message box dialogs
 [typedef]
 struct C.SDL_MessageBoxColorScheme {
 	colors [6]MessageBoxColor
@@ -70,9 +60,7 @@ struct C.SDL_MessageBoxColorScheme {
 
 pub type MessageBoxColorScheme = C.SDL_MessageBoxColorScheme
 
-/**
- *  \brief MessageBox structure containing title, text, window, etc.
-*/
+// MessageBoxData is a MessageBox structure containing title, text, window, etc.
 [typedef]
 struct C.SDL_MessageBoxData {
 	flags       u32     // ::SDL_MessageBoxFlags
@@ -86,38 +74,36 @@ struct C.SDL_MessageBoxData {
 
 pub type MessageBoxData = C.SDL_MessageBoxData
 
-/**
- *  \brief Create a modal message box.
- *
- *  \param messageboxdata The SDL_MessageBoxData structure with title, text, etc.
- *  \param buttonid The pointer to which user id of hit button should be copied.
- *
- *  \return -1 on error, otherwise 0 and buttonid contains user id of button
- *          hit or -1 if dialog was closed.
- *
- *  \note This function should be called on the thread that created the parent
- *        window, or on the main thread if the messagebox has no parent.  It will
- *        block execution of that thread until the user clicks a button or
- *        closes the messagebox.
-*/
 fn C.SDL_ShowMessageBox(messageboxdata &C.SDL_MessageBoxData, buttonid &int) int
+
+// show_message_box creates a modal message box.
+//
+// `messageboxdata` The SDL_MessageBoxData structure with title, text, etc.
+// `buttonid` The pointer to which user id of hit button should be copied.
+//
+// returns -1 on error, otherwise 0 and buttonid contains user id of button
+// hit or -1 if dialog was closed.
+//
+// NOTE This function should be called on the thread that created the parent
+// window, or on the main thread if the messagebox has no parent.  It will
+// block execution of that thread until the user clicks a button or
+// closes the messagebox.
 pub fn show_message_box(messageboxdata &MessageBoxData, buttonid &int) int {
 	return C.SDL_ShowMessageBox(messageboxdata, buttonid)
 }
 
-/**
- *  \brief Create a simple modal message box
- *
- *  \param flags    ::SDL_MessageBoxFlags
- *  \param title    UTF-8 title text
- *  \param message  UTF-8 message text
- *  \param window   The parent window, or NULL for no parent
- *
- *  \return 0 on success, -1 on error
- *
- *  \sa SDL_ShowMessageBox
-*/
 fn C.SDL_ShowSimpleMessageBox(flags u32, title &char, message &char, window &C.SDL_Window) int
+
+// show_simple_message_box creates a simple modal message box
+//
+// `flags`    ::SDL_MessageBoxFlags
+// `title`    UTF-8 title text
+// `message`  UTF-8 message text
+// `window`   The parent window, or NULL for no parent
+//
+// returns 0 on success, -1 on error
+//
+// See also: SDL_ShowMessageBox
 pub fn show_simple_message_box(flags u32, title string, message string, window &Window) int {
 	return C.SDL_ShowSimpleMessageBox(flags, title.str, message.str, window)
 }
