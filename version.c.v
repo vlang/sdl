@@ -13,7 +13,6 @@ pub const (
 	patchlevel    = C.SDL_PATCHLEVEL // 8
 )
 
-
 // Version is information of the version of SDL in use.
 //
 // Represents the library's version as three levels: major revision
@@ -33,7 +32,6 @@ struct C.SDL_version {
 
 pub type Version = C.SDL_version
 
-
 // SDL_VERSION is a macro to determine SDL version program was compiled against.
 //
 // This macro fills in a SDL_version structure with the version of the
@@ -49,7 +47,6 @@ pub type Version = C.SDL_version
 // See also: SDL_GetVersion
 pub fn C.SDL_VERSION(ver &C.SDL_version)
 
-
 // This macro turns the version numbers into a numeric value:
 /*
 ```
@@ -61,7 +58,6 @@ pub fn C.SDL_VERSIONNUM(x int, y int, z int) int
 
 // SDL_COMPILEDVERSION is the version number macro for the current SDL version.
 pub fn C.SDL_COMPILEDVERSION() int
-
 
 // SDL_VERSION_ATLEAST macro will evaluate to true if compiled with SDL at least X.Y.Z.
 pub fn C.SDL_VERSION_ATLEAST(x int, y int, z int) bool
