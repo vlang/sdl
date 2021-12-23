@@ -22,40 +22,42 @@ jobs:
     env:
       VFLAGS: -cc tcc
     steps:
-    - name: Checkout V
-      uses: actions/checkout@v2
-      with:
-        repository: vlang/v
+      - name: Checkout V
+        uses: actions/checkout@v2
+        with:
+          repository: vlang/v
 
-    - name: Checkout sdl
-      run: |
-        git clone --depth 1 https://github.com/vlang/sdl
-        cd sdl
-        mkdir -p ~/.vmodules
-        ln -s $(pwd) ~/.vmodules/sdl
+      - name: Checkout sdl
+        run: |
+          git clone --depth 1 https://github.com/vlang/sdl
+          cd sdl
+          mkdir -p ~/.vmodules
+          ln -s $(pwd) ~/.vmodules/sdl
 
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install --quiet -y libsdl2-dev libsdl2-ttf-dev libsdl2-mixer-dev libsdl2-image-dev
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --quiet -y libsdl2-dev libsdl2-ttf-dev
+          sudo apt-get install --quiet -y libsdl2-mixer-dev libsdl2-image-dev
 
-    - name: Build local v
-      run: make -j4
+      - name: Build local v
+        run: make
 
-    - name: Test code formatting
-      run: |
-        cd sdl
-        ../v test-fmt
+      - name: Test code formatting
+        run: |
+          cd sdl
+          ../v test-fmt
 
-    - name: Build sdl shared
-      run: ./v -shared -g sdl
+      - name: Build sdl shared
+        run: ./v -shared -g sdl
 
-    - name: Run tests
-      run: ./v test sdl
+      - name: Run tests
+        run: ./v test sdl
 
-    - name: Build sdl examples
-      run: |
-        declare -a v_sdl_examples=('basic_window' 'tvintris')
-        for example in "${v_sdl_examples[@]}"; do
-          ./v sdl/examples/$example
-        done
+      - name: Build sdl examples
+        run: |
+          for example in basic_window tvintris; do
+              epath=examples/$example;
+              echo $epath;
+              v "$epath";
+          done
