@@ -27,6 +27,8 @@ jobs:
       - name: Checkout SDL
         uses: actions/checkout@v2
         path: sdl
+
+      - name: Link local SDL folder in ~/.vmodules/sdl
         run: |
           cd sdl
           mkdir -p ~/.vmodules
