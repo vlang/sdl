@@ -36,6 +36,7 @@ Currently available APIs:
 - rwops      (SDL_rwops.h)
 - scancode   (SDL_scancode.h)
 - sdl        (SDL_sdl.h)
+- stdinc     (SDL_stdinc.h)
 - surface    (SDL_surface.h)
 - timer      (SDL_timer.h)
 - touch      (SDL_touch.h)
