@@ -69,7 +69,7 @@ pub enum Scancode {
 	scancode_minus = C.SDL_SCANCODE_MINUS // 45
 	scancode_equals = C.SDL_SCANCODE_EQUALS // 46
 	scancode_leftbracket = C.SDL_SCANCODE_LEFTBRACKET // 47
-	scancode_rightbracket = C.SDL_SCANCODE_RIGHTBRACKEt // 48
+	scancode_rightbracket = C.SDL_SCANCODE_RIGHTBRACKET // 48
 	// Located at the lower left of the return
 	// key on ISO keyboards and at the right end
 	// of the QWERTY row on ANSI keyboards.
@@ -283,7 +283,7 @@ pub enum Scancode {
 	scancode_kp_exclam = C.SDL_SCANCODE_KP_EXCLAM // 207
 	scancode_kp_memstore = C.SDL_SCANCODE_KP_MEMSTORE // 208
 	scancode_kp_memrecall = C.SDL_SCANCODE_KP_MEMRECALL // 209
-	scancode_kp_memclear = C.SDL_SCANCODE_kp_memclear // 210
+	scancode_kp_memclear = C.SDL_SCANCODE_KP_MEMCLEAR // 210
 	scancode_kp_memadd = C.SDL_SCANCODE_KP_MEMADD // 211
 	scancode_kp_memsubtract = C.SDL_SCANCODE_KP_MEMSUBTRACT // 212
 	scancode_kp_memmultiply = C.SDL_SCANCODE_KP_MEMMULTIPLY // 213
