@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-18.04
     timeout-minutes: 30
     env:
-      VFLAGS: -cc tcc
+      VFLAGS: -cc tcc -no-retry-compilation
     steps:
       - name: Install dependencies
         run: |
