@@ -38,18 +38,18 @@ jobs:
           sudo apt-get install --quiet -y libsdl2-mixer-dev libsdl2-image-dev
 
       - name: Build local v
-        run: make
+        run: make && sudo ./v symlink
 
       - name: Test code formatting
         run: |
           cd sdl
-          ../v test-fmt
+          v test-fmt
 
       - name: Build sdl shared
-        run: ./v -shared -g sdl
+        run: v -shared -g sdl
 
       - name: Run tests
-        run: ./v test sdl
+        run: v test sdl
 
       - name: Build sdl examples
         run: |
