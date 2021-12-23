@@ -37,6 +37,7 @@ Currently available APIs:
 - scancode   (SDL_scancode.h)
 - sdl        (SDL_sdl.h)
 - surface    (SDL_surface.h)
+- system     (SDL_system.h)
 - timer      (SDL_timer.h)
 - touch      (SDL_touch.h)
 - version    (SDL_version.h)
