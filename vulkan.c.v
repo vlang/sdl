@@ -200,6 +200,7 @@ pub fn vulkan_create_surface(window &Window, instance C.VkInstance, surface &C.V
 }
 */
 
+/*
 fn C.SDL_Vulkan_GetDrawableSize(window &C.SDL_Window, w &int, h &int)
 
 // vulkan_get_drawable_size gets the size of a window's underlying drawable in pixels (for use
@@ -222,3 +223,4 @@ fn C.SDL_Vulkan_GetDrawableSize(window &C.SDL_Window, w &int, h &int)
 pub fn vulkan_get_drawable_size(window &Window, w &int, h &int) {
 	C.SDL_Vulkan_GetDrawableSize(window, w, h)
 }
+*/
