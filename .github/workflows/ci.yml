@@ -24,9 +24,9 @@ jobs:
         with:
           repository: vlang/v
 
-      - name: Checkout sdl
+      - name: Checkout SDL
         uses: actions/checkout@v2
-		path: sdl
+        path: sdl
         run: |
           cd sdl
           mkdir -p ~/.vmodules
