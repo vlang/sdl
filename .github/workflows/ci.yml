@@ -53,8 +53,6 @@ jobs:
 
       - name: Build sdl examples
         run: |
-          for example in basic_window tvintris; do
-              epath=examples/$example;
-              echo $epath;
-              v "$epath";
+          for example in sdl/examples/*; do
+              v "$example";
           done
