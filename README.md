@@ -30,6 +30,7 @@ Currently available APIs:
 - mouse      (SDL_mouse.h)
 - pixels     (SDL_pixels.h)
 - platform   (SDL_platform.h)
+- power      (SDL_power.h)
 - quit       (SDL_quit.h)
 - rect       (SDL_rect.h)
 - render     (SDL_render.h)
