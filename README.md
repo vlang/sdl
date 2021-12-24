@@ -37,6 +37,7 @@ Currently available APIs:
 - rwops      (SDL_rwops.h)
 - scancode   (SDL_scancode.h)
 - sdl        (SDL_sdl.h)
+- stdinc     (SDL_stdinc.h)
 - shape      (SDL_shape.h)
 - surface    (SDL_surface.h)
 - system     (SDL_system.h)
