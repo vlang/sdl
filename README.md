@@ -42,6 +42,7 @@ Currently available APIs:
 - shape          (SDL_shape.h)
 - surface        (SDL_surface.h)
 - system         (SDL_system.h)
+- thread         (SDL_thread.h)
 - timer          (SDL_timer.h)
 - touch          (SDL_touch.h)
 - version        (SDL_version.h)
