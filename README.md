@@ -10,6 +10,7 @@ So, among many other things, you can:
 - music
 
 Currently available APIs:
+- atomic         (SDL_atomic.h)
 - audio          (SDL_audio.h)
 - blendmode      (SDL_blendmode.h)
 - clipboard      (SDL_clipboard.h)
