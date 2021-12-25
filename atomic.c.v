@@ -66,7 +66,7 @@ fn C.SDL_AtomicTryLock(lock_ &C.SDL_SpinLock) bool
 //
 // returns SDL_TRUE if the lock succeeded, SDL_FALSE if the lock is already held.
 pub fn atomic_try_lock(lock_ &SpinLock) bool {
-	return C.SDL_AtomicTryLock(lock_)
+	return unsafe { C.SDL_AtomicTryLock(&C.SDL_SpinLock(lock_)) }
 }
 
 fn C.SDL_AtomicLock(lock_ &C.SDL_SpinLock)
@@ -75,7 +75,7 @@ fn C.SDL_AtomicLock(lock_ &C.SDL_SpinLock)
 //
 // `lock_` points to the lock.
 pub fn atomic_lock(lock_ &SpinLock) {
-	C.SDL_AtomicLock(lock_)
+	unsafe { C.SDL_AtomicLock(&C.SDL_SpinLock(lock_)) }
 }
 
 fn C.SDL_AtomicUnlock(lock_ &C.SDL_SpinLock)
@@ -84,7 +84,7 @@ fn C.SDL_AtomicUnlock(lock_ &C.SDL_SpinLock)
 //
 // `lock_` Points to the lock.
 pub fn atomic_unlock(lock_ &SpinLock) {
-	C.SDL_AtomicUnlock(lock_)
+	unsafe { C.SDL_AtomicUnlock(&C.SDL_SpinLock(lock_)) }
 }
 
 // Memory barriers are designed to prevent reads and writes from being
@@ -130,8 +130,8 @@ fn C.SDL_AtomicCAS(a &C.SDL_atomic_t, oldval int, newval int) bool
 // returns SDL_TRUE if the atomic variable was set, SDL_FALSE otherwise.
 //
 // NOTE If you don't know what this function is for, you shouldn't use it!
-pub fn atomic_cas(a &C.AtomicT, oldval int, newval int) bool {
-	return C.SDL_AtomicCAS(a, oldval, newval)
+pub fn atomic_cas(a &C.SDL_atomic_t, oldval int, newval int) bool {
+	return unsafe { C.SDL_AtomicCAS(a, oldval, newval) }
 }
 
 fn C.SDL_AtomicSet(a &C.SDL_atomic_t, v int) int
@@ -140,14 +140,14 @@ fn C.SDL_AtomicSet(a &C.SDL_atomic_t, v int) int
 //
 // returns The previous value of the atomic variable.
 pub fn atomic_set(a &AtomicT, v int) int {
-	return C.SDL_AtomicSet(a, v)
+	return unsafe { C.SDL_AtomicSet(&C.SDL_atomic_t(a), v) }
 }
 
 fn C.SDL_AtomicGet(a &C.SDL_atomic_t) int
 
 // atomic_get gets the value of an atomic variable
 pub fn atomic_get(a &AtomicT) int {
-	return C.SDL_AtomicGet(a)
+	return unsafe { C.SDL_AtomicGet(&C.SDL_atomic_t(a)) }
 }
 
 fn C.SDL_AtomicAdd(a &C.SDL_atomic_t, v int) int
@@ -158,14 +158,14 @@ fn C.SDL_AtomicAdd(a &C.SDL_atomic_t, v int) int
 //
 // NOTE This same style can be used for any number operation
 pub fn atomic_add(a &AtomicT, v int) int {
-	return C.SDL_AtomicAdd(a, v)
+	return unsafe { C.SDL_AtomicAdd(&C.SDL_atomic_t(a), v) }
 }
 
 fn C.SDL_AtomicIncRef(a &C.SDL_atomic_t) int
 
 // atomic_inc_ref increments an atomic variable used as a reference count.
 pub fn atomic_inc_ref(a &AtomicT) int {
-	return C.SDL_AtomicIncRef(a)
+	return unsafe { C.SDL_AtomicIncRef(&C.SDL_atomic_t(a)) }
 }
 
 fn C.SDL_AtomicDecRef(a &C.SDL_atomic_t) bool
@@ -177,7 +177,7 @@ fn C.SDL_AtomicDecRef(a &C.SDL_atomic_t) bool
 //
 // `a`'s C type is `void **a`
 pub fn atomic_dec_ref(a &AtomicT) bool {
-	return C.SDL_AtomicDecRef(a)
+	return unsafe { C.SDL_AtomicDecRef(&C.SDL_atomic_t(a)) }
 }
 
 fn C.SDL_AtomicCASPtr(a voidptr, oldval voidptr, newval voidptr) bool
@@ -190,7 +190,7 @@ fn C.SDL_AtomicCASPtr(a voidptr, oldval voidptr, newval voidptr) bool
 //
 // `a`'s C type is `void **a`
 pub fn atomic_cas_ptr(a voidptr, oldval voidptr, newval voidptr) bool {
-	return C.SDL_AtomicCASPtr(*a, oldval, newval)
+	return C.SDL_AtomicCASPtr(a, oldval, newval)
 }
 
 fn C.SDL_AtomicSetPtr(a voidptr, v voidptr) voidptr
@@ -201,7 +201,7 @@ fn C.SDL_AtomicSetPtr(a voidptr, v voidptr) voidptr
 //
 // `a`'s C type is `void **a`
 pub fn atomic_set_ptr(a voidptr, v voidptr) voidptr {
-	return C.SDL_AtomicSetPtr(*a, v)
+	return C.SDL_AtomicSetPtr(a, v)
 }
 
 fn C.SDL_AtomicGetPtr(a voidptr) voidptr
