@@ -31,6 +31,7 @@ Currently available APIs:
 - main           (SDL_main.h)
 - messagebox     (SDL_messagebox.h)
 - mouse          (SDL_mouse.h)
+- mutex          (SDL_mutex.h)
 - pixels         (SDL_pixels.h)
 - platform       (SDL_platform.h)
 - power          (SDL_power.h)
