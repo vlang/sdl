@@ -52,6 +52,7 @@ jobs:
 
       - name: Build sdl examples
         run: |
+          v run sdl/examples/versions
           for example in sdl/examples/*; do
               echo "v $example"
               v "$example";

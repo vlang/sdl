@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file.
 module c
 
-pub const version = 8
+pub const used_import = 1
 
 $if linux || darwin || solaris {
 	#pkgconfig --cflags --libs sdl2
