@@ -5,4 +5,16 @@ module sdl
 
 import sdl.c
 
-pub const version = c.version
+const used_import = c.used_import
+
+pub fn vmod_version() string {
+	mut v := '0.0.0'
+	vmod := @VMOD_FILE
+	if vmod.len > 0 {
+		if vmod.contains('version:') {
+			v = vmod.all_after('version:').all_before('\n').replace("'", '').replace('"',
+				'').trim(' ')
+		}
+	}
+	return v
+}
