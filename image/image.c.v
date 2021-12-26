@@ -43,28 +43,31 @@ pub enum InitFlags {
 	webp = C.IMG_INIT_WEBP // 0x00000008
 }
 
-// Loads dynamic libraries and prepares them for use.  Flags should be
+fn C.IMG_Init(flags int) int
+
+// init loads dynamic libraries and prepares them for use.  Flags should be
 // one or more flags from IMG_InitFlags OR'd together.
 // It returns the flags successfully initialized, or 0 on failure.
-fn C.IMG_Init(flags int) int
 pub fn init(flags int) int {
 	return C.IMG_Init(flags)
 }
 
-// Unloads libraries loaded with IMG_Init
 fn C.IMG_Quit()
+
+// quit unloads libraries loaded with IMG_Init
 pub fn quit() {
 	C.IMG_Quit()
 }
 
-// Load an image from an SDL data source.
+fn C.IMG_LoadTyped_RW(src &C.SDL_RWops, freesrc int, @type &char) &C.SDL_Surface
+
+// load_typed_rw loads an image from an SDL data source.
 // The 'type' may be one of: "BMP", "GIF", "PNG", etc.
 //
 // If the image format supports a transparent pixel, SDL will set the
 // colorkey for the surface.  You can enable RLE acceleration on the
 // surface afterwards by calling:
 // SDL_SetColorKey(image, SDL_RLEACCEL, image->format->colorkey);
-fn C.IMG_LoadTyped_RW(src &C.SDL_RWops, freesrc int, @type &char) &C.SDL_Surface
 pub fn load_typed_rw(src &sdl.RWops, freesrc int, @type string) &sdl.Surface {
 	return C.IMG_LoadTyped_RW(src, freesrc, @type.str)
 }
@@ -80,19 +83,17 @@ pub fn load_rw(src &sdl.RWops, freesrc int) &sdl.Surface {
 	return C.IMG_Load_RW(src, freesrc)
 }
 
-// Load an image directly into a render texture.
+// load_texture loads an image directly into a render texture.
 fn C.IMG_LoadTexture(renderer &C.SDL_Renderer, file &char) &C.SDL_Texture
 pub fn load_texture(renderer &sdl.Renderer, file string) &sdl.Texture {
 	return C.IMG_LoadTexture(renderer, file.str)
 }
 
-// extern DECLSPEC SDL_Texture * SDLCALL IMG_LoadTexture_RW(SDL_Renderer *renderer, SDL_RWops *src, int freesrc)
 fn C.IMG_LoadTexture_RW(renderer &C.SDL_Renderer, src &C.SDL_RWops, freesrc int) &C.SDL_Texture
 pub fn load_texture_rw(renderer &sdl.Renderer, src &sdl.RWops, freesrc int) &sdl.Texture {
 	return C.IMG_LoadTexture_RW(renderer, src, freesrc)
 }
 
-// extern DECLSPEC SDL_Texture * SDLCALL IMG_LoadTextureTyped_RW(SDL_Renderer *renderer, SDL_RWops *src, int freesrc, const char *type)
 fn C.IMG_LoadTextureTyped_RW(renderer &C.SDL_Renderer, src &C.SDL_RWops, freesrc int, @type &char) &C.SDL_Texture
 pub fn load_texture_typed_rw(renderer &sdl.Renderer, src &sdl.RWops, freesrc int, @type &char) &sdl.Texture {
 	return C.IMG_LoadTextureTyped_RW(renderer, src, freesrc, @type)
