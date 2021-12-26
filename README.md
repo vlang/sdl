@@ -100,7 +100,7 @@ If you get no music with the above, try:
 
 ### Windows
 
-`$ .github\workflows\windows-install-sdl.bat`
+[`$ .github\workflows\windows-install-sdl.bat`](https://github.com/vlang/sdl/blob/master/.github/workflows/windows-install-sdl.bat)
 
 ## Contributions
 
