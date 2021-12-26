@@ -21,6 +21,11 @@ pub fn C.SDL_IMAGE_VERSION(v &sdl.Version)
 // This is the version number macro for the current SDL_image version.
 pub fn C.SDL_IMAGE_COMPILEDVERSION() int
 
+// compiledversion is the version number macro for the current SDL_mixer version.
+pub fn compiledversion() int {
+	return C.SDL_VERSIONNUM(image.major_version, image.minor_version, image.patchlevel)
+}
+
 // This macro will evaluate to true if compiled with SDL_image at least X.Y.Z.
 pub fn C.SDL_IMAGE_VERSION_ATLEAST(x int, y int, z int) bool
 
