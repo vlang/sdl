@@ -19,6 +19,7 @@ Currently available APIs:
 - events         (SDL_events.h)
 - filesystem     (SDL_filesystem.h)
 - gamecontroller (SDL_gamecontroller.h)
+- gesture        (SDL_gesture.h)
 - haptic         (SDL_haptic.h)
 - hints          (SDL_hints.h)
 - joystick       (SDL_joystick.h)
