@@ -34,17 +34,42 @@ pub const (
 	audio_mask_datatype = C.SDL_AUDIO_MASK_DATATYPE
 	audio_mask_endian   = C.SDL_AUDIO_MASK_ENDIAN
 	audio_mask_signed   = C.SDL_AUDIO_MASK_SIGNED
-		/*
-		// TODO
-	audio_bitsize           = C.SDL_AUDIO_BITSIZE(x)
-	audio_isfloat           = C.SDL_AUDIO_ISFLOAT(x)
-	audio_isbigendian       = C.SDL_AUDIO_ISBIGENDIAN(x)
-	audio_issigned          = C.SDL_AUDIO_ISSIGNED(x)
-	audio_isint             = C.SDL_AUDIO_ISINT(x)
-	audio_islittleendian    = C.SDL_AUDIO_ISLITTLEENDIAN(x)
-	audio_isunsigned        = C.SDL_AUDIO_ISUNSIGNED(x)
-		*/
 )
+
+fn C.SDL_AUDIO_BITSIZE(x int) int
+pub fn audio_bitsize(x int) int {
+	return C.SDL_AUDIO_BITSIZE(x)
+}
+
+fn C.SDL_AUDIO_ISFLOAT(x int) bool
+pub fn audio_isfloat(x int) bool {
+	return C.SDL_AUDIO_ISFLOAT(x)
+}
+
+fn C.SDL_AUDIO_ISBIGENDIAN(x int) bool
+pub fn audio_isbigendian(x int) bool {
+	return C.SDL_AUDIO_ISBIGENDIAN(x)
+}
+
+fn C.SDL_AUDIO_ISSIGNED(x int) bool
+pub fn audio_issigned(x int) bool {
+	return C.SDL_AUDIO_ISSIGNED(x)
+}
+
+fn C.SDL_AUDIO_ISINT(x int) bool
+pub fn audio_isint(x int) bool {
+	return C.SDL_AUDIO_ISINT(x)
+}
+
+fn C.SDL_AUDIO_ISLITTLEENDIAN(x int) bool
+pub fn audio_islittleendian(x int) bool {
+	return C.SDL_AUDIO_ISLITTLEENDIAN(x)
+}
+
+fn C.SDL_AUDIO_ISUNSIGNED(x int) bool
+pub fn audio_isunsigned(x int) bool {
+	return C.SDL_AUDIO_ISUNSIGNED(x)
+}
 
 // Audio format flags
 //
