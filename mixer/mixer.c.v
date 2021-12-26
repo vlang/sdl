@@ -15,6 +15,7 @@ pub const (
 )
 
 fn C.SDL_MIXER_VERSION(v &sdl.Version)
+
 // mixer_version macro is used to fill a version structure with the compile-time
 // version of the SDL_mixer library.
 pub fn mixer_version(v &sdl.Version) {
@@ -29,12 +30,14 @@ pub fn mixer_compiledversion() int {
 }
 
 pub fn C.SDL_MIXER_VERSION_ATLEAST(x int, y int, z int) bool
+
 // mixer_version_atleast macro evaluates to true if compiled with SDL_mixer at least X.Y.Z.
 pub fn mixer_version_atleast(x int, y int, z int) bool {
 	return C.SDL_MIXER_VERSION_ATLEAST(x, y, z)
 }
 
 fn C.Mix_Linked_Version() &C.SDL_version
+
 // linked_version gets the version of the dynamically linked SDL_mixer library.
 // it should NOT be used to fill a version structure, instead you should
 // use the SDL_MIXER_VERSION() macro.
@@ -125,7 +128,6 @@ struct C.Mix_Music {
 
 pub type Music = C.Mix_Music
 
-
 fn C.Mix_OpenAudio(frequency int, format u16, channels int, chunksize int) int
 
 // open_audio opens the mixer with a certain audio format
@@ -151,7 +153,6 @@ pub fn allocate_channels(numchans int) int {
 }
 
 fn C.Mix_QuerySpec(frequency &int, format &u16, channels &int) int
-
 
 // query_spec finds out what the actual audio device parameters are.
 // The function returns 1 if the audio has been opened, 0 otherwise.
@@ -190,7 +191,6 @@ pub fn load_mus_type_rw(src &C.SDL_RWops, @type MusicType, freesrc int) &Music {
 	return C.Mix_LoadMUSType_RW(src, C.Mix_MusicType(@type), freesrc)
 }
 
-
 fn C.Mix_QuickLoad_WAV(mem &byte) &C.Mix_Chunk
 
 // quick_load_wav loads a wave file of the mixer format from a memory buffer
@@ -199,12 +199,14 @@ pub fn quick_load_wav(mem &byte) &Chunk {
 }
 
 fn C.Mix_QuickLoad_RAW(mem &byte, len u32) &C.Mix_Chunk
+
 // quick_load_raw loads raw audio data of the mixer format from a memory buffer
 pub fn quick_load_raw(mem &byte, len u32) &Chunk {
 	return C.Mix_QuickLoad_RAW(mem, len)
 }
 
 fn C.Mix_FreeChunk(chunk &C.Mix_Chunk)
+
 // free_chunk frees an audio chunk previously loaded
 pub fn free_chunk(chunk &Chunk) {
 	C.Mix_FreeChunk(chunk)
@@ -215,9 +217,7 @@ pub fn free_music(music &Music) {
 	C.Mix_FreeMusic(music)
 }
 
-
 fn C.Mix_GetNumChunkDecoders() int
-
 
 // get_num_chunk_decoders gets a list of chunk/music decoders that this build of SDL_mixer provides.
 // This list can change between builds AND runs of the program, if external
@@ -295,7 +295,6 @@ pub fn set_post_mix(mix_func MixFunc, arg voidptr) {
 	C.Mix_SetPostMix(mix_func, arg)
 }
 
-
 // hook_music adds your own music player or additional mixer function.
 // If 'mix_func' is NULL, the default music player is re-enabled.
 fn C.Mix_HookMusic(mix_func MixFunc, arg voidptr)
@@ -321,6 +320,7 @@ pub fn get_music_hook_data() voidptr {
 type ChannelFinished = fn (channel int)
 
 fn C.Mix_ChannelFinished(channel_finished ChannelFinished)
+
 // channel_finished adds your own callback when a channel has finished playing. NULL
 // to disable callback. The callback may be called from the mixer's audio
 // callback or it could be called as a result of Mix_HaltChannel(), etc.
@@ -351,7 +351,6 @@ pub fn channel_finished(channel_finished ChannelFinished) {
 // `typedef void (SDLCALL *Mix_EffectFunc_t)(int chan, void *stream, int len, void *udata);`
 type MixEffectFunc = fn (channel int, stream voidptr, len int, udata voidptr)
 
-
 // This is a callback that signifies that a channel has finished all its
 // loops and has completed playback. This gets called if the buffer
 // plays out normally, or if you call Mix_HaltChannel(), implicitly stop
@@ -362,7 +361,6 @@ type MixEffectFunc = fn (channel int, stream voidptr, len int, udata voidptr)
 //
 // typedef void (SDLCALL *Mix_EffectDone_t)(int chan, void *udata);
 type MixEffectDone = fn (channel int, udata voidptr)
-
 
 fn C.Mix_RegisterEffect(channel int, f MixEffectFunc, d MixEffectDone, arg voidptr) int
 
@@ -442,7 +440,6 @@ pub fn unregister_all_effects(channel int) int {
 	return C.Mix_UnregisterAllEffects(channel)
 }
 
-
 // These are the internally-defined mixing effects. They use the same API that
 // effects defined in the application use, but are provided here as a
 // convenience. Some effects can reduce their quality or use more memory in
@@ -479,7 +476,6 @@ fn C.Mix_SetPanning(channel int, left byte, right byte) int
 pub fn set_panning(channel int, left byte, right byte) int {
 	return C.Mix_SetPanning(channel, left, right)
 }
-
 
 fn C.Mix_SetPosition(channel int, angle i16, distance byte) int
 
@@ -523,7 +519,6 @@ pub fn set_position(channel int, angle i16, distance byte) int {
 	return C.Mix_SetPosition(channel, angle, distance)
 }
 
-
 fn C.Mix_SetDistance(channel int, distance byte) int
 
 // set_distance set the "distance" of a channel. (distance) is an integer from 0 to 255
@@ -557,6 +552,7 @@ pub fn set_distance(channel int, distance byte) int {
 }
 
 fn C.Mix_SetReverseStereo(channel int, flip int) int
+
 // set_reverse_stereo causes a channel to reverse its stereo. This is handy if the user has his
 // speakers hooked up backwards, or you would like to have a minor bit of
 // psychedelia in your sound code.  :)  Calling this function with (flip)
@@ -602,12 +598,14 @@ pub fn group_channel(which int, tag int) int {
 }
 
 fn C.Mix_GroupChannels(from int, to int, tag int) int
+
 // group_channels assigns several consecutive channels to a group
 pub fn group_channels(from int, to int, tag int) int {
 	return C.Mix_GroupChannels(from, to, tag)
 }
 
 fn C.Mix_GroupAvailable(tag int) int
+
 // group_available finds the first available channel in a group of channels,
 // returning -1 if none are available.
 pub fn group_available(tag int) int {
@@ -615,6 +613,7 @@ pub fn group_available(tag int) int {
 }
 
 fn C.Mix_GroupCount(tag int) int
+
 // group_count returns the number of channels in a group. This is also a subtle
 // way to get the total number of channels when 'tag' is -1
 pub fn group_count(tag int) int {
@@ -622,18 +621,21 @@ pub fn group_count(tag int) int {
 }
 
 fn C.Mix_GroupOldest(tag int) int
+
 // group_oldest finds the "oldest" sample playing in a group of channels
 pub fn group_oldest(tag int) int {
 	return C.Mix_GroupOldest(tag)
 }
 
 fn C.Mix_GroupNewer(tag int) int
+
 // group_newer finds the "most recent" (i.e. last) sample playing in a group of channels
 pub fn group_newer(tag int) int {
 	return C.Mix_GroupNewer(tag)
 }
 
 fn C.Mix_PlayChannel(channel int, chunk &C.Mix_Chunk, loops int) int
+
 // play_channel plays an audio chunk on a specific channel.
 // If the specified channel is -1, play on the first free channel.
 // If 'loops' is greater than zero, loop the sound that many times.
@@ -644,6 +646,7 @@ pub fn play_channel(channel int, chunk &Chunk, loops int) int {
 }
 
 fn C.Mix_PlayChannelTimed(channel int, chunk &C.Mix_Chunk, loops int, ticks int) int
+
 // play_channel_timed does the same as above, but the sound is played at most 'ticks' milliseconds
 pub fn play_channel_timed(channel int, chunk &Chunk, loops int, ticks int) int {
 	return C.Mix_PlayChannelTimed(channel, chunk, loops, ticks)
@@ -655,6 +658,7 @@ pub fn play_music(music &Music, loops int) int {
 }
 
 fn C.Mix_FadeInMusic(music &C.Mix_Music, loops int, ms int) int
+
 // fade_in_music fades in music or a channel over "ms" milliseconds, same semantics as the "Play" functions
 pub fn fade_in_music(music &Music, loops int, ms int) int {
 	return C.Mix_FadeInMusic(music, loops, ms)
@@ -696,6 +700,7 @@ pub fn volume_music(volume int) int {
 }
 
 fn C.Mix_HaltChannel(channel int) int
+
 // halt_channel halts playing of a particular channel
 pub fn halt_channel(channel int) int {
 	return C.Mix_HaltChannel(channel)
@@ -712,6 +717,7 @@ pub fn halt_music() int {
 }
 
 fn C.Mix_ExpireChannel(channel int, ticks int) int
+
 // expire_channel changes the expiration delay for a particular channel.
 // The sample will stop playing after the 'ticks' milliseconds have elapsed,
 // or remove the expiration if 'ticks' is -1
@@ -720,6 +726,7 @@ pub fn expire_channel(channel int, ticks int) int {
 }
 
 fn C.Mix_FadeOutChannel(which int, ms int) int
+
 // fade_out_channel halts a channel, fading it out progressively till it's silent
 // The ms parameter indicates the number of milliseconds the fading
 // will take.
@@ -757,6 +764,7 @@ pub fn pause(channel int) {
 }
 
 fn C.Mix_Resume(channel int)
+
 // resume resumes a particular channel
 pub fn resume(channel int) {
 	C.Mix_Resume(channel)
@@ -800,6 +808,7 @@ pub fn set_music_position(position f64) int {
 }
 
 fn C.Mix_Playing(channel int) int
+
 // playing checks the status of a specific channel.
 // If the specified channel is -1, check all channels.
 pub fn playing(channel int) int {
@@ -819,6 +828,7 @@ pub fn set_music_cmd(command string) int {
 }
 
 fn C.Mix_SetSynchroValue(value int) int
+
 // set_synchro_value. Synchro value is set by MikMod from modules while playing
 pub fn set_synchro_value(value int) int {
 	return C.Mix_SetSynchroValue(value)
@@ -850,6 +860,7 @@ pub fn each_sound_font(f Func, data voidptr) int {
 }
 
 fn C.Mix_GetChunk(channel int) &C.Mix_Chunk
+
 // get_chunk gets the Mix_Chunk currently associated with a mixer channel
 // Returns NULL if it's an invalid channel, or there's no chunk associated.
 pub fn get_chunk(channel int) &Chunk {
@@ -857,6 +868,7 @@ pub fn get_chunk(channel int) &Chunk {
 }
 
 fn C.Mix_CloseAudio()
+
 // close_audio closes the mixer, halting all playing audio
 pub fn close_audio() {
 	C.Mix_CloseAudio()
