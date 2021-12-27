@@ -28,7 +28,7 @@ jobs:
           cd SDL2-${SDL2_VERSION}
           mkdir build
           cd build
-          ../configure --prefix /tmp/sdl2
+          ../configure --prefix /tmp/sdl2-${SDL2_VERSION}
           make
           make install
 
@@ -64,7 +64,7 @@ jobs:
 
       - name: Build sdl examples
         run: |
-          export SDL_V_CFLAGS="$(/tmp/sdl2/bin/sdl2-config --cflags --libs)"
+          export SDL_V_CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
           v -cflags "$SDL_V_CFLAGS" run sdl/examples/versions
           for example in sdl/examples/*; do
               echo "v -cflags \"$SDL_V_CFLAGS\" $example"
