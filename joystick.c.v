@@ -57,10 +57,10 @@ pub type JoystickID = int // C.SDL_JoystickID // Sint32 / int
 // JoystickPowerLevel is C.SDL_JoystickPowerLevel
 pub enum JoystickPowerLevel {
 	unknown = -1
-	empty
-	low
-	medium
-	full
+	empty // <= 5%
+	low // <= 20%
+	medium // <= 70%
+	full // <= 100%
 	wired
 	max
 }
@@ -99,6 +99,14 @@ fn C.SDL_JoystickNameForIndex(device_index int) &char
 // If no name can be found, this function returns NULL.
 pub fn joystick_name_for_index(device_index int) &char {
 	return C.SDL_JoystickNameForIndex(device_index)
+}
+
+fn C.SDL_JoystickGetDevicePlayerIndex(device_index int) int
+
+// joystick_get_device_player_index gets the player index of a joystick, or -1 if it's not available
+// This can be called before any joysticks are opened.
+pub fn joystick_get_device_player_index(device_index int) int {
+	return C.SDL_JoystickGetDevicePlayerIndex(device_index)
 }
 
 fn C.SDL_JoystickGetDeviceGUID(device_index int) C.SDL_JoystickGUID
@@ -179,6 +187,15 @@ fn C.SDL_JoystickName(joystick &C.SDL_Joystick) &char
 // If no name can be found, this function returns NULL.
 pub fn joystick_name(joystick &Joystick) string {
 	return unsafe { cstring_to_vstring(C.SDL_JoystickName(joystick)) }
+}
+
+fn C.SDL_JoystickGetPlayerIndex(joystick &C.SDL_Joystick) int
+
+// joystick_get_player_index gets the player index of an opened joystick, or -1 if it's not available
+//
+// For XInput controllers this returns the XInput user index.
+pub fn joystick_get_player_index(joystick &Joystick) int {
+	return C.SDL_JoystickGetPlayerIndex(joystick)
 }
 
 fn C.SDL_JoystickGetGUID(joystick &C.SDL_Joystick) C.SDL_JoystickGUID
@@ -363,6 +380,22 @@ fn C.SDL_JoystickGetButton(joystick &C.SDL_Joystick, button int) byte
 // The button indices start at index 0.
 pub fn joystick_get_button(joystick &Joystick, button int) byte {
 	return C.SDL_JoystickGetButton(joystick, button)
+}
+
+fn C.SDL_JoystickRumble(joystick &C.SDL_Joystick, low_frequency_rumble u16, high_frequency_rumble u16, duration_ms u32) int
+
+// joystick_rumble triggers a rumble effect
+// Each call to this function cancels any previous rumble effect, and calling it with 0 intensity stops any rumbling.
+//
+// `joystick` The joystick to vibrate
+// `low_frequency_rumble` The intensity of the low frequency (left) rumble motor, from 0 to 0xFFFF
+// `high_frequency_rumble` The intensity of the high frequency (right) rumble motor, from 0 to 0xFFFF
+// `duration_ms` The duration of the rumble effect, in milliseconds
+//
+// returns 0, or -1 if rumble isn't supported on this joystick
+pub fn joystick_rumble(joystick &Joystick, low_frequency_rumble u16, high_frequency_rumble u16, duration_ms u32) int {
+	return C.SDL_JoystickRumble(joystick, low_frequency_rumble, high_frequency_rumble,
+		duration_ms)
 }
 
 fn C.SDL_JoystickClose(joystick &C.SDL_Joystick)

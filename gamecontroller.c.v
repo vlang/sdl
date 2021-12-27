@@ -182,6 +182,22 @@ pub fn game_controller_name_for_index(joystick_index int) string {
 	return vstr
 }
 
+fn C.SDL_GameControllerMappingForDeviceIndex(joystick_index int) &char
+
+// game_controller_mapping_for_device_index gets the mapping of a game controller.
+// This can be called before any controllers are opened.
+//
+// returns the mapping string. Must be freed with SDL_free(). Returns NULL if no mapping is available
+pub fn game_controller_mapping_for_device_index(joystick_index int) string {
+	cstr := C.SDL_GameControllerMappingForDeviceIndex(joystick_index)
+	mut vstr := ''
+	if !isnil(cstr) {
+		vstr = unsafe { cstring_to_vstring(cstr) }
+		unsafe { free(cstr) }
+	}
+	return vstr
+}
+
 fn C.SDL_GameControllerOpen(joystick_index int) &C.SDL_GameController
 
 // game_controller_open opens a game controller for use.
@@ -207,6 +223,15 @@ fn C.SDL_GameControllerName(gamecontroller &C.SDL_GameController) &char
 // game_controller_name returns the name for this currently opened controller
 pub fn game_controller_name(gamecontroller &GameController) string {
 	return unsafe { cstring_to_vstring(C.SDL_GameControllerName(gamecontroller)) }
+}
+
+fn C.SDL_GameControllerGetPlayerIndex(gamecontroller &C.SDL_GameController) int
+
+// game_controller_get_player_index gets the player index of an opened game controller, or -1 if it's not available
+//
+// For XInput controllers this returns the XInput user index.
+pub fn game_controller_get_player_index(gamecontroller &GameController) int {
+	return C.SDL_GameControllerGetPlayerIndex(gamecontroller)
 }
 
 fn C.SDL_GameControllerGetVendor(gamecontroller &C.SDL_GameController) u16
@@ -386,6 +411,22 @@ fn C.SDL_GameControllerGetButton(gamecontroller &C.SDL_GameController, button C.
 // The button indices start at index 0.
 pub fn game_controller_get_button(gamecontroller &GameController, button GameControllerButton) byte {
 	return C.SDL_GameControllerGetButton(gamecontroller, C.SDL_GameControllerButton(button))
+}
+
+fn C.SDL_GameControllerRumble(gamecontroller &C.SDL_GameController, low_frequency_rumble u16, high_frequency_rumble u16, duration_ms u32) int
+
+// game_controller_rumble triggers a rumble effect
+// Each call to this function cancels any previous rumble effect, and calling it with 0 intensity stops any rumbling.
+//
+// `gamecontroller` The controller to vibrate
+// `low_frequency_rumble` The intensity of the low frequency (left) rumble motor, from 0 to 0xFFFF
+// `high_frequency_rumble` The intensity of the high frequency (right) rumble motor, from 0 to 0xFFFF
+// `duration_ms` The duration of the rumble effect, in milliseconds
+//
+// returns 0, or -1 if rumble isn't supported on this joystick
+pub fn game_controller_rumble(gamecontroller &GameController, low_frequency_rumble u16, high_frequency_rumble u16, duration_ms u32) int {
+	return C.SDL_GameControllerRumble(gamecontroller, low_frequency_rumble, high_frequency_rumble,
+		duration_ms)
 }
 
 fn C.SDL_GameControllerClose(gamecontroller &C.SDL_GameController)

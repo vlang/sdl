@@ -21,8 +21,9 @@ pub const (
 	init_haptic         = u32(C.SDL_INIT_HAPTIC) // 0x00001000u
 	init_gamecontroller = u32(C.SDL_INIT_GAMECONTROLLER) // 0x00002000u SDL_INIT_GAMECONTROLLER implies SDL_INIT_JOYSTICK
 	init_events         = u32(C.SDL_INIT_EVENTS) // 0x00004000u
+	init_sensor         = u32(C.SDL_INIT_SENSOR) // 0x00008000u
 	init_noparachute    = u32(C.SDL_INIT_NOPARACHUTE) // 0x00100000u compatibility; this flag is ignored.
-	init_everything     = u32(C.SDL_INIT_EVERYTHING) // ( SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC | INIT_GAMECONTROLLER )
+	init_everything     = u32(C.SDL_INIT_EVERYTHING) // ( SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC | INIT_GAMECONTROLLER | SDL_INIT_SENSOR )
 )
 
 fn C.SDL_Init(flags u32) int

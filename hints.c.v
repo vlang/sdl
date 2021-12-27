@@ -186,6 +186,12 @@ pub const (
 	// By default SDL will not grab the keyboard so system shortcuts still work.
 	hint_grab_keyboard                            = 'SDL_GRAB_KEYBOARD'
 
+	// A variable setting the double click time, in milliseconds.
+	hint_mouse_double_click_time                  = 'SDL_MOUSE_DOUBLE_CLICK_TIME'
+
+	// A variable setting the double click radius, in pixels.
+	hint_mouse_double_click_radius                = 'SDL_MOUSE_DOUBLE_CLICK_RADIUS'
+
 	// A variable setting the speed scale for mouse motion, in floating point, when the mouse is not in relative mode
 	hint_mouse_normal_speed_scale                 = 'SDL_MOUSE_NORMAL_SPEED_SCALE'
 
@@ -238,7 +244,7 @@ pub const (
 	// "1"       - Disable idle timer
 	hint_idle_timer_disabled                      = 'SDL_IOS_IDLE_TIMER_DISABLED'
 
-	// A variable controlling which orientations are allowed on iOS.
+	// A variable controlling which orientations are allowed on iOS/Android.
 	//
 	// In some circumstances it is necessary to be able to explicitly control
 	// which UI orientations are allowed.
@@ -351,6 +357,80 @@ pub const (
 	// The default value is "0".  This hint may be set at any time.
 	hint_joystick_allow_background_events         = 'SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS'
 
+	// A variable controlling whether the HIDAPI joystick drivers should be used.
+	//
+	// This variable can be set to the following values:
+	//   "0"       - HIDAPI drivers are not used
+	//   "1"       - HIDAPI drivers are used (the default)
+	//
+	// This variable is the default for all drivers, but can be overridden by the hints for specific drivers below.
+	//
+	hint_joystick_hidapi                          = 'SDL_JOYSTICK_HIDAPI'
+
+	// A variable controlling whether the HIDAPI driver for PS4 controllers should be used.
+	//
+	// This variable can be set to the following values:
+	//   "0"       - HIDAPI driver is not used
+	//   "1"       - HIDAPI driver is used
+	//
+	// The default is the value of SDL_HINT_JOYSTICK_HIDAPI
+	//
+	hint_joystick_hidapi_ps4                      = 'SDL_JOYSTICK_HIDAPI_PS4'
+
+	// A variable controlling whether extended input reports should be used for PS4 controllers when using the HIDAPI driver.
+	//
+	// This variable can be set to the following values:
+	//   "0"       - extended reports are not enabled (the default)
+	//   "1"       - extended reports
+	//
+	// Extended input reports allow rumble on Bluetooth PS4 controllers, but
+	// break DirectInput handling for applications that don't use SDL.
+	//
+	// Once extended reports are enabled, they can not be disabled without
+	// power cycling the controller.
+	//
+	hint_joystick_hidapi_ps4_rumble               = 'SDL_JOYSTICK_HIDAPI_PS4_RUMBLE'
+
+	// A variable controlling whether the HIDAPI driver for Steam Controllers should be used.
+	//
+	// This variable can be set to the following values:
+	//   "0"       - HIDAPI driver is not used
+	//   "1"       - HIDAPI driver is used
+	//
+	// The default is the value of SDL_HINT_JOYSTICK_HIDAPI
+	//
+	hint_joystick_hidapi_steam                    = 'SDL_JOYSTICK_HIDAPI_STEAM'
+
+	// A variable controlling whether the HIDAPI driver for Nintendo Switch controllers should be used.
+	//
+	// This variable can be set to the following values:
+	//   "0"       - HIDAPI driver is not used
+	//   "1"       - HIDAPI driver is used
+	//
+	// The default is the value of SDL_HINT_JOYSTICK_HIDAPI
+	//
+	hint_joystick_hidapi_switch                   = 'SDL_JOYSTICK_HIDAPI_SWITCH'
+
+	// A variable controlling whether the HIDAPI driver for XBox controllers should be used.
+	//
+	// This variable can be set to the following values:
+	//   "0"       - HIDAPI driver is not used
+	//   "1"       - HIDAPI driver is used
+	//
+	// The default is the value of SDL_HINT_JOYSTICK_HIDAPI
+	//
+	hint_joystick_hidapi_xbox                     = 'SDL_JOYSTICK_HIDAPI_XBOX'
+
+	// A variable that controls whether Steam Controllers should be exposed using the SDL joystick and game controller APIs
+	//
+	// The variable can be set to the following values:
+	//   "0"       - Do not scan for Steam Controllers
+	//   "1"       - Scan for Steam Controllers (the default)
+	//
+	// The default value is "1".  This hint must be set before initializing the joystick subsystem.
+	//
+	hint_enable_steam_controllers                 = 'SDL_ENABLE_STEAM_CONTROLLERS'
+
 	// If set to "0" then never set the top most bit on a SDL Window, even if the video mode expects it.
 	// This is a debugging aid for developers and not expected to be used by end users. The default is "1"
 	//
@@ -403,6 +483,10 @@ pub const (
 	// This is specially useful if you build SDL against a non glibc libc library (such as musl) which
 	// provides a relatively small default thread stack size (a few kilobytes versus the default 8MB glibc uses).
 	// Support for this hint is currently available only in the pthread, Windows, and PSP backend.
+	//
+	// Instead of this hint, in 2.0.9 and later, you can use
+	// SDL_CreateThreadWithStackSize(). This hint only works with the classic
+	// SDL_CreateThread().
 	hint_thread_stack_size                        = 'SDL_THREAD_STACK_SIZE'
 
 	// If set to 1, then do not allow high-DPI windows. ("Retina" on Mac and iOS)
@@ -602,6 +686,21 @@ pub const (
 	//
 	// The value of this hint is used at runtime, so it can be changed at any time.
 	hint_android_separate_mouse_and_touch         = 'SDL_ANDROID_SEPARATE_MOUSE_AND_TOUCH'
+
+	// A variable to control whether we trap the Android back button to handle it manually.
+	// This is necessary for the right mouse button to work on some Android devices, or
+	// to be able to trap the back button for use in your code reliably.  If set to true,
+	// the back button will show up as an SDL_KEYDOWN / SDL_KEYUP pair with a keycode of
+	// SDL_SCANCODE_AC_BACK.
+	//
+	// The variable can be set to the following values:
+	//   "0"       - Back button will be handled as usual for system. (default)
+	//   "1"       - Back button will be trapped, allowing you to handle the key press
+	//               manually.  (This will also let right mouse click work on systems
+	//               where the right mouse button functions as back.)
+	//
+	//  The value of this hint is used at runtime, so it can be changed at any time.
+	hint_android_trap_back_button                 = 'SDL_ANDROID_TRAP_BACK_BUTTON'
 
 	// A variable to control whether the return key on the soft keyboard
 	// should hide the soft keyboard on Android and iOS.

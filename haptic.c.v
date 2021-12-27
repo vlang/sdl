@@ -424,15 +424,15 @@ pub type HapticRamp = C.SDL_HapticRamp
 // This struct is exclusively for the ::SDL_HAPTIC_LEFTRIGHT effect.
 //
 // The Left/Right effect is used to explicitly control the large and small
-// motors, commonly found in modern game controllers. One motor is high
-// frequency, the other is low frequency.
+// motors, commonly found in modern game controllers. The small (right) motor
+// is high frequency, and the large (left) motor is low frequency.
 //
 // See also: SDL_HAPTIC_LEFTRIGHT
 // See also: SDL_HapticEffect
 [typedef]
 struct C.SDL_HapticLeftRight {
 	@type           u16 // ::SDL_HAPTIC_LEFTRIGHT
-	length          u32 // Duration of the effect.
+	length          u32 // Duration of the effect in milliseconds.
 	large_magnitude u16 // Control of the large controller motor.
 	small_magnitude u16 // Control of the small controller motor.
 }

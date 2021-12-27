@@ -100,6 +100,13 @@ pub fn has_avx2() bool {
 	return C.SDL_HasAVX2()
 }
 
+fn C.SDL_HasAVX512F() bool
+
+// has_avx512f returns true if the CPU has AVX-512F (foundation) features.
+pub fn has_avx512f() bool {
+	return C.SDL_HasAVX512F()
+}
+
 fn C.SDL_HasNEON() bool
 
 // has_neon returns true if the CPU has NEON (ARM SIMD) features.

@@ -111,10 +111,11 @@ pub const (
 //
 // Which audio format changes are allowed when opening a device.
 pub const (
-	audio_allow_frequency_change = C.SDL_AUDIO_ALLOW_FREQUENCY_CHANGE // 0x00000001
-	audio_allow_format_change    = C.SDL_AUDIO_ALLOW_FORMAT_CHANGE // 0x00000002
-	audio_allow_channels_change  = C.SDL_AUDIO_ALLOW_CHANNELS_CHANGE // 0x00000004
-	audio_allow_any_change       = C.SDL_AUDIO_ALLOW_ANY_CHANGE
+	audio_allow_frequency_change   = C.SDL_AUDIO_ALLOW_FREQUENCY_CHANGE // 0x00000001
+	audio_allow_format_change      = C.SDL_AUDIO_ALLOW_FORMAT_CHANGE // 0x00000002
+	audio_allow_channels_change    = C.SDL_AUDIO_ALLOW_CHANNELS_CHANGE // 0x00000004
+	sdl_audio_allow_samples_change = C.SDL_AUDIO_ALLOW_SAMPLES_CHANGE // 0x00000008
+	audio_allow_any_change         = C.SDL_AUDIO_ALLOW_ANY_CHANGE
 )
 
 // This function is called when the audio device needs more data.

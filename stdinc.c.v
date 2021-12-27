@@ -198,6 +198,12 @@ pub fn memcmp(s1 voidptr, s2 voidptr, len usize) int {
 }
 
 /*
+// extern DECLSPEC wchar_t *SDLCALL SDL_wcsdup(const wchar_t *wstr)
+fn C.SDL_wcsdup(wstr &C.wchar_t) &C.wchar_t
+pub fn wcsdup(wstr &C.wchar_t) &C.wchar_t{
+	return C.SDL_wcsdup(wstr)
+}
+
 // extern DECLSPEC size_t SDLCALL SDL_wcslen(const wchar_t *wstr)
 fn C.SDL_wcslen(wstr &C.wchar_t) usize
 pub fn wcslen(wstr &C.wchar_t) usize{
@@ -470,6 +476,16 @@ pub fn cos(x f64) f64 {
 fn C.SDL_cosf(x f32) f32
 pub fn cosf(x f32) f32 {
 	return C.SDL_cosf(x)
+}
+
+fn C.SDL_exp(x f64) f64
+pub fn exp(x f64) f64 {
+	return C.SDL_exp(x)
+}
+
+fn C.SDL_expf(x f32) f32
+pub fn expf(x f32) f32 {
+	return C.SDL_expf(x)
 }
 
 fn C.SDL_fabs(x f64) f64

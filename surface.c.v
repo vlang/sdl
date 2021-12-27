@@ -208,6 +208,15 @@ pub fn set_color_key(surface &Surface, flag int, key u32) int {
 	return C.SDL_SetColorKey(surface, flag, key)
 }
 
+fn C.SDL_HasColorKey(surface &C.SDL_Surface) bool
+
+// has_color_key returns whether the surface has a color key
+//
+// returns SDL_TRUE if the surface has a color key, or SDL_FALSE if the surface is NULL or has no color key
+pub fn has_color_key(surface &Surface) bool {
+	return C.SDL_HasColorKey(surface)
+}
+
 fn C.SDL_GetColorKey(surface &C.SDL_Surface, key &u32) int
 
 // get_color_key gets the color key (transparent pixel) in a blittable surface.

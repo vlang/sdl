@@ -144,6 +144,22 @@ pub enum WindowEventID {
 	hit_test = C.SDL_WINDOWEVENT_HIT_TEST // Window had a hit test that wasn't SDL_HITTEST_NORMAL.
 }
 
+// DisplayEventID is an event subtype for display events
+// DisplayEventID is C.SDL_DisplayEventID
+pub enum DisplayEventID {
+	@none = C.SDL_DISPLAYEVENT_NONE // Never used
+	orientation = C.SDL_DISPLAYEVENT_ORIENTATION // Display orientation has changed to data1
+}
+
+// DisplayOrientation is C.SDL_DisplayOrientation
+pub enum DisplayOrientation {
+	unknown = C.SDL_ORIENTATION_UNKNOWN // The display orientation can't be determined
+	landscape = C.SDL_ORIENTATION_LANDSCAPE // The display is in landscape mode, with the right side up, relative to portrait mode
+	landscape_flipped = C.SDL_ORIENTATION_LANDSCAPE_FLIPPED // The display is in landscape mode, with the left side up, relative to portrait mode
+	portrait = C.SDL_ORIENTATION_PORTRAIT // The display is in portrait mode
+	portrait_flipped = C.SDL_ORIENTATION_PORTRAIT_FLIPPED // The display is in portrait mode, upside down
+}
+
 // GLContext is an opaque handle to an OpenGL context.
 
 // typedef void *SDL_GLContext; // ??
@@ -324,20 +340,6 @@ pub fn get_display_bounds(display_index int, rect &C.SDL_Rect) int {
 	return C.SDL_GetDisplayBounds(display_index, rect)
 }
 
-fn C.SDL_GetDisplayDPI(display_index int, ddpi &f32, hdpi &f32, vdpi &f32) int
-
-// get_display_dpi gets the dots/pixels-per-inch for a display
-//
-// NOTE Diagonal, horizontal and vertical DPI can all be optionally
-// returned if the parameter is non-NULL.
-//
-// returns 0 on success, or -1 if no DPI information is available or the index is out of range.
-//
-// See also: SDL_GetNumVideoDisplays()
-pub fn get_display_dpi(display_index int, ddpi &f32, hdpi &f32, vdpi &f32) int {
-	return C.SDL_GetDisplayDPI(display_index, ddpi, hdpi, vdpi)
-}
-
 fn C.SDL_GetDisplayUsableBounds(display_index int, rect &C.SDL_Rect) int
 
 // get_display_usable_bounds gets the usable desktop area represented by a display, with the
@@ -357,6 +359,31 @@ fn C.SDL_GetDisplayUsableBounds(display_index int, rect &C.SDL_Rect) int
 // See also: SDL_GetNumVideoDisplays()
 pub fn get_display_usable_bounds(display_index int, rect &C.SDL_Rect) int {
 	return C.SDL_GetDisplayUsableBounds(display_index, rect)
+}
+
+fn C.SDL_GetDisplayDPI(display_index int, ddpi &f32, hdpi &f32, vdpi &f32) int
+
+// get_display_dpi gets the dots/pixels-per-inch for a display
+//
+// NOTE Diagonal, horizontal and vertical DPI can all be optionally
+// returned if the parameter is non-NULL.
+//
+// returns 0 on success, or -1 if no DPI information is available or the index is out of range.
+//
+// See also: SDL_GetNumVideoDisplays()
+pub fn get_display_dpi(display_index int, ddpi &f32, hdpi &f32, vdpi &f32) int {
+	return C.SDL_GetDisplayDPI(display_index, ddpi, hdpi, vdpi)
+}
+
+fn C.SDL_GetDisplayOrientation(display_index int) C.SDL_DisplayOrientation
+
+// get_display_orientation gets the orientation of a display
+//
+// returns The orientation of the display, or SDL_ORIENTATION_UNKNOWN if it isn't available.
+//
+// See also: SDL_GetNumVideoDisplays()
+pub fn get_display_orientation(display_index int) DisplayOrientation {
+	return DisplayOrientation(C.SDL_GetDisplayOrientation(display_index))
 }
 
 fn C.SDL_GetNumDisplayModes(display_index int) int

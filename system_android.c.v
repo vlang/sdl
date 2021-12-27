@@ -35,6 +35,27 @@ pub fn is_android_tv() bool {
 	return C.SDL_IsAndroidTV()
 }
 
+fn C.SDL_IsChromebook() bool
+
+// is_chromebook returns true if the application is running on a Chromebook
+pub fn is_chromebook() bool {
+	return C.SDL_IsChromebook()
+}
+
+fn C.SDL_IsDeXMode() bool
+
+// is_dex_mode returns true is the application is running on a Samsung DeX docking station
+pub fn is_dex_mode() bool {
+	return C.SDL_IsDeXMode()
+}
+
+fn C.SDL_AndroidBackButton()
+
+// android_back_button triggers the Android system back button behavior.
+pub fn android_back_button() {
+	C.SDL_AndroidBackButton()
+}
+
 // See the official Android developer guide for more information:
 // http://developer.android.com/guide/topics/data/data-storage.html
 const (

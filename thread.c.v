@@ -26,13 +26,14 @@ type TLSID = u32
 
 // ThreadPriority is the SDL thread priority.
 //
-// NOTE On many systems you require special privileges to set high priority.
+// NOTE On many systems you require special privileges to set high or time critical priority.
 //
 // ThreadPriority is C.SDL_ThreadPriority
 pub enum ThreadPriority {
 	low = C.SDL_THREAD_PRIORITY_LOW
 	normal = C.SDL_THREAD_PRIORITY_NORMAL
 	high = C.SDL_THREAD_PRIORITY_HIGH
+	time_critical = C.SDL_THREAD_PRIORITY_TIME_CRITICAL
 }
 
 // ThreadFunction is the function passed to SDL_CreateThread().
@@ -42,14 +43,20 @@ type ThreadFunction = fn (data voidptr) int
 
 /*
 // TODO win32 & OS2 ???
-// extern DECLSPEC SDL_Thread *SDLCALLSDL_CreateThread(SDL_ThreadFunction fn, const char *name, void *data, pfnSDL_CurrentBeginThread pfnBeginThread, pfnSDL_CurrentEndThread pfnEndThread)
+// extern DECLSPEC SDL_Thread *SDLCALL SDL_CreateThread(SDL_ThreadFunction fn, const char *name, void *data, pfnSDL_CurrentBeginThread pfnBeginThread, pfnSDL_CurrentEndThread pfnEndThread)
 fn C.SDL_CreateThread(func C.SDL_ThreadFunction, name &char, data voidptr, pfn_begin_thread C.pfnSDL_CurrentBeginThread, pfn_end_thread C.pfnSDL_CurrentEndThread) &C.SDL_Thread
 
 pub fn create_thread(func C.SDL_ThreadFunction, name &char, data voidptr, pfn_begin_thread C.pfnSDL_CurrentBeginThread, pfn_end_thread C.pfnSDL_CurrentEndThread) &C.SDL_Thread{
 	return C.SDL_CreateThread(func, name, data, pfn_begin_thread, pfn_end_thread)
 }
 
-// extern DECLSPEC SDL_Thread * SDLCALLSDL_CreateThread(SDL_ThreadFunction fn, const char * name, void * data,                 pfnSDL_CurrentBeginThread pfnBeginThread,                 pfnSDL_CurrentEndThread pfnEndThread)
+// extern DECLSPEC SDL_Thread *SDLCALL SDL_CreateThreadWithStackSize(int (SDLCALL * fn) (void *),                 const char *name, const size_t stacksize, void *data,                 pfnSDL_CurrentBeginThread pfnBeginThread,                 pfnSDL_CurrentEndThread pfnEndThread)
+fn C.SDL_CreateThreadWithStackSize((void* ) &C.int (SDLCALL  fn), name &char, stacksize usize, data voidptr, pfn_begin_thread C.pfnSDL_CurrentBeginThread, pfn_end_thread C.pfnSDL_CurrentEndThread) &C.SDL_Thread
+pub fn create_thread_with_stack_size((void* ) &C.int (SDLCALL  fn), name &char, stacksize usize, data voidptr, pfn_begin_thread C.pfnSDL_CurrentBeginThread, pfn_end_thread C.pfnSDL_CurrentEndThread) &C.SDL_Thread{
+	return C.SDL_CreateThreadWithStackSize((void* ), name, stacksize, data, pfn_begin_thread, pfn_end_thread)
+}
+
+// extern DECLSPEC SDL_Thread * SDLCALL SDL_CreateThread(SDL_ThreadFunction fn, const char * name, void * data,                 pfnSDL_CurrentBeginThread pfnBeginThread,                 pfnSDL_CurrentEndThread pfnEndThread)
 fn C.SDL_CreateThread(func C.SDL_ThreadFunction, name &char, data voidptr, pfn_begin_thread C.pfnSDL_CurrentBeginThread, pfn_end_thread C.pfnSDL_CurrentEndThread) &C.SDL_Thread
 pub fn create_thread(func C.SDL_ThreadFunction, name &char, data voidptr, pfn_begin_thread C.pfnSDL_CurrentBeginThread, pfn_end_thread C.pfnSDL_CurrentEndThread) &C.SDL_Thread{
 	return C.SDL_CreateThread(func, name, data, pfn_begin_thread, pfn_end_thread)
@@ -58,7 +65,17 @@ pub fn create_thread(func C.SDL_ThreadFunction, name &char, data voidptr, pfn_be
 
 fn C.SDL_CreateThread(func ThreadFunction, name &char, data voidptr) &C.SDL_Thread
 
-// create_thread createa a thread.
+// create_thread creates a thread with a default stack size.
+//
+// This is equivalent to calling:
+// SDL_CreateThreadWithStackSize(fn, name, 0, data);
+pub fn create_thread(func ThreadFunction, name string, data voidptr) &Thread {
+	return C.SDL_CreateThread(func, name.str, data)
+}
+
+fn C.SDL_CreateThreadWithStackSize(func ThreadFunction, name &char, stacksize usize, data voidptr) &C.SDL_Thread
+
+// create_thread_with_stack_size creates a a thread.
 //
 // Thread naming is a little complicated: Most systems have very small
 //  limits for the string length (Haiku has 32 bytes, Linux currently has 16,
@@ -74,8 +91,16 @@ fn C.SDL_CreateThread(func ThreadFunction, name &char, data voidptr) &C.SDL_Thre
 // If a system imposes requirements, SDL will try to munge the string for
 //  it (truncate, etc), but the original string contents will be available
 //  from SDL_GetThreadName().
-pub fn create_thread(func ThreadFunction, name string, data voidptr) &Thread {
-	return C.SDL_CreateThread(func, name.str, data)
+//
+// The size (in bytes) of the new stack can be specified. Zero means "use
+//  the system default" which might be wildly different between platforms
+//  (x86 Linux generally defaults to eight megabytes, an embedded device
+//  might be a few kilobytes instead).
+//
+// In SDL 2.1, stacksize will be folded into the original SDL_CreateThread
+//  function.
+pub fn create_thread_with_stack_size(func ThreadFunction, name string, stacksize usize, data voidptr) &Thread {
+	return C.SDL_CreateThreadWithStackSize(func, name.str, stacksize, data)
 }
 
 fn C.SDL_GetThreadName(thrd &C.SDL_Thread) &char

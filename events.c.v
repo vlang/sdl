@@ -55,6 +55,8 @@ pub enum EventType {
 	// Called on iOS in applicationDidBecomeActive()
 	// Called on Android in onResume()
 	app_didenterforeground = C.SDL_APP_DIDENTERFOREGROUND
+	// Display events
+	displayevent = C.SDL_DISPLAYEVENT // 0x150 Display state change
 	// Window events
 	windowevent = C.SDL_WINDOWEVENT // 0x200 Window state change
 	syswmevent = C.SDL_SYSWMEVENT
@@ -102,6 +104,8 @@ pub enum EventType {
 	// Audio hotplug events
 	audiodeviceadded = C.SDL_AUDIODEVICEADDED // 0x1100 A new audio device is available
 	audiodeviceremoved = C.SDL_AUDIODEVICEREMOVED // An audio device has been removed.
+	// Sensor events
+	sensorupdate = C.SDL_SENSORUPDATE // 0x1200 A sensor was updated
 	// Render events
 	render_targets_reset = C.SDL_RENDER_TARGETS_RESET // 0x2000 The render targets have been reset and their contents need to be updated
 	render_device_reset = C.SDL_RENDER_DEVICE_RESET /// The device has been reset and all textures need to be recreated
@@ -119,6 +123,22 @@ pub:
 }
 
 pub type CommonEvent = C.SDL_CommonEvent
+
+// DisplayEvent is display state change event data (event.display.*)
+// DisplayEvent is C.SDL_DisplayEvent
+[typedef]
+struct C.SDL_DisplayEvent {
+	@type     u32  // ::SDL_DISPLAYEVENT
+	timestamp u32  // In milliseconds, populated using SDL_GetTicks()
+	display   u32  // The associated display index
+	event     byte // ::SDL_DisplayEventID
+	padding1  byte //
+	padding2  byte //
+	padding3  byte //
+	data1     int  // event dependent data
+}
+
+pub type DisplayEvent = C.SDL_DisplayEvent
 
 // WindowEvent is window state change event data (event.window.*)
 [typedef]
@@ -431,6 +451,18 @@ pub:
 
 pub type DropEvent = C.SDL_DropEvent
 
+// SensorEvent is sensor event structure (event.sensor.*)
+// SensorEvent is C.SDL_SensorEvent
+[typedef]
+struct C.SDL_SensorEvent {
+	@type     u32    // ::SDL_SENSORUPDATE
+	timestamp u32    // In milliseconds, populated using SDL_GetTicks()
+	which     int    // The instance ID of the sensor
+	data      [6]f32 // Up to 6 values from the sensor - additional values can be queried using SDL_SensorGetData()
+}
+
+pub type SensorEvent = C.SDL_SensorEvent
+
 // QuitEvent is the "quit requested" event
 [typedef]
 struct C.SDL_QuitEvent {
@@ -492,6 +524,7 @@ pub:
 	@type EventType // Event type, shared with all events
 	// display C.SDL_DisplayEvent
 	common  CommonEvent           // C.SDL_CommonEvent           // Common event data
+	display DisplayEvent          // C.SDL_DisplayEvent          // Display event data
 	window  WindowEvent           // C.SDL_WindowEvent           // Window event data
 	key     KeyboardEvent         // C.SDL_KeyboardEvent         // Keyboard event data
 	edit    TextEditingEvent      // C.SDL_TextEditingEvent      // Text editing event data
@@ -508,7 +541,7 @@ pub:
 	cbutton ControllerButtonEvent // C.SDL_ControllerButtonEvent // Game Controller button event data
 	cdevice ControllerDeviceEvent // C.SDL_ControllerDeviceEvent // Game Controller device event data
 	adevice AudioDeviceEvent      // C.SDL_AudioDeviceEvent      // Audio device event data
-	// sensor C.SDL_SensorEvent
+	sensor  SensorEvent // C.SDL_SensorEvent           // Sensor event data
 
 	quit     QuitEvent          // C.SDL_QuitEvent          // Quit request event data
 	user     UserEvent          // C.SDL_UserEvent          // Custom event data

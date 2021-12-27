@@ -96,11 +96,11 @@ fn C.SDL_Vulkan_GetInstanceExtensions(window &C.SDL_Window, p_count &u32, p_name
 // vulkan_get_instance_extensions gets the names of the Vulkan instance extensions needed to create
 // a surface with `SDL_Vulkan_CreateSurface()`.
 //
-// `window` [in] Window for which the required Vulkan instance
+// `window` [in] `NULL` or Window for which the required Vulkan instance
 // extensions should be retrieved
-// `count` [in,out] pointer to an `unsigned` related to the number of
+// `pCount` [in,out] pointer to an `unsigned` related to the number of
 // required Vulkan instance extensions
-// `names` [out] `NULL` or a pointer to an array to be filled with the
+// `pNames` [out] `NULL` or a pointer to an array to be filled with the
 // required Vulkan instance extensions
 //
 // returns `SDL_TRUE` on success, `SDL_FALSE` on error.
@@ -115,6 +115,10 @@ fn C.SDL_Vulkan_GetInstanceExtensions(window &C.SDL_Window, p_count &u32, p_name
 // returned instead of `SDL_TRUE`, to indicate that not all the required
 // extensions were returned.
 //
+// NOTE If `window` is not NULL, it will be checked against its creation
+// flags to ensure that the Vulkan flag is present. This parameter
+// will be removed in a future major release.
+//
 // NOTE The returned list of extensions will contain `VK_KHR_surface`
 // and zero or more platform specific extensions
 //
@@ -122,12 +126,12 @@ fn C.SDL_Vulkan_GetInstanceExtensions(window &C.SDL_Window, p_count &u32, p_name
 // VkCreateInstance, otherwise surface creation will fail.
 //
 // NOTE `window` should have been created with the `SDL_WINDOW_VULKAN` flag.
-//
+// or be `NULL`
 /*
 ```
  unsigned int count;
  // get count of required extensions
- if(!SDL_Vulkan_GetInstanceExtensions(window, &count, NULL))
+ if(!SDL_Vulkan_GetInstanceExtensions(NULL, &count, NULL))
    handle_error();
 
  static const char *const additionalExtensions[] =
@@ -141,7 +145,7 @@ fn C.SDL_Vulkan_GetInstanceExtensions(window &C.SDL_Window, p_count &u32, p_name
    handle_error();
 
  // get names of required extensions
- if(!SDL_Vulkan_GetInstanceExtensions(window, &count, names))
+ if(!SDL_Vulkan_GetInstanceExtensions(NULL, &count, names))
    handle_error();
 
  // copy additional extensions after required extensions
