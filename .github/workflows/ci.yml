@@ -57,7 +57,9 @@ jobs:
           v test-fmt
 
       - name: Build sdl shared
-        run: v -shared -g sdl
+        run: |
+          export SDL_V_CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
+          v -cflags "$SDL_V_CFLAGS" -shared -g sdl
 
       - name: Run tests
         run: v test sdl
