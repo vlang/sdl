@@ -69,21 +69,21 @@ pub type FRect = C.SDL_FRect
 fn C.SDL_PointInRect(p &C.SDL_Point, r &C.SDL_Rect) bool
 
 // point_in_rect returns true if point resides inside a rectangle.
-pub fn point_in_rect(p &C.SDL_Point, r &C.SDL_Rect) bool {
+pub fn point_in_rect(p &Point, r &Rect) bool {
 	return C.SDL_PointInRect(p, r)
 }
 
 fn C.SDL_RectEmpty(r &C.SDL_Rect) bool
 
 // rect_empty returns true if the rectangle has no area.
-pub fn rect_empty(r &C.SDL_Rect) bool {
+pub fn rect_empty(r &Rect) bool {
 	return C.SDL_RectEmpty(r)
 }
 
 fn C.SDL_RectEquals(a &C.SDL_Rect, b &C.SDL_Rect) bool
 
 // rect_equals returns true if the two rectangles are equal.
-pub fn rect_equals(a &C.SDL_Rect, b &C.SDL_Rect) bool {
+pub fn rect_equals(a &Rect, b &Rect) bool {
 	return C.SDL_RectEquals(a, b)
 }
 
