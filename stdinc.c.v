@@ -9,7 +9,7 @@ module sdl
 
 // Basic data types
 
-const (
+pub const (
 	// A signed 8-bit integer type.
 	// typedef int8_t Sint8;
 	// i8
@@ -404,7 +404,7 @@ pub fn vsnprintf(text &C.SDL_OUT_Z_CAP(maxlen) char, maxlen usize, fmt &char, ap
 }
 */
 
-const (
+pub const (
 	m_pi = C.M_PI // 3.14159265358979323846264338327950288 // pi
 )
 
@@ -588,7 +588,7 @@ pub fn tanf(x f32) f32 {
 	return C.SDL_tanf(x)
 }
 
-const (
+pub const (
 	// The SDL implementation of iconv() returns these error codes
 	iconv_error  = C.SDL_ICONV_ERROR // (size_t)-1
 	iconv_e2big  = C.SDL_ICONV_E2BIG // (size_t)-2

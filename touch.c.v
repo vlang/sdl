@@ -13,7 +13,7 @@ type TouchID = i64
 // `typedef Sint64 SDL_FingerID;`
 type FingerID = i64
 
-const (
+pub const (
 	touch_mouseid = C.SDL_TOUCH_MOUSEID
 )
 
