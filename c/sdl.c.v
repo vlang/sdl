@@ -5,7 +5,7 @@ module c
 
 pub const used_import = 1
 
-$if linux || darwin || solaris {
+$if linux || macos || solaris {
 	#pkgconfig --cflags --libs sdl2
 	#flag -lSDL2_ttf -lSDL2_mixer -lSDL2_image
 }
