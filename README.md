@@ -40,6 +40,7 @@ Currently available APIs:
 - render         (SDL_render.h)
 - rwops          (SDL_rwops.h)
 - scancode       (SDL_scancode.h)
+- sensor         (SDL_sensor.h)
 - sdl            (SDL_sdl.h)
 - stdinc         (SDL_stdinc.h)
 - shape          (SDL_shape.h)
