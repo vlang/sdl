@@ -54,7 +54,7 @@ pub fn get_touch_device(index int) TouchID {
 	return C.SDL_GetTouchDevice(index)
 }
 
-fn C.SDL_GetTouchDeviceType(touch_id C.SDL_TouchID) C.SDL_TouchDeviceType
+fn C.SDL_GetTouchDeviceType(touch_id TouchID) C.SDL_TouchDeviceType
 
 // get_touch_device_type gets the type of the given touch device.
 pub fn get_touch_device_type(touch_id TouchID) TouchDeviceType {
