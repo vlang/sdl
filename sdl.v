@@ -5,7 +5,7 @@ module sdl
 
 import sdl.c
 
-const used_import = c.used_import
+pub const used_import = c.used_import
 
 pub fn vmod_version() string {
 	mut v := '0.0.0'
