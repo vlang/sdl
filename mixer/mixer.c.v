@@ -11,7 +11,7 @@ import sdl
 pub const (
 	major_version = C.SDL_MIXER_MAJOR_VERSION // 2
 	minor_version = C.SDL_MIXER_MINOR_VERSION // 0
-	patchlevel    = C.SDL_MIXER_PATCHLEVEL // 2
+	patchlevel    = C.SDL_MIXER_PATCHLEVEL // 4
 )
 
 fn C.SDL_MIXER_VERSION(v &sdl.Version)
@@ -52,6 +52,7 @@ pub enum InitFlags {
 	mp3 = C.MIX_INIT_MP3 // 0x00000008
 	ogg = C.MIX_INIT_OGG // 0x00000010
 	mid = C.MIX_INIT_MID // 0x00000020
+	opus = C.MIX_INIT_OPUS // 0x00000040
 }
 
 fn C.Mix_Init(flags int) int
@@ -115,6 +116,7 @@ pub enum MusicType {
 	mp3_mad_unused = C.MUS_MP3_MAD_UNUSED
 	flac = C.MUS_FLAC
 	modplug_unused = C.MUS_MODPLUG_UNUSED
+	opus = C.MUS_OPUS
 }
 
 pub const (

@@ -11,12 +11,32 @@ import sdl
 pub const (
 	major_version = C.SDL_TTF_MAJOR_VERSION // 2
 	minor_version = C.SDL_TTF_MINOR_VERSION // 0
-	patchlevel    = C.SDL_TTF_PATCHLEVEL // 14
+	patchlevel    = C.SDL_TTF_PATCHLEVEL // 15
 )
 
 // This macro can be used to fill a version structure with the compile-time
 // version of the SDL_ttf library.
-pub fn C.SDL_TTF_VERSION(v &sdl.Version)
+fn C.SDL_TTF_VERSION(v &sdl.Version)
+
+// ttf_version macro is used to fill a version structure with the compile-time
+// version of the SDL_ttf library.
+pub fn ttf_version(v &sdl.Version) {
+	C.SDL_TTF_VERSION(v)
+}
+
+fn C.SDL_TTF_COMPILEDVERSION() int
+
+// compiledversion is the version number macro for the current SDL_ttf version.
+pub fn compiledversion() int {
+	return C.SDL_VERSIONNUM(ttf.major_version, ttf.minor_version, ttf.patchlevel)
+}
+
+pub fn C.SDL_TTF_VERSION_ATLEAST(x int, y int, z int) bool
+
+// ttf_version_atleast macro evaluates to true if compiled with SDL_ttf at least X.Y.Z.
+pub fn ttf_version_atleast(x int, y int, z int) bool {
+	return C.SDL_TTF_VERSION_ATLEAST(x, y, z)
+}
 
 fn C.TTF_Linked_Version() &C.SDL_version
 pub fn linked_version() &sdl.Version {

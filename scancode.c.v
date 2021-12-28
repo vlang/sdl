@@ -14,7 +14,7 @@ module sdl
 // SDL_Event structure.
 //
 // The values in this enumeration are based on the USB usage page standard:
-// http://www.usb.org/developers/hidpage/Hut1_12v2.pdf
+// https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf
 // Scancode is C.SDL_Scancode
 pub enum Scancode {
 	scancode_unknown = C.SDL_SCANCODE_UNKNOWN // 0

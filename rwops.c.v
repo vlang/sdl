@@ -22,15 +22,58 @@ pub const (
 	rw_seek_end = C.RW_SEEK_END // 2, Seek relative to the end of data
 )
 
-// Read/write macros
+fn C.SDL_RWsize(context &C.SDL_RWops) i64
+
+// rw_size returns the size of the file in this rwops, or -1 if unknown
+pub fn rw_size(context &RWops) i64 {
+	return C.SDL_RWsize(context)
+}
+
+fn C.SDL_RWseek(context &C.SDL_RWops, offset i64, whence int) i64
+
+// rw_seek seeks to `offset` relative to `whence`, one of stdio's whence values:
+//  RW_SEEK_SET, RW_SEEK_CUR, RW_SEEK_END
 //
-// Macros to easily read and write from an SDL_RWops structure.
-fn C.SDL_RWsize(ctx &C.SDL_RWops) i64
-fn C.SDL_RWseek(ctx &C.SDL_RWops, offset i64, whence int) i64
-fn C.SDL_RWtell(ctx &C.SDL_RWops) i64
-fn C.SDL_RWread(ctx &C.SDL_RWops, ptr voidptr, size usize, n usize) usize
-fn C.SDL_RWwrite(ctx &C.SDL_RWops, ptr voidptr, size usize, n usize) usize
-fn C.SDL_RWclose(ctx &C.SDL_RWops) int
+//  returns the final offset in the data stream, or -1 on error.
+pub fn rw_seek(context &RWops, offset i64, whence int) i64 {
+	return C.SDL_RWseek(context, offset, whence)
+}
+
+fn C.SDL_RWtell(context &C.SDL_RWops) i64
+
+// rw_tell returns the current offset in the data stream, or -1 on error.
+pub fn rw_tell(context &RWops) i64 {
+	return C.SDL_RWtell(context)
+}
+
+fn C.SDL_RWread(context &C.SDL_RWops, ptr voidptr, size usize, maxnum usize) usize
+
+// rw_read reads up to `maxnum` objects each of size `size` from the data
+//  stream to the area pointed at by `ptr`.
+//
+//  returns the number of objects read, or 0 at error or end of file.
+pub fn rw_read(context &RWops, ptr voidptr, size usize, maxnum usize) usize {
+	return C.SDL_RWread(context, ptr, size, maxnum)
+}
+
+fn C.SDL_RWwrite(context &C.SDL_RWops, ptr voidptr, size usize, num usize) usize
+
+// rw_write writes exactly `num` objects each of size `size` from the area
+//  pointed at by `ptr` to data stream.
+//
+//  returns the number of objects written, or 0 at error or end of file.
+pub fn rw_write(context &RWops, ptr voidptr, size usize, num usize) usize {
+	return C.SDL_RWwrite(context, ptr, size, num)
+}
+
+fn C.SDL_RWclose(context &C.SDL_RWops) int
+
+// rw_close closes and free an allocated SDL_RWops structure.
+//
+//  returns 0 if successful or -1 on write error when flushing data.
+pub fn rw_close(context &RWops) int {
+	return C.SDL_RWclose(context)
+}
 
 // This is the read/write operation structure -- very basic.
 [typedef]
@@ -164,6 +207,21 @@ pub fn load_file_rw(src &RWops, datasize &usize, freesrc int) voidptr {
 }
 
 fn C.SDL_LoadFile(file &char, datasize &usize) voidptr
+
+// load_file loads an entire file.
+//
+//  The data is allocated with a zero byte at the end (null terminated)
+//
+//  If `datasize` is not NULL, it is filled with the size of the data read.
+//
+//  If `freesrc` is non-zero, the stream will be closed after being read.
+//
+//  The data should be freed with SDL_free().
+//
+//  returns the data, or NULL if there was an error.
+pub fn load_file(file string, datasize &usize) voidptr {
+	return C.SDL_LoadFile(file.str, datasize)
+}
 
 // Read endian functions
 //

@@ -7,10 +7,11 @@ module sdl
 // SDL_rect.h
 //
 
-// Point is the structure that defines a point
+// Point is the structure that defines a point (integer)
 //
 // See also: SDL_EnclosePoints
 // See also: SDL_PointInRect
+// Point is C.SDL_Point
 [typedef]
 struct C.SDL_Point {
 pub mut:
@@ -20,7 +21,20 @@ pub mut:
 
 pub type Point = C.SDL_Point
 
-// Rect is a rectangle, with the origin at the upper left.
+// FPoint is the structure that defines a point (floating point)
+//
+// See also: SDL_EnclosePoints
+// See also: SDL_PointInRect
+// FPoint is C.SDL_FPoint
+[typedef]
+struct C.SDL_FPoint {
+	x f32
+	y f32
+}
+
+pub type FPoint = C.SDL_FPoint
+
+// Rect is a rectangle, with the origin at the upper left (integer).
 //
 // See also: SDL_RectEmpty
 // See also: SDL_RectEquals
@@ -28,6 +42,7 @@ pub type Point = C.SDL_Point
 // See also: SDL_IntersectRect
 // See also: SDL_UnionRect
 // See also: SDL_EnclosePoints
+// Rect is C.SDL_Rect
 [typedef]
 struct C.SDL_Rect {
 pub mut:
@@ -38,6 +53,39 @@ pub mut:
 }
 
 pub type Rect = C.SDL_Rect
+
+// FRect is a rectangle, with the origin at the upper left (floating point).
+// FRect is C.SDL_FRect
+[typedef]
+struct C.SDL_FRect {
+	x f32
+	y f32
+	w f32
+	h f32
+}
+
+pub type FRect = C.SDL_FRect
+
+fn C.SDL_PointInRect(p &C.SDL_Point, r &C.SDL_Rect) bool
+
+// point_in_rect returns true if point resides inside a rectangle.
+pub fn point_in_rect(p &C.SDL_Point, r &C.SDL_Rect) bool {
+	return C.SDL_PointInRect(p, r)
+}
+
+fn C.SDL_RectEmpty(r &C.SDL_Rect) bool
+
+// rect_empty returns true if the rectangle has no area.
+pub fn rect_empty(r &C.SDL_Rect) bool {
+	return C.SDL_RectEmpty(r)
+}
+
+fn C.SDL_RectEquals(a &C.SDL_Rect, b &C.SDL_Rect) bool
+
+// rect_equals returns true if the two rectangles are equal.
+pub fn rect_equals(a &C.SDL_Rect, b &C.SDL_Rect) bool {
+	return C.SDL_RectEquals(a, b)
+}
 
 fn C.SDL_HasIntersection(a &C.SDL_Rect, b &C.SDL_Rect) bool
 

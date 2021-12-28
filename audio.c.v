@@ -419,24 +419,57 @@ pub fn pause_audio_device(dev AudioDeviceID, pause_on int) {
 
 fn C.SDL_LoadWAV_RW(src &C.SDL_RWops, freesrc int, spec &C.SDL_AudioSpec, audio_buf &&byte, audio_len &u32) &C.SDL_AudioSpec
 
-// load_wav_rw loads a WAVE from the data source, automatically freeing
-// that source if `freesrc` is non-zero.  For example, to load a WAVE file,
-// you could do:
+// load_wav_rw loads the audio data of a WAVE file into memory
+//
+//  Loading a WAVE file requires `src`, `spec`, `audio_buf` and `audio_len`
+//  to be valid pointers. The entire data portion of the file is then loaded
+//  into memory and decoded if necessary.
+//
+//  If `freesrc` is non-zero, the data source gets automatically closed and
+//  freed before the function returns.
+//
+//  Supported are RIFF WAVE files with the formats PCM (8, 16, 24, and 32 bits),
+//  IEEE Float (32 bits), Microsoft ADPCM and IMA ADPCM (4 bits), and A-law and
+//  µ-law (8 bits). Other formats are currently unsupported and cause an error.
+//
+//  If this function succeeds, the pointer returned by it is equal to `spec`
+//  and the pointer to the audio data allocated by the function is written to
+//  `audio_buf` and its length in bytes to `audio_len`. The `SDL_AudioSpec`
+//  members `freq`, `channels`, and `format` are set to the values of the
+//  audio data in the buffer. The `samples` member is set to a sane default and
+//  all others are set to zero.
+//
+//  It's necessary to use SDL_FreeWAV() to free the audio data returned in
+//  `audio_buf` when it is no longer used.
+//
+//  Because of the underspecification of the Waveform format, there are many
+//  problematic files in the wild that cause issues with strict decoders. To
+//  provide compatibility with these files, this decoder is lenient in regards
+//  to the truncation of the file, the fact chunk, and the size of the RIFF
+//  chunk. The hints SDL_HINT_WAVE_RIFF_CHUNK_SIZE, SDL_HINT_WAVE_TRUNCATION,
+//  and SDL_HINT_WAVE_FACT_CHUNK can be used to tune the behavior of the
+//  loading process.
+//
+//  Any file that is invalid (due to truncation, corruption, or wrong values in
+//  the headers), too big, or unsupported causes an error. Additionally, any
+//  critical I/O error from the data source will terminate the loading process
+//  with an error. The function returns NULL on error and in all cases (with the
+//  exception of `src` being NULL), an appropriate error message will be set.
+//
+//  It is required that the data source supports seeking.
+//
+//  Example:
 /*
 ```
      SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, ...);
 ```
 */
-// If this function succeeds, it returns the given SDL_AudioSpec,
-// filled with the audio data format of the wave data, and sets
-// `audio_buf` to a malloc()'d buffer containing the audio data,
-// and sets `audio_len` to the length of that audio buffer, in bytes.
-// You need to free the audio buffer with SDL_FreeWAV() when you are
-// done with it.
-//
-// This function returns NULL and sets the SDL error message if the
-// wave file cannot be opened, uses an unknown data format, or is
-// corrupt.  Currently raw and MS-ADPCM WAVE files are supported.
+//  `src` The data source with the WAVE data
+//  `freesrc` A integer value that makes the function close the data source if non-zero
+//  `spec` A pointer filled with the audio format of the audio data
+//  `audio_buf` A pointer filled with the audio data allocated by the function
+//  `audio_len` A pointer filled with the length of the audio data buffer in bytes
+//  returns NULL on error, or non-NULL on success.
 pub fn load_wav_rw(src &RWops, freesrc int, spec &AudioSpec, audio_buf &&byte, audio_len &u32) &AudioSpec {
 	return C.SDL_LoadWAV_RW(src, freesrc, spec, audio_buf, audio_len)
 }

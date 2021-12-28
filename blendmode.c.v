@@ -47,12 +47,12 @@ fn C.SDL_ComposeCustomBlendMode(src_color_factor C.SDL_BlendFactor, dst_color_fa
 // compose_custom_blend_mode creates a custom blend mode, which may
 // or may not be supported by a given renderer
 //
-// `srcColorFactor`
-// `dstColorFactor`
-// `colorOperation`
-// `srcAlphaFactor`
-// `dstAlphaFactor`
-// `alphaOperation`
+// `srcColorFactor` source color factor
+// `dstColorFactor` destination color factor
+// `colorOperation` color operation
+// `srcAlphaFactor` source alpha factor
+// `dstAlphaFactor` destination alpha factor
+// `alphaOperation` alpha operation
 //
 // The result of the blend mode operation will be:
 // dstRGB = dstRGB * dstColorFactor colorOperation srcRGB * srcColorFactor

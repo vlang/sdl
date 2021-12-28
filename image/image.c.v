@@ -11,7 +11,7 @@ import sdl
 pub const (
 	major_version = C.SDL_IMAGE_MAJOR_VERSION // 2
 	minor_version = C.SDL_IMAGE_MINOR_VERSION // 0
-	patchlevel    = C.SDL_IMAGE_PATCHLEVEL // 3
+	patchlevel    = C.SDL_IMAGE_PATCHLEVEL // 5
 )
 
 // This macro can be used to fill a version structure with the compile-time

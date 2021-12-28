@@ -225,6 +225,13 @@ pub const (
 	// By default SDL will generate mouse events for touch events
 	hint_touch_mouse_events                       = 'SDL_TOUCH_MOUSE_EVENTS'
 
+	// A variable controlling whether mouse events should generate synthetic touch events
+	//
+	// This variable can be set to the following values:
+	// "0"       - Mouse events will not generate touch events (default for desktop platforms)
+	// "1"       - Mouse events will generate touch events (default for mobile platforms, such as Android and iOS)
+	hint_mouse_touch_events                       = 'SDL_MOUSE_TOUCH_EVENTS'
+
 	// Minimize your SDL_Window if it loses key focus when in fullscreen mode. Defaults to true.
 	//
 	hint_video_minimize_on_focus_loss             = 'SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS'
@@ -323,6 +330,14 @@ pub const (
 	// This hint must be set before calling SDL_Init(SDL_INIT_GAMECONTROLLER)
 	// You can update mappings after the system is initialized with SDL_GameControllerMappingForGUID() and SDL_GameControllerAddMapping()
 	hint_gamecontrollerconfig                     = 'SDL_GAMECONTROLLERCONFIG'
+
+	// A variable that lets you provide a file with extra gamecontroller db entries.
+	//
+	// The file should contain lines of gamecontroller config data, see SDL_gamecontroller.h
+	//
+	// This hint must be set before calling SDL_Init(SDL_INIT_GAMECONTROLLER)
+	// You can update mappings after the system is initialized with SDL_GameControllerMappingForGUID() and SDL_GameControllerAddMapping()
+	hint_gamecontrollerconfig_file                = 'SDL_GAMECONTROLLERCONFIG_FILE'
 
 	// A variable containing a list of devices to skip when scanning for game controllers.
 	//
@@ -677,16 +692,6 @@ pub const (
 	// and text that is being composed will be rendered in its own UI.
 	hint_ime_internal_editing                     = 'SDL_IME_INTERNAL_EDITING'
 
-	// A variable to control whether mouse and touch events are to be treated together or separately
-	//
-	// The variable can be set to the following values:
-	// "0"       - Mouse events will be handled as touch events, and touch will raise fake mouse
-	// events. This is the behaviour of SDL <= 2.0.3. (default)
-	// "1"       - Mouse events will be handled separately from pure touch events.
-	//
-	// The value of this hint is used at runtime, so it can be changed at any time.
-	hint_android_separate_mouse_and_touch         = 'SDL_ANDROID_SEPARATE_MOUSE_AND_TOUCH'
-
 	// A variable to control whether we trap the Android back button to handle it manually.
 	// This is necessary for the right mouse button to work on some Android devices, or
 	// to be able to trap the back button for use in your code reliably.  If set to true,
@@ -701,6 +706,15 @@ pub const (
 	//
 	//  The value of this hint is used at runtime, so it can be changed at any time.
 	hint_android_trap_back_button                 = 'SDL_ANDROID_TRAP_BACK_BUTTON'
+
+	// A variable to control whether the event loop will block itself when the app is paused.
+	//
+	// The variable can be set to the following values:
+	// "0"       - Non blocking.
+	// "1"       - Blocking. (default)
+	//
+	// The value should be set before SDL is initialized.
+	hint_android_block_on_pause                   = 'SDL_ANDROID_BLOCK_ON_PAUSE'
 
 	// A variable to control whether the return key on the soft keyboard
 	// should hide the soft keyboard on Android and iOS.
@@ -857,6 +871,106 @@ pub const (
 	// For more information, see Apple's documentation:
 	// https://developer.apple.com/library/content/documentation/Audio/Conceptual/AudioSessionProgrammingGuide/AudioSessionCategoriesandModes/AudioSessionCategoriesandModes.html
 	hint_audio_category                           = 'SDL_AUDIO_CATEGORY'
+
+	// A variable controlling whether the 2D render API is compatible or efficient.
+	//
+	// This variable can be set to the following values:
+	//
+	// "0"     - Don't use batching to make rendering more efficient.
+	// "1"     - Use batching, but might cause problems if app makes its own direct OpenGL calls.
+	//
+	// Up to SDL 2.0.9, the render API would draw immediately when requested. Now
+	// it batches up draw requests and sends them all to the GPU only when forced
+	// to (during SDL_RenderPresent, when changing render targets, by updating a
+	// texture that the batch needs, etc). This is significantly more efficient,
+	// but it can cause problems for apps that expect to render on top of the
+	// render API's output. As such, SDL will disable batching if a specific
+	// render backend is requested (since this might indicate that the app is
+	// planning to use the underlying graphics API directly). This hint can
+	// be used to explicitly request batching in this instance. It is a contract
+	// that you will either never use the underlying graphics API directly, or
+	// if you do, you will call SDL_RenderFlush() before you do so any current
+	// batch goes to the GPU before your work begins. Not following this contract
+	// will result in undefined behavior.
+	// /
+	hint_render_batching                          = 'SDL_RENDER_BATCHING'
+
+	// A variable controlling whether SDL logs all events pushed onto its internal queue.
+	//
+	// This variable can be set to the following values:
+	//
+	// "0"     - Don't log any events (default)
+	// "1"     - Log all events except mouse and finger motion, which are pretty spammy.
+	// "2"     - Log all events.
+	//
+	// This is generally meant to be used to debug SDL itself, but can be useful
+	// for application developers that need better visibility into what is going
+	// on in the event queue. Logged events are sent through SDL_Log(), which
+	// means by default they appear on stdout on most platforms or maybe
+	// OutputDebugString() on Windows, and can be funneled by the app with
+	// SDL_LogSetOutputFunction(), etc.
+	//
+	// This hint can be toggled on and off at runtime, if you only need to log
+	// events for a small subset of program execution.
+	hint_event_logging                            = 'SDL_EVENT_LOGGING'
+
+	// Controls how the size of the RIFF chunk affects the loading of a WAVE file.
+	//
+	// The size of the RIFF chunk (which includes all the sub-chunks of the WAVE
+	// file) is not always reliable. In case the size is wrong, it's possible to
+	// just ignore it and step through the chunks until a fixed limit is reached.
+	//
+	// Note that files that have trailing data unrelated to the WAVE file or
+	// corrupt files may slow down the loading process without a reliable boundary.
+	// By default, SDL stops after 10000 chunks to prevent wasting time. Use the
+	// environment variable SDL_WAVE_CHUNK_LIMIT to adjust this value.
+	//
+	// This variable can be set to the following values:
+	//
+	// "force"        - Always use the RIFF chunk size as a boundary for the chunk search
+	// "ignorezero"   - Like "force", but a zero size searches up to 4 GiB (default)
+	// "ignore"       - Ignore the RIFF chunk size and always search up to 4 GiB
+	// "maximum"      - Search for chunks until the end of file (not recommended)
+	hint_wave_riff_chunk_size                     = 'SDL_WAVE_RIFF_CHUNK_SIZE'
+
+	// Controls how a truncated WAVE file is handled.
+	//
+	// A WAVE file is considered truncated if any of the chunks are incomplete or
+	// the data chunk size is not a multiple of the block size. By default, SDL
+	// decodes until the first incomplete block, as most applications seem to do.
+	//
+	// This variable can be set to the following values:
+	//
+	// "verystrict" - Raise an error if the file is truncated
+	// "strict"     - Like "verystrict", but the size of the RIFF chunk is ignored
+	// "dropframe"  - Decode until the first incomplete sample frame
+	// "dropblock"  - Decode until the first incomplete block (default)
+	hint_wave_truncation                          = 'SDL_WAVE_TRUNCATION'
+
+	// Controls how the fact chunk affects the loading of a WAVE file.
+	//
+	// The fact chunk stores information about the number of samples of a WAVE
+	// file. The Standards Update from Microsoft notes that this value can be used
+	// to 'determine the length of the data in seconds'. This is especially useful
+	// for compressed formats (for which this is a mandatory chunk) if they produce
+	// multiple sample frames per block and truncating the block is not allowed.
+	// The fact chunk can exactly specify how many sample frames there should be
+	// in this case.
+	//
+	// Unfortunately, most application seem to ignore the fact chunk and so SDL
+	// ignores it by default as well.
+	//
+	// This variable can be set to the following values:
+	//
+	// "truncate"    - Use the number of samples to truncate the wave data if
+	// the fact chunk is present and valid
+	// "strict"      - Like "truncate", but raise an error if the fact chunk
+	// is invalid, not present for non-PCM formats, or if the
+	// data chunk doesn't have that many samples
+	// "ignorezero"  - Like "truncate", but ignore fact chunk if the number of
+	// samples is zero
+	// "ignore"      - Ignore fact chunk entirely (default)
+	hint_wave_fact_chunk                          = 'SDL_WAVE_FACT_CHUNK'
 )
 
 // HintPriority is C.SDL_HintPriority

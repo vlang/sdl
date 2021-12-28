@@ -53,8 +53,8 @@ fn C.SDL_Vulkan_LoadLibrary(path &char) int
 //   applications to link with libvulkan (and historically MoltenVK was
 //   provided as a static library). If it is not found then, on macOS, SDL
 //   will attempt to load `vulkan.framework/vulkan`, `libvulkan.1.dylib`,
-//   `MoltenVK.framework/MoltenVK` and `libMoltenVK.dylib` in that order.
-//   On iOS SDL will attempt to load `libMoltenVK.dylib`. Applications
+//   followed by `libvulkan.dylib`, in that order.
+//   On iOS SDL will attempt to load `libvulkan.dylib` only. Applications
 //   using a dynamic framework or .dylib must ensure it is included in its
 //   application bundle.
 //

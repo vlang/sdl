@@ -822,6 +822,156 @@ pub fn render_copy_ex(renderer &Renderer, texture &Texture, srcrect &Rect, dstre
 	return C.SDL_RenderCopyEx(renderer, texture, srcrect, dstrect, angle, center, C.SDL_RendererFlip(int(flip)))
 }
 
+fn C.SDL_RenderDrawPointF(renderer &C.SDL_Renderer, x f32, y f32) int
+
+// render_draw_point_f draws a point on the current rendering target.
+//
+//  `renderer` The renderer which should draw a point.
+//  `x` The x coordinate of the point.
+//  `y` The y coordinate of the point.
+//
+//  returns 0 on success, or -1 on error
+///
+pub fn render_draw_point_f(renderer &Renderer, x f32, y f32) int {
+	return C.SDL_RenderDrawPointF(renderer, x, y)
+}
+
+fn C.SDL_RenderDrawPointsF(renderer &C.SDL_Renderer, points &C.SDL_FPoint, count int) int
+
+// render_draw_points_f draws multiple points on the current rendering target.
+//
+//  `renderer` The renderer which should draw multiple points.
+//  `points` The points to draw
+//  `count` The number of points to draw
+//
+//  returns 0 on success, or -1 on error
+///
+pub fn render_draw_points_f(renderer &Renderer, points &FPoint, count int) int {
+	return C.SDL_RenderDrawPointsF(renderer, points, count)
+}
+
+fn C.SDL_RenderDrawLineF(renderer &C.SDL_Renderer, x1 f32, y1 f32, x2 f32, y2 f32) int
+
+// render_draw_line_f draws a line on the current rendering target.
+//
+//  `renderer` The renderer which should draw a line.
+//  `x`1 The x coordinate of the start point.
+//  `y`1 The y coordinate of the start point.
+//  `x`2 The x coordinate of the end point.
+//  `y`2 The y coordinate of the end point.
+//
+//  returns 0 on success, or -1 on error
+///
+pub fn render_draw_line_f(renderer &Renderer, x1 f32, y1 f32, x2 f32, y2 f32) int {
+	return C.SDL_RenderDrawLineF(renderer, x1, y1, x2, y2)
+}
+
+fn C.SDL_RenderDrawLinesF(renderer &C.SDL_Renderer, points &C.SDL_FPoint, count int) int
+
+// render_draw_lines_f draws a series of connected lines on the current rendering target.
+//
+//  `renderer` The renderer which should draw multiple lines.
+//  `points` The points along the lines
+//  `count` The number of points, drawing count-1 lines
+//
+//  returns 0 on success, or -1 on error
+///
+pub fn render_draw_lines_f(renderer &Renderer, points &FPoint, count int) int {
+	return C.SDL_RenderDrawLinesF(renderer, points, count)
+}
+
+fn C.SDL_RenderDrawRectF(renderer &C.SDL_Renderer, rect &C.SDL_FRect) int
+
+// render_draw_rect_f draws a rectangle on the current rendering target.
+//
+//  `renderer` The renderer which should draw a rectangle.
+//  `rect` A pointer to the destination rectangle, or NULL to outline the entire rendering target.
+//
+//  returns 0 on success, or -1 on error
+///
+pub fn render_draw_rect_f(renderer &Renderer, rect &FRect) int {
+	return C.SDL_RenderDrawRectF(renderer, rect)
+}
+
+fn C.SDL_RenderDrawRectsF(renderer &C.SDL_Renderer, rects &C.SDL_FRect, count int) int
+
+// render_draw_rects_f draws some number of rectangles on the current rendering target.
+//
+//  `renderer` The renderer which should draw multiple rectangles.
+//  `rects` A pointer to an array of destination rectangles.
+//  `count` The number of rectangles.
+//
+//  returns 0 on success, or -1 on error
+///
+pub fn render_draw_rects_f(renderer &Renderer, rects &FRect, count int) int {
+	return C.SDL_RenderDrawRectsF(renderer, rects, count)
+}
+
+fn C.SDL_RenderFillRectF(renderer &C.SDL_Renderer, rect &C.SDL_FRect) int
+
+// render_fill_rect_f fills a rectangle on the current rendering target with the drawing color.
+//
+//  `renderer` The renderer which should fill a rectangle.
+//  `rect` A pointer to the destination rectangle, or NULL for the entire
+//              rendering target.
+//
+//  returns 0 on success, or -1 on error
+///
+pub fn render_fill_rect_f(renderer &Renderer, rect &FRect) int {
+	return C.SDL_RenderFillRectF(renderer, rect)
+}
+
+fn C.SDL_RenderFillRectsF(renderer &C.SDL_Renderer, rects &C.SDL_FRect, count int) int
+
+// render_fill_rects_f fills some number of rectangles on the current rendering target with the drawing color.
+//
+//  `renderer` The renderer which should fill multiple rectangles.
+//  `rects` A pointer to an array of destination rectangles.
+//  `count` The number of rectangles.
+//
+//  returns 0 on success, or -1 on error
+///
+pub fn render_fill_rects_f(renderer &Renderer, rects &FRect, count int) int {
+	return C.SDL_RenderFillRectsF(renderer, rects, count)
+}
+
+fn C.SDL_RenderCopyF(renderer &C.SDL_Renderer, texture &C.SDL_Texture, srcrect &C.SDL_Rect, dstrect &C.SDL_FRect) int
+
+// render_copy_f copys a portion of the texture to the current rendering target.
+//
+//  `renderer` The renderer which should copy parts of a texture.
+//  `texture` The source texture.
+//  `srcrect`   A pointer to the source rectangle, or NULL for the entire
+//                   texture.
+//  `dstrect`   A pointer to the destination rectangle, or NULL for the
+//                   entire rendering target.
+//
+//  returns 0 on success, or -1 on error
+///
+pub fn render_copy_f(renderer &Renderer, texture &Texture, srcrect &Rect, dstrect &FRect) int {
+	return C.SDL_RenderCopyF(renderer, texture, srcrect, dstrect)
+}
+
+fn C.SDL_RenderCopyExF(renderer &C.SDL_Renderer, texture &C.SDL_Texture, srcrect &C.SDL_Rect, dstrect &C.SDL_FRect, angle f64, center &C.SDL_FPoint, flip C.SDL_RendererFlip) int
+
+// render_copy_ex_f copys a portion of the source texture to the current rendering target, rotating it by angle around the given center
+//
+//  `renderer` The renderer which should copy parts of a texture.
+//  `texture` The source texture.
+//  `srcrect`   A pointer to the source rectangle, or NULL for the entire
+//                   texture.
+//  `dstrect`   A pointer to the destination rectangle, or NULL for the
+//                   entire rendering target.
+//  `angle`    An angle in degrees that indicates the rotation that will be applied to dstrect, rotating it in a clockwise direction
+//  `center`   A pointer to a point indicating the point around which dstrect will be rotated (if NULL, rotation will be done around dstrect.w/2, dstrect.h/2).
+//  `flip`     An SDL_RendererFlip value stating which flipping actions should be performed on the texture
+//
+//  returns 0 on success, or -1 on error
+///
+pub fn render_copy_ex_f(renderer &Renderer, texture &Texture, srcrect &Rect, dstrect &FRect, angle f64, center &FPoint, flip RendererFlip) int {
+	return C.SDL_RenderCopyExF(renderer, texture, srcrect, dstrect, angle, center, C.SDL_RendererFlip(int(flip)))
+}
+
 fn C.SDL_RenderReadPixels(renderer &C.SDL_Renderer, rect &C.SDL_Rect, format u32, pixels voidptr, pitch int) int
 
 // render_read_pixels reads pixels from the current rendering target.
@@ -836,7 +986,7 @@ fn C.SDL_RenderReadPixels(renderer &C.SDL_Renderer, rect &C.SDL_Rect, format u32
 //
 // returns 0 on success, or -1 if pixel reading is not supported.
 //
-// \warning This is a very slow operation, and should not be used frequently.
+// WARNING This is a very slow operation, and should not be used frequently.
 pub fn render_read_pixels(renderer &Renderer, rect &Rect, format u32, pixels voidptr, pitch int) int {
 	return C.SDL_RenderReadPixels(renderer, rect, format, pixels, pitch)
 }
@@ -866,6 +1016,34 @@ fn C.SDL_DestroyRenderer(renderer &C.SDL_Renderer)
 // See also: SDL_CreateRenderer()
 pub fn destroy_renderer(renderer &Renderer) {
 	C.SDL_DestroyRenderer(renderer)
+}
+
+fn C.SDL_RenderFlush(renderer &C.SDL_Renderer) int
+
+// render_flush forces the rendering context to flush any pending commands to the
+//              underlying rendering API.
+//
+//  You do not need to (and in fact, shouldn't) call this function unless
+//  you are planning to call into OpenGL/Direct3D/Metal/whatever directly
+//  in addition to using an SDL_Renderer.
+//
+//  This is for a very-specific case: if you are using SDL's render API,
+//  you asked for a specific renderer backend (OpenGL, Direct3D, etc),
+//  you set SDL_HINT_RENDER_BATCHING to "1", and you plan to make
+//  OpenGL/D3D/whatever calls in addition to SDL render API calls. If all of
+//  this applies, you should call SDL_RenderFlush() between calls to SDL's
+//  render API and the low-level API you're using in cooperation.
+//
+//  In all other cases, you can ignore this function. This is only here to
+//  get maximum performance out of a specific situation. In all other cases,
+//  SDL will do the right thing, perhaps at a performance loss.
+//
+//  This function is first available in SDL 2.0.10, and is not needed in
+//  2.0.9 and earlier, as earlier versions did not queue rendering commands
+//  at all, instead flushing them to the OS immediately.
+///
+pub fn render_flush(renderer &Renderer) int {
+	return C.SDL_RenderFlush(renderer)
 }
 
 fn C.SDL_GL_BindTexture(texture &C.SDL_Texture, texw &f32, texh &f32) int

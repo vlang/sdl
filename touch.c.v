@@ -14,8 +14,19 @@ type TouchID = i64
 type FingerID = i64
 
 const (
-	touch_mouseid = C.SDL_TOUCH_MOUSEID
+	// Used as the device ID for mouse events simulated with touch input
+	touch_mouseid  = C.SDL_TOUCH_MOUSEID // ((Uint32)-1)
+	// Used as the SDL_TouchID for touch events simulated with mouse input
+	mouse_touch_id = C.SDL_MOUSE_TOUCHID // ((Sint64)-1)
 )
+
+// TouchDeviceType is C.SDL_TouchDeviceType
+pub enum TouchDeviceType {
+	invalid = C.SDL_TOUCH_DEVICE_INVALID // -1
+	direct = C.SDL_TOUCH_DEVICE_DIRECT // touch screen with window-relative coordinates
+	indirect_absolute = C.SDL_TOUCH_DEVICE_INDIRECT_ABSOLUTE // trackpad with absolute device coordinates
+	indirect_relative = C.SDL_TOUCH_DEVICE_INDIRECT_RELATIVE // trackpad with screen cursor-relative coordinates
+}
 
 [typedef]
 struct C.SDL_Finger {
@@ -41,6 +52,13 @@ fn C.SDL_GetTouchDevice(index int) TouchID
 // get_touch_device gets the touch ID with the given index, or 0 if the index is invalid.
 pub fn get_touch_device(index int) TouchID {
 	return C.SDL_GetTouchDevice(index)
+}
+
+fn C.SDL_GetTouchDeviceType(touch_id C.SDL_TouchID) C.SDL_TouchDeviceType
+
+// get_touch_device_type gets the type of the given touch device.
+pub fn get_touch_device_type(touch_id TouchID) TouchDeviceType {
+	return TouchDeviceType(int(C.SDL_GetTouchDeviceType(touch_id)))
 }
 
 fn C.SDL_GetNumTouchFingers(touch_id TouchID) int
