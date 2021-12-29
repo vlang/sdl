@@ -11,7 +11,6 @@ module sdl
 /*
 fn C.SDL_MostSignificantBitIndex32(x u32) int
 
-
 // most_significant_bit_index32 gets the index of the most significant bit. Result is undefined when called
 //  with 0. This operation can also be stated as "count leading zeroes" and
 //  "log base 2".
