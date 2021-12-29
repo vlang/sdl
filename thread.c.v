@@ -18,11 +18,11 @@ pub type Thread = C.SDL_Thread
 
 // The SDL thread ID
 // `typedef unsigned long SDL_threadID;`
-type ThreadID = u32
+pub type ThreadID = u32
 
 // Thread local storage ID, 0 is the invalid ID
 // `typedef unsigned int SDL_TLSID;`
-type TLSID = u32
+pub type TLSID = u32
 
 // ThreadPriority is the SDL thread priority.
 //
@@ -38,7 +38,7 @@ pub enum ThreadPriority {
 // ThreadFunction is the function passed to SDL_CreateThread().
 // It is passed a void* user context parameter and returns an int.
 // `typedef int (SDLCALL * SDL_ThreadFunction) (void *data);`
-type ThreadFunction = fn (data voidptr) int
+pub type ThreadFunction = fn (data voidptr) int
 
 /*
 // TODO win32 & OS2 ???

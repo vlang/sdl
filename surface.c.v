@@ -40,7 +40,7 @@ pub type Surface = C.SDL_Surface
 fn C.SDL_blit(src &C.SDL_Surface, srcrect &C.SDL_Rect, dst &C.SDL_Surface, dstrect &C.SDL_Rect) int
 
 // BlitCall is the type of function used for surface blitting functions.
-type BlitCall = fn (src &Surface, srcrect &Rect, dst &Surface, dstrect &Rect) int
+pub type BlitCall = fn (src &Surface, srcrect &Rect, dst &Surface, dstrect &Rect) int
 
 // YUVConversionMode is the formula used for converting between YUV and RGB
 // YUVConversionMode is C.SDL_YUV_CONVERSION_MODE

@@ -319,7 +319,7 @@ fn C.SDL_OpenAudio(desired &C.SDL_AudioSpec, obtained &C.SDL_AudioSpec) int
 // for backwards compatibility and when you don't care about multiple,
 // specific, or capture devices.
 // `typedef Uint32 SDL_AudioDeviceID;`
-type AudioDeviceID = u32
+pub type AudioDeviceID = u32
 
 // get_num_audio_devices gets the number of available
 // devices exposed by the current driver.
