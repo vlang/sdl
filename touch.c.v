@@ -8,10 +8,10 @@ module sdl
 //
 
 // `typedef Sint64 SDL_TouchID;`
-type TouchID = i64
+pub type TouchID = i64
 
 // `typedef Sint64 SDL_FingerID;`
-type FingerID = i64
+pub type FingerID = i64
 
 pub const (
 	touch_mouseid = C.SDL_TOUCH_MOUSEID
