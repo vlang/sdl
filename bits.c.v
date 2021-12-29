@@ -6,8 +6,9 @@ module sdl
 //
 // SDL_bits.h
 //
+// NOTE not all distros include this file
 
-/* TODO compile error
+/*
 fn C.SDL_MostSignificantBitIndex32(x u32) int
 
 // most_significant_bit_index32 gets the index of the most significant bit. Result is undefined when called
