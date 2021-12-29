@@ -90,7 +90,7 @@ pub enum WindowFlags {
 }
 
 // Used to indicate that you don't care what the window position is.
-const (
+pub const (
 	windowpos_undefined_mask = C.SDL_WINDOWPOS_UNDEFINED_MASK //   0x1FFF0000u
 	windowpos_undefined      = C.SDL_WINDOWPOS_UNDEFINED //
 )
@@ -106,7 +106,7 @@ pub fn windowpos_undefined_display(x u32) u32 {
 }
 
 // Used to indicate that the window position should be centered.
-const (
+pub const (
 	windowpos_centered_mask = C.SDL_WINDOWPOS_CENTERED_MASK // 0x2FFF0000u
 	windowpos_centered      = C.SDL_WINDOWPOS_CENTERED
 )

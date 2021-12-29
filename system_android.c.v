@@ -58,7 +58,7 @@ pub fn android_back_button() {
 
 // See the official Android developer guide for more information:
 // http://developer.android.com/guide/topics/data/data-storage.html
-const (
+pub const (
 	android_external_storage_read  = C.SDL_ANDROID_EXTERNAL_STORAGE_READ //  0x01
 	android_external_storage_write = C.SDL_ANDROID_EXTERNAL_STORAGE_WRITE // 0x02
 )
