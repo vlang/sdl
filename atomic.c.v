@@ -56,7 +56,7 @@ module sdl
 
 // `typedef int SDL_SpinLock;`
 // SpinLock is C.SDL_SpinLock
-type SpinLock = int
+pub type SpinLock = int
 
 fn C.SDL_AtomicTryLock(lock_ &C.SDL_SpinLock) bool
 
