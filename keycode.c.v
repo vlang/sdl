@@ -16,7 +16,7 @@ module sdl
 //
 // A special exception is the number keys at the top of the keyboard which
 // always map to SDLK_0...SDLK_9, regardless of layout.
-type Keycode = int // Sint32 C.SDL_Keycode;
+pub type Keycode = int // Sint32 C.SDL_Keycode;
 
 pub const (
 	sdlk_scancode_mask = C.SDLK_SCANCODE_MASK // (1<<30)

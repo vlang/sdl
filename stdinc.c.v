@@ -91,10 +91,10 @@ fn C.SDL_realloc_func(mem voidptr, size usize) voidptr
 //typedef void (SDLCALL *SDL_free_func)(void *mem);
 fn C.SDL_free_func(mem voidptr)
 
-type MallocFunc = C.SDL_malloc_func // fn(size usize) voidptr
-type CallocFunc = C.SDL_calloc_func // fn(nmemb usize, size usize) voidptr
-type ReallocFunc = C.SDL_realloc_func // fn(mem voidptr, size usize) voidptr
-type FreeFunc = C.SDL_free_func //fn(mem voidptr)
+pub type MallocFunc = C.SDL_malloc_func // fn(size usize) voidptr
+pub type CallocFunc = C.SDL_calloc_func // fn(nmemb usize, size usize) voidptr
+pub type ReallocFunc = C.SDL_realloc_func // fn(mem voidptr, size usize) voidptr
+pub type FreeFunc = C.SDL_free_func //fn(mem voidptr)
 
 fn C.SDL_GetMemoryFunctions(malloc_func &C.SDL_malloc_func, calloc_func &C.SDL_calloc_func, realloc_func &C.SDL_realloc_func, free_func &C.SDL_free_func)
 
@@ -133,7 +133,7 @@ pub fn setenv(name string, value string, overwrite int) int {
 }
 
 // int (*compare) (const void *, const void *)
-type QSortCompare = fn (voidptr, voidptr) int
+pub type QSortCompare = fn (voidptr, voidptr) int
 
 fn C.SDL_qsort(base voidptr, nmemb usize, size usize, compare QSortCompare)
 pub fn qsort(base voidptr, nmemb usize, size usize, compare QSortCompare) {

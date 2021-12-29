@@ -10,7 +10,7 @@ pub const (
 // LogOutputFunction is the prototype for the log output function
 // C.SDL_LogOutputFunction
 // `typedef void (SDLCALL *SDL_LogOutputFunction)(void *userdata, int category, SDL_LogPriority priority, const char *message);`
-type LogOutputFunction = fn (userdata voidptr, category int, priority LogPriority, message &char)
+pub type LogOutputFunction = fn (userdata voidptr, category int, priority LogPriority, message &char)
 
 // LogPriority is C.SDL_LogPriority
 pub enum LogPriority {
