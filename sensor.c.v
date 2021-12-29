@@ -23,7 +23,7 @@ pub type Sensor = C.SDL_Sensor
 //
 // The ID value starts at 0 and increments from there. The value -1 is an invalid ID.
 // `typedef Sint32 SDL_SensorID;`
-type SensorID = int
+pub type SensorID = int
 
 // SensorType is C.SDL_SensorType
 pub enum SensorType {
