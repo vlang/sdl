@@ -43,7 +43,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           path: sdl
-          ref: ${{ env.SDL2_VERSION }}
 
       - name: Link local SDL folder in ~/.vmodules/sdl
         run: |
