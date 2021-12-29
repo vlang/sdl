@@ -9,12 +9,12 @@ module sdl
 
 // mutex_timeout. Synchronization functions which can time out return this value
 // if they time out.
-const mutex_timeout = C.SDL_MUTEX_TIMEDOUT
+pub const mutex_timeout = C.SDL_MUTEX_TIMEDOUT
 
 // 1
 
 // mutex_maxwait is the timeout value which corresponds to never time out.
-const mutex_maxwait = C.SDL_MUTEX_MAXWAIT
+pub const mutex_maxwait = C.SDL_MUTEX_MAXWAIT
 
 // (~(Uint32)0)
 
