@@ -9,7 +9,7 @@ module sdl
 
 // Platform specific functions for iOS
 
-type iOSAnimationCallback = fn (params voidptr)
+pub type iOSAnimationCallback = fn (params voidptr)
 
 fn C.SDL_iOSSetAnimationCallback(window &C.SDL_Window, interval int, callback iOSAnimationCallback, callbackParam voidptr) int
 pub fn iphone_set_animation_callback(window &Window, interval int, callback iOSAnimationCallback, callback_param voidptr) int {

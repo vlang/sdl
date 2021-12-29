@@ -283,10 +283,10 @@ pub fn get_music_type(music &Music) MusicType {
 }
 
 // `void (SDLCALL *mix_func)(void *udata, Uint8 *stream, int len)`
-type MixFunc = fn (udata voidptr, stream &byte, len int)
+pub type MixFunc = fn (udata voidptr, stream &byte, len int)
 
 // `void (SDLCALL *music_finished)(void)`
-type MusicFinished = fn ()
+pub type MusicFinished = fn ()
 
 fn C.Mix_SetPostMix(mix_func MixFunc, arg voidptr)
 
@@ -319,7 +319,7 @@ pub fn get_music_hook_data() voidptr {
 }
 
 // `void (SDLCALL *channel_finished)(int channel)`
-type ChannelFinished = fn (channel int)
+pub type ChannelFinished = fn (channel int)
 
 fn C.Mix_ChannelFinished(channel_finished ChannelFinished)
 
@@ -351,7 +351,7 @@ pub fn channel_finished(channel_finished ChannelFinished) {
 // DO NOT EVER call SDL_LockAudio() from your callback function!
 //
 // `typedef void (SDLCALL *Mix_EffectFunc_t)(int chan, void *stream, int len, void *udata);`
-type MixEffectFunc = fn (channel int, stream voidptr, len int, udata voidptr)
+pub type MixEffectFunc = fn (channel int, stream voidptr, len int, udata voidptr)
 
 // This is a callback that signifies that a channel has finished all its
 // loops and has completed playback. This gets called if the buffer
@@ -362,7 +362,7 @@ type MixEffectFunc = fn (channel int, stream voidptr, len int, udata voidptr)
 // DO NOT EVER call SDL_LockAudio() from your callback function!
 //
 // typedef void (SDLCALL *Mix_EffectDone_t)(int chan, void *udata);
-type MixEffectDone = fn (channel int, udata voidptr)
+pub type MixEffectDone = fn (channel int, udata voidptr)
 
 fn C.Mix_RegisterEffect(channel int, f MixEffectFunc, d MixEffectDone, arg voidptr) int
 
@@ -854,7 +854,7 @@ pub fn get_sound_fonts() &char {
 }
 
 // `int (SDLCALL *function)(const char*, void*)`
-type Func = fn (&char, voidptr) int
+pub type Func = fn (&char, voidptr) int
 
 fn C.Mix_EachSoundFont(f Func, data voidptr) int
 pub fn each_sound_font(f Func, data voidptr) int {

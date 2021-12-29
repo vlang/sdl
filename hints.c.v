@@ -1022,7 +1022,7 @@ pub fn get_hint_boolean(name string, default_value bool) bool {
 
 // HintCallback type definition of the hint callback function.
 // `typedef void (SDLCALL *SDL_HintCallback)(void *userdata, const char *name, const char *oldValue, const char *newValue);`
-type HintCallback = fn (userdata voidptr, name &char, old_value &char, new_value &char)
+pub type HintCallback = fn (userdata voidptr, name &char, old_value &char, new_value &char)
 
 fn C.SDL_AddHintCallback(name &char, callback HintCallback, userdata voidptr)
 

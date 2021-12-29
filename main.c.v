@@ -9,7 +9,7 @@ module sdl
 
 // The prototype for the application's main() function
 // `typedef int (*SDL_main_func)(int argc, char *argv[]);`
-type MainFunc = fn (argc int, argv &&char) int
+pub type MainFunc = fn (argc int, argv &&char) int
 
 // set_main_ready is called by the real SDL main function to let the rest of the
 // library know that initialization was done properly.

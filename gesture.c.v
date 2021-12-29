@@ -9,7 +9,7 @@ module sdl
 
 // `typedef Sint64 SDL_GestureID;`
 // GestureID can be cast to C.SDL_GestureID
-type GestureID = i64
+pub type GestureID = i64
 
 fn C.SDL_RecordGesture(touch_id C.SDL_TouchID) int
 
