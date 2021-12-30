@@ -155,6 +155,16 @@ pub fn isspace(x int) int {
 	return C.SDL_isspace(x)
 }
 
+fn C.SDL_isupper(x int) int
+pub fn isupper(x int) int {
+	return C.SDL_isupper(x)
+}
+
+fn C.SDL_islower(x int) int
+pub fn islower(x int) int {
+	return C.SDL_islower(x)
+}
+
 fn C.SDL_toupper(x int) int
 pub fn toupper(x int) int {
 	return C.SDL_toupper(x)
@@ -222,10 +232,28 @@ pub fn wcslcat(dst &C.SDL_INOUT_Z_CAP(maxlen) wchar_t, src &C.wchar_t, maxlen us
 	return C.SDL_wcslcat(dst, src, maxlen)
 }
 
+// extern DECLSPEC wchar_t *SDLCALL SDL_wcsdup(const wchar_t *wstr)
+fn C.SDL_wcsdup(wstr &C.wchar_t) &C.wchar_t
+pub fn wcsdup(wstr &C.wchar_t) &C.wchar_t{
+	return C.SDL_wcsdup(wstr)
+}
+
+// extern DECLSPEC wchar_t *SDLCALL SDL_wcsstr(const wchar_t *haystack, const wchar_t *needle)
+fn C.SDL_wcsstr(haystack &C.wchar_t, needle &C.wchar_t) &C.wchar_t
+pub fn wcsstr(haystack &C.wchar_t, needle &C.wchar_t) &C.wchar_t{
+	return C.SDL_wcsstr(haystack, needle)
+}
+
 // extern DECLSPEC int SDLCALL SDL_wcscmp(const wchar_t *str1, const wchar_t *str2)
 fn C.SDL_wcscmp(str1 &C.wchar_t, str2 &C.wchar_t) int
 pub fn wcscmp(str1 &C.wchar_t, str2 &C.wchar_t) int{
 	return C.SDL_wcscmp(str1, str2)
+}
+
+// extern DECLSPEC int SDLCALL SDL_wcsncmp(const wchar_t *str1, const wchar_t *str2, size_t maxlen)
+fn C.SDL_wcsncmp(str1 &C.wchar_t, str2 &C.wchar_t, maxlen usize) int
+pub fn wcsncmp(str1 &C.wchar_t, str2 &C.wchar_t, maxlen usize) int{
+	return C.SDL_wcsncmp(str1, str2, maxlen)
 }
 */
 
@@ -288,6 +316,11 @@ pub fn strrchr(str string, c int) &char {
 fn C.SDL_strstr(haystack &char, needle &char) &char
 pub fn strstr(haystack string, needle string) &char {
 	return C.SDL_strstr(haystack.str, needle.str)
+}
+
+fn C.SDL_strtokr(s1 &char, s2 &char, saveptr &&char) &char
+pub fn strtokr(s1 string, s2 string, saveptr &&char) &char {
+	return C.SDL_strtokr(s1.str, s2.str, saveptr)
 }
 
 fn C.SDL_utf8strlen(str &char) usize

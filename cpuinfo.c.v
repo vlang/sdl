@@ -107,6 +107,13 @@ pub fn has_avx512f() bool {
 	return C.SDL_HasAVX512F()
 }
 
+fn C.SDL_HasARMSIMD() bool
+
+// has_arm_simd returns true if the CPU has ARM SIMD (ARMv6) features.
+pub fn has_arm_simd() bool {
+	return C.SDL_HasARMSIMD()
+}
+
 fn C.SDL_HasNEON() bool
 
 // has_neon returns true if the CPU has NEON (ARM SIMD) features.

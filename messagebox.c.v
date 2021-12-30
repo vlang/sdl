@@ -10,16 +10,18 @@ module sdl
 // MessageBoxFlags is C.SDL_MessageBoxFlags
 // MessageBox flags. If supported will display warning icon, etc.
 pub enum MessageBoxFlags {
-	messagebox_error = C.SDL_MESSAGEBOX_ERROR // 0x00000010, error dialog
-	messagebox_warning = C.SDL_MESSAGEBOX_WARNING // 0x00000020, warning dialog
-	messagebox_information = C.SDL_MESSAGEBOX_INFORMATION // 0x00000040, informational dialog
+	error = C.SDL_MESSAGEBOX_ERROR // 0x00000010, error dialog
+	warning = C.SDL_MESSAGEBOX_WARNING // 0x00000020, warning dialog
+	information = C.SDL_MESSAGEBOX_INFORMATION // 0x00000040, informational dialog
+	buttons_left_to_right = C.SDL_MESSAGEBOX_BUTTONS_LEFT_TO_RIGHT // 0x00000080, buttons placed left to right
+	buttons_right_to_left = C.SDL_MESSAGEBOX_BUTTONS_RIGHT_TO_LEFT // 0x00000100, buttons placed right to left
 }
 
 // MessageBoxButtonFlags is C.SDL_MessageBoxButtonFlags
 // Flags for SDL_MessageBoxButtonData.
 pub enum MessageBoxButtonFlags {
-	messagebox_button_returnkey_default = C.SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT // 0x00000001, Marks the default button when return is hit
-	messagebox_button_escapekey_default = C.SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT // 0x00000002, Marks the default button when escape is hit
+	returnkey_default = C.SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT // 0x00000001, Marks the default button when return is hit
+	escapekey_default = C.SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT // 0x00000002, Marks the default button when escape is hit
 }
 
 // MessageBoxButtonData is individual button data.

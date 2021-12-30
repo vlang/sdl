@@ -174,11 +174,18 @@ pub fn joystick_open(device_index int) &Joystick {
 	return C.SDL_JoystickOpen(device_index)
 }
 
-fn C.SDL_JoystickFromInstanceID(joyid C.SDL_JoystickID) &C.SDL_Joystick
+fn C.SDL_JoystickFromInstanceID(instance_id C.SDL_JoystickID) &C.SDL_Joystick
 
 // joystick_from_instance_id returns the SDL_Joystick associated with an instance id.
-pub fn joystick_from_instance_id(joyid JoystickID) &Joystick {
-	return C.SDL_JoystickFromInstanceID(C.SDL_JoystickID(joyid))
+pub fn joystick_from_instance_id(instance_id JoystickID) &Joystick {
+	return C.SDL_JoystickFromInstanceID(C.SDL_JoystickID(instance_id))
+}
+
+fn C.SDL_JoystickFromPlayerIndex(player_index int) &C.SDL_Joystick
+
+// joystick_from_player_index returns the SDL_Joystick associated with a player index.
+pub fn joystick_from_player_index(player_index int) &Joystick {
+	return C.SDL_JoystickFromPlayerIndex(player_index)
 }
 
 fn C.SDL_JoystickName(joystick &C.SDL_Joystick) &char
@@ -196,6 +203,13 @@ fn C.SDL_JoystickGetPlayerIndex(joystick &C.SDL_Joystick) int
 // For XInput controllers this returns the XInput user index.
 pub fn joystick_get_player_index(joystick &Joystick) int {
 	return C.SDL_JoystickGetPlayerIndex(joystick)
+}
+
+fn C.SDL_JoystickSetPlayerIndex(joystick &C.SDL_Joystick, player_index int)
+
+// joystick_set_player_index sets the player index of an opened joystick
+pub fn joystick_set_player_index(joystick &Joystick, player_index int) {
+	C.SDL_JoystickSetPlayerIndex(joystick, player_index)
 }
 
 fn C.SDL_JoystickGetGUID(joystick &C.SDL_Joystick) C.SDL_JoystickGUID

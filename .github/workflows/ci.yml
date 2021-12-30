@@ -14,12 +14,24 @@ jobs:
     timeout-minutes: 30
     env:
       VFLAGS: -cc tcc -no-retry-compilation
+      SDL2_VERSION: 2.0.12
     steps:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install --quiet -y libsdl2-dev libsdl2-ttf-dev
+          sudo apt-get install --quiet -y libsdl2-ttf-dev
           sudo apt-get install --quiet -y libsdl2-mixer-dev libsdl2-image-dev
+          curl -L https://www.libsdl.org/release/SDL2-${SDL2_VERSION}.tar.gz -o SDL2.tar.gz
+          tar -zxvf SDL2.tar.gz
+
+      - name: Build SDL
+        run: |
+          cd SDL2-${SDL2_VERSION}
+          mkdir build
+          cd build
+          ../configure --prefix /tmp/sdl2-${SDL2_VERSION}
+          make
+          make install
 
       - name: Checkout V
         uses: actions/checkout@v2
@@ -45,15 +57,18 @@ jobs:
           v test-fmt
 
       - name: Build sdl shared
-        run: v -shared -g sdl
+        run: |
+          export SDL_V_CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
+          v -cflags "$SDL_V_CFLAGS" -shared -g sdl
 
       - name: Run tests
         run: v test sdl
 
       - name: Build sdl examples
         run: |
-          v run sdl/examples/versions
+          export SDL_V_CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
+          v -cflags "$SDL_V_CFLAGS" run sdl/examples/versions
           for example in sdl/examples/*; do
-              echo "v $example"
-              v "$example";
+              echo "v -cflags \"$SDL_V_CFLAGS\" $example"
+              v -cflags "$SDL_V_CFLAGS" "$example";
           done

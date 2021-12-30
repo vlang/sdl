@@ -42,3 +42,35 @@ fn C.SDL_IsTablet() bool
 pub fn is_tablet() bool {
 	return C.SDL_IsTablet()
 }
+
+// Functions used by iOS application delegates to notify SDL about state changes
+
+fn C.SDL_OnApplicationWillTerminate()
+pub fn on_application_will_terminate() {
+	C.SDL_OnApplicationWillTerminate()
+}
+
+fn C.SDL_OnApplicationDidReceiveMemoryWarning()
+pub fn on_application_did_receive_memory_warning() {
+	C.SDL_OnApplicationDidReceiveMemoryWarning()
+}
+
+fn C.SDL_OnApplicationWillResignActive()
+pub fn on_application_will_resign_active() {
+	C.SDL_OnApplicationWillResignActive()
+}
+
+fn C.SDL_OnApplicationDidEnterBackground()
+pub fn on_application_did_enter_background() {
+	C.SDL_OnApplicationDidEnterBackground()
+}
+
+fn C.SDL_OnApplicationWillEnterForeground()
+pub fn on_application_will_enter_foreground() {
+	C.SDL_OnApplicationWillEnterForeground()
+}
+
+fn C.SDL_OnApplicationDidBecomeActive()
+pub fn on_application_did_become_active() {
+	C.SDL_OnApplicationDidBecomeActive()
+}

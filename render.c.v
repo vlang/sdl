@@ -46,6 +46,14 @@ struct C.SDL_RendererInfo {
 
 pub type RendererInfo = C.SDL_RendererInfo
 
+// The scaling mode for a texture.
+// ScaleMode is C.SDL_ScaleMode
+pub enum ScaleMode {
+	nearest = C.SDL_ScaleModeNearest // nearest pixel sampling
+	linear = C.SDL_ScaleModeLinear // linear filtering
+	best = C.SDL_ScaleModeBest // anisotropic filtering
+}
+
 // TextureAccess is C.SDL_TextureAccess
 pub enum TextureAccess {
 	@static = C.SDL_TEXTUREACCESS_STATIC // Changes rarely, not lockable
@@ -330,6 +338,37 @@ pub fn get_texture_blend_mode(texture &Texture, blend_mode &BlendMode) int {
 	return C.SDL_GetTextureBlendMode(texture, unsafe { &C.SDL_BlendMode(blend_mode) })
 }
 
+fn C.SDL_SetTextureScaleMode(texture &C.SDL_Texture, scale_mode C.SDL_ScaleMode) int
+
+// set_texture_scale_mode sets the scale mode used for texture scale operations.
+//
+//  `texture` The texture to update.
+//  `scaleMode` ::SDL_ScaleMode to use for texture scaling.
+//
+//  returns 0 on success, or -1 if the texture is not valid.
+//
+//  \note If the scale mode is not supported, the closest supported mode is
+//        chosen.
+//
+//  See also: SDL_GetTextureScaleMode()
+pub fn set_texture_scale_mode(texture &Texture, scale_mode ScaleMode) int {
+	return C.SDL_SetTextureScaleMode(texture, C.SDL_ScaleMode(int(scale_mode)))
+}
+
+fn C.SDL_GetTextureScaleMode(texture &C.SDL_Texture, scale_mode &C.SDL_ScaleMode) int
+
+// get_texture_scale_mode gets the scale mode used for texture scale operations.
+//
+//  `texture`   The texture to query.
+//  `scaleMode` A pointer filled in with the current scale mode.
+//
+//  returns 0 on success, or -1 if the texture is not valid.
+//
+//  See also: SDL_SetTextureScaleMode()
+pub fn get_texture_scale_mode(texture &Texture, scale_mode &ScaleMode) int {
+	return unsafe { C.SDL_GetTextureScaleMode(texture, &C.SDL_ScaleMode(scale_mode)) }
+}
+
 fn C.SDL_UpdateTexture(texture &C.SDL_Texture, rect &C.SDL_Rect, pixels voidptr, pitch int) int
 
 // update_texture updates the given texture rectangle with new pixel data.
@@ -393,11 +432,32 @@ pub fn lock_texture(texture &Texture, rect &Rect, pixels voidptr, pitch &int) in
 	return C.SDL_LockTexture(texture, rect, pixels, pitch)
 }
 
+fn C.SDL_LockTextureToSurface(texture &C.SDL_Texture, rect &C.SDL_Rect, surface &&C.SDL_Surface) int
+
+// lock_texture_to_surface locks a portion of the texture for write-only pixel access.
+// Expose it as a SDL surface.
+//
+// `texture`   The texture to lock for access, which was created with
+//                  ::SDL_TEXTUREACCESS_STREAMING.
+// `rect`      A pointer to the rectangle to lock for access. If the rect
+//                  is NULL, the entire texture will be locked.
+// `surface`   This is filled in with a SDL surface representing the locked area
+//                  Surface is freed internally after calling SDL_UnlockTexture or SDL_DestroyTexture.
+//
+// returns 0 on success, or -1 if the texture is not valid or was not created with ::SDL_TEXTUREACCESS_STREAMING.
+//
+// See also: SDL_UnlockTexture()
+pub fn lock_texture_to_surface(texture &Texture, rect &Rect, surface &&Surface) int {
+	return C.SDL_LockTextureToSurface(texture, rect, surface)
+}
+
 fn C.SDL_UnlockTexture(texture &C.SDL_Texture)
 
 // unlock_texture unlocks a texture, uploading the changes to video memory, if needed.
+// If SDL_LockTextureToSurface() was called for locking, the SDL surface is freed.
 //
 // See also: SDL_LockTexture()
+// See also: SDL_LockTextureToSurface()
 pub fn unlock_texture(texture &Texture) {
 	C.SDL_UnlockTexture(texture)
 }
@@ -538,8 +598,8 @@ fn C.SDL_RenderSetClipRect(renderer &C.SDL_Renderer, rect &C.SDL_Rect) int
 // render_set_clip_rect sets the clip rectangle for the current target.
 //
 // `renderer` The renderer for which clip rectangle should be set.
-// `rect`   A pointer to the rectangle to set as the clip rectangle, or
-// NULL to disable clipping.
+// `rect`     A pointer to the rectangle to set as the clip rectangle,
+//            relative to the viewport, or NULL to disable clipping.
 //
 // returns 0 on success, or -1 on error
 //

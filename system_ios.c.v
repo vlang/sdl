@@ -30,3 +30,8 @@ fn C.SDL_iPhoneSetEventPump(enabled bool)
 pub fn iphone_set_event_pump(enabled bool) {
 	C.SDL_iPhoneSetEventPump(enabled)
 }
+
+fn C.SDL_OnApplicationDidChangeStatusBarOrientation()
+pub fn on_application_did_change_status_bar_orientation() {
+	C.SDL_OnApplicationDidChangeStatusBarOrientation()
+}

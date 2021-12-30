@@ -23,6 +23,16 @@ struct C.SDL_GameController {
 
 pub type GameController = C.SDL_GameController
 
+// GameControllerType is C.SDL_GameControllerType
+pub enum GameControllerType {
+	unknown = C.SDL_CONTROLLER_TYPE_UNKNOWN // 0
+	xbox360 = C.SDL_CONTROLLER_TYPE_XBOX360
+	xboxone = C.SDL_CONTROLLER_TYPE_XBOXONE
+	ps3 = C.SDL_CONTROLLER_TYPE_PS3
+	ps4 = C.SDL_CONTROLLER_TYPE_PS4
+	nintendo_switch_pro = C.SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_PRO
+}
+
 // GameControllerBindType is C.SDL_GameControllerBindType
 pub enum GameControllerBindType {
 	@none = C.SDL_CONTROLLER_BINDTYPE_NONE // 0
@@ -182,6 +192,14 @@ pub fn game_controller_name_for_index(joystick_index int) string {
 	return vstr
 }
 
+fn C.SDL_GameControllerTypeForIndex(joystick_index int) C.SDL_GameControllerType
+
+// game_controller_type_for_index gets the type of a game controller.
+// This can be called before any controllers are opened.
+pub fn game_controller_type_for_index(joystick_index int) GameControllerType {
+	return GameControllerType(int(C.SDL_GameControllerTypeForIndex(joystick_index)))
+}
+
 fn C.SDL_GameControllerMappingForDeviceIndex(joystick_index int) &char
 
 // game_controller_mapping_for_device_index gets the mapping of a game controller.
@@ -218,11 +236,25 @@ pub fn game_controller_from_instance_id(joyid JoystickID) &GameController {
 	return C.SDL_GameControllerFromInstanceID(joyid)
 }
 
+fn C.SDL_GameControllerFromPlayerIndex(player_index int) &C.SDL_GameController
+
+// game_controller_from_player_index returns the SDL_GameController associated with a player index.
+pub fn game_controller_from_player_index(player_index int) &GameController {
+	return C.SDL_GameControllerFromPlayerIndex(player_index)
+}
+
 fn C.SDL_GameControllerName(gamecontroller &C.SDL_GameController) &char
 
 // game_controller_name returns the name for this currently opened controller
 pub fn game_controller_name(gamecontroller &GameController) string {
 	return unsafe { cstring_to_vstring(C.SDL_GameControllerName(gamecontroller)) }
+}
+
+fn C.SDL_GameControllerGetType(gamecontroller &C.SDL_GameController) C.SDL_GameControllerType
+
+// game_controller_get_type returns the type of this currently opened controller
+pub fn game_controller_get_type(gamecontroller &GameController) GameControllerType {
+	return GameControllerType(int(C.SDL_GameControllerGetType(gamecontroller)))
 }
 
 fn C.SDL_GameControllerGetPlayerIndex(gamecontroller &C.SDL_GameController) int
@@ -232,6 +264,13 @@ fn C.SDL_GameControllerGetPlayerIndex(gamecontroller &C.SDL_GameController) int
 // For XInput controllers this returns the XInput user index.
 pub fn game_controller_get_player_index(gamecontroller &GameController) int {
 	return C.SDL_GameControllerGetPlayerIndex(gamecontroller)
+}
+
+fn C.SDL_GameControllerSetPlayerIndex(gamecontroller &C.SDL_GameController, player_index int)
+
+// game_controller_set_player_index sets the player index of an opened game controller
+pub fn game_controller_set_player_index(gamecontroller &GameController, player_index int) {
+	C.SDL_GameControllerSetPlayerIndex(gamecontroller, player_index)
 }
 
 fn C.SDL_GameControllerGetVendor(gamecontroller &C.SDL_GameController) u16

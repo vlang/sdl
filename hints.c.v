@@ -106,6 +106,19 @@ pub const (
 	// By default SDL will disable the screensaver.
 	hint_video_allow_screensaver                  = 'SDL_VIDEO_ALLOW_SCREENSAVER'
 
+	// A variable controlling whether the graphics context is externally managed.
+	//
+	// This variable can be set to the following values:
+	//  "0"         - SDL will manage graphics contexts that are attached to windows.
+	//  "1"         - Disable graphics context management on windows.
+	//
+	// By default SDL will manage OpenGL contexts in certain situations. For example, on Android the
+	// context will be automatically saved and restored when pausing the application. Additionally, some
+	// platforms will assume usage of OpenGL if Vulkan isn't used. Setting this to "1" will prevent this
+	// behavior, which is desireable when the application manages the graphics context, such as
+	// an externally managed OpenGL context or attaching a Vulkan surface to the window.
+	hint_video_external_context                   = 'SDL_VIDEO_EXTERNAL_CONTEXT'
+
 	// A variable controlling whether the X11 VidMode extension should be used.
 	//
 	// This variable can be set to the following values:
@@ -133,6 +146,9 @@ pub const (
 	// By default SDL will not use XRandR because of window manager issues.
 	hint_video_x11_xrandr                         = 'SDL_VIDEO_X11_XRANDR'
 
+	// A variable forcing the visual ID chosen for new X11 windows
+	hint_video_x11_window_visualid                = 'SDL_VIDEO_X11_WINDOW_VISUALID'
+
 	// A variable controlling whether the X11 _NET_WM_PING protocol should be supported.
 	//
 	// This variable can be set to the following values:
@@ -154,6 +170,15 @@ pub const (
 	// By default SDL will use _NET_WM_BYPASS_COMPOSITOR
 	//
 	hint_video_x11_net_wm_bypass_compositor       = 'SDL_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR'
+
+	// A variable controlling whether X11 should use GLX or EGL by default
+	//
+	// This variable can be set to the following values:
+	// "0" - Use GLX
+	// "1" - Use EGL
+	//
+	// By default SDL will use GLX when both are present.
+	hint_video_x11_force_egl                      = 'SDL_VIDEO_X11_FORCE_EGL'
 
 	// A variable controlling whether the window frame and title bar are interactive when the cursor is hidden
 	//
@@ -323,6 +348,22 @@ pub const (
 	// The default value is "0".  This hint must be set before SDL_Init()
 	hint_xinput_use_old_joystick_mapping          = 'SDL_XINPUT_USE_OLD_JOYSTICK_MAPPING'
 
+	// A variable that overrides the automatic controller type detection
+	//
+	// The variable should be comma separated entries, in the form: VID/PID=type
+	//
+	// The VID and PID should be hexadecimal with exactly 4 digits, e.g. 0x00fd
+	//
+	// The type should be one of:
+	// Xbox360
+	// XboxOne
+	// PS3
+	// PS4
+	// SwitchPro
+	//
+	// This hint affects what driver is used, and must be set before calling SDL_Init(SDL_INIT_GAMECONTROLLER)
+	hint_gamecontrollertype                       = 'SDL_GAMECONTROLLERTYPE'
+
 	// A variable that lets you manually hint extra gamecontroller db entries.
 	//
 	// The variable should be newline delimited rows of gamecontroller config data, see SDL_gamecontroller.h
@@ -360,6 +401,27 @@ pub const (
 	// The variable can also take the form of @file, in which case the named
 	// file will be loaded and interpreted as the value of the variable.
 	hint_gamecontroller_ignore_devices_except     = 'SDL_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT'
+
+	// If set, game controller face buttons report their values according to their labels instead of their positional layout.
+	//
+	// For example, on Nintendo Switch controllers, normally you'd get:
+	//
+	//      (Y)
+	//  (X)     (B)
+	//      (A)
+	//
+	// but if this hint is set, you'll get:
+	//
+	//      (X)
+	//  (Y)     (A)
+	//      (B)
+	//
+	// The variable can be set to the following values:
+	// "0"       - Report the face buttons by position, as though they were on an Xbox controller.
+	// "1"       - Report the face buttons by label instead of position
+	//
+	// The default value is "1".  This hint may be set at any time.
+	hint_gamecontroller_use_button_labels         = 'SDL_GAMECONTROLLER_USE_BUTTON_LABELS'
 
 	// A variable that lets you enable joystick (and gamecontroller) events even when your app is in the background.
 	//
@@ -435,6 +497,15 @@ pub const (
 	// The default is the value of SDL_HINT_JOYSTICK_HIDAPI
 	//
 	hint_joystick_hidapi_xbox                     = 'SDL_JOYSTICK_HIDAPI_XBOX'
+
+	// A variable controlling whether the HIDAPI driver for Nintendo GameCube controllers should be used.
+	//
+	// This variable can be set to the following values:
+	// "0"       - HIDAPI driver is not used
+	// "1"       - HIDAPI driver is used
+	//
+	// The default is the value of SDL_HINT_JOYSTICK_HIDAPI
+	hint_joystick_hidapi_gamecube                 = 'SDL_JOYSTICK_HIDAPI_GAMECUBE'
 
 	// A variable that controls whether Steam Controllers should be exposed using the SDL joystick and game controller APIs
 	//
@@ -971,6 +1042,18 @@ pub const (
 	// samples is zero
 	// "ignore"      - Ignore fact chunk entirely (default)
 	hint_wave_fact_chunk                          = 'SDL_WAVE_FACT_CHUNK'
+
+	// Override for SDL_GetDisplayUsableBounds()
+	//
+	// If set, this hint will override the expected results for
+	// SDL_GetDisplayUsableBounds() for display index 0. Generally you don't want
+	// to do this, but this allows an embedded system to request that some of the
+	// screen be reserved for other uses when paired with a well-behaved
+	// application.
+	//
+	// The contents of this hint must be 4 comma-separated integers, the first
+	// is the bounds x, then y, width and height, in that order.
+	hint_display_usable_bounds                    = 'SDL_DISPLAY_USABLE_BOUNDS'
 )
 
 // HintPriority is C.SDL_HintPriority

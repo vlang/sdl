@@ -52,7 +52,7 @@ pub const (
 	kmod_gui   = C.KMOD_LGUI | C.KMOD_RGUI
 )
 
-pub enum Key {
+pub enum KeyCode {
 	unknown = C.SDLK_UNKNOWN // 0
 	@return = C.SDLK_RETURN // '\r'
 	escape = C.SDLK_ESCAPE // '\033'
