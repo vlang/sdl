@@ -35,17 +35,17 @@ const (
 	text_size       = 16
 	audio_buf_size  = 1024
 
-	p2_fire         = sdl.Key.l
-	p2_up           = sdl.Key.up
-	p2_down         = sdl.Key.down
-	p2_left         = sdl.Key.left
-	p2_right        = sdl.Key.right
+	p2_fire         = sdl.KeyCode.l
+	p2_up           = sdl.KeyCode.up
+	p2_down         = sdl.KeyCode.down
+	p2_left         = sdl.KeyCode.left
+	p2_right        = sdl.KeyCode.right
 
-	p1_fire         = sdl.Key.s
-	p1_up           = sdl.Key.w
-	p1_down         = sdl.Key.x
-	p1_left         = sdl.Key.a
-	p1_right        = sdl.Key.d
+	p1_fire         = sdl.KeyCode.s
+	p1_up           = sdl.KeyCode.w
+	p1_down         = sdl.KeyCode.x
+	p1_left         = sdl.KeyCode.a
+	p1_right        = sdl.KeyCode.d
 
 	n_joy_max       = 2
 	// joystick name => enter your own device name
@@ -176,11 +176,11 @@ mut:
 	// X offset of the game display
 	ofs_x int
 	// keys
-	k_fire  sdl.Key
-	k_up    sdl.Key
-	k_down  sdl.Key
-	k_left  sdl.Key
-	k_right sdl.Key
+	k_fire  sdl.KeyCode
+	k_up    sdl.KeyCode
+	k_down  sdl.KeyCode
+	k_left  sdl.KeyCode
+	k_right sdl.KeyCode
 	// joystick ID
 	joy_id int
 	// joystick buttons
@@ -378,7 +378,7 @@ fn main() {
 				}
 				.keydown {
 					key := evt.key.keysym.sym
-					if key == sdl.Key.escape {
+					if key == sdl.KeyCode.escape {
 						should_close = true
 						break
 					}
@@ -448,7 +448,7 @@ fn (game &Game) fill_rect(s &sdl.Surface, r &sdl.Rect, c &sdl.Color) {
 	sdl.fill_rect(s, r, sdl.map_rgba(game.sdl.screen.format, c.r, c.g, c.b, c.a))
 }
 
-fn (mut game Game) handle_key(key sdl.Key) {
+fn (mut game Game) handle_key(key sdl.KeyCode) {
 	// global keys
 	mut action := Action.idle
 	match key {
