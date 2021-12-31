@@ -14,7 +14,7 @@ module sdl
 struct C.SDL_Keysym {
 pub:
 	scancode Scancode // C.SDL_Scancode // SDL physical key code - see ::SDL_Scancode for details
-	sym      Key      // C.SDL_Keycode // SDL virtual key code - see ::SDL_Keycode for details
+	sym      KeyCode  // C.SDL_KeyCode // SDL virtual key code - see ::SDL_Keycode for details
 	mod      u16      // current key modifiers
 	unused   u32      //
 }
