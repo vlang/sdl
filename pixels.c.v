@@ -15,6 +15,71 @@ pub const (
 	alpha_transparent = C.SDL_ALPHA_TRANSPARENT // 0
 )
 
+// Pixel type.
+// PixelType is C.SDL_PixelType
+pub enum PixelType {
+	unknown = C.SDL_PIXELTYPE_UNKNOWN
+	index1 = C.SDL_PIXELTYPE_INDEX1
+	index4 = C.SDL_PIXELTYPE_INDEX4
+	index8 = C.SDL_PIXELTYPE_INDEX8
+	packed8 = C.SDL_PIXELTYPE_PACKED8
+	packed16 = C.SDL_PIXELTYPE_PACKED16
+	packed32 = C.SDL_PIXELTYPE_PACKED32
+	arrayu8 = C.SDL_PIXELTYPE_ARRAYU8
+	arrayu16 = C.SDL_PIXELTYPE_ARRAYU16
+	arrayu32 = C.SDL_PIXELTYPE_ARRAYU32
+	arrayf16 = C.SDL_PIXELTYPE_ARRAYF16
+	arrayf32 = C.SDL_PIXELTYPE_ARRAYF32
+}
+
+// Bitmap pixel order, high bit -> low bit.
+// BitmapOrder is C.SDL_BitmapOrder
+pub enum BitmapOrder {
+	@none = C.SDL_BITMAPORDER_NONE
+	order_4321 = C.SDL_BITMAPORDER_4321
+	order_1234 = C.SDL_BITMAPORDER_1234
+}
+
+// Packed component order, high bit -> low bit.
+// PackedOrder is C.SDL_PackedOrder
+pub enum PackedOrder {
+	@none = C.SDL_PACKEDORDER_NONE
+	xrgb = C.SDL_PACKEDORDER_XRGB
+	rgbx = C.SDL_PACKEDORDER_RGBX
+	argb = C.SDL_PACKEDORDER_ARGB
+	rgba = C.SDL_PACKEDORDER_RGBA
+	xbgr = C.SDL_PACKEDORDER_XBGR
+	bgrx = C.SDL_PACKEDORDER_BGRX
+	abgr = C.SDL_PACKEDORDER_ABGR
+	bgra = C.SDL_PACKEDORDER_BGRA
+}
+
+//** Array component order, low byte -> high byte. */
+// ArrayOrder is C.SDL_ArrayOrder
+pub enum ArrayOrder {
+	@none = C.SDL_ARRAYORDER_NONE
+	rgb = C.SDL_ARRAYORDER_RGB
+	rgba = C.SDL_ARRAYORDER_RGBA
+	argb = C.SDL_ARRAYORDER_ARGB
+	bgr = C.SDL_ARRAYORDER_BGR
+	bgra = C.SDL_ARRAYORDER_BGRA
+	abgr = C.SDL_ARRAYORDER_ABGR
+}
+
+// Packed component layout.
+// PackedLayout is C.SDL_PackedLayout
+pub enum PackedLayout {
+	@none = C.SDL_PACKEDLAYOUT_NONE
+	layout_332 = C.SDL_PACKEDLAYOUT_332
+	layout_4444 = C.SDL_PACKEDLAYOUT_4444
+	layout_1555 = C.SDL_PACKEDLAYOUT_1555
+	layout_5551 = C.SDL_PACKEDLAYOUT_5551
+	layout_565 = C.SDL_PACKEDLAYOUT_565
+	layout_8888 = C.SDL_PACKEDLAYOUT_8888
+	layout_2101010 = C.SDL_PACKEDLAYOUT_2101010
+	layout_1010102 = C.SDL_PACKEDLAYOUT_1010102
+}
+
 pub enum Format {
 	unknown = C.SDL_PIXELFORMAT_UNKNOWN
 	index1lsb = C.SDL_PIXELFORMAT_INDEX1LSB
