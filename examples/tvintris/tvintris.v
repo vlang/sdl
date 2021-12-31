@@ -377,7 +377,7 @@ fn main() {
 					should_close = true
 				}
 				.keydown {
-					key := evt.key.keysym.sym
+					key := sdl.KeyCode(evt.key.keysym.sym)
 					if key == sdl.KeyCode.escape {
 						should_close = true
 						break
