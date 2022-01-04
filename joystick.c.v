@@ -65,6 +65,12 @@ pub enum JoystickPowerLevel {
 	max
 }
 
+// Set max recognized G-force from accelerometer
+// See src/joystick/uikit/SDL_sysjoystick.m for notes on why this is needed
+pub const iphone_max_gforce = C.SDL_IPHONE_MAX_GFORCE
+
+// 5.0
+
 fn C.SDL_LockJoysticks()
 
 // lock_joysticks provides locking for multi-threaded access to the joystick API
@@ -188,6 +194,71 @@ pub fn joystick_from_player_index(player_index int) &Joystick {
 	return C.SDL_JoystickFromPlayerIndex(player_index)
 }
 
+fn C.SDL_JoystickAttachVirtual(@type C.SDL_JoystickType, naxes int, nbuttons int, nhats int) int
+
+// joystick_attach_virtual attaches a new virtual joystick.
+// Returns the joystick's device index, or -1 if an error occurred.
+pub fn joystick_attach_virtual(@type JoystickType, naxes int, nbuttons int, nhats int) int {
+	return C.SDL_JoystickAttachVirtual(C.SDL_JoystickType(@type), naxes, nbuttons, nhats)
+}
+
+fn C.SDL_JoystickDetachVirtual(device_index int) int
+
+// joystick_detach_virtual detaches a virtual joystick
+// Returns 0 on success, or -1 if an error occurred.
+pub fn joystick_detach_virtual(device_index int) int {
+	return C.SDL_JoystickDetachVirtual(device_index)
+}
+
+fn C.SDL_JoystickIsVirtual(device_index int) bool
+
+// joystick_is_virtual indicates whether or not a virtual-joystick is at a given device index.
+pub fn joystick_is_virtual(device_index int) bool {
+	return C.SDL_JoystickIsVirtual(device_index)
+}
+
+fn C.SDL_JoystickSetVirtualAxis(joystick &C.SDL_Joystick, axis int, value i16) int
+
+// joystick_set_virtual_axis sets values on an opened, virtual-joystick's controls.
+// Please note that values set here will not be applied until the next
+// call to SDL_JoystickUpdate, which can either be called directly,
+// or can be called indirectly through various other SDL APIS,
+// including, but not limited to the following: SDL_PollEvent,
+// SDL_PumpEvents, SDL_WaitEventTimeout, SDL_WaitEvent.
+//
+// Returns 0 on success, -1 on error.
+pub fn joystick_set_virtual_axis(joystick &Joystick, axis int, value i16) int {
+	return C.SDL_JoystickSetVirtualAxis(joystick, axis, value)
+}
+
+fn C.SDL_JoystickSetVirtualButton(joystick &C.SDL_Joystick, button int, value byte) int
+
+// joystick_set_virtual_button sets values on an opened, virtual-joystick's controls.
+// Please note that values set here will not be applied until the next
+// call to SDL_JoystickUpdate, which can either be called directly,
+// or can be called indirectly through various other SDL APIS,
+// including, but not limited to the following: SDL_PollEvent,
+// SDL_PumpEvents, SDL_WaitEventTimeout, SDL_WaitEvent.
+//
+// Returns 0 on success, -1 on error.
+pub fn joystick_set_virtual_button(joystick &Joystick, button int, value byte) int {
+	return C.SDL_JoystickSetVirtualButton(joystick, button, value)
+}
+
+fn C.SDL_JoystickSetVirtualHat(joystick &C.SDL_Joystick, hat int, value byte) int
+
+// joystick_set_virtual_hat sets values on an opened, virtual-joystick's controls.
+// Please note that values set here will not be applied until the next
+// call to SDL_JoystickUpdate, which can either be called directly,
+// or can be called indirectly through various other SDL APIS,
+// including, but not limited to the following: SDL_PollEvent,
+// SDL_PumpEvents, SDL_WaitEventTimeout, SDL_WaitEvent.
+//
+// Returns 0 on success, -1 on error.
+pub fn joystick_set_virtual_hat(joystick &C.SDL_Joystick, hat int, value byte) int {
+	return C.SDL_JoystickSetVirtualHat(joystick, hat, value)
+}
+
 fn C.SDL_JoystickName(joystick &C.SDL_Joystick) &char
 
 // joystick_name returns the name for this currently opened joystick.
@@ -241,6 +312,21 @@ fn C.SDL_JoystickGetProductVersion(joystick &C.SDL_Joystick) u16
 // If the product version isn't available this function returns 0.
 pub fn joystick_get_product_version(joystick &Joystick) u16 {
 	return C.SDL_JoystickGetProductVersion(joystick)
+}
+
+fn C.SDL_JoystickGetSerial(joystick &C.SDL_Joystick) &char
+
+// joystick_get_serial gets the serial number of an opened joystick, if available.
+//
+// Returns the serial number of the joystick, or NULL if it is not available.
+pub fn joystick_get_serial(joystick &Joystick) string {
+	cstr := C.SDL_JoystickGetSerial(joystick)
+	mut vstr := ''
+	if !isnil(cstr) {
+		vstr = unsafe { cstring_to_vstring(cstr) }
+		// unsafe { free(cstr) }
+	}
+	return vstr
 }
 
 fn C.SDL_JoystickGetType(joystick &C.SDL_Joystick) C.SDL_JoystickType
@@ -398,7 +484,7 @@ pub fn joystick_get_button(joystick &Joystick, button int) byte {
 
 fn C.SDL_JoystickRumble(joystick &C.SDL_Joystick, low_frequency_rumble u16, high_frequency_rumble u16, duration_ms u32) int
 
-// joystick_rumble triggers a rumble effect
+// joystick_rumble starts a rumble effect
 // Each call to this function cancels any previous rumble effect, and calling it with 0 intensity stops any rumbling.
 //
 // `joystick` The joystick to vibrate
@@ -412,9 +498,49 @@ pub fn joystick_rumble(joystick &Joystick, low_frequency_rumble u16, high_freque
 		duration_ms)
 }
 
+fn C.SDL_JoystickRumbleTriggers(joystick &C.SDL_Joystick, left_rumble u16, right_rumble u16, duration_ms u32) int
+
+// joystick_rumble_triggers starts a rumble effect in the joystick's triggers
+// Each call to this function cancels any previous trigger rumble effect, and calling it with 0 intensity stops any rumbling.
+//
+// `joystick` The joystick to vibrate
+// `left_rumble` The intensity of the left trigger rumble motor, from 0 to 0xFFFF
+// `right_rumble` The intensity of the right trigger rumble motor, from 0 to 0xFFFF
+// `duration_ms` The duration of the rumble effect, in milliseconds
+//
+// returns 0, or -1 if trigger rumble isn't supported on this joystick
+pub fn joystick_rumble_triggers(joystick &Joystick, left_rumble u16, right_rumble u16, duration_ms u32) int {
+	return C.SDL_JoystickRumbleTriggers(joystick, left_rumble, right_rumble, duration_ms)
+}
+
+fn C.SDL_JoystickHasLED(joystick &C.SDL_Joystick) bool
+
+// joystick_has_led returns whether a joystick has an LED
+//
+// `joystick` The joystick to query
+//
+// returns SDL_TRUE, or SDL_FALSE if this joystick does not have a modifiable LED
+pub fn joystick_has_led(joystick &Joystick) bool {
+	return C.SDL_JoystickHasLED(joystick)
+}
+
+fn C.SDL_JoystickSetLED(joystick &Joystick, red byte, green byte, blue byte) int
+
+// joystick_set_led updates a joystick's LED color.
+//
+// `joystick` The joystick to update
+// `red` The intensity of the red LED
+// `green` The intensity of the green LED
+// `blue` The intensity of the blue LED
+//
+// returns 0, or -1 if this joystick does not have a modifiable LED
+pub fn joystick_set_led(joystick &Joystick, red byte, green byte, blue byte) int {
+	return C.SDL_JoystickSetLED(joystick, red, green, blue)
+}
+
 fn C.SDL_JoystickClose(joystick &C.SDL_Joystick)
 
-// joystick_clos closes a joystick previously opened with SDL_JoystickOpen().
+// joystick_close closes a joystick previously opened with SDL_JoystickOpen().
 pub fn joystick_close(joystick &Joystick) {
 	C.SDL_JoystickClose(joystick)
 }

@@ -26,6 +26,11 @@ pub type TLSID = u32
 
 // ThreadPriority is the SDL thread priority.
 //
+// SDL will make system changes as necessary in order to apply the thread priority.
+// Code which attempts to control thread state related to priority should be aware
+// that calling SDL_SetThreadPriority may alter such state.
+// SDL_HINT_THREAD_PRIORITY_POLICY can be used to control aspects of this behavior.
+//
 // NOTE On many systems you require special privileges to set high or time critical priority.
 //
 // ThreadPriority is C.SDL_ThreadPriority

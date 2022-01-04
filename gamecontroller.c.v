@@ -31,6 +31,8 @@ pub enum GameControllerType {
 	ps3 = C.SDL_CONTROLLER_TYPE_PS3
 	ps4 = C.SDL_CONTROLLER_TYPE_PS4
 	nintendo_switch_pro = C.SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_PRO
+	virtual = C.SDL_CONTROLLER_TYPE_VIRTUAL
+	ps5 = C.SDL_CONTROLLER_TYPE_PS5
 }
 
 // GameControllerBindType is C.SDL_GameControllerBindType
@@ -84,7 +86,6 @@ pub type GameControllerButtonBind = C.SDL_GameControllerButtonBind
 // This string shows an example of a valid mapping for a controller
 // "03000000341a00003608000000000000,PS3 Controller,a:b1,b:b2,y:b3,x:b0,start:b9,guide:b12,back:b8,dpup:h0.1,dpleft:h0.8,dpdown:h0.4,dpright:h0.2,leftshoulder:b4,rightshoulder:b5,leftstick:b10,rightstick:b11,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:b6,righttrigger:b7",
 //
-///
 
 fn C.SDL_GameControllerAddMappingsFromRW(rw &C.SDL_RWops, freerw int) int
 
@@ -297,6 +298,15 @@ pub fn game_controller_get_product_version(gamecontroller &GameController) u16 {
 	return C.SDL_GameControllerGetProductVersion(gamecontroller)
 }
 
+fn C.SDL_GameControllerGetSerial(gamecontroller &C.SDL_GameController) &char
+
+// game_controller_get_serial gets the serial number of an opened controller, if available.
+//
+// Returns the serial number of the controller, or NULL if it is not available.
+pub fn game_controller_get_serial(gamecontroller &GameController) string {
+	return unsafe { cstring_to_vstring(C.SDL_GameControllerGetSerial(gamecontroller)) }
+}
+
 fn C.SDL_GameControllerGetAttached(gamecontroller &C.SDL_GameController) bool
 
 // game_controller_get_attached returns SDL_TRUE if the controller has been opened and currently connected,
@@ -363,7 +373,6 @@ pub fn game_controller_get_axis_from_string(pch_string string) GameControllerAxi
 }
 
 // game_controller_get_string_for_axis turns the axis enum into a string mapping
-///
 fn C.SDL_GameControllerGetStringForAxis(axis C.SDL_GameControllerAxis) &char
 pub fn game_controller_get_string_for_axis(axis GameControllerAxis) string {
 	cstr := C.SDL_GameControllerGetStringForAxis(C.SDL_GameControllerAxis(axis))
@@ -380,6 +389,13 @@ fn C.SDL_GameControllerGetBindForAxis(gamecontroller &C.SDL_GameController, axis
 // Get the SDL joystick layer binding for this controller button mapping
 pub fn game_controller_get_bind_for_axis(gamecontroller &GameController, axis GameControllerAxis) GameControllerButtonBind {
 	return C.SDL_GameControllerGetBindForAxis(gamecontroller, C.SDL_GameControllerAxis(axis))
+}
+
+fn C.SDL_GameControllerHasAxis(gamecontroller &C.SDL_GameController, axis C.SDL_GameControllerAxis) bool
+
+// game_controller_has_axis returns whether a game controller has a given axis
+pub fn game_controller_has_axis(gamecontroller &GameController, axis GameControllerAxis) bool {
+	return C.SDL_GameControllerHasAxis(gamecontroller, C.SDL_GameControllerAxis(axis))
 }
 
 fn C.SDL_GameControllerGetAxis(gamecontroller &C.SDL_GameController, axis C.SDL_GameControllerAxis) i16
@@ -413,6 +429,12 @@ pub enum GameControllerButton {
 	dpad_down = C.SDL_CONTROLLER_BUTTON_DPAD_DOWN
 	dpad_left = C.SDL_CONTROLLER_BUTTON_DPAD_LEFT
 	dpad_right = C.SDL_CONTROLLER_BUTTON_DPAD_RIGHT
+	misc1 = C.SDL_CONTROLLER_BUTTON_MISC1 // Xbox Series X share button, PS5 microphone button, Nintendo Switch Pro capture button
+	paddle1 = C.SDL_CONTROLLER_BUTTON_PADDLE1 // Xbox Elite paddle P1
+	paddle2 = C.SDL_CONTROLLER_BUTTON_PADDLE2 // Xbox Elite paddle P3
+	paddle3 = C.SDL_CONTROLLER_BUTTON_PADDLE3 // Xbox Elite paddle P2
+	paddle4 = C.SDL_CONTROLLER_BUTTON_PADDLE4 // Xbox Elite paddle P4
+	touchpad = C.SDL_CONTROLLER_BUTTON_TOUCHPAD // PS4/PS5 touchpad button
 	max = C.SDL_CONTROLLER_BUTTON_MAX
 }
 
@@ -424,7 +446,6 @@ pub fn game_controller_get_button_from_string(pch_string string) GameControllerB
 }
 
 // game_controller_get_string_for_button turns the button enum into a string mapping
-///
 fn C.SDL_GameControllerGetStringForButton(button C.SDL_GameControllerButton) &char
 pub fn game_controller_get_string_for_button(button GameControllerButton) string {
 	cstr := C.SDL_GameControllerGetStringForButton(C.SDL_GameControllerButton(button))
@@ -443,6 +464,13 @@ pub fn game_controller_get_bind_for_button(gamecontroller &GameController, butto
 	return C.SDL_GameControllerGetBindForButton(gamecontroller, C.SDL_GameControllerButton(button))
 }
 
+fn C.SDL_GameControllerHasButton(gamecontroller &C.SDL_GameController, button C.SDL_GameControllerButton) bool
+
+// game_controller_has_button returns whether a game controller has a given button
+pub fn game_controller_has_button(gamecontroller &GameController, button GameControllerButton) bool {
+	return C.SDL_GameControllerHasButton(gamecontroller, C.SDL_GameControllerButton(button))
+}
+
 fn C.SDL_GameControllerGetButton(gamecontroller &C.SDL_GameController, button C.SDL_GameControllerButton) byte
 
 // game_controller_get_button gets the current state of a button on a game controller.
@@ -452,9 +480,87 @@ pub fn game_controller_get_button(gamecontroller &GameController, button GameCon
 	return C.SDL_GameControllerGetButton(gamecontroller, C.SDL_GameControllerButton(button))
 }
 
+fn C.SDL_GameControllerGetNumTouchpads(gamecontroller &C.SDL_GameController) int
+
+// game_controller_get_num_touchpads gets the number of touchpads on a game controller.
+pub fn game_controller_get_num_touchpads(gamecontroller &GameController) int {
+	return C.SDL_GameControllerGetNumTouchpads(gamecontroller)
+}
+
+fn C.SDL_GameControllerGetNumTouchpadFingers(gamecontroller &C.SDL_GameController, touchpad int) int
+
+// game_controller_get_num_touchpad_fingers gets the number of supported simultaneous fingers on a touchpad on a game controller.
+pub fn game_controller_get_num_touchpad_fingers(gamecontroller &GameController, touchpad int) int {
+	return C.SDL_GameControllerGetNumTouchpadFingers(gamecontroller, touchpad)
+}
+
+fn C.SDL_GameControllerGetTouchpadFinger(gamecontroller &GameController, touchpad int, finger int, state &byte, x &f32, y &f32, pressure &f32) int
+
+// game_controller_get_touchpad_finger gets the current state of a finger on a touchpad on a game controller.
+pub fn game_controller_get_touchpad_finger(gamecontroller &GameController, touchpad int, finger int, state &byte, x &f32, y &f32, pressure &f32) int {
+	return C.SDL_GameControllerGetTouchpadFinger(gamecontroller, touchpad, finger, state,
+		x, y, pressure)
+}
+
+fn C.SDL_GameControllerHasSensor(gamecontroller &C.SDL_GameController, @type C.SDL_SensorType) bool
+
+// game_controller_has_sensor returns whether a game controller has a particular sensor.
+//
+// `gamecontroller` The controller to query
+// `type` The type of sensor to query
+//
+// returns SDL_TRUE if the sensor exists, SDL_FALSE otherwise.
+pub fn game_controller_has_sensor(gamecontroller &GameController, @type SensorType) bool {
+	return C.SDL_GameControllerHasSensor(gamecontroller, C.SDL_SensorType(@type))
+}
+
+fn C.SDL_GameControllerSetSensorEnabled(gamecontroller &C.SDL_GameController, @type C.SDL_SensorType, enabled bool) int
+
+// game_controller_set_sensor_enabled sets whether data reporting for a game controller sensor is enabled
+//
+// `gamecontroller` The controller to update
+// `type` The type of sensor to enable/disable
+// `enabled` Whether data reporting should be enabled
+//
+// returns 0 or -1 if an error occurred.
+pub fn game_controller_set_sensor_enabled(gamecontroller &GameController, @type SensorType, enabled bool) int {
+	return C.SDL_GameControllerSetSensorEnabled(gamecontroller, C.SDL_SensorType(@type),
+		enabled)
+}
+
+fn C.SDL_GameControllerIsSensorEnabled(gamecontroller &C.SDL_GameController, @type C.SDL_SensorType) bool
+
+// game_controller_is_sensor_enabled querys whether sensor data reporting is enabled for a game controller
+//
+// `gamecontroller` The controller to query
+// `type` The type of sensor to query
+//
+// returns SDL_TRUE if the sensor is enabled, SDL_FALSE otherwise.
+pub fn game_controller_is_sensor_enabled(gamecontroller &GameController, @type SensorType) bool {
+	return C.SDL_GameControllerIsSensorEnabled(gamecontroller, C.SDL_SensorType(@type))
+}
+
+fn C.SDL_GameControllerGetSensorData(gamecontroller &C.SDL_GameController, @type C.SDL_SensorType, data &f32, num_values int) int
+
+// game_controller_get_sensor_data gets the current state of a game controller sensor.
+//
+// The number of values and interpretation of the data is sensor dependent.
+// See SDL_sensor.h for the details for each type of sensor.
+//
+// `gamecontroller` The controller to query
+// `type` The type of sensor to query
+// `data` A pointer filled with the current sensor state
+// `num_values` The number of values to write to data
+//
+// returns 0 or -1 if an error occurred.
+pub fn game_controller_get_sensor_data(gamecontroller &GameController, @type SensorType, data &f32, num_values int) int {
+	return C.SDL_GameControllerGetSensorData(gamecontroller, C.SDL_SensorType(@type),
+		data, num_values)
+}
+
 fn C.SDL_GameControllerRumble(gamecontroller &C.SDL_GameController, low_frequency_rumble u16, high_frequency_rumble u16, duration_ms u32) int
 
-// game_controller_rumble triggers a rumble effect
+// game_controller_rumble starts a rumble effect
 // Each call to this function cancels any previous rumble effect, and calling it with 0 intensity stops any rumbling.
 //
 // `gamecontroller` The controller to vibrate
@@ -462,10 +568,51 @@ fn C.SDL_GameControllerRumble(gamecontroller &C.SDL_GameController, low_frequenc
 // `high_frequency_rumble` The intensity of the high frequency (right) rumble motor, from 0 to 0xFFFF
 // `duration_ms` The duration of the rumble effect, in milliseconds
 //
-// returns 0, or -1 if rumble isn't supported on this joystick
+// returns 0, or -1 if rumble isn't supported on this controller
 pub fn game_controller_rumble(gamecontroller &GameController, low_frequency_rumble u16, high_frequency_rumble u16, duration_ms u32) int {
 	return C.SDL_GameControllerRumble(gamecontroller, low_frequency_rumble, high_frequency_rumble,
 		duration_ms)
+}
+
+fn C.SDL_GameControllerRumbleTriggers(gamecontroller &C.SDL_GameController, left_rumble u16, right_rumble u16, duration_ms u32) int
+
+// game_controller_rumble_triggers starts a rumble effect in the game controller's triggers
+// Each call to this function cancels any previous trigger rumble effect, and calling it with 0 intensity stops any rumbling.
+//
+// `gamecontroller` The controller to vibrate
+// `left_rumble` The intensity of the left trigger rumble motor, from 0 to 0xFFFF
+// `right_rumble` The intensity of the right trigger rumble motor, from 0 to 0xFFFF
+// `duration_ms` The duration of the rumble effect, in milliseconds
+//
+// returns 0, or -1 if rumble isn't supported on this controller
+pub fn game_controller_rumble_triggers(gamecontroller &GameController, left_rumble u16, right_rumble u16, duration_ms u32) int {
+	return C.SDL_GameControllerRumbleTriggers(gamecontroller, left_rumble, right_rumble,
+		duration_ms)
+}
+
+fn C.SDL_GameControllerHasLED(gamecontroller &C.SDL_GameController) bool
+
+// game_controller_has_led returns whether a controller has an LED
+//
+// `gamecontroller` The controller to query
+//
+// returns SDL_TRUE, or SDL_FALSE if this controller does not have a modifiable LED
+pub fn game_controller_has_led(gamecontroller &GameController) bool {
+	return C.SDL_GameControllerHasLED(gamecontroller)
+}
+
+fn C.SDL_GameControllerSetLED(gamecontroller &C.SDL_GameController, red byte, green byte, blue byte) int
+
+// game_controller_set_led updates a controller's LED color.
+//
+// `gamecontroller` The controller to update
+// `red` The intensity of the red LED
+// `green` The intensity of the green LED
+// `blue` The intensity of the blue LED
+//
+// returns 0, or -1 if this controller does not have a modifiable LED
+pub fn game_controller_set_led(gamecontroller &GameController, red byte, green byte, blue byte) int {
+	return C.SDL_GameControllerSetLED(gamecontroller, red, green, blue)
 }
 
 fn C.SDL_GameControllerClose(gamecontroller &C.SDL_GameController)

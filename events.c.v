@@ -55,6 +55,7 @@ pub enum EventType {
 	// Called on iOS in applicationDidBecomeActive()
 	// Called on Android in onResume()
 	app_didenterforeground = C.SDL_APP_DIDENTERFOREGROUND
+	localechanged = C.SDL_LOCALECHANGED // The user's locale preferences have changed.
 	// Display events
 	displayevent = C.SDL_DISPLAYEVENT // 0x150 Display state change
 	// Window events
@@ -86,6 +87,10 @@ pub enum EventType {
 	controllerdeviceadded = C.SDL_CONTROLLERDEVICEADDED // A new Game controller has been inserted into the system
 	controllerdeviceremoved = C.SDL_CONTROLLERDEVICEREMOVED // An opened Game controller has been removed
 	controllerdeviceremapped = C.SDL_CONTROLLERDEVICEREMAPPED // The controller mapping was updated
+	controllertouchpaddown = C.SDL_CONTROLLERTOUCHPADDOWN // Game controller touchpad was touched
+	controllertouchpadmotio = C.SDL_CONTROLLERTOUCHPADMOTION // Game controller touchpad finger was moved
+	controllertouchpadup = C.SDL_CONTROLLERTOUCHPADUP // Game controller touchpad finger was lifted
+	controllersensorupdate = C.SDL_CONTROLLERSENSORUPDATE // Game controller sensor was updated
 	// Touch events
 	fingerdown = C.SDL_FINGERDOWN // 0x700
 	fingerup = C.SDL_FINGERUP
@@ -371,6 +376,32 @@ pub:
 
 pub type ControllerDeviceEvent = C.SDL_ControllerDeviceEvent
 
+// ControllerTouchpadEvent is game controller touchpad event structure (event.ctouchpad.*)
+[typedef]
+struct C.SDL_ControllerTouchpadEvent {
+	@type     u32        // ::SDL_CONTROLLERTOUCHPADDOWN or ::SDL_CONTROLLERTOUCHPADMOTION or ::SDL_CONTROLLERTOUCHPADUP
+	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
+	which     JoystickID // The joystick instance id
+	touchpad  int        // The index of the touchpad
+	finger    int        // The index of the finger on the touchpad
+	x         f32        // Normalized in the range 0...1 with 0 being on the left
+	y         f32        // Normalized in the range 0...1 with 0 being at the top
+	pressure  f32        // Normalized in the range 0...1
+}
+
+pub type ControllerTouchpadEvent = C.SDL_ControllerTouchpadEvent
+
+[typedef]
+struct C.SDL_ControllerSensorEvent {
+	@type     u32 // ::SDL_CONTROLLERSENSORUPDATE
+	timestamp u32 // In milliseconds, populated using SDL_GetTicks()
+	which     C.SDL_JoystickID // The joystick instance id
+	sensor    int    // The type of the sensor, one of the values of ::SDL_SensorType
+	data      [3]f32 // Up to 3 values from the sensor, as defined in SDL_sensor.h
+}
+
+pub type ControllerSensorEvent = C.SDL_ControllerSensorEvent
+
 // AudioDeviceEvent is audio device event structure (event.adevice.*)
 [typedef]
 struct C.SDL_AudioDeviceEvent {
@@ -524,28 +555,31 @@ pub union C.SDL_Event {
 pub:
 	@type EventType // Event type, shared with all events
 	// display C.SDL_DisplayEvent
-	common  CommonEvent           // C.SDL_CommonEvent           // Common event data
-	display DisplayEvent          // C.SDL_DisplayEvent          // Display event data
-	window  WindowEvent           // C.SDL_WindowEvent           // Window event data
-	key     KeyboardEvent         // C.SDL_KeyboardEvent         // Keyboard event data
-	edit    TextEditingEvent      // C.SDL_TextEditingEvent      // Text editing event data
-	text    TextInputEvent        // C.SDL_TextInputEvent        // Text input event data
-	motion  MouseMotionEvent      // C.SDL_MouseMotionEvent      // Mouse motion event data
-	button  MouseButtonEvent      // C.SDL_MouseButtonEvent      // Mouse button event data
-	wheel   MouseWheelEvent       // C.SDL_MouseWheelEvent       // Mouse wheel event data
-	jaxis   JoyAxisEvent          // C.SDL_JoyAxisEvent          // Joystick axis event data
-	jball   JoyBallEvent          // C.SDL_JoyBallEvent          // Joystick ball event data
-	jhat    JoyHatEvent           // C.SDL_JoyHatEvent           // Joystick hat event data
-	jbutton JoyButtonEvent        // C.SDL_JoyButtonEvent        // Joystick button event data
-	jdevice JoyDeviceEvent        // C.SDL_JoyDeviceEvent        // Joystick device change event data
-	caxis   ControllerAxisEvent   // C.SDL_ControllerAxisEvent   // Game Controller axis event data
-	cbutton ControllerButtonEvent // C.SDL_ControllerButtonEvent // Game Controller button event data
-	cdevice ControllerDeviceEvent // C.SDL_ControllerDeviceEvent // Game Controller device event data
-	adevice AudioDeviceEvent      // C.SDL_AudioDeviceEvent      // Audio device event data
-	sensor  SensorEvent // C.SDL_SensorEvent           // Sensor event data
+	common    CommonEvent             // C.SDL_CommonEvent             // Common event data
+	display   DisplayEvent            // C.SDL_DisplayEvent            // Display event data
+	window    WindowEvent             // C.SDL_WindowEvent             // Window event data
+	key       KeyboardEvent           // C.SDL_KeyboardEvent           // Keyboard event data
+	edit      TextEditingEvent        // C.SDL_TextEditingEvent        // Text editing event data
+	text      TextInputEvent          // C.SDL_TextInputEvent          // Text input event data
+	motion    MouseMotionEvent        // C.SDL_MouseMotionEvent        // Mouse motion event data
+	button    MouseButtonEvent        // C.SDL_MouseButtonEvent        // Mouse button event data
+	wheel     MouseWheelEvent         // C.SDL_MouseWheelEvent         // Mouse wheel event data
+	jaxis     JoyAxisEvent            // C.SDL_JoyAxisEvent            // Joystick axis event data
+	jball     JoyBallEvent            // C.SDL_JoyBallEvent            // Joystick ball event data
+	jhat      JoyHatEvent             // C.SDL_JoyHatEvent             // Joystick hat event data
+	jbutton   JoyButtonEvent          // C.SDL_JoyButtonEvent          // Joystick button event data
+	jdevice   JoyDeviceEvent          // C.SDL_JoyDeviceEvent          // Joystick device change event data
+	caxis     ControllerAxisEvent     // C.SDL_ControllerAxisEvent     // Game Controller axis event data
+	cbutton   ControllerButtonEvent   // C.SDL_ControllerButtonEvent   // Game Controller button event data
+	cdevice   ControllerDeviceEvent   // C.SDL_ControllerDeviceEvent   // Game Controller device event data
+	ctouchpad ControllerTouchpadEvent // C.SDL_ControllerTouchpadEvent // Game Controller touchpad event data
+	csensor   ControllerSensorEvent   // C.SDL_ControllerSensorEvent   // Game Controller sensor event data
+	adevice   AudioDeviceEvent        // C.SDL_AudioDeviceEvent        // Audio device event data
+	sensor    SensorEvent // C.SDL_SensorEvent             // Sensor event data
 
 	quit     QuitEvent          // C.SDL_QuitEvent          // Quit request event data
 	user     UserEvent          // C.SDL_UserEvent          // Custom event data
+	syswm    SysWMEvent         // C.SDL_SysWMEvent         // System dependent window event data
 	tfinger  TouchFingerEvent   // C.SDL_TouchFingerEvent   // Touch finger event data
 	mgesture MultiGestureEvent  // C.SDL_MultiGestureEvent  // Gesture event data
 	dgesture DollarGestureEvent // C.SDL_DollarGestureEvent // Gesture event data

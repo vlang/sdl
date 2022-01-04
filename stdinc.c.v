@@ -175,6 +175,11 @@ pub fn tolower(x int) int {
 	return C.SDL_tolower(x)
 }
 
+fn C.SDL_crc32(crc u32, data voidptr, len usize) u32
+pub fn crc32(crc u32, data voidptr, len usize) u32 {
+	return C.SDL_crc32(crc, data, len)
+}
+
 /*
 // TODO
 // extern DECLSPEC void *SDLCALL SDL_memset(SDL_OUT_BYTECAP(len) void *dst, int c, size_t len)
@@ -254,6 +259,18 @@ pub fn wcscmp(str1 &C.wchar_t, str2 &C.wchar_t) int{
 fn C.SDL_wcsncmp(str1 &C.wchar_t, str2 &C.wchar_t, maxlen usize) int
 pub fn wcsncmp(str1 &C.wchar_t, str2 &C.wchar_t, maxlen usize) int{
 	return C.SDL_wcsncmp(str1, str2, maxlen)
+}
+
+extern DECLSPEC int SDLCALL SDL_wcscasecmp(const wchar_t *str1, const wchar_t *str2)
+fn C.SDL_wcscasecmp(str1 &C.wchar_t, str2 &C.wchar_t) int
+pub fn wcscasecmp(str1 &C.wchar_t, str2 &C.wchar_t) int{
+	return C.SDL_wcscasecmp(str1, str2)
+}
+
+extern DECLSPEC int SDLCALL SDL_wcsncasecmp(const wchar_t *str1, const wchar_t *str2, size_t len)
+fn C.SDL_wcsncasecmp(str1 &C.wchar_t, str2 &C.wchar_t, len usize) int
+pub fn wcsncasecmp(str1 &C.wchar_t, str2 &C.wchar_t, len usize) int{
+	return C.SDL_wcsncasecmp(str1, str2, len)
 }
 */
 
@@ -539,6 +556,16 @@ pub fn floor(x f64) f64 {
 fn C.SDL_floorf(x f32) f32
 pub fn floorf(x f32) f32 {
 	return C.SDL_floorf(x)
+}
+
+fn C.SDL_trunc(x f64) f64
+pub fn trunc(x f64) f64 {
+	return C.SDL_trunc(x)
+}
+
+fn C.SDL_truncf(x f32) f32
+pub fn truncf(x f32) f32 {
+	return C.SDL_truncf(x)
 }
 
 fn C.SDL_fmod(x f64, y f64) f64

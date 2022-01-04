@@ -43,14 +43,12 @@ pub enum Keymod {
 	kmod_caps = C.KMOD_CAPS // 0x2000
 	kmod_mode = C.KMOD_MODE // 0x4000
 	kmod_reserved = C.KMOD_RESERVED // 0x8000
+	//
+	kmod_ctrl = C.KMOD_CTRL
+	kmod_shift = C.KMOD_SHIFT
+	kmod_alt = C.KMOD_ALT
+	kmod_gui = C.KMOD_GUI
 }
-
-pub const (
-	kmod_ctrl  = C.KMOD_LCTRL | C.KMOD_RCTRL
-	kmod_shift = C.KMOD_LSHIFT | C.KMOD_RSHIFT
-	kmod_alt   = C.KMOD_LALT | C.KMOD_RALT
-	kmod_gui   = C.KMOD_LGUI | C.KMOD_RGUI
-)
 
 pub enum KeyCode {
 	unknown = C.SDLK_UNKNOWN // 0

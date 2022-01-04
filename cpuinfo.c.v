@@ -176,9 +176,35 @@ fn C.SDL_SIMDAlloc(len usize) voidptr
 // returns Pointer to newly-allocated block, NULL if out of memory.
 //
 // See also: SDL_SIMDAlignment
+// See also: SDL_SIMDRealloc
 // See also: SDL_SIMDFree
 pub fn simd_alloc(len usize) voidptr {
 	return C.SDL_SIMDAlloc(len)
+}
+
+fn C.SDL_SIMDRealloc(mem voidptr, len usize) voidptr
+
+// simd_realloc reallocates memory obtained from SDL_SIMDAlloc
+//
+// It is not valid to use this function on a pointer from anything but
+//  SDL_SIMDAlloc(). It can't be used on pointers from malloc, realloc,
+//  SDL_malloc, memalign, new[], etc.
+//
+//  `mem` The pointer obtained from SDL_SIMDAlloc. This function also
+//             accepts NULL, at which point this function is the same as
+//             calling SDL_realloc with a NULL pointer.
+//  `len` The length, in bytes, of the block to allocated. The actual
+//             allocated block might be larger due to padding, etc. Passing 0
+//             will return a non-NULL pointer, assuming the system isn't out of
+//             memory.
+// returns Pointer to newly-reallocated block, NULL if out of memory.
+//
+// See also: SDL_SIMDAlignment
+// See also: SDL_SIMDAlloc
+// See also: SDL_SIMDFree
+///
+pub fn simd_realloc(mem voidptr, len usize) voidptr {
+	return C.SDL_SIMDRealloc(mem, len)
 }
 
 fn C.SDL_SIMDFree(ptr voidptr)
@@ -192,6 +218,7 @@ fn C.SDL_SIMDFree(ptr voidptr)
 // However, SDL_SIMDFree(NULL) is a legal no-op.
 //
 // See also: SDL_SIMDAlloc
+// See also: SDL_SIMDRealloc
 pub fn simd_free(ptr voidptr) {
 	C.SDL_SIMDFree(ptr)
 }

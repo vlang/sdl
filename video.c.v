@@ -87,6 +87,7 @@ pub enum WindowFlags {
 	tooltip = C.SDL_WINDOW_TOOLTIP // 0x00040000 window should be treated as a tooltip
 	popup_menu = C.SDL_WINDOW_POPUP_MENU // 0x00080000 window should be treated as a popup menu
 	vulkan = C.SDL_WINDOW_VULKAN // 0x10000000 window usable for Vulkan surface
+	metal = C.SDL_WINDOW_METAL // 0x20000000 window usable for Metal view
 }
 
 // Used to indicate that you don't care what the window position is.
@@ -149,6 +150,8 @@ pub enum WindowEventID {
 pub enum DisplayEventID {
 	@none = C.SDL_DISPLAYEVENT_NONE // Never used
 	orientation = C.SDL_DISPLAYEVENT_ORIENTATION // Display orientation has changed to data1
+	connected = C.SDL_DISPLAYEVENT_CONNECTED // Display has been added to the system
+	disconnected = C.SDL_DISPLAYEVENT_DISCONNECTED // Display has been removed from the system
 }
 
 // DisplayOrientation is C.SDL_DisplayOrientation
@@ -511,7 +514,8 @@ fn C.SDL_CreateWindow(title &char, x int, y int, w int, h int, flags u32) &C.SDL
 // ::SDL_WINDOW_HIDDEN,        ::SDL_WINDOW_BORDERLESS,
 // ::SDL_WINDOW_RESIZABLE,     ::SDL_WINDOW_MAXIMIZED,
 // ::SDL_WINDOW_MINIMIZED,     ::SDL_WINDOW_INPUT_GRABBED,
-// ::SDL_WINDOW_ALLOW_HIGHDPI, ::SDL_WINDOW_VULKAN.
+// ::SDL_WINDOW_ALLOW_HIGHDPI, ::SDL_WINDOW_VULKAN,
+// ::SDL_WINDOW_METAL.
 //
 // returns The created window, or NULL if window creation failed.
 //
@@ -529,6 +533,9 @@ fn C.SDL_CreateWindow(title &char, x int, y int, w int, h int, flags u32) &C.SDL
 //
 // If SDL_WINDOW_VULKAN is specified and there isn't a working Vulkan driver,
 // SDL_CreateWindow() will fail because SDL_Vulkan_LoadLibrary() will fail.
+//
+// If SDL_WINDOW_METAL is specified on an OS that does not support Metal,
+// SDL_CreateWindow() will fail.
 //
 // NOTE On non-Apple devices, SDL requires you to either not link to the
 // Vulkan loader or link to a dynamic library version. This limitation

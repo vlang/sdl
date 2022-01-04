@@ -32,6 +32,7 @@ fn C.SDL_GetAndroidSDKVersion() int
 
 // get_android_sdk_version returns the API level of the current device
 //
+//    API level 30: Android 11
 //    API level 29: Android 10
 //    API level 28: Android 9
 //    API level 27: Android 8.1
@@ -120,4 +121,14 @@ fn C.SDL_AndroidGetExternalStoragePath() &char
 // written to by other applications.
 pub fn android_get_external_storage_path() string {
 	return unsafe { cstring_to_vstring(C.SDL_AndroidGetExternalStoragePath()) }
+}
+
+fn C.SDL_AndroidRequestPermission(permission &char) bool
+
+// android_request_permission requests permissions at runtime.
+//
+// This blocks the calling thread until the permission is granted or
+// denied. Returns SDL_TRUE if the permission was granted.
+pub fn android_request_permission(permission string) bool {
+	return C.SDL_AndroidRequestPermission(permission.str)
 }

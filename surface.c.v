@@ -21,8 +21,9 @@ pub:
 	h      int // Read-only
 	pitch  int // Read-only
 	// information needed for surfaces requiring locks
-	locked    int     // Read-only
-	lock_data voidptr // Read-only
+	locked int // Read-only
+	// list of BlitMap that hold a reference to this surface
+	// list_blitmap voidptr // Private
 	// clipping information
 	clip_rect C.SDL_Rect // Read-only
 	// @map &C.SDL_BlitMap // Private
@@ -187,10 +188,19 @@ fn C.SDL_SetSurfaceRLE(surface &C.SDL_Surface, flag int) int
 //
 // returns 0 on success, or -1 if the surface is not valid
 //
-// \note If RLE is enabled, colorkey and alpha blending blits are much faster,
+// NOTE If RLE is enabled, colorkey and alpha blending blits are much faster,
 // but the surface must be locked before directly accessing the pixels.
 pub fn set_surface_rle(surface &Surface, flag int) int {
 	return C.SDL_SetSurfaceRLE(surface, flag)
+}
+
+fn C.SDL_HasSurfaceRLE(surface &C.SDL_Surface) bool
+
+// has_surface_rle returns whether the surface is RLE enabled
+//
+// returns SDL_TRUE if the surface is RLE enabled, or SDL_FALSE if the surface is NULL or not RLE enabled
+pub fn has_surface_rle(surface &Surface) bool {
+	return C.SDL_HasSurfaceRLE(surface)
 }
 
 fn C.SDL_SetColorKey(surface &C.SDL_Surface, flag int, key u32) int

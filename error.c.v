@@ -13,12 +13,39 @@ extern DECLSPEC int SDLCALL SDL_SetError(SDL_PRINTF_FORMAT_STRING const char *fm
 */
 fn C.SDL_GetError() &char
 
-// get_error SDL_SetError() unconditionally returns -1.
+// get_error gets the last error message that was set
+//
+// SDL API functions may set error messages and then succeed, so you should
+// only use the error value if a function fails.
+//
+// This returns a pointer to a static buffer for convenience and should not
+// be called by multiple threads simultaneously.
+//
+// returns a pointer to the last error message that was set
 pub fn get_error() string {
 	return unsafe { cstring_to_vstring(C.SDL_GetError()) }
 }
 
+fn C.SDL_GetErrorMsg(errstr &char, maxlen int) &char
+
+// get_error_msg gets the last error message that was set for the current thread
+//
+// SDL API functions may set error messages and then succeed, so you should
+// only use the error value if a function fails.
+//
+// `errstr` A buffer to fill with the last error message that was set
+//          for the current thread
+// `maxlen` The size of the buffer pointed to by the errstr parameter
+//
+// returns `errstr`
+pub fn get_error_msg(errstr &char, maxlen int) string {
+	mut charr := []char{len: 512}
+	return unsafe { cstring_to_vstring(C.SDL_GetErrorMsg(charr.data, charr.len)) }
+}
+
 fn C.SDL_ClearError()
+
+// clear_error clears the error message for the current thread
 pub fn clear_error() {
 	C.SDL_ClearError()
 }
