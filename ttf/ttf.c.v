@@ -57,23 +57,23 @@ fn C.TTF_OpenFont(file &char, ptsize int) &C.TTF_Font
 // open_font opens a font file and create a font of the specified point size.
 // Some .fon fonts will have several sizes embedded in the file, so the
 // point size becomes the index of choosing which size.  If the value
-// is too high, the last indexed size will be the default.*/
-pub fn open_font(file &char, ptsize int) &Font {
-	return C.TTF_OpenFont(file, ptsize)
+// is too high, the last indexed size will be the default.
+pub fn open_font(file string, ptsize int) &Font {
+	return C.TTF_OpenFont(file.str, ptsize)
 }
 
 fn C.TTF_OpenFontIndex(file &char, ptsize int, index int) &C.TTF_Font
-pub fn open_font_index(file &char, ptsize int, index int) &Font {
-	return C.TTF_OpenFontIndex(file, ptsize, index)
+pub fn open_font_index(file string, ptsize int, index int) &Font {
+	return C.TTF_OpenFontIndex(file.str, ptsize, index)
 }
 
 fn C.TTF_OpenFontRW(src &C.SDL_RWops, freesrc int, ptsize int) &C.TTF_Font
-pub fn open_font_rw(src &C.SDL_RWops, freesrc int, ptsize int) &Font {
+pub fn open_font_rw(src &sdl.RWops, freesrc int, ptsize int) &Font {
 	return C.TTF_OpenFontRW(src, freesrc, ptsize)
 }
 
 fn C.TTF_OpenFontIndexRW(src &C.SDL_RWops, freesrc int, ptsize int, index int) &C.TTF_Font
-pub fn open_font_index_rw(src &C.SDL_RWops, freesrc int, ptsize int, index int) &Font {
+pub fn open_font_index_rw(src &sdl.RWops, freesrc int, ptsize int, index int) &Font {
 	return C.TTF_OpenFontIndexRW(src, freesrc, ptsize, index)
 }
 
@@ -183,13 +183,13 @@ pub fn font_face_is_fixed_width(font &Font) int {
 }
 
 fn C.TTF_FontFaceFamilyName(font &C.TTF_Font) &char
-pub fn font_face_family_name(font &Font) &char {
-	return C.TTF_FontFaceFamilyName(font)
+pub fn font_face_family_name(font &Font) string {
+	return unsafe { cstring_to_vstring(C.TTF_FontFaceFamilyName(font)) }
 }
 
 fn C.TTF_FontFaceStyleName(font &C.TTF_Font) &char
-pub fn font_face_style_name(font &Font) &char {
-	return C.TTF_FontFaceStyleName(font)
+pub fn font_face_style_name(font &Font) string {
+	return unsafe { cstring_to_vstring(C.TTF_FontFaceStyleName(font)) }
 }
 
 fn C.TTF_GlyphIsProvided(font &C.TTF_Font, ch u16) int
@@ -211,13 +211,13 @@ pub fn glyph_metrics(font &Font, ch u16, minx &int, maxx &int, miny &int, maxy &
 fn C.TTF_SizeText(font &C.TTF_Font, text &char, w &int, h &int) int
 
 // size_text gets the dimensions of a rendered string of text
-pub fn size_text(font &Font, text &char, w &int, h &int) int {
-	return C.TTF_SizeText(font, text, w, h)
+pub fn size_text(font &Font, text string, w &int, h &int) int {
+	return C.TTF_SizeText(font, text.str, w, h)
 }
 
 fn C.TTF_SizeUTF8(font &C.TTF_Font, text &char, w &int, h &int) int
-pub fn size_utf8(font &Font, text &char, w &int, h &int) int {
-	return C.TTF_SizeUTF8(font, text, w, h)
+pub fn size_utf8(font &Font, text string, w &int, h &int) int {
+	return C.TTF_SizeUTF8(font, text.str, w, h)
 }
 
 fn C.TTF_SizeUNICODE(font &Font, text &u16, w &int, h &int) int
@@ -295,13 +295,13 @@ fn C.TTF_RenderText_Blended(font &C.TTF_Font, text &char, fg C.SDL_Color) &C.SDL
 // render_text_blended creates a 32-bit ARGB surface and render the given text at high quality,
 // using alpha blending to dither the font with the given color.
 // This function returns the new surface, or NULL if there was an error.
-pub fn render_text_blended(font &Font, text &char, fg sdl.Color) &sdl.Surface {
-	return C.TTF_RenderText_Blended(font, text, fg)
+pub fn render_text_blended(font &Font, text string, fg sdl.Color) &sdl.Surface {
+	return C.TTF_RenderText_Blended(font, text.str, fg)
 }
 
 fn C.TTF_RenderUTF8_Blended(font &C.TTF_Font, text &char, fg C.SDL_Color) &C.SDL_Surface
-pub fn render_utf8_blended(font &Font, text &char, fg sdl.Color) &sdl.Surface {
-	return C.TTF_RenderUTF8_Blended(font, text, fg)
+pub fn render_utf8_blended(font &Font, text string, fg sdl.Color) &sdl.Surface {
+	return C.TTF_RenderUTF8_Blended(font, text.str, fg)
 }
 
 fn C.TTF_RenderUNICODE_Blended(font &C.TTF_Font, text &u16, fg C.SDL_Color) &C.SDL_Surface
@@ -316,13 +316,13 @@ fn C.TTF_RenderText_Blended_Wrapped(font &C.TTF_Font, text &char, fg C.SDL_Color
 // Text is wrapped to multiple lines on line endings and on word boundaries
 // if it extends beyond wrapLength in pixels.
 // This function returns the new surface, or NULL if there was an error.
-pub fn render_text_blended_wrapped(font &Font, text &char, fg sdl.Color, wrap_length u32) &sdl.Surface {
-	return C.TTF_RenderText_Blended_Wrapped(font, text, fg, wrap_length)
+pub fn render_text_blended_wrapped(font &Font, text string, fg sdl.Color, wrap_length u32) &sdl.Surface {
+	return C.TTF_RenderText_Blended_Wrapped(font, text.str, fg, wrap_length)
 }
 
 fn C.TTF_RenderUTF8_Blended_Wrapped(font &C.TTF_Font, text &char, fg C.SDL_Color, wrap_length u32) &C.SDL_Surface
-pub fn render_utf8_blended_wrapped(font &Font, text &char, fg sdl.Color, wrap_length u32) &sdl.Surface {
-	return C.TTF_RenderUTF8_Blended_Wrapped(font, text, fg, wrap_length)
+pub fn render_utf8_blended_wrapped(font &Font, text string, fg sdl.Color, wrap_length u32) &sdl.Surface {
+	return C.TTF_RenderUTF8_Blended_Wrapped(font, text.str, fg, wrap_length)
 }
 
 fn C.TTF_RenderUNICODE_Blended_Wrapped(font &C.TTF_Font, text &u16, fg C.SDL_Color, wrap_length u32) &C.SDL_Surface
