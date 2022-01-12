@@ -287,7 +287,7 @@ fn main() {
 	game.sdl.jids[0] = -1
 	game.sdl.jids[1] = -1
 	game.sdl.set_sdl_context(win_width, win_height, title)
-	game.font = ttf.open_font(font_name.str, text_size)
+	game.font = ttf.open_font(font_name, text_size)
 	mut game2 := &Game{
 		font: 0
 	}
