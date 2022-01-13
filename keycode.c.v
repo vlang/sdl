@@ -28,26 +28,26 @@ pub fn scancode_to_keycode(scancode Scancode) Keycode {
 	return C.SDL_SCANCODE_TO_KEYCODE(int(scancode))
 }
 
-// SDL_Keymod is C.SDL_Keymod
+// Keymod is C.SDL_Keymod
 pub enum Keymod {
-	kmod_none = C.KMOD_NONE // 0x0000
-	kmod_lshift = C.KMOD_LSHIFT // 0x0001
-	kmod_rshift = C.KMOD_RSHIFT // 0x0002
-	kmod_lctrl = C.KMOD_LCTRL // 0x0040
-	kmod_rctrl = C.KMOD_RCTRL // 0x0080
-	kmod_lalt = C.KMOD_LALT // 0x0100
-	kmod_ralt = C.KMOD_RALT // 0x0200
-	kmod_lgui = C.KMOD_LGUI // 0x0400
-	kmod_rgui = C.KMOD_RGUI // 0x0800
-	kmod_num = C.KMOD_NUM // 0x1000
-	kmod_caps = C.KMOD_CAPS // 0x2000
-	kmod_mode = C.KMOD_MODE // 0x4000
-	kmod_reserved = C.KMOD_RESERVED // 0x8000
+	@none = C.KMOD_NONE // 0x0000
+	lshift = C.KMOD_LSHIFT // 0x0001
+	rshift = C.KMOD_RSHIFT // 0x0002
+	lctrl = C.KMOD_LCTRL // 0x0040
+	rctrl = C.KMOD_RCTRL // 0x0080
+	lalt = C.KMOD_LALT // 0x0100
+	ralt = C.KMOD_RALT // 0x0200
+	lgui = C.KMOD_LGUI // 0x0400
+	rgui = C.KMOD_RGUI // 0x0800
+	num = C.KMOD_NUM // 0x1000
+	caps = C.KMOD_CAPS // 0x2000
+	mode = C.KMOD_MODE // 0x4000
+	reserved = C.KMOD_RESERVED // 0x8000
 	//
-	kmod_ctrl = C.KMOD_CTRL
-	kmod_shift = C.KMOD_SHIFT
-	kmod_alt = C.KMOD_ALT
-	kmod_gui = C.KMOD_GUI
+	ctrl = C.KMOD_CTRL
+	shift = C.KMOD_SHIFT
+	alt = C.KMOD_ALT
+	gui = C.KMOD_GUI
 }
 
 pub enum KeyCode {
