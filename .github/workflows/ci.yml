@@ -14,6 +14,7 @@ jobs:
     timeout-minutes: 30
     env:
       VFLAGS: -cc tcc -no-retry-compilation
+      SDL2_VERSION: 2.0.8
     steps:
       - name: Install dependencies
         run: |
@@ -53,6 +54,7 @@ jobs:
       - name: Build sdl examples
         run: |
           v run sdl/examples/versions
+          test ${SDL_VERSION} = "$(v run sdl/examples/version)"
           for example in sdl/examples/*; do
               echo "v $example"
               v "$example";
