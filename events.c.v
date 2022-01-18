@@ -546,6 +546,7 @@ pub:
 
 	quit     QuitEvent          // C.SDL_QuitEvent          // Quit request event data
 	user     UserEvent          // C.SDL_UserEvent          // Custom event data
+	syswm    SysWMEvent         // C.SDL_SysWMEvent         // System dependent window event data
 	tfinger  TouchFingerEvent   // C.SDL_TouchFingerEvent   // Touch finger event data
 	mgesture MultiGestureEvent  // C.SDL_MultiGestureEvent  // Gesture event data
 	dgesture DollarGestureEvent // C.SDL_DollarGestureEvent // Gesture event data
