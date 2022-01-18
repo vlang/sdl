@@ -56,9 +56,9 @@ pub struct Hat {
 [typedef]
 struct C.SDL_GameControllerButtonBind {
 pub mut:
-	bind_type GameControllerBindType // C.SDL_GameControllerBindType
-	value     Value
-	hat       Hat
+	bindType GameControllerBindType // C.SDL_GameControllerBindType
+	value    Value
+	hat      Hat
 }
 
 pub type GameControllerButtonBind = C.SDL_GameControllerButtonBind
