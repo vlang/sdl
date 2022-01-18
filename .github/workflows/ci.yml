@@ -60,4 +60,7 @@ jobs:
           done
 
       - name: Test SDL version
-        run: test "${SDL_VERSION}" = "$(v run sdl/examples/version)" || exit 1
+        run: |
+          VER="$(v run sdl/examples/version)"
+          echo "${SDL_VERSION} == $VER ?"
+          test "${SDL_VERSION}" = "$VER" || exit 1
