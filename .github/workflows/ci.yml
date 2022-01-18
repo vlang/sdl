@@ -71,3 +71,9 @@ jobs:
               echo "v -cflags \"$SDL_V_CFLAGS\" $example"
               v -cflags "$SDL_V_CFLAGS" "$example";
           done
+
+      - name: Test SDL version
+        run: |
+          VER="$(v run sdl/examples/version)"
+          echo "${SDL2_VERSION} == $VER ?"
+          test "${SDL2_VERSION}" = "$VER" || exit 1
