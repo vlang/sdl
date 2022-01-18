@@ -392,7 +392,7 @@ pub fn get_audio_status() AudioStatus {
 
 fn C.SDL_GetAudioStatus() C.SDL_AudioStatus
 
-pub fn get_audio_device_status(dev C.SDL_AudioDeviceID) AudioStatus {
+pub fn get_audio_device_status(dev AudioDeviceID) AudioStatus {
 	return AudioStatus(C.SDL_GetAudioDeviceStatus(C.SDL_AudioDeviceID(dev)))
 }
 
