@@ -152,25 +152,25 @@ pub type Palette = C.SDL_Palette
 [typedef]
 struct C.SDL_PixelFormat {
 pub:
-	format          Format
-	palette         &Palette
-	bits_per_pixel  byte
-	bytes_per_pixel byte
-	padding         [2]byte
-	rmask           u32
-	gmask           u32
-	bmask           u32
-	amask           u32
-	rloss           byte
-	gloss           byte
-	bloss           byte
-	aloss           byte
-	rshift          byte
-	gshift          byte
-	bshift          byte
-	ashift          byte
-	refcount        int
-	next            &PixelFormat
+	format        Format
+	palette       &Palette
+	BitsPerPixel  byte
+	BytesPerPixel byte
+	padding       [2]byte
+	Rmask         u32
+	Gmask         u32
+	Bmask         u32
+	Amask         u32
+	Rloss         byte
+	Gloss         byte
+	Bloss         byte
+	Aloss         byte
+	Rshift        byte
+	Gshift        byte
+	Bshift        byte
+	Ashift        byte
+	refcount      int
+	next          &PixelFormat
 }
 
 // PixelFormat is C.SDL_PixelFormat
