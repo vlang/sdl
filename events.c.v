@@ -255,10 +255,10 @@ pub type MouseWheelEvent = C.SDL_MouseWheelEvent
 [typedef]
 struct C.SDL_JoyAxisEvent {
 pub:
-	@type     EventType        // ::SDL_JOYAXISMOTION
-	timestamp u32              // In milliseconds, populated using SDL_GetTicks()
-	which     C.SDL_JoystickID // The joystick instance id
-	axis      byte // The joystick axis index
+	@type     EventType  // ::SDL_JOYAXISMOTION
+	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
+	which     JoystickID // The joystick instance id
+	axis      byte       // The joystick axis index
 	padding1  byte
 	padding2  byte
 	padding3  byte
@@ -392,10 +392,10 @@ pub type AudioDeviceEvent = C.SDL_AudioDeviceEvent
 [typedef]
 struct C.SDL_TouchFingerEvent {
 pub:
-	@type     EventType     // ::SDL_FINGERMOTION or ::SDL_FINGERDOWN or ::SDL_FINGERUP
-	timestamp u32           // In milliseconds, populated using SDL_GetTicks()
-	touchId   C.SDL_TouchID // The touch device id
-	fingerId  C.SDL_FingerID
+	@type     EventType // ::SDL_FINGERMOTION or ::SDL_FINGERDOWN or ::SDL_FINGERUP
+	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
+	touchId   TouchID   // The touch device id
+	fingerId  FingerID
 	x         f32 // Normalized in the range 0...1
 	y         f32 // Normalized in the range 0...1
 	dx        f32 // Normalized in the range -1...1
@@ -409,9 +409,9 @@ pub type TouchFingerEvent = C.SDL_TouchFingerEvent
 [typedef]
 struct C.SDL_MultiGestureEvent {
 pub:
-	@type      EventType     // ::SDL_MULTIGESTURE
-	timestamp  u32           // In milliseconds, populated using SDL_GetTicks()
-	touchId    C.SDL_TouchID // The touch device id
+	@type      EventType // ::SDL_MULTIGESTURE
+	timestamp  u32       // In milliseconds, populated using SDL_GetTicks()
+	touchId    TouchID   // The touch device id
 	dTheta     f32
 	dDist      f32
 	x          f32
@@ -426,10 +426,10 @@ pub type MultiGestureEvent = C.SDL_MultiGestureEvent
 [typedef]
 struct C.SDL_DollarGestureEvent {
 pub:
-	@type      EventType     // ::SDL_DOLLARGESTURE or ::SDL_DOLLARRECORD
-	timestamp  u32           // In milliseconds, populated using SDL_GetTicks()
-	touchId    C.SDL_TouchID // The touch device id
-	gestureId  C.SDL_GestureID
+	@type      EventType // ::SDL_DOLLARGESTURE or ::SDL_DOLLARRECORD
+	timestamp  u32       // In milliseconds, populated using SDL_GetTicks()
+	touchId    TouchID   // The touch device id
+	gestureId  GestureID
 	numFingers u32
 	error      f32
 	x          f32 // Normalized center of gesture
@@ -512,9 +512,9 @@ pub type SysWMmsg = C.SDL_SysWMmsg
 [typedef]
 struct C.SDL_SysWMEvent {
 pub:
-	@type     EventType       // ::SDL_SYSWMEVENT
-	timestamp u32             // In milliseconds, populated using SDL_GetTicks()
-	msg       &C.SDL_SysWMmsg // driver dependent data, defined in SDL_syswm.h
+	@type     EventType // ::SDL_SYSWMEVENT
+	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
+	msg       &SysWMmsg // driver dependent data, defined in SDL_syswm.h
 }
 
 pub type SysWMEvent = C.SDL_SysWMEvent
