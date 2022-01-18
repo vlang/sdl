@@ -60,4 +60,4 @@ jobs:
           done
 
       - name: Test SDL version
-        run: [[ "${SDL_VERSION}" == "$(v run sdl/examples/version)" ]] || exit 1
+        run: test "${SDL_VERSION}" = "$(v run sdl/examples/version)" || exit 1
