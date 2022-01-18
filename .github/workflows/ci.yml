@@ -54,8 +54,10 @@ jobs:
       - name: Build sdl examples
         run: |
           v run sdl/examples/versions
-          [[ "${SDL_VERSION}" == "$(v run sdl/examples/version)" ]] || exit 1
           for example in sdl/examples/*; do
               echo "v $example"
               v "$example";
           done
+
+      - name: Test SDL version
+        run: [[ "${SDL_VERSION}" == "$(v run sdl/examples/version)" ]] || exit 1
