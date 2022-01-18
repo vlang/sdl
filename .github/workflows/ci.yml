@@ -54,7 +54,7 @@ jobs:
       - name: Build sdl examples
         run: |
           v run sdl/examples/versions
-          test ${SDL_VERSION} = "$(v run sdl/examples/version)"
+          test ${SDL_VERSION} = "$(v run sdl/examples/version)" || exit 1
           for example in sdl/examples/*; do
               echo "v $example"
               v "$example";
