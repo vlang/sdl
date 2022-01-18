@@ -182,12 +182,12 @@ pub fn load_mus(path string) &Music {
 fn C.Mix_LoadMUS_RW(src &C.SDL_RWops, freesrc int) &C.Mix_Music
 
 // load_mus_rw loads a music file from an SDL_RWop object assuming a specific format
-pub fn load_mus_rw(src &C.SDL_RWops, freesrc int) &Music {
+pub fn load_mus_rw(src &sdl.RWops, freesrc int) &Music {
 	return C.Mix_LoadMUS_RW(src, freesrc)
 }
 
 fn C.Mix_LoadMUSType_RW(src &C.SDL_RWops, @type C.Mix_MusicType, freesrc int) &C.Mix_Music
-pub fn load_mus_type_rw(src &C.SDL_RWops, @type MusicType, freesrc int) &Music {
+pub fn load_mus_type_rw(src &sdl.RWops, @type MusicType, freesrc int) &Music {
 	return C.Mix_LoadMUSType_RW(src, C.Mix_MusicType(@type), freesrc)
 }
 

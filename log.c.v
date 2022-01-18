@@ -66,22 +66,22 @@ pub enum LogPriority {
 fn C.SDL_LogSetAllPriority(priority C.SDL_LogPriority)
 
 // log_set_all_priority sets the priority of all log categories
-pub fn log_set_all_priority(priority C.SDL_LogPriority) {
-	C.SDL_LogSetAllPriority(priority)
+pub fn log_set_all_priority(priority LogPriority) {
+	C.SDL_LogSetAllPriority(C.SDL_LogPriority(int(priority)))
 }
 
 fn C.SDL_LogSetPriority(category int, priority C.SDL_LogPriority)
 
 // log_set_priority sets the priority of a particular log category
-pub fn log_set_priority(category int, priority C.SDL_LogPriority) {
-	C.SDL_LogSetPriority(category, priority)
+pub fn log_set_priority(category int, priority LogPriority) {
+	C.SDL_LogSetPriority(category, C.SDL_LogPriority(int(priority)))
 }
 
 fn C.SDL_LogGetPriority(category int) C.SDL_LogPriority
 
 // log_get_priority gets the priority of a particular log category
-pub fn log_get_priority(category int) C.SDL_LogPriority {
-	return C.SDL_LogGetPriority(category)
+pub fn log_get_priority(category int) LogPriority {
+	return LogPriority(int(C.SDL_LogGetPriority(category)))
 }
 
 fn C.SDL_LogResetPriorities()
