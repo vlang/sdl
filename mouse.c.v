@@ -241,7 +241,7 @@ fn C.SDL_CreateCursor(data &byte, mask &byte, w int, h int, hot_x int, hot_y int
 */
 //
 // See also: SDL_FreeCursor()
-pub fn create_cursor(data &byte, mask &byte, w int, h int, hot_x int, hot_y int) &C.SDL_Cursor {
+pub fn create_cursor(data &byte, mask &byte, w int, h int, hot_x int, hot_y int) &Cursor {
 	return C.SDL_CreateCursor(data, mask, w, h, hot_x, hot_y)
 }
 
@@ -250,7 +250,7 @@ fn C.SDL_CreateColorCursor(surface &C.SDL_Surface, hot_x int, hot_y int) &C.SDL_
 // create_color_cursor creates a color cursor.
 //
 // See also: SDL_FreeCursor()
-pub fn create_color_cursor(surface &C.SDL_Surface, hot_x int, hot_y int) &C.SDL_Cursor {
+pub fn create_color_cursor(surface &Surface, hot_x int, hot_y int) &Cursor {
 	return C.SDL_CreateColorCursor(surface, hot_x, hot_y)
 }
 
@@ -259,28 +259,28 @@ fn C.SDL_CreateSystemCursor(id C.SDL_SystemCursor) &C.SDL_Cursor
 // create_system_cursor creates a system cursor.
 //
 // See also: SDL_FreeCursor()
-pub fn create_system_cursor(id C.SDL_SystemCursor) &C.SDL_Cursor {
-	return C.SDL_CreateSystemCursor(id)
+pub fn create_system_cursor(id SystemCursor) &Cursor {
+	return C.SDL_CreateSystemCursor(C.SDL_SystemCursor(int(id)))
 }
 
 fn C.SDL_SetCursor(cursor &C.SDL_Cursor)
 
 // set_cursor sets the active cursor.
-pub fn set_cursor(cursor &C.SDL_Cursor) {
+pub fn set_cursor(cursor &Cursor) {
 	C.SDL_SetCursor(cursor)
 }
 
 fn C.SDL_GetCursor() &C.SDL_Cursor
 
 // get_cursor returns the active cursor.
-pub fn get_cursor() &C.SDL_Cursor {
+pub fn get_cursor() &Cursor {
 	return C.SDL_GetCursor()
 }
 
 fn C.SDL_GetDefaultCursor() &C.SDL_Cursor
 
 // get_default_cursor returns the default cursor.
-pub fn get_default_cursor() &C.SDL_Cursor {
+pub fn get_default_cursor() &Cursor {
 	return C.SDL_GetDefaultCursor()
 }
 
@@ -291,7 +291,7 @@ fn C.SDL_FreeCursor(cursor &C.SDL_Cursor)
 // See also: SDL_CreateCursor()
 // See also: SDL_CreateColorCursor()
 // See also: SDL_CreateSystemCursor()
-pub fn free_cursor(cursor &C.SDL_Cursor) {
+pub fn free_cursor(cursor &Cursor) {
 	C.SDL_FreeCursor(cursor)
 }
 

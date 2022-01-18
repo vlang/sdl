@@ -520,7 +520,7 @@ fn C.SDL_RenderSetViewport(renderer &C.SDL_Renderer, rect &C.SDL_Rect) int
 //
 // See also: SDL_RenderGetViewport()
 // See also: SDL_RenderSetLogicalSize()
-pub fn render_set_viewport(renderer &C.SDL_Renderer, rect &C.SDL_Rect) int {
+pub fn render_set_viewport(renderer &Renderer, rect &Rect) int {
 	return C.SDL_RenderSetViewport(renderer, rect)
 }
 

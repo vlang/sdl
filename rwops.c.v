@@ -94,7 +94,7 @@ pub fn (rwo &RWops) read(ptr voidptr, size usize, maxnum usize) usize {
 //
 // returns the number of objects written, or 0 at error or end of file.
 // `size_t (SDLCALL * write) (struct SDL_RWops * context, const void *ptr, size_t size, size_t num);`
-pub fn (rwo &RWops) write(context &C.SDL_RWops, ptr voidptr, size usize, num usize) usize {
+pub fn (rwo &RWops) write(context &RWops, ptr voidptr, size usize, num usize) usize {
 	return C.SDL_RWwrite(rwo, ptr, size, num)
 }
 
@@ -222,21 +222,21 @@ pub fn write_be16(dst &RWops, value u16) usize {
 }
 
 fn C.SDL_WriteLE32(dst &C.SDL_RWops, value u32) usize
-pub fn write_le32(dst &C.SDL_RWops, value u32) usize {
+pub fn write_le32(dst &RWops, value u32) usize {
 	return C.SDL_WriteLE32(dst, value)
 }
 
 fn C.SDL_WriteBE32(dst &C.SDL_RWops, value u32) usize
-pub fn write_be32(dst &C.SDL_RWops, value u32) usize {
+pub fn write_be32(dst &RWops, value u32) usize {
 	return C.SDL_WriteBE32(dst, value)
 }
 
 fn C.SDL_WriteLE64(dst &C.SDL_RWops, value u64) usize
-pub fn write_le64(dst &C.SDL_RWops, value u64) usize {
+pub fn write_le64(dst &RWops, value u64) usize {
 	return C.SDL_WriteLE64(dst, value)
 }
 
 fn C.SDL_WriteBE64(dst &C.SDL_RWops, value u64) usize
-pub fn write_be64(dst &C.SDL_RWops, value u64) usize {
+pub fn write_be64(dst &RWops, value u64) usize {
 	return C.SDL_WriteBE64(dst, value)
 }
