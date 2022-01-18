@@ -74,18 +74,18 @@ pub fn create_rgb_surface(flags u32, width int, height int, depth int, rmask u32
 }
 
 fn C.SDL_CreateRGBSurfaceWithFormat(flags u32, width int, height int, depth int, format u32) &C.SDL_Surface
-pub fn create_rgb_surface_with_format(flags u32, width int, height int, depth int, format u32) &C.SDL_Surface {
+pub fn create_rgb_surface_with_format(flags u32, width int, height int, depth int, format u32) &Surface {
 	return C.SDL_CreateRGBSurfaceWithFormat(flags, width, height, depth, format)
 }
 
 fn C.SDL_CreateRGBSurfaceFrom(pixels voidptr, width int, height int, depth int, pitch int, rmask u32, gmask u32, bmask u32, amask u32) &C.SDL_Surface
-pub fn create_rgb_surface_from(pixels voidptr, width int, height int, depth int, pitch int, rmask u32, gmask u32, bmask u32, amask u32) &C.SDL_Surface {
+pub fn create_rgb_surface_from(pixels voidptr, width int, height int, depth int, pitch int, rmask u32, gmask u32, bmask u32, amask u32) &Surface {
 	return C.SDL_CreateRGBSurfaceFrom(pixels, width, height, depth, pitch, rmask, gmask,
 		bmask, amask)
 }
 
 fn C.SDL_CreateRGBSurfaceWithFormatFrom(pixels voidptr, width int, height int, depth int, pitch int, format u32) &C.SDL_Surface
-pub fn create_rgb_surface_with_format_from(pixels voidptr, width int, height int, depth int, pitch int, format u32) &C.SDL_Surface {
+pub fn create_rgb_surface_with_format_from(pixels voidptr, width int, height int, depth int, pitch int, format u32) &Surface {
 	return C.SDL_CreateRGBSurfaceWithFormatFrom(pixels, width, height, depth, pitch, format)
 }
 
@@ -129,7 +129,7 @@ pub fn lock_surface(surface &Surface) int {
 }
 
 fn C.SDL_UnlockSurface(surface &C.SDL_Surface)
-pub fn unlock_surface(surface &C.SDL_Surface) {
+pub fn unlock_surface(surface &Surface) {
 	C.SDL_UnlockSurface(surface)
 }
 
@@ -363,12 +363,12 @@ fn C.SDL_ConvertSurface(src &C.SDL_Surface, fmt &C.SDL_PixelFormat, flags u32) &
 // semantics.  You can also pass ::SDL_RLEACCEL in the flags parameter and
 // SDL will try to RLE accelerate colorkey and alpha blits in the resulting
 // surface.
-pub fn convert_surface(src &C.SDL_Surface, fmt &PixelFormat, flags u32) &Surface {
+pub fn convert_surface(src &Surface, fmt &PixelFormat, flags u32) &Surface {
 	return C.SDL_ConvertSurface(src, fmt, flags)
 }
 
 fn C.SDL_ConvertSurfaceFormat(src &C.SDL_Surface, pixel_format u32, flags u32) &C.SDL_Surface
-pub fn convert_surface_format(src &C.SDL_Surface, pixel_format u32, flags u32) &C.SDL_Surface {
+pub fn convert_surface_format(src &Surface, pixel_format u32, flags u32) &Surface {
 	return C.SDL_ConvertSurfaceFormat(src, pixel_format, flags)
 }
 
@@ -397,7 +397,7 @@ pub fn fill_rect(dst &Surface, rect &Rect, color u32) int {
 }
 
 fn C.SDL_FillRects(dst &C.SDL_Surface, rects &C.SDL_Rect, count int, color u32) int
-pub fn fill_rects(dst &C.SDL_Surface, rects &C.SDL_Rect, count int, color u32) int {
+pub fn fill_rects(dst &Surface, rects &Rect, count int, color u32) int {
 	return C.SDL_FillRects(dst, rects, count, color)
 }
 
@@ -468,7 +468,7 @@ fn C.SDL_UpperBlit(src &C.SDL_Surface, srcrect &C.SDL_Rect, dst &C.SDL_Surface, 
 
 // upper_blit is the public blit function, SDL_BlitSurface(), and it performs
 // rectangle validation and clipping before passing it to SDL_LowerBlit()
-pub fn upper_blit(src &Surface, srcrect &Rect, dst &C.SDL_Surface, dstrect &Rect) int {
+pub fn upper_blit(src &Surface, srcrect &Rect, dst &Surface, dstrect &Rect) int {
 	return C.SDL_UpperBlit(src, srcrect, dst, dstrect)
 }
 
@@ -476,7 +476,7 @@ fn C.SDL_LowerBlit(src &C.SDL_Surface, srcrect &C.SDL_Rect, dst &C.SDL_Surface, 
 
 // lower_blit is a semi-private blit function and it performs low-level surface
 // blitting only.
-pub fn lower_blit(src &C.SDL_Surface, srcrect &C.SDL_Rect, dst &C.SDL_Surface, dstrect &C.SDL_Rect) int {
+pub fn lower_blit(src &Surface, srcrect &Rect, dst &Surface, dstrect &Rect) int {
 	return C.SDL_LowerBlit(src, srcrect, dst, dstrect)
 }
 
