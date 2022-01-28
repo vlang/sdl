@@ -14,7 +14,7 @@ $if !windows {
 
 $if x64 {
 	#flag windows -L @VMODROOT/thirdparty/SDL2-2.0.8/lib/x64
-$else {
+} $else {
 	#flag windows -L @VMODROOT/thirdparty/SDL2-2.0.8/lib/x86
 }
 #flag windows -I @VMODROOT/thirdparty/SDL2-2.0.8/include
