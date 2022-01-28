@@ -3,8 +3,13 @@
 // that can be found in the LICENSE file.
 module ttf
 
-#flag windows -I @VMODROOT/thirdparty/SDL2_ttf/include
-#flag windows -L @VMODROOT/thirdparty/SDL2_ttf/lib/x64
+$if x64 {
+	#flag windows -L @VMODROOT/thirdparty/SDL2_ttf-2.0.14/lib/x64
+} $else {
+	#flag windows -L @VMODROOT/thirdparty/SDL2_ttf-2.0.14/lib/x86
+}
+
+#flag windows -I @VMODROOT/thirdparty/SDL2_ttf-2.0.14/include
 #flag windows -lSDL2_ttf
 
 #include <SDL_ttf.h>
