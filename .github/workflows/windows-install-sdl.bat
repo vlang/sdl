@@ -1,16 +1,18 @@
 @echo off
 
-curl -L https://www.libsdl.org/release/SDL2-devel-2.0.8-VC.zip -o SDL2.zip
-curl -L https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-devel-2.0.14-VC.zip -o SDL2_ttf.zip
-curl -L https://www.libsdl.org/projects/SDL_image/release/SDL2_image-devel-2.0.3-VC.zip -o SDL2_image.zip
-curl -L https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-devel-2.0.2-VC.zip -o SDL2_mixer.zip
-
-unzip SDL2.zip -d thirdparty/
-unzip SDL2_ttf.zip -d thirdparty/
-unzip SDL2_image.zip -d thirdparty/
-unzip SDL2_mixer.zip -d thirdparty/
-
-move /y thirdparty/SDL2-2.0.8 thirdparty/SDL2
-move /y thirdparty/SDL2_ttf-2.0.14 thirdparty/SDL2_ttf
-move /y thirdparty/SDL2_image-2.0.3 thirdparty/SDL2_image
-move /y thirdparty/SDL2_mixer-2.0.2 thirdparty/SDL2_mixer
+@echo off
+REM change directory to the main sdl directory
+setlocal
+SET cwd=%cd%
+SET mypath=%~dp0
+if "%mypath:~0,-1%"=="%cwd%" (
+	powershell -executionpolicy remotesigned -File "install_dependencies.ps1"
+) else (
+	if exist ".github\workflows\install_dependencies.ps1" (
+		powershell -executionpolicy remotesigned -File ".github\workflows\install_dependencies.ps1" 
+	) else (
+		powershell -Command Write-Host "ERROR - The script must be called from either %mypath:\.github\workflows\=% or %mypath:~0,-1%" -foreground "Red"
+	)
+)
+endlocal
+pause
