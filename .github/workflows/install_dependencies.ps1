@@ -1,9 +1,10 @@
 
 # sdl2 developer packages
-$urls = @('https://www.libsdl.org/release/SDL2-devel-2.0.8-VC.zip',
-		  'https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-devel-2.0.14-VC.zip',
-		  'https://www.libsdl.org/projects/SDL_image/release/SDL2_image-devel-2.0.3-VC.zip',
-		  'https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-devel-2.0.2-VC.zip'
+$urls = @(
+		'https://www.libsdl.org/release/SDL2-devel-2.0.8-VC.zip',
+		'https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-devel-2.0.14-VC.zip',
+		'https://www.libsdl.org/projects/SDL_image/release/SDL2_image-devel-2.0.3-VC.zip',
+		'https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-devel-2.0.2-VC.zip'
 		)
 
 # make thirdparty directory if it does not exist
@@ -42,6 +43,7 @@ for($i = 0; $i -lt $urls.length; $i++) {
 			$shell.Namespace($destination_path).copyhere($item)
 		}
 	} catch {
+		Write-Host "$_" -Foreground "Red"
 		Write-Host "ERROR unziping $zip_file" -Foreground "Red"
 		Exit
 	}
