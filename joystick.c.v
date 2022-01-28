@@ -414,7 +414,7 @@ pub fn joystick_rumble(joystick &Joystick, low_frequency_rumble u16, high_freque
 
 fn C.SDL_JoystickClose(joystick &C.SDL_Joystick)
 
-// joystick_clos closes a joystick previously opened with SDL_JoystickOpen().
+// joystick_close closes a joystick previously opened with SDL_JoystickOpen().
 pub fn joystick_close(joystick &Joystick) {
 	C.SDL_JoystickClose(joystick)
 }
