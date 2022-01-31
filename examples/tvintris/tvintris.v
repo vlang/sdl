@@ -748,7 +748,7 @@ fn (g &Game) draw_v_logo() {
 
 fn (g &Game) draw_text(x int, y int, text string, tcol sdl.Color) {
 	tcol_ := sdl.Color{tcol.r, tcol.g, tcol.b, tcol.a}
-	tsurf := ttf.render_text_solid(g.font, text, tcol_)
+	tsurf := ttf.render_text_solid(g.font, text.str, tcol_)
 	ttext := sdl.create_texture_from_surface(g.sdl.renderer, tsurf)
 	texw := 0
 	texh := 0
