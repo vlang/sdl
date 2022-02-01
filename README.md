@@ -101,9 +101,9 @@ If you get no music with the above, try:
 ### Windows
 It is necessary to install the sdl2 development libraries for Windows.  
 To do this, change to the root directory of the sdl module, like  
-`cd %HOMEPATH%\.vmodules\sdl`
+`cd %HOMEPATH%\.vmodules\sdl`  
 and run  
-`v run windows_install_dependencies.vsh`.
+`v run windows_install_dependencies.vsh`.  
 This will create a directory called "thirdparty" which will be used to download and extract the required libraries.  
 To successfully run a provided example or your own projects, the sdl dlls must be copied to the main application directory.  
 e.g..
