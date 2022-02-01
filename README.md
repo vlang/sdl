@@ -110,7 +110,7 @@ e.g..
 ```
 copy thirdparty\SDL2-2.0.8\lib\x64\SDL2.dll examples\basic_window\
 cd ..
-v run sdl\examples\basic_window\
+v run sdl\examples\basic_window\main.v
 ```
 
 ## Contributions
