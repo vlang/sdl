@@ -10,8 +10,8 @@ module sdl
 fn C.SDL_RegisterApp(name &char, style u32, h_inst voidptr) int
 
 // register_app can be called to set the application class at startup
-pub fn register_app(name string, style u32, h_inst voidptr) int {
-	return C.SDL_RegisterApp(name.str, style, h_inst)
+pub fn register_app(name &char, style u32, h_inst voidptr) int {
+	return C.SDL_RegisterApp(name, style, h_inst)
 }
 
 fn C.SDL_UnregisterApp()

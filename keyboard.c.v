@@ -99,8 +99,8 @@ fn C.SDL_GetScancodeName(scancode C.SDL_Scancode) &char
 //         an empty string ("").
 //
 // See also: SDL_Scancode
-pub fn get_scancode_name(scancode Scancode) string {
-	return unsafe { cstring_to_vstring(C.SDL_GetScancodeName(C.SDL_Scancode(scancode))) }
+pub fn get_scancode_name(scancode Scancode) &char {
+	return C.SDL_GetScancodeName(C.SDL_Scancode(scancode))
 }
 
 fn C.SDL_GetScancodeFromName(name &char) C.SDL_Scancode
@@ -110,8 +110,8 @@ fn C.SDL_GetScancodeFromName(name &char) C.SDL_Scancode
 // returns scancode, or SDL_SCANCODE_UNKNOWN if the name wasn't recognized
 //
 // See also: SDL_Scancode
-pub fn get_scancode_from_name(name string) Scancode {
-	return Scancode(int(C.SDL_GetScancodeFromName(name.str)))
+pub fn get_scancode_from_name(name &char) Scancode {
+	return Scancode(int(C.SDL_GetScancodeFromName(name)))
 }
 
 fn C.SDL_GetKeyName(key C.SDL_Keycode) &char
@@ -124,8 +124,8 @@ fn C.SDL_GetKeyName(key C.SDL_Keycode) &char
 //         empty string ("").
 //
 // See also: SDL_Keycode
-pub fn get_key_name(key Keycode) string {
-	return unsafe { cstring_to_vstring(C.SDL_GetKeyName(C.SDL_Keycode(key))) }
+pub fn get_key_name(key Keycode) &char {
+	return C.SDL_GetKeyName(C.SDL_Keycode(key))
 }
 
 fn C.SDL_GetKeyFromName(name &char) C.SDL_Keycode
@@ -135,8 +135,8 @@ fn C.SDL_GetKeyFromName(name &char) C.SDL_Keycode
 // returns key code, or SDLK_UNKNOWN if the name wasn't recognized
 //
 // See also: SDL_Keycode
-pub fn get_key_from_name(name string) Keycode {
-	return Keycode(int(C.SDL_GetKeyFromName(name.str)))
+pub fn get_key_from_name(name &char) Keycode {
+	return Keycode(int(C.SDL_GetKeyFromName(name)))
 }
 
 fn C.SDL_StartTextInput()

@@ -106,8 +106,8 @@ pub fn log_reset_priorities() {
 fn C.SDL_LogMessageV(category int, priority C.SDL_LogPriority, fmt &char, ap C.va_list)
 
 // log_message_v logs a message with the specified category and priority.
-pub fn log_message_v(category int, priority LogPriority, fmt string, ap C.va_list) {
-	C.SDL_LogMessageV(category, C.SDL_LogPriority(priority), fmt.str, ap)
+pub fn log_message_v(category int, priority LogPriority, fmt &char, ap C.va_list) {
+	C.SDL_LogMessageV(category, C.SDL_LogPriority(priority), fmt, ap)
 }
 
 fn C.SDL_LogGetOutputFunction(callback &LogOutputFunction, userdata voidptr)
