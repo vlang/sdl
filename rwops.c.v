@@ -219,8 +219,8 @@ fn C.SDL_LoadFile(file &char, datasize &usize) voidptr
 //  The data should be freed with SDL_free().
 //
 //  returns the data, or NULL if there was an error.
-pub fn load_file(file string, datasize &usize) voidptr {
-	return C.SDL_LoadFile(file.str, datasize)
+pub fn load_file(file &char, datasize &usize) voidptr {
+	return C.SDL_LoadFile(file, datasize)
 }
 
 // Read endian functions
