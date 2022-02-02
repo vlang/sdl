@@ -153,8 +153,8 @@ pub fn (rwo &RWops) close() int {
 //
 // Functions to create SDL_RWops structures from various data streams.
 fn C.SDL_RWFromFile(file &char, mode &char) &C.SDL_RWops
-pub fn rw_from_file(file string, mode string) &RWops {
-	return C.SDL_RWFromFile(file.str, mode.str)
+pub fn rw_from_file(file &char, mode &char) &RWops {
+	return C.SDL_RWFromFile(file, mode)
 }
 
 /*
@@ -219,8 +219,8 @@ fn C.SDL_LoadFile(file &char, datasize &usize) voidptr
 //  The data should be freed with SDL_free().
 //
 //  returns the data, or NULL if there was an error.
-pub fn load_file(file string, datasize &usize) voidptr {
-	return C.SDL_LoadFile(file.str, datasize)
+pub fn load_file(file &char, datasize &usize) voidptr {
+	return C.SDL_LoadFile(file, datasize)
 }
 
 // Read endian functions

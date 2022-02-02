@@ -478,8 +478,8 @@ fn C.SDL_LoadWAV(file &char, spec &C.SDL_AudioSpec, audio_buf &&byte, audio_len 
 
 // load_wav loads a WAV from a file.
 // Compatibility convenience function.
-pub fn load_wav(file string, spec &AudioSpec, audio_buf &&byte, audio_len &u32) &AudioSpec {
-	return C.SDL_LoadWAV(file.str, spec, audio_buf, audio_len)
+pub fn load_wav(file &char, spec &AudioSpec, audio_buf &&byte, audio_len &u32) &AudioSpec {
+	return C.SDL_LoadWAV(file, spec, audio_buf, audio_len)
 }
 
 fn C.SDL_FreeWAV(audio_buf &byte)
