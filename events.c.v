@@ -432,7 +432,7 @@ pub:
 	dx        f32 // Normalized in the range -1...1
 	dy        f32 // Normalized in the range -1...1
 	pressure  f32 // Normalized in the range 0...1
-	window_id u32 // The window underneath the finger, if any
+	windowID  u32 // The window underneath the finger, if any
 }
 
 pub type TouchFingerEvent = C.SDL_TouchFingerEvent

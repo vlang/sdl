@@ -104,8 +104,8 @@ fn C.SDL_GameControllerAddMappingsFromFile(file &char) int
 // game_controller_add_mappings_from_file loads a set of mappings from a file, filtered by the current SDL_GetPlatform()
 //
 // Convenience macro.
-pub fn game_controller_add_mappings_from_file(file string) int {
-	return C.SDL_GameControllerAddMappingsFromFile(file.str)
+pub fn game_controller_add_mappings_from_file(file &char) int {
+	return C.SDL_GameControllerAddMappingsFromFile(file)
 }
 
 fn C.SDL_GameControllerAddMapping(mapping_string &char) int
@@ -113,8 +113,8 @@ fn C.SDL_GameControllerAddMapping(mapping_string &char) int
 // game_controller_add_mapping adds or updates an existing mapping configuration
 //
 // returns 1 if mapping is added, 0 if updated, -1 on error
-pub fn game_controller_add_mapping(mapping_string string) int {
-	return C.SDL_GameControllerAddMapping(mapping_string.str)
+pub fn game_controller_add_mapping(mapping_string &char) int {
+	return C.SDL_GameControllerAddMapping(mapping_string)
 }
 
 fn C.SDL_GameControllerNumMappings() int
@@ -131,14 +131,8 @@ fn C.SDL_GameControllerMappingForIndex(mapping_index int) &char
 // game_controller_mapping_for_index gets the mapping at a particular index.
 //
 // returns the mapping string.  Must be freed with SDL_free().  Returns NULL if the index is out of range.
-pub fn game_controller_mapping_for_index(mapping_index int) string {
-	cstr := C.SDL_GameControllerMappingForIndex(mapping_index)
-	mut vstr := ''
-	if !isnil(cstr) {
-		vstr = unsafe { cstring_to_vstring(cstr) }
-		unsafe { free(cstr) }
-	}
-	return vstr
+pub fn game_controller_mapping_for_index(mapping_index int) &char {
+	return C.SDL_GameControllerMappingForIndex(mapping_index)
 }
 
 fn C.SDL_GameControllerMappingForGUID(guid C.SDL_JoystickGUID) &char
@@ -146,14 +140,8 @@ fn C.SDL_GameControllerMappingForGUID(guid C.SDL_JoystickGUID) &char
 // Get a mapping string for a GUID
 //
 // returns the mapping string.  Must be freed with SDL_free().  Returns NULL if no mapping is available
-pub fn game_controller_mapping_for_guid(guid JoystickGUID) string {
-	cstr := C.SDL_GameControllerMappingForGUID(guid)
-	mut vstr := ''
-	if !isnil(cstr) {
-		vstr = unsafe { cstring_to_vstring(cstr) }
-		unsafe { free(cstr) }
-	}
-	return vstr
+pub fn game_controller_mapping_for_guid(guid JoystickGUID) &char {
+	return C.SDL_GameControllerMappingForGUID(guid)
 }
 
 fn C.SDL_GameControllerMapping(gamecontroller &C.SDL_GameController) &char
@@ -161,14 +149,8 @@ fn C.SDL_GameControllerMapping(gamecontroller &C.SDL_GameController) &char
 // game_controller_mapping gets a mapping string for an open GameController
 //
 // returns the mapping string.  Must be freed with SDL_free().  Returns NULL if no mapping is available
-pub fn game_controller_mapping(gamecontroller &GameController) string {
-	cstr := C.SDL_GameControllerMapping(gamecontroller)
-	mut vstr := ''
-	if !isnil(cstr) {
-		vstr = unsafe { cstring_to_vstring(cstr) }
-		unsafe { free(cstr) }
-	}
-	return vstr
+pub fn game_controller_mapping(gamecontroller &GameController) &char {
+	return C.SDL_GameControllerMapping(gamecontroller)
 }
 
 fn C.SDL_IsGameController(joystick_index int) bool
@@ -183,14 +165,8 @@ fn C.SDL_GameControllerNameForIndex(joystick_index int) &char
 // game_controller_name_for_index gets the implementation dependent name of a game controller.
 // This can be called before any controllers are opened.
 // If no name can be found, this function returns NULL.
-pub fn game_controller_name_for_index(joystick_index int) string {
-	cstr := C.SDL_GameControllerNameForIndex(joystick_index)
-	mut vstr := ''
-	if !isnil(cstr) {
-		vstr = unsafe { cstring_to_vstring(cstr) }
-		// unsafe { free(cstr) }
-	}
-	return vstr
+pub fn game_controller_name_for_index(joystick_index int) &char {
+	return C.SDL_GameControllerNameForIndex(joystick_index)
 }
 
 fn C.SDL_GameControllerTypeForIndex(joystick_index int) C.SDL_GameControllerType
@@ -207,14 +183,8 @@ fn C.SDL_GameControllerMappingForDeviceIndex(joystick_index int) &char
 // This can be called before any controllers are opened.
 //
 // returns the mapping string. Must be freed with SDL_free(). Returns NULL if no mapping is available
-pub fn game_controller_mapping_for_device_index(joystick_index int) string {
-	cstr := C.SDL_GameControllerMappingForDeviceIndex(joystick_index)
-	mut vstr := ''
-	if !isnil(cstr) {
-		vstr = unsafe { cstring_to_vstring(cstr) }
-		unsafe { free(cstr) }
-	}
-	return vstr
+pub fn game_controller_mapping_for_device_index(joystick_index int) &char {
+	return C.SDL_GameControllerMappingForDeviceIndex(joystick_index)
 }
 
 fn C.SDL_GameControllerOpen(joystick_index int) &C.SDL_GameController
@@ -247,8 +217,8 @@ pub fn game_controller_from_player_index(player_index int) &GameController {
 fn C.SDL_GameControllerName(gamecontroller &C.SDL_GameController) &char
 
 // game_controller_name returns the name for this currently opened controller
-pub fn game_controller_name(gamecontroller &GameController) string {
-	return unsafe { cstring_to_vstring(C.SDL_GameControllerName(gamecontroller)) }
+pub fn game_controller_name(gamecontroller &GameController) &char {
+	return C.SDL_GameControllerName(gamecontroller)
 }
 
 fn C.SDL_GameControllerGetType(gamecontroller &C.SDL_GameController) C.SDL_GameControllerType
@@ -303,8 +273,8 @@ fn C.SDL_GameControllerGetSerial(gamecontroller &C.SDL_GameController) &char
 // game_controller_get_serial gets the serial number of an opened controller, if available.
 //
 // Returns the serial number of the controller, or NULL if it is not available.
-pub fn game_controller_get_serial(gamecontroller &GameController) string {
-	return unsafe { cstring_to_vstring(C.SDL_GameControllerGetSerial(gamecontroller)) }
+pub fn game_controller_get_serial(gamecontroller &GameController) &char {
+	return C.SDL_GameControllerGetSerial(gamecontroller)
 }
 
 fn C.SDL_GameControllerGetAttached(gamecontroller &C.SDL_GameController) bool
@@ -368,20 +338,14 @@ pub enum GameControllerAxis {
 fn C.SDL_GameControllerGetAxisFromString(pch_string &char) C.SDL_GameControllerAxis
 
 // game_controller_get_axis_from_string turns the string into an axis mapping
-pub fn game_controller_get_axis_from_string(pch_string string) GameControllerAxis {
-	return GameControllerAxis(C.SDL_GameControllerGetAxisFromString(pch_string.str))
+pub fn game_controller_get_axis_from_string(pch_string &char) GameControllerAxis {
+	return GameControllerAxis(C.SDL_GameControllerGetAxisFromString(pch_string))
 }
 
 // game_controller_get_string_for_axis turns the axis enum into a string mapping
 fn C.SDL_GameControllerGetStringForAxis(axis C.SDL_GameControllerAxis) &char
-pub fn game_controller_get_string_for_axis(axis GameControllerAxis) string {
-	cstr := C.SDL_GameControllerGetStringForAxis(C.SDL_GameControllerAxis(axis))
-	mut vstr := ''
-	if !isnil(cstr) {
-		vstr = unsafe { cstring_to_vstring(cstr) }
-		// unsafe { free(cstr) }
-	}
-	return vstr
+pub fn game_controller_get_string_for_axis(axis GameControllerAxis) &char {
+	return C.SDL_GameControllerGetStringForAxis(C.SDL_GameControllerAxis(axis))
 }
 
 fn C.SDL_GameControllerGetBindForAxis(gamecontroller &C.SDL_GameController, axis C.SDL_GameControllerAxis) C.SDL_GameControllerButtonBind
@@ -441,20 +405,14 @@ pub enum GameControllerButton {
 fn C.SDL_GameControllerGetButtonFromString(pch_string &char) C.SDL_GameControllerButton
 
 // game_controller_get_button_from_string turns the string into a button mapping
-pub fn game_controller_get_button_from_string(pch_string string) GameControllerButton {
-	return GameControllerButton(C.SDL_GameControllerGetButtonFromString(pch_string.str))
+pub fn game_controller_get_button_from_string(pch_string &char) GameControllerButton {
+	return GameControllerButton(C.SDL_GameControllerGetButtonFromString(pch_string))
 }
 
 // game_controller_get_string_for_button turns the button enum into a string mapping
 fn C.SDL_GameControllerGetStringForButton(button C.SDL_GameControllerButton) &char
-pub fn game_controller_get_string_for_button(button GameControllerButton) string {
-	cstr := C.SDL_GameControllerGetStringForButton(C.SDL_GameControllerButton(button))
-	mut vstr := ''
-	if !isnil(cstr) {
-		vstr = unsafe { cstring_to_vstring(cstr) }
-		// unsafe { free(cstr) }
-	}
-	return vstr
+pub fn game_controller_get_string_for_button(button GameControllerButton) &char {
+	return C.SDL_GameControllerGetStringForButton(C.SDL_GameControllerButton(button))
 }
 
 fn C.SDL_GameControllerGetBindForButton(gamecontroller &C.SDL_GameController, button C.SDL_GameControllerButton) C.SDL_GameControllerButtonBind
