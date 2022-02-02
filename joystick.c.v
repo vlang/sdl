@@ -177,8 +177,8 @@ fn C.SDL_JoystickName(joystick &C.SDL_Joystick) &char
 
 // joystick_name returns the name for this currently opened joystick.
 // If no name can be found, this function returns NULL.
-pub fn joystick_name(joystick &Joystick) string {
-	return unsafe { cstring_to_vstring(C.SDL_JoystickName(joystick)) }
+pub fn joystick_name(joystick &Joystick) &char {
+	return C.SDL_JoystickName(joystick)
 }
 
 fn C.SDL_JoystickGetGUID(joystick &C.SDL_Joystick) C.SDL_JoystickGUID

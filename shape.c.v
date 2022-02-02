@@ -33,8 +33,8 @@ fn C.SDL_CreateShapedWindow(title &char, x u32, y u32, w u32, h u32, flags u32) 
 // returns The window created, or NULL if window creation failed.
 //
 // See also: SDL_DestroyWindow()
-pub fn create_shaped_window(title string, x u32, y u32, w u32, h u32, flags u32) &Window {
-	return C.SDL_CreateShapedWindow(title.str, x, y, w, h, flags)
+pub fn create_shaped_window(title &char, x u32, y u32, w u32, h u32, flags u32) &Window {
+	return C.SDL_CreateShapedWindow(title, x, y, w, h, flags)
 }
 
 fn C.SDL_IsShapedWindow(window &C.SDL_Window) bool

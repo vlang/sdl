@@ -9,6 +9,6 @@ module sdl
 
 // get_platform gets the name of the platform.
 fn C.SDL_GetPlatform() &char
-pub fn get_platform() string {
-	return unsafe { cstring_to_vstring(C.SDL_GetPlatform()) }
+pub fn get_platform() &char {
+	return C.SDL_GetPlatform()
 }

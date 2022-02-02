@@ -228,7 +228,7 @@ fn (mut sdlc SdlContext) set_sdl_context(w int, h int, titl string) {
 	bpp := 32
 	sdl.create_window_and_renderer(w, h, 0, &sdlc.window, &sdlc.renderer)
 	//	sdl.create_window_and_renderer(w, h, 0, &sdlc.window, &sdlc.renderer)
-	sdl.set_window_title(sdlc.window, titl)
+	sdl.set_window_title(sdlc.window, titl.str)
 	sdlc.w = w
 	sdlc.h = h
 	sdlc.screen = sdl.create_rgb_surface(0, w, h, bpp, 0x00FF0000, 0x0000FF00, 0x000000FF,
@@ -242,10 +242,10 @@ fn (mut sdlc SdlContext) set_sdl_context(w int, h int, titl string) {
 		println("couldn't open audio")
 	}
 	println('opening music $music_name')
-	sdlc.actx.music = mix.load_mus(music_name)
-	sdlc.actx.waves[0] = mix.load_wav(snd_block_name)
-	sdlc.actx.waves[1] = mix.load_wav(snd_line_name)
-	sdlc.actx.waves[2] = mix.load_wav(snd_double_name)
+	sdlc.actx.music = mix.load_mus(music_name.str)
+	sdlc.actx.waves[0] = mix.load_wav(snd_block_name.str)
+	sdlc.actx.waves[1] = mix.load_wav(snd_line_name.str)
+	sdlc.actx.waves[2] = mix.load_wav(snd_double_name.str)
 	sdlc.actx.volume = mix.maxvolume
 	if mix.play_music(sdlc.actx.music, 1) != -1 {
 		mix.volume_music(sdlc.actx.volume)
@@ -268,7 +268,7 @@ fn (mut sdlc SdlContext) set_sdl_context(w int, h int, titl string) {
 		println('error initializing image library.')
 	}
 	println('opening logo $v_logo')
-	sdlc.v_logo = img.load(v_logo)
+	sdlc.v_logo = img.load(v_logo.str)
 	if !isnil(sdlc.v_logo) {
 		//		println('got v_logo=$sdlc.v_logo')
 		sdlc.tv_logo = sdl.create_texture_from_surface(sdlc.renderer, sdlc.v_logo)
@@ -287,7 +287,7 @@ fn main() {
 	game.sdl.jids[0] = -1
 	game.sdl.jids[1] = -1
 	game.sdl.set_sdl_context(win_width, win_height, title)
-	game.font = ttf.open_font(font_name, text_size)
+	game.font = ttf.open_font(font_name.str, text_size)
 	mut game2 := &Game{
 		font: 0
 	}

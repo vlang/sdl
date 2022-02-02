@@ -151,8 +151,8 @@ fn C.SDL_LoadBMP(file &char) &C.SDL_Surface
 // load_bmp loads a surface from a file.
 //
 // Convenience macro.
-pub fn load_bmp(path string) &Surface {
-	return C.SDL_LoadBMP(path.str)
+pub fn load_bmp(path &char) &Surface {
+	return C.SDL_LoadBMP(path)
 }
 
 fn C.SDL_SaveBMP_RW(surface &C.SDL_Surface, dst &C.SDL_RWops, freedst int) int
@@ -177,8 +177,8 @@ fn C.SDL_SaveBMP(surface &C.SDL_Surface, file &char)
 // save_bmp save a surface to a file.
 //
 // Convenience macro.
-pub fn save_bmp(surface &Surface, path string) {
-	C.SDL_SaveBMP(surface, path.str)
+pub fn save_bmp(surface &Surface, path &char) {
+	C.SDL_SaveBMP(surface, path)
 }
 
 fn C.SDL_SetSurfaceRLE(surface &C.SDL_Surface, flag int) int

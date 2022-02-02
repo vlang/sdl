@@ -4,7 +4,7 @@ import sdl
 
 fn main() {
 	sdl.init(sdl.init_video)
-	window := sdl.create_window('Hello SDL2', 300, 300, 500, 300, 0)
+	window := sdl.create_window('Hello SDL2'.str, 300, 300, 500, 300, 0)
 	renderer := sdl.create_renderer(window, -1, u32(sdl.RendererFlags.accelerated) | u32(sdl.RendererFlags.presentvsync))
 
 	mut should_close := false
