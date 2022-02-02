@@ -56,7 +56,7 @@ pub fn create_thread(func C.SDL_ThreadFunction, name &char, data voidptr, pfn_be
 }
 */
 
-fn C.SDL_CreateThread(func ThreadFunction, name &char, data voidptr) &C.SDL_Thread
+fn C.SDL_CreateThread(func ThreadFunction, const_name &char, data voidptr) &C.SDL_Thread
 
 // create_thread createa a thread.
 //
@@ -74,8 +74,8 @@ fn C.SDL_CreateThread(func ThreadFunction, name &char, data voidptr) &C.SDL_Thre
 // If a system imposes requirements, SDL will try to munge the string for
 //  it (truncate, etc), but the original string contents will be available
 //  from SDL_GetThreadName().
-pub fn create_thread(func ThreadFunction, name &char, data voidptr) &Thread {
-	return C.SDL_CreateThread(func, name, data)
+pub fn create_thread(func ThreadFunction, const_name &char, data voidptr) &Thread {
+	return C.SDL_CreateThread(func, const_name, data)
 }
 
 fn C.SDL_GetThreadName(thread &C.SDL_Thread) &char
@@ -214,7 +214,7 @@ pub fn tls_get(id TLSID) voidptr {
 	return C.SDL_TLSGet(C.SDL_TLSID(id))
 }
 
-fn C.SDL_TLSSet(id C.SDL_TLSID, value voidptr, destructor fn (voidptr)) int
+fn C.SDL_TLSSet(id C.SDL_TLSID, const_value voidptr, destructor fn (voidptr)) int
 
 // tls_set sets the value associated with a thread local storage ID for the current thread.
 //
@@ -226,6 +226,6 @@ fn C.SDL_TLSSet(id C.SDL_TLSID, value voidptr, destructor fn (voidptr)) int
 //
 // See also: SDL_TLSCreate()
 // See also: SDL_TLSGet()
-pub fn tls_set(id TLSID, value voidptr, destructor fn (voidptr)) int {
-	return C.SDL_TLSSet(C.SDL_TLSID(id), value, destructor)
+pub fn tls_set(id TLSID, const_value voidptr, destructor fn (voidptr)) int {
+	return C.SDL_TLSSet(C.SDL_TLSID(id), const_value, destructor)
 }

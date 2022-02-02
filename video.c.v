@@ -397,7 +397,7 @@ pub fn get_current_display_mode(display_index int, mode &C.SDL_DisplayMode) int 
 	return C.SDL_GetCurrentDisplayMode(display_index, mode)
 }
 
-fn C.SDL_GetClosestDisplayMode(display_index int, mode &C.SDL_DisplayMode, closest &C.SDL_DisplayMode) &C.SDL_DisplayMode
+fn C.SDL_GetClosestDisplayMode(display_index int, const_mode &C.SDL_DisplayMode, closest &C.SDL_DisplayMode) &C.SDL_DisplayMode
 
 // get_closest_display_mode gets the closest match to the requested display mode.
 //
@@ -418,8 +418,8 @@ fn C.SDL_GetClosestDisplayMode(display_index int, mode &C.SDL_DisplayMode, close
 //
 // See also: SDL_GetNumDisplayModes()
 // See also: SDL_GetDisplayMode()
-pub fn get_closest_display_mode(display_index int, mode &C.SDL_DisplayMode, closest &C.SDL_DisplayMode) &C.SDL_DisplayMode {
-	return C.SDL_GetClosestDisplayMode(display_index, mode, closest)
+pub fn get_closest_display_mode(display_index int, const_mode &C.SDL_DisplayMode, closest &C.SDL_DisplayMode) &C.SDL_DisplayMode {
+	return C.SDL_GetClosestDisplayMode(display_index, const_mode, closest)
 }
 
 fn C.SDL_GetWindowDisplayIndex(window &C.SDL_Window) int
@@ -432,7 +432,7 @@ pub fn get_window_display_index(window &Window) int {
 	return C.SDL_GetWindowDisplayIndex(window)
 }
 
-fn C.SDL_SetWindowDisplayMode(window &C.SDL_Window, mode &C.SDL_DisplayMode) int
+fn C.SDL_SetWindowDisplayMode(window &C.SDL_Window, const_mode &C.SDL_DisplayMode) int
 
 // set_window_display_mode sets the display mode used when a fullscreen window is visible.
 //
@@ -446,8 +446,8 @@ fn C.SDL_SetWindowDisplayMode(window &C.SDL_Window, mode &C.SDL_DisplayMode) int
 //
 // See also: SDL_GetWindowDisplayMode()
 // See also: SDL_SetWindowFullscreen()
-pub fn set_window_display_mode(window &Window, mode &C.SDL_DisplayMode) int {
-	return C.SDL_SetWindowDisplayMode(window, mode)
+pub fn set_window_display_mode(window &Window, const_mode &C.SDL_DisplayMode) int {
+	return C.SDL_SetWindowDisplayMode(window, const_mode)
 }
 
 fn C.SDL_GetWindowDisplayMode(window &C.SDL_Window, mode &C.SDL_DisplayMode) int
@@ -548,13 +548,13 @@ pub fn get_window_flags(window &Window) u32 {
 	return C.SDL_GetWindowFlags(window)
 }
 
-fn C.SDL_SetWindowTitle(window &C.SDL_Window, title &char)
+fn C.SDL_SetWindowTitle(window &C.SDL_Window, const_title &char)
 
 // set_window_title sets the title of a window, in UTF-8 format.
 //
 // See also: SDL_GetWindowTitle()
-pub fn set_window_title(window &Window, title &char) {
-	C.SDL_SetWindowTitle(window, title)
+pub fn set_window_title(window &Window, const_title &char) {
+	C.SDL_SetWindowTitle(window, const_title)
 }
 
 fn C.SDL_GetWindowTitle(window &C.SDL_Window) &char
@@ -576,7 +576,7 @@ pub fn set_window_icon(window &Window, icon &C.SDL_Surface) {
 	C.SDL_SetWindowIcon(window, icon)
 }
 
-fn C.SDL_SetWindowData(window &C.SDL_Window, name &char, userdata voidptr) voidptr
+fn C.SDL_SetWindowData(window &C.SDL_Window, const_name &char, userdata voidptr) voidptr
 
 // set_window_data associates an arbitrary named pointer with a window.
 //
@@ -589,11 +589,11 @@ fn C.SDL_SetWindowData(window &C.SDL_Window, name &char, userdata voidptr) voidp
 // NOTE The name is case-sensitive.
 //
 // See also: SDL_GetWindowData()
-pub fn set_window_data(window &Window, name &char, userdata voidptr) voidptr {
-	return C.SDL_SetWindowData(window, name, userdata)
+pub fn set_window_data(window &Window, const_name &char, userdata voidptr) voidptr {
+	return C.SDL_SetWindowData(window, const_name, userdata)
 }
 
-fn C.SDL_GetWindowData(window &C.SDL_Window, name &char) voidptr
+fn C.SDL_GetWindowData(window &C.SDL_Window, const_name &char) voidptr
 
 // get_window_data retrieves the data pointer associated with a window.
 //
@@ -603,8 +603,8 @@ fn C.SDL_GetWindowData(window &C.SDL_Window, name &char) voidptr
 // returns The value associated with 'name'
 //
 // See also: SDL_SetWindowData()
-pub fn get_window_data(window &Window, name &char) voidptr {
-	return C.SDL_GetWindowData(window, name)
+pub fn get_window_data(window &Window, const_name &char) voidptr {
+	return C.SDL_GetWindowData(window, const_name)
 }
 
 fn C.SDL_SetWindowPosition(window &C.SDL_Window, x int, y int)
@@ -892,7 +892,7 @@ pub fn update_window_surface(window &Window) int {
 	return C.SDL_UpdateWindowSurface(window)
 }
 
-fn C.SDL_UpdateWindowSurfaceRects(window &C.SDL_Window, rects &C.SDL_Rect, numrects int) int
+fn C.SDL_UpdateWindowSurfaceRects(window &C.SDL_Window, const_rects &C.SDL_Rect, numconst_rects int) int
 
 // update_window_surface_rects copies a number of rectangles on the window surface to the screen.
 //
@@ -900,8 +900,8 @@ fn C.SDL_UpdateWindowSurfaceRects(window &C.SDL_Window, rects &C.SDL_Rect, numre
 //
 // See also: SDL_GetWindowSurface()
 // See also: SDL_UpdateWindowSurface()
-pub fn update_window_surface_rects(window &Window, rects &C.SDL_Rect, numrects int) int {
-	return C.SDL_UpdateWindowSurfaceRects(window, rects, numrects)
+pub fn update_window_surface_rects(window &Window, const_rects &C.SDL_Rect, numconst_rects int) int {
+	return C.SDL_UpdateWindowSurfaceRects(window, const_rects, numconst_rects)
 }
 
 fn C.SDL_SetWindowGrab(window &C.SDL_Window, grabbed bool)
@@ -1024,7 +1024,7 @@ pub fn set_window_input_focus(window &Window) int {
 	return C.SDL_SetWindowInputFocus(window)
 }
 
-fn C.SDL_SetWindowGammaRamp(window &C.SDL_Window, red &u16, green &u16, blue &u16) int
+fn C.SDL_SetWindowGammaRamp(window &C.SDL_Window, const_red &u16, const_green &u16, const_blue &u16) int
 
 // set_window_gamma_ramp sets the gamma ramp for a window.
 //
@@ -1042,8 +1042,8 @@ fn C.SDL_SetWindowGammaRamp(window &C.SDL_Window, red &u16, green &u16, blue &u1
 // gamma value at that index, scaled to the output color precision.
 //
 // See also: SDL_GetWindowGammaRamp()
-pub fn set_window_gamma_ramp(window &Window, red &u16, green &u16, blue &u16) int {
-	return C.SDL_SetWindowGammaRamp(window, red, green, blue)
+pub fn set_window_gamma_ramp(window &Window, const_red &u16, const_green &u16, const_blue &u16) int {
+	return C.SDL_SetWindowGammaRamp(window, const_red, const_green, const_blue)
 }
 
 fn C.SDL_GetWindowGammaRamp(window &C.SDL_Window, red &u16, green &u16, blue &u16) int
