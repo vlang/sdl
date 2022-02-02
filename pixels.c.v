@@ -186,8 +186,8 @@ pub type PixelFormat = C.SDL_PixelFormat
 fn C.SDL_GetPixelFormatName(format Format) &char
 
 // get the human readable name of a pixel format
-pub fn get_pixel_format_name(format Format) string {
-	return unsafe { cstring_to_vstring(C.SDL_GetPixelFormatName(format)) }
+pub fn get_pixel_format_name(format Format) &char {
+	return C.SDL_GetPixelFormatName(format)
 }
 
 fn C.SDL_PixelFormatEnumToMasks(format Format, bpp &int, rmask &u32, gmask &u32, bmask &u32, amask &u32) bool

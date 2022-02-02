@@ -74,8 +74,8 @@ fn C.SDL_CreateThread(func ThreadFunction, name &char, data voidptr) &C.SDL_Thre
 //
 // This is equivalent to calling:
 // SDL_CreateThreadWithStackSize(fn, name, 0, data);
-pub fn create_thread(func ThreadFunction, name string, data voidptr) &Thread {
-	return C.SDL_CreateThread(func, name.str, data)
+pub fn create_thread(func ThreadFunction, name &char, data voidptr) &Thread {
+	return C.SDL_CreateThread(func, name, data)
 }
 
 fn C.SDL_CreateThreadWithStackSize(func ThreadFunction, name &char, stacksize usize, data voidptr) &C.SDL_Thread
@@ -104,19 +104,19 @@ fn C.SDL_CreateThreadWithStackSize(func ThreadFunction, name &char, stacksize us
 //
 // In SDL 2.1, stacksize will be folded into the original SDL_CreateThread
 //  function.
-pub fn create_thread_with_stack_size(func ThreadFunction, name string, stacksize usize, data voidptr) &Thread {
-	return C.SDL_CreateThreadWithStackSize(func, name.str, stacksize, data)
+pub fn create_thread_with_stack_size(func ThreadFunction, name &char, stacksize usize, data voidptr) &Thread {
+	return C.SDL_CreateThreadWithStackSize(func, name, stacksize, data)
 }
 
-fn C.SDL_GetThreadName(thrd &C.SDL_Thread) &char
+fn C.SDL_GetThreadName(thread &C.SDL_Thread) &char
 
 // get_thread_name gets the thread name, as it was specified in SDL_CreateThread().
 // This function returns a pointer to a UTF-8 string that names the
 // specified thread, or NULL if it doesn't have a name. This is internal
 // memory, not to be free()'d by the caller, and remains valid until the
 // specified thread is cleaned up by SDL_WaitThread().
-pub fn get_thread_name(thrd &Thread) string {
-	return unsafe { cstring_to_vstring(C.SDL_GetThreadName(thrd)) }
+pub fn get_thread_name(thread &Thread) &char {
+	return C.SDL_GetThreadName(thread)
 }
 
 fn C.SDL_ThreadID() C.SDL_threadID

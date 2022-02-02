@@ -263,8 +263,8 @@ fn C.SDL_JoystickName(joystick &C.SDL_Joystick) &char
 
 // joystick_name returns the name for this currently opened joystick.
 // If no name can be found, this function returns NULL.
-pub fn joystick_name(joystick &Joystick) string {
-	return unsafe { cstring_to_vstring(C.SDL_JoystickName(joystick)) }
+pub fn joystick_name(joystick &Joystick) &char {
+	return C.SDL_JoystickName(joystick)
 }
 
 fn C.SDL_JoystickGetPlayerIndex(joystick &C.SDL_Joystick) int
@@ -319,14 +319,8 @@ fn C.SDL_JoystickGetSerial(joystick &C.SDL_Joystick) &char
 // joystick_get_serial gets the serial number of an opened joystick, if available.
 //
 // Returns the serial number of the joystick, or NULL if it is not available.
-pub fn joystick_get_serial(joystick &Joystick) string {
-	cstr := C.SDL_JoystickGetSerial(joystick)
-	mut vstr := ''
-	if !isnil(cstr) {
-		vstr = unsafe { cstring_to_vstring(cstr) }
-		// unsafe { free(cstr) }
-	}
-	return vstr
+pub fn joystick_get_serial(joystick &Joystick) &char {
+	return C.SDL_JoystickGetSerial(joystick)
 }
 
 fn C.SDL_JoystickGetType(joystick &C.SDL_Joystick) C.SDL_JoystickType

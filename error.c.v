@@ -22,8 +22,8 @@ fn C.SDL_GetError() &char
 // be called by multiple threads simultaneously.
 //
 // returns a pointer to the last error message that was set
-pub fn get_error() string {
-	return unsafe { cstring_to_vstring(C.SDL_GetError()) }
+pub fn get_error() &char {
+	return C.SDL_GetError()
 }
 
 fn C.SDL_GetErrorMsg(errstr &char, maxlen int) &char
@@ -38,9 +38,8 @@ fn C.SDL_GetErrorMsg(errstr &char, maxlen int) &char
 // `maxlen` The size of the buffer pointed to by the errstr parameter
 //
 // returns `errstr`
-pub fn get_error_msg(errstr &char, maxlen int) string {
-	mut charr := []char{len: 512}
-	return unsafe { cstring_to_vstring(C.SDL_GetErrorMsg(charr.data, charr.len)) }
+pub fn get_error_msg(errstr &char, maxlen int) &char {
+	return C.SDL_GetErrorMsg(errstr, maxlen)
 }
 
 fn C.SDL_ClearError()

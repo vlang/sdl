@@ -169,16 +169,16 @@ pub fn load_wav_rw(src &sdl.RWops, freesrc int) &Chunk {
 }
 
 fn C.Mix_LoadWAV(file &char) &C.Mix_Chunk
-pub fn load_wav(path string) &Chunk {
-	return C.Mix_LoadWAV(path.str)
+pub fn load_wav(path &char) &Chunk {
+	return C.Mix_LoadWAV(path)
 }
 
 fn C.Mix_LoadMUS(file &char) &C.Mix_Music
 
 // load_mus loads a music file from an SDL_RWop object (Ogg and MikMod specific currently)
 // Matt Campbell (matt@campbellhome.dhs.org) April 2000
-pub fn load_mus(path string) &Music {
-	return C.Mix_LoadMUS(path.str)
+pub fn load_mus(path &char) &Music {
+	return C.Mix_LoadMUS(path)
 }
 
 fn C.Mix_LoadMUS_RW(src &C.SDL_RWops, freesrc int) &C.Mix_Music
@@ -252,8 +252,8 @@ pub fn get_chunk_decoder(index int) &char {
 }
 
 fn C.Mix_HasChunkDecoder(name &char) bool
-pub fn has_chunk_decoder(name string) bool {
-	return C.Mix_HasChunkDecoder(name.str)
+pub fn has_chunk_decoder(name &char) bool {
+	return C.Mix_HasChunkDecoder(name)
 }
 
 fn C.Mix_GetNumMusicDecoders() int
@@ -825,8 +825,8 @@ pub fn playing_music() int {
 fn C.Mix_SetMusicCMD(command &char) int
 
 // set_music_cmd stops music and set external music playback command
-pub fn set_music_cmd(command string) int {
-	return C.Mix_SetMusicCMD(command.str)
+pub fn set_music_cmd(command &char) int {
+	return C.Mix_SetMusicCMD(command)
 }
 
 fn C.Mix_SetSynchroValue(value int) int
@@ -844,8 +844,8 @@ pub fn get_synchro_value() int {
 fn C.Mix_SetSoundFonts(paths &char) int
 
 // set_sound_fonts set/get/iterate SoundFonts paths to use by supported MIDI backends
-pub fn set_sound_fonts(paths string) int {
-	return C.Mix_SetSoundFonts(paths.str)
+pub fn set_sound_fonts(paths &char) int {
+	return C.Mix_SetSoundFonts(paths)
 }
 
 fn C.Mix_GetSoundFonts() &char

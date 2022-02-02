@@ -32,6 +32,6 @@ fn C.SDL_OpenURL(url &char) int
 //
 // `url` A valid URL to open.
 // returns 0 on success, or -1 on error.
-pub fn open_url(url string) int {
-	return C.SDL_OpenURL(url.str)
+pub fn open_url(url &char) int {
+	return C.SDL_OpenURL(url)
 }

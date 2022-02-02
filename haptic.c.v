@@ -586,8 +586,8 @@ fn C.SDL_HapticName(device_index int) &char
 // returns Name of the device or NULL on error.
 //
 // See also: SDL_NumHaptics
-pub fn haptic_name(device_index int) string {
-	return unsafe { cstring_to_vstring(C.SDL_HapticName(device_index)) }
+pub fn haptic_name(device_index int) &char {
+	return C.SDL_HapticName(device_index)
 }
 
 fn C.SDL_HapticOpen(device_index int) &C.SDL_Haptic
