@@ -12,8 +12,8 @@ fn C.SDL_SetClipboardText(text &char) int
 // set_clipboard_text puts UTF-8 text into the clipboard
 //
 // See also: SDL_GetClipboardText()
-pub fn set_clipboard_text(text string) int {
-	return C.SDL_SetClipboardText(text.str)
+pub fn set_clipboard_text(text &char) int {
+	return C.SDL_SetClipboardText(text)
 }
 
 fn C.SDL_GetClipboardText() &char
@@ -21,8 +21,8 @@ fn C.SDL_GetClipboardText() &char
 // get_clipboard_text gets UTF-8 text from the clipboard, which must be freed with SDL_free()
 //
 // See also: SDL_SetClipboardText()
-pub fn get_clipboard_text() string {
-	return unsafe { cstring_to_vstring(C.SDL_GetClipboardText()) }
+pub fn get_clipboard_text() &char {
+	return C.SDL_GetClipboardText()
 }
 
 fn C.SDL_HasClipboardText() bool

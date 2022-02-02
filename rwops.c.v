@@ -110,8 +110,8 @@ pub fn (rwo &RWops) close() int {
 //
 // Functions to create SDL_RWops structures from various data streams.
 fn C.SDL_RWFromFile(file &char, mode &char) &C.SDL_RWops
-pub fn rw_from_file(file string, mode string) &RWops {
-	return C.SDL_RWFromFile(file.str, mode.str)
+pub fn rw_from_file(file &char, mode &char) &RWops {
+	return C.SDL_RWFromFile(file, mode)
 }
 
 /*

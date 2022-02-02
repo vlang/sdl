@@ -104,6 +104,6 @@ fn C.SDL_ShowSimpleMessageBox(flags u32, title &char, message &char, window &C.S
 // returns 0 on success, -1 on error
 //
 // See also: SDL_ShowMessageBox
-pub fn show_simple_message_box(flags u32, title string, message string, window &Window) int {
-	return C.SDL_ShowSimpleMessageBox(flags, title.str, message.str, window)
+pub fn show_simple_message_box(flags u32, title &char, message &char, window &Window) int {
+	return C.SDL_ShowSimpleMessageBox(flags, title, message, window)
 }
