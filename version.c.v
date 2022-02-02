@@ -51,10 +51,8 @@ fn C.SDL_VERSION(ver &C.SDL_version)
 //
 // See also: SDL_version
 // See also: SDL_GetVersion
-pub fn version() string {
-	ver := Version{}
+pub fn version(mut ver Version) {
 	C.SDL_VERSION(&ver)
-	return ver.str()
 }
 
 // This macro turns the version numbers into a numeric value:
@@ -96,10 +94,8 @@ printf("But we linked against SDL version %d.%d.%d.\n", linked.major, linked.min
 // This function may be called safely at any time, even before SDL_Init().
 //
 // See also: SDL_VERSION
-pub fn get_version() string {
-	ver := Version{}
+pub fn get_version(mut ver Version) {
 	C.SDL_GetVersion(&ver)
-	return ver.str()
 }
 
 fn C.SDL_GetRevision() &char
@@ -109,8 +105,8 @@ fn C.SDL_GetRevision() &char
 // Returns an arbitrary string (a hash value) uniquely identifying the
 // exact revision of the SDL library in use, and is only useful in comparing
 // against other revisions. It is NOT an incrementing number.
-pub fn get_revision() string {
-	return unsafe { cstring_to_vstring(C.SDL_GetRevision()) }
+pub fn get_revision() &char {
+	return C.SDL_GetRevision()
 }
 
 fn C.SDL_GetRevisionNumber() int

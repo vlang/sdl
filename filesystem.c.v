@@ -30,8 +30,8 @@ fn C.SDL_GetBasePath() &char
 //  returns String of base dir in UTF-8 encoding, or NULL on error.
 //
 // See also: SDL_GetPrefPath
-pub fn get_base_path() string {
-	return unsafe { cstring_to_vstring(C.SDL_GetBasePath()) }
+pub fn get_base_path() &char {
+	return C.SDL_GetBasePath()
 }
 
 fn C.SDL_GetPrefPath(org &char, app &char) &char
@@ -95,6 +95,6 @@ fn C.SDL_GetPrefPath(org &char, app &char) &char
 //          if there's a problem (creating directory failed, etc).
 //
 // See also: SDL_GetBasePath
-pub fn get_pref_path(org string, app string) &char {
-	return C.SDL_GetPrefPath(org.str, app.str)
+pub fn get_pref_path(org &char, app &char) &char {
+	return C.SDL_GetPrefPath(org, app)
 }

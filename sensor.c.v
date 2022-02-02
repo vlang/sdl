@@ -90,14 +90,8 @@ fn C.SDL_SensorGetDeviceName(device_index int) &char
 // This can be called before any sensors are opened.
 //
 // returns The sensor name, or NULL if device_index is out of range.
-pub fn sensor_get_device_name(device_index int) string {
-	cstr := C.SDL_SensorGetDeviceName(device_index)
-	mut vstr := ''
-	if !isnil(cstr) {
-		vstr = unsafe { cstring_to_vstring(cstr) }
-		// unsafe { free(cstr) }
-	}
-	return vstr
+pub fn sensor_get_device_name(device_index int) &char {
+	return C.SDL_SensorGetDeviceName(device_index)
 }
 
 fn C.SDL_SensorGetDeviceType(device_index int) C.SDL_SensorType
@@ -156,14 +150,8 @@ fn C.SDL_SensorGetName(sensor &C.SDL_Sensor) &char
 // sensor_get_name gets the implementation dependent name of a sensor.
 //
 // returns The sensor name, or NULL if the sensor is NULL.
-pub fn sensor_get_name(sensor &Sensor) string {
-	cstr := C.SDL_SensorGetName(sensor)
-	mut vstr := ''
-	if !isnil(cstr) {
-		vstr = unsafe { cstring_to_vstring(cstr) }
-		// unsafe { free(cstr) }
-	}
-	return vstr
+pub fn sensor_get_name(sensor &Sensor) &char {
+	return C.SDL_SensorGetName(sensor)
 }
 
 fn C.SDL_SensorGetType(sensor &C.SDL_Sensor) C.SDL_SensorType
