@@ -123,13 +123,13 @@ pub fn get_num_allocations() int {
 }
 
 fn C.SDL_getenv(name &char) &char
-pub fn getenv(name string) &char {
-	return C.SDL_getenv(name.str)
+pub fn getenv(name &char) &char {
+	return C.SDL_getenv(name)
 }
 
 fn C.SDL_setenv(name &char, value &char, overwrite int) int
-pub fn setenv(name string, value string, overwrite int) int {
-	return C.SDL_setenv(name.str, value.str, overwrite)
+pub fn setenv(name &char, value &char, overwrite int) int {
+	return C.SDL_setenv(name, value, overwrite)
 }
 
 // int (*compare) (const void *, const void *)
@@ -230,8 +230,8 @@ pub fn wcscmp(str1 &C.wchar_t, str2 &C.wchar_t) int{
 */
 
 fn C.SDL_strlen(str &char) usize
-pub fn strlen(str string) usize {
-	return C.SDL_strlen(str.str)
+pub fn strlen(str &char) usize {
+	return C.SDL_strlen(str)
 }
 
 /*
@@ -256,128 +256,128 @@ pub fn strlcat(dst &C.SDL_INOUT_Z_CAP(maxlen) char, src &char, maxlen usize) usi
 */
 
 fn C.SDL_strdup(str &char) &char
-pub fn strdup(str string) &char {
-	return C.SDL_strdup(str.str)
+pub fn strdup(str &char) &char {
+	return C.SDL_strdup(str)
 }
 
 fn C.SDL_strrev(str &char) &char
-pub fn strrev(str string) &char {
-	return C.SDL_strrev(str.str)
+pub fn strrev(str &char) &char {
+	return C.SDL_strrev(str)
 }
 
 fn C.SDL_strupr(str &char) &char
-pub fn strupr(str string) &char {
-	return C.SDL_strupr(str.str)
+pub fn strupr(str &char) &char {
+	return C.SDL_strupr(str)
 }
 
 fn C.SDL_strlwr(str &char) &char
-pub fn strlwr(str string) &char {
-	return C.SDL_strlwr(str.str)
+pub fn strlwr(str &char) &char {
+	return C.SDL_strlwr(str)
 }
 
 fn C.SDL_strchr(str &char, c int) &char
-pub fn strchr(str string, c int) &char {
-	return C.SDL_strchr(str.str, c)
+pub fn strchr(str &char, c int) &char {
+	return C.SDL_strchr(str, c)
 }
 
 fn C.SDL_strrchr(str &char, c int) &char
-pub fn strrchr(str string, c int) &char {
-	return C.SDL_strrchr(str.str, c)
+pub fn strrchr(str &char, c int) &char {
+	return C.SDL_strrchr(str, c)
 }
 
 fn C.SDL_strstr(haystack &char, needle &char) &char
-pub fn strstr(haystack string, needle string) &char {
-	return C.SDL_strstr(haystack.str, needle.str)
+pub fn strstr(haystack &char, needle &char) &char {
+	return C.SDL_strstr(haystack, needle)
 }
 
 fn C.SDL_utf8strlen(str &char) usize
-pub fn utf8strlen(str string) usize {
-	return C.SDL_utf8strlen(str.str)
+pub fn utf8strlen(str &char) usize {
+	return C.SDL_utf8strlen(str)
 }
 
 fn C.SDL_itoa(value int, str &char, radix int) &char
-pub fn itoa(value int, str string, radix int) &char {
-	return C.SDL_itoa(value, str.str, radix)
+pub fn itoa(value int, str &char, radix int) &char {
+	return C.SDL_itoa(value, str, radix)
 }
 
 fn C.SDL_uitoa(value u32, str &char, radix int) &char
-pub fn uitoa(value u32, str string, radix int) &char {
-	return C.SDL_uitoa(value, str.str, radix)
+pub fn uitoa(value u32, str &char, radix int) &char {
+	return C.SDL_uitoa(value, str, radix)
 }
 
 fn C.SDL_ltoa(value int, str &char, radix int) &char
-pub fn ltoa(value int, str string, radix int) &char {
-	return C.SDL_ltoa(value, str.str, radix)
+pub fn ltoa(value int, str &char, radix int) &char {
+	return C.SDL_ltoa(value, str, radix)
 }
 
 fn C.SDL_ultoa(value u32, str &char, radix int) &char
-pub fn ultoa(value u32, str string, radix int) &char {
-	return C.SDL_ultoa(value, str.str, radix)
+pub fn ultoa(value u32, str &char, radix int) &char {
+	return C.SDL_ultoa(value, str, radix)
 }
 
 fn C.SDL_lltoa(value C.Sint64, str &char, radix int) &char
-pub fn lltoa(value C.Sint64, str string, radix int) &char {
-	return C.SDL_lltoa(value, str.str, radix)
+pub fn lltoa(value C.Sint64, str &char, radix int) &char {
+	return C.SDL_lltoa(value, str, radix)
 }
 
 fn C.SDL_ulltoa(value u64, str &char, radix int) &char
-pub fn ulltoa(value u64, str string, radix int) &char {
-	return C.SDL_ulltoa(value, str.str, radix)
+pub fn ulltoa(value u64, str &char, radix int) &char {
+	return C.SDL_ulltoa(value, str, radix)
 }
 
 fn C.SDL_atoi(str &char) int
-pub fn atoi(str string) int {
-	return C.SDL_atoi(str.str)
+pub fn atoi(str &char) int {
+	return C.SDL_atoi(str)
 }
 
 fn C.SDL_atof(str &char) f64
-pub fn atof(str string) f64 {
-	return C.SDL_atof(str.str)
+pub fn atof(str &char) f64 {
+	return C.SDL_atof(str)
 }
 
 fn C.SDL_strtol(str &char, endp &&char, base int) int
-pub fn strtol(str string, endp &&char, base int) int {
-	return C.SDL_strtol(str.str, endp, base)
+pub fn strtol(str &char, endp &&char, base int) int {
+	return C.SDL_strtol(str, endp, base)
 }
 
 fn C.SDL_strtoul(str &char, endp &&char, base int) u32
-pub fn strtoul(str string, endp &&char, base int) u32 {
-	return C.SDL_strtoul(str.str, endp, base)
+pub fn strtoul(str &char, endp &&char, base int) u32 {
+	return C.SDL_strtoul(str, endp, base)
 }
 
 fn C.SDL_strtoll(str &char, endp &&char, base int) C.Sint64
-pub fn strtoll(str string, endp &&char, base int) C.Sint64 {
-	return C.SDL_strtoll(str.str, endp, base)
+pub fn strtoll(str &char, endp &&char, base int) C.Sint64 {
+	return C.SDL_strtoll(str, endp, base)
 }
 
 fn C.SDL_strtoull(str &char, endp &&char, base int) u64
-pub fn strtoull(str string, endp &&char, base int) u64 {
-	return C.SDL_strtoull(str.str, endp, base)
+pub fn strtoull(str &char, endp &&char, base int) u64 {
+	return C.SDL_strtoull(str, endp, base)
 }
 
 fn C.SDL_strtod(str &char, endp &&char) f64
-pub fn strtod(str string, endp &&char) f64 {
-	return C.SDL_strtod(str.str, endp)
+pub fn strtod(str &char, endp &&char) f64 {
+	return C.SDL_strtod(str, endp)
 }
 
 fn C.SDL_strcmp(str1 &char, str2 &char) int
-pub fn strcmp(str1 string, str2 string) int {
-	return C.SDL_strcmp(str1.str, str2.str)
+pub fn strcmp(str1 &char, str2 &char) int {
+	return C.SDL_strcmp(str1, str2)
 }
 
 fn C.SDL_strncmp(str1 &char, str2 &char, maxlen usize) int
-pub fn strncmp(str1 string, str2 string, maxlen usize) int {
-	return C.SDL_strncmp(str1.str, str2.str, maxlen)
+pub fn strncmp(str1 &char, str2 &char, maxlen usize) int {
+	return C.SDL_strncmp(str1, str2, maxlen)
 }
 
 fn C.SDL_strcasecmp(str1 &char, str2 &char) int
-pub fn strcasecmp(str1 string, str2 string) int {
-	return C.SDL_strcasecmp(str1.str, str2.str)
+pub fn strcasecmp(str1 &char, str2 &char) int {
+	return C.SDL_strcasecmp(str1, str2)
 }
 
 fn C.SDL_strncasecmp(str1 &char, str2 &char, len usize) int
-pub fn strncasecmp(str1 string, str2 string, len usize) int {
-	return C.SDL_strncasecmp(str1.str, str2.str, len)
+pub fn strncasecmp(str1 &char, str2 &char, len usize) int {
+	return C.SDL_strncasecmp(str1, str2, len)
 }
 
 // Skipped:
@@ -386,8 +386,8 @@ extern DECLSPEC int SDLCALL SDL_sscanf(const char *text, SDL_SCANF_FORMAT_STRING
 */
 
 fn C.SDL_vsscanf(text &char, fmt &char, ap C.va_list) int
-pub fn vsscanf(text string, fmt string, ap C.va_list) int {
-	return C.SDL_vsscanf(text.str, fmt.str, ap)
+pub fn vsscanf(text &char, fmt &char, ap C.va_list) int {
+	return C.SDL_vsscanf(text, fmt, ap)
 }
 
 // Skipped:

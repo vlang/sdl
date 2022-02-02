@@ -280,8 +280,8 @@ fn C.SDL_VideoInit(driver_name &char) int
 // and pixel formats, but does not initialize a window or graphics mode.
 //
 // See also: SDL_VideoQuit()
-pub fn video_init(driver_name string) int {
-	return C.SDL_VideoInit(driver_name.str)
+pub fn video_init(driver_name &char) int {
+	return C.SDL_VideoInit(driver_name)
 }
 
 fn C.SDL_VideoQuit()
@@ -537,8 +537,8 @@ fn C.SDL_CreateWindow(title &char, x int, y int, w int, h int, flags u32) &C.SDL
 // See also: SDL_DestroyWindow()
 // See also: SDL_GL_LoadLibrary()
 // See also: SDL_Vulkan_LoadLibrary()
-pub fn create_window(title string, x int, y int, w int, h int, flags u32) &Window {
-	return C.SDL_CreateWindow(title.str, x, y, w, h, flags)
+pub fn create_window(title &char, x int, y int, w int, h int, flags u32) &Window {
+	return C.SDL_CreateWindow(title, x, y, w, h, flags)
 }
 
 fn C.SDL_CreateWindowFrom(data voidptr) &C.SDL_Window
@@ -580,8 +580,8 @@ fn C.SDL_SetWindowTitle(window &C.SDL_Window, title &char)
 // set_window_title sets the title of a window, in UTF-8 format.
 //
 // See also: SDL_GetWindowTitle()
-pub fn set_window_title(window &Window, title string) {
-	C.SDL_SetWindowTitle(window, title.str)
+pub fn set_window_title(window &Window, title &char) {
+	C.SDL_SetWindowTitle(window, title)
 }
 
 fn C.SDL_GetWindowTitle(window &C.SDL_Window) &char
@@ -616,8 +616,8 @@ fn C.SDL_SetWindowData(window &C.SDL_Window, name &char, userdata voidptr) voidp
 // NOTE The name is case-sensitive.
 //
 // See also: SDL_GetWindowData()
-pub fn set_window_data(window &Window, name string, userdata voidptr) voidptr {
-	return C.SDL_SetWindowData(window, name.str, userdata)
+pub fn set_window_data(window &Window, name &char, userdata voidptr) voidptr {
+	return C.SDL_SetWindowData(window, name, userdata)
 }
 
 fn C.SDL_GetWindowData(window &C.SDL_Window, name &char) voidptr
@@ -1192,8 +1192,8 @@ fn C.SDL_GL_LoadLibrary(path &char) int
 //
 // See also: SDL_GL_GetProcAddress()
 // See also: SDL_GL_UnloadLibrary()
-pub fn gl_load_library(path string) int {
-	return C.SDL_GL_LoadLibrary(path.str)
+pub fn gl_load_library(path &char) int {
+	return C.SDL_GL_LoadLibrary(path)
 }
 
 fn C.SDL_GL_GetProcAddress(proc &char) voidptr
