@@ -67,8 +67,8 @@ fn C.SDL_Vulkan_LoadLibrary(path &char) int
 //
 // See also: SDL_Vulkan_GetVkGetInstanceProcAddr()
 // See also: SDL_Vulkan_UnloadLibrary()
-pub fn vulkan_load_library(path string) int {
-	return C.SDL_Vulkan_LoadLibrary(path.str)
+pub fn vulkan_load_library(path &char) int {
+	return C.SDL_Vulkan_LoadLibrary(path)
 }
 
 fn C.SDL_Vulkan_GetVkGetInstanceProcAddr() voidptr

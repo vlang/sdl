@@ -14,8 +14,8 @@ extern DECLSPEC int SDLCALL SDL_SetError(SDL_PRINTF_FORMAT_STRING const char *fm
 fn C.SDL_GetError() &char
 
 // get_error SDL_SetError() unconditionally returns -1.
-pub fn get_error() string {
-	return unsafe { cstring_to_vstring(C.SDL_GetError()) }
+pub fn get_error() &char {
+	return C.SDL_GetError()
 }
 
 fn C.SDL_ClearError()
