@@ -97,8 +97,8 @@ fn C.SDL_AndroidGetInternalStoragePath() &char
 //
 // This path is unique to your application and cannot be written to
 // by other applications.
-pub fn android_get_internal_storage_path() string {
-	return unsafe { cstring_to_vstring(C.SDL_AndroidGetInternalStoragePath()) }
+pub fn android_get_internal_storage_path() &char {
+	return C.SDL_AndroidGetInternalStoragePath()
 }
 
 fn C.SDL_AndroidGetExternalStorageState() int
@@ -118,6 +118,6 @@ fn C.SDL_AndroidGetExternalStoragePath() &char
 //
 // This path is unique to your application, but is public and can be
 // written to by other applications.
-pub fn android_get_external_storage_path() string {
-	return unsafe { cstring_to_vstring(C.SDL_AndroidGetExternalStoragePath()) }
+pub fn android_get_external_storage_path() &char {
+	return C.SDL_AndroidGetExternalStoragePath()
 }

@@ -78,13 +78,13 @@ fn C.TTF_OpenFont(file &char, ptsize int) &C.TTF_Font
 // Some .fon fonts will have several sizes embedded in the file, so the
 // point size becomes the index of choosing which size.  If the value
 // is too high, the last indexed size will be the default.
-pub fn open_font(file string, ptsize int) &Font {
-	return C.TTF_OpenFont(file.str, ptsize)
+pub fn open_font(file &char, ptsize int) &Font {
+	return C.TTF_OpenFont(file, ptsize)
 }
 
 fn C.TTF_OpenFontIndex(file &char, ptsize int, index int) &C.TTF_Font
-pub fn open_font_index(file string, ptsize int, index int) &Font {
-	return C.TTF_OpenFontIndex(file.str, ptsize, index)
+pub fn open_font_index(file &char, ptsize int, index int) &Font {
+	return C.TTF_OpenFontIndex(file, ptsize, index)
 }
 
 fn C.TTF_OpenFontRW(src &C.SDL_RWops, freesrc int, ptsize int) &C.TTF_Font
@@ -203,13 +203,13 @@ pub fn font_face_is_fixed_width(font &Font) int {
 }
 
 fn C.TTF_FontFaceFamilyName(font &C.TTF_Font) &char
-pub fn font_face_family_name(font &Font) string {
-	return unsafe { cstring_to_vstring(C.TTF_FontFaceFamilyName(font)) }
+pub fn font_face_family_name(font &Font) &char {
+	return C.TTF_FontFaceFamilyName(font)
 }
 
 fn C.TTF_FontFaceStyleName(font &C.TTF_Font) &char
-pub fn font_face_style_name(font &Font) string {
-	return unsafe { cstring_to_vstring(C.TTF_FontFaceStyleName(font)) }
+pub fn font_face_style_name(font &Font) &char {
+	return C.TTF_FontFaceStyleName(font)
 }
 
 fn C.TTF_GlyphIsProvided(font &C.TTF_Font, ch u16) int
@@ -241,11 +241,8 @@ pub fn size_utf8(font &Font, text &char, w &int, h &int) int {
 }
 
 fn C.TTF_SizeUNICODE(font &Font, text &u16, w &int, h &int) int
-pub fn size_unicode(font &C.TTF_Font, text string, w &int, h &int) int {
-	wt := text.to_wide()
-	s := C.TTF_SizeUNICODE(font, wt, w, h)
-	unsafe { free(wt) }
-	return s
+pub fn size_unicode(font &C.TTF_Font, text &u16, w &int, h &int) int {
+	return C.TTF_SizeUNICODE(font, text, w, h)
 }
 
 fn C.TTF_RenderText_Solid(font &C.TTF_Font, text &char, fg C.SDL_Color) &C.SDL_Surface
