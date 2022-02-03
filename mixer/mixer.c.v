@@ -137,11 +137,12 @@ pub fn open_audio(frequency int, format u16, channels int, chunksize int) int {
 	return C.Mix_OpenAudio(frequency, format, channels, chunksize)
 }
 
-fn C.Mix_OpenAudioDevice(frequency int, format u16, channels int, chunksize int, device &char, allowed_changes int) int
+fn C.Mix_OpenAudioDevice(frequency int, format u16, channels int, chunksize int, const_device &char, allowed_changes int) int
 
 // open_audio_device opens the mixer with specific device and certain audio format
-pub fn open_audio_device(frequency int, format u16, channels int, chunksize int, device &char, allowed_changes int) int {
-	return C.Mix_OpenAudioDevice(frequency, format, channels, chunksize, device, allowed_changes)
+pub fn open_audio_device(frequency int, format u16, channels int, chunksize int, const_device &char, allowed_changes int) int {
+	return C.Mix_OpenAudioDevice(frequency, format, channels, chunksize, const_device,
+		allowed_changes)
 }
 
 fn C.Mix_AllocateChannels(numchans int) int
@@ -854,7 +855,7 @@ pub fn get_sound_fonts() &char {
 }
 
 // `int (SDLCALL *function)(const char*, void*)`
-pub type Func = fn (&char, voidptr) int
+pub type Func = fn (const_a &char, b voidptr) int
 
 fn C.Mix_EachSoundFont(f Func, data voidptr) int
 pub fn each_sound_font(f Func, data voidptr) int {
