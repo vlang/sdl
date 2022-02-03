@@ -370,8 +370,8 @@ fn C.SDL_UpdateYUVTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, const_
 // a contiguous block of Y and U/V planes in the proper order, but
 // this function is available if your pixel data is not contiguous.
 pub fn update_yuv_texture(texture &Texture, const_rect &Rect, const_yplane &byte, ypitch int, const_uplane &byte, upitch int, const_vplane &byte, vpitch int) int {
-	return C.SDL_UpdateYUVTexture(texture, const_rect, const_yplane, ypitch, const_uplane, upitch, const_vplane,
-		vpitch)
+	return C.SDL_UpdateYUVTexture(texture, const_rect, const_yplane, ypitch, const_uplane,
+		upitch, const_vplane, vpitch)
 }
 
 fn C.SDL_LockTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, pixels voidptr, pitch &int) int
