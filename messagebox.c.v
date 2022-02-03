@@ -94,7 +94,7 @@ pub fn show_message_box(messageboxdata &MessageBoxData, buttonid &int) int {
 	return C.SDL_ShowMessageBox(messageboxdata, buttonid)
 }
 
-fn C.SDL_ShowSimpleMessageBox(flags u32, title &char, message &char, window &C.SDL_Window) int
+fn C.SDL_ShowSimpleMessageBox(flags u32, const_title &char, const_message &char, window &C.SDL_Window) int
 
 // show_simple_message_box creates a simple modal message box
 //
@@ -106,6 +106,6 @@ fn C.SDL_ShowSimpleMessageBox(flags u32, title &char, message &char, window &C.S
 // returns 0 on success, -1 on error
 //
 // See also: SDL_ShowMessageBox
-pub fn show_simple_message_box(flags u32, title &char, message &char, window &Window) int {
-	return C.SDL_ShowSimpleMessageBox(flags, title, message, window)
+pub fn show_simple_message_box(flags u32, const_title &char, const_message &char, window &Window) int {
+	return C.SDL_ShowSimpleMessageBox(flags, const_title, const_message, window)
 }
