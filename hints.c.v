@@ -1063,7 +1063,7 @@ pub enum HintPriority {
 	override = C.SDL_HINT_OVERRIDE
 }
 
-fn C.SDL_SetHintWithPriority(name &char, value &char, priority C.SDL_HintPriority) bool
+fn C.SDL_SetHintWithPriority(const_name &char, const_value &char, priority C.SDL_HintPriority) bool
 
 // set_hint_with_priority sets a hint with a specific priority
 //
@@ -1072,17 +1072,17 @@ fn C.SDL_SetHintWithPriority(name &char, value &char, priority C.SDL_HintPriorit
 // lower.  Environment variables are considered to have override priority.
 //
 // returns SDL_TRUE if the hint was set, SDL_FALSE otherwise
-pub fn set_hint_with_priority(name &char, value &char, priority HintPriority) bool {
-	return C.SDL_SetHintWithPriority(name, value, C.SDL_HintPriority(priority))
+pub fn set_hint_with_priority(const_name &char, const_value &char, priority HintPriority) bool {
+	return C.SDL_SetHintWithPriority(const_name, const_value, C.SDL_HintPriority(priority))
 }
 
-fn C.SDL_SetHint(name &char, value &char) bool
+fn C.SDL_SetHint(const_name &char, const_value &char) bool
 
 // set_hint sets a hint with normal priority
 //
 // returns SDL_TRUE if the hint was set, SDL_FALSE otherwise
-pub fn set_hint(name &char, value &char) bool {
-	return C.SDL_SetHint(name, value)
+pub fn set_hint(const_name &char, const_value &char) bool {
+	return C.SDL_SetHint(const_name, const_value)
 }
 
 fn C.SDL_GetHint(name &char) &char
@@ -1105,7 +1105,7 @@ pub fn get_hint_boolean(name &char, default_value bool) bool {
 
 // HintCallback type definition of the hint callback function.
 // `typedef void (SDLCALL *SDL_HintCallback)(void *userdata, const char *name, const char *oldValue, const char *newValue);`
-pub type HintCallback = fn (userdata voidptr, name &char, old_value &char, new_value &char)
+pub type HintCallback = fn (userdata voidptr, const_name &char, const_old_value &char, const_new_value &char)
 
 fn C.SDL_AddHintCallback(name &char, callback HintCallback, userdata voidptr)
 
