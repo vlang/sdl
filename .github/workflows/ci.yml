@@ -55,6 +55,7 @@ jobs:
         run: |
           cd sdl
           v test-fmt
+          v fmt -verify .
 
       - name: Build sdl shared
         run: |
