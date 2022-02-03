@@ -73,7 +73,7 @@ pub fn create_thread(func ThreadFunction, const_name &char, data voidptr) &Threa
 	return C.SDL_CreateThread(func, const_name, data)
 }
 
-fn C.SDL_CreateThreadWithStackSize(func ThreadFunction, name &char, stacksize usize, data voidptr) &C.SDL_Thread
+fn C.SDL_CreateThreadWithStackSize(func ThreadFunction, const_name &char, const_stacksize usize, data voidptr) &C.SDL_Thread
 
 // create_thread_with_stack_size creates a a thread.
 //
@@ -99,8 +99,8 @@ fn C.SDL_CreateThreadWithStackSize(func ThreadFunction, name &char, stacksize us
 //
 // In SDL 2.1, stacksize will be folded into the original SDL_CreateThread
 //  function.
-pub fn create_thread_with_stack_size(func ThreadFunction, const_name &char, stacksize usize, data voidptr) &Thread {
-	return C.SDL_CreateThreadWithStackSize(func, const_name, stacksize, data)
+pub fn create_thread_with_stack_size(func ThreadFunction, const_name &char, const_stacksize usize, data voidptr) &Thread {
+	return C.SDL_CreateThreadWithStackSize(func, const_name, const_stacksize, data)
 }
 
 fn C.SDL_GetThreadName(thread &C.SDL_Thread) &char
