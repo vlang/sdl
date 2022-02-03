@@ -369,7 +369,7 @@ pub fn get_texture_scale_mode(texture &Texture, scale_mode &ScaleMode) int {
 	return unsafe { C.SDL_GetTextureScaleMode(texture, &C.SDL_ScaleMode(scale_mode)) }
 }
 
-fn C.SDL_UpdateTexture(texture &C.SDL_Texture, rect &C.SDL_Rect, pixels voidptr, pitch int) int
+fn C.SDL_UpdateTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, const_pixels voidptr, pitch int) int
 
 // update_texture updates the given texture rectangle with new pixel data.
 //
@@ -385,11 +385,11 @@ fn C.SDL_UpdateTexture(texture &C.SDL_Texture, rect &C.SDL_Rect, pixels voidptr,
 // returns 0 on success, or -1 if the texture is not valid.
 //
 // NOTE This is a fairly slow function.
-pub fn update_texture(texture &Texture, rect &Rect, pixels voidptr, pitch int) int {
-	return C.SDL_UpdateTexture(texture, rect, pixels, pitch)
+pub fn update_texture(texture &Texture, const_rect &Rect, const_pixels voidptr, pitch int) int {
+	return C.SDL_UpdateTexture(texture, const_rect, const_pixels, pitch)
 }
 
-fn C.SDL_UpdateYUVTexture(texture &C.SDL_Texture, rect &C.SDL_Rect, yplane &byte, ypitch int, uplane &byte, upitch int, vplane &byte, vpitch int) int
+fn C.SDL_UpdateYUVTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, const_yplane &byte, ypitch int, const_uplane &byte, upitch int, const_vplane &byte, vpitch int) int
 
 // update_yuv_texture updates a rectangle within a planar YV12 or IYUV texture with new pixel data.
 //
@@ -408,12 +408,12 @@ fn C.SDL_UpdateYUVTexture(texture &C.SDL_Texture, rect &C.SDL_Rect, yplane &byte
 // NOTE You can use SDL_UpdateTexture() as long as your pixel data is
 // a contiguous block of Y and U/V planes in the proper order, but
 // this function is available if your pixel data is not contiguous.
-pub fn update_yuv_texture(texture &Texture, rect &Rect, yplane &byte, ypitch int, uplane &byte, upitch int, vplane &byte, vpitch int) int {
-	return C.SDL_UpdateYUVTexture(texture, rect, yplane, ypitch, uplane, upitch, vplane,
-		vpitch)
+pub fn update_yuv_texture(texture &Texture, const_rect &Rect, const_yplane &byte, ypitch int, const_uplane &byte, upitch int, const_vplane &byte, vpitch int) int {
+	return C.SDL_UpdateYUVTexture(texture, const_rect, const_yplane, ypitch, const_uplane,
+		upitch, const_vplane, vpitch)
 }
 
-fn C.SDL_LockTexture(texture &C.SDL_Texture, rect &C.SDL_Rect, pixels voidptr, pitch &int) int
+fn C.SDL_LockTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, pixels voidptr, pitch &int) int
 
 // lock_texture locks a portion of the texture for write-only pixel access.
 //
@@ -428,11 +428,11 @@ fn C.SDL_LockTexture(texture &C.SDL_Texture, rect &C.SDL_Rect, pixels voidptr, p
 // returns 0 on success, or -1 if the texture is not valid or was not created with ::SDL_TEXTUREACCESS_STREAMING.
 //
 // See also: SDL_UnlockTexture()
-pub fn lock_texture(texture &Texture, rect &Rect, pixels voidptr, pitch &int) int {
-	return C.SDL_LockTexture(texture, rect, pixels, pitch)
+pub fn lock_texture(texture &Texture, const_rect &Rect, pixels voidptr, pitch &int) int {
+	return C.SDL_LockTexture(texture, const_rect, pixels, pitch)
 }
 
-fn C.SDL_LockTextureToSurface(texture &C.SDL_Texture, rect &C.SDL_Rect, surface &&C.SDL_Surface) int
+fn C.SDL_LockTextureToSurface(texture &C.SDL_Texture, const_rect &C.SDL_Rect, surface &&C.SDL_Surface) int
 
 // lock_texture_to_surface locks a portion of the texture for write-only pixel access.
 // Expose it as a SDL surface.
@@ -447,8 +447,8 @@ fn C.SDL_LockTextureToSurface(texture &C.SDL_Texture, rect &C.SDL_Rect, surface 
 // returns 0 on success, or -1 if the texture is not valid or was not created with ::SDL_TEXTUREACCESS_STREAMING.
 //
 // See also: SDL_UnlockTexture()
-pub fn lock_texture_to_surface(texture &Texture, rect &Rect, surface &&Surface) int {
-	return C.SDL_LockTextureToSurface(texture, rect, surface)
+pub fn lock_texture_to_surface(texture &Texture, const_rect &Rect, surface &&Surface) int {
+	return C.SDL_LockTextureToSurface(texture, const_rect, surface)
 }
 
 fn C.SDL_UnlockTexture(texture &C.SDL_Texture)
@@ -565,7 +565,7 @@ pub fn render_get_integer_scale(renderer &Renderer) bool {
 	return C.SDL_RenderGetIntegerScale(renderer)
 }
 
-fn C.SDL_RenderSetViewport(renderer &C.SDL_Renderer, rect &C.SDL_Rect) int
+fn C.SDL_RenderSetViewport(renderer &C.SDL_Renderer, const_rect &C.SDL_Rect) int
 
 // render_set_viewport sets the drawing area for rendering on the current target.
 //
@@ -580,8 +580,8 @@ fn C.SDL_RenderSetViewport(renderer &C.SDL_Renderer, rect &C.SDL_Rect) int
 //
 // See also: SDL_RenderGetViewport()
 // See also: SDL_RenderSetLogicalSize()
-pub fn render_set_viewport(renderer &Renderer, rect &Rect) int {
-	return C.SDL_RenderSetViewport(renderer, rect)
+pub fn render_set_viewport(renderer &Renderer, const_rect &Rect) int {
+	return C.SDL_RenderSetViewport(renderer, const_rect)
 }
 
 fn C.SDL_RenderGetViewport(renderer &C.SDL_Renderer, rect &C.SDL_Rect)
@@ -593,7 +593,7 @@ pub fn render_get_viewport(renderer &Renderer, rect &Rect) {
 	C.SDL_RenderGetViewport(renderer, rect)
 }
 
-fn C.SDL_RenderSetClipRect(renderer &C.SDL_Renderer, rect &C.SDL_Rect) int
+fn C.SDL_RenderSetClipRect(renderer &C.SDL_Renderer, const_rect &C.SDL_Rect) int
 
 // render_set_clip_rect sets the clip rectangle for the current target.
 //
@@ -604,8 +604,8 @@ fn C.SDL_RenderSetClipRect(renderer &C.SDL_Renderer, rect &C.SDL_Rect) int
 // returns 0 on success, or -1 on error
 //
 // See also: SDL_RenderGetClipRect()
-pub fn render_set_clip_rect(renderer &Renderer, rect &Rect) int {
-	return C.SDL_RenderSetClipRect(renderer, rect)
+pub fn render_set_clip_rect(renderer &Renderer, const_rect &Rect) int {
+	return C.SDL_RenderSetClipRect(renderer, const_rect)
 }
 
 fn C.SDL_RenderGetClipRect(renderer &Renderer, rect &C.SDL_Rect)
@@ -755,7 +755,7 @@ pub fn render_draw_point(renderer &Renderer, x int, y int) int {
 	return C.SDL_RenderDrawPoint(renderer, x, y)
 }
 
-fn C.SDL_RenderDrawPoints(renderer &C.SDL_Renderer, points &C.SDL_Point, count int) int
+fn C.SDL_RenderDrawPoints(renderer &C.SDL_Renderer, const_points &C.SDL_Point, count int) int
 
 // render_draw_points draws multiple points on the current rendering target.
 //
@@ -764,8 +764,8 @@ fn C.SDL_RenderDrawPoints(renderer &C.SDL_Renderer, points &C.SDL_Point, count i
 // `count` The number of points to draw
 //
 // returns 0 on success, or -1 on error
-pub fn render_draw_points(renderer &Renderer, points &Point, count int) int {
-	return C.SDL_RenderDrawPoints(renderer, points, count)
+pub fn render_draw_points(renderer &Renderer, const_points &Point, count int) int {
+	return C.SDL_RenderDrawPoints(renderer, const_points, count)
 }
 
 fn C.SDL_RenderDrawLine(renderer &C.SDL_Renderer, x1 int, y1 int, x2 int, y2 int) int
@@ -783,7 +783,7 @@ pub fn render_draw_line(renderer &Renderer, x1 int, y1 int, x2 int, y2 int) int 
 	return C.SDL_RenderDrawLine(renderer, x1, y1, x2, y2)
 }
 
-fn C.SDL_RenderDrawLines(renderer &C.SDL_Renderer, points &C.SDL_Point, count int) int
+fn C.SDL_RenderDrawLines(renderer &C.SDL_Renderer, const_points &C.SDL_Point, count int) int
 
 // render_draw_lines draws a series of connected lines on the current rendering target.
 //
@@ -792,11 +792,11 @@ fn C.SDL_RenderDrawLines(renderer &C.SDL_Renderer, points &C.SDL_Point, count in
 // `count` The number of points, drawing count-1 lines
 //
 // returns 0 on success, or -1 on error
-pub fn render_draw_lines(renderer &Renderer, points &Point, count int) int {
-	return C.SDL_RenderDrawLines(renderer, points, count)
+pub fn render_draw_lines(renderer &Renderer, const_points &Point, count int) int {
+	return C.SDL_RenderDrawLines(renderer, const_points, count)
 }
 
-fn C.SDL_RenderDrawRect(renderer &C.SDL_Renderer, rect &C.SDL_Rect) int
+fn C.SDL_RenderDrawRect(renderer &C.SDL_Renderer, const_rect &C.SDL_Rect) int
 
 // render_draw_rect draws a rectangle on the current rendering target.
 //
@@ -804,11 +804,11 @@ fn C.SDL_RenderDrawRect(renderer &C.SDL_Renderer, rect &C.SDL_Rect) int
 // `rect` A pointer to the destination rectangle, or NULL to outline the entire rendering target.
 //
 // returns 0 on success, or -1 on error
-pub fn render_draw_rect(renderer &Renderer, rect &Rect) int {
-	return C.SDL_RenderDrawRect(renderer, rect)
+pub fn render_draw_rect(renderer &Renderer, const_rect &Rect) int {
+	return C.SDL_RenderDrawRect(renderer, const_rect)
 }
 
-fn C.SDL_RenderDrawRects(renderer &C.SDL_Renderer, rects &C.SDL_Rect, count int) int
+fn C.SDL_RenderDrawRects(renderer &C.SDL_Renderer, const_rects &C.SDL_Rect, count int) int
 
 // render_draw_rects draws some number of rectangles on the current rendering target.
 //
@@ -817,11 +817,11 @@ fn C.SDL_RenderDrawRects(renderer &C.SDL_Renderer, rects &C.SDL_Rect, count int)
 // `count` The number of rectangles.
 //
 // returns 0 on success, or -1 on error
-pub fn render_draw_rects(renderer &Renderer, rects &Rect, count int) int {
-	return C.SDL_RenderDrawRects(renderer, rects, count)
+pub fn render_draw_rects(renderer &Renderer, const_rects &Rect, count int) int {
+	return C.SDL_RenderDrawRects(renderer, const_rects, count)
 }
 
-fn C.SDL_RenderFillRect(renderer &C.SDL_Renderer, rect &C.SDL_Rect) int
+fn C.SDL_RenderFillRect(renderer &C.SDL_Renderer, const_rect &C.SDL_Rect) int
 
 // render_fill_rect fills a rectangle on the current rendering target with the drawing color.
 //
@@ -830,11 +830,11 @@ fn C.SDL_RenderFillRect(renderer &C.SDL_Renderer, rect &C.SDL_Rect) int
 // rendering target.
 //
 // returns 0 on success, or -1 on error
-pub fn render_fill_rect(renderer &Renderer, rect &Rect) int {
-	return C.SDL_RenderFillRect(renderer, rect)
+pub fn render_fill_rect(renderer &Renderer, const_rect &Rect) int {
+	return C.SDL_RenderFillRect(renderer, const_rect)
 }
 
-fn C.SDL_RenderFillRects(renderer &C.SDL_Renderer, rects &C.SDL_Rect, count int) int
+fn C.SDL_RenderFillRects(renderer &C.SDL_Renderer, const_rects &C.SDL_Rect, count int) int
 
 // render_fill_rects fills some number of rectangles on the current rendering target with the drawing color.
 //
@@ -843,11 +843,11 @@ fn C.SDL_RenderFillRects(renderer &C.SDL_Renderer, rects &C.SDL_Rect, count int)
 // `count` The number of rectangles.
 //
 // returns 0 on success, or -1 on error
-pub fn render_fill_rects(renderer &Renderer, rects &Rect, count int) int {
-	return C.SDL_RenderFillRects(renderer, rects, count)
+pub fn render_fill_rects(renderer &Renderer, const_rects &Rect, count int) int {
+	return C.SDL_RenderFillRects(renderer, const_rects, count)
 }
 
-fn C.SDL_RenderCopy(renderer &C.SDL_Renderer, texture &C.SDL_Texture, srcrect &C.SDL_Rect, dstrect &C.SDL_Rect) int
+fn C.SDL_RenderCopy(renderer &C.SDL_Renderer, texture &C.SDL_Texture, const_srcrect &C.SDL_Rect, const_dstrect &C.SDL_Rect) int
 
 // render_copy copies a portion of the texture to the current rendering target.
 //
@@ -859,11 +859,11 @@ fn C.SDL_RenderCopy(renderer &C.SDL_Renderer, texture &C.SDL_Texture, srcrect &C
 // entire rendering target.
 //
 // returns 0 on success, or -1 on error
-pub fn render_copy(renderer &Renderer, texture &Texture, srcrect &Rect, dstrect &Rect) int {
-	return C.SDL_RenderCopy(renderer, texture, srcrect, dstrect)
+pub fn render_copy(renderer &Renderer, texture &Texture, const_srcrect &Rect, const_dstrect &Rect) int {
+	return C.SDL_RenderCopy(renderer, texture, const_srcrect, const_dstrect)
 }
 
-fn C.SDL_RenderCopyEx(renderer &C.SDL_Renderer, texture &C.SDL_Texture, srcrect &C.SDL_Rect, dstrect &C.SDL_Rect, angle f64, center &C.SDL_Point, flip C.SDL_RendererFlip) int
+fn C.SDL_RenderCopyEx(renderer &C.SDL_Renderer, texture &C.SDL_Texture, const_srcrect &C.SDL_Rect, const_dstrect &C.SDL_Rect, const_angle f64, const_center &C.SDL_Point, const_flip C.SDL_RendererFlip) int
 
 // render_copy_ex copies a portion of the source texture to the current rendering target, rotating it by angle around the given center
 //
@@ -878,8 +878,9 @@ fn C.SDL_RenderCopyEx(renderer &C.SDL_Renderer, texture &C.SDL_Texture, srcrect 
 // `flip`     An SDL_RendererFlip value stating which flipping actions should be performed on the texture
 //
 // returns 0 on success, or -1 on error
-pub fn render_copy_ex(renderer &Renderer, texture &Texture, srcrect &Rect, dstrect &Rect, angle f64, center &Point, flip RendererFlip) int {
-	return C.SDL_RenderCopyEx(renderer, texture, srcrect, dstrect, angle, center, C.SDL_RendererFlip(int(flip)))
+pub fn render_copy_ex(renderer &Renderer, texture &Texture, const_srcrect &Rect, const_dstrect &Rect, const_angle f64, const_center &Point, const_flip RendererFlip) int {
+	return C.SDL_RenderCopyEx(renderer, texture, const_srcrect, const_dstrect, const_angle,
+		const_center, C.SDL_RendererFlip(int(const_flip)))
 }
 
 fn C.SDL_RenderDrawPointF(renderer &C.SDL_Renderer, x f32, y f32) int
@@ -896,7 +897,7 @@ pub fn render_draw_point_f(renderer &Renderer, x f32, y f32) int {
 	return C.SDL_RenderDrawPointF(renderer, x, y)
 }
 
-fn C.SDL_RenderDrawPointsF(renderer &C.SDL_Renderer, points &C.SDL_FPoint, count int) int
+fn C.SDL_RenderDrawPointsF(renderer &C.SDL_Renderer, const_points &C.SDL_FPoint, count int) int
 
 // render_draw_points_f draws multiple points on the current rendering target.
 //
@@ -906,8 +907,8 @@ fn C.SDL_RenderDrawPointsF(renderer &C.SDL_Renderer, points &C.SDL_FPoint, count
 //
 //  returns 0 on success, or -1 on error
 ///
-pub fn render_draw_points_f(renderer &Renderer, points &FPoint, count int) int {
-	return C.SDL_RenderDrawPointsF(renderer, points, count)
+pub fn render_draw_points_f(renderer &Renderer, const_points &FPoint, count int) int {
+	return C.SDL_RenderDrawPointsF(renderer, const_points, count)
 }
 
 fn C.SDL_RenderDrawLineF(renderer &C.SDL_Renderer, x1 f32, y1 f32, x2 f32, y2 f32) int
@@ -926,7 +927,7 @@ pub fn render_draw_line_f(renderer &Renderer, x1 f32, y1 f32, x2 f32, y2 f32) in
 	return C.SDL_RenderDrawLineF(renderer, x1, y1, x2, y2)
 }
 
-fn C.SDL_RenderDrawLinesF(renderer &C.SDL_Renderer, points &C.SDL_FPoint, count int) int
+fn C.SDL_RenderDrawLinesF(renderer &C.SDL_Renderer, const_points &C.SDL_FPoint, count int) int
 
 // render_draw_lines_f draws a series of connected lines on the current rendering target.
 //
@@ -936,11 +937,11 @@ fn C.SDL_RenderDrawLinesF(renderer &C.SDL_Renderer, points &C.SDL_FPoint, count 
 //
 //  returns 0 on success, or -1 on error
 ///
-pub fn render_draw_lines_f(renderer &Renderer, points &FPoint, count int) int {
-	return C.SDL_RenderDrawLinesF(renderer, points, count)
+pub fn render_draw_lines_f(renderer &Renderer, const_points &FPoint, count int) int {
+	return C.SDL_RenderDrawLinesF(renderer, const_points, count)
 }
 
-fn C.SDL_RenderDrawRectF(renderer &C.SDL_Renderer, rect &C.SDL_FRect) int
+fn C.SDL_RenderDrawRectF(renderer &C.SDL_Renderer, const_rect &C.SDL_FRect) int
 
 // render_draw_rect_f draws a rectangle on the current rendering target.
 //
@@ -949,11 +950,11 @@ fn C.SDL_RenderDrawRectF(renderer &C.SDL_Renderer, rect &C.SDL_FRect) int
 //
 //  returns 0 on success, or -1 on error
 ///
-pub fn render_draw_rect_f(renderer &Renderer, rect &FRect) int {
-	return C.SDL_RenderDrawRectF(renderer, rect)
+pub fn render_draw_rect_f(renderer &Renderer, const_rect &FRect) int {
+	return C.SDL_RenderDrawRectF(renderer, const_rect)
 }
 
-fn C.SDL_RenderDrawRectsF(renderer &C.SDL_Renderer, rects &C.SDL_FRect, count int) int
+fn C.SDL_RenderDrawRectsF(renderer &C.SDL_Renderer, const_rects &C.SDL_FRect, count int) int
 
 // render_draw_rects_f draws some number of rectangles on the current rendering target.
 //
@@ -963,11 +964,11 @@ fn C.SDL_RenderDrawRectsF(renderer &C.SDL_Renderer, rects &C.SDL_FRect, count in
 //
 //  returns 0 on success, or -1 on error
 ///
-pub fn render_draw_rects_f(renderer &Renderer, rects &FRect, count int) int {
-	return C.SDL_RenderDrawRectsF(renderer, rects, count)
+pub fn render_draw_rects_f(renderer &Renderer, const_rects &FRect, count int) int {
+	return C.SDL_RenderDrawRectsF(renderer, const_rects, count)
 }
 
-fn C.SDL_RenderFillRectF(renderer &C.SDL_Renderer, rect &C.SDL_FRect) int
+fn C.SDL_RenderFillRectF(renderer &C.SDL_Renderer, const_rect &C.SDL_FRect) int
 
 // render_fill_rect_f fills a rectangle on the current rendering target with the drawing color.
 //
@@ -977,11 +978,11 @@ fn C.SDL_RenderFillRectF(renderer &C.SDL_Renderer, rect &C.SDL_FRect) int
 //
 //  returns 0 on success, or -1 on error
 ///
-pub fn render_fill_rect_f(renderer &Renderer, rect &FRect) int {
-	return C.SDL_RenderFillRectF(renderer, rect)
+pub fn render_fill_rect_f(renderer &Renderer, const_rect &FRect) int {
+	return C.SDL_RenderFillRectF(renderer, const_rect)
 }
 
-fn C.SDL_RenderFillRectsF(renderer &C.SDL_Renderer, rects &C.SDL_FRect, count int) int
+fn C.SDL_RenderFillRectsF(renderer &C.SDL_Renderer, const_rects &C.SDL_FRect, count int) int
 
 // render_fill_rects_f fills some number of rectangles on the current rendering target with the drawing color.
 //
@@ -991,11 +992,11 @@ fn C.SDL_RenderFillRectsF(renderer &C.SDL_Renderer, rects &C.SDL_FRect, count in
 //
 //  returns 0 on success, or -1 on error
 ///
-pub fn render_fill_rects_f(renderer &Renderer, rects &FRect, count int) int {
-	return C.SDL_RenderFillRectsF(renderer, rects, count)
+pub fn render_fill_rects_f(renderer &Renderer, const_rects &FRect, count int) int {
+	return C.SDL_RenderFillRectsF(renderer, const_rects, count)
 }
 
-fn C.SDL_RenderCopyF(renderer &C.SDL_Renderer, texture &C.SDL_Texture, srcrect &C.SDL_Rect, dstrect &C.SDL_FRect) int
+fn C.SDL_RenderCopyF(renderer &C.SDL_Renderer, texture &C.SDL_Texture, const_srcrect &C.SDL_Rect, const_dstrect &C.SDL_FRect) int
 
 // render_copy_f copys a portion of the texture to the current rendering target.
 //
@@ -1008,11 +1009,11 @@ fn C.SDL_RenderCopyF(renderer &C.SDL_Renderer, texture &C.SDL_Texture, srcrect &
 //
 //  returns 0 on success, or -1 on error
 ///
-pub fn render_copy_f(renderer &Renderer, texture &Texture, srcrect &Rect, dstrect &FRect) int {
-	return C.SDL_RenderCopyF(renderer, texture, srcrect, dstrect)
+pub fn render_copy_f(renderer &Renderer, texture &Texture, const_srcrect &Rect, const_dstrect &FRect) int {
+	return C.SDL_RenderCopyF(renderer, texture, const_srcrect, const_dstrect)
 }
 
-fn C.SDL_RenderCopyExF(renderer &C.SDL_Renderer, texture &C.SDL_Texture, srcrect &C.SDL_Rect, dstrect &C.SDL_FRect, angle f64, center &C.SDL_FPoint, flip C.SDL_RendererFlip) int
+fn C.SDL_RenderCopyExF(renderer &C.SDL_Renderer, texture &C.SDL_Texture, const_srcrect &C.SDL_Rect, const_dstrect &C.SDL_FRect, const_angle f64, const_center &C.SDL_FPoint, const_flip C.SDL_RendererFlip) int
 
 // render_copy_ex_f copys a portion of the source texture to the current rendering target, rotating it by angle around the given center
 //
@@ -1028,11 +1029,12 @@ fn C.SDL_RenderCopyExF(renderer &C.SDL_Renderer, texture &C.SDL_Texture, srcrect
 //
 //  returns 0 on success, or -1 on error
 ///
-pub fn render_copy_ex_f(renderer &Renderer, texture &Texture, srcrect &Rect, dstrect &FRect, angle f64, center &FPoint, flip RendererFlip) int {
-	return C.SDL_RenderCopyExF(renderer, texture, srcrect, dstrect, angle, center, C.SDL_RendererFlip(int(flip)))
+pub fn render_copy_ex_f(renderer &Renderer, texture &Texture, const_srcrect &Rect, const_dstrect &FRect, const_angle f64, const_center &FPoint, const_flip RendererFlip) int {
+	return C.SDL_RenderCopyExF(renderer, texture, const_srcrect, const_dstrect, const_angle,
+		const_center, C.SDL_RendererFlip(int(const_flip)))
 }
 
-fn C.SDL_RenderReadPixels(renderer &C.SDL_Renderer, rect &C.SDL_Rect, format u32, pixels voidptr, pitch int) int
+fn C.SDL_RenderReadPixels(renderer &C.SDL_Renderer, const_rect &C.SDL_Rect, format u32, pixels voidptr, pitch int) int
 
 // render_read_pixels reads pixels from the current rendering target.
 //
@@ -1047,8 +1049,8 @@ fn C.SDL_RenderReadPixels(renderer &C.SDL_Renderer, rect &C.SDL_Rect, format u32
 // returns 0 on success, or -1 if pixel reading is not supported.
 //
 // WARNING This is a very slow operation, and should not be used frequently.
-pub fn render_read_pixels(renderer &Renderer, rect &Rect, format u32, pixels voidptr, pitch int) int {
-	return C.SDL_RenderReadPixels(renderer, rect, format, pixels, pitch)
+pub fn render_read_pixels(renderer &Renderer, const_rect &Rect, format u32, pixels voidptr, pitch int) int {
+	return C.SDL_RenderReadPixels(renderer, const_rect, format, pixels, pitch)
 }
 
 fn C.SDL_RenderPresent(renderer &C.SDL_Renderer)

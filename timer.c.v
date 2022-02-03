@@ -13,7 +13,7 @@ module sdl
 // the next timer interval.  If the returned value is the same as the one
 // passed in, the periodic alarm continues, otherwise a new alarm is
 // scheduled.  If the callback returns 0, the periodic alarm is cancelled.
-pub type TimerCallback = fn (u32, voidptr) u32
+pub type TimerCallback = fn (interval u32, param voidptr) u32
 
 // `typedef Uint32 (SDLCALL * SDL_TimerCallback) (Uint32 interval, void *param);`
 fn C.SDL_TimerCallback(interval u32, param voidptr) u32

@@ -127,13 +127,13 @@ pub fn getenv(name &char) &char {
 	return C.SDL_getenv(name)
 }
 
-fn C.SDL_setenv(name &char, value &char, overwrite int) int
-pub fn setenv(name &char, value &char, overwrite int) int {
-	return C.SDL_setenv(name, value, overwrite)
+fn C.SDL_setenv(const_name &char, const_value &char, overwrite int) int
+pub fn setenv(const_name &char, const_value &char, overwrite int) int {
+	return C.SDL_setenv(const_name, const_value, overwrite)
 }
 
 // int (*compare) (const void *, const void *)
-pub type QSortCompare = fn (voidptr, voidptr) int
+pub type QSortCompare = fn (const_a voidptr, const_b voidptr) int
 
 fn C.SDL_qsort(base voidptr, nmemb usize, size usize, compare QSortCompare)
 pub fn qsort(base voidptr, nmemb usize, size usize, compare QSortCompare) {
@@ -202,9 +202,9 @@ pub fn memmove(dst &C.SDL_OUT_BYTECAP(len) void, src &C.SDL_IN_BYTECAP(len)  voi
 }
 */
 
-fn C.SDL_memcmp(s1 voidptr, s2 voidptr, len usize) int
-pub fn memcmp(s1 voidptr, s2 voidptr, len usize) int {
-	return C.SDL_memcmp(s1, s2, len)
+fn C.SDL_memcmp(const_s1 voidptr, const_s2 voidptr, len usize) int
+pub fn memcmp(const_s1 voidptr, const_s2 voidptr, len usize) int {
+	return C.SDL_memcmp(const_s1, const_s2, len)
 }
 
 /*
@@ -313,9 +313,9 @@ pub fn strrchr(str &char, c int) &char {
 	return C.SDL_strrchr(str, c)
 }
 
-fn C.SDL_strstr(haystack &char, needle &char) &char
-pub fn strstr(haystack &char, needle &char) &char {
-	return C.SDL_strstr(haystack, needle)
+fn C.SDL_strstr(const_haystack &char, const_needle &char) &char
+pub fn strstr(const_haystack &char, const_needle &char) &char {
+	return C.SDL_strstr(const_haystack, const_needle)
 }
 
 fn C.SDL_strtokr(s1 &char, s2 &char, saveptr &&char) &char
@@ -393,24 +393,24 @@ pub fn strtod(str &char, endp &&char) f64 {
 	return C.SDL_strtod(str, endp)
 }
 
-fn C.SDL_strcmp(str1 &char, str2 &char) int
-pub fn strcmp(str1 &char, str2 &char) int {
-	return C.SDL_strcmp(str1, str2)
+fn C.SDL_strcmp(const_str1 &char, const_str2 &char) int
+pub fn strcmp(const_str1 &char, const_str2 &char) int {
+	return C.SDL_strcmp(const_str1, const_str2)
 }
 
-fn C.SDL_strncmp(str1 &char, str2 &char, maxlen usize) int
-pub fn strncmp(str1 &char, str2 &char, maxlen usize) int {
-	return C.SDL_strncmp(str1, str2, maxlen)
+fn C.SDL_strncmp(const_str1 &char, const_str2 &char, maxlen usize) int
+pub fn strncmp(const_str1 &char, const_str2 &char, maxlen usize) int {
+	return C.SDL_strncmp(const_str1, const_str2, maxlen)
 }
 
-fn C.SDL_strcasecmp(str1 &char, str2 &char) int
-pub fn strcasecmp(str1 &char, str2 &char) int {
-	return C.SDL_strcasecmp(str1, str2)
+fn C.SDL_strcasecmp(const_str1 &char, const_str2 &char) int
+pub fn strcasecmp(const_str1 &char, const_str2 &char) int {
+	return C.SDL_strcasecmp(const_str1, const_str2)
 }
 
-fn C.SDL_strncasecmp(str1 &char, str2 &char, len usize) int
-pub fn strncasecmp(str1 &char, str2 &char, len usize) int {
-	return C.SDL_strncasecmp(str1, str2, len)
+fn C.SDL_strncasecmp(const_str1 &char, const_str2 &char, len usize) int
+pub fn strncasecmp(const_str1 &char, const_str2 &char, len usize) int {
+	return C.SDL_strncasecmp(const_str1, const_str2, len)
 }
 
 // Skipped:
@@ -418,9 +418,9 @@ pub fn strncasecmp(str1 &char, str2 &char, len usize) int {
 extern DECLSPEC int SDLCALL SDL_sscanf(const char *text, SDL_SCANF_FORMAT_STRING const char *fmt, ...) SDL_SCANF_VARARG_FUNC(2);
 */
 
-fn C.SDL_vsscanf(text &char, fmt &char, ap C.va_list) int
-pub fn vsscanf(text &char, fmt &char, ap C.va_list) int {
-	return C.SDL_vsscanf(text, fmt, ap)
+fn C.SDL_vsscanf(const_text &char, const_fmt &char, ap C.va_list) int
+pub fn vsscanf(const_text &char, const_fmt &char, ap C.va_list) int {
+	return C.SDL_vsscanf(const_text, const_fmt, ap)
 }
 
 // Skipped:
@@ -637,9 +637,9 @@ struct C.SDL_iconv_t {
 
 pub type IconvT = C.SDL_iconv_t
 
-fn C.SDL_iconv_open(tocode &char, fromcode &char) C.SDL_iconv_t
-pub fn iconv_open(tocode &char, fromcode &char) IconvT {
-	return C.SDL_iconv_open(tocode, fromcode)
+fn C.SDL_iconv_open(const_tocode &char, const_fromcode &char) C.SDL_iconv_t
+pub fn iconv_open(const_tocode &char, const_fromcode &char) IconvT {
+	return C.SDL_iconv_open(const_tocode, const_fromcode)
 }
 
 fn C.SDL_iconv_close(cd C.SDL_iconv_t) int
@@ -647,17 +647,17 @@ pub fn iconv_close(cd C.SDL_iconv_t) int {
 	return C.SDL_iconv_close(cd)
 }
 
-fn C.SDL_iconv(cd C.SDL_iconv_t, inbuf &&char, inbytesleft &usize, outbuf &&char, outbytesleft &usize) usize
-pub fn iconv(cd C.SDL_iconv_t, inbuf &&char, inbytesleft &usize, outbuf &&char, outbytesleft &usize) usize {
-	return C.SDL_iconv(cd, inbuf, inbytesleft, outbuf, outbytesleft)
+fn C.SDL_iconv(cd C.SDL_iconv_t, const_inbuf &&char, inbytesleft &usize, outbuf &&char, outbytesleft &usize) usize
+pub fn iconv(cd C.SDL_iconv_t, const_inbuf &&char, inbytesleft &usize, outbuf &&char, outbytesleft &usize) usize {
+	return C.SDL_iconv(cd, const_inbuf, inbytesleft, outbuf, outbytesleft)
 }
 
-fn C.SDL_iconv_string(tocode &char, fromcode &char, inbuf &char, inbytesleft usize) &char
+fn C.SDL_iconv_string(const_tocode &char, const_fromcode &char, const_inbuf &char, inbytesleft usize) &char
 
 // This function converts a string between encodings in one pass, returning a
 // string that must be freed with SDL_free() or NULL on error.
-pub fn iconv_string(tocode &char, fromcode &char, inbuf &char, inbytesleft usize) &char {
-	return C.SDL_iconv_string(tocode, fromcode, inbuf, inbytesleft)
+pub fn iconv_string(const_tocode &char, const_fromcode &char, const_inbuf &char, inbytesleft usize) &char {
+	return C.SDL_iconv_string(const_tocode, const_fromcode, const_inbuf, inbytesleft)
 }
 
 fn C.SDL_iconv_utf8_locale(inbuf &char) &char

@@ -15,13 +15,13 @@ pub fn load_object(sofile &char) voidptr {
 	return C.SDL_LoadObject(sofile)
 }
 
-fn C.SDL_LoadFunction(handle voidptr, name &char) voidptr
+fn C.SDL_LoadFunction(handle voidptr, const_name &char) voidptr
 
 // load_function, given an object handle, looks up the address of the
 // named function in the shared object and returns it.  This address
 // is no longer valid after calling SDL_UnloadObject().
-pub fn load_function(handle voidptr, name &char) voidptr {
-	return C.SDL_LoadFunction(handle, name)
+pub fn load_function(handle voidptr, const_name &char) voidptr {
+	return C.SDL_LoadFunction(handle, const_name)
 }
 
 fn C.SDL_UnloadObject(handle voidptr)

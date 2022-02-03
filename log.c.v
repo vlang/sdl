@@ -10,7 +10,7 @@ pub const (
 // LogOutputFunction is the prototype for the log output function
 // C.SDL_LogOutputFunction
 // `typedef void (SDLCALL *SDL_LogOutputFunction)(void *userdata, int category, SDL_LogPriority priority, const char *message);`
-pub type LogOutputFunction = fn (userdata voidptr, category int, priority LogPriority, message &char)
+pub type LogOutputFunction = fn (userdata voidptr, category int, priority LogPriority, const_message &char)
 
 // LogCategory is the predefined log categories
 //
@@ -103,11 +103,11 @@ pub fn log_reset_priorities() {
 // extern DECLSPEC void SDLCALL SDL_LogCritical(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
 // extern DECLSPEC void SDLCALL SDL_LogMessage(int category, SDL_LogPriority priority, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(3);
 
-fn C.SDL_LogMessageV(category int, priority C.SDL_LogPriority, fmt &char, ap C.va_list)
+fn C.SDL_LogMessageV(category int, priority C.SDL_LogPriority, const_fmt &char, ap C.va_list)
 
 // log_message_v logs a message with the specified category and priority.
-pub fn log_message_v(category int, priority LogPriority, fmt &char, ap C.va_list) {
-	C.SDL_LogMessageV(category, C.SDL_LogPriority(priority), fmt, ap)
+pub fn log_message_v(category int, priority LogPriority, const_fmt &char, ap C.va_list) {
+	C.SDL_LogMessageV(category, C.SDL_LogPriority(priority), const_fmt, ap)
 }
 
 fn C.SDL_LogGetOutputFunction(callback &LogOutputFunction, userdata voidptr)
