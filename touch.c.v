@@ -13,7 +13,6 @@ pub type TouchID = i64
 // `typedef Sint64 SDL_FingerID;`
 pub type FingerID = i64
 
-
 pub const (
 	// Used as the device ID for mouse events simulated with touch input
 	touch_mouseid  = C.SDL_TOUCH_MOUSEID // ((Uint32)-1)
