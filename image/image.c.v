@@ -59,7 +59,7 @@ pub fn quit() {
 	C.IMG_Quit()
 }
 
-fn C.IMG_LoadTyped_RW(src &C.SDL_RWops, freesrc int, @type &char) &C.SDL_Surface
+fn C.IMG_LoadTyped_RW(src &C.SDL_RWops, freesrc int, const_type &char) &C.SDL_Surface
 
 // load_typed_rw loads an image from an SDL data source.
 // The 'type' may be one of: "BMP", "GIF", "PNG", etc.
@@ -68,8 +68,8 @@ fn C.IMG_LoadTyped_RW(src &C.SDL_RWops, freesrc int, @type &char) &C.SDL_Surface
 // colorkey for the surface.  You can enable RLE acceleration on the
 // surface afterwards by calling:
 // SDL_SetColorKey(image, SDL_RLEACCEL, image->format->colorkey);
-pub fn load_typed_rw(src &sdl.RWops, freesrc int, @type &char) &sdl.Surface {
-	return C.IMG_LoadTyped_RW(src, freesrc, @type)
+pub fn load_typed_rw(src &sdl.RWops, freesrc int, const_type &char) &sdl.Surface {
+	return C.IMG_LoadTyped_RW(src, freesrc, const_type)
 }
 
 // Convenience functions
@@ -84,9 +84,9 @@ pub fn load_rw(src &sdl.RWops, freesrc int) &sdl.Surface {
 }
 
 // load_texture loads an image directly into a render texture.
-fn C.IMG_LoadTexture(renderer &C.SDL_Renderer, file &char) &C.SDL_Texture
-pub fn load_texture(renderer &sdl.Renderer, file &char) &sdl.Texture {
-	return C.IMG_LoadTexture(renderer, file)
+fn C.IMG_LoadTexture(renderer &C.SDL_Renderer, const_file &char) &C.SDL_Texture
+pub fn load_texture(renderer &sdl.Renderer, const_file &char) &sdl.Texture {
+	return C.IMG_LoadTexture(renderer, const_file)
 }
 
 fn C.IMG_LoadTexture_RW(renderer &C.SDL_Renderer, src &C.SDL_RWops, freesrc int) &C.SDL_Texture
@@ -94,9 +94,9 @@ pub fn load_texture_rw(renderer &sdl.Renderer, src &sdl.RWops, freesrc int) &sdl
 	return C.IMG_LoadTexture_RW(renderer, src, freesrc)
 }
 
-fn C.IMG_LoadTextureTyped_RW(renderer &C.SDL_Renderer, src &C.SDL_RWops, freesrc int, @type &char) &C.SDL_Texture
-pub fn load_texture_typed_rw(renderer &sdl.Renderer, src &sdl.RWops, freesrc int, @type &char) &sdl.Texture {
-	return C.IMG_LoadTextureTyped_RW(renderer, src, freesrc, @type)
+fn C.IMG_LoadTextureTyped_RW(renderer &C.SDL_Renderer, src &C.SDL_RWops, freesrc int, const_type &char) &C.SDL_Texture
+pub fn load_texture_typed_rw(renderer &sdl.Renderer, src &sdl.RWops, freesrc int, const_type &char) &sdl.Texture {
+	return C.IMG_LoadTextureTyped_RW(renderer, src, freesrc, const_type)
 }
 
 // Functions to detect a file type, given a seekable source
@@ -262,9 +262,9 @@ pub fn read_xpm_from_array(xpm &&char) &sdl.Surface {
 }
 
 // Individual saving functions
-fn C.IMG_SavePNG(surface &C.SDL_Surface, file &char) int
-pub fn save_png(surface &sdl.Surface, file &char) int {
-	return C.IMG_SavePNG(surface, file)
+fn C.IMG_SavePNG(surface &C.SDL_Surface, const_file &char) int
+pub fn save_png(surface &sdl.Surface, const_file &char) int {
+	return C.IMG_SavePNG(surface, const_file)
 }
 
 fn C.IMG_SavePNG_RW(surface &C.SDL_Surface, dst &C.SDL_RWops, freedst int) int
@@ -272,9 +272,9 @@ pub fn save_png_rw(surface &sdl.Surface, dst &sdl.RWops, freedst int) int {
 	return C.IMG_SavePNG_RW(surface, dst, freedst)
 }
 
-fn C.IMG_SaveJPG(surface &C.SDL_Surface, file &char, quality int) int
-pub fn save_jpg(surface &sdl.Surface, file &char, quality int) int {
-	return C.IMG_SaveJPG(surface, file, quality)
+fn C.IMG_SaveJPG(surface &C.SDL_Surface, const_file &char, quality int) int
+pub fn save_jpg(surface &sdl.Surface, const_file &char, quality int) int {
+	return C.IMG_SaveJPG(surface, const_file, quality)
 }
 
 fn C.IMG_SaveJPG_RW(surface &C.SDL_Surface, dst &C.SDL_RWops, freedst int, quality int) int
