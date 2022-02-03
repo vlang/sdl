@@ -34,7 +34,7 @@ pub fn get_base_path() &char {
 	return C.SDL_GetBasePath()
 }
 
-fn C.SDL_GetPrefPath(org &char, app &char) &char
+fn C.SDL_GetPrefPath(const_org &char, const_app &char) &char
 
 // get_pref_path gets the user-and-app-specific path where files can be written.
 //
@@ -95,6 +95,6 @@ fn C.SDL_GetPrefPath(org &char, app &char) &char
 //          if there's a problem (creating directory failed, etc).
 //
 // See also: SDL_GetBasePath
-pub fn get_pref_path(org &char, app &char) &char {
-	return C.SDL_GetPrefPath(org, app)
+pub fn get_pref_path(const_org &char, const_app &char) &char {
+	return C.SDL_GetPrefPath(const_org, const_app)
 }

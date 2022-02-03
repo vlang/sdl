@@ -248,7 +248,7 @@ pub fn set_pixel_format_palette(format &PixelFormat, palette &Palette) int {
 	return C.SDL_SetPixelFormatPalette(format, palette)
 }
 
-fn C.SDL_SetPaletteColors(palette &C.SDL_Palette, colors &C.SDL_Color, firstcolor int, ncolors int) int
+fn C.SDL_SetPaletteColors(palette &C.SDL_Palette, const_colors &C.SDL_Color, firstcolor int, nconst_colors int) int
 
 // set_palette_colors sets a range of colors in a palette.
 //
@@ -258,8 +258,8 @@ fn C.SDL_SetPaletteColors(palette &C.SDL_Palette, colors &C.SDL_Color, firstcolo
 // `ncolors`    The number of entries to modify.
 //
 // returns 0 on success, or -1 if not all of the colors could be set.
-pub fn set_palette_colors(palette &Palette, colors &Color, firstcolor int, ncolors int) int {
-	return C.SDL_SetPaletteColors(palette, colors, firstcolor, ncolors)
+pub fn set_palette_colors(palette &Palette, const_colors &Color, firstcolor int, nconst_colors int) int {
+	return C.SDL_SetPaletteColors(palette, const_colors, firstcolor, nconst_colors)
 }
 
 fn C.SDL_FreePalette(palette &C.SDL_Palette)
@@ -283,18 +283,18 @@ pub fn map_rgba(format &PixelFormat, r byte, g byte, b byte, a byte) u32 {
 	return C.SDL_MapRGBA(format, r, g, b, a)
 }
 
-fn C.SDL_GetRGB(pixel u32, format &C.SDL_PixelFormat, r &byte, g &byte, b &byte)
+fn C.SDL_GetRGB(pixel u32, const_format &C.SDL_PixelFormat, r &byte, g &byte, b &byte)
 
 // get_rgb gets the RGB components from a pixel of the specified format.
-pub fn get_rgb(pixel u32, format &PixelFormat, r &byte, g &byte, b &byte) {
-	C.SDL_GetRGB(pixel, format, r, g, b)
+pub fn get_rgb(pixel u32, const_format &PixelFormat, r &byte, g &byte, b &byte) {
+	C.SDL_GetRGB(pixel, const_format, r, g, b)
 }
 
-fn C.SDL_GetRGBA(pixel u32, format &C.SDL_PixelFormat, r &byte, g &byte, b &byte, a &byte)
+fn C.SDL_GetRGBA(pixel u32, const_format &C.SDL_PixelFormat, r &byte, g &byte, b &byte, a &byte)
 
 // get_rgba gets the RGBA components from a pixel of the specified format.
-pub fn get_rgba(pixel u32, format &PixelFormat, r &byte, g &byte, b &byte, a &byte) {
-	C.SDL_GetRGBA(pixel, format, r, g, b, a)
+pub fn get_rgba(pixel u32, const_format &PixelFormat, r &byte, g &byte, b &byte, a &byte) {
+	C.SDL_GetRGBA(pixel, const_format, r, g, b, a)
 }
 
 fn C.SDL_CalculateGammaRamp(gamma f32, ramp &u16)

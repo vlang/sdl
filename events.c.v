@@ -90,7 +90,7 @@ pub enum EventType {
 	controllerdeviceremoved = C.SDL_CONTROLLERDEVICEREMOVED // An opened Game controller has been removed
 	controllerdeviceremapped = C.SDL_CONTROLLERDEVICEREMAPPED // The controller mapping was updated
 	controllertouchpaddown = C.SDL_CONTROLLERTOUCHPADDOWN // Game controller touchpad was touched
-	controllertouchpadmotio = C.SDL_CONTROLLERTOUCHPADMOTION // Game controller touchpad finger was moved
+	controllertouchpadmotion = C.SDL_CONTROLLERTOUCHPADMOTION // Game controller touchpad finger was moved
 	controllertouchpadup = C.SDL_CONTROLLERTOUCHPADUP // Game controller touchpad finger was lifted
 	controllersensorupdate = C.SDL_CONTROLLERSENSORUPDATE // Game controller sensor was updated
 	// Touch events

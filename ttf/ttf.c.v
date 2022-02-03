@@ -228,42 +228,42 @@ pub fn glyph_metrics(font &Font, ch u16, minx &int, maxx &int, miny &int, maxy &
 	return C.TTF_GlyphMetrics(font, ch, minx, maxx, miny, maxy, advance)
 }
 
-fn C.TTF_SizeText(font &C.TTF_Font, text &char, w &int, h &int) int
+fn C.TTF_SizeText(font &C.TTF_Font, const_text &char, w &int, h &int) int
 
 // size_text gets the dimensions of a rendered string of text
-pub fn size_text(font &Font, text &char, w &int, h &int) int {
-	return C.TTF_SizeText(font, text, w, h)
+pub fn size_text(font &Font, const_text &char, w &int, h &int) int {
+	return C.TTF_SizeText(font, const_text, w, h)
 }
 
-fn C.TTF_SizeUTF8(font &C.TTF_Font, text &char, w &int, h &int) int
-pub fn size_utf8(font &Font, text &char, w &int, h &int) int {
-	return C.TTF_SizeUTF8(font, text, w, h)
+fn C.TTF_SizeUTF8(font &C.TTF_Font, const_text &char, w &int, h &int) int
+pub fn size_utf8(font &Font, const_text &char, w &int, h &int) int {
+	return C.TTF_SizeUTF8(font, const_text, w, h)
 }
 
-fn C.TTF_SizeUNICODE(font &Font, text &u16, w &int, h &int) int
-pub fn size_unicode(font &C.TTF_Font, text &u16, w &int, h &int) int {
-	return C.TTF_SizeUNICODE(font, text, w, h)
+fn C.TTF_SizeUNICODE(font &Font, const_text &u16, w &int, h &int) int
+pub fn size_unicode(font &C.TTF_Font, const_text &u16, w &int, h &int) int {
+	return C.TTF_SizeUNICODE(font, const_text, w, h)
 }
 
-fn C.TTF_RenderText_Solid(font &C.TTF_Font, text &char, fg C.SDL_Color) &C.SDL_Surface
+fn C.TTF_RenderText_Solid(font &C.TTF_Font, const_text &char, fg C.SDL_Color) &C.SDL_Surface
 
 // render_text_solid creates an 8-bit palettized surface and render the given text at
 // fast quality with the given font and color.  The 0 pixel is the
 // colorkey, giving a transparent background, and the 1 pixel is set
 // to the text color.
 // This function returns the new surface, or NULL if there was an error.
-pub fn render_text_solid(font &Font, text &char, fg sdl.Color) &sdl.Surface {
-	return C.TTF_RenderText_Solid(font, text, fg)
+pub fn render_text_solid(font &Font, const_text &char, fg sdl.Color) &sdl.Surface {
+	return C.TTF_RenderText_Solid(font, const_text, fg)
 }
 
-fn C.TTF_RenderUTF8_Solid(font &C.TTF_Font, text &char, fg C.SDL_Color) &C.SDL_Surface
-pub fn render_utf8_solid(font &Font, text &char, fg sdl.Color) &sdl.Surface {
-	return C.TTF_RenderUTF8_Solid(font, text, fg)
+fn C.TTF_RenderUTF8_Solid(font &C.TTF_Font, const_text &char, fg C.SDL_Color) &C.SDL_Surface
+pub fn render_utf8_solid(font &Font, const_text &char, fg sdl.Color) &sdl.Surface {
+	return C.TTF_RenderUTF8_Solid(font, const_text, fg)
 }
 
-fn C.TTF_RenderUNICODE_Solid(font &C.TTF_Font, text &u16, fg C.SDL_Color) &C.SDL_Surface
-pub fn render_unicode_solid(font &Font, text &u16, fg sdl.Color) &sdl.Surface {
-	return C.TTF_RenderUNICODE_Solid(font, text, fg)
+fn C.TTF_RenderUNICODE_Solid(font &C.TTF_Font, const_text &u16, fg C.SDL_Color) &C.SDL_Surface
+pub fn render_unicode_solid(font &Font, const_text &u16, fg sdl.Color) &sdl.Surface {
+	return C.TTF_RenderUNICODE_Solid(font, const_text, fg)
 }
 
 fn C.TTF_RenderGlyph_Solid(font &C.TTF_Font, ch u16, fg C.SDL_Color) &C.SDL_Surface
@@ -278,24 +278,24 @@ pub fn render_glyph_solid(font &Font, ch u16, fg sdl.Color) &sdl.Surface {
 	return C.TTF_RenderGlyph_Solid(font, ch, fg)
 }
 
-fn C.TTF_RenderText_Shaded(font &C.TTF_Font, text &char, fg C.SDL_Color, bg C.SDL_Color) &C.SDL_Surface
+fn C.TTF_RenderText_Shaded(font &C.TTF_Font, const_text &char, fg C.SDL_Color, bg C.SDL_Color) &C.SDL_Surface
 
 // render_text_shaded creates an 8-bit palettized surface and render the given text at
 // high quality with the given font and colors.  The 0 pixel is background,
 // while other pixels have varying degrees of the foreground color.
 // This function returns the new surface, or NULL if there was an error.
-pub fn render_text_shaded(font &C.TTF_Font, text &char, fg sdl.Color, bg sdl.Color) &sdl.Surface {
-	return C.TTF_RenderText_Shaded(font, text, fg, bg)
+pub fn render_text_shaded(font &C.TTF_Font, const_text &char, fg sdl.Color, bg sdl.Color) &sdl.Surface {
+	return C.TTF_RenderText_Shaded(font, const_text, fg, bg)
 }
 
-fn C.TTF_RenderUTF8_Shaded(font &C.TTF_Font, text &char, fg C.SDL_Color, bg C.SDL_Color) &C.SDL_Surface
-pub fn render_utf8_shaded(font &Font, text &char, fg sdl.Color, bg sdl.Color) &sdl.Surface {
-	return C.TTF_RenderUTF8_Shaded(font, text, fg, bg)
+fn C.TTF_RenderUTF8_Shaded(font &C.TTF_Font, const_text &char, fg C.SDL_Color, bg C.SDL_Color) &C.SDL_Surface
+pub fn render_utf8_shaded(font &Font, const_text &char, fg sdl.Color, bg sdl.Color) &sdl.Surface {
+	return C.TTF_RenderUTF8_Shaded(font, const_text, fg, bg)
 }
 
-fn C.TTF_RenderUNICODE_Shaded(font &C.TTF_Font, text &u16, fg C.SDL_Color, bg C.SDL_Color) &C.SDL_Surface
-pub fn render_unicode_shaded(font &Font, text &u16, fg sdl.Color, bg sdl.Color) &sdl.Surface {
-	return C.TTF_RenderUNICODE_Shaded(font, text, fg, bg)
+fn C.TTF_RenderUNICODE_Shaded(font &C.TTF_Font, const_text &u16, fg C.SDL_Color, bg C.SDL_Color) &C.SDL_Surface
+pub fn render_unicode_shaded(font &Font, const_text &u16, fg sdl.Color, bg sdl.Color) &sdl.Surface {
+	return C.TTF_RenderUNICODE_Shaded(font, const_text, fg, bg)
 }
 
 fn C.TTF_RenderGlyph_Shaded(font &C.TTF_Font, ch u16, fg C.SDL_Color, bg C.SDL_Color) &C.SDL_Surface
@@ -310,44 +310,44 @@ pub fn render_glyph_shaded(font &Font, ch u16, fg sdl.Color, bg sdl.Color) &sdl.
 	return C.TTF_RenderGlyph_Shaded(font, ch, fg, bg)
 }
 
-fn C.TTF_RenderText_Blended(font &C.TTF_Font, text &char, fg C.SDL_Color) &C.SDL_Surface
+fn C.TTF_RenderText_Blended(font &C.TTF_Font, const_text &char, fg C.SDL_Color) &C.SDL_Surface
 
 // render_text_blended creates a 32-bit ARGB surface and render the given text at high quality,
 // using alpha blending to dither the font with the given color.
 // This function returns the new surface, or NULL if there was an error.
-pub fn render_text_blended(font &Font, text &char, fg sdl.Color) &sdl.Surface {
-	return C.TTF_RenderText_Blended(font, text, fg)
+pub fn render_text_blended(font &Font, const_text &char, fg sdl.Color) &sdl.Surface {
+	return C.TTF_RenderText_Blended(font, const_text, fg)
 }
 
-fn C.TTF_RenderUTF8_Blended(font &C.TTF_Font, text &char, fg C.SDL_Color) &C.SDL_Surface
-pub fn render_utf8_blended(font &Font, text &char, fg sdl.Color) &sdl.Surface {
-	return C.TTF_RenderUTF8_Blended(font, text, fg)
+fn C.TTF_RenderUTF8_Blended(font &C.TTF_Font, const_text &char, fg C.SDL_Color) &C.SDL_Surface
+pub fn render_utf8_blended(font &Font, const_text &char, fg sdl.Color) &sdl.Surface {
+	return C.TTF_RenderUTF8_Blended(font, const_text, fg)
 }
 
-fn C.TTF_RenderUNICODE_Blended(font &C.TTF_Font, text &u16, fg C.SDL_Color) &C.SDL_Surface
-pub fn render_unicode_blended(font &Font, text &u16, fg sdl.Color) &sdl.Surface {
-	return C.TTF_RenderUNICODE_Blended(font, text, fg)
+fn C.TTF_RenderUNICODE_Blended(font &C.TTF_Font, const_text &u16, fg C.SDL_Color) &C.SDL_Surface
+pub fn render_unicode_blended(font &Font, const_text &u16, fg sdl.Color) &sdl.Surface {
+	return C.TTF_RenderUNICODE_Blended(font, const_text, fg)
 }
 
-fn C.TTF_RenderText_Blended_Wrapped(font &C.TTF_Font, text &char, fg C.SDL_Color, wrap_length u32) &C.SDL_Surface
+fn C.TTF_RenderText_Blended_Wrapped(font &C.TTF_Font, const_text &char, fg C.SDL_Color, wrap_length u32) &C.SDL_Surface
 
 // render_text_blended_wrapped creates a 32-bit ARGB surface and render the given text at high quality,
 // using alpha blending to dither the font with the given color.
 // Text is wrapped to multiple lines on line endings and on word boundaries
 // if it extends beyond wrapLength in pixels.
 // This function returns the new surface, or NULL if there was an error.
-pub fn render_text_blended_wrapped(font &Font, text &char, fg sdl.Color, wrap_length u32) &sdl.Surface {
-	return C.TTF_RenderText_Blended_Wrapped(font, text, fg, wrap_length)
+pub fn render_text_blended_wrapped(font &Font, const_text &char, fg sdl.Color, wrap_length u32) &sdl.Surface {
+	return C.TTF_RenderText_Blended_Wrapped(font, const_text, fg, wrap_length)
 }
 
-fn C.TTF_RenderUTF8_Blended_Wrapped(font &C.TTF_Font, text &char, fg C.SDL_Color, wrap_length u32) &C.SDL_Surface
-pub fn render_utf8_blended_wrapped(font &Font, text &char, fg sdl.Color, wrap_length u32) &sdl.Surface {
-	return C.TTF_RenderUTF8_Blended_Wrapped(font, text, fg, wrap_length)
+fn C.TTF_RenderUTF8_Blended_Wrapped(font &C.TTF_Font, const_text &char, fg C.SDL_Color, wrap_length u32) &C.SDL_Surface
+pub fn render_utf8_blended_wrapped(font &Font, const_text &char, fg sdl.Color, wrap_length u32) &sdl.Surface {
+	return C.TTF_RenderUTF8_Blended_Wrapped(font, const_text, fg, wrap_length)
 }
 
-fn C.TTF_RenderUNICODE_Blended_Wrapped(font &C.TTF_Font, text &u16, fg C.SDL_Color, wrap_length u32) &C.SDL_Surface
-pub fn render_unicode_blended_wrapped(font &Font, text &u16, fg sdl.Color, wrap_length u32) &sdl.Surface {
-	return C.TTF_RenderUNICODE_Blended_Wrapped(font, text, fg, wrap_length)
+fn C.TTF_RenderUNICODE_Blended_Wrapped(font &C.TTF_Font, const_text &u16, fg C.SDL_Color, wrap_length u32) &C.SDL_Surface
+pub fn render_unicode_blended_wrapped(font &Font, const_text &u16, fg sdl.Color, wrap_length u32) &sdl.Surface {
+	return C.TTF_RenderUNICODE_Blended_Wrapped(font, const_text, fg, wrap_length)
 }
 
 fn C.TTF_RenderGlyph_Blended(font &C.TTF_Font, ch u16, fg C.SDL_Color) &C.SDL_Surface
