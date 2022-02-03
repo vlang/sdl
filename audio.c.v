@@ -369,11 +369,12 @@ fn C.SDL_GetAudioDeviceName(index int, iscapture int) &char
 // returns 0 on error, a valid device ID that is >= 2 on success.
 //
 // SDL_OpenAudio(), unlike this function, always acts on device ID 1.
-pub fn open_audio_device(device &char, iscapture int, desired &AudioSpec, obtained &AudioSpec, allowed_changes int) AudioDeviceID {
-	return u32(C.SDL_OpenAudioDevice(device, iscapture, desired, obtained, allowed_changes))
+pub fn open_audio_device(const_device &char, iscapture int, const_desired &AudioSpec, obtained &AudioSpec, allowed_changes int) AudioDeviceID {
+	return u32(C.SDL_OpenAudioDevice(const_device, iscapture, const_desired, obtained,
+		allowed_changes))
 }
 
-fn C.SDL_OpenAudioDevice(device &char, iscapture int, desired &C.SDL_AudioSpec, obtained &C.SDL_AudioSpec, allowed_changes int) C.SDL_AudioDeviceID
+fn C.SDL_OpenAudioDevice(const_device &char, iscapture int, const_desired &C.SDL_AudioSpec, obtained &C.SDL_AudioSpec, allowed_changes int) C.SDL_AudioDeviceID
 
 // AudioStatus
 //
@@ -503,7 +504,7 @@ struct C.SDL_AudioStream {
 
 pub type AudioStream = C.SDL_AudioStream
 
-fn C.SDL_NewAudioStream(src_format C.SDL_AudioFormat, src_channels byte, src_rate int, dst_format C.SDL_AudioFormat, dst_channels byte, dst_rate int) &C.SDL_AudioStream
+fn C.SDL_NewAudioStream(const_src_format C.SDL_AudioFormat, const_src_channels byte, const_src_rate int, const_dst_format C.SDL_AudioFormat, const_dst_channels byte, const_dst_rate int) &C.SDL_AudioStream
 
 // new_audio_stream creates a new audio stream
 //
@@ -521,12 +522,12 @@ fn C.SDL_NewAudioStream(src_format C.SDL_AudioFormat, src_channels byte, src_rat
 // See also: SDL_AudioStreamFlush
 // See also: SDL_AudioStreamClear
 // See also: SDL_FreeAudioStream
-pub fn new_audio_stream(src_format AudioFormat, src_channels byte, src_rate int, dst_format AudioFormat, dst_channels byte, dst_rate int) &AudioStream {
-	return C.SDL_NewAudioStream(C.SDL_AudioFormat(src_format), src_channels, src_rate,
-		C.SDL_AudioFormat(dst_format), dst_channels, dst_rate)
+pub fn new_audio_stream(const_src_format AudioFormat, const_src_channels byte, const_src_rate int, const_dst_format AudioFormat, const_dst_channels byte, const_dst_rate int) &AudioStream {
+	return C.SDL_NewAudioStream(C.SDL_AudioFormat(const_src_format), const_src_channels,
+		const_src_rate, C.SDL_AudioFormat(const_dst_format), const_dst_channels, const_dst_rate)
 }
 
-fn C.SDL_AudioStreamPut(stream &C.SDL_AudioStream, buf voidptr, len int) int
+fn C.SDL_AudioStreamPut(stream &C.SDL_AudioStream, const_buf voidptr, len int) int
 
 // audio_stream_put adds data to be converted/resampled to the stream
 //
@@ -541,8 +542,8 @@ fn C.SDL_AudioStreamPut(stream &C.SDL_AudioStream, buf voidptr, len int) int
 // See also: SDL_AudioStreamFlush
 // See also: SDL_AudioStreamClear
 // See also: SDL_FreeAudioStream
-pub fn audio_stream_put(stream &AudioStream, buf voidptr, len int) int {
-	return C.SDL_AudioStreamPut(stream, buf, len)
+pub fn audio_stream_put(stream &AudioStream, const_buf voidptr, len int) int {
+	return C.SDL_AudioStreamPut(stream, const_buf, len)
 }
 
 fn C.SDL_AudioStreamGet(stream &C.SDL_AudioStream, buf voidptr, len int) int
@@ -631,27 +632,27 @@ pub fn free_audio_stream(stream &AudioStream) {
 	C.SDL_FreeAudioStream(stream)
 }
 
-fn C.SDL_MixAudio(dst &byte, src &byte, len u32, volume int)
+fn C.SDL_MixAudio(dst &byte, const_src &byte, len u32, volume int)
 
 // mix_audio takes two audio buffers of the playing audio format and mixes
 // them, performing addition, volume adjustment, and overflow clipping.
 // The volume ranges from 0 - 128, and should be set to ::SDL_MIX_MAXVOLUME
 // for full audio volume.  Note this does not change hardware volume.
 // This is provided for convenience -- you can mix your own audio data.
-pub fn mix_audio(dst &byte, src &byte, len u32, volume int) {
-	C.SDL_MixAudio(dst, src, len, volume)
+pub fn mix_audio(dst &byte, const_src &byte, len u32, volume int) {
+	C.SDL_MixAudio(dst, const_src, len, volume)
 }
 
-fn C.SDL_MixAudioFormat(dst &byte, src &byte, format C.SDL_AudioFormat, len u32, volume int)
+fn C.SDL_MixAudioFormat(dst &byte, const_src &byte, format C.SDL_AudioFormat, len u32, volume int)
 
 // mix_audio_format works like SDL_MixAudio(), but you specify the audio format instead of
 // using the format of audio device 1. Thus it can be used when no audio
 // device is open at all.
-pub fn mix_audio_format(dst &byte, src &byte, format AudioFormat, len u32, volume int) {
-	C.SDL_MixAudioFormat(dst, src, C.SDL_AudioFormat(format), len, volume)
+pub fn mix_audio_format(dst &byte, const_src &byte, format AudioFormat, len u32, volume int) {
+	C.SDL_MixAudioFormat(dst, const_src, C.SDL_AudioFormat(format), len, volume)
 }
 
-fn C.SDL_QueueAudio(dev C.SDL_AudioDeviceID, data voidptr, len u32) int
+fn C.SDL_QueueAudio(dev C.SDL_AudioDeviceID, const_data voidptr, len u32) int
 
 // queue_audio queues more audio on non-callback devices.
 //
@@ -690,8 +691,8 @@ fn C.SDL_QueueAudio(dev C.SDL_AudioDeviceID, data voidptr, len u32) int
 //
 // See also: SDL_GetQueuedAudioSize
 // See also: SDL_ClearQueuedAudio
-pub fn queue_audio(dev AudioDeviceID, data voidptr, len u32) int {
-	return C.SDL_QueueAudio(C.SDL_AudioDeviceID(dev), data, len)
+pub fn queue_audio(dev AudioDeviceID, const_data voidptr, len u32) int {
+	return C.SDL_QueueAudio(C.SDL_AudioDeviceID(dev), const_data, len)
 }
 
 fn C.SDL_DequeueAudio(dev C.SDL_AudioDeviceID, data voidptr, len u32) u32

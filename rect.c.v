@@ -41,11 +41,11 @@ pub mut:
 
 pub type Rect = C.SDL_Rect
 
-fn C.SDL_PointInRect(p &C.SDL_Point, r &C.SDL_Rect) bool
+fn C.SDL_PointInRect(const_p &C.SDL_Point, const_r &C.SDL_Rect) bool
 
 // point_in_rect returns true if point resides inside a rectangle.
-pub fn point_in_rect(p &Point, r &Rect) bool {
-	return C.SDL_PointInRect(p, r)
+pub fn point_in_rect(const_p &Point, const_r &Rect) bool {
+	return C.SDL_PointInRect(const_p, const_r)
 }
 
 fn C.SDL_RectEmpty(r &C.SDL_Rect) bool
@@ -55,46 +55,46 @@ pub fn rect_empty(r &Rect) bool {
 	return C.SDL_RectEmpty(r)
 }
 
-fn C.SDL_RectEquals(a &C.SDL_Rect, b &C.SDL_Rect) bool
+fn C.SDL_RectEquals(const_a &C.SDL_Rect, const_b &C.SDL_Rect) bool
 
 // rect_equals returns true if the two rectangles are equal.
-pub fn rect_equals(a &Rect, b &Rect) bool {
-	return C.SDL_RectEquals(a, b)
+pub fn rect_equals(const_a &Rect, const_b &Rect) bool {
+	return C.SDL_RectEquals(const_a, const_b)
 }
 
-fn C.SDL_HasIntersection(a &C.SDL_Rect, b &C.SDL_Rect) bool
+fn C.SDL_HasIntersection(const_a &C.SDL_Rect, const_b &C.SDL_Rect) bool
 
 // has_intersection determine whether two rectangles intersect.
 //
 // returns SDL_TRUE if there is an intersection, SDL_FALSE otherwise.
 [inline]
-pub fn has_intersection(a &Rect, b &Rect) bool {
-	return C.SDL_HasIntersection(a, b)
+pub fn has_intersection(const_a &Rect, const_b &Rect) bool {
+	return C.SDL_HasIntersection(const_a, const_b)
 }
 
-fn C.SDL_IntersectRect(a &C.SDL_Rect, b &C.SDL_Rect, result &C.SDL_Rect) bool
+fn C.SDL_IntersectRect(const_a &C.SDL_Rect, const_b &C.SDL_Rect, result &C.SDL_Rect) bool
 
 // intersect_rect calculate the intersection of two rectangles.
 //
 // returns SDL_TRUE if there is an intersection, SDL_FALSE otherwise.
-pub fn intersect_rect(a &Rect, b &Rect, result &Rect) bool {
-	return C.SDL_IntersectRect(a, b, result)
+pub fn intersect_rect(const_a &Rect, const_b &Rect, result &Rect) bool {
+	return C.SDL_IntersectRect(const_a, const_b, result)
 }
 
-fn C.SDL_UnionRect(a &C.SDL_Rect, b &C.SDL_Rect, result &C.SDL_Rect)
+fn C.SDL_UnionRect(const_a &C.SDL_Rect, const_b &C.SDL_Rect, result &C.SDL_Rect)
 
 // union_rect calculates the union of two rectangles.
-pub fn union_rect(a &Rect, b &Rect, result &Rect) {
-	C.SDL_UnionRect(a, b, result)
+pub fn union_rect(const_a &Rect, const_b &Rect, result &Rect) {
+	C.SDL_UnionRect(const_a, const_b, result)
 }
 
-fn C.SDL_EnclosePoints(points &C.SDL_Point, count int, clip &C.SDL_Rect, result &C.SDL_Rect) bool
+fn C.SDL_EnclosePoints(const_points &C.SDL_Point, count int, const_clip &C.SDL_Rect, result &C.SDL_Rect) bool
 
 // enclose_points calculates a minimal rectangle enclosing a set of points
 //
 // returns SDL_TRUE if any points were within the clipping rect
-pub fn enclose_points(points &Point, count int, clip &Rect, result &Rect) bool {
-	return C.SDL_EnclosePoints(points, count, clip, result)
+pub fn enclose_points(const_points &Point, count int, const_clip &Rect, result &Rect) bool {
+	return C.SDL_EnclosePoints(const_points, count, const_clip, result)
 }
 
 fn C.SDL_IntersectRectAndLine(rect &C.SDL_Rect, x1 &int, y1 &int, x2 &int, y2 &int) bool
