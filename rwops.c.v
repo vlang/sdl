@@ -56,7 +56,7 @@ pub:
 	//
 	// returns the number of objects written, or 0 at error or end of file.
 	// `size_t (SDLCALL * write) (struct SDL_RWops * context, const void *ptr, size_t size, size_t num);`
-	write fn (context &C.SDL_RWops, ptr voidptr, size usize, num usize) usize
+	write fn (context &C.SDL_RWops, const_ptr voidptr, size usize, num usize) usize
 	// Closes and frees an allocated SDL_RWops structure.
 	//
 	// returns 0 if successful or -1 on write error when flushing data.
@@ -109,9 +109,9 @@ pub fn (rwo &RWops) close() int {
 // RWFrom functions
 //
 // Functions to create SDL_RWops structures from various data streams.
-fn C.SDL_RWFromFile(file &char, mode &char) &C.SDL_RWops
-pub fn rw_from_file(file &char, mode &char) &RWops {
-	return C.SDL_RWFromFile(file, mode)
+fn C.SDL_RWFromFile(const_file &char, const_mode &char) &C.SDL_RWops
+pub fn rw_from_file(const_file &char, const_mode &char) &RWops {
+	return C.SDL_RWFromFile(const_file, const_mode)
 }
 
 /*
