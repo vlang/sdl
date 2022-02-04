@@ -178,17 +178,19 @@ pub fn vulkan_get_instance_extensions(window &Window, p_count &u32, p_names &&ch
 //
 // returns `SDL_TRUE` on success, `SDL_FALSE` on error.
 //
-// \code
-// VkInstance instance;
-// SDL_Window *window;
-//
-// // create instance and window
-//
-// // create the Vulkan surface
-// VkSurfaceKHR surface;
-// if(!SDL_Vulkan_CreateSurface(window, instance, &surface))
-// handle_error();
-// \endcode
+/*
+```
+VkInstance instance;
+SDL_Window *window;
+
+// create instance and window
+
+// create the Vulkan surface
+VkSurfaceKHR surface;
+if(!SDL_Vulkan_CreateSurface(window, instance, &surface))
+    handle_error();
+```
+*/
 //
 // NOTE `window` should have been created with the `SDL_WINDOW_VULKAN` flag.
 //
