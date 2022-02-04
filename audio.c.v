@@ -522,8 +522,8 @@ fn C.SDL_NewAudioStream(const_src_format C.SDL_AudioFormat, const_src_channels b
 // See also: SDL_AudioStreamClear
 // See also: SDL_FreeAudioStream
 pub fn new_audio_stream(const_src_format AudioFormat, const_src_channels byte, const_src_rate int, const_dst_format AudioFormat, const_dst_channels byte, const_dst_rate int) &AudioStream {
-	return C.SDL_NewAudioStream(C.SDL_AudioFormat(const_src_format), const_src_channels, const_src_rate,
-		C.SDL_AudioFormat(const_dst_format), const_dst_channels, const_dst_rate)
+	return C.SDL_NewAudioStream(C.SDL_AudioFormat(const_src_format), const_src_channels,
+		const_src_rate, C.SDL_AudioFormat(const_dst_format), const_dst_channels, const_dst_rate)
 }
 
 fn C.SDL_AudioStreamPut(stream &C.SDL_AudioStream, const_buf voidptr, len int) int

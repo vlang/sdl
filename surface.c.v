@@ -369,8 +369,8 @@ fn C.SDL_ConvertPixels(width int, height int, const_src_format u32, const_src vo
 //
 // returns 0 on success, or -1 if there was an error
 pub fn convert_pixels(width int, height int, const_src_format u32, const_src voidptr, const_src_pitch int, dst_format u32, dst voidptr, dst_pitch int) int {
-	return C.SDL_ConvertPixels(width, height, const_src_format, const_src, const_src_pitch, dst_format,
-		dst, dst_pitch)
+	return C.SDL_ConvertPixels(width, height, const_src_format, const_src, const_src_pitch,
+		dst_format, dst, dst_pitch)
 }
 
 fn C.SDL_FillRect(dst &C.SDL_Surface, const_rect &C.SDL_Rect, color u32) int
