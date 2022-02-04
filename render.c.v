@@ -347,7 +347,7 @@ fn C.SDL_SetTextureScaleMode(texture &C.SDL_Texture, scale_mode C.SDL_ScaleMode)
 //
 //  returns 0 on success, or -1 if the texture is not valid.
 //
-//  \note If the scale mode is not supported, the closest supported mode is
+//  NOTE If the scale mode is not supported, the closest supported mode is
 //        chosen.
 //
 //  See also: SDL_GetTextureScaleMode()
