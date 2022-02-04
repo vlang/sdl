@@ -101,7 +101,7 @@ fn C.SDL_SetSurfacePalette(surface &C.SDL_Surface, palette &C.SDL_Palette) int
 //
 // returns 0, or -1 if the surface format doesn't use a palette.
 //
-// \note A single palette can be shared with many surfaces.
+// NOTE A single palette can be shared with many surfaces.
 pub fn set_surface_palette(surface &Surface, palette &Palette) int {
 	return C.SDL_SetSurfacePalette(surface, palette)
 }
@@ -495,7 +495,7 @@ fn C.SDL_SoftStretch(src &C.SDL_Surface, const_srcrect &C.SDL_Rect, dst &C.SDL_S
 // soft_stretch performs a fast, low quality, stretch blit between two surfaces of the
 // same pixel format.
 //
-// \note This function uses a static buffer, and is not thread-safe.
+// NOTE This function uses a static buffer, and is not thread-safe.
 pub fn soft_stretch(src &Surface, const_srcrect &Rect, dst &Surface, const_dstrect &Rect) int {
 	return C.SDL_SoftStretch(src, const_srcrect, dst, const_dstrect)
 }
