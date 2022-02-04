@@ -25,7 +25,7 @@ pub const (
 	// Haptic effect for direct control over high/low frequency motors.
 	//
 	// See also: SDL_HapticLeftRight
-	// \warning this value was SDL_HAPTIC_SQUARE right before 2.0.0 shipped. Sorry,
+	// WARNING this value was SDL_HAPTIC_SQUARE right before 2.0.0 shipped. Sorry,
 	// we ran out of bits, and this is important for XInput devices.
 	haptic_leftright    = C.SDL_HAPTIC_LEFTRIGHT // (1u<<2)
 	// Triangle wave effect supported.
@@ -111,27 +111,24 @@ pub const (
 	// See also: SDL_HapticPause
 	// See also: SDL_HapticUnpause
 	haptic_pause        = C.SDL_HAPTIC_PAUSE //   (1u<<15)
-	// \name Direction encodings
+	// Direction encodings
 	//@{
 	// Uses polar coordinates for the direction.
 	//
 	// See also: SDL_HapticDirection
-	haptic_polar        = 0
-
+	haptic_polar        = C.SDL_HAPTIC_POLAR // 0
 	// Uses cartesian coordinates for the direction.
 	//
 	// See also: SDL_HapticDirection
-	haptic_cartesian    = 1
-
+	haptic_cartesian    = C.SDL_HAPTIC_CARTESIAN // 1
 	// Uses spherical coordinates for the direction.
 	//
 	// See also: SDL_HapticDirection
-	haptic_spherical    = 2
-
+	haptic_spherical    = C.SDL_HAPTIC_SPHERICAL // 2
 	// Used to play a device an infinite number of times.
 	//
 	// See also: SDL_HapticRunEffect
-	haptic_infinity     = 4294967295
+	haptic_infinity     = C.SDL_HAPTIC_INFINITY // 4294967295U
 )
 
 [typedef]
@@ -186,7 +183,7 @@ pub type Haptic = C.SDL_Haptic
 //
 // If type is ::SDL_HAPTIC_POLAR, direction is encoded by hundredths of a
 // degree starting north and turning clockwise.  ::SDL_HAPTIC_POLAR only uses
-// the first \c dir parameter.  The cardinal directions would be:
+// the first `dir` parameter.  The cardinal directions would be:
 // - North: 0 (0 degrees)
 // - East: 9000 (90 degrees)
 // - South: 18000 (180 degrees)
@@ -194,7 +191,7 @@ pub type Haptic = C.SDL_Haptic
 //
 // If type is ::SDL_HAPTIC_CARTESIAN, direction is encoded by three positions
 // (X axis, Y axis and Z axis (with 3 axes)).  ::SDL_HAPTIC_CARTESIAN uses
-// the first three \c dir parameters.  The cardinal directions would be:
+// the first three `dir` parameters.  The cardinal directions would be:
 // - North:  0,-1, 0
 // - East:   1, 0, 0
 // - South:  0, 1, 0
@@ -205,7 +202,7 @@ pub type Haptic = C.SDL_Haptic
 // can use any multiple you want, only the direction matters.
 //
 // If type is ::SDL_HAPTIC_SPHERICAL, direction is encoded by two rotations.
-// The first two \c dir parameters are used.  The \c dir parameters are as
+// The first two `dir` parameters are used.  The `dir` parameters are as
 // follows (all values are in hundredths of degrees):
 // - Degrees from (1, 0) rotated towards (0, 1).
 // - Degrees towards (0, 0, 1) (device needs at least 3 axes).
