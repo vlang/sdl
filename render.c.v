@@ -837,7 +837,7 @@ fn C.SDL_RenderReadPixels(renderer &C.SDL_Renderer, const_rect &C.SDL_Rect, form
 //
 // returns 0 on success, or -1 if pixel reading is not supported.
 //
-// \warning This is a very slow operation, and should not be used frequently.
+// WARNING This is a very slow operation, and should not be used frequently.
 pub fn render_read_pixels(renderer &Renderer, const_rect &Rect, format u32, pixels voidptr, pitch int) int {
 	return C.SDL_RenderReadPixels(renderer, const_rect, format, pixels, pitch)
 }

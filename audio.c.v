@@ -282,7 +282,7 @@ fn C.SDL_GetCurrentAudioDriver() &char
 //     and cannot fill the audio buffer in time.  A stereo sample consists of
 //     both right and left channels in LR ordering.
 //     Note that the number of samples is directly related to time by the
-//     following formula:  \code ms = (samples*1000)/freq \endcode
+//     following formula: ` ms = (samples*1000)/freq `
 //   - `desired->size` is the size in bytes of the audio buffer, and is
 //     calculated by SDL_OpenAudio().
 //   - `desired->silence` is the value used to set the buffer to silence,
