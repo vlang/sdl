@@ -137,7 +137,7 @@ pub fn (rwo &RWops) read(ptr voidptr, size usize, maxnum usize) usize {
 //
 // returns the number of objects written, or 0 at error or end of file.
 // `size_t (SDLCALL * write) (struct SDL_RWops * context, const void *ptr, size_t size, size_t num);`
-pub fn (rwo &RWops) write(context &RWops, ptr voidptr, size usize, num usize) usize {
+pub fn (rwo &RWops) write(ptr voidptr, size usize, num usize) usize {
 	return C.SDL_RWwrite(rwo, ptr, size, num)
 }
 
