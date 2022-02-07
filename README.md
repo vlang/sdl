@@ -71,7 +71,7 @@ sdl is supported on:
 
 You can run the tVintris example like this :
 ```
-v run examples/tvintris/tvintris.v
+v run sdl/examples/tvintris/tvintris.v
 ```
 
 ## Dependencies
@@ -99,8 +99,19 @@ If you get no music with the above, try:
 `$ brew reinstall --build-from-source --force sdl2 sdl2_gfx sdl2_image sdl2_mixer sdl2_net sdl2_ttf webp libtiff libmodplug libogg`
 
 ### Windows
-
-[`$ .github\workflows\windows-install-sdl.bat`](https://github.com/vlang/sdl/blob/master/.github/workflows/windows-install-sdl.bat)
+It is necessary to install the sdl2 development libraries for Windows.  
+To do this, change to the root directory of the sdl module, like  
+`cd %HOMEPATH%\.vmodules\sdl`  
+and run  
+`v run windows_install_dependencies.vsh`.  
+This will create a directory called "thirdparty" which will be used to download and extract the required libraries.  
+To successfully run a provided example or your own projects, the sdl dlls must be copied to the main application directory.  
+e.g..
+```
+copy thirdparty\SDL2-2.0.8\lib\x64\SDL2.dll examples\basic_window\
+cd ..
+v run sdl\examples\basic_window\main.v
+```
 
 ## Contributions
 
