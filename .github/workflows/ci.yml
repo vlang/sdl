@@ -67,7 +67,7 @@ jobs:
           test "${SDL2_VERSION}" = "$VER" || exit 1
 
 
-  windows-tcc:
+  windows:
     runs-on: windows-latest
     timeout-minutes: 30
     env:
@@ -95,7 +95,7 @@ jobs:
         run: |
           #cd sdl
           #md $HOME/.vmodules
-          New-Item -ItemType SymbolicLink -Path "./sdl" -Target "$HOME/.vmodules/sdl"
+          New-Item -ItemType SymbolicLink -Path "$HOME/.vmodules/sdl" -Target "./sdl"
           #ln -s $(pwd) $HOME/.vmodules/sdl
 
       #- name: Test code formatting
