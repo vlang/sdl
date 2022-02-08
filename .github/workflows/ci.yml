@@ -88,7 +88,7 @@ jobs:
         with:
           path: sdl
 
-     - name: Install dependencies
+      - name: Install dependencies
         run: v run sdl/windows_install_dependencies.vsh
 
       - name: Link local SDL folder in ~/.vmodules/sdl
