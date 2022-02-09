@@ -99,7 +99,7 @@ jobs:
           dir $home\.vmodules
           New-Item -ItemType SymbolicLink -Path $home\.vmodules\sdl -Target .\sdl
           # ln -s $(pwd) $HOME/.vmodules/sdl
-          dir $home\.vmodules\sdl"
+          dir $home\.vmodules\sdl
           # dir "./sdl"
 
       - name: Run tests
