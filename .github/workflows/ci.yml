@@ -95,6 +95,7 @@ jobs:
         run: |
           dir .
           # cd sdl
+          dir $home
           md $home\.vmodules
           dir $home\.vmodules
           New-Item -ItemType SymbolicLink -Path $home\.vmodules\sdl -Target .\sdl
