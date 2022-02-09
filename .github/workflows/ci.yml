@@ -88,17 +88,17 @@ jobs:
         with:
           path: sdl
 
+      - name: Run tests
+        run: v test sdl
+
       - name: Install dependencies
         run: v run sdl/windows_install_dependencies.vsh
 
-      - name: Link local SDL folder in ~/.vmodules/sdl
+      - name: Move SDL folder to ~/.vmodules/sdl
         run: |
-          New-Item -ItemType SymbolicLink -Path $home\.vmodules\sdl -Target .\sdl
+          move .\sdl $home\.vmodules\
           # ln -s $(pwd) $HOME/.vmodules/sdl
           dir $home\.vmodules\sdl
-
-      - name: Run tests
-        run: v test sdl
 
       - name: Build sdl examples
         run: |
