@@ -93,15 +93,9 @@ jobs:
 
       - name: Link local SDL folder in ~/.vmodules/sdl
         run: |
-          # dir .
-          # cd sdl
-          dir $home
-          md $home\.vmodules
-          dir $home\.vmodules
           New-Item -ItemType SymbolicLink -Path $home\.vmodules\sdl -Target .\sdl
           # ln -s $(pwd) $HOME/.vmodules/sdl
           dir $home\.vmodules\sdl
-          # dir "./sdl"
 
       - name: Run tests
         run: v test sdl
