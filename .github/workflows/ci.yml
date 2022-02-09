@@ -93,7 +93,7 @@ jobs:
 
       - name: Link local SDL folder in ~/.vmodules/sdl
         run: |
-          dir .
+          # dir .
           # cd sdl
           dir $home
           md $home\.vmodules
