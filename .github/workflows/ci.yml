@@ -95,10 +95,11 @@ jobs:
         run: |
           dir .
           # cd sdl
-          # md $HOME/.vmodules
-          New-Item -ItemType SymbolicLink -Path "$HOME/.vmodules/sdl" -Target "./sdl"
+          md %HOME%\.vmodules
+          dir "%HOME%\.vmodules"
+          New-Item -ItemType SymbolicLink -Path "%HOME%/.vmodules/sdl" -Target "./sdl"
           # ln -s $(pwd) $HOME/.vmodules/sdl
-          dir "$HOME/.vmodules/sdl"
+          dir "%HOME%/.vmodules/sdl"
           dir "./sdl"
 
       - name: Run tests
