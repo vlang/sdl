@@ -102,7 +102,7 @@ jobs:
           cd $home\.vmodules\sdl
           copy thirdparty\SDL2-${env:SDL2_VERSION}\lib\x64\SDL2.dll examples\versions\
           cd ..
-          v run examples\versions
+          v run sdl\examples\versions
         #xcopy \H $home\.vmodules\thirdparty\SDL2-2.0.8\lib\x64\SDL2.dll examples\basic_window\
         #for example in sdl/examples/*; do
         #    echo "v $example"
