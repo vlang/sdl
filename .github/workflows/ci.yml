@@ -74,7 +74,7 @@ jobs:
       SDL2_VERSION: 2.0.8
       SDL2_TTF_VERSION: 2.0.14
       SDL2_IMAGE_VERSION: 2.0.3
-      SDL2_MIXER_VERSION: 2.0.4
+      SDL2_MIXER_VERSION: 2.0.2
     steps:
       - name: Checkout V
         uses: actions/checkout@v2
