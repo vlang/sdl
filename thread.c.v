@@ -100,7 +100,12 @@ fn C.SDL_CreateThreadWithStackSize(func ThreadFunction, const_name &char, const_
 // In SDL 2.1, stacksize will be folded into the original SDL_CreateThread
 //  function.
 pub fn create_thread_with_stack_size(func ThreadFunction, const_name &char, const_stacksize usize, data voidptr) &Thread {
-	return C.SDL_CreateThreadWithStackSize(func, const_name, const_stacksize, data)
+	$if !windows {
+		return C.SDL_CreateThreadWithStackSize(func, const_name, const_stacksize, data)
+	} $else {
+		panic('TODO support this call on Windows')
+	}
+	return voidptr(0)
 }
 
 fn C.SDL_GetThreadName(thread &C.SDL_Thread) &char

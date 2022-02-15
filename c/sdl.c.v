@@ -12,9 +12,13 @@ $if !windows {
 
 #flag -DSDL_DISABLE_IMMINTRIN_H
 
-#flag windows -I @VMODROOT/thirdparty/SDL2/include
+$if x64 {
+	#flag windows -L @VMODROOT/thirdparty/SDL2-2.0.12/lib/x64
+} $else {
+	#flag windows -L @VMODROOT/thirdparty/SDL2-2.0.12/lib/x86
+}
+#flag windows -I @VMODROOT/thirdparty/SDL2-2.0.12/include
 #flag windows -Dmain=SDL_main
 #flag windows -lSDL2main -lSDL2
-#flag windows -L @VMODROOT/thirdparty/SDL2/lib/x64
 
 #include <SDL.h>
