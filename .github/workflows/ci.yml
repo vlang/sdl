@@ -108,9 +108,9 @@ jobs:
           $examples = Get-ChildItem $sdl_home\examples\
           foreach ($e in $examples){
             copy-item $sdl_home\thirdparty\SDL2-${env:SDL2_VERSION}\lib\x64\SDL2.dll $e.FullName
-            copy-item $sdl_home\thirdparty\SDL2_ttf-${env:SDL2_IMAGE_VERSION}\lib\x64\* $e.FullName
+            copy-item $sdl_home\thirdparty\SDL2_ttf-${env:SDL2_TTF_VERSION}\lib\x64\* $e.FullName
             copy-item $sdl_home\thirdparty\SDL2_image-${env:SDL2_IMAGE_VERSION}\lib\x64\* $e.FullName
-            copy-item $sdl_home\thirdparty\SDL2_mixer-${env:SDL2_IMAGE_VERSION}\lib\x64\* $e.FullName
+            copy-item $sdl_home\thirdparty\SDL2_mixer-${env:SDL2_MIXER_VERSION}\lib\x64\* $e.FullName
             v $e.FullName
           }
 
