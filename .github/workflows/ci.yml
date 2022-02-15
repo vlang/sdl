@@ -70,7 +70,7 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 30
     env:
-      VFLAGS: -cc tcc -no-retry-compilation
+      VFLAGS: -cc gcc -no-retry-compilation
       SDL2_VERSION: 2.0.8
     steps:
       - name: Checkout V
@@ -79,7 +79,7 @@ jobs:
           repository: vlang/v
       - name: Build local v
         run: |
-          ./make.bat
+          ./make.bat -gcc
           ./v symlink -githubci
 
       - name: Checkout SDL
