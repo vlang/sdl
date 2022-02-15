@@ -79,3 +79,44 @@ jobs:
           VER="$(v -cflags "$SDL_V_CFLAGS" run sdl/examples/version)"
           echo "${SDL2_VERSION} == $VER ?"
           test "${SDL2_VERSION}" = "$VER" || exit 1
+
+  windows-gcc:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    env:
+      VFLAGS: -cc gcc -no-retry-compilation
+      SDL2_VERSION: 2.0.9
+    steps:
+      - name: Checkout V
+        uses: actions/checkout@v2
+        with:
+          repository: vlang/v
+      - name: Build local v
+        run: |
+          ./make.bat -gcc
+          ./v symlink -githubci
+
+      - name: Checkout SDL
+        uses: actions/checkout@v2
+        with:
+          path: sdl
+
+      - name: Run tests
+        run: v test sdl
+
+      - name: Install dependencies
+        run: v run sdl/windows_install_dependencies.vsh
+
+      - name: Move SDL folder to ~/.vmodules/sdl
+        run: |
+          move-item -force sdl $home\.vmodules\
+
+      - name: Build sdl examples
+        run: |
+          $sdl_home = "$home\.vmodules\sdl"
+          copy-item $sdl_home\thirdparty\SDL2-${env:SDL2_VERSION}\lib\x64\SDL2.dll $sdl_home\examples\versions\
+          v run $sdl_home\examples\versions
+          $examples = Get-ChildItem $sdl_home\examples\
+          foreach ($e in $examples){
+            v $e.FullName
+          }
