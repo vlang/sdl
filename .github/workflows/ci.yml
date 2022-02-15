@@ -72,9 +72,6 @@ jobs:
     env:
       VFLAGS: -cc gcc -no-retry-compilation
       SDL2_VERSION: 2.0.8
-      SDL2_TTF_VERSION: 2.0.14
-      SDL2_IMAGE_VERSION: 2.0.3
-      SDL2_MIXER_VERSION: 2.0.2
     steps:
       - name: Checkout V
         uses: actions/checkout@v2
@@ -107,15 +104,5 @@ jobs:
           v run $sdl_home\examples\versions
           $examples = Get-ChildItem $sdl_home\examples\
           foreach ($e in $examples){
-            copy-item $sdl_home\thirdparty\SDL2-${env:SDL2_VERSION}\lib\x64\SDL2.dll $e.FullName
-            copy-item $sdl_home\thirdparty\SDL2_ttf-${env:SDL2_TTF_VERSION}\lib\x64\* $e.FullName
-            copy-item $sdl_home\thirdparty\SDL2_image-${env:SDL2_IMAGE_VERSION}\lib\x64\* $e.FullName
-            copy-item $sdl_home\thirdparty\SDL2_mixer-${env:SDL2_MIXER_VERSION}\lib\x64\* $e.FullName
             v $e.FullName
           }
-
-      #- name: Test SDL version
-        #run: |
-          #VER="$(v run sdl/examples/version)"
-          #echo "${SDL2_VERSION} == $VER ?"
-          #test "${SDL2_VERSION}" = "$VER" || exit 1
