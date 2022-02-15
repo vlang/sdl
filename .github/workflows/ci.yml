@@ -101,7 +101,7 @@ jobs:
         run: |
           $sdl_home = "$home\.vmodules\sdl"
           copy-item $sdl_home\thirdparty\SDL2-${env:SDL2_VERSION}\lib\x64\SDL2.dll $sdl_home\examples\versions\
-          v run $sdl_home\sdl\examples\versions
+          v run $sdl_home\examples\versions
 
       #- name: Test SDL version
         #run: |
