@@ -100,7 +100,7 @@ jobs:
       - name: Build sdl examples
         run: |
           cd $home\.vmodules\sdl
-          copy thirdparty\SDL2-%SDL2_VERSION%\lib\x64\SDL2.dll examples\versions\
+          copy thirdparty\SDL2-${env:SDL2_VERSION}\lib\x64\SDL2.dll examples\versions\
           cd ..
           v run examples\versions
         #xcopy \H $home\.vmodules\thirdparty\SDL2-2.0.8\lib\x64\SDL2.dll examples\basic_window\
