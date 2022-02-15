@@ -99,15 +99,9 @@ jobs:
 
       - name: Build sdl examples
         run: |
-          cd $home\.vmodules\sdl
-          copy thirdparty\SDL2-${env:SDL2_VERSION}\lib\x64\SDL2.dll examples\versions\
-          cd ..
-          v run sdl\examples\versions
-        #xcopy \H $home\.vmodules\thirdparty\SDL2-2.0.8\lib\x64\SDL2.dll examples\basic_window\
-        #for example in sdl/examples/*; do
-        #    echo "v $example"
-        #    v "$example";
-        #done
+          $sdl_home = $home\.vmodules\sdl
+          copy-item $sdl_home\thirdparty\SDL2-${env:SDL2_VERSION}\lib\x64\SDL2.dll $sdl_home\examples\versions\
+          v run $sdl_home\sdl\examples\versions
 
       #- name: Test SDL version
         #run: |
