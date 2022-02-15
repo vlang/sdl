@@ -95,8 +95,7 @@ jobs:
 
       - name: Move SDL folder to ~/.vmodules/sdl
         run: |
-          move sdl $home\.vmodules\
-          # ln -s $(pwd) $HOME/.vmodules/sdl
+          move-item -force sdl $home\.vmodules\
           dir $home\.vmodules\sdl
 
       - name: Build sdl examples
