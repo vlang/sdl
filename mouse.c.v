@@ -84,11 +84,8 @@ fn C.SDL_GetMouseState(x &int, y &int) u32
 // be tested using the SDL_BUTTON(X) macros, and x and y are set to the
 // mouse cursor position relative to the focus window for the currently
 // selected mouse. You can pass NULL for either x or y.
-pub fn get_mouse_state() (u32, int, int) {
-	x_ := 0
-	y_ := 0
-	C.SDL_GetMouseState(&x_, &y_)
-	return C.SDL_GetMouseState(&x_, &y_), x_, y_
+pub fn get_mouse_state(x &int, y &int) u32 {
+	return C.SDL_GetMouseState(x, y)
 }
 
 fn C.SDL_GetGlobalMouseState(x &int, y &int) u32
@@ -114,10 +111,8 @@ fn C.SDL_GetGlobalMouseState(x &int, y &int) u32
 // returns The current button state as a bitmask, which can be tested using the SDL_BUTTON(X) macros.
 //
 // See also: SDL_GetMouseState
-pub fn get_global_mouse_state() (u32, int, int) {
-	x_ := 0
-	y_ := 0
-	return C.SDL_GetGlobalMouseState(&x_, &y_), x_, y_
+pub fn get_global_mouse_state(x &int, y &int) u32 {
+	return C.SDL_GetGlobalMouseState(x, y)
 }
 
 fn C.SDL_GetRelativeMouseState(x &int, y &int) u32
@@ -127,10 +122,8 @@ fn C.SDL_GetRelativeMouseState(x &int, y &int) u32
 // The current button state is returned as a button bitmask, which can
 // be tested using the SDL_BUTTON(X) macros, and x and y are set to the
 // mouse deltas since the last call to SDL_GetRelativeMouseState().
-pub fn get_relative_mouse_state() (u32, int, int) {
-	x_ := 0
-	y_ := 0
-	return C.SDL_GetRelativeMouseState(&x_, &y_), x_, y_
+pub fn get_relative_mouse_state(x &int, y &int) u32 {
+	return C.SDL_GetRelativeMouseState(x, y)
 }
 
 fn C.SDL_WarpMouseInWindow(window &C.SDL_Window, x int, y int)
