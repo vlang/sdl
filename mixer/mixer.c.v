@@ -87,6 +87,7 @@ pub const effectsmaxspeed = 'MIX_EFFECTSMAXSPEED'
 // Chunk is the internal format for an audio chunk
 [typedef]
 struct C.Mix_Chunk {
+pub:
 	allocated int
 	abuf      &byte
 	alen      u32

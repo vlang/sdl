@@ -135,6 +135,7 @@ pub type CommonEvent = C.SDL_CommonEvent
 // DisplayEvent is C.SDL_DisplayEvent
 [typedef]
 struct C.SDL_DisplayEvent {
+pub:
 	@type     u32  // ::SDL_DISPLAYEVENT
 	timestamp u32  // In milliseconds, populated using SDL_GetTicks()
 	display   u32  // The associated display index
@@ -381,6 +382,7 @@ pub type ControllerDeviceEvent = C.SDL_ControllerDeviceEvent
 // ControllerTouchpadEvent is game controller touchpad event structure (event.ctouchpad.*)
 [typedef]
 struct C.SDL_ControllerTouchpadEvent {
+pub:
 	@type     u32        // ::SDL_CONTROLLERTOUCHPADDOWN or ::SDL_CONTROLLERTOUCHPADMOTION or ::SDL_CONTROLLERTOUCHPADUP
 	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
 	which     JoystickID // The joystick instance id
@@ -395,6 +397,7 @@ pub type ControllerTouchpadEvent = C.SDL_ControllerTouchpadEvent
 
 [typedef]
 struct C.SDL_ControllerSensorEvent {
+pub:
 	@type     u32 // ::SDL_CONTROLLERSENSORUPDATE
 	timestamp u32 // In milliseconds, populated using SDL_GetTicks()
 	which     C.SDL_JoystickID // The joystick instance id
@@ -489,6 +492,7 @@ pub type DropEvent = C.SDL_DropEvent
 // SensorEvent is C.SDL_SensorEvent
 [typedef]
 struct C.SDL_SensorEvent {
+pub:
 	@type     u32    // ::SDL_SENSORUPDATE
 	timestamp u32    // In milliseconds, populated using SDL_GetTicks()
 	which     int    // The instance ID of the sensor
