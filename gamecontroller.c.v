@@ -32,11 +32,13 @@ pub enum GameControllerBindType {
 }
 
 pub union Value {
+pub:
 	button int
 	axis   int
 }
 
 pub struct Hat {
+pub:
 	hat      int
 	hat_mask int
 }
