@@ -28,6 +28,7 @@ pub type Point = C.SDL_Point
 // FPoint is C.SDL_FPoint
 [typedef]
 struct C.SDL_FPoint {
+pub mut:
 	x f32
 	y f32
 }
@@ -58,6 +59,7 @@ pub type Rect = C.SDL_Rect
 // FRect is C.SDL_FRect
 [typedef]
 struct C.SDL_FRect {
+pub mut:
 	x f32
 	y f32
 	w f32
