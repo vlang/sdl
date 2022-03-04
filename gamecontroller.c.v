@@ -53,7 +53,7 @@ pub struct Hat {
 
 [typedef]
 struct C.SDL_GameControllerButtonBind {
-pub mut:
+pub:
 	bindType GameControllerBindType // C.SDL_GameControllerBindType
 	value    Value
 	hat      Hat

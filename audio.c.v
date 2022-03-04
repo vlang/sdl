@@ -149,6 +149,7 @@ pub type AudioCallback = fn (userdata voidptr, stream &byte)
 
 [typedef]
 struct C.SDL_AudioSpec {
+pub:
 	freq     int // DSP frequency -- samples per second
 	format   AudioFormat // C.SDL_AudioFormat Audio data format
 	channels byte        // Number of channels: 1 mono, 2 stereo
@@ -178,6 +179,7 @@ pub const audiocvt_max_filters = C.SDL_AUDIOCVT_MAX_FILTERS
 /*
 [typedef]
 struct C.SDL_AUDIOCVT_PACKEDSDL_AudioCVT {
+pub:
 	needed       int // Set to 1 if conversion possible
 	src_format   AudioFormat // C.SDL_AudioFormat, Source audio format
 	dst_format   AudioFormat // C.SDL_AudioFormat, Target audio format
@@ -204,6 +206,7 @@ pub type AudioCVTPackedSDLAudioCVT = C.SDL_AUDIOCVT_PACKEDSDL_AudioCVT
 // (len) field to something that's a multiple of 16, if possible.
 [typedef]
 struct C.SDL_AudioCVT {
+pub:
 	needed       int // Set to 1 if conversion possible
 	src_format   AudioFormat // C.SDL_AudioFormat, Source audio format
 	dst_format   AudioFormat // C.SDL_AudioFormat, Target audio format
