@@ -33,6 +33,7 @@ pub type Joystick = C.SDL_Joystick
 
 [typedef]
 struct C.SDL_JoystickGUID {
+pub:
 	data [16]byte
 }
 

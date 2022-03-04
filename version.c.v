@@ -25,6 +25,7 @@ pub const (
 // See also: SDL_GetVersion
 [typedef]
 struct C.SDL_version {
+pub:
 	major byte // major version
 	minor byte // minor version
 	patch byte // update version
