@@ -36,6 +36,7 @@ pub enum RendererFlags {
 
 [typedef]
 struct C.SDL_RendererInfo {
+pub:
 	name                &char   // The name of the renderer
 	flags               u32     // Supported ::SDL_RendererFlags
 	num_texture_formats u32     // The number of available texture formats

@@ -18,6 +18,7 @@ module sdl
 // See also: SDL_GetWindowDisplayMode()
 [typedef]
 struct C.SDL_DisplayMode {
+pub:
 	format       u32     // pixel format
 	w            int     // width, in screen coordinates
 	h            int     // height, in screen coordinates
