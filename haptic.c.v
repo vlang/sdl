@@ -551,6 +551,7 @@ Uint16 fade_level;    // Level at the end of the fade.
 
 [typedef]
 union C.SDL_HapticEffect {
+pub:
 	// Common for all force feedback effects
 	@type     u16 // Effect type.
 	constant  C.SDL_HapticConstant  // Constant effect.
