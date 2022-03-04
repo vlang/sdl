@@ -118,6 +118,7 @@ pub fn memory_barrier_acquire_function() {
 // so people don't accidentally use numeric operations on it.
 [typedef]
 struct C.SDL_atomic_t {
+pub:
 	value int
 }
 
