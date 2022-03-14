@@ -269,7 +269,7 @@ pub enum KeyCode {
 	lgui = C.SDLK_LGUI
 	rctrl = C.SDLK_RCTRL
 	rshift = C.SDLK_RSHIFT
-	ral = C.SDLK_RALT
+	ralt = C.SDLK_RALT
 	rgui = C.SDLK_RGUI
 	//
 	mode = C.SDLK_MODE
