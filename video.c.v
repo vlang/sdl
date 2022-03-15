@@ -249,6 +249,21 @@ pub enum HitTestResult {
 	resize_left = C.SDL_HITTEST_RESIZE_LEFT
 }
 
+// `typedef SDL_HitTestResult (SDLCALL *SDL_HitTest)(SDL_Window *win, const SDL_Point *area, void *data)`
+// fn C.SDL_HitTest(win &C.SDL_Window, const_area &C.SDL_Point, data voidptr) C.SDL_HitTestResult
+
+// Callback used for hit-testing.
+//
+// `win` the SDL_Window where hit-testing was set on
+// `area` an SDL_Point which should be hit-tested
+// `data` what was passed as `callback_data` to SDL_SetWindowHitTest()
+// returns an SDL_HitTestResult value.
+//
+// See also: SDL_SetWindowHitTest
+//
+// `typedef SDL_HitTestResult (SDLCALL *SDL_HitTest)(SDL_Window *win, const SDL_Point *area, void *data)`
+pub type HitTest = fn (win &Window, const_area &Point, data voidptr) HitTestResult
+
 fn C.SDL_GetNumVideoDrivers() int
 
 // get_num_video_drivers gets the number of video drivers compiled into SDL
@@ -1137,8 +1152,8 @@ fn C.SDL_SetWindowHitTest(window &C.SDL_Window, callback C.SDL_HitTest, callback
 // `callback` The callback to call when doing a hit-test.
 // `callback_data` An app-defined void pointer passed to the callback.
 // returns 0 on success, -1 on error (including unsupported).
-pub fn set_window_hit_test(window &Window, callback C.SDL_HitTest, callback_data voidptr) int {
-	return C.SDL_SetWindowHitTest(window, callback, callback_data)
+pub fn set_window_hit_test(window &Window, callback HitTest, callback_data voidptr) int {
+	return C.SDL_SetWindowHitTest(window, C.SDL_HitTest(callback), callback_data)
 }
 
 fn C.SDL_DestroyWindow(window &C.SDL_Window)
