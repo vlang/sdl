@@ -91,9 +91,17 @@ pub fn rect_equals(const_a &Rect, const_b &Rect) bool {
 
 fn C.SDL_HasIntersection(const_a &C.SDL_Rect, const_b &C.SDL_Rect) bool
 
-// has_intersection determine whether two rectangles intersect.
+// has_intersection determines whether two rectangles intersect.
 //
+// If either pointer is NULL the function will return SDL_FALSE.
+//
+// `A` an SDL_Rect structure representing the first rectangle
+// `B` an SDL_Rect structure representing the second rectangle
 // returns SDL_TRUE if there is an intersection, SDL_FALSE otherwise.
+//
+// NOTE This function is available since SDL 2.0.0.
+//
+// See also: SDL_IntersectRect
 [inline]
 pub fn has_intersection(const_a &Rect, const_b &Rect) bool {
 	return C.SDL_HasIntersection(const_a, const_b)
@@ -101,9 +109,19 @@ pub fn has_intersection(const_a &Rect, const_b &Rect) bool {
 
 fn C.SDL_IntersectRect(const_a &C.SDL_Rect, const_b &C.SDL_Rect, result &C.SDL_Rect) bool
 
-// intersect_rect calculate the intersection of two rectangles.
+// intersect_rect calculates the intersection of two rectangles.
 //
+// If `result` is NULL then this function will return SDL_FALSE.
+//
+// `A` an SDL_Rect structure representing the first rectangle
+// `B` an SDL_Rect structure representing the second rectangle
+// `result` an SDL_Rect structure filled in with the intersection of
+//               rectangles `A` and `B`
 // returns SDL_TRUE if there is an intersection, SDL_FALSE otherwise.
+//
+// NOTE This function is available since SDL 2.0.0.
+//
+// See also: SDL_HasIntersection
 pub fn intersect_rect(const_a &Rect, const_b &Rect, result &Rect) bool {
 	return C.SDL_IntersectRect(const_a, const_b, result)
 }
@@ -111,15 +129,30 @@ pub fn intersect_rect(const_a &Rect, const_b &Rect, result &Rect) bool {
 fn C.SDL_UnionRect(const_a &C.SDL_Rect, const_b &C.SDL_Rect, result &C.SDL_Rect)
 
 // union_rect calculates the union of two rectangles.
+//
+// `A` an SDL_Rect structure representing the first rectangle
+// `B` an SDL_Rect structure representing the second rectangle
+// `result` an SDL_Rect structure filled in with the union of rectangles
+//               `A` and `B`
 pub fn union_rect(const_a &Rect, const_b &Rect, result &Rect) {
 	C.SDL_UnionRect(const_a, const_b, result)
 }
 
 fn C.SDL_EnclosePoints(const_points &C.SDL_Point, count int, const_clip &C.SDL_Rect, result &C.SDL_Rect) bool
 
-// enclose_points calculates a minimal rectangle enclosing a set of points
+// enclose_points calculates a minimal rectangle enclosing a set of points.
 //
-// returns SDL_TRUE if any points were within the clipping rect
+// If `clip` is not NULL then only points inside of the clipping rectangle are
+// considered.
+//
+// `points` an array of SDL_Point structures representing points to be
+//               enclosed
+// `count` the number of structures in the `points` array
+// `clip` an SDL_Rect used for clipping or NULL to enclose all points
+// `result` an SDL_Rect structure filled in with the minimal enclosing
+//               rectangle
+// returns SDL_TRUE if any points were enclosed or SDL_FALSE if all the
+//          points were outside of the clipping rectangle.
 pub fn enclose_points(const_points &Point, count int, const_clip &Rect, result &Rect) bool {
 	return C.SDL_EnclosePoints(const_points, count, const_clip, result)
 }
@@ -128,6 +161,17 @@ fn C.SDL_IntersectRectAndLine(rect &C.SDL_Rect, x1 &int, y1 &int, x2 &int, y2 &i
 
 // intersect_rect_and_line calculates the intersection of a rectangle and line segment.
 //
+// This function is used to clip a line segment to a rectangle. A line segment
+// contained entirely within the rectangle or that does not intersect will
+// remain unchanged. A line segment that crosses the rectangle at either or
+// both ends will be clipped to the boundary of the rectangle and the new
+// coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.
+//
+// `rect` an SDL_Rect structure representing the rectangle to intersect
+// `X1` a pointer to the starting X-coordinate of the line
+// `Y1` a pointer to the starting Y-coordinate of the line
+// `X2` a pointer to the ending X-coordinate of the line
+// `Y2` a pointer to the ending Y-coordinate of the line
 // returns SDL_TRUE if there is an intersection, SDL_FALSE otherwise.
 pub fn intersect_rect_and_line(rect &Rect, x1 &int, y1 &int, x2 &int, y2 &int) bool {
 	return C.SDL_IntersectRectAndLine(rect, x1, y1, x2, y2)

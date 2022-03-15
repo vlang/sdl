@@ -8,6 +8,19 @@ module sdl
 //
 
 // get_platform gets the name of the platform.
+//
+// Here are the names returned for some (but not all) supported platforms:
+//
+// - "Windows"
+// - "Mac OS X"
+// - "Linux"
+// - "iOS"
+// - "Android"
+//
+// returns the name of the platform. If the correct platform name is not
+//          available, returns a string beginning with the text "Unknown".
+//
+// NOTE the returned &char is const
 fn C.SDL_GetPlatform() &char
 pub fn get_platform() &char {
 	return C.SDL_GetPlatform()

@@ -53,7 +53,7 @@ pub enum Keymod {
 pub enum KeyCode {
 	unknown = C.SDLK_UNKNOWN // 0
 	@return = C.SDLK_RETURN // '\r'
-	escape = C.SDLK_ESCAPE // '\033'
+	escape = C.SDLK_ESCAPE // '\x1B'
 	backspace = C.SDLK_BACKSPACE // '\b'
 	tab = C.SDLK_TAB // '\t'
 	space = C.SDLK_SPACE // ' '
@@ -146,7 +146,7 @@ pub enum KeyCode {
 	insert = C.SDLK_INSERT
 	home = C.SDLK_HOME
 	pageup = C.SDLK_PAGEUP
-	delete = C.SDLK_DELETE // '\177'
+	delete = C.SDLK_DELETE // '\x7F'
 	end = C.SDLK_END
 	pagedown = C.SDLK_PAGEDOWN
 	right = C.SDLK_RIGHT

@@ -11,5 +11,4 @@ fn main() {
 	mut linked_version := sdl.Version{}
 	sdl.get_version(mut linked_version)
 	println('Runtime loaded version $linked_version.str()')
-	println('Revision $sdl.get_revision_number() / $sdl.get_revision()')
 }

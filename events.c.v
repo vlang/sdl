@@ -24,6 +24,17 @@ pub const (
 	enable  = C.SDL_ENABLE // 1
 )
 
+// EventFilter is a function pointer used for callbacks that watch the event queue.
+//
+// `userdata` what was passed as `userdata` to SDL_SetEventFilter()
+//            or SDL_AddEventWatch, etc
+// `event` the event that triggered the callback
+// returns 1 to permit event to be added to the queue, and 0 to disallow
+//          it. When used with SDL_AddEventWatch, the return value is ignored.
+//
+// See also: SDL_SetEventFilter
+// See also: SDL_AddEventWatch
+//
 // EventFilter is equivalent to the SDL C callback:
 // `typedef int (SDLCALL * SDL_EventFilter) (void *userdata, SDL_Event * event);`
 pub type EventFilter = fn (userdata voidptr, event &Event)
@@ -555,6 +566,20 @@ pub:
 
 pub type SysWMEvent = C.SDL_SysWMEvent
 
+/*
+TODO
+const v_event_padding_size = v_get_event_padding_size()
+
+fn v_get_event_padding_size() int {
+	if sizeof(voidptr) <= 8 {
+		return 56
+	} else if sizeof(voidptr) == 16 {
+		return 64
+	}
+	return 3 * sizeof(voidptr)
+}
+*/
+
 // Event is a general event structure.
 [typedef]
 pub union C.SDL_Event {
@@ -591,12 +616,20 @@ pub:
 	mgesture MultiGestureEvent  // C.SDL_MultiGestureEvent  // Gesture event data
 	dgesture DollarGestureEvent // C.SDL_DollarGestureEvent // Gesture event data
 	drop     DropEvent // C.SDL_DropEvent // Drag and drop event data
-	// This is necessary for ABI compatibility between Visual C++ and GCC
-	// Visual C++ will respect the push pack pragma and use 52 bytes for
-	// this structure, and GCC will use the alignment of the largest datatype
-	// within the union, which is 8 bytes.
+	// This is necessary for ABI compatibility between Visual C++ and GCC.
+	// Visual C++ will respect the push pack pragma and use 52 bytes (size of
+	// SDL_TextEditingEvent, the largest structure for 32-bit and 64-bit
+	// architectures) for this union, and GCC will use the alignment of the
+	// largest datatype within the union, which is 8 bytes on 64-bit
+	// architectures.
+	//
 	// So... we'll add padding to force the size to be 56 bytes for both.
-	padding [56]byte
+	//
+	// On architectures where pointers are 16 bytes, this needs rounding up to
+	// the next multiple of 16, 64, and on architectures where pointers are
+	// even larger the size of SDL_UserEvent will dominate as being 3 pointers.
+	padding [56]byte // TODO v_event_padding_size??
+	// Uint8 padding[sizeof(void *) <= 8 ? 56 : sizeof(void *) == 16 ? 64 : 3 * sizeof(void *)];
 }
 
 pub type Event = C.SDL_Event
@@ -607,7 +640,20 @@ fn C.SDL_PumpEvents()
 //
 // This function updates the event queue and internal input device state.
 //
-// This should only be run in the thread that sets the video mode.
+// **WARNING**: This should only be run in the thread that initialized the
+// video subsystem, and for extra safety, you should consider only doing those
+// things on the main thread in any case.
+//
+// SDL_PumpEvents() gathers all the pending input information from devices and
+// places it in the event queue. Without calls to SDL_PumpEvents() no events
+// would ever be placed on the queue. Often the need for calls to
+// SDL_PumpEvents() is hidden from the user since SDL_PollEvent() and
+// SDL_WaitEvent() implicitly call SDL_PumpEvents(). However, if you are not
+// polling or waiting for events (e.g. you are filtering them), then you must
+// call SDL_PumpEvents() to force an event queue update.
+//
+// See also: SDL_PollEvent
+// See also: SDL_WaitEvent
 pub fn pump_events() {
 	C.SDL_PumpEvents()
 }
@@ -623,20 +669,38 @@ fn C.SDL_PeepEvents(events &C.SDL_Event, numevents int, action C.SDL_eventaction
 
 // peep_events checks the event queue for messages and optionally returns them.
 //
-// If `action` is ::SDL_ADDEVENT, up to `numevents` events will be added to
-// the back of the event queue.
+// `action` may be any of the following:
 //
-// If `action` is ::SDL_PEEKEVENT, up to `numevents` events at the front
-// of the event queue, within the specified minimum and maximum type,
-// will be returned and will not be removed from the queue.
+// - `SDL_ADDEVENT`: up to `numevents` events will be added to the back of the
+//   event queue.
+// - `SDL_PEEKEVENT`: `numevents` events at the front of the event queue,
+//   within the specified minimum and maximum type, will be returned to the
+//   caller and will _not_ be removed from the queue.
+// - `SDL_GETEVENT`: up to `numevents` events at the front of the event queue,
+//   within the specified minimum and maximum type, will be returned to the
+//   caller and will be removed from the queue.the back of the event queue.
 //
-// If `action` is ::SDL_GETEVENT, up to `numevents` events at the front
-// of the event queue, within the specified minimum and maximum type,
-// will be returned and will be removed from the queue.
-//
-// returns The number of events actually stored, or -1 if there was an error.
+// You may have to call SDL_PumpEvents() before calling this function.
+// Otherwise, the events may not be ready to be filtered when you call
+// SDL_PeepEvents().
 //
 // This function is thread-safe.
+//
+// `events` destination buffer for the retrieved events
+// `numevents` if action is SDL_ADDEVENT, the number of events to add
+//             back to the event queue; if action is SDL_PEEKEVENT or
+//             SDL_GETEVENT, the maximum number of events to retrieve
+// `action` action to take; see [[#action|Remarks]] for details
+// `minType` minimum value of the event type to be considered;
+//           SDL_FIRSTEVENT is a safe choice
+// `maxType` maximum value of the event type to be considered;
+//           SDL_LASTEVENT is a safe choice
+// returns the number of events actually stored or a negative error code on
+//         failure; call SDL_GetError() for more information.
+//
+// See also: SDL_PollEvent
+// See also: SDL_PumpEvents
+// See also: SDL_PushEvent
 pub fn peep_events(events &Event, numevents int, action EventAction, min_type u32, max_type u32) int {
 	return C.SDL_PeepEvents(unsafe { &C.SDL_Event(events) }, numevents, unsafe { C.SDL_eventaction(action) },
 		min_type, max_type)
@@ -644,27 +708,81 @@ pub fn peep_events(events &Event, numevents int, action EventAction, min_type u3
 
 fn C.SDL_HasEvent(@type u32) bool
 
-// has_event checks to see if certain event types are in the event queue.
+// has_event checks for the existence of a certain event type in the event queue.
+//
+// If you need to check for a range of event types, use SDL_HasEvents()
+// instead.
+//
+// `type` the type of event to be queried; see SDL_EventType for details
+// returns SDL_TRUE if events matching `type` are present, or SDL_FALSE if
+//          events matching `type` are not present.
+//
+// See also: SDL_HasEvents
 pub fn has_event(@type EventType) bool {
 	return C.SDL_HasEvent(u32(@type))
 }
 
 fn C.SDL_HasEvents(min_type u32, max_type u32) bool
+
+// has_events checks for the existence of certain event types in the event queue.
+//
+// If you need to check for a single event type, use SDL_HasEvent() instead.
+//
+// `minType` the low end of event type to be queried, inclusive; see
+//           SDL_EventType for details
+// `maxType` the high end of event type to be queried, inclusive; see
+//           SDL_EventType for details
+// returns SDL_TRUE if events with type >= `minType` and <= `maxType` are
+//         present, or SDL_FALSE if not.
+//
+// See also: SDL_HasEvents
 pub fn has_events(min_type u32, max_type u32) bool {
 	return C.SDL_HasEvents(min_type, max_type)
 }
 
 fn C.SDL_FlushEvent(@type u32)
 
-// flush_event clears events from the event queue
+// flush_event clears events of a specific type from the event queue.
+//
+// This will unconditionally remove any events from the queue that match
+// `type`. If you need to remove a range of event types, use SDL_FlushEvents()
+// instead.
+//
+// It's also normal to just ignore events you don't care about in your event
+// loop without calling this function.
+//
 // This function only affects currently queued events. If you want to make
 // sure that all pending OS events are flushed, you can call SDL_PumpEvents()
 // on the main thread immediately before the flush call.
+//
+// `type` the type of event to be cleared; see SDL_EventType for details
+//
+// See also: SDL_FlushEvents
 pub fn flush_event(@type u32) {
 	C.SDL_FlushEvent(@type)
 }
 
 fn C.SDL_FlushEvents(min_type u32, max_type u32)
+
+// Clear events of a range of types from the event queue.
+//
+// This will unconditionally remove any events from the queue that are in the
+// range of `minType` to `maxType`, inclusive. If you need to remove a single
+// event type, use SDL_FlushEvent() instead.
+//
+// It's also normal to just ignore events you don't care about in your event
+// loop without calling this function.
+//
+// This function only affects currently queued events. If you want to make
+// sure that all pending OS events are flushed, you can call SDL_PumpEvents()
+// on the main thread immediately before the flush call.
+//
+// `minType` the low end of event type to be cleared, inclusive; see
+//                SDL_EventType for details
+// `maxType` the high end of event type to be cleared, inclusive; see
+//                SDL_EventType for details
+//
+// See also: SDL_FlushEvent
 pub fn flush_events(min_type u32, max_type u32) {
 	C.SDL_FlushEvents(min_type, max_type)
 }
@@ -673,10 +791,47 @@ fn C.SDL_PollEvent(event &C.SDL_Event) int
 
 // poll_event polls for currently pending events.
 //
-// returns 1 if there are any pending events, or 0 if there are none available.
+// If `event` is not NULL, the next event is removed from the queue and stored
+// in the SDL_Event structure pointed to by `event`. The 1 returned refers to
+// this event, immediately stored in the SDL Event structure -- not an event
+// to follow.
 //
-// `event` If not NULL, the next event is removed from the queue and
-// stored in that area.
+// If `event` is NULL, it simply returns 1 if there is an event in the queue,
+// but will not remove it from the queue.
+//
+// As this function implicitly calls SDL_PumpEvents(), you can only call this
+// function in the thread that set the video mode.
+//
+// SDL_PollEvent() is the favored way of receiving system events since it can
+// be done from the main loop and does not suspend the main loop while waiting
+// on an event to be posted.
+//
+// The common practice is to fully process the event queue once every frame,
+// usually as a first step before updating the game's state:
+//
+/*
+```c
+ while (game_is_still_running) {
+     SDL_Event event;
+     while (SDL_PollEvent(&event)) {  // poll until all events are handled!
+         // decide what to do with this event.
+     }
+
+     // update game state, draw the current frame
+ }
+```
+*/
+//
+// `event` the SDL_Event structure to be filled with the next event from
+//         the queue, or NULL
+// returns 1 if there is a pending event or 0 if there are none available.
+//
+// See also: SDL_GetEventFilter
+// See also: SDL_PeepEvents
+// See also: SDL_PushEvent
+// See also: SDL_SetEventFilter
+// See also: SDL_WaitEvent
+// See also: SDL_WaitEventTimeout
 pub fn poll_event(event &Event) int {
 	return C.SDL_PollEvent(event)
 }
@@ -685,24 +840,46 @@ fn C.SDL_WaitEvent(event &C.SDL_Event) int
 
 // wait_event waits indefinitely for the next available event.
 //
-// returns 1, or 0 if there was an error while waiting for events.
+// If `event` is not NULL, the next event is removed from the queue and stored
+// in the SDL_Event structure pointed to by `event`.
+//        stored in that area.
+// As this function implicitly calls SDL_PumpEvents(), you can only call this
+// function in the thread that initialized the video subsystem.
 //
-// `event` If not NULL, the next event is removed from the queue and
-// stored in that area.
+// `event` the SDL_Event structure to be filled in with the next event
+//         from the queue, or NULL
+// returns 1 on success or 0 if there was an error while waiting for events;
+//         call SDL_GetError() for more information.
+//
+// See also: SDL_PollEvent
+// See also: SDL_PumpEvents
+// See also: SDL_WaitEventTimeout
 pub fn wait_event(event &Event) int {
 	return C.SDL_WaitEvent(event)
 }
 
 fn C.SDL_WaitEventTimeout(event &C.SDL_Event, timeout int) int
 
-// wait_event_timeout waits until the specified timeout (in milliseconds) for the next
-// available event.
+// wait_event_timeout waits until the specified timeout (in milliseconds) for the next available
+// event.
 //
-// returns 1, or 0 if there was an error while waiting for events.
+// If `event` is not NULL, the next event is removed from the queue and stored
+// in the SDL_Event structure pointed to by `event`.
 //
-// `event` If not NULL, the next event is removed from the queue and
-// stored in that area.
-// `timeout` The timeout (in milliseconds) to wait for next event.
+// As this function implicitly calls SDL_PumpEvents(), you can only call this
+// function in the thread that initialized the video subsystem.
+//
+// `event` the SDL_Event structure to be filled in with the next event
+//         from the queue, or NULL
+// `timeout` the maximum number of milliseconds to wait for the next
+//           available event
+// returns 1 on success or 0 if there was an error while waiting for events;
+//         call SDL_GetError() for more information. This also returns 0 if
+//         the timeout elapsed without an event arriving.
+//
+// See also: SDL_PollEvent
+// See also: SDL_PumpEvents
+// See also: SDL_WaitEvent
 pub fn wait_event_timeout(event &Event, timeout int) int {
 	return C.SDL_WaitEventTimeout(event, timeout)
 }
@@ -711,8 +888,32 @@ fn C.SDL_PushEvent(event &C.SDL_Event) int
 
 // push_event adds an event to the event queue.
 //
-// returns 1 on success, 0 if the event was filtered, or -1 if the event queue
-// was full or there was some other error.
+// The event queue can actually be used as a two way communication channel.
+// Not only can events be read from the queue, but the user can also push
+// their own events onto it. `event` is a pointer to the event structure you
+// wish to push onto the queue. The event is copied into the queue, and the
+// caller may dispose of the memory pointed to after SDL_PushEvent() returns.
+//
+// NOTE Pushing device input events onto the queue doesn't modify the state
+// of the device within SDL.
+//
+// This function is thread-safe, and can be called from other threads safely.
+//
+// NOTE Events pushed onto the queue with SDL_PushEvent() get passed through
+// the event filter but events added with SDL_PeepEvents() do not.
+//
+// For pushing application-specific events, please use SDL_RegisterEvents() to
+// get an event type that does not conflict with other code that also wants
+// its own custom event types.
+//
+// `event` the SDL_Event to be added to the queue
+// returns 1 on success, 0 if the event was filtered, or a negative error
+//         code on failure; call SDL_GetError() for more information. A
+//         common reason for error is the event queue being full.
+//
+// See also: SDL_PeepEvents
+// See also: SDL_PollEvent
+// See also: SDL_RegisterEvents
 pub fn push_event(event &Event) int {
 	return C.SDL_PushEvent(event)
 }
@@ -722,82 +923,162 @@ fn C.SDL_SetEventFilter(filter EventFilter, userdata voidptr)
 // set_event_filter sets up a filter to process all events before they change
 // internal state and are posted to the internal event queue.
 //
-// The filter is prototyped as:
-/*
-```
-int SDL_EventFilter(void *userdata, SDL_Event * event);
-```
-*/
+// If the filter function returns 1 when called, then the event will be added
+// to the internal queue. If it returns 0, then the event will be dropped from
+// the queue, but the internal state will still be updated. This allows
+// selective filtering of dynamically arriving events.
 //
-// If the filter returns 1, then the event will be added to the internal queue.
-// If it returns 0, then the event will be dropped from the queue, but the
-// internal state will still be updated.  This allows selective filtering of
-// dynamically arriving events.
+// **WARNING**: Be very careful of what you do in the event filter function,
+// as it may run in a different thread!
 //
-// WARNING Be very careful of what you do in the event filter function, as
-// it may run in a different thread!
+// On platforms that support it, if the quit event is generated by an
+// interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the
+// application at the next event poll.
 //
-// There is one caveat when dealing with the ::SDL_QuitEvent event type.  The
+// There is one caveat when dealing with the ::SDL_QuitEvent event type. The
 // event filter is only called when the window manager desires to close the
-// application window.  If the event filter returns 1, then the window will
-// be closed, otherwise the window will remain open if possible.
+// application window. If the event filter returns 1, then the window will be
+// closed, otherwise the window will remain open if possible.
 //
-// If the quit event is generated by an interrupt signal, it will bypass the
-// internal queue and be delivered to the application at the next event poll.
+// Note: Disabled events never make it to the event filter function; see
+// SDL_EventState().
+//
+// Note: If you just want to inspect events without filtering, you should use
+// SDL_AddEventWatch() instead.
+//
+// Note: Events pushed onto the queue with SDL_PushEvent() get passed through
+// the event filter, but events pushed onto the queue with SDL_PeepEvents() do
+// not.
+//
+// `filter` An SDL_EventFilter function to call when an event happens
+// `userdata` a pointer that is passed to `filter`
+//
+// See also: SDL_AddEventWatch
+// See also: SDL_EventState
+// See also: SDL_GetEventFilter
+// See also: SDL_PeepEvents
+// See also: SDL_PushEvent
 pub fn set_event_filter(filter EventFilter, userdata voidptr) {
 	C.SDL_SetEventFilter(filter, userdata)
 }
 
 fn C.SDL_GetEventFilter(filter &EventFilter, userdata voidptr) bool
 
-// get_event_filter returns the current event filter - can be used to "chain" filters.
-// If there is no event filter set, this function returns SDL_FALSE.
+// get_event_filter queries the current event filter.
+//
+// This function can be used to "chain" filters, by saving the existing filter
+// before replacing it with a function that will call that saved filter.
+//
+// `filter` the current callback function will be stored here
+// `userdata` the pointer that is passed to the current event filter will
+//            be stored here
+// returns SDL_TRUE on success or SDL_FALSE if there is no event filter set.
+//
+// See also: SDL_SetEventFilter
 pub fn get_event_filter(filter &EventFilter, userdata voidptr) bool {
 	return C.SDL_GetEventFilter(filter, userdata)
 }
 
 fn C.SDL_AddEventWatch(filter EventFilter, userdata voidptr)
 
-// add_event_watch add a function which is called when an event is added to the queue.
+// add_event_watch adds a callback to be triggered when an event is added to the event queue.
+//
+// `filter` will be called when an event happens, and its return value is
+// ignored.
+//
+// **WARNING**: Be very careful of what you do in the event filter function,
+// as it may run in a different thread!
+//
+// If the quit event is generated by a signal (e.g. SIGINT), it will bypass
+// the internal queue and be delivered to the watch callback immediately, and
+// arrive at the next event poll.
+//
+// NOTE the callback is called for events posted by the user through
+// SDL_PushEvent(), but not for disabled events, nor for events by a filter
+// callback set with SDL_SetEventFilter(), nor for events posted by the user
+// through SDL_PeepEvents().
+//
+// `filter` an SDL_EventFilter function to call when an event happens.
+// `userdata` a pointer that is passed to `filter`
+//
+// See also: SDL_DelEventWatch
+// See also: SDL_SetEventFilter
 pub fn add_event_watch(filter EventFilter, userdata voidptr) {
 	C.SDL_AddEventWatch(filter, userdata)
 }
 
 fn C.SDL_DelEventWatch(filter EventFilter, userdata voidptr)
 
-// del_event_watch removes an event watch function added with SDL_AddEventWatch()
+// del_event_watch removes an event watch callback added with SDL_AddEventWatch().
+//
+// This function takes the same input as SDL_AddEventWatch() to identify and
+// delete the corresponding callback.
+//
+// `filter` the function originally passed to SDL_AddEventWatch()
+// `userdata` the pointer originally passed to SDL_AddEventWatch()
+//
+// See also: SDL_AddEventWatch
 pub fn del_event_watch(filter EventFilter, userdata voidptr) {
 	C.SDL_DelEventWatch(filter, userdata)
 }
 
 fn C.SDL_FilterEvents(filter EventFilter, userdata voidptr)
 
-// filter_events runs the filter function on the current event queue, removing any
+// filter_events runs a specific filter function on the current event queue, removing any
 // events for which the filter returns 0.
+//
+// See SDL_SetEventFilter() for more information. Unlike SDL_SetEventFilter(),
+// this function does not change the filter permanently, it only uses the
+// supplied filter until this function returns.
+//
+// `filter` the SDL_EventFilter function to call when an event happens
+// `userdata` a pointer that is passed to `filter`
+//
+// See also: SDL_GetEventFilter
+// See also: SDL_SetEventFilter
 pub fn filter_events(filter EventFilter, userdata voidptr) {
 	C.SDL_FilterEvents(filter, userdata)
 }
 
 fn C.SDL_EventState(@type u32, state int) byte
 
-// event_state allows you to set the state of processing certain events.
-// - If `state` is set to ::SDL_IGNORE, that event will be automatically
-// dropped from the event queue and will not be filtered.
-// - If `state` is set to ::SDL_ENABLE, that event will be processed
-// normally.
-// - If `state` is set to ::SDL_QUERY, SDL_EventState() will return the
-// current processing state of the specified event.
+// Set the state of processing events by type.
+//
+// `state` may be any of the following:
+//
+// - `SDL_QUERY`: returns the current processing state of the specified event
+// - `SDL_IGNORE` (aka `SDL_DISABLE`): the event will automatically be dropped
+//   from the event queue and will not be filtered
+// - `SDL_ENABLE`: the event will be processed normally
+//
+// `type` the type of event; see SDL_EventType for details
+// `state` how to process the event
+// returns `SDL_DISABLE` or `SDL_ENABLE`, representing the processing state
+//          of the event before this function makes any changes to it.
+//
+// See also: SDL_GetEventState
 pub fn event_state(@type u32, state int) byte {
 	return C.SDL_EventState(@type, state)
 }
 
 fn C.SDL_RegisterEvents(numevents int) u32
 
-// register_events allocates a set of user-defined events, and returns
-// the beginning event number for that set of events.
+// Allocate a set of user-defined events, and return the beginning event
+// number for that set of events.
 //
-// If there aren't enough user-defined events left, this function
-// returns (Uint32)-1
+// Calling this function with `numevents` <= 0 is an error and will return
+// (Uint32)-1.
+//
+// Note, (Uint32)-1 means the maximum unsigned 32-bit integer value (or
+// 0xFFFFFFFF), but is clearer to write.
+//
+// `numevents` the number of events to be allocated
+// returns the beginning event number, or (Uint32)-1 if there are not enough
+//         user-defined events left.
+//
+// NOTE This function is available since SDL 2.0.0.
+//
+// See also: SDL_PushEvent
 pub fn register_events(numevents int) u32 {
 	return C.SDL_RegisterEvents(numevents)
 }

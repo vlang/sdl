@@ -10,10 +10,10 @@ module sdl
 pub const (
 	major_version = C.SDL_MAJOR_VERSION // 2
 	minor_version = C.SDL_MINOR_VERSION // 0
-	patchlevel    = C.SDL_PATCHLEVEL // 14
+	patchlevel    = C.SDL_PATCHLEVEL // 16
 )
 
-// Version is information of the version of SDL in use.
+// Version is information about the version of SDL in use.
 //
 // Represents the library's version as three levels: major revision
 // (increments with massive changes, additions, and enhancements),
@@ -94,7 +94,10 @@ printf("But we linked against SDL version %d.%d.%d.\n", linked.major, linked.min
 //
 // This function may be called safely at any time, even before SDL_Init().
 //
+// `ver` the SDL_version structure that contains the version information
+//
 // See also: SDL_VERSION
+// Seealso: SDL_GetRevision
 pub fn get_version(mut ver Version) {
 	C.SDL_GetVersion(&ver)
 }
@@ -103,20 +106,41 @@ fn C.SDL_GetRevision() &char
 
 // get_revision gets the code revision of SDL that is linked against your program.
 //
-// Returns an arbitrary string (a hash value) uniquely identifying the
+// This value is the revision of the code you are linked with and may be
+// different from the code you are compiling with, which is found in the
+// constant SDL_REVISION.
+//
+// The revision is arbitrary string (a hash value) uniquely identifying the
 // exact revision of the SDL library in use, and is only useful in comparing
 // against other revisions. It is NOT an incrementing number.
+//
+// If SDL wasn't built from a git repository with the appropriate tools, this
+// will return an empty string.
+//
+// Prior to SDL 2.0.16, before development moved to GitHub, this returned a
+// hash for a Mercurial repository.
+//
+// You shouldn't use this function for anything but logging it for debugging
+// purposes. The string is not intended to be reliable in any way.
+//
+// returns an arbitrary string, uniquely identifying the exact revision of
+//          the SDL library in use.
+//
+// See also: SDL_GetVersion
 pub fn get_revision() &char {
 	return C.SDL_GetRevision()
 }
 
 fn C.SDL_GetRevisionNumber() int
 
-// get_revision_number gets the revision number of SDL that is linked against your program.
+// get_revision_number is an obsolete function, do not use.
 //
-// Returns a number uniquely identifying the exact revision of the SDL
-// library in use. It is an incrementing number based on commits to
-// hg.libsdl.org.
+// When SDL was hosted in a Mercurial repository, and was built carefully,
+// this would return the revision number that the build was created from.
+// This number was not reliable for several reasons, but more importantly,
+// SDL is now hosted in a git repository, which does not offer numbers at
+// all, only hashes. This function only ever returns zero now. Don't use it.
+[deprecated]
 pub fn get_revision_number() int {
 	return C.SDL_GetRevisionNumber()
 }

@@ -24,44 +24,134 @@ pub const (
 
 fn C.SDL_RWsize(context &C.SDL_RWops) i64
 
-// rw_size returns the size of the file in this rwops, or -1 if unknown
+// rw_size uses this macro to get the size of the data stream in an SDL_RWops.
+//
+// `context` the SDL_RWops to get the size of the data stream from
+// returns the size of the data stream in the SDL_RWops on success, -1 if
+//          unknown or a negative error code on failure; call SDL_GetError()
+//          for more information.
+//
+// NOTE This function is available since SDL 2.0.0.
 pub fn rw_size(context &RWops) i64 {
 	return C.SDL_RWsize(context)
 }
 
 fn C.SDL_RWseek(context &C.SDL_RWops, offset i64, whence int) i64
 
-// rw_seek seeks to `offset` relative to `whence`, one of stdio's whence values:
-//  RW_SEEK_SET, RW_SEEK_CUR, RW_SEEK_END
+// rw_seek seeks within an SDL_RWops data stream.
 //
-//  returns the final offset in the data stream, or -1 on error.
+// This function seeks to byte `offset`, relative to `whence`.
+//
+// `whence` may be any of the following values:
+//
+// - `RW_SEEK_SET`: seek from the beginning of data
+// - `RW_SEEK_CUR`: seek relative to current read point
+// - `RW_SEEK_END`: seek relative to the end of data
+//
+// If this stream can not seek, it will return -1.
+//
+// SDL_RWseek() is actually a wrapper function that calls the SDL_RWops's
+// `seek` method appropriately, to simplify application development.
+//
+// `context` a pointer to an SDL_RWops structure
+// `offset` an offset in bytes, relative to **whence** location; can be
+//               negative
+// `whence` any of `RW_SEEK_SET`, `RW_SEEK_CUR`, `RW_SEEK_END`
+// returns the final offset in the data stream after the seek or -1 on error.
+//
+// See also: SDL_RWclose
+// See also: SDL_RWFromConstMem
+// See also: SDL_RWFromFile
+// See also: SDL_RWFromFP
+// See also: SDL_RWFromMem
+// See also: SDL_RWread
+// See also: SDL_RWtell
+// See also: SDL_RWwrite
 pub fn rw_seek(context &RWops, offset i64, whence int) i64 {
 	return C.SDL_RWseek(context, offset, whence)
 }
 
 fn C.SDL_RWtell(context &C.SDL_RWops) i64
 
-// rw_tell returns the current offset in the data stream, or -1 on error.
+// rw_tell determines the current read/write offset in an SDL_RWops data stream.
+//
+// SDL_RWtell is actually a wrapper function that calls the SDL_RWops's `seek`
+// method, with an offset of 0 bytes from `RW_SEEK_CUR`, to simplify
+// application development.
+//
+// `context` a SDL_RWops data stream object from which to get the current
+//                offset
+// returns the current offset in the stream, or -1 if the information can not
+//          be determined.
+//
+// See also: SDL_RWclose
+// See also: SDL_RWFromConstMem
+// See also: SDL_RWFromFile
+// See also: SDL_RWFromFP
+// See also: SDL_RWFromMem
+// See also: SDL_RWread
+// See also: SDL_RWseek
+// See also: SDL_RWwrite
 pub fn rw_tell(context &RWops) i64 {
 	return C.SDL_RWtell(context)
 }
 
 fn C.SDL_RWread(context &C.SDL_RWops, ptr voidptr, size usize, maxnum usize) usize
 
-// rw_read reads up to `maxnum` objects each of size `size` from the data
-//  stream to the area pointed at by `ptr`.
+// rw_read reads from a data source.
 //
-//  returns the number of objects read, or 0 at error or end of file.
+// This function reads up to `maxnum` objects each of size `size` from the
+// data source to the area pointed at by `ptr`. This function may read less
+// objects than requested. It will return zero when there has been an error or
+// the data stream is completely read.
+//
+// SDL_RWread() is actually a function wrapper that calls the SDL_RWops's
+// `read` method appropriately, to simplify application development.
+//
+// `context` a pointer to an SDL_RWops structure
+// `ptr` a pointer to a buffer to read data into
+// `size` the size of each object to read, in bytes
+// `maxnum` the maximum number of objects to be read
+// returns the number of objects read, or 0 at error or end of file; call
+//          SDL_GetError() for more information.
+//
+// See also: SDL_RWclose
+// See also: SDL_RWFromConstMem
+// See also: SDL_RWFromFile
+// See also: SDL_RWFromFP
+// See also: SDL_RWFromMem
+// See also: SDL_RWseek
+// See also: SDL_RWwrite
 pub fn rw_read(context &RWops, ptr voidptr, size usize, maxnum usize) usize {
 	return C.SDL_RWread(context, ptr, size, maxnum)
 }
 
 fn C.SDL_RWwrite(context &C.SDL_RWops, ptr voidptr, size usize, num usize) usize
 
-// rw_write writes exactly `num` objects each of size `size` from the area
-//  pointed at by `ptr` to data stream.
+// rw_write writes to an SDL_RWops data stream.
 //
-//  returns the number of objects written, or 0 at error or end of file.
+// This function writes exactly `num` objects each of size `size` from the
+// area pointed at by `ptr` to the stream. If this fails for any reason, it'll
+// return less than `num` to demonstrate how far the write progressed. On
+// success, it returns `num`.
+//
+// SDL_RWwrite is actually a function wrapper that calls the SDL_RWops's
+// `write` method appropriately, to simplify application development.
+//
+// `context` a pointer to an SDL_RWops structure
+// `ptr` a pointer to a buffer containing data to write
+// `size` the size of an object to write, in bytes
+// `num` the number of objects to write
+// returns the number of objects written, which will be less than **num** on
+//          error; call SDL_GetError() for more information.
+//
+// See also: SDL_RWclose
+// See also: SDL_RWFromConstMem
+// See also: SDL_RWFromFile
+// See also: SDL_RWFromFP
+// See also: SDL_RWFromMem
+// See also: SDL_RWread
+// See also: SDL_RWseek
 pub fn rw_write(context &RWops, ptr voidptr, size usize, num usize) usize {
 	return C.SDL_RWwrite(context, ptr, size, num)
 }
@@ -70,7 +160,28 @@ fn C.SDL_RWclose(context &C.SDL_RWops) int
 
 // rw_close closes and free an allocated SDL_RWops structure.
 //
-//  returns 0 if successful or -1 on write error when flushing data.
+// SDL_RWclose() closes and cleans up the SDL_RWops stream. It releases any
+// resources used by the stream and frees the SDL_RWops itself with
+// SDL_FreeRW(). This returns 0 on success, or -1 if the stream failed to
+// flush to its output (e.g. to disk).
+//
+// Note that if this fails to flush the stream to disk, this function reports
+// an error, but the SDL_RWops is still invalid once this function returns.
+//
+// SDL_RWclose() is actually a macro that calls the SDL_RWops's `close` method
+// appropriately, to simplify application development.
+//
+// `context` SDL_RWops structure to close
+// returns 0 on success or a negative error code on failure; call
+//          SDL_GetError() for more information.
+//
+// See also: SDL_RWFromConstMem
+// See also: SDL_RWFromFile
+// See also: SDL_RWFromFP
+// See also: SDL_RWFromMem
+// See also: SDL_RWread
+// See also: SDL_RWseek
+// See also: SDL_RWwrite
 pub fn rw_close(context &RWops) int {
 	return C.SDL_RWclose(context)
 }
@@ -190,35 +301,37 @@ pub fn free_rw(area &RWops) {
 	C.SDL_FreeRW(area)
 }
 
-// Load all the data from an SDL data stream.
+fn C.SDL_LoadFile_RW(src &C.SDL_RWops, datasize &usize, freesrc int) voidptr
+
+// load_file_rw loads all the data from an SDL data stream.
 //
-// The data is allocated with a zero byte at the end (null terminated)
-//
-// If `datasize` is not NULL, it is filled with the size of the data read.
-//
-// If `freesrc` is non-zero, the stream will be closed after being read.
+// The data is allocated with a zero byte at the end (null terminated) for
+// convenience. This extra byte is not included in the value reported via
+// `datasize`.
 //
 // The data should be freed with SDL_free().
 //
+// `src` the SDL_RWops to read all available data from
+// `datasize` if not NULL, will store the number of bytes read
+// `freesrc` if non-zero, calls SDL_RWclose() on `src` before returning
 // returns the data, or NULL if there was an error.
-fn C.SDL_LoadFile_RW(src &C.SDL_RWops, datasize &usize, freesrc int) voidptr
 pub fn load_file_rw(src &RWops, datasize &usize, freesrc int) voidptr {
 	return C.SDL_LoadFile_RW(src, datasize, freesrc)
 }
 
 fn C.SDL_LoadFile(file &char, datasize &usize) voidptr
 
-// load_file loads an entire file.
+// load_file loads all the data from a file path.
 //
-//  The data is allocated with a zero byte at the end (null terminated)
+// The data is allocated with a zero byte at the end (null terminated) for
+// convenience. This extra byte is not included in the value reported via
+// `datasize`.
 //
-//  If `datasize` is not NULL, it is filled with the size of the data read.
+// The data should be freed with SDL_free().
 //
-//  If `freesrc` is non-zero, the stream will be closed after being read.
-//
-//  The data should be freed with SDL_free().
-//
-//  returns the data, or NULL if there was an error.
+// `file` the path to read all available data from
+// `datasize` if not NULL, will store the number of bytes read
+// returns the data, or NULL if there was an error.
 pub fn load_file(file &char, datasize &usize) voidptr {
 	return C.SDL_LoadFile(file, datasize)
 }

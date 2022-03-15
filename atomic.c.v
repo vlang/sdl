@@ -62,9 +62,14 @@ fn C.SDL_AtomicTryLock(lock_ &C.SDL_SpinLock) bool
 
 // atomic_try_lock tries to lock a spin lock by setting it to a non-zero value.
 //
-// `lock_` points to the lock.
+// ***Please note that spinlocks are dangerous if you don't know what you're
+// doing. Please be careful using any sort of spinlock!***
+// `lock_` a pointer to a lock variable
 //
 // returns SDL_TRUE if the lock succeeded, SDL_FALSE if the lock is already held.
+//
+// See also: SDL_AtomicLock
+// See also: SDL_AtomicUnlock
 pub fn atomic_try_lock(lock_ &SpinLock) bool {
 	return unsafe { C.SDL_AtomicTryLock(&C.SDL_SpinLock(lock_)) }
 }
@@ -73,16 +78,32 @@ fn C.SDL_AtomicLock(lock_ &C.SDL_SpinLock)
 
 // atomic_lock locks a spin lock by setting it to a non-zero value.
 //
-// `lock_` points to the lock.
+// ***Please note that spinlocks are dangerous if you don't know what you're
+// doing. Please be careful using any sort of spinlock!***
+//
+// `lock_`  a pointer to a lock variable
+//
+// See also: SDL_AtomicTryLock
+// See also: SDL_AtomicUnlock
 pub fn atomic_lock(lock_ &SpinLock) {
 	unsafe { C.SDL_AtomicLock(&C.SDL_SpinLock(lock_)) }
 }
 
 fn C.SDL_AtomicUnlock(lock_ &C.SDL_SpinLock)
 
-// atomic_unlock unlocks a spin lock by setting it to 0. Always returns immediately
+// atomic_unlock unlocks a spin lock by setting it to 0.
 //
-// `lock_` Points to the lock.
+// Always returns immediately.
+//
+// ***Please note that spinlocks are dangerous if you don't know what you're
+// doing. Please be careful using any sort of spinlock!***
+//
+// `lock_` a pointer to a lock variable
+//
+// NOTE This function is available since SDL 2.0.0.
+//
+// See also: SDL_AtomicLock
+// See also: SDL_AtomicTryLock
 pub fn atomic_unlock(lock_ &SpinLock) {
 	unsafe { C.SDL_AtomicUnlock(&C.SDL_SpinLock(lock_)) }
 }
@@ -90,17 +111,17 @@ pub fn atomic_unlock(lock_ &SpinLock) {
 // Memory barriers are designed to prevent reads and writes from being
 // reordered by the compiler and being seen out of order on multi-core CPUs.
 //
-// A typical pattern would be for thread A to write some data and a flag,
-// and for thread B to read the flag and get the data. In this case you
-// would insert a release barrier between writing the data and the flag,
+// A typical pattern would be for thread A to write some data and a flag, and
+// for thread B to read the flag and get the data. In this case you would
+// insert a release barrier between writing the data and the flag,
 // guaranteeing that the data write completes no later than the flag is
-// written, and you would insert an acquire barrier between reading the
-// flag and reading the data, to ensure that all the reads associated
-// with the flag have completed.
+// written, and you would insert an acquire barrier between reading the flag
+// and reading the data, to ensure that all the reads associated with the flag
+// have completed.
 //
-// In this pattern you should always see a release barrier paired with
-// an acquire barrier and you should gate the data reads/writes with a
-// single flag variable.
+// In this pattern you should always see a release barrier paired with an
+// acquire barrier and you should gate the data reads/writes with a single
+// flag variable.
 //
 // For more information on these semantics, take a look at the blog post:
 // http://preshing.com/20120913/acquire-and-release-semantics
@@ -128,9 +149,17 @@ fn C.SDL_AtomicCAS(a &C.SDL_atomic_t, oldval int, newval int) bool
 
 // atomic_cas sets an atomic variable to a new value if it is currently an old value.
 //
+// NOTE If you don't know what this function is for, you shouldn't use it!
+//
+// `a` a pointer to an SDL_atomic_t variable to be modified
+// `oldval` the old value
+// `newval` the new value
 // returns SDL_TRUE if the atomic variable was set, SDL_FALSE otherwise.
 //
-// NOTE If you don't know what this function is for, you shouldn't use it!
+// NOTE This function is available since SDL 2.0.0.
+// See also: SDL_AtomicCASPtr
+// See also: SDL_AtomicGet
+// See also: SDL_AtomicSet
 pub fn atomic_cas(a &C.SDL_atomic_t, oldval int, newval int) bool {
 	return unsafe { C.SDL_AtomicCAS(a, oldval, newval) }
 }
@@ -139,14 +168,31 @@ fn C.SDL_AtomicSet(a &C.SDL_atomic_t, v int) int
 
 // atomic_set sets an atomic variable to a value.
 //
-// returns The previous value of the atomic variable.
+// This function also acts as a full memory barrier.
+//
+// NOTE If you don't know what this function is for, you shouldn't use
+// it!
+//
+// `a` a pointer to an SDL_atomic_t variable to be modified
+// `v` the desired value
+// returns the previous value of the atomic variable.
+//
+// See also: SDL_AtomicGet
 pub fn atomic_set(a &AtomicT, v int) int {
 	return unsafe { C.SDL_AtomicSet(&C.SDL_atomic_t(a), v) }
 }
 
 fn C.SDL_AtomicGet(a &C.SDL_atomic_t) int
 
-// atomic_get gets the value of an atomic variable
+// atomic_get gets the value of an atomic variable.
+//
+// NOTE If you don't know what this function is for, you shouldn't use
+// it!
+//
+// `a`  a pointer to an SDL_atomic_t variable
+// returns the current value of an atomic variable.
+//
+// See also: SDL_AtomicSet
 pub fn atomic_get(a &AtomicT) int {
 	return unsafe { C.SDL_AtomicGet(&C.SDL_atomic_t(a)) }
 }
@@ -155,9 +201,17 @@ fn C.SDL_AtomicAdd(a &C.SDL_atomic_t, v int) int
 
 // atomic_add adds to an atomic variable.
 //
+// This function also acts as a full memory barrier.
+//
+// // NOTE If you don't know what this function is for, you shouldn't use
+// it!
+//
+// `a` a pointer to an SDL_atomic_t variable to be modified
+// `v` the desired value to add
 // returns The previous value of the atomic variable.
 //
-// NOTE This same style can be used for any number operation
+// See also: SDL_AtomicDecRef
+// See also: SDL_AtomicIncRef
 pub fn atomic_add(a &AtomicT, v int) int {
 	return unsafe { C.SDL_AtomicAdd(&C.SDL_atomic_t(a), v) }
 }
@@ -185,9 +239,19 @@ fn C.SDL_AtomicCASPtr(a voidptr, oldval voidptr, newval voidptr) bool
 
 // atomic_cas_ptr sets a pointer to a new value if it is currently an old value.
 //
+// NOTE If you don't know what this function is for, you shouldn't use
+// it!
+//
+// `a` a pointer to a pointer
+// `oldval` the old pointer value
+// `newval` the new pointer value
 // returns SDL_TRUE if the pointer was set, SDL_FALSE otherwise.
 //
-// NOTE If you don't know what this function is for, you shouldn't use it!
+// NOTE This function is available since SDL 2.0.0.
+//
+// See also: SDL_AtomicCAS
+// See also: SDL_AtomicGetPtr
+// See also: SDL_AtomicSetPtr
 //
 // `a`'s C type is `void **a`
 pub fn atomic_cas_ptr(a voidptr, oldval voidptr, newval voidptr) bool {
@@ -198,7 +262,15 @@ fn C.SDL_AtomicSetPtr(a voidptr, v voidptr) voidptr
 
 // atomic_set_ptr set a pointer to a value atomically.
 //
+// NOTE If you don't know what this function is for, you shouldn't use
+// it!
+//
+// `a` a pointer to a pointer
+// `v` the desired pointer value
 // returns the previous value of the pointer.
+//
+// See also: SDL_AtomicCASPtr
+// See also: SDL_AtomicGetPtr
 //
 // `a`'s C type is `void **a`
 pub fn atomic_set_ptr(a voidptr, v voidptr) voidptr {

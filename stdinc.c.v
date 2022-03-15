@@ -145,9 +145,39 @@ pub fn abs(x int) int {
 	return C.SDL_abs(x)
 }
 
+fn C.SDL_isalpha(x int) int
+pub fn isalpha(x int) int {
+	return C.SDL_isalpha(x)
+}
+
+fn C.SDL_isalnum(x int) int
+pub fn isalnum(x int) int {
+	return C.SDL_isalnum(x)
+}
+
+fn C.SDL_isblank(x int) int
+pub fn isblank(x int) int {
+	return C.SDL_isblank(x)
+}
+
+fn C.SDL_iscntrl(x int) int
+pub fn iscntrl(x int) int {
+	return C.SDL_iscntrl(x)
+}
+
 fn C.SDL_isdigit(x int) int
 pub fn isdigit(x int) int {
 	return C.SDL_isdigit(x)
+}
+
+fn C.SDL_isxdigit(x int) int
+pub fn isxdigit(x int) int {
+	return C.SDL_isxdigit(x)
+}
+
+fn C.SDL_ispunct(x int) int
+pub fn ispunct(x int) int {
+	return C.SDL_ispunct(x)
 }
 
 fn C.SDL_isspace(x int) int
@@ -163,6 +193,16 @@ pub fn isupper(x int) int {
 fn C.SDL_islower(x int) int
 pub fn islower(x int) int {
 	return C.SDL_islower(x)
+}
+
+fn C.SDL_isprint(x int) int
+pub fn isprint(x int) int {
+	return C.SDL_isprint(x)
+}
+
+fn C.SDL_isgraph(x int) int
+pub fn isgraph(x int) int {
+	return C.SDL_isgraph(x)
 }
 
 fn C.SDL_toupper(x int) int
@@ -608,6 +648,26 @@ pub fn powf(x f32, y f32) f32 {
 	return C.SDL_powf(x, y)
 }
 
+fn C.SDL_round(x f64) f64
+pub fn round(x f64) f64 {
+	return C.SDL_round(x)
+}
+
+fn C.SDL_roundf(x f32) f32
+pub fn roundf(x f32) f32 {
+	return C.SDL_roundf(x)
+}
+
+fn C.SDL_lround(x f64) int
+pub fn lround(x f64) int {
+	return C.SDL_lround(x)
+}
+
+fn C.SDL_lroundf(x f32) int
+pub fn lroundf(x f32) int {
+	return C.SDL_lroundf(x)
+}
+
 fn C.SDL_scalbn(x f64, n int) f64
 pub fn scalbn(x f64, n int) f64 {
 	return C.SDL_scalbn(x, n)
@@ -681,7 +741,7 @@ pub fn iconv(cd C.SDL_iconv_t, const_inbuf &&char, inbytesleft &usize, outbuf &&
 
 fn C.SDL_iconv_string(const_tocode &char, const_fromcode &char, const_inbuf &char, inbytesleft usize) &char
 
-// This function converts a string between encodings in one pass, returning a
+// iconv_string converts a string between encodings in one pass, returning a
 // string that must be freed with SDL_free() or NULL on error.
 pub fn iconv_string(const_tocode &char, const_fromcode &char, const_inbuf &char, inbytesleft usize) &char {
 	return C.SDL_iconv_string(const_tocode, const_fromcode, const_inbuf, inbytesleft)

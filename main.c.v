@@ -11,12 +11,17 @@ module sdl
 // `typedef int (*SDL_main_func)(int argc, char *argv[]);`
 pub type MainFunc = fn (argc int, argv &&char) int
 
-// set_main_ready is called by the real SDL main function to let the rest of the
-// library know that initialization was done properly.
-//
-// Calling this yourself without knowing what you're doing can cause
-// crashes and hard to diagnose problems with your application.
 fn C.SDL_SetMainReady()
+
+// set_main_ready circumvents failure of SDL_Init() when not using SDL_main() as an entry
+// point.
+//
+// This function is defined in SDL_main.h, along with the preprocessor rule to
+// redefine main() as SDL_main(). Thus to ensure that your main() function
+// will not be changed it is necessary to define SDL_MAIN_HANDLED before
+// including SDL.h.
+//
+// See also: SDL_Init
 pub fn set_main_ready() {
 	C.SDL_SetMainReady()
 }
@@ -24,12 +29,14 @@ pub fn set_main_ready() {
 // TODO
 //$if winrt ? {
 // fn C.SDL_WinRTRunApp(SDL_main_func MainFunc, reserved voidptr) int
-// win_rt_run_app Initializes and launches an SDL/WinRT application.
+// win_rt_run_app initializes and launch an SDL/WinRT application.
 //
-// `mainFunction` The SDL app's C-style main().
-// `reserved` Reserved for future use; should be NULL
-// returns 0 on success, -1 on failure.  On failure, use SDL_GetError to retrieve more
-//     information on the failure.
+// `mainFunction` the SDL app's C-style main(), an SDL_main_func
+// `reserved` reserved for future use; should be NULL
+// returns 0 on success or -1 on failure; call SDL_GetError() to retrieve
+//          more information on the failure.
+//
+// NOTE This function is available since SDL 2.0.3.
 // pub fn win_rt_run_app(main_func MainFunc, reserved voidptr) int{
 //	return C.SDL_WinRTRunApp(main_func, reserved)
 //}

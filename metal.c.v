@@ -17,16 +17,14 @@ pub type MetalView = voidptr // C.SDL_MetalView
 // Metal support functions
 fn C.SDL_Metal_CreateView(window &C.SDL_Window) C.SDL_MetalView
 
-// metal_create_view creates a CAMetalLayer-backed NSView/UIView and attach it to the
-// specified window.
+// metal_create_view creates a CAMetalLayer-backed NSView/UIView and attach it to the specified
+// window.
 //
-// On macOS, this does *not* associate a MTLDevice with the CAMetalLayer on its
-// own. It is up to user code to do that.
+// On macOS, this does *not* associate a MTLDevice with the CAMetalLayer on
+// its own. It is up to user code to do that.
 //
-// The returned handle can be casted directly to a NSView or UIView.
-// To access the backing CAMetalLayer, call SDL_Metal_GetLayer().
-//
-// NOTE a window must be created with the SDL_WINDOW_METAL flag.
+// The returned handle can be casted directly to a NSView or UIView. To access
+// the backing CAMetalLayer, call SDL_Metal_GetLayer().
 //
 // See also: SDL_Metal_DestroyView
 // See also: SDL_Metal_GetLayer
@@ -38,10 +36,10 @@ fn C.SDL_Metal_DestroyView(view C.SDL_MetalView)
 
 // metal_destroy_view destroys an existing SDL_MetalView object.
 //
-//  This should be called before SDL_DestroyWindow, if SDL_Metal_CreateView was
-//  called after SDL_CreateWindow.
+// This should be called before SDL_DestroyWindow, if SDL_Metal_CreateView was
+// called after SDL_CreateWindow.
 //
-//  See also: SDL_Metal_CreateView
+// See also: SDL_Metal_CreateView
 pub fn metal_destroy_view(view MetalView) {
 	C.SDL_Metal_DestroyView(voidptr(view))
 }
@@ -57,25 +55,14 @@ pub fn metal_get_layer(view MetalView) voidptr {
 
 fn C.SDL_Metal_GetDrawableSize(window &C.SDL_Window, w &int, h &int)
 
-// metal_get_drawable_size gets the size of a window's underlying drawable in pixels (for use
-// with setting viewport, scissor & etc).
+// metal_get_drawable_size gets the size of a window's underlying drawable in pixels (for use with
+// setting viewport, scissor & etc).
 //
-// `window`   SDL_Window from which the drawable size should be queried
-// `w`        Pointer to variable for storing the width in pixels,
-//            may be NULL
-// `h`        Pointer to variable for storing the height in pixels,
-//            may be NULL
+// `window` SDL_Window from which the drawable size should be queried
+// `w` Pointer to variable for storing the width in pixels, may be NULL
 //
-// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI
-// drawable, i.e. the window was created with SDL_WINDOW_ALLOW_HIGHDPI on a
-// platform with high-DPI support (Apple calls this "Retina"), and not disabled
-// by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.
-//
-// NOTE On macOS high-DPI support must be enabled for an application by
-//      setting NSHighResolutionCapable to true in its Info.plist.
-//
-// See also: SDL_GetWindowSize()
-// See also: SDL_CreateWindow()
+// See also: SDL_GetWindowSize
+// See also: SDL_CreateWindow
 pub fn metal_get_drawable_size(window &Window, w &int, h &int) {
 	C.SDL_Metal_GetDrawableSize(window, w, h)
 }

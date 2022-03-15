@@ -13,38 +13,64 @@ extern DECLSPEC int SDLCALL SDL_SetError(SDL_PRINTF_FORMAT_STRING const char *fm
 */
 fn C.SDL_GetError() &char
 
-// get_error gets the last error message that was set
+// get_error retrieves a message about the last error that occurred on the current
+// thread.
 //
-// SDL API functions may set error messages and then succeed, so you should
-// only use the error value if a function fails.
+// It is possible for multiple errors to occur before calling SDL_GetError().
+// Only the last error is returned.
 //
-// This returns a pointer to a static buffer for convenience and should not
-// be called by multiple threads simultaneously.
+// The message is only applicable when an SDL function has signaled an error.
+// You must check the return values of SDL function calls to determine when to
+// appropriately call SDL_GetError(). You should _not_ use the results of
+// SDL_GetError() to decide if an error has occurred! Sometimes SDL will set
+// an error string even when reporting success.
 //
-// returns a pointer to the last error message that was set
+// SDL will _not_ clear the error string for successful API calls. You _must_
+// check return values for failure cases before you can assume the error
+// string applies.
+//
+// Error strings are set per-thread, so an error set in a different thread
+// will not interfere with the current thread's operation.
+//
+// The returned string is internally allocated and must not be freed by the
+// application.
+//
+// returns a message with information about the specific error that occurred,
+//         or an empty string if there hasn't been an error message set since
+//         the last call to SDL_ClearError(). The message is only applicable
+//         when an SDL function has signaled an error. You must check the
+//         return values of SDL function calls to determine when to
+//         appropriately call SDL_GetError().
+//
+// See also: SDL_ClearError
+// See also: SDL_SetError
 pub fn get_error() &char {
 	return C.SDL_GetError()
 }
 
 fn C.SDL_GetErrorMsg(errstr &char, maxlen int) &char
 
-// get_error_msg gets the last error message that was set for the current thread
+// get_error_msg gets the last error message that was set for the current thread.
 //
-// SDL API functions may set error messages and then succeed, so you should
-// only use the error value if a function fails.
+// This allows the caller to copy the error string into a provided buffer, but
+// otherwise operates exactly the same as SDL_GetError().
 //
-// `errstr` A buffer to fill with the last error message that was set
-//          for the current thread
+// `errstr` A buffer to fill with the last error message that was set for
+//          the current thread
 // `maxlen` The size of the buffer pointed to by the errstr parameter
+// returns the pointer passed in as the `errstr` parameter.
 //
-// returns `errstr`
+// See also: SDL_GetError
 pub fn get_error_msg(errstr &char, maxlen int) &char {
 	return C.SDL_GetErrorMsg(errstr, maxlen)
 }
 
 fn C.SDL_ClearError()
 
-// clear_error clears the error message for the current thread
+// clear_error clears any previous error message for this thread.
+//
+// See also: SDL_GetError
+// See also: SDL_SetError
 pub fn clear_error() {
 	C.SDL_ClearError()
 }

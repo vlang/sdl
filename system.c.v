@@ -38,7 +38,11 @@ pub fn win_r_t_get_device_family() C.SDL_WinRT_DeviceFamily{
 
 fn C.SDL_IsTablet() bool
 
-// is_tablet returns true if the current device is a tablet.
+// is_tablet queries if the current device is a tablet.
+//
+// If SDL can't determine this, it will return SDL_FALSE.
+//
+// returns SDL_TRUE if the device is a tablet, SDL_FALSE otherwise.
 pub fn is_tablet() bool {
 	return C.SDL_IsTablet()
 }

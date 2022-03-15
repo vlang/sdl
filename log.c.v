@@ -65,21 +65,36 @@ pub enum LogPriority {
 
 fn C.SDL_LogSetAllPriority(priority C.SDL_LogPriority)
 
-// log_set_all_priority sets the priority of all log categories
+// log_set_all_priority sets the priority of all log categories.
+//
+// `priority` the SDL_LogPriority to assign
+//
+// See also: SDL_LogSetPriority
 pub fn log_set_all_priority(priority LogPriority) {
 	C.SDL_LogSetAllPriority(C.SDL_LogPriority(int(priority)))
 }
 
 fn C.SDL_LogSetPriority(category int, priority C.SDL_LogPriority)
 
-// log_set_priority sets the priority of a particular log category
+// log_set_priority sets the priority of a particular log category.
+//
+// `category` the category to assign a priority to
+// `priority` the SDL_LogPriority to assign
+//
+// See also: SDL_LogGetPriority
+// See also: SDL_LogSetAllPriority
 pub fn log_set_priority(category int, priority LogPriority) {
 	C.SDL_LogSetPriority(category, C.SDL_LogPriority(int(priority)))
 }
 
 fn C.SDL_LogGetPriority(category int) C.SDL_LogPriority
 
-// log_get_priority gets the priority of a particular log category
+// log_get_priority gets the priority of a particular log category.
+//
+// `category` the category to query
+// returns the SDL_LogPriority for the requested category
+//
+// See also: SDL_LogSetPriority
 pub fn log_get_priority(category int) LogPriority {
 	return LogPriority(int(C.SDL_LogGetPriority(category)))
 }
@@ -88,7 +103,10 @@ fn C.SDL_LogResetPriorities()
 
 // log_reset_priorities resets all priorities to default.
 //
-// NOTE This is called in SDL_Quit().
+// This is called by SDL_Quit().
+//
+// See also: SDL_LogSetAllPriority
+// See also: SDL_LogSetPriority
 pub fn log_reset_priorities() {
 	C.SDL_LogResetPriorities()
 }
@@ -106,13 +124,36 @@ pub fn log_reset_priorities() {
 fn C.SDL_LogMessageV(category int, priority C.SDL_LogPriority, const_fmt &char, ap C.va_list)
 
 // log_message_v logs a message with the specified category and priority.
+//
+// `category` the category of the message
+// `priority` the priority of the message
+// `fmt` a printf() style message format string
+// `ap` a variable argument list
+//
+// NOTE This function is available since SDL 2.0.0.
+//
+// See also: SDL_Log
+// See also: SDL_LogCritical
+// See also: SDL_LogDebug
+// See also: SDL_LogError
+// See also: SDL_LogInfo
+// See also: SDL_LogMessage
+// See also: SDL_LogVerbose
+// See also: SDL_LogWarn
 pub fn log_message_v(category int, priority LogPriority, const_fmt &char, ap C.va_list) {
 	C.SDL_LogMessageV(category, C.SDL_LogPriority(priority), const_fmt, ap)
 }
 
 fn C.SDL_LogGetOutputFunction(callback &LogOutputFunction, userdata voidptr)
 
-// log_get_output_function get the current log output function.
+// log_get_output_function gets the current log output function.
+//
+// `callback` an SDL_LogOutputFunction filled in with the current log
+//                 callback
+// `userdata` a pointer filled in with the pointer that is passed to
+//                 `callback`
+//
+// See also: SDL_LogSetOutputFunction
 // NOTE `userdata` is `**`
 pub fn log_get_output_function(callback &LogOutputFunction, userdata voidptr) {
 	C.SDL_LogGetOutputFunction(callback, userdata)
@@ -120,8 +161,12 @@ pub fn log_get_output_function(callback &LogOutputFunction, userdata voidptr) {
 
 fn C.SDL_LogSetOutputFunction(callback LogOutputFunction, userdata voidptr)
 
-// log_set_output_function allows you to replace the default log output
-// function with one of your own.
+// log_set_output_function replaces the default log output function with one of your own.
+//
+// `callback` an SDL_LogOutputFunction to call instead of the default
+// `userdata` a pointer that is passed to `callback`
+//
+// See also: SDL_LogGetOutputFunction
 pub fn log_set_output_function(callback LogOutputFunction, userdata voidptr) {
 	C.SDL_LogSetOutputFunction(callback, userdata)
 }

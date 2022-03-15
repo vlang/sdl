@@ -21,52 +21,45 @@ struct C.SDL_vulkanSurface {
 
 fn C.SDL_Vulkan_LoadLibrary(path &char) int
 
-// vulkan_load_library dynamically load a Vulkan loader library.
-//
-// `path` [in] The platform dependent Vulkan loader library name, or
-// `NULL`.
-//
-// returns `0` on success, or `-1` if the library couldn't be loaded.
-//
-// If `path` is NULL SDL will use the value of the environment variable
-// `SDL_VULKAN_LIBRARY`, if set, otherwise it loads the default Vulkan
-// loader library.
+// vulkan_load_library dynamically loads the Vulkan loader library.
 //
 // This should be called after initializing the video driver, but before
 // creating any Vulkan windows. If no Vulkan loader library is loaded, the
 // default library will be loaded upon creation of the first Vulkan window.
 //
-// NOTE It is fairly common for Vulkan applications to link with `libvulkan`
-//   instead of explicitly loading it at run time. This will work with
-//   SDL provided the application links to a dynamic library and both it
-//   and SDL use the same search path.
+// It is fairly common for Vulkan applications to link with libvulkan instead
+// of explicitly loading it at run time. This will work with SDL provided the
+// application links to a dynamic library and both it and SDL use the same
+// search path.
 //
-// NOTE If you specify a non-NULL `path`, an application should retrieve all
-//   of the Vulkan functions it uses from the dynamic library using
-//   `SDL_Vulkan_GetVkGetInstanceProcAddr`() unless you can guarantee
-//   `path` points to the same vulkan loader library the application
-//   linked to.
+// If you specify a non-NULL `path`, an application should retrieve all of the
+// Vulkan functions it uses from the dynamic library using
+// SDL_Vulkan_GetVkGetInstanceProcAddr unless you can guarantee `path` points
+// to the same vulkan loader library the application linked to.
 //
-// NOTE On Apple devices, if `path` is NULL, SDL will attempt to find
-//   the vkGetInstanceProcAddr address within all the mach-o images of
-//   the current process. This is because it is fairly common for Vulkan
-//   applications to link with libvulkan (and historically MoltenVK was
-//   provided as a static library). If it is not found then, on macOS, SDL
-//   will attempt to load `vulkan.framework/vulkan`, `libvulkan.1.dylib`,
-//   followed by `libvulkan.dylib`, in that order.
-//   On iOS SDL will attempt to load `libvulkan.dylib` only. Applications
-//   using a dynamic framework or .dylib must ensure it is included in its
-//   application bundle.
+// On Apple devices, if `path` is NULL, SDL will attempt to find the
+// `vkGetInstanceProcAddr` address within all the Mach-O images of the current
+// process. This is because it is fairly common for Vulkan applications to
+// link with libvulkan (and historically MoltenVK was provided as a static
+// library). If it is not found, on macOS, SDL will attempt to load
+// `vulkan.framework/vulkan`, `libvulkan.1.dylib`,
+// `MoltenVK.framework/MoltenVK`, and `libMoltenVK.dylib`, in that order. On
+// iOS, SDL will attempt to load `libMoltenVK.dylib`. Applications using a
+// dynamic framework or .dylib must ensure it is included in its application
+// bundle.
 //
-// NOTE On non-Apple devices, application linking with a static libvulkan is
-//   not supported. Either do not link to the Vulkan loader or link to a
-//   dynamic library version.
+// On non-Apple devices, application linking with a static libvulkan is not
+// supported. Either do not link to the Vulkan loader or link to a dynamic
+// library version.
 //
-// NOTE This function will fail if there are no working Vulkan drivers
-//   installed.
+// `path` The platform dependent Vulkan loader library name or NULL
+// returns 0 on success or -1 if the library couldn't be loaded; call
+//          SDL_GetError() for more information.
 //
-// See also: SDL_Vulkan_GetVkGetInstanceProcAddr()
-// See also: SDL_Vulkan_UnloadLibrary()
+// NOTE This function is available in SDL 2.0.8
+//
+// See also: SDL_Vulkan_GetVkInstanceProcAddr
+// See also: SDL_Vulkan_UnloadLibrary
 pub fn vulkan_load_library(path &char) int {
 	return C.SDL_Vulkan_LoadLibrary(path)
 }
@@ -75,129 +68,73 @@ fn C.SDL_Vulkan_GetVkGetInstanceProcAddr() voidptr
 
 // vulkan_get_vk_get_instance_proc_addr gets the address of the `vkGetInstanceProcAddr` function.
 //
-// NOTE This should be called after either calling SDL_Vulkan_LoadLibrary
-// or creating an SDL_Window with the SDL_WINDOW_VULKAN flag.
+// This should be called after either calling SDL_Vulkan_LoadLibrary() or
+// creating an SDL_Window with the `SDL_WINDOW_VULKAN` flag.
+//
+// returns the function pointer for `vkGetInstanceProcAddr` or NULL on error.
 pub fn vulkan_get_vk_get_instance_proc_addr() voidptr {
 	return C.SDL_Vulkan_GetVkGetInstanceProcAddr()
 }
 
 fn C.SDL_Vulkan_UnloadLibrary()
 
-// vulkan_unload_library unload the Vulkan loader library previously loaded by
-// `SDL_Vulkan_LoadLibrary`().
+// vulkan_unload_library unloads the Vulkan library previously loaded by SDL_Vulkan_LoadLibrary()
 //
-// See also: SDL_Vulkan_LoadLibrary()
+// NOTE This function is available in SDL 2.0.8
+//
+// See also: SDL_Vulkan_LoadLibrary
 pub fn vulkan_unload_library() {
 	C.SDL_Vulkan_UnloadLibrary()
 }
 
 fn C.SDL_Vulkan_GetInstanceExtensions(window &C.SDL_Window, p_count &u32, p_names &&char) bool
 
-// vulkan_get_instance_extensions gets the names of the Vulkan instance extensions needed to create
-// a surface with `SDL_Vulkan_CreateSurface()`.
+// vulkan_get_instance_extensions gets the names of the Vulkan instance extensions needed to create a surface
+// with SDL_Vulkan_CreateSurface.
 //
-// `window` [in] `NULL` or Window for which the required Vulkan instance
-// extensions should be retrieved
-// `pCount` [in,out] pointer to an `unsigned` related to the number of
-// required Vulkan instance extensions
-// `pNames` [out] `NULL` or a pointer to an array to be filled with the
-// required Vulkan instance extensions
+// If `pNames` is NULL, then the number of required Vulkan instance extensions
+// is returned in `pCount`. Otherwise, `pCount` must point to a variable set
+// to the number of elements in the `pNames` array, and on return the variable
+// is overwritten with the number of names actually written to `pNames`. If
+// `pCount` is less than the number of required extensions, at most `pCount`
+// structures will be written. If `pCount` is smaller than the number of
+// required extensions, SDL_FALSE will be returned instead of SDL_TRUE, to
+// indicate that not all the required extensions were returned.
 //
-// returns `SDL_TRUE` on success, `SDL_FALSE` on error.
+// The `window` parameter is currently needed to be valid as of SDL 2.0.8,
+// however, this parameter will likely be removed in future releases
 //
-// If `pNames` is `NULL`, then the number of required Vulkan instance
-// extensions is returned in pCount. Otherwise, `pCount` must point to a
-// variable set to the number of elements in the `pNames` array, and on
-// return the variable is overwritten with the number of names actually
-// written to `pNames`. If `pCount` is less than the number of required
-// extensions, at most `pCount` structures will be written. If `pCount`
-// is smaller than the number of required extensions, `SDL_FALSE` will be
-// returned instead of `SDL_TRUE`, to indicate that not all the required
-// extensions were returned.
+// `window` A window for which the required Vulkan instance extensions
+//               should be retrieved (will be deprecated in a future release)
+// `pCount` A pointer to an unsigned int corresponding to the number of
+//               extensions to be returned
+// `pNames` NULL or a pointer to an array to be filled with required
+//               Vulkan instance extensions
+// returns SDL_TRUE on success, SDL_FALSE on error.
 //
-// NOTE If `window` is not NULL, it will be checked against its creation
-// flags to ensure that the Vulkan flag is present. This parameter
-// will be removed in a future major release.
+// NOTE This function is available in SDL 2.0.8
 //
-// NOTE The returned list of extensions will contain `VK_KHR_surface`
-// and zero or more platform specific extensions
-//
-// NOTE The extension names queried here must be enabled when calling
-// VkCreateInstance, otherwise surface creation will fail.
-//
-// NOTE `window` should have been created with the `SDL_WINDOW_VULKAN` flag.
-// or be `NULL`
-/*
-```
- unsigned int count;
- // get count of required extensions
- if(!SDL_Vulkan_GetInstanceExtensions(NULL, &count, NULL))
-   handle_error();
-
- static const char *const additionalExtensions[] =
- {
-   VK_EXT_DEBUG_REPORT_EXTENSION_NAME, // example additional extension
- };
- size_t additionalExtensionsCount = sizeof(additionalExtensions) / sizeof(additionalExtensions[0]);
- size_t extensionCount = count + additionalExtensionsCount;
- const char **names = malloc(sizeof(const char *) * extensionCount);
- if(!names)
-   handle_error();
-
- // get names of required extensions
- if(!SDL_Vulkan_GetInstanceExtensions(NULL, &count, names))
-   handle_error();
-
- // copy additional extensions after required extensions
- for(size_t i = 0; i < additionalExtensionsCount; i++)
-   names[i + count] = additionalExtensions[i];
-
- VkInstanceCreateInfo instanceCreateInfo = {};
- instanceCreateInfo.enabledExtensionCount = extensionCount;
- instanceCreateInfo.ppEnabledExtensionNames = names;
- // fill in rest of instanceCreateInfo
-
- VkInstance instance;
- // create the Vulkan instance
- VkResult result = vkCreateInstance(&instanceCreateInfo, NULL, &instance);
- free(names);
-```
-*/
-//
-// See also: SDL_Vulkan_CreateSurface()
+// See also: SDL_Vulkan_CreateSurface
 pub fn vulkan_get_instance_extensions(window &Window, p_count &u32, p_names &&char) bool {
 	return C.SDL_Vulkan_GetInstanceExtensions(window, p_count, p_names)
 }
 
 // vulkan_create_surface creates a Vulkan rendering surface for a window.
 //
-// `window` [in]   SDL_Window to which to attach the rendering surface.
-// `instance` [in] handle to the Vulkan instance to use.
-// `surface` [out]  pointer to a VkSurfaceKHR handle to receive the
-// handle of the newly created surface.
+// The `window` must have been created with the `SDL_WINDOW_VULKAN` flag and
+// `instance` must have been created with extensions returned by
+// SDL_Vulkan_GetInstanceExtensions() enabled.
 //
-// returns `SDL_TRUE` on success, `SDL_FALSE` on error.
+// `window` The window to which to attach the Vulkan surface
+// `instance` The Vulkan instance handle
+// `surface` A pointer to a VkSurfaceKHR handle to output the newly
+//                created surface
+// returns SDL_TRUE on success, SDL_FALSE on error.
 //
-/*
-```
-VkInstance instance;
-SDL_Window *window;
-
-// create instance and window
-
-// create the Vulkan surface
-VkSurfaceKHR surface;
-if(!SDL_Vulkan_CreateSurface(window, instance, &surface))
-    handle_error();
-```
-*/
+// NOTE This function is available in SDL 2.0.8
 //
-// NOTE `window` should have been created with the `SDL_WINDOW_VULKAN` flag.
-//
-// NOTE `instance` should have been created with the extensions returned
-// by `SDL_Vulkan_CreateSurface`() enabled.
-//
-// See also: SDL_Vulkan_GetInstanceExtensions()
+// See also: SDL_Vulkan_GetInstanceExtensions
+// See also: SDL_Vulkan_GetDrawableSize
 /*
 TODO
 fn C.SDL_Vulkan_CreateSurface(window &C.SDL_Window, instance C.VkInstance, surface &C.VkSurfaceKHR) bool
@@ -208,23 +145,22 @@ pub fn vulkan_create_surface(window &Window, instance C.VkInstance, surface &C.V
 
 fn C.SDL_Vulkan_GetDrawableSize(window &C.SDL_Window, w &int, h &int)
 
-// vulkan_get_drawable_size gets the size of a window's underlying drawable in pixels (for use
-// with setting viewport, scissor & etc).
-//
-// `window`   SDL_Window from which the drawable size should be queried
-// `w`        Pointer to variable for storing the width in pixels, may be NULL
-// `h`        Pointer to variable for storing the height in pixels, may be NULL
+// vulkan_get_drawable_size gets the size of the window's underlying drawable dimensions in pixels.
 //
 // This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI
-// drawable, i.e. the window was created with SDL_WINDOW_ALLOW_HIGHDPI on a
-// platform with high-DPI support (Apple calls this "Retina"), and not disabled
-// by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.
+// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a
+// platform with high-DPI support (Apple calls this "Retina"), and not
+// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.
 //
-// NOTE On macOS high-DPI support must be enabled for an application by
-// setting NSHighResolutionCapable to true in its Info.plist.
+// `window` an SDL_Window for which the size is to be queried
+// `w` Pointer to the variable to write the width to or NULL
+// `h` Pointer to the variable to write the height to or NULL
 //
-// See also: SDL_GetWindowSize()
-// See also: SDL_CreateWindow()
+// NOTE This function is available in SDL 2.0.8
+//
+// See also: SDL_GetWindowSize
+// See also: SDL_CreateWindow
+// See also: SDL_Vulkan_CreateSurface
 pub fn vulkan_get_drawable_size(window &Window, w &int, h &int) {
 	C.SDL_Vulkan_GetDrawableSize(window, w, h)
 }
