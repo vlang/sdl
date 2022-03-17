@@ -22,7 +22,7 @@ fn C.SDL_BUTTON(x int) int
 /*
 ```
 mask, x, y := sdl.get_mouse_state()
-if mask & sdl.button(sdl.button_lmask) {
+if mask & u32(sdl.button(sdl.button_left)) == sdl.button_lmask {
 	println('LMB pressed!')
 }
 ```
