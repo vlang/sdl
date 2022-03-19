@@ -164,13 +164,11 @@ pub enum DisplayOrientation {
 	portrait_flipped = C.SDL_ORIENTATION_PORTRAIT_FLIPPED // The display is in portrait mode, upside down
 }
 
+// typedef void *SDL_GLContext;
+// type C.SDL_GLContext = voidptr // <- We can't do this in V  0.2.4 54b0a2a
 // GLContext is an opaque handle to an OpenGL context.
-
-// typedef void *SDL_GLContext; // ??
-[typedef]
-struct C.SDL_GLContext {}
-
-pub type GLContext = C.SDL_GLContext
+// GLContext is C.SDL_GLContext
+pub type GLContext = voidptr
 
 // GLattr is OpenGL configuration attributes
 // GLattr is C.SDL_GLattr
@@ -355,7 +353,7 @@ fn C.SDL_GetDisplayBounds(display_index int, rect &C.SDL_Rect) int
 // returns 0 on success, or -1 if the index is out of range.
 //
 // See also: SDL_GetNumVideoDisplays()
-pub fn get_display_bounds(display_index int, rect &C.SDL_Rect) int {
+pub fn get_display_bounds(display_index int, rect &Rect) int {
 	return C.SDL_GetDisplayBounds(display_index, rect)
 }
 
@@ -376,7 +374,7 @@ fn C.SDL_GetDisplayUsableBounds(display_index int, rect &C.SDL_Rect) int
 //
 // See also: SDL_GetDisplayBounds()
 // See also: SDL_GetNumVideoDisplays()
-pub fn get_display_usable_bounds(display_index int, rect &C.SDL_Rect) int {
+pub fn get_display_usable_bounds(display_index int, rect &Rect) int {
 	return C.SDL_GetDisplayUsableBounds(display_index, rect)
 }
 
@@ -425,21 +423,21 @@ fn C.SDL_GetDisplayMode(display_index int, mode_index int, mode &C.SDL_DisplayMo
 // * refresh rate -> highest to lowest
 //
 // See also: SDL_GetNumDisplayModes()
-pub fn get_display_mode(display_index int, mode_index int, mode &C.SDL_DisplayMode) int {
+pub fn get_display_mode(display_index int, mode_index int, mode &DisplayMode) int {
 	return C.SDL_GetDisplayMode(display_index, mode_index, mode)
 }
 
 fn C.SDL_GetDesktopDisplayMode(display_index int, mode &C.SDL_DisplayMode) int
 
 // get_desktop_display_mode fills in information about the desktop display mode.
-pub fn get_desktop_display_mode(display_index int, mode &C.SDL_DisplayMode) int {
+pub fn get_desktop_display_mode(display_index int, mode &DisplayMode) int {
 	return C.SDL_GetDesktopDisplayMode(display_index, mode)
 }
 
 fn C.SDL_GetCurrentDisplayMode(display_index int, mode &C.SDL_DisplayMode) int
 
 // get_current_display_mode fills in information about the current display mode.
-pub fn get_current_display_mode(display_index int, mode &C.SDL_DisplayMode) int {
+pub fn get_current_display_mode(display_index int, mode &DisplayMode) int {
 	return C.SDL_GetCurrentDisplayMode(display_index, mode)
 }
 
@@ -464,7 +462,7 @@ fn C.SDL_GetClosestDisplayMode(display_index int, const_mode &C.SDL_DisplayMode,
 //
 // See also: SDL_GetNumDisplayModes()
 // See also: SDL_GetDisplayMode()
-pub fn get_closest_display_mode(display_index int, const_mode &C.SDL_DisplayMode, closest &C.SDL_DisplayMode) &C.SDL_DisplayMode {
+pub fn get_closest_display_mode(display_index int, const_mode &DisplayMode, closest &DisplayMode) &DisplayMode {
 	return C.SDL_GetClosestDisplayMode(display_index, const_mode, closest)
 }
 
@@ -492,7 +490,7 @@ fn C.SDL_SetWindowDisplayMode(window &C.SDL_Window, const_mode &C.SDL_DisplayMod
 //
 // See also: SDL_GetWindowDisplayMode()
 // See also: SDL_SetWindowFullscreen()
-pub fn set_window_display_mode(window &Window, const_mode &C.SDL_DisplayMode) int {
+pub fn set_window_display_mode(window &Window, const_mode &DisplayMode) int {
 	return C.SDL_SetWindowDisplayMode(window, const_mode)
 }
 
@@ -503,7 +501,7 @@ fn C.SDL_GetWindowDisplayMode(window &C.SDL_Window, mode &C.SDL_DisplayMode) int
 //
 // See also: SDL_SetWindowDisplayMode()
 // See also: SDL_SetWindowFullscreen()
-pub fn get_window_display_mode(window &Window, mode &C.SDL_DisplayMode) int {
+pub fn get_window_display_mode(window &Window, mode &DisplayMode) int {
 	return C.SDL_GetWindowDisplayMode(window, mode)
 }
 
@@ -622,7 +620,7 @@ fn C.SDL_SetWindowIcon(window &C.SDL_Window, icon &C.SDL_Surface)
 //
 // `window` The window for which the icon should be set.
 // `icon` The icon for the window.
-pub fn set_window_icon(window &Window, icon &C.SDL_Surface) {
+pub fn set_window_icon(window &Window, icon &Surface) {
 	C.SDL_SetWindowIcon(window, icon)
 }
 
@@ -926,7 +924,7 @@ fn C.SDL_GetWindowSurface(window &C.SDL_Window) &C.SDL_Surface
 //
 // See also: SDL_UpdateWindowSurface()
 // See also: SDL_UpdateWindowSurfaceRects()
-pub fn get_window_surface(window &Window) &C.SDL_Surface {
+pub fn get_window_surface(window &Window) &Surface {
 	return C.SDL_GetWindowSurface(window)
 }
 
@@ -950,7 +948,7 @@ fn C.SDL_UpdateWindowSurfaceRects(window &C.SDL_Window, const_rects &C.SDL_Rect,
 //
 // See also: SDL_GetWindowSurface()
 // See also: SDL_UpdateWindowSurface()
-pub fn update_window_surface_rects(window &Window, const_rects &C.SDL_Rect, numconst_rects int) int {
+pub fn update_window_surface_rects(window &Window, const_rects &Rect, numconst_rects int) int {
 	return C.SDL_UpdateWindowSurfaceRects(window, const_rects, numconst_rects)
 }
 
@@ -1235,11 +1233,11 @@ pub fn gl_unload_library() {
 	C.SDL_GL_UnloadLibrary()
 }
 
-fn C.SDL_GL_ExtensionSupported(extension &C.char) bool
+fn C.SDL_GL_ExtensionSupported(extension &char) bool
 
 // gl_extension_supported returns true if an OpenGL extension is supported for the current
 // context.
-pub fn gl_extension_supported(extension &C.char) bool {
+pub fn gl_extension_supported(extension &char) bool {
 	return C.SDL_GL_ExtensionSupported(extension)
 }
 
@@ -1255,8 +1253,8 @@ fn C.SDL_GL_SetAttribute(attr C.SDL_GLattr, value int) int
 // gl_set_attribute sets an OpenGL window attribute before window creation.
 //
 // returns 0 on success, or -1 if the attribute could not be set.
-pub fn gl_set_attribute(attr C.SDL_GLattr, value int) int {
-	return C.SDL_GL_SetAttribute(attr, value)
+pub fn gl_set_attribute(attr GLattr, value int) int {
+	return C.SDL_GL_SetAttribute(C.SDL_GLattr(int(attr)), value)
 }
 
 fn C.SDL_GL_GetAttribute(attr C.SDL_GLattr, value &int) int
@@ -1265,8 +1263,8 @@ fn C.SDL_GL_GetAttribute(attr C.SDL_GLattr, value &int) int
 //
 // returns 0 on success, or -1 if the attribute could not be retrieved.
 // The integer at `value` will be modified in either case.
-pub fn gl_get_attribute(attr C.SDL_GLattr, value &int) int {
-	return C.SDL_GL_GetAttribute(attr, value)
+pub fn gl_get_attribute(attr GLattr, value &int) int {
+	return C.SDL_GL_GetAttribute(C.SDL_GLattr(int(attr)), value)
 }
 
 fn C.SDL_GL_CreateContext(window &C.SDL_Window) C.SDL_GLContext
@@ -1275,8 +1273,8 @@ fn C.SDL_GL_CreateContext(window &C.SDL_Window) C.SDL_GLContext
 // current.
 //
 // See also: SDL_GL_DeleteContext()
-pub fn gl_create_context(window &Window) C.SDL_GLContext {
-	return C.SDL_GL_CreateContext(window)
+pub fn gl_create_context(window &Window) GLContext {
+	return GLContext(voidptr(C.SDL_GL_CreateContext(window)))
 }
 
 fn C.SDL_GL_MakeCurrent(window &C.SDL_Window, context C.SDL_GLContext) int
@@ -1284,8 +1282,8 @@ fn C.SDL_GL_MakeCurrent(window &C.SDL_Window, context C.SDL_GLContext) int
 // gl_make_current sets up an OpenGL context for rendering into an OpenGL window.
 //
 // NOTE The context must have been created with a compatible window.
-pub fn gl_make_current(window &Window, context C.SDL_GLContext) int {
-	return C.SDL_GL_MakeCurrent(window, context)
+pub fn gl_make_current(window &Window, context GLContext) int {
+	return C.SDL_GL_MakeCurrent(window, voidptr(context))
 }
 
 fn C.SDL_GL_GetCurrentWindow() &C.SDL_Window
@@ -1298,8 +1296,8 @@ pub fn gl_get_current_window() &Window {
 fn C.SDL_GL_GetCurrentContext() C.SDL_GLContext
 
 // gl_get_current_context gets the currently active OpenGL context.
-pub fn gl_get_current_context() C.SDL_GLContext {
-	return C.SDL_GL_GetCurrentContext()
+pub fn gl_get_current_context() GLContext {
+	return GLContext(voidptr(C.SDL_GL_GetCurrentContext()))
 }
 
 fn C.SDL_GL_GetDrawableSize(window &C.SDL_Window, w &int, h &int)
@@ -1366,6 +1364,6 @@ fn C.SDL_GL_DeleteContext(context C.SDL_GLContext)
 // gl_delete_context deletes an OpenGL context.
 //
 // See also: SDL_GL_CreateContext()
-pub fn gl_delete_context(context C.SDL_GLContext) {
-	C.SDL_GL_DeleteContext(context)
+pub fn gl_delete_context(context GLContext) {
+	C.SDL_GL_DeleteContext(voidptr(context))
 }
