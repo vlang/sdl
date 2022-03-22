@@ -68,6 +68,7 @@ jobs:
         run: |
           export SDL_V_CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
           v -cflags "$SDL_V_CFLAGS" run sdl/examples/versions
+          v shader sdl/examples/sdl_opengl_and_sokol
           for example in sdl/examples/*; do
               echo "v -cflags \"$SDL_V_CFLAGS\" $example"
               v -cflags "$SDL_V_CFLAGS" "$example";
@@ -116,6 +117,7 @@ jobs:
           $sdl_home = "$home\.vmodules\sdl"
           copy-item $sdl_home\thirdparty\SDL2-${env:SDL2_VERSION}\lib\x64\SDL2.dll $sdl_home\examples\versions\
           v run $sdl_home\examples\versions
+          v shader $sdl_home\examples\sdl_opengl_and_sokol
           $examples = Get-ChildItem $sdl_home\examples\
           foreach ($e in $examples){
             v $e.FullName
