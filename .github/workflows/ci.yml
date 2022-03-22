@@ -55,6 +55,7 @@ jobs:
       - name: Build sdl examples
         run: |
           v run sdl/examples/versions
+          v shader sdl/examples
           for example in sdl/examples/*; do
               echo "v $example"
               v "$example";
@@ -102,6 +103,7 @@ jobs:
           $sdl_home = "$home\.vmodules\sdl"
           copy-item $sdl_home\thirdparty\SDL2-${env:SDL2_VERSION}\lib\x64\SDL2.dll $sdl_home\examples\versions\
           v run $sdl_home\examples\versions
+          v shader $sdl_home\examples\
           $examples = Get-ChildItem $sdl_home\examples\
           foreach ($e in $examples){
             v $e.FullName
