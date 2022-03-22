@@ -1607,13 +1607,14 @@ fn C.SDL_RenderGeometry(renderer &C.SDL_Renderer, texture &C.SDL_Texture, const_
 //
 // NOTE This function is available since SDL 2.0.18.
 //
+// See also: SDL_RenderGeometryRaw
 // See also: SDL_Vertex
 pub fn render_geometry(renderer &Renderer, texture &Texture, const_vertices &Vertex, num_vertices int, const_indices &int, num_indices int) int {
 	return C.SDL_RenderGeometry(renderer, texture, const_vertices, num_vertices, const_indices,
 		num_indices)
 }
 
-fn C.SDL_RenderGeometryRaw(renderer &C.SDL_Renderer, texture &C.SDL_Texture, const_xy &f32, xy_stride int, const_color &int, color_stride int, const_uv &f32, uv_stride int, num_vertices int, const_indices voidptr, num_indices int, size_indices int) int
+fn C.SDL_RenderGeometryRaw(renderer &C.SDL_Renderer, texture &C.SDL_Texture, const_xy &f32, xy_stride int, const_color &C.SDL_Color, color_stride int, const_uv &f32, uv_stride int, num_vertices int, const_indices voidptr, num_indices int, size_indices int) int
 
 // render_geometry_raw renders a list of triangles, optionally using a texture and indices into the
 // vertex arrays Color and alpha modulation is done per vertex
@@ -1634,7 +1635,10 @@ fn C.SDL_RenderGeometryRaw(renderer &C.SDL_Renderer, texture &C.SDL_Texture, con
 // returns 0 on success, or -1 if the operation is not supported
 //
 // NOTE This function is available since SDL 2.0.18.
-pub fn render_geometry_raw(renderer &Renderer, texture &Texture, const_xy &f32, xy_stride int, const_color &int, color_stride int, const_uv &f32, uv_stride int, num_vertices int, const_indices voidptr, num_indices int, size_indices int) int {
+//
+// See also: SDL_RenderGeometry
+// See also: SDL_Vertex
+pub fn render_geometry_raw(renderer &Renderer, texture &Texture, const_xy &f32, xy_stride int, const_color &Color, color_stride int, const_uv &f32, uv_stride int, num_vertices int, const_indices voidptr, num_indices int, size_indices int) int {
 	return C.SDL_RenderGeometryRaw(renderer, texture, const_xy, xy_stride, const_color,
 		color_stride, const_uv, uv_stride, num_vertices, const_indices, num_indices, size_indices)
 }

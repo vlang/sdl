@@ -112,7 +112,7 @@ This will create a directory called "thirdparty" which will be used to download 
 To successfully run a provided example or your own projects, the sdl dlls must be copied to the main application directory.
 e.g..
 ```
-copy thirdparty\SDL2-2.0.18\lib\x64\SDL2.dll examples\basic_window\
+copy thirdparty\SDL2-2.0.20\lib\x64\SDL2.dll examples\basic_window\
 cd ..
 v run sdl\examples\basic_window\main.v
 ```

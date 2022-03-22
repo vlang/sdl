@@ -142,6 +142,11 @@ pub mut:
 	a byte
 }
 
+// Color structure
+// The bits of this structure can be directly reinterpreted as an integer-packed
+// color which uses the SDL_PIXELFORMAT_RGBA32 format (SDL_PIXELFORMAT_ABGR8888
+// on little-endian systems and SDL_PIXELFORMAT_RGBA8888 on big-endian systems).
+// Color is C.SDL_Color
 pub type Color = C.SDL_Color
 
 [typedef]
