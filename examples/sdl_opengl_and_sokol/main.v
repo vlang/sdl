@@ -37,7 +37,8 @@ fn main() {
 	sdl.gl_set_attribute(.stencil_size, 8)
 
 	mut window_flags := u32(sdl.WindowFlags.opengl)
-	window := sdl.create_window('Hello SDL2 + Sokol (OpenGL)'.str, 300, 300, 500, 300, window_flags)
+	window := sdl.create_window('Hello SDL2 + Sokol (OpenGL)'.str, 300, 300, 500, 300,
+		window_flags)
 	if window == sdl.null {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		panic('Could not create SDL window, SDL says:\n$error_msg')
@@ -49,7 +50,7 @@ fn main() {
 		panic('Could not create OpenGL context, SDL says:\n$error_msg')
 	}
 
-	sdl.gl_make_current( window, gl_context )
+	sdl.gl_make_current(window, gl_context)
 	// Enable VSYNC (Sync buffer swaps with monitors vertical refresh rate)
 	if sdl.gl_set_swap_interval(1) < 0 {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
