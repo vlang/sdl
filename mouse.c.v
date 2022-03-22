@@ -78,6 +78,8 @@ fn C.SDL_GetMouseFocus() &C.SDL_Window
 // get_mouse_focus gets the window which currently has mouse focus.
 //
 // returns the window with mouse focus.
+//
+// NOTE This function is available since SDL 2.0.0.
 pub fn get_mouse_focus() &Window {
 	return C.SDL_GetMouseFocus()
 }
@@ -97,6 +99,8 @@ fn C.SDL_GetMouseState(x &int, y &int) u32
 // `y` the y coordinate of the mouse cursor position relative to the
 //          focus window
 // returns a 32-bit button bitmask of the current button state.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetGlobalMouseState
 // See also: SDL_GetRelativeMouseState
@@ -150,6 +154,8 @@ fn C.SDL_GetRelativeMouseState(x &int, y &int) u32
 // `y` a pointer filled with the last recorded y coordinate of the mouse
 // returns a 32-bit button bitmask of the relative button state.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_GetMouseState
 pub fn get_relative_mouse_state(x &int, y &int) u32 {
 	return C.SDL_GetRelativeMouseState(x, y)
@@ -168,6 +174,8 @@ fn C.SDL_WarpMouseInWindow(window &C.SDL_Window, x int, y int)
 //               mouse focus
 // `x` the x coordinate within the window
 // `y` the y coordinate within the window
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_WarpMouseGlobal
 pub fn warp_mouse_in_window(window &Window, x int, y int) {
@@ -217,6 +225,8 @@ fn C.SDL_SetRelativeMouseMode(enabled bool) int
 //          SDL_GetError() for more information.
 //
 //          If relative mode is not supported, this returns -1.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetRelativeMouseMode
 pub fn set_relative_mouse_mode(enabled bool) int {
@@ -268,6 +278,8 @@ fn C.SDL_GetRelativeMouseMode() bool
 //
 // returns SDL_TRUE if relative mode is enabled or SDL_FALSE otherwise.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_SetRelativeMouseMode
 pub fn get_relative_mouse_mode() bool {
 	return C.SDL_GetRelativeMouseMode()
@@ -308,6 +320,8 @@ fn C.SDL_CreateCursor(const_data &byte, const_mask &byte, w int, h int, hot_x in
 //              relative to the actual mouse position
 // returns a new cursor with the specified parameters on success or NULL on
 //          failure; call SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_FreeCursor
 // See also: SDL_SetCursor
@@ -360,6 +374,8 @@ fn C.SDL_SetCursor(cursor &C.SDL_Cursor)
 //
 // `cursor` a cursor to make active
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_CreateCursor
 // See also: SDL_GetCursor
 // See also: SDL_ShowCursor
@@ -375,6 +391,8 @@ fn C.SDL_GetCursor() &C.SDL_Cursor
 // library. It is not necessary to free the cursor with SDL_FreeCursor().
 //
 // returns the active cursor or NULL if there is no mouse.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetCursor
 pub fn get_cursor() &Cursor {
@@ -403,6 +421,8 @@ fn C.SDL_FreeCursor(cursor &C.SDL_Cursor)
 //
 // `cursor` the cursor to free
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_CreateColorCursor
 // See also: SDL_CreateCursor
 // See also: SDL_CreateSystemCursor
@@ -425,6 +445,8 @@ fn C.SDL_ShowCursor(toggle int) int
 // returns `SDL_ENABLE` if the cursor is shown, or `SDL_DISABLE` if the
 //          cursor is hidden, or a negative error code on failure; call
 //          SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateCursor
 // See also: SDL_SetCursor

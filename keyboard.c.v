@@ -27,6 +27,8 @@ fn C.SDL_GetKeyboardFocus() &C.SDL_Window
 // get_keyboard_focus queries the window which currently has keyboard focus.
 //
 // returns the window with keyboard focus.
+//
+// NOTE This function is available since SDL 2.0.0.
 pub fn get_keyboard_focus() &Window {
 	return C.SDL_GetKeyboardFocus()
 }
@@ -56,6 +58,8 @@ fn C.SDL_GetKeyboardState(numkeys &int) &byte
 // `numkeys` if non-NULL, receives the length of the returned array
 // returns a pointer to an array of key states.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_PumpEvents
 pub fn get_keyboard_state(numkeys &int) &byte {
 	return C.SDL_GetKeyboardState(numkeys)
@@ -67,6 +71,8 @@ fn C.SDL_GetModState() C.SDL_Keymod
 //
 // returns an OR'd combination of the modifier keys for the keyboard. See
 //          SDL_Keymod for details.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetKeyboardState
 // See also: SDL_SetModState
@@ -88,6 +94,8 @@ fn C.SDL_SetModState(modstate C.SDL_Keymod)
 //
 // `modstate` the desired SDL_Keymod for the keyboard
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_GetModState
 pub fn set_mod_state(modstate Keymod) {
 	C.SDL_SetModState(C.SDL_Keymod(modstate))
@@ -102,6 +110,8 @@ fn C.SDL_GetKeyFromScancode(scancode C.SDL_Scancode) C.SDL_Keycode
 //
 // `scancode` the desired SDL_Scancode to query
 // returns the SDL_Keycode that corresponds to the given SDL_Scancode.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetKeyName
 // See also: SDL_GetScancodeFromKey
@@ -118,6 +128,8 @@ fn C.SDL_GetScancodeFromKey(key C.SDL_Keycode) C.SDL_Scancode
 //
 // `key` the desired SDL_Keycode to query
 // returns the SDL_Scancode that corresponds to the given SDL_Keycode.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetKeyFromScancode
 // See also: SDL_GetScancodeName
@@ -181,6 +193,8 @@ fn C.SDL_GetKeyName(key C.SDL_Keycode) &char
 //          must copy it. If the key doesn't have a name, this function
 //          returns an empty string ("").
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_GetKeyFromName
 // See also: SDL_GetKeyFromScancode
 // See also: SDL_GetScancodeFromKey
@@ -195,6 +209,8 @@ fn C.SDL_GetKeyFromName(name &char) C.SDL_Keycode
 // `name` the human-readable key name
 // returns key code, or `SDLK_UNKNOWN` if the name wasn't recognized; call
 //          SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetKeyFromScancode
 // See also: SDL_GetKeyName
@@ -213,6 +229,8 @@ fn C.SDL_StartTextInput()
 // pair with SDL_StopTextInput().
 //
 // On some platforms using this function activates the screen keyboard.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetTextInputRect
 // See also: SDL_StopTextInput
@@ -237,6 +255,8 @@ fn C.SDL_StopTextInput()
 
 // stop_text_input stops receiving any text input events.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_StartTextInput
 pub fn stop_text_input() {
 	C.SDL_StopTextInput()
@@ -248,6 +268,8 @@ fn C.SDL_SetTextInputRect(rect &C.SDL_Rect)
 //
 // `rect` the SDL_Rect structure representing the rectangle to receive
 //             text (ignored if NULL)
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_StartTextInput
 pub fn set_text_input_rect(rect &Rect) {

@@ -56,7 +56,7 @@ fn C.SDL_Vulkan_LoadLibrary(path &char) int
 // returns 0 on success or -1 if the library couldn't be loaded; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available in SDL 2.0.8
+// NOTE This function is available in SDL 2.0.6
 //
 // See also: SDL_Vulkan_GetVkInstanceProcAddr
 // See also: SDL_Vulkan_UnloadLibrary
@@ -72,6 +72,8 @@ fn C.SDL_Vulkan_GetVkGetInstanceProcAddr() voidptr
 // creating an SDL_Window with the `SDL_WINDOW_VULKAN` flag.
 //
 // returns the function pointer for `vkGetInstanceProcAddr` or NULL on error.
+//
+// NOTE This function is available since SDL 2.0.6.
 pub fn vulkan_get_vk_get_instance_proc_addr() voidptr {
 	return C.SDL_Vulkan_GetVkGetInstanceProcAddr()
 }
@@ -80,7 +82,7 @@ fn C.SDL_Vulkan_UnloadLibrary()
 
 // vulkan_unload_library unloads the Vulkan library previously loaded by SDL_Vulkan_LoadLibrary()
 //
-// NOTE This function is available in SDL 2.0.8
+// NOTE This function is available in SDL 2.0.6
 //
 // See also: SDL_Vulkan_LoadLibrary
 pub fn vulkan_unload_library() {
@@ -112,7 +114,7 @@ fn C.SDL_Vulkan_GetInstanceExtensions(window &C.SDL_Window, p_count &u32, p_name
 //               Vulkan instance extensions
 // returns SDL_TRUE on success, SDL_FALSE on error.
 //
-// NOTE This function is available in SDL 2.0.8
+// NOTE This function is available in SDL 2.0.6
 //
 // See also: SDL_Vulkan_CreateSurface
 pub fn vulkan_get_instance_extensions(window &Window, p_count &u32, p_names &&char) bool {
@@ -131,7 +133,7 @@ pub fn vulkan_get_instance_extensions(window &Window, p_count &u32, p_names &&ch
 //                created surface
 // returns SDL_TRUE on success, SDL_FALSE on error.
 //
-// NOTE This function is available in SDL 2.0.8
+// NOTE This function is available in SDL 2.0.6
 //
 // See also: SDL_Vulkan_GetInstanceExtensions
 // See also: SDL_Vulkan_GetDrawableSize
@@ -156,7 +158,7 @@ fn C.SDL_Vulkan_GetDrawableSize(window &C.SDL_Window, w &int, h &int)
 // `w` Pointer to the variable to write the width to or NULL
 // `h` Pointer to the variable to write the height to or NULL
 //
-// NOTE This function is available in SDL 2.0.8
+// NOTE This function is available in SDL 2.0.6
 //
 // See also: SDL_GetWindowSize
 // See also: SDL_CreateWindow

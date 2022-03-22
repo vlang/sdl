@@ -56,6 +56,7 @@ fn C.SDL_GetAndroidSDKVersion() int
 
 // get_android_sdk_version queries Android API level of the current device.
 //
+// - API level 31: Android 12
 // - API level 30: Android 11
 // - API level 29: Android 10
 // - API level 28: Android 9
@@ -79,6 +80,8 @@ fn C.SDL_GetAndroidSDKVersion() int
 // - API level 10: Android 2.3.3
 //
 // returns the Android API level.
+//
+// NOTE This function is available since SDL 2.0.12.
 pub fn get_android_sdk_version() int {
 	return C.SDL_GetAndroidSDKVersion()
 }
@@ -88,6 +91,8 @@ fn C.SDL_IsAndroidTV() bool
 // is_android_tv queries if the application is running on Android TV.
 //
 // returns SDL_TRUE if this is Android TV, SDL_FALSE otherwise.
+//
+// NOTE This function is available since SDL 2.0.8.
 pub fn is_android_tv() bool {
 	return C.SDL_IsAndroidTV()
 }
@@ -97,6 +102,8 @@ fn C.SDL_IsChromebook() bool
 // is_chromebook queries if the application is running on a Chromebook.
 //
 // returns SDL_TRUE if this is a Chromebook, SDL_FALSE otherwise.
+//
+// NOTE This function is available since SDL 2.0.9.
 pub fn is_chromebook() bool {
 	return C.SDL_IsChromebook()
 }
@@ -106,6 +113,8 @@ fn C.SDL_IsDeXMode() bool
 // is_dex_mode queries if the application is running on a Samsung DeX docking station.
 //
 // returns SDL_TRUE if this is a DeX docking station, SDL_FALSE otherwise.
+//
+// NOTE This function is available since SDL 2.0.9.
 pub fn is_dex_mode() bool {
 	return C.SDL_IsDeXMode()
 }
@@ -113,6 +122,8 @@ pub fn is_dex_mode() bool {
 fn C.SDL_AndroidBackButton()
 
 // android_back_button triggers the Android system back button behavior.
+//
+// NOTE This function is available since SDL 2.0.9.
 pub fn android_back_button() {
 	C.SDL_AndroidBackButton()
 }
@@ -191,6 +202,8 @@ fn C.SDL_AndroidRequestPermission(permission &char) bool
 //
 // `permission` The permission to request.
 // returns SDL_TRUE if the permission was granted, SDL_FALSE otherwise.
+//
+// NOTE This function is available since SDL 2.0.14.
 pub fn android_request_permission(permission &char) bool {
 	return C.SDL_AndroidRequestPermission(permission)
 }
@@ -216,6 +229,8 @@ fn C.SDL_AndroidShowToast(const_message &char, duration int, gravity int, xoffse
 // `xoffset` set this parameter only when gravity >=0
 // `yoffset` set this parameter only when gravity >=0
 // returns 0 if success, -1 if any error occurs.
+//
+// NOTE This function is available since SDL 2.0.16.
 pub fn android_show_toast(const_message &char, duration int, gravity int, xoffset int, yoffset int) int {
 	return C.SDL_AndroidShowToast(const_message, duration, gravity, xoffset, yoffset)
 }

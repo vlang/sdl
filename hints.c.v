@@ -89,6 +89,24 @@ pub const (
 	// The value of this hint is used at runtime, so it can be changed at any time.
 	hint_android_trap_back_button                 = 'SDL_ANDROID_TRAP_BACK_BUTTON'
 
+	// Specify an application name.
+	//
+	// This hint lets you specify the application name sent to the OS when
+	// required. For example, this will often appear in volume control applets for
+	// audio streams, and in lists of applications which are inhibiting the
+	// screensaver.  You should use a string that describes your program ("My Game
+	// 2: The Revenge")
+	//
+	// Setting this to "" or leaving it unset will have SDL use a reasonable
+	// default: probably the application's name or "SDL Application" if SDL
+	// doesn't have any better information.
+	//
+	// Note that, for audio streams, this can be overridden with
+	// SDL_HINT_AUDIO_DEVICE_APP_NAME.
+	//
+	// On targets where this is not supported, this hint does nothing.
+	hint_app_name                                 = 'SDL_APP_NAME'
+
 	//  A variable controlling whether controllers used with the Apple TV
 	// generate UI events.
 	//
@@ -136,8 +154,9 @@ pub const (
 	// that describes your program ("My Game 2: The Revenge")
 	//
 	// Setting this to "" or leaving it unset will have SDL use a reasonable
-	// default: probably the application's name or "SDL Application" if SDL
-	// doesn't have any better information.
+	// default: this will be the name set with SDL_HINT_APP_NAME, if that hint is
+	// set. Otherwise, it'll probably the application's name or "SDL Application"
+	// if SDL doesn't have any better information.
 	//
 	// On targets where this is not supported, this hint does nothing.
 	hint_audio_device_app_name                    = 'SDL_AUDIO_DEVICE_APP_NAME'
@@ -430,6 +449,13 @@ pub const (
 	// and text that is being composed will be rendered in its own UI.
 	hint_ime_internal_editing                     = 'SDL_IME_INTERNAL_EDITING'
 
+	// A variable to control whether certain IMEs should show native UI components (such as the Candidate List) instead of suppressing them.
+	//
+	// The variable can be set to the following values:
+	// "0"       - Native UI components are not display. (default)
+	// "1"       - Native UI components are displayed.
+	hint_ime_show_ui                              = 'SDL_IME_SHOW_UI'
+
 	//  A variable controlling whether the home indicator bar on iPhone X
 	// should be hidden.
 	//
@@ -559,9 +585,10 @@ pub const (
 	//
 	// This variable can be set to the following values:
 	// "0"       - HIDAPI driver is not used
-	// "1"       - HIDAPI driver is used
+	// "1"       - HIDAPI driver is used for Steam Controllers, which requires Bluetooth access
+	//             and may prompt the user for permission on iOS and Android.
 	//
-	// The default is the value of SDL_HINT_JOYSTICK_HIDAPI
+	// The default is "0"
 	hint_joystick_hidapi_steam                    = 'SDL_JOYSTICK_HIDAPI_STEAM'
 
 	//  A variable controlling whether the HIDAPI driver for Nintendo Switch controllers should be used.
@@ -576,8 +603,10 @@ pub const (
 	//  A variable controlling whether the Home button LED should be turned on when a Nintendo Switch controller is opened
 	//
 	// This variable can be set to the following values:
-	// "0"       - home button LED is left off
-	// "1"       - home button LED is turned on (the default)
+	// "0"       - home button LED is turned off
+	// "1"       - home button LED is turned on
+	//
+	// By default the Home button LED state is not changed.
 	hint_joystick_hidapi_switch_home_led          = 'SDL_JOYSTICK_HIDAPI_SWITCH_HOME_LED'
 
 	//  A variable controlling whether the HIDAPI driver for XBox controllers should be used.
@@ -637,6 +666,20 @@ pub const (
 	// "0"       - SDL will allow usage of the KMSDRM backend without DRM master
 	// "1"       - SDL Will require DRM master to use the KMSDRM backend (default)
 	hint_kmsdrm_require_drm_master                = 'SDL_KMSDRM_REQUIRE_DRM_MASTER'
+
+	//  A comma separated list of devices to open as joysticks
+	//
+	// This variable is currently only used by the Linux joystick driver.
+	hint_joystick_device                          = 'SDL_JOYSTICK_DEVICE'
+
+	//  A variable controlling whether to use the classic /dev/input/js* joystick interface or the newer /dev/input/event* joystick interface on Linux
+	//
+	// This variable can be set to the following values:
+	// "0"       - Use /dev/input/event*
+	// "1"       - Use /dev/input/js*
+	//
+	// By default the /dev/input/event* interfaces are used
+	hint_linux_joystick_classic                   = 'SDL_LINUX_JOYSTICK_CLASSIC'
 
 	//  A variable controlling whether joysticks on Linux adhere to their HID-defined deadzones or return unfiltered values.
 	//
@@ -751,6 +794,20 @@ pub const (
 	// This variable is a space delimited list of the following values:
 	// "LandscapeLeft", "LandscapeRight", "Portrait" "PortraitUpsideDown"
 	hint_orientations                             = 'SDL_IOS_ORIENTATIONS'
+
+	//  A variable controlling the use of a sentinel event when polling the event queue
+	//
+	// This variable can be set to the following values:
+	// "0"       - Disable poll sentinels
+	// "1"       - Enable poll sentinels
+	//
+	// When polling for events, SDL_PumpEvents is used to gather new events from devices.
+	// If a device keeps producing new events between calls to SDL_PumpEvents, a poll loop will
+	// become stuck until the new events stop.
+	// This is most noticable when moving a high frequency mouse.
+	//
+	// By default, poll sentinels are enabled.
+	hint_poll_sentinel                            = 'SDL_POLL_SENTINEL'
 
 	// Override for SDL_GetPreferredLocales()
 	//
@@ -901,6 +958,24 @@ pub const (
 	// The default is 10000.
 	hint_rpi_video_layer                          = 'SDL_RPI_VIDEO_LAYER'
 
+	// Specify an "activity name" for screensaver inhibition.
+	//
+	// Some platforms, notably Linux desktops, list the applications which are
+	// inhibiting the screensaver or other power-saving features.
+	//
+	// This hint lets you specify the "activity name" sent to the OS when
+	// SDL_DisableScreenSaver() is used (or the screensaver is automatically
+	// disabled). The contents of this hint are used when the screensaver is
+	// disabled. You should use a string that describes what your program is doing
+	// (and, therefore, why the screensaver is disabled).  For example, "Playing a
+	// game" or "Watching a video".
+	//
+	// Setting this to "" or leaving it unset will have SDL use a reasonable
+	// default: "Playing a game" or something similar.
+	//
+	// On targets where this is not supported, this hint does nothing.
+	hint_screensaver_inhibit_activity_name        = 'SDL_SCREENSAVER_INHIBIT_ACTIVITY_NAME'
+
 	// Specifies whether SDL_THREAD_PRIORITY_TIME_CRITICAL should be treated as realtime.
 	//
 	// On some platforms, like Linux, a realtime priority thread may be subject to restrictions
@@ -1001,6 +1076,15 @@ pub const (
 	// - KMSDRM (kmsdrm)
 	// - Raspberry Pi (raspberrypi)
 	hint_video_double_buffer                      = 'SDL_VIDEO_DOUBLE_BUFFER'
+
+	// A variable controlling whether the EGL window is allowed to be
+	// composited as transparent, rather than opaque.
+	//
+	// Most window systems will always render windows opaque, even if the surface
+	// format has an alpha channel. This is not always true, however, so by default
+	// SDL will try to enforce opaque composition. To override this behavior, you
+	// can set this hint to "1".
+	hint_video_egl_allow_transparency             = 'SDL_VIDEO_EGL_ALLOW_TRANSPARENCY'
 
 	// A variable controlling whether the graphics context is externally managed.
 	//
@@ -1229,9 +1313,6 @@ pub const (
 	// They offer better performance, allocate no kernel ressources and
 	// use less memory. SDL will fall back to Critical Sections on older
 	// OS versions or if forced to by this hint.
-	// This also affects Condition Variables. When SRW mutexes are used,
-	// SDL will use Windows Condition Variables as well. Else, a generic
-	// SDL_cond implementation will be used that works with all mutexes.
 	//
 	// This variable can be set to the following values:
 	// "0"       - Use SRW Locks when available. If not, fall back to Critical Sections. (default)
@@ -1291,6 +1372,15 @@ pub const (
 	//
 	// By default SDL will allow interaction with the window frame when the cursor is hidden
 	hint_window_frame_usable_while_cursor_hidden  = 'SDL_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN'
+
+	//  A variable controlling whether the window is activated when the SDL_ShowWindow function is called
+	//
+	// This variable can be set to the following values:
+	// "0"       - The window is activated when the SDL_ShowWindow function is called
+	// "1"       - The window is not activated when the SDL_ShowWindow function is called
+	//
+	// By default SDL will activate the window when the SDL_ShowWindow function is called
+	hint_window_no_activation_when_shown          = 'SDL_WINDOW_NO_ACTIVATION_WHEN_SHOWN'
 
 	// Allows back-button-press events on Windows Phone to be marked as handled
 	//
@@ -1449,6 +1539,8 @@ fn C.SDL_SetHintWithPriority(const_name &char, const_value &char, priority C.SDL
 // `priority` the SDL_HintPriority level for the hint
 // returns SDL_TRUE if the hint was set, SDL_FALSE otherwise.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_GetHint
 // See also: SDL_SetHint
 pub fn set_hint_with_priority(const_name &char, const_value &char, priority HintPriority) bool {
@@ -1467,6 +1559,8 @@ fn C.SDL_SetHint(const_name &char, const_value &char) bool
 // `value` the value of the hint variable
 // returns SDL_TRUE if the hint was set, SDL_FALSE otherwise.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_GetHint
 // See also: SDL_SetHintWithPriority
 pub fn set_hint(const_name &char, const_value &char) bool {
@@ -1479,6 +1573,8 @@ fn C.SDL_GetHint(name &char) &char
 //
 // `name` the hint to query
 // returns the string value of a hint or NULL if the hint isn't set.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetHint
 // See also: SDL_SetHintWithPriority
@@ -1544,6 +1640,8 @@ fn C.SDL_ClearHints()
 // clear_hints clears all hints.
 //
 // This function is automatically called during SDL_Quit().
+//
+// NOTE This function is available since SDL 2.0.0.
 pub fn clear_hints() {
 	C.SDL_ClearHints()
 }

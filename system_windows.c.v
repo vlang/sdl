@@ -15,6 +15,8 @@ fn C.SDL_SetWindowsMessageHook(callback C.SDL_WindowsMessageHook, userdata voidp
 //
 // `callback` The SDL_WindowsMessageHook function to call.
 // `userdata` a pointer to pass to every iteration of `callback`
+//
+// NOTE This function is available since SDL 2.0.4.
 pub fn set_windows_message_hook(callback C.SDL_WindowsMessageHook, userdata voidptr) {
 	C.SDL_SetWindowsMessageHook(callback, userdata)
 }
@@ -74,6 +76,8 @@ fn C.SDL_RenderGetD3D11Device(renderer &C.SDL_Renderer) &C.ID3D11Device
 // `renderer` the renderer from which to get the associated D3D11 device
 // returns the D3D11 device associated with given renderer or NULL if it is
 //          not a D3D11 renderer; call SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.16.
 pub fn render_get_d3_d11_device(renderer &Renderer) &ID3D11Device {
 	return C.SDL_RenderGetD3D11Device(renderer)
 }

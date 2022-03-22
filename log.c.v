@@ -69,6 +69,8 @@ fn C.SDL_LogSetAllPriority(priority C.SDL_LogPriority)
 //
 // `priority` the SDL_LogPriority to assign
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_LogSetPriority
 pub fn log_set_all_priority(priority LogPriority) {
 	C.SDL_LogSetAllPriority(C.SDL_LogPriority(int(priority)))
@@ -80,6 +82,8 @@ fn C.SDL_LogSetPriority(category int, priority C.SDL_LogPriority)
 //
 // `category` the category to assign a priority to
 // `priority` the SDL_LogPriority to assign
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_LogGetPriority
 // See also: SDL_LogSetAllPriority
@@ -94,6 +98,8 @@ fn C.SDL_LogGetPriority(category int) C.SDL_LogPriority
 // `category` the category to query
 // returns the SDL_LogPriority for the requested category
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_LogSetPriority
 pub fn log_get_priority(category int) LogPriority {
 	return LogPriority(int(C.SDL_LogGetPriority(category)))
@@ -104,6 +110,8 @@ fn C.SDL_LogResetPriorities()
 // log_reset_priorities resets all priorities to default.
 //
 // This is called by SDL_Quit().
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_LogSetAllPriority
 // See also: SDL_LogSetPriority
@@ -153,6 +161,8 @@ fn C.SDL_LogGetOutputFunction(callback &LogOutputFunction, userdata voidptr)
 // `userdata` a pointer filled in with the pointer that is passed to
 //                 `callback`
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_LogSetOutputFunction
 // NOTE `userdata` is `**`
 pub fn log_get_output_function(callback &LogOutputFunction, userdata voidptr) {
@@ -165,6 +175,8 @@ fn C.SDL_LogSetOutputFunction(callback LogOutputFunction, userdata voidptr)
 //
 // `callback` an SDL_LogOutputFunction to call instead of the default
 // `userdata` a pointer that is passed to `callback`
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_LogGetOutputFunction
 pub fn log_set_output_function(callback LogOutputFunction, userdata voidptr) {

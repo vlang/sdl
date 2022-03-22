@@ -10,7 +10,7 @@ module sdl
 pub const (
 	major_version = C.SDL_MAJOR_VERSION // 2
 	minor_version = C.SDL_MINOR_VERSION // 0
-	patchlevel    = C.SDL_PATCHLEVEL // 16
+	patchlevel    = C.SDL_PATCHLEVEL // 18
 )
 
 // Version is information about the version of SDL in use.
@@ -96,6 +96,8 @@ printf("But we linked against SDL version %d.%d.%d.\n", linked.major, linked.min
 //
 // `ver` the SDL_version structure that contains the version information
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_VERSION
 // Seealso: SDL_GetRevision
 pub fn get_version(mut ver Version) {
@@ -126,6 +128,8 @@ fn C.SDL_GetRevision() &char
 // returns an arbitrary string, uniquely identifying the exact revision of
 //          the SDL library in use.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_GetVersion
 pub fn get_revision() &char {
 	return C.SDL_GetRevision()
@@ -136,11 +140,23 @@ fn C.SDL_GetRevisionNumber() int
 // get_revision_number is an obsolete function, do not use.
 //
 // When SDL was hosted in a Mercurial repository, and was built carefully,
-// this would return the revision number that the build was created from.
-// This number was not reliable for several reasons, but more importantly,
-// SDL is now hosted in a git repository, which does not offer numbers at
-// all, only hashes. This function only ever returns zero now. Don't use it.
-[deprecated]
+// this would return the revision number that the build was created from. This
+// number was not reliable for several reasons, but more importantly, SDL is
+// now hosted in a git repository, which does not offer numbers at all, only
+// hashes. This function only ever returns zero now. Don't use it.
+//
+// Before SDL 2.0.16, this might have returned an unreliable, but non-zero
+// number.
+//
+// deprecated Use SDL_GetRevision() instead; if SDL was carefully built, it
+//             will return a git hash.
+//
+// returns zero, always, in modern SDL releases.
+//
+// NOTE This function is available since SDL 2.0.0.
+//
+// See also SDL_GetRevision
+[deprecated: 'Use SDL_GetRevision() instead; if SDL was carefully built, it will return a git hash.']
 pub fn get_revision_number() int {
 	return C.SDL_GetRevisionNumber()
 }

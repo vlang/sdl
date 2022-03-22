@@ -33,6 +33,8 @@ fn C.SDL_CreateShapedWindow(title &char, x u32, y u32, w u32, h u32, flags u32) 
 //              and ::SDL_WINDOW_FULLSCREEN is always unset.
 // returns the window created, or NULL if window creation failed.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_DestroyWindow
 pub fn create_shaped_window(title &char, x u32, y u32, w u32, h u32, flags u32) &Window {
 	return C.SDL_CreateShapedWindow(title, x, y, w, h, flags)
@@ -45,6 +47,8 @@ fn C.SDL_IsShapedWindow(window &C.SDL_Window) bool
 // `window` The window to query for being shaped.
 // returns SDL_TRUE if the window is a window that can be shaped, SDL_FALSE if
 //         the window is unshaped or NULL.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateShapedWindow
 pub fn is_shaped_window(window &Window) bool {
@@ -99,6 +103,8 @@ fn C.SDL_SetWindowShape(window &C.SDL_Window, shape &C.SDL_Surface, shape_mode &
 //         argument, or SDL_NONSHAPEABLE_WINDOW if the SDL_Window given does
 //         not reference a valid shaped window.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_WindowShapeMode
 // See also: SDL_GetShapedWindowMode
 pub fn set_window_shape(window &Window, shape &Surface, shape_mode &WindowShapeMode) int {
@@ -117,6 +123,8 @@ fn C.SDL_GetShapedWindowMode(window &C.SDL_Window, shape_mode &C.SDL_WindowShape
 //         SDL_NONSHAPEABLE_WINDOW if the SDL_Window given is not a shaped
 //         window, or SDL_WINDOW_LACKS_SHAPE if the SDL_Window given is a
 //         shapeable window currently lacking a shape.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_WindowShapeMode
 // See also: SDL_SetWindowShape

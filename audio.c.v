@@ -226,17 +226,53 @@ pub type AudioCVT = C.SDL_AudioCVT
 //
 // These functions return the list of built in audio drivers, in the
 // order that they are normally initialized by default.
+
+fn C.SDL_GetNumAudioDrivers() int
+
+// get_num_audio_drivers gets the number of built-in audio drivers.
+//
+// This function returns a hardcoded number. This never returns a negative
+// value; if there are no drivers compiled into this build of SDL, this
+// function returns zero. The presence of a driver in this list does not mean
+// it will function, it just means SDL is capable of interacting with that
+// interface. For example, a build of SDL might have esound support, but if
+// there's no esound server available, SDL's esound driver would fail if used.
+//
+// By default, SDL tries all drivers, in its preferred order, until one is
+// found to be usable.
+//
+// returns the number of built-in audio drivers.
+//
+// NOTE This function is available since SDL 2.0.0.
+//
+// See also: SDL_GetAudioDriver
 pub fn get_num_audio_drivers() int {
 	return C.SDL_GetNumAudioDrivers()
 }
 
-fn C.SDL_GetNumAudioDrivers() int
+fn C.SDL_GetAudioDriver(index int) &char
 
+// get_audio_driver gets the name of a built in audio driver.
+//
+// The list of audio drivers is given in the order that they are normally
+// initialized by default; the drivers that seem more reasonable to choose
+// first (as far as the SDL developers believe) are earlier in the list.
+//
+// The names of drivers are all simple, low-ASCII identifiers, like "alsa",
+// "coreaudio" or "xaudio2". These never have Unicode characters, and are not
+// meant to be proper names.
+//
+// `index` the index of the audio driver; the value ranges from 0 to
+//              SDL_GetNumAudioDrivers() - 1
+// returns the name of the audio driver at the requested index, or NULL if an
+//          invalid index was specified.
+//
+// NOTE This function is available since SDL 2.0.0.
+//
+// See also: SDL_GetNumAudioDrivers
 pub fn get_audio_driver(index int) &char {
 	return C.SDL_GetAudioDriver(index)
 }
-
-fn C.SDL_GetAudioDriver(index int) &char
 
 // audio_init
 // Initialization and cleanup
@@ -244,17 +280,41 @@ fn C.SDL_GetAudioDriver(index int) &char
 // These functions are used internally, and should not be used unless
 // you have a specific need to specify the audio driver you want to
 // use. You should normally use SDL_Init() or SDL_InitSubSystem().
+
+fn C.SDL_AudioInit(driver_name &char) int
+
+// Use this function to initialize a particular audio driver.
+//
+// This function is used internally, and should not be used unless you have a
+// specific need to designate the audio driver you want to use. You should
+// normally use SDL_Init() or SDL_InitSubSystem().
+//
+// `driver_name` the name of the desired audio driver
+// returns 0 on success or a negative error code on failure; call
+//          SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.0.
+//
+// See also: SDL_AudioQuit
 pub fn audio_init(driver_name &char) int {
 	return C.SDL_AudioInit(driver_name)
 }
 
-fn C.SDL_AudioInit(driver_name &char) int
+fn C.SDL_AudioQuit()
 
+// Use this function to shut down audio if you initialized it with
+// SDL_AudioInit().
+//
+// This function is used internally, and should not be used unless you have a
+// specific need to specify the audio driver you want to use. You should
+// normally use SDL_Quit() or SDL_QuitSubSystem().
+//
+// NOTE This function is available since SDL 2.0.0.
+//
+// See also: SDL_AudioInit
 pub fn audio_quit() {
 	C.SDL_AudioQuit()
 }
-
-fn C.SDL_AudioQuit()
 
 // get_current_audio_driver gets the name of the current audio driver.
 //
@@ -285,7 +345,7 @@ fn C.SDL_GetCurrentAudioDriver() &char
 // This function is roughly equivalent to:
 //
 /*
-```c++
+```c
 SDL_OpenAudioDevice(NULL, 0, desired, obtained, SDL_AUDIO_ALLOW_ANY_CHANGE);
 ```
 */
@@ -317,6 +377,8 @@ SDL_OpenAudioDevice(NULL, 0, desired, obtained, SDL_AUDIO_ALLOW_ANY_CHANGE);
 // audio device or failure to set up the audio thread; call
 // SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_CloseAudio
 // See also: SDL_LockAudio
 // See also: SDL_PauseAudio
@@ -338,6 +400,8 @@ fn C.SDL_OpenAudio(desired &C.SDL_AudioSpec, obtained &C.SDL_AudioSpec) int
 // specific, or capture devices.
 // `typedef Uint32 SDL_AudioDeviceID;`
 pub type AudioDeviceID = u32
+
+fn C.SDL_GetNumAudioDevices(iscapture int) int
 
 // get_num_audio_devices gets the number of built-in audio devices.
 //
@@ -363,7 +427,7 @@ pub type AudioDeviceID = u32
 // start of a loop:
 //
 /*
-```c++
+```c
 // Don't do this:
 for (int i = 0; i < SDL_GetNumAudioDevices(0); i++)
 
@@ -387,9 +451,9 @@ pub fn get_num_audio_devices(iscapture int) int {
 	return C.SDL_GetNumAudioDevices(iscapture)
 }
 
-fn C.SDL_GetNumAudioDevices(iscapture int) int
+fn C.SDL_GetAudioDeviceName(index int, iscapture int) &char
 
-// get_audio_device_name getsthe human-readable name of a specific audio device.
+// get_audio_device_name gets the human-readable name of a specific audio device.
 //
 // This function is only valid after successfully initializing the audio
 // subsystem. The values returned by this function reflect the latest call to
@@ -408,12 +472,12 @@ fn C.SDL_GetNumAudioDevices(iscapture int) int
 // returns the name of the audio device at the requested index, or NULL on
 //         error.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_GetNumAudioDevices
 pub fn get_audio_device_name(index int, iscapture int) &char {
 	return C.SDL_GetAudioDeviceName(index, iscapture)
 }
-
-fn C.SDL_GetAudioDeviceName(index int, iscapture int) &char
 
 fn C.SDL_GetAudioDeviceSpec(index int, iscapture int, spec &C.SDL_AudioSpec) int
 
@@ -436,6 +500,8 @@ fn C.SDL_GetAudioDeviceSpec(index int, iscapture int, spec &C.SDL_AudioSpec) int
 // `spec` The SDL_AudioSpec to be initialized by this function.
 // returns 0 on success, nonzero on error
 //
+// NOTE This function is available since SDL 2.0.16.
+//
 // See also: SDL_GetNumAudioDevices
 pub fn get_audio_device_spec(index int, iscapture int, spec &AudioSpec) int {
 	return C.SDL_GetAudioDeviceSpec(index, iscapture, spec)
@@ -457,6 +523,19 @@ pub fn get_audio_device_spec(index int, iscapture int, spec &AudioSpec) int {
 // some drivers allow arbitrary and driver-specific strings, such as a
 // hostname/IP address for a remote audio server, or a filename in the
 // diskaudio driver.
+//
+// An opened audio device starts out paused, and should be enabled for playing
+// by calling SDL_PauseAudioDevice(devid, 0) when you are ready for your audio
+// callback function to be called. Since the audio driver may modify the
+// requested size of the audio buffer, you should allocate any local mixing
+// buffers after you open the audio device.
+//
+// The audio callback runs in a separate thread in most cases; you can prevent
+// race conditions between your callback and other threads without fully
+// pausing playback with SDL_LockAudioDevice(). For more information about the
+// callback, see SDL_AudioSpec.
+//
+// Managing the audio spec via 'desired' and 'obtained':
 //
 // When filling in the desired audio spec structure:
 //
@@ -506,19 +585,11 @@ pub fn get_audio_device_spec(index int, iscapture int, spec &AudioSpec) int {
 // callback's float32 audio to int16 before feeding it to the hardware and
 // will keep the originally requested format in the `obtained` structure.
 //
+// The resulting audio specs, varying depending on hardware and on what
+// changes were allowed, will then be written back to `obtained`.
+//
 // If your application can only handle one specific data format, pass a zero
 // for `allowed_changes` and let SDL transparently handle any differences.
-//
-// An opened audio device starts out paused, and should be enabled for playing
-// by calling SDL_PauseAudioDevice(devid, 0) when you are ready for your audio
-// callback function to be called. Since the audio driver may modify the
-// requested size of the audio buffer, you should allocate any local mixing
-// buffers after you open the audio device.
-//
-// The audio callback runs in a separate thread in most cases; you can prevent
-// race conditions between your callback and other threads without fully
-// pausing playback with SDL_LockAudioDevice(). For more information about the
-// callback, see SDL_AudioSpec.
 //
 // `device` a UTF-8 string reported by SDL_GetAudioDeviceName() or a
 //          driver-specific name as appropriate. NULL requests the most
@@ -563,17 +634,42 @@ pub enum AudioStatus {
 	audio_paused = C.SDL_AUDIO_PAUSED
 }
 
+fn C.SDL_GetAudioStatus() C.SDL_AudioStatus
+
+// get_audio_status is a legacy means of querying the audio device.
+//
+// New programs might want to use SDL_GetAudioDeviceStatus() instead. This
+// function is equivalent to calling...
+//
+// ```c
+// SDL_GetAudioDeviceStatus(1);
+// ```
+//
+// ...and is only useful if you used the legacy SDL_OpenAudio() function.
+//
+// returns the SDL_AudioStatus of the audio device opened by SDL_OpenAudio().
+//
+// NOTE This function is available since SDL 2.0.0.
+//
+// See also: SDL_GetAudioDeviceStatus
 pub fn get_audio_status() AudioStatus {
 	return AudioStatus(C.SDL_GetAudioStatus())
 }
 
-fn C.SDL_GetAudioStatus() C.SDL_AudioStatus
+fn C.SDL_GetAudioDeviceStatus(dev C.SDL_AudioDeviceID) C.SDL_AudioStatus
 
+// get_audio_device_status gets the current audio state of an audio device.
+//
+// `dev` the ID of an audio device previously opened with
+//            SDL_OpenAudioDevice()
+// returns the SDL_AudioStatus of the specified audio device.
+//
+// NOTE This function is available since SDL 2.0.0.
+//
+// See also: SDL_PauseAudioDevice
 pub fn get_audio_device_status(dev AudioDeviceID) AudioStatus {
 	return AudioStatus(C.SDL_GetAudioDeviceStatus(C.SDL_AudioDeviceID(dev)))
 }
-
-fn C.SDL_GetAudioDeviceStatus(dev C.SDL_AudioDeviceID) C.SDL_AudioStatus
 
 // Pause audio functions
 //
@@ -582,13 +678,60 @@ fn C.SDL_GetAudioDeviceStatus(dev C.SDL_AudioDeviceID) C.SDL_AudioStatus
 // device to start playing sound.  This is so you can safely initialize
 // data for your callback function after opening the audio device.
 // Silence will be written to the audio device during the pause.
+
+fn C.SDL_PauseAudio(pause_on int)
+
+// pause_audio is a legacy means of pausing the audio device.
+//
+// New programs might want to use SDL_PauseAudioDevice() instead. This
+// function is equivalent to calling...
+//
+/*
+```c
+ SDL_PauseAudioDevice(1, pause_on);
+```
+*/
+//
+// ...and is only useful if you used the legacy SDL_OpenAudio() function.
+//
+// `pause_on` non-zero to pause, 0 to unpause
+//
+// NOTE This function is available since SDL 2.0.0.
+//
+// See also: SDL_GetAudioStatus
+// See also: SDL_PauseAudioDevice
 pub fn pause_audio(pause_on int) {
 	C.SDL_PauseAudio(pause_on)
 }
 
-fn C.SDL_PauseAudio(pause_on int)
-
 fn C.SDL_PauseAudioDevice(dev C.SDL_AudioDeviceID, pause_on int)
+
+// Use this function to pause and unpause audio playback on a specified
+// device.
+//
+// This function pauses and unpauses the audio callback processing for a given
+// device. Newly-opened audio devices start in the paused state, so you must
+// call this function with **pause_on**=0 after opening the specified audio
+// device to start playing sound. This allows you to safely initialize data
+// for your callback function after opening the audio device. Silence will be
+// written to the audio device while paused, and the audio callback is
+// guaranteed to not be called. Pausing one device does not prevent other
+// unpaused devices from running their callbacks.
+//
+// Pausing state does not stack; even if you pause a device several times, a
+// single unpause will start the device playing again, and vice versa. This is
+// different from how SDL_LockAudioDevice() works.
+//
+// If you just need to protect a few variables from race conditions vs your
+// callback, you shouldn't pause the audio device, as it will lead to dropouts
+// in the audio playback. Instead, you should use SDL_LockAudioDevice().
+//
+// `dev` a device opened by SDL_OpenAudioDevice()
+// `pause_on` non-zero to pause, 0 to unpause
+//
+// NOTE This function is available since SDL 2.0.0.
+//
+// See also: SDL_LockAudioDevice
 pub fn pause_audio_device(dev AudioDeviceID, pause_on int) {
 	C.SDL_PauseAudioDevice(C.SDL_AudioDeviceID(dev), pause_on)
 }
@@ -639,7 +782,7 @@ fn C.SDL_LoadWAV_RW(src &C.SDL_RWops, freesrc int, spec &C.SDL_AudioSpec, audio_
 // Example:
 //
 /*
-```c++
+```c
  SDL_LoadWAV_RW(SDL_RWFromFile("sample.wav", "rb"), 1, &spec, &buf, &len);
 ```
 */
@@ -648,7 +791,7 @@ fn C.SDL_LoadWAV_RW(src &C.SDL_RWops, freesrc int, spec &C.SDL_AudioSpec, audio_
 // messy way:
 //
 /*
-```c++
+```c
  SDL_LoadWAV("sample.wav", &spec, &buf, &len);
 ```
 */
@@ -674,6 +817,8 @@ fn C.SDL_LoadWAV_RW(src &C.SDL_RWops, freesrc int, spec &C.SDL_AudioSpec, audio_
 //         When the application is done with the data returned in
 //         `audio_buf`, it should call SDL_FreeWAV() to dispose of it.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_FreeWAV
 // See also: SDL_LoadWAV
 pub fn load_wav_rw(src &RWops, freesrc int, spec &AudioSpec, audio_buf &&byte, audio_len &u32) &AudioSpec {
@@ -698,6 +843,8 @@ fn C.SDL_FreeWAV(audio_buf &byte)
 //
 // `audio_buf` a pointer to the buffer created by SDL_LoadWAV() or
 //             SDL_LoadWAV_RW()
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_LoadWAV
 // See also: SDL_LoadWAV_RW
@@ -733,6 +880,8 @@ fn C.SDL_BuildAudioCVT(cvt &C.SDL_AudioCVT, src_format C.SDL_AudioFormat, src_ch
 // returns 1 if the audio filter is prepared, 0 if no conversion is needed,
 //         or a negative error code on failure; call SDL_GetError() for more
 //         information.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_ConvertAudio
 pub fn build_audio_cvt(cvt &AudioCVT, src_format AudioFormat, src_channels byte, src_rate int, dst_format AudioFormat, dst_channels byte, dst_rate int) int {
@@ -775,6 +924,8 @@ fn C.SDL_ConvertAudio(cvt &C.SDL_AudioCVT) int
 // returns 0 if the conversion was completed successfully or a negative error
 //         code on failure; call SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_BuildAudioCVT
 pub fn convert_audio(cvt &AudioCVT) int {
 	return C.SDL_ConvertAudio(cvt)
@@ -808,6 +959,8 @@ fn C.SDL_NewAudioStream(const_src_format C.SDL_AudioFormat, const_src_channels b
 // `dst_rate` The sampling rate of the desired audio output
 // returns 0 on success, or -1 on error.
 //
+// NOTE This function is available since SDL 2.0.7.
+//
 // See also: SDL_AudioStreamPut
 // See also: SDL_AudioStreamGet
 // See also: SDL_AudioStreamAvailable
@@ -828,6 +981,8 @@ fn C.SDL_AudioStreamPut(stream &C.SDL_AudioStream, const_buf voidptr, len int) i
 // `len` The number of bytes to write to the stream
 // returns 0 on success, or -1 on error.
 //
+// NOTE This function is available since SDL 2.0.7.
+//
 // See also: SDL_NewAudioStream
 // See also: SDL_AudioStreamGet
 // See also: SDL_AudioStreamAvailable
@@ -847,6 +1002,8 @@ fn C.SDL_AudioStreamGet(stream &C.SDL_AudioStream, buf voidptr, len int) int
 // `len` The maximum number of bytes to fill
 // returns the number of bytes read from the stream, or -1 on error
 //
+// NOTE This function is available since SDL 2.0.7.
+//
 // See also: SDL_NewAudioStream
 // See also: SDL_AudioStreamPut
 // See also: SDL_AudioStreamAvailable
@@ -864,6 +1021,8 @@ fn C.SDL_AudioStreamAvailable(stream &C.SDL_AudioStream) int
 // The stream may be buffering data behind the scenes until it has enough to
 // resample correctly, so this number might be lower than what you expect, or
 // even be zero. Add more data or flush the stream if you need the data now.
+//
+// NOTE This function is available since SDL 2.0.7.
 //
 // See also: SDL_NewAudioStream
 // See also: SDL_AudioStreamPut
@@ -884,6 +1043,8 @@ fn C.SDL_AudioStreamFlush(stream &C.SDL_AudioStream) int
 // audio gaps in the output. Generally this is intended to signal the end of
 // input, so the complete output becomes available.
 //
+// NOTE This function is available since SDL 2.0.7.
+//
 // See also: SDL_NewAudioStream
 // See also: SDL_AudioStreamPut
 // See also: SDL_AudioStreamGet
@@ -899,6 +1060,8 @@ fn C.SDL_AudioStreamClear(stream &C.SDL_AudioStream)
 // audio_stream_clear cleara any pending data in
 // the stream without converting it
 //
+// NOTE This function is available since SDL 2.0.7.
+//
 // See also: SDL_NewAudioStream
 // See also: SDL_AudioStreamPut
 // See also: SDL_AudioStreamGet
@@ -912,6 +1075,8 @@ pub fn audio_stream_clear(stream &AudioStream) {
 fn C.SDL_FreeAudioStream(stream &C.SDL_AudioStream)
 
 // free_audio_stream frees an audio stream
+//
+// NOTE This function is available since SDL 2.0.7.
 //
 // See also: SDL_NewAudioStream
 // See also: SDL_AudioStreamPut
@@ -930,19 +1095,21 @@ fn C.SDL_MixAudio(dst &byte, const_src &byte, len u32, volume int)
 // This function is equivalent to calling
 //
 /*
-```c++
+```c
  SDL_MixAudioFormat(dst, src, format, len, volume);
 ```
 */
 //
-// where `format` is the obtained format of the audio device from the legacy
-// SDL_OpenAudio() function.
+// where `format` is the obtained format of the audio device from the
+// legacy SDL_OpenAudio() function.
 //
 // `dst` the destination for the mixed audio
 // `src` the source audio buffer to be mixed
 // `len` the length of the audio buffer in bytes
 // `volume` ranges from 0 - 128, and should be set to SDL_MIX_MAXVOLUME
 //          for full audio volume
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_MixAudioFormat
 pub fn mix_audio(dst &byte, const_src &byte, len u32, volume int) {
@@ -977,6 +1144,8 @@ fn C.SDL_MixAudioFormat(dst &byte, const_src &byte, format C.SDL_AudioFormat, le
 // `len` the length of the audio buffer in bytes
 // `volume` ranges from 0 - 128, and should be set to SDL_MIX_MAXVOLUME
 //          for full audio volume
+//
+// NOTE This function is available since SDL 2.0.0.
 pub fn mix_audio_format(dst &byte, const_src &byte, format AudioFormat, len u32, volume int) {
 	C.SDL_MixAudioFormat(dst, const_src, C.SDL_AudioFormat(format), len, volume)
 }
@@ -1013,10 +1182,9 @@ fn C.SDL_QueueAudio(dev C.SDL_AudioDeviceID, const_data voidptr, len u32) int
 // You should not call SDL_LockAudio() on the device before queueing; SDL
 // handles locking internally for this function.
 //
-// Note that SDL2
-// [does not support planar audio](https://discourse.libsdl.org/t/sdl2-support-for-planar-audio/31263/3).
-// You will need to resample from planar audio
-// formats into a non-planar one (see SDL_AudioFormat) before queuing audio.
+// Note that SDL2 does not support planar audio. You will need to resample
+// from planar audio formats into a non-planar one (see SDL_AudioFormat)
+// before queuing audio.
 //
 // `dev` the device ID to which we will queue audio
 // `data` the data to queue to the device for later playback
@@ -1154,30 +1322,109 @@ pub fn clear_queued_audio(dev AudioDeviceID) {
 	C.SDL_ClearQueuedAudio(C.SDL_AudioDeviceID(dev))
 }
 
-fn C.SDL_LockAudio()
-
 // Audio lock functions
 //
 // The lock manipulated by these functions protects the callback function.
 // During a SDL_LockAudio()/SDL_UnlockAudio() pair, you can be guaranteed that
 // the callback function is not running.  Do not call these from the callback
 // function or you will cause deadlock.
+
+fn C.SDL_LockAudio()
+
+// lock_audio is a legacy means of locking the audio device.
+//
+// New programs might want to use SDL_LockAudioDevice() instead. This function
+// is equivalent to calling...
+//
+// ```c
+// SDL_LockAudioDevice(1);
+// ```
+//
+// ...and is only useful if you used the legacy SDL_OpenAudio() function.
+//
+// NOTE This function is available since SDL 2.0.0.
+//
+// See also: SDL_LockAudioDevice
+// See also: SDL_UnlockAudio
+// See also: SDL_UnlockAudioDevice
 pub fn lock_audio() {
 	C.SDL_LockAudio()
 }
 
 fn C.SDL_LockAudioDevice(dev C.SDL_AudioDeviceID)
 
+// lock_audio_device locks out the audio callback function for a specified
+// device.
+//
+// The lock manipulated by these functions protects the audio callback
+// function specified in SDL_OpenAudioDevice(). During a
+// SDL_LockAudioDevice()/SDL_UnlockAudioDevice() pair, you can be guaranteed
+// that the callback function for that device is not running, even if the
+// device is not paused. While a device is locked, any other unpaused,
+// unlocked devices may still run their callbacks.
+//
+// Calling this function from inside your audio callback is unnecessary. SDL
+// obtains this lock before calling your function, and releases it when the
+// function returns.
+//
+// You should not hold the lock longer than absolutely necessary. If you hold
+// it too long, you'll experience dropouts in your audio playback. Ideally,
+// your application locks the device, sets a few variables and unlocks again.
+// Do not do heavy work while holding the lock for a device.
+//
+// It is safe to lock the audio device multiple times, as long as you unlock
+// it an equivalent number of times. The callback will not run until the
+// device has been unlocked completely in this way. If your application fails
+// to unlock the device appropriately, your callback will never run, you might
+// hear repeating bursts of audio, and SDL_CloseAudioDevice() will probably
+// deadlock.
+//
+// Internally, the audio device lock is a mutex; if you lock from two threads
+// at once, not only will you block the audio callback, you'll block the other
+// thread.
+//
+// `dev` the ID of the device to be locked
+//
+// NOTE This function is available since SDL 2.0.0.
+//
+// See also: SDL_UnlockAudioDevice
 pub fn lock_audio_device(dev AudioDeviceID) {
 	C.SDL_LockAudioDevice(C.SDL_AudioDeviceID(dev))
 }
 
 fn C.SDL_UnlockAudio()
+
+// unlock_audio is a legacy means of unlocking the audio device.
+//
+// New programs might want to use SDL_UnlockAudioDevice() instead. This
+// function is equivalent to calling...
+//
+// ```c
+// SDL_UnlockAudioDevice(1);
+// ```
+//
+// ...and is only useful if you used the legacy SDL_OpenAudio() function.
+//
+// NOTE This function is available since SDL 2.0.0.
+//
+// See also: SDL_LockAudio
+// See also: SDL_UnlockAudioDevice
 pub fn unlock_audio() {
 	C.SDL_UnlockAudio()
 }
 
 fn C.SDL_UnlockAudioDevice(dev C.SDL_AudioDeviceID)
+
+// unlock_audio_device unlocks the audio callback function for a specified
+// device.
+//
+// This function should be paired with a previous SDL_LockAudioDevice() call.
+//
+// `dev` the ID of the device to be unlocked
+//
+// NOTE This function is available since SDL 2.0.0.
+//
+// See also: SDL_LockAudioDevice
 pub fn unlock_audio_device(dev AudioDeviceID) {
 	C.SDL_UnlockAudioDevice(C.SDL_AudioDeviceID(dev))
 }
@@ -1186,15 +1433,17 @@ fn C.SDL_CloseAudio()
 
 // close_audio is legacy means of closing the audio device.
 //
-// This function is equivalent to calling
+// This function is equivalent to calling...
 //
 /*
-```c++
+```c
  SDL_CloseAudioDevice(1);
 ```
 */
 //
-// and is only useful if you used the legacy SDL_OpenAudio() function.
+// ...and is only useful if you used the legacy SDL_OpenAudio() function.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_OpenAudio
 pub fn close_audio() {
@@ -1219,6 +1468,8 @@ fn C.SDL_CloseAudioDevice(dev C.SDL_AudioDeviceID)
 // for reuse in a new SDL_OpenAudioDevice() call immediately.
 //
 // `dev` an audio device previously opened with SDL_OpenAudioDevice()
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_OpenAudioDevice
 pub fn close_audio_device(dev AudioDeviceID) {

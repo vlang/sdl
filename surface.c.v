@@ -95,6 +95,8 @@ fn C.SDL_CreateRGBSurface(flags u32, width int, height int, depth int, rmask u32
 // returns the new SDL_Surface structure that is created or NULL if it fails;
 //          call SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_CreateRGBSurfaceFrom
 // See also: SDL_CreateRGBSurfaceWithFormat
 // See also: SDL_FreeSurface
@@ -117,6 +119,8 @@ fn C.SDL_CreateRGBSurfaceWithFormat(flags u32, width int, height int, depth int,
 // `format` the SDL_PixelFormatEnum for the new surface's pixel format.
 // returns the new SDL_Surface structure that is created or NULL if it fails;
 //          call SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.5.
 //
 // See also: SDL_CreateRGBSurface
 // See also: SDL_CreateRGBSurfaceFrom
@@ -148,6 +152,8 @@ fn C.SDL_CreateRGBSurfaceFrom(pixels voidptr, width int, height int, depth int, 
 // returns the new SDL_Surface structure that is created or NULL if it fails;
 //          call SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_CreateRGBSurface
 // See also: SDL_CreateRGBSurfaceWithFormat
 // See also: SDL_FreeSurface
@@ -177,6 +183,8 @@ fn C.SDL_CreateRGBSurfaceWithFormatFrom(pixels voidptr, width int, height int, d
 // returns the new SDL_Surface structure that is created or NULL if it fails;
 //          call SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.5.
+//
 // See also: SDL_CreateRGBSurfaceFrom
 // See also: SDL_CreateRGBSurfaceWithFormat
 // See also: SDL_FreeSurface
@@ -191,6 +199,8 @@ fn C.SDL_FreeSurface(surface &C.SDL_Surface)
 // It is safe to pass NULL to this function.
 //
 // `surface` the SDL_Surface to free.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateRGBSurface
 // See also: SDL_CreateRGBSurfaceFrom
@@ -210,6 +220,8 @@ fn C.SDL_SetSurfacePalette(surface &C.SDL_Surface, palette &C.SDL_Palette) int
 // `palette` the SDL_Palette structure to use
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.0.
 pub fn set_surface_palette(surface &Surface, palette &Palette) int {
 	return C.SDL_SetSurfacePalette(surface, palette)
 }
@@ -231,6 +243,8 @@ fn C.SDL_LockSurface(surface &C.SDL_Surface) int
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_MUSTLOCK
 // See also: SDL_UnlockSurface
 pub fn lock_surface(surface &Surface) int {
@@ -243,6 +257,8 @@ fn C.SDL_UnlockSurface(surface &C.SDL_Surface)
 //
 // `surface` the SDL_Surface structure to be unlocked
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_LockSurface
 pub fn unlock_surface(surface &Surface) {
 	C.SDL_UnlockSurface(surface)
@@ -252,14 +268,22 @@ fn C.SDL_LoadBMP_RW(src &C.SDL_RWops, freesrc int) &C.SDL_Surface
 
 // load_bmp_rw loads a BMP image from a seekable SDL data stream.
 //
-// The new surface should be freed with SDL_FreeSurface().
+// The new surface should be freed with SDL_FreeSurface(). Not doing so will
+// result in a memory leak.
+//
+// src is an open SDL_RWops buffer, typically loaded with SDL_RWFromFile.
+// Alternitavely, you might also use the macro SDL_LoadBMP to load a bitmap
+// from a file, convert it to an SDL_Surface and then close the file.
 //
 // `src` the data stream for the surface
 // `freesrc` non-zero to close the stream after being read
 // returns a pointer to a new SDL_Surface structure or NULL if there was an
 //          error; call SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_FreeSurface
+// See also: SDL_RWFromFile
 // See also: SDL_LoadBMP
 // See also: SDL_SaveBMP_RW
 pub fn load_bmp_rw(src &RWops, freesrc int) &Surface {
@@ -291,6 +315,8 @@ fn C.SDL_SaveBMP_RW(surface &C.SDL_Surface, dst &C.SDL_RWops, freedst int) int
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_LoadBMP_RW
 // See also: SDL_SaveBMP
 pub fn save_bmp_rw(surface &Surface, dst &RWops, freedst int) int {
@@ -318,6 +344,8 @@ fn C.SDL_SetSurfaceRLE(surface &C.SDL_Surface, flag int) int
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_BlitSurface
 // See also: SDL_LockSurface
 // See also: SDL_UnlockSurface
@@ -333,6 +361,8 @@ fn C.SDL_HasSurfaceRLE(surface &C.SDL_Surface) bool
 //
 // `surface` the SDL_Surface structure to query
 // returns SDL_TRUE if the surface is RLE enabled, SDL_FALSE otherwise.
+//
+// NOTE This function is available since SDL 2.0.14.
 //
 // See also: SDL_SetSurfaceRLE
 pub fn has_surface_rle(surface &Surface) bool {
@@ -359,6 +389,8 @@ fn C.SDL_SetColorKey(surface &C.SDL_Surface, flag int, key u32) int
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_BlitSurface
 // See also: SDL_GetColorKey
 pub fn set_color_key(surface &Surface, flag int, key u32) int {
@@ -373,6 +405,8 @@ fn C.SDL_HasColorKey(surface &C.SDL_Surface) bool
 //
 // `surface` the SDL_Surface structure to query
 // returns SDL_TRUE if the surface has a color key, SDL_FALSE otherwise.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetColorKey
 // See also: SDL_GetColorKey
@@ -393,6 +427,8 @@ fn C.SDL_GetColorKey(surface &C.SDL_Surface, key &u32) int
 // `key` a pointer filled in with the transparent pixel
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_BlitSurface
 // See also: SDL_SetColorKey
@@ -417,6 +453,8 @@ fn C.SDL_SetSurfaceColorMod(surface &C.SDL_Surface, r byte, g byte, b byte) int
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_GetSurfaceColorMod
 // See also: SDL_SetSurfaceAlphaMod
 pub fn set_surface_color_mod(surface &Surface, r byte, g byte, b byte) int {
@@ -433,6 +471,8 @@ fn C.SDL_GetSurfaceColorMod(surface &C.SDL_Surface, r &byte, g &byte, b &byte) i
 // `b` a pointer filled in with the current blue color value
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetSurfaceAlphaMod
 // See also: SDL_SetSurfaceColorMod
@@ -454,6 +494,8 @@ fn C.SDL_SetSurfaceAlphaMod(surface &C.SDL_Surface, alpha byte) int
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_GetSurfaceAlphaMod
 // See also: SDL_SetSurfaceColorMod
 pub fn set_surface_alpha_mod(surface &Surface, alpha byte) int {
@@ -468,6 +510,8 @@ fn C.SDL_GetSurfaceAlphaMod(surface &C.SDL_Surface, alpha &byte) int
 // `alpha` a pointer filled in with the current alpha value
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetSurfaceColorMod
 // See also: SDL_SetSurfaceAlphaMod
@@ -488,6 +532,8 @@ fn C.SDL_SetSurfaceBlendMode(surface &C.SDL_Surface, blend_mode C.SDL_BlendMode)
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_GetSurfaceBlendMode
 pub fn set_surface_blend_mode(surface &Surface, blend_mode BlendMode) int {
 	return C.SDL_SetSurfaceBlendMode(surface, C.SDL_BlendMode(int(blend_mode)))
@@ -501,6 +547,8 @@ fn C.SDL_GetSurfaceBlendMode(surface &C.SDL_Surface, blend_mode &C.SDL_BlendMode
 // `blendMode` a pointer filled in with the current SDL_BlendMode
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetSurfaceBlendMode
 pub fn get_surface_blend_mode(surface &Surface, blend_mode &BlendMode) int {
@@ -523,6 +571,8 @@ fn C.SDL_SetClipRect(surface &C.SDL_Surface, const_rect &C.SDL_Rect) bool
 // returns SDL_TRUE if the rectangle intersects the surface, otherwise
 //          SDL_FALSE and blits will be completely clipped.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_BlitSurface
 // See also: SDL_GetClipRect
 pub fn set_clip_rect(surface &Surface, const_rect &Rect) bool {
@@ -540,6 +590,8 @@ fn C.SDL_GetClipRect(surface &C.SDL_Surface, rect &C.SDL_Rect)
 //                clipped
 // `rect` an SDL_Rect structure filled in with the clipping rectangle for
 //             the surface
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_BlitSurface
 // See also: SDL_SetClipRect
@@ -577,6 +629,8 @@ fn C.SDL_ConvertSurface(src &C.SDL_Surface, const_fmt &C.SDL_PixelFormat, flags 
 // returns the new SDL_Surface structure that is created or NULL if it fails;
 //          call SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_AllocFormat
 // See also: SDL_ConvertSurfaceFormat
 // See also: SDL_CreateRGBSurface
@@ -601,8 +655,10 @@ fn C.SDL_ConvertSurfaceFormat(src &C.SDL_Surface, pixel_format u32, flags u32) &
 // returns the new SDL_Surface structure that is created or NULL if it fails;
 //          call SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_AllocFormat
-// See also: SDL_ConvertSurfaceFormat
+// See also: SDL_ConvertSurface
 // See also: SDL_CreateRGBSurface
 pub fn convert_surface_format(src &Surface, pixel_format u32, flags u32) &Surface {
 	return C.SDL_ConvertSurfaceFormat(src, pixel_format, flags)
@@ -616,15 +672,42 @@ fn C.SDL_ConvertPixels(width int, height int, const_src_format u32, const_src vo
 // `height` the height of the block to copy, in pixels
 // `src_format` an SDL_PixelFormatEnum value of the `src` pixels format
 // `src` a pointer to the source pixels
-// `src_pitch` the pitch of the block to copy, in bytes
+// `src_pitch` the pitch of the source pixels, in bytes
 // `dst_format` an SDL_PixelFormatEnum value of the `dst` pixels format
 // `dst` a pointer to be filled in with new pixel data
 // `dst_pitch` the pitch of the destination pixels, in bytes
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.0.
 pub fn convert_pixels(width int, height int, const_src_format u32, const_src voidptr, const_src_pitch int, dst_format u32, dst voidptr, dst_pitch int) int {
 	return C.SDL_ConvertPixels(width, height, const_src_format, const_src, const_src_pitch,
 		dst_format, dst, dst_pitch)
+}
+
+fn C.SDL_PremultiplyAlpha(width int, height int, src_format u32, const_src voidptr, src_pitch int, dst_format u32, dst voidptr, dst_pitch int) int
+
+// premultiply_alpha premultiplys the alpha on a block of pixels.
+//
+// This is safe to use with src == dst, but not for other overlapping areas.
+//
+// This function is currently only implemented for SDL_PIXELFORMAT_ARGB8888.
+//
+// `width` the width of the block to convert, in pixels
+// `height` the height of the block to convert, in pixels
+// `src_format` an SDL_PixelFormatEnum value of the `src` pixels format
+// `src` a pointer to the source pixels
+// `src_pitch` the pitch of the source pixels, in bytes
+// `dst_format` an SDL_PixelFormatEnum value of the `dst` pixels format
+// `dst` a pointer to be filled in with premultiplied pixel data
+// `dst_pitch` the pitch of the destination pixels, in bytes
+// returns 0 on success or a negative error code on failure; call
+//          SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.18.
+pub fn premultiply_alpha(width int, height int, src_format u32, const_src voidptr, src_pitch int, dst_format u32, dst voidptr, dst_pitch int) int {
+	return C.SDL_PremultiplyAlpha(width, height, src_format, const_src, src_pitch, dst_format,
+		dst, dst_pitch)
 }
 
 fn C.SDL_FillRect(dst &C.SDL_Surface, const_rect &C.SDL_Rect, color u32) int
@@ -646,6 +729,8 @@ fn C.SDL_FillRect(dst &C.SDL_Surface, const_rect &C.SDL_Rect, color u32) int
 // `color` the color to fill with
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_FillRects
 pub fn fill_rect(dst &Surface, const_rect &Rect, color u32) int {
@@ -671,6 +756,8 @@ fn C.SDL_FillRects(dst &C.SDL_Surface, const_rects &C.SDL_Rect, count int, color
 // `color` the color to fill with
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_FillRect
 pub fn fill_rects(dst &Surface, const_rects &Rect, count int, color u32) int {
@@ -747,6 +834,8 @@ fn C.SDL_UpperBlit(src &C.SDL_Surface, const_srcrect &C.SDL_Rect, dst &C.SDL_Sur
 // SDL_UpperBlit() has been replaced by SDL_BlitSurface(), which is merely a
 // macro for this function with a less confusing name.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_BlitSurface
 pub fn upper_blit(src &Surface, const_srcrect &Rect, dst &Surface, dstrect &Rect) int {
 	return C.SDL_UpperBlit(src, const_srcrect, dst, dstrect)
@@ -771,6 +860,8 @@ fn C.SDL_LowerBlit(src &C.SDL_Surface, srcrect &C.SDL_Rect, dst &C.SDL_Surface, 
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_BlitSurface
 pub fn lower_blit(src &Surface, srcrect &Rect, dst &Surface, dstrect &Rect) int {
 	return C.SDL_LowerBlit(src, srcrect, dst, dstrect)
@@ -778,10 +869,12 @@ pub fn lower_blit(src &Surface, srcrect &Rect, dst &Surface, dstrect &Rect) int 
 
 fn C.SDL_SoftStretch(src &C.SDL_Surface, const_srcrect &C.SDL_Rect, dst &C.SDL_Surface, const_dstrect &C.SDL_Rect) int
 
-// soft_stretch performs a fast, low quality, stretch blit between two surfaces of the
-// same format.
+// soft_stretch performs a fast, low quality, stretch blit between two surfaces of the same
+// format.
 //
 // Please use SDL_BlitScaled() instead.
+//
+// NOTE This function is available since SDL 2.0.0.
 pub fn soft_stretch(src &Surface, const_srcrect &Rect, dst &Surface, const_dstrect &Rect) int {
 	return C.SDL_SoftStretch(src, const_srcrect, dst, const_dstrect)
 }
@@ -789,6 +882,8 @@ pub fn soft_stretch(src &Surface, const_srcrect &Rect, dst &Surface, const_dstre
 fn C.SDL_SoftStretchLinear(src &C.SDL_Surface, const_srcrect &C.SDL_Rect, dst &C.SDL_Surface, const_dstrect &C.SDL_Rect) int
 
 // soft_stretch_linear performs bilinear scaling between two surfaces of the same format, 32BPP.
+//
+// NOTE This function is available since SDL 2.0.16.
 pub fn soft_stretch_linear(src &Surface, const_srcrect &Rect, dst &Surface, const_dstrect &Rect) int {
 	return C.SDL_SoftStretchLinear(src, const_srcrect, dst, const_dstrect)
 }
@@ -804,6 +899,8 @@ fn C.SDL_UpperBlitScaled(src &C.SDL_Surface, const_srcrect &C.SDL_Rect, dst &C.S
 //
 // SDL_UpperBlitScaled() has been replaced by SDL_BlitScaled(), which is
 // merely a macro for this function with a less confusing name.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_BlitScaled
 pub fn upper_blit_scaled(src &Surface, const_srcrect &Rect, dst &Surface, dstrect &Rect) int {
@@ -826,6 +923,8 @@ fn C.SDL_LowerBlitScaled(src &C.SDL_Surface, srcrect &C.SDL_Rect, dst &C.SDL_Sur
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_BlitScaled
 pub fn lower_blit_scaled(src &Surface, srcrect &Rect, dst &Surface, dstrect &Rect) int {
 	return C.SDL_LowerBlitScaled(src, srcrect, dst, dstrect)
@@ -834,6 +933,8 @@ pub fn lower_blit_scaled(src &Surface, srcrect &Rect, dst &Surface, dstrect &Rec
 fn C.SDL_SetYUVConversionMode(mode C.SDL_YUV_CONVERSION_MODE)
 
 // set_yuv_conversion_mode sets the YUV conversion mode
+//
+// NOTE This function is available since SDL 2.0.8.
 pub fn set_yuv_conversion_mode(mode YUVConversionMode) {
 	C.SDL_SetYUVConversionMode(C.SDL_YUV_CONVERSION_MODE(int(mode)))
 }
@@ -841,6 +942,8 @@ pub fn set_yuv_conversion_mode(mode YUVConversionMode) {
 fn C.SDL_GetYUVConversionMode() C.SDL_YUV_CONVERSION_MODE
 
 // get_yuv_conversion_mode gets the YUV conversion mode
+//
+// NOTE This function is available since SDL 2.0.8.
 pub fn get_yuv_conversion_mode() YUVConversionMode {
 	return YUVConversionMode(int(C.SDL_GetYUVConversionMode()))
 }
@@ -849,6 +952,8 @@ fn C.SDL_GetYUVConversionModeForResolution(width int, height int) C.SDL_YUV_CONV
 
 // get_yuv_conversion_mode_for_resolution gets the YUV conversion mode, returning the correct mode for the resolution
 // when the current conversion mode is SDL_YUV_CONVERSION_AUTOMATIC
+//
+// NOTE This function is available since SDL 2.0.8.
 pub fn get_yuv_conversion_mode_for_resolution(width int, height int) YUVConversionMode {
 	return YUVConversionMode(int(C.SDL_GetYUVConversionModeForResolution(width, height)))
 }

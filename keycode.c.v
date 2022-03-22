@@ -42,12 +42,14 @@ pub enum Keymod {
 	num = C.KMOD_NUM // 0x1000
 	caps = C.KMOD_CAPS // 0x2000
 	mode = C.KMOD_MODE // 0x4000
-	reserved = C.KMOD_RESERVED // 0x8000
+	scroll = C.KMOD_SCROLL // 0x8000
 	//
 	ctrl = C.KMOD_CTRL
 	shift = C.KMOD_SHIFT
 	alt = C.KMOD_ALT
 	gui = C.KMOD_GUI
+	//
+	reserved = C.KMOD_RESERVED // (KMOD_SCROLL) This is for source-level compatibility with SDL 2.0.0.
 }
 
 pub enum KeyCode {

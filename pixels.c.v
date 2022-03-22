@@ -209,6 +209,8 @@ fn C.SDL_PixelFormatEnumToMasks(format Format, bpp &int, rmask &u32, gmask &u32,
 // returns SDL_TRUE on success or SDL_FALSE if the conversion wasn't
 //          possible; call SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_MasksToPixelFormatEnum
 pub fn pixel_format_enum_to_masks(format Format, bpp &int, rmask &u32, gmask &u32, bmask &u32, amask &u32) bool {
 	return C.SDL_PixelFormatEnumToMasks(format, bpp, rmask, gmask, bmask, amask)
@@ -228,6 +230,8 @@ fn C.SDL_MasksToPixelFormatEnum(bpp int, rmask u32, gmask u32, bmask u32, amask 
 // `Amask` the alpha mask for the format
 // returns one of the SDL_PixelFormatEnum values
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_PixelFormatEnumToMasks
 pub fn masks_to_pixel_format_enum(bpp int, rmask u32, gmask u32, bmask u32, amask u32) Format {
 	return Format(C.SDL_MasksToPixelFormatEnum(bpp, rmask, gmask, bmask, amask))
@@ -244,6 +248,8 @@ fn C.SDL_AllocFormat(pixel_format Format) &C.SDL_PixelFormat
 // `pixel_format` one of the SDL_PixelFormatEnum values
 // returns the new SDL_PixelFormat structure or NULL on failure; call
 //          SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_FreeFormat
 pub fn alloc_format(pixel_format Format) &PixelFormat {
@@ -272,6 +278,8 @@ fn C.SDL_AllocPalette(ncolors int) &C.SDL_Palette
 //          there wasn't enough memory); call SDL_GetError() for more
 //          information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_FreePalette
 pub fn alloc_palette(ncolors int) &Palette {
 	return C.SDL_AllocPalette(ncolors)
@@ -285,6 +293,8 @@ fn C.SDL_SetPixelFormatPalette(format &C.SDL_PixelFormat, palette &C.SDL_Palette
 // `palette` the SDL_Palette structure that will be used
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_AllocPalette
 // See also: SDL_FreePalette
@@ -303,6 +313,8 @@ fn C.SDL_SetPaletteColors(palette &C.SDL_Palette, const_colors &C.SDL_Color, fir
 // returns 0 on success or a negative error code if not all of the colors
 //          could be set; call SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_AllocPalette
 // See also: SDL_CreateRGBSurface
 pub fn set_palette_colors(palette &Palette, const_colors &Color, firstcolor int, nconst_colors int) int {
@@ -314,6 +326,8 @@ fn C.SDL_FreePalette(palette &C.SDL_Palette)
 // free_palette frees a palette created with SDL_AllocPalette().
 //
 // `palette` the SDL_Palette structure to be freed
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_AllocPalette
 pub fn free_palette(palette &Palette) {
@@ -344,6 +358,8 @@ fn C.SDL_MapRGB(format &C.SDL_PixelFormat, r byte, g byte, b byte) u32
 // `g` the green component of the pixel in the range 0-255
 // `b` the blue component of the pixel in the range 0-255
 // returns a pixel value
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetRGB
 // See also: SDL_GetRGBA
@@ -379,6 +395,8 @@ fn C.SDL_MapRGBA(format &C.SDL_PixelFormat, r byte, g byte, b byte, a byte) u32
 // `a` the alpha component of the pixel in the range 0-255
 // returns a pixel value
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_GetRGB
 // See also: SDL_GetRGBA
 // See also: SDL_MapRGB
@@ -401,6 +419,8 @@ fn C.SDL_GetRGB(pixel u32, const_format &C.SDL_PixelFormat, r &byte, g &byte, b 
 // `r` a pointer filled in with the red component
 // `g` a pointer filled in with the green component
 // `b` a pointer filled in with the blue component
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetRGBA
 // See also: SDL_MapRGB
@@ -429,6 +449,8 @@ fn C.SDL_GetRGBA(pixel u32, const_format &C.SDL_PixelFormat, r &byte, g &byte, b
 // `b` a pointer filled in with the blue component
 // `a` a pointer filled in with the alpha component
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_GetRGB
 // See also: SDL_MapRGB
 // See also: SDL_MapRGBA
@@ -442,6 +464,8 @@ fn C.SDL_CalculateGammaRamp(gamma f32, ramp &u16)
 //
 // `gamma` a gamma value where 0.0 is black and 1.0 is identity
 // `ramp` an array of 256 values filled in with the gamma ramp
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetWindowGammaRamp
 pub fn calculate_gamma_ramp(gamma f32, ramp &u16) {

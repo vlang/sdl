@@ -14,6 +14,8 @@ fn C.SDL_LoadObject(sofile &char) voidptr
 // returns an opaque pointer to the object handle or NULL if there was an
 //          error; call SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_LoadFunction
 // See also: SDL_UnloadObject
 pub fn load_object(sofile &char) voidptr {
@@ -41,6 +43,8 @@ fn C.SDL_LoadFunction(handle voidptr, const_name &char) voidptr
 // returns a pointer to the function or NULL if there was an error; call
 //          SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_LoadObject
 // See also: SDL_UnloadObject
 pub fn load_function(handle voidptr, const_name &char) voidptr {
@@ -52,6 +56,8 @@ fn C.SDL_UnloadObject(handle voidptr)
 // unload_object unloads a shared object from memory.
 //
 // `handle` a valid shared object handle returned by SDL_LoadObject()
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_LoadFunction
 // See also: SDL_LoadObject

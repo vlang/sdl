@@ -20,6 +20,8 @@ module sdl
 // returns the name of the platform. If the correct platform name is not
 //          available, returns a string beginning with the text "Unknown".
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // NOTE the returned &char is const
 fn C.SDL_GetPlatform() &char
 pub fn get_platform() &char {

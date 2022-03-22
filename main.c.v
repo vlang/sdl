@@ -21,6 +21,8 @@ fn C.SDL_SetMainReady()
 // will not be changed it is necessary to define SDL_MAIN_HANDLED before
 // including SDL.h.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_Init
 pub fn set_main_ready() {
 	C.SDL_SetMainReady()

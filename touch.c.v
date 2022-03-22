@@ -79,6 +79,8 @@ pub fn get_touch_device(index int) TouchID {
 fn C.SDL_GetTouchDeviceType(touch_id TouchID) C.SDL_TouchDeviceType
 
 // get_touch_device_type gets the type of the given touch device.
+//
+// NOTE This function is available since SDL 2.0.10.
 pub fn get_touch_device_type(touch_id TouchID) TouchDeviceType {
 	return TouchDeviceType(int(C.SDL_GetTouchDeviceType(touch_id)))
 }
@@ -108,6 +110,8 @@ fn C.SDL_GetTouchFinger(touch_id TouchID, index int) &C.SDL_Finger
 // `index` the index of the requested finger
 // returns a pointer to the SDL_Finger object or NULL if no object at the
 //          given ID and index could be found.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_RecordGesture
 pub fn get_touch_finger(touch_id TouchID, index int) &Finger {

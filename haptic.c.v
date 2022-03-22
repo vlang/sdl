@@ -739,6 +739,8 @@ fn C.SDL_HapticClose(haptic &C.SDL_Haptic)
 //
 // `haptic` the SDL_Haptic device to close
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_HapticOpen
 pub fn haptic_close(haptic &Haptic) {
 	C.SDL_HapticClose(haptic)
@@ -809,6 +811,8 @@ fn C.SDL_HapticNumAxes(haptic &C.SDL_Haptic) int
 // `haptic` the SDL_Haptic device to query
 // returns the number of axes on success or a negative error code on failure;
 //          call SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.0.
 pub fn haptic_num_axes(haptic &Haptic) int {
 	return C.SDL_HapticNumAxes(haptic)
 }
@@ -840,6 +844,8 @@ fn C.SDL_HapticNewEffect(haptic &C.SDL_Haptic, effect &C.SDL_HapticEffect) int
 //               the effect to create
 // returns the ID of the effect on success or a negative error code on
 //          failure; call SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_HapticDestroyEffect
 // See also: SDL_HapticRunEffect
@@ -989,6 +995,8 @@ fn C.SDL_HapticSetAutocenter(haptic &C.SDL_Haptic, autocenter int) int
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_HapticQuery
 pub fn haptic_set_autocenter(haptic &Haptic, autocenter int) int {
 	return C.SDL_HapticSetAutocenter(haptic, autocenter)
@@ -1008,6 +1016,8 @@ fn C.SDL_HapticPause(haptic &C.SDL_Haptic) int
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_HapticUnpause
 pub fn haptic_pause(haptic &Haptic) int {
 	return C.SDL_HapticPause(haptic)
@@ -1023,6 +1033,8 @@ fn C.SDL_HapticUnpause(haptic &C.SDL_Haptic) int
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_HapticPause
 pub fn haptic_unpause(haptic &Haptic) int {
 	return C.SDL_HapticUnpause(haptic)
@@ -1035,6 +1047,8 @@ fn C.SDL_HapticStopAll(haptic &C.SDL_Haptic) int
 // `haptic` the SDL_Haptic device to stop
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.0.
 pub fn haptic_stop_all(haptic &Haptic) int {
 	return C.SDL_HapticStopAll(haptic)
 }
@@ -1047,6 +1061,8 @@ fn C.SDL_HapticRumbleSupported(haptic &C.SDL_Haptic) int
 // returns SDL_TRUE if effect is supported, SDL_FALSE if it isn't, or a
 //          negative error code on failure; call SDL_GetError() for more
 //          information.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_HapticRumbleInit
 // See also: SDL_HapticRumblePlay
@@ -1083,6 +1099,8 @@ fn C.SDL_HapticRumblePlay(haptic &C.SDL_Haptic, strength f32, length u32) int
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_HapticRumbleInit
 // See also: SDL_HapticRumbleStop
 // See also: SDL_HapticRumbleSupported
@@ -1097,6 +1115,8 @@ fn C.SDL_HapticRumbleStop(haptic &C.SDL_Haptic) int
 // `haptic` the haptic device to stop the rumble effect on
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_HapticRumbleInit
 // See also: SDL_HapticRumblePlay

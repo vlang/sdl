@@ -26,6 +26,8 @@ fn C.SDL_Metal_CreateView(window &C.SDL_Window) C.SDL_MetalView
 // The returned handle can be casted directly to a NSView or UIView. To access
 // the backing CAMetalLayer, call SDL_Metal_GetLayer().
 //
+// NOTE This function is available since SDL 2.0.12.
+//
 // See also: SDL_Metal_DestroyView
 // See also: SDL_Metal_GetLayer
 pub fn metal_create_view(window &Window) MetalView {
@@ -39,6 +41,8 @@ fn C.SDL_Metal_DestroyView(view C.SDL_MetalView)
 // This should be called before SDL_DestroyWindow, if SDL_Metal_CreateView was
 // called after SDL_CreateWindow.
 //
+// NOTE This function is available since SDL 2.0.12.
+//
 // See also: SDL_Metal_CreateView
 pub fn metal_destroy_view(view MetalView) {
 	C.SDL_Metal_DestroyView(voidptr(view))
@@ -47,6 +51,8 @@ pub fn metal_destroy_view(view MetalView) {
 fn C.SDL_Metal_GetLayer(view C.SDL_MetalView) voidptr
 
 // metal_get_layer gets a pointer to the backing CAMetalLayer for the given view.
+//
+// NOTE This function is available since SDL 2.0.14.
 //
 // See also: SDL_MetalCreateView
 pub fn metal_get_layer(view MetalView) voidptr {
@@ -60,6 +66,8 @@ fn C.SDL_Metal_GetDrawableSize(window &C.SDL_Window, w &int, h &int)
 //
 // `window` SDL_Window from which the drawable size should be queried
 // `w` Pointer to variable for storing the width in pixels, may be NULL
+//
+// NOTE This function is available since SDL 2.0.14.
 //
 // See also: SDL_GetWindowSize
 // See also: SDL_CreateWindow

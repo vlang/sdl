@@ -23,6 +23,7 @@ Currently available APIs:
 - gesture        (SDL_gesture.h)
 - haptic         (SDL_haptic.h)
 - hints          (SDL_hints.h)
+- hidapi         (SDL_hidapi.h)
 - joystick       (SDL_joystick.h)
 - keyboard       (SDL_keyboard.h)
 - keycode        (SDL_keycode.h)
@@ -111,7 +112,7 @@ This will create a directory called "thirdparty" which will be used to download 
 To successfully run a provided example or your own projects, the sdl dlls must be copied to the main application directory.
 e.g..
 ```
-copy thirdparty\SDL2-2.0.16\lib\x64\SDL2.dll examples\basic_window\
+copy thirdparty\SDL2-2.0.18\lib\x64\SDL2.dll examples\basic_window\
 cd ..
 v run sdl\examples\basic_window\main.v
 ```

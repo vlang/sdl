@@ -3,7 +3,7 @@ import os
 const (
 	powershell = 'powershell.exe -executionpolicy remotesigned -File'
 	urls       = [
-		'https://www.libsdl.org/release/SDL2-devel-2.0.16-VC.zip',
+		'https://www.libsdl.org/release/SDL2-devel-2.0.18-VC.zip',
 		'https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-devel-2.0.15-VC.zip',
 		'https://www.libsdl.org/projects/SDL_image/release/SDL2_image-devel-2.0.5-VC.zip',
 		'https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-devel-2.0.4-VC.zip',

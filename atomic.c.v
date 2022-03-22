@@ -68,6 +68,8 @@ fn C.SDL_AtomicTryLock(lock_ &C.SDL_SpinLock) bool
 //
 // returns SDL_TRUE if the lock succeeded, SDL_FALSE if the lock is already held.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_AtomicLock
 // See also: SDL_AtomicUnlock
 pub fn atomic_try_lock(lock_ &SpinLock) bool {
@@ -82,6 +84,8 @@ fn C.SDL_AtomicLock(lock_ &C.SDL_SpinLock)
 // doing. Please be careful using any sort of spinlock!***
 //
 // `lock_`  a pointer to a lock variable
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_AtomicTryLock
 // See also: SDL_AtomicUnlock
@@ -125,6 +129,8 @@ pub fn atomic_unlock(lock_ &SpinLock) {
 //
 // For more information on these semantics, take a look at the blog post:
 // http://preshing.com/20120913/acquire-and-release-semantics
+//
+// NOTE This function is available since SDL 2.0.6.
 fn C.SDL_MemoryBarrierReleaseFunction()
 pub fn memory_barrier_release_function() {
 	C.SDL_MemoryBarrierReleaseFunction()
@@ -177,6 +183,8 @@ fn C.SDL_AtomicSet(a &C.SDL_atomic_t, v int) int
 // `v` the desired value
 // returns the previous value of the atomic variable.
 //
+// NOTE This function is available since SDL 2.0.2.
+//
 // See also: SDL_AtomicGet
 pub fn atomic_set(a &AtomicT, v int) int {
 	return unsafe { C.SDL_AtomicSet(&C.SDL_atomic_t(a), v) }
@@ -191,6 +199,8 @@ fn C.SDL_AtomicGet(a &C.SDL_atomic_t) int
 //
 // `a`  a pointer to an SDL_atomic_t variable
 // returns the current value of an atomic variable.
+//
+// NOTE This function is available since SDL 2.0.2.
 //
 // See also: SDL_AtomicSet
 pub fn atomic_get(a &AtomicT) int {
@@ -209,6 +219,8 @@ fn C.SDL_AtomicAdd(a &C.SDL_atomic_t, v int) int
 // `a` a pointer to an SDL_atomic_t variable to be modified
 // `v` the desired value to add
 // returns The previous value of the atomic variable.
+//
+// NOTE This function is available since SDL 2.0.2.
 //
 // See also: SDL_AtomicDecRef
 // See also: SDL_AtomicIncRef
@@ -260,7 +272,7 @@ pub fn atomic_cas_ptr(a voidptr, oldval voidptr, newval voidptr) bool {
 
 fn C.SDL_AtomicSetPtr(a voidptr, v voidptr) voidptr
 
-// atomic_set_ptr set a pointer to a value atomically.
+// atomic_set_ptr sets a pointer to a value atomically.
 //
 // NOTE If you don't know what this function is for, you shouldn't use
 // it!
@@ -268,6 +280,8 @@ fn C.SDL_AtomicSetPtr(a voidptr, v voidptr) voidptr
 // `a` a pointer to a pointer
 // `v` the desired pointer value
 // returns the previous value of the pointer.
+//
+// NOTE This function is available since SDL 2.0.2.
 //
 // See also: SDL_AtomicCASPtr
 // See also: SDL_AtomicGetPtr
@@ -279,7 +293,18 @@ pub fn atomic_set_ptr(a voidptr, v voidptr) voidptr {
 
 fn C.SDL_AtomicGetPtr(a voidptr) voidptr
 
-// atomic_get_ptr gets the value of a pointer atomically.
+// atomic_get_ptr gets a pointer to a value atomically.
+//
+// NOTE If you don't know what this function is for, you shouldn't use
+// it!
+//
+// `a` a pointer to a pointer
+// returns the current value of a pointer.
+//
+// NOTE This function is available since SDL 2.0.2.
+//
+// See also: SDL_AtomicCASPtr
+// See also: SDL_AtomicSetPtr
 //
 // `a`'s C type is `void **a`
 pub fn atomic_get_ptr(a voidptr) voidptr {

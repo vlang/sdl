@@ -21,11 +21,11 @@ fn C.SDL_GetError() &char
 //
 // The message is only applicable when an SDL function has signaled an error.
 // You must check the return values of SDL function calls to determine when to
-// appropriately call SDL_GetError(). You should _not_ use the results of
+// appropriately call SDL_GetError(). You should *not* use the results of
 // SDL_GetError() to decide if an error has occurred! Sometimes SDL will set
 // an error string even when reporting success.
 //
-// SDL will _not_ clear the error string for successful API calls. You _must_
+// SDL will *not* clear the error string for successful API calls. You *must*
 // check return values for failure cases before you can assume the error
 // string applies.
 //
@@ -41,6 +41,8 @@ fn C.SDL_GetError() &char
 //         when an SDL function has signaled an error. You must check the
 //         return values of SDL function calls to determine when to
 //         appropriately call SDL_GetError().
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_ClearError
 // See also: SDL_SetError
@@ -60,6 +62,8 @@ fn C.SDL_GetErrorMsg(errstr &char, maxlen int) &char
 // `maxlen` The size of the buffer pointed to by the errstr parameter
 // returns the pointer passed in as the `errstr` parameter.
 //
+// NOTE This function is available since SDL 2.0.14.
+//
 // See also: SDL_GetError
 pub fn get_error_msg(errstr &char, maxlen int) &char {
 	return C.SDL_GetErrorMsg(errstr, maxlen)
@@ -68,6 +72,8 @@ pub fn get_error_msg(errstr &char, maxlen int) &char {
 fn C.SDL_ClearError()
 
 // clear_error clears any previous error message for this thread.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetError
 // See also: SDL_SetError

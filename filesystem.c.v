@@ -26,7 +26,7 @@ fn C.SDL_GetBasePath() &char
 //
 // - `resource`: bundle resource directory (the default). For example:
 //   `/Applications/SDLApp/MyApp.app/Contents/Resources`
-// - `bundle`: the Bundle directory. Fpr example:
+// - `bundle`: the Bundle directory. For example:
 //   `/Applications/SDLApp/MyApp.app/`
 // - `parent`: the containing directory of the bundle. For example:
 //   `/Applications/SDLApp/`

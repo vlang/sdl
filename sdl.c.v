@@ -67,6 +67,8 @@ fn C.SDL_Init(flags u32) int
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_InitSubSystem
 // See also: SDL_Quit
 // See also: SDL_SetMainReady
@@ -84,6 +86,8 @@ fn C.SDL_InitSubSystem(flags u32) int
 // `flags` any of the flags used by SDL_Init(); see SDL_Init for details.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_Init
 // See also: SDL_Quit
@@ -108,6 +112,8 @@ fn C.SDL_QuitSubSystem(flags u32)
 //
 // `flags` any of the flags used by SDL_Init(); see SDL_Init for details.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_InitSubSystem
 // See also: SDL_Quit
 pub fn quit_sub_system(flags u32) {
@@ -123,6 +129,8 @@ fn C.SDL_WasInit(flags u32) u32
 //          returns the initialization status of the specified subsystems.
 //
 //          The return value does not include SDL_INIT_NOPARACHUTE.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_Init
 // See also: SDL_InitSubSystem
@@ -147,6 +155,8 @@ fn C.SDL_Quit()
 // You can use this function with atexit() to ensure that it is run when your
 // application is shutdown, but it is not wise to do this from a library or
 // other dynamically loaded code.
+//
+// NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_Init
 // See also: SDL_QuitSubSystem

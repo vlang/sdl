@@ -131,7 +131,7 @@ fn C.SDL_ComposeCustomBlendMode(src_color_factor C.SDL_BlendFactor, dst_color_fa
 // returns an SDL_BlendMode that represents the chosen factors and
 //         operations.
 //
-// NOTE This function is available in SDL 2.0.6.
+// NOTE This function is available since SDL 2.0.6.
 //
 // See also: SDL_SetRenderDrawBlendMode
 // See also: SDL_GetRenderDrawBlendMode

@@ -99,6 +99,8 @@ pub type FreeFunc = C.SDL_free_func //fn(mem voidptr)
 fn C.SDL_GetMemoryFunctions(malloc_func &C.SDL_malloc_func, calloc_func &C.SDL_calloc_func, realloc_func &C.SDL_realloc_func, free_func &C.SDL_free_func)
 
 // get_memory_functions gets the current set of SDL memory functions
+//
+// NOTE This function is available since SDL 2.0.7.
 pub fn get_memory_functions(malloc_func &MallocFunc, calloc_func &CallocFunc, realloc_func &ReallocFunc, free_func &FreeFunc){
 	 C.SDL_GetMemoryFunctions(malloc_func, calloc_func, realloc_func, free_func)
 }
@@ -111,13 +113,18 @@ fn C.SDL_SetMemoryFunctions(malloc_func C.SDL_malloc_func, calloc_func C.SDL_cal
 //      SDL_GetNumAllocations() and be very careful if it returns non-zero.
 //      That means that your free function will be called with memory
 //      allocated by the previous memory allocation functions.
+//
+// NOTE This function is available since SDL 2.0.7.
 pub fn set_memory_functions(malloc_func MallocFunc, calloc_func CallocFunc, realloc_func ReallocFunc, free_func FreeFunc) int{
 	return C.SDL_SetMemoryFunctions(malloc_func, calloc_func, realloc_func, free_func)
 }
 */
 
-// get_num_allocations gets the number of outstanding (unfreed) allocations
 fn C.SDL_GetNumAllocations() int
+
+// get_num_allocations gets the number of outstanding (unfreed) allocations
+//
+// NOTE This function is available since SDL 2.0.7.
 pub fn get_num_allocations() int {
 	return C.SDL_GetNumAllocations()
 }
@@ -499,6 +506,19 @@ pub const (
 )
 
 fn C.SDL_acos(x f64) f64
+
+// acos computes arc cosine of `x`.
+//
+// The definition of `y = acos(x)` is `x = cos(y)`.
+//
+// Domain: `-1 <= x <= 1`
+//
+// Range: `0 <= y <= Pi`
+//
+// `x` floating point value, in radians.
+// returns arc cosine of `x`.
+//
+// NOTE This function is available since SDL 2.0.2.
 pub fn acos(x f64) f64 {
 	return C.SDL_acos(x)
 }
@@ -528,14 +548,14 @@ pub fn atanf(x f32) f32 {
 	return C.SDL_atanf(x)
 }
 
-fn C.SDL_atan2(x f64, y f64) f64
-pub fn atan2(x f64, y f64) f64 {
-	return C.SDL_atan2(x, y)
+fn C.SDL_atan2(y f64, x f64) f64
+pub fn atan2(y f64, x f64) f64 {
+	return C.SDL_atan2(y, x)
 }
 
-fn C.SDL_atan2f(x f32, y f32) f32
-pub fn atan2f(x f32, y f32) f32 {
-	return C.SDL_atan2f(x, y)
+fn C.SDL_atan2f(y f32, x f32) f32
+pub fn atan2f(y f32, x f32) f32 {
+	return C.SDL_atan2f(y, x)
 }
 
 fn C.SDL_ceil(x f64) f64
@@ -743,6 +763,8 @@ fn C.SDL_iconv_string(const_tocode &char, const_fromcode &char, const_inbuf &cha
 
 // iconv_string converts a string between encodings in one pass, returning a
 // string that must be freed with SDL_free() or NULL on error.
+//
+// NOTE This function is available since SDL 2.0.0.
 pub fn iconv_string(const_tocode &char, const_fromcode &char, const_inbuf &char, inbytesleft usize) &char {
 	return C.SDL_iconv_string(const_tocode, const_fromcode, const_inbuf, inbytesleft)
 }
@@ -750,3 +772,4 @@ pub fn iconv_string(const_tocode &char, const_fromcode &char, const_inbuf &char,
 fn C.SDL_iconv_utf8_locale(inbuf &char) &char
 fn C.SDL_iconv_utf8_ucs2(inbuf &char) &char
 fn C.SDL_iconv_utf8_ucs4(inbuf &char) &char
+fn C.SDL_iconv_wchar_utf8(inbuf &u16)

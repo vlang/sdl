@@ -41,6 +41,8 @@ fn C.SDL_GetPowerInfo(secs &int, pct &int) C.SDL_PowerState
 //            a NULL here if you don't care, will return -1 if we can't
 //            determine a value, or we're not running on a battery
 // returns an SDL_PowerState enum representing the current battery state.
+//
+// NOTE This function is available since SDL 2.0.0.
 pub fn get_power_info(secs &int, pct &int) PowerState {
 	return PowerState(C.SDL_GetPowerInfo(secs, pct))
 }

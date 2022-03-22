@@ -154,6 +154,8 @@ fn C.SDL_ShowSimpleMessageBox(flags u32, const_title &char, const_message &char,
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
+// NOTE This function is available since SDL 2.0.0.
+//
 // See also: SDL_ShowMessageBox
 pub fn show_simple_message_box(flags u32, const_title &char, const_message &char, window &Window) int {
 	return C.SDL_ShowSimpleMessageBox(flags, const_title, const_message, window)

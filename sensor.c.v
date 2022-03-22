@@ -89,6 +89,8 @@ fn C.SDL_LockSensors()
 // In particular, you are guaranteed that the sensor list won't change, so the
 // API functions that take a sensor index will be valid, and sensor events
 // will not be delivered.
+//
+// NOTE This function is available since SDL 2.0.14.
 pub fn lock_sensors() {
 	C.SDL_LockSensors()
 }
@@ -103,6 +105,8 @@ fn C.SDL_UnlockSensors()
 // In particular, you are guaranteed that the sensor list won't change, so the
 // API functions that take a sensor index will be valid, and sensor events
 // will not be delivered.
+//
+// NOTE This function is available since SDL 2.0.14.
 pub fn unlock_sensors() {
 	C.SDL_UnlockSensors()
 }
@@ -112,6 +116,8 @@ fn C.SDL_NumSensors() int
 // num_sensors counts the number of sensors attached to the system right now.
 //
 // returns the number of sensors detected.
+//
+// NOTE This function is available since SDL 2.0.9.
 pub fn num_sensors() int {
 	return C.SDL_NumSensors()
 }
@@ -122,6 +128,8 @@ fn C.SDL_SensorGetDeviceName(device_index int) &char
 //
 // `device_index` The sensor to obtain name from
 // returns the sensor name, or NULL if `device_index` is out of range.
+//
+// NOTE This function is available since SDL 2.0.9.
 pub fn sensor_get_device_name(device_index int) &char {
 	return C.SDL_SensorGetDeviceName(device_index)
 }
@@ -133,6 +141,8 @@ fn C.SDL_SensorGetDeviceType(device_index int) C.SDL_SensorType
 // `device_index` The sensor to get the type from
 // returns the SDL_SensorType, or `SDL_SENSOR_INVALID` if `device_index` is
 //          out of range.
+//
+// NOTE This function is available since SDL 2.0.9.
 pub fn sensor_get_device_type(device_index int) SensorType {
 	return SensorType(C.SDL_SensorGetDeviceType(device_index))
 }
@@ -144,6 +154,8 @@ fn C.SDL_SensorGetDeviceNonPortableType(device_index int) int
 // `device_index` The sensor to check
 // returns the sensor platform dependent type, or -1 if `device_index` is out
 //          of range.
+//
+// NOTE This function is available since SDL 2.0.9.
 pub fn sensor_get_device_non_portable_type(device_index int) int {
 	return C.SDL_SensorGetDeviceNonPortableType(device_index)
 }
@@ -154,6 +166,8 @@ fn C.SDL_SensorGetDeviceInstanceID(device_index int) C.SDL_SensorID
 //
 // `device_index` The sensor to get instance id from
 // returns the sensor instance ID, or -1 if `device_index` is out of range.
+//
+// NOTE This function is available since SDL 2.0.9.
 pub fn sensor_get_device_instance_id(device_index int) SensorID {
 	return SensorID(int(C.SDL_SensorGetDeviceInstanceID(device_index)))
 }
@@ -164,6 +178,8 @@ fn C.SDL_SensorOpen(device_index int) &C.SDL_Sensor
 //
 // `device_index` The sensor to open
 // returns an SDL_Sensor sensor object, or NULL if an error occurred.
+//
+// NOTE This function is available since SDL 2.0.9.
 pub fn sensor_open(device_index int) &Sensor {
 	return C.SDL_SensorOpen(device_index)
 }
@@ -174,6 +190,8 @@ fn C.SDL_SensorFromInstanceID(instance_id C.SDL_SensorID) &C.SDL_Sensor
 //
 // `instance_id` The sensor from instance id
 // returns an SDL_Sensor object.
+//
+// NOTE This function is available since SDL 2.0.9.
 pub fn sensor_from_instance_id(instance_id C.SDL_SensorID) &Sensor {
 	return C.SDL_SensorFromInstanceID(instance_id)
 }
@@ -184,6 +202,8 @@ fn C.SDL_SensorGetName(sensor &C.SDL_Sensor) &char
 //
 // `sensor` The SDL_Sensor object
 // returns the sensor name, or NULL if `sensor` is NULL.
+//
+// NOTE This function is available since SDL 2.0.9.
 pub fn sensor_get_name(sensor &Sensor) &char {
 	return C.SDL_SensorGetName(sensor)
 }
@@ -195,6 +215,8 @@ fn C.SDL_SensorGetType(sensor &C.SDL_Sensor) C.SDL_SensorType
 // `sensor` The SDL_Sensor object to inspect
 // returns the SDL_SensorType type, or `SDL_SENSOR_INVALID` if `sensor` is
 //          NULL.
+//
+// NOTE This function is available since SDL 2.0.9.
 pub fn sensor_get_type(sensor &Sensor) SensorType {
 	return SensorType(C.SDL_SensorGetType(sensor))
 }
@@ -205,6 +227,8 @@ fn C.SDL_SensorGetNonPortableType(sensor &C.SDL_Sensor) int
 //
 // `sensor` The SDL_Sensor object to inspect
 // returns the sensor platform dependent type, or -1 if `sensor` is NULL.
+//
+// NOTE This function is available since SDL 2.0.9.
 pub fn sensor_get_non_portable_type(sensor &Sensor) int {
 	return C.SDL_SensorGetNonPortableType(sensor)
 }
@@ -215,6 +239,8 @@ fn C.SDL_SensorGetInstanceID(sensor &C.SDL_Sensor) C.SDL_SensorID
 //
 // `sensor` The SDL_Sensor object to inspect
 // returns the sensor instance ID, or -1 if `sensor` is NULL.
+//
+// NOTE This function is available since SDL 2.0.9.
 pub fn sensor_get_instance_id(sensor &Sensor) SensorID {
 	return SensorID(int(C.SDL_SensorGetInstanceID(sensor)))
 }
@@ -229,6 +255,8 @@ fn C.SDL_SensorGetData(sensor &C.SDL_Sensor, data &f32, num_values int) int
 // `data` A pointer filled with the current sensor state
 // `num_values` The number of values to write to data
 // returns 0 or -1 if an error occurred.
+//
+// NOTE This function is available since SDL 2.0.9.
 pub fn sensor_get_data(sensor &Sensor, data &f32, num_values int) int {
 	return C.SDL_SensorGetData(sensor, data, num_values)
 }
@@ -238,6 +266,8 @@ fn C.SDL_SensorClose(sensor &C.SDL_Sensor)
 // sensor_close closes a sensor previously opened with SDL_SensorOpen().
 //
 // `sensor` The SDL_Sensor object to close
+//
+// NOTE This function is available since SDL 2.0.9.
 pub fn sensor_close(sensor &Sensor) {
 	C.SDL_SensorClose(sensor)
 }
@@ -251,6 +281,8 @@ fn C.SDL_SensorUpdate()
 //
 // This needs to be called from the thread that initialized the sensor
 // subsystem.
+//
+// NOTE This function is available since SDL 2.0.9.
 pub fn sensor_update() {
 	C.SDL_SensorUpdate()
 }
