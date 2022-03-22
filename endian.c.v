@@ -13,10 +13,12 @@ pub const (
 	byteorder  = C.SDL_BYTEORDER
 )
 
-fn C.SDL_Swap16(x u16) u16
-pub fn swap16(x u16) u16 {
-	return C.SDL_Swap16(x)
-}
+// TODO SDL_endian.h fails on `tcc` with:
+// 2.0.18/include/SDL2/SDL_endian.h:125: error: unknown constraint 'Q'
+// fn C.SDL_Swap16(x u16) u16
+// pub fn swap16(x u16) u16 {
+//	return C.SDL_Swap16(x)
+// }
 
 fn C.SDL_Swap32(x u32) u32
 pub fn swap32(x u32) u32 {
