@@ -568,6 +568,8 @@ pub fn game_controller_get_axis_from_string(const_str &char) GameControllerAxis 
 	return GameControllerAxis(C.SDL_GameControllerGetAxisFromString(const_str))
 }
 
+fn C.SDL_GameControllerGetStringForAxis(axis C.SDL_GameControllerAxis) &char
+
 // game_controller_get_string_for_axis converts from an SDL_GameControllerAxis enum to a string.
 //
 // The caller should not SDL_free() the returned string.
@@ -578,7 +580,6 @@ pub fn game_controller_get_axis_from_string(const_str &char) GameControllerAxis 
 //          SDL_GameController mapping strings.
 //
 // See also: SDL_GameControllerGetAxisFromString
-fn C.SDL_GameControllerGetStringForAxis(axis C.SDL_GameControllerAxis) &char
 pub fn game_controller_get_string_for_axis(axis GameControllerAxis) &char {
 	return C.SDL_GameControllerGetStringForAxis(C.SDL_GameControllerAxis(axis))
 }
@@ -679,6 +680,8 @@ pub fn game_controller_get_button_from_string(const_str &char) GameControllerBut
 	return GameControllerButton(C.SDL_GameControllerGetButtonFromString(const_str))
 }
 
+fn C.SDL_GameControllerGetStringForButton(button C.SDL_GameControllerButton) &char
+
 // game_controller_get_string_for_button converts from an SDL_GameControllerButton enum to a string.
 //
 // The caller should not SDL_free() the returned string.
@@ -691,7 +694,6 @@ pub fn game_controller_get_button_from_string(const_str &char) GameControllerBut
 // NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_GameControllerGetButtonFromString
-fn C.SDL_GameControllerGetStringForButton(button C.SDL_GameControllerButton) &char
 pub fn game_controller_get_string_for_button(button GameControllerButton) &char {
 	return C.SDL_GameControllerGetStringForButton(C.SDL_GameControllerButton(button))
 }

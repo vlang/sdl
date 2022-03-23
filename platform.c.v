@@ -7,6 +7,8 @@ module sdl
 // SDL_platform.h
 //
 
+fn C.SDL_GetPlatform() &char
+
 // get_platform gets the name of the platform.
 //
 // Here are the names returned for some (but not all) supported platforms:
@@ -21,7 +23,6 @@ module sdl
 //          available, returns a string beginning with the text "Unknown".
 //
 // NOTE the returned &char is const
-fn C.SDL_GetPlatform() &char
 pub fn get_platform() &char {
 	return C.SDL_GetPlatform()
 }
