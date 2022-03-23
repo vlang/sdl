@@ -202,7 +202,6 @@ fn C.SDL_SIMDRealloc(mem voidptr, len usize) voidptr
 // See also: SDL_SIMDAlignment
 // See also: SDL_SIMDAlloc
 // See also: SDL_SIMDFree
-///
 pub fn simd_realloc(mem voidptr, len usize) voidptr {
 	return C.SDL_SIMDRealloc(mem, len)
 }
