@@ -29,7 +29,7 @@ pub const (
 struct C.SDL_Joystick {
 }
 
-pub type Joystick = C.SDL_Joystick
+pub type Joystck = C.SDL_Joystick
 
 [typedef]
 struct C.SDL_JoystickGUID {
