@@ -223,7 +223,6 @@ fn C.SDL_CreateTextureFromSurface(renderer &C.SDL_Renderer, surface &C.SDL_Surfa
 //
 // See also: SDL_QueryTexture()
 // See also: SDL_DestroyTexture()
-
 pub fn create_texture_from_surface(renderer &Renderer, surface &Surface) &Texture {
 	return C.SDL_CreateTextureFromSurface(renderer, surface)
 }
