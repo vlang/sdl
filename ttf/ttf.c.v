@@ -46,8 +46,9 @@ struct C.TTF_Font {
 
 pub type Font = C.TTF_Font
 
-// init initializes the TTF engine - returns 0 if successful, -1 on error
 fn C.TTF_Init() int
+
+// init initializes the TTF engine - returns 0 if successful, -1 on error
 pub fn init() int {
 	return C.TTF_Init()
 }

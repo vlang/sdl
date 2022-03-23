@@ -7,8 +7,9 @@ module sdl
 // SDL_platform.h
 //
 
-// get_platform gets the name of the platform.
 fn C.SDL_GetPlatform() &char
+
+// get_platform gets the name of the platform.
 pub fn get_platform() &char {
 	return C.SDL_GetPlatform()
 }
