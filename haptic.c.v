@@ -237,7 +237,7 @@ direction.dir[0] = 9000; // Since we only have two axes we don't need more param
 
 [typedef]
 struct C.SDL_HapticDirection {
-pub:
+pub mut:
 	@type byte // The type of encoding
 	dir   [3]int
 }
@@ -255,7 +255,7 @@ pub type HapticDirection = C.SDL_HapticDirection
 // See also: SDL_HapticEffect
 [typedef]
 struct C.SDL_HapticConstant {
-pub:
+pub mut:
 	@type         u16 // ::SDL_HAPTIC_CONSTANT
 	direction     HapticDirection // Direction of the effect.
 	length        u32 // Duration of the effect.
@@ -331,7 +331,7 @@ pub type HapticConstant = C.SDL_HapticConstant
 
 [typedef]
 struct C.SDL_HapticPeriodic {
-pub:
+pub mut:
 	@type         u16 // ::SDL_HAPTIC_SINE, ::SDL_HAPTIC_LEFTRIGHT, ::SDL_HAPTIC_TRIANGLE, ::SDL_HAPTIC_SAWTOOTHUP or ::SDL_HAPTIC_SAWTOOTHDOWN
 	direction     HapticDirection // Direction of the effect.
 	length        u32 // Duration of the effect.
@@ -374,7 +374,7 @@ pub type HapticPeriodic = C.SDL_HapticPeriodic
 // See also: SDL_HapticEffect
 [typedef]
 struct C.SDL_HapticCondition {
-pub:
+pub mut:
 	@type       u16 // ::SDL_HAPTIC_SPRING, ::SDL_HAPTIC_DAMPER,                                  ::SDL_HAPTIC_INERTIA or ::SDL_HAPTIC_FRICTION
 	direction   HapticDirection // Direction of the effect - Not used ATM.
 	length      u32    // Duration of the effect.
@@ -404,7 +404,7 @@ pub type HapticCondition = C.SDL_HapticCondition
 // See also: SDL_HapticEffect
 [typedef]
 struct C.SDL_HapticRamp {
-pub:
+pub mut:
 	@type         u16 // ::SDL_HAPTIC_RAMP
 	direction     HapticDirection // Direction of the effect.
 	length        u32 // Duration of the effect.
@@ -433,7 +433,7 @@ pub type HapticRamp = C.SDL_HapticRamp
 // See also: SDL_HapticEffect
 [typedef]
 struct C.SDL_HapticLeftRight {
-pub:
+pub mut:
 	@type           u16 // ::SDL_HAPTIC_LEFTRIGHT
 	length          u32 // Duration of the effect.
 	large_magnitude u16 // Control of the large controller motor.
@@ -457,7 +457,7 @@ pub type HapticLeftRight = C.SDL_HapticLeftRight
 // See also: SDL_HapticEffect
 [typedef]
 struct C.SDL_HapticCustom {
-pub:
+pub mut:
 	@type         u16 // ::SDL_HAPTIC_CUSTOM
 	direction     HapticDirection // Direction of the effect.
 	length        u32  // Duration of the effect.
@@ -551,7 +551,7 @@ Uint16 fade_level;    // Level at the end of the fade.
 
 [typedef]
 union C.SDL_HapticEffect {
-pub:
+pub mut:
 	// Common for all force feedback effects
 	@type     u16 // Effect type.
 	constant  HapticConstant  // Constant effect.
