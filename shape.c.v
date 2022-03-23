@@ -69,7 +69,7 @@ pub fn shapemodealpha(mode WindowShapeModeFlag) bool {
 // WindowShapeParams is C.SDL_WindowShapeParams
 [typedef]
 union C.SDL_WindowShapeParams {
-pub:
+pub mut:
 	binarizationCutoff byte // A cutoff alpha value for binarization of the window shape's alpha channel.
 	colorKey           Color
 }
