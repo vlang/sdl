@@ -344,8 +344,9 @@ pub fn game_controller_get_axis_from_string(pch_string &char) GameControllerAxis
 	return GameControllerAxis(C.SDL_GameControllerGetAxisFromString(pch_string))
 }
 
-// game_controller_get_string_for_axis turns the axis enum into a string mapping
 fn C.SDL_GameControllerGetStringForAxis(axis C.SDL_GameControllerAxis) &char
+
+// game_controller_get_string_for_axis turns the axis enum into a string mapping
 pub fn game_controller_get_string_for_axis(axis GameControllerAxis) &char {
 	return C.SDL_GameControllerGetStringForAxis(C.SDL_GameControllerAxis(axis))
 }
@@ -411,8 +412,9 @@ pub fn game_controller_get_button_from_string(pch_string &char) GameControllerBu
 	return GameControllerButton(C.SDL_GameControllerGetButtonFromString(pch_string))
 }
 
-// game_controller_get_string_for_button turns the button enum into a string mapping
 fn C.SDL_GameControllerGetStringForButton(button C.SDL_GameControllerButton) &char
+
+// game_controller_get_string_for_button turns the button enum into a string mapping
 pub fn game_controller_get_string_for_button(button GameControllerButton) &char {
 	return C.SDL_GameControllerGetStringForButton(C.SDL_GameControllerButton(button))
 }

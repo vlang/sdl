@@ -877,7 +877,6 @@ fn C.SDL_HapticDestroyEffect(haptic &C.SDL_Haptic, effect int)
 // `effect` Identifier of the effect to destroy.
 //
 // See also: SDL_HapticNewEffect
-
 pub fn haptic_destroy_effect(haptic &Haptic, effect int) {
 	C.SDL_HapticDestroyEffect(haptic, effect)
 }
