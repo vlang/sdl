@@ -162,8 +162,9 @@ pub fn query_spec(frequency &int, format &u16, channels &int) int {
 	return C.Mix_QuerySpec(frequency, format, channels)
 }
 
-// load_wav_rw loads a wave file or a music (.mod .s3m .it .xm) file
 fn C.Mix_LoadWAV_RW(src &C.SDL_RWops, freesrc int) &C.Mix_Chunk
+
+// load_wav_rw loads a wave file or a music (.mod .s3m .it .xm) file
 pub fn load_wav_rw(src &sdl.RWops, freesrc int) &Chunk {
 	return C.Mix_LoadWAV_RW(src, freesrc)
 }
