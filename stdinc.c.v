@@ -116,8 +116,9 @@ pub fn set_memory_functions(malloc_func MallocFunc, calloc_func CallocFunc, real
 }
 */
 
-// get_num_allocations gets the number of outstanding (unfreed) allocations
 fn C.SDL_GetNumAllocations() int
+
+// get_num_allocations gets the number of outstanding (unfreed) allocations
 pub fn get_num_allocations() int {
 	return C.SDL_GetNumAllocations()
 }
