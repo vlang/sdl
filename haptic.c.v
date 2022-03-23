@@ -264,7 +264,7 @@ pub type HapticDirection = C.SDL_HapticDirection
 struct C.SDL_HapticConstant {
 pub:
 	@type         u16 // ::SDL_HAPTIC_CONSTANT
-	direction     C.SDL_HapticDirection // Direction of the effect.
+	direction     HapticDirection // Direction of the effect.
 	length        u32 // Duration of the effect.
 	delay         u16 // Delay before starting the effect.
 	button        u16 // Button that triggers the effect.
@@ -340,7 +340,7 @@ pub type HapticConstant = C.SDL_HapticConstant
 struct C.SDL_HapticPeriodic {
 pub:
 	@type         u16 // ::SDL_HAPTIC_SINE, ::SDL_HAPTIC_LEFTRIGHT, ::SDL_HAPTIC_TRIANGLE, ::SDL_HAPTIC_SAWTOOTHUP or ::SDL_HAPTIC_SAWTOOTHDOWN
-	direction     C.SDL_HapticDirection // Direction of the effect.
+	direction     HapticDirection // Direction of the effect.
 	length        u32 // Duration of the effect.
 	delay         u16 // Delay before starting the effect.
 	button        u16 // Button that triggers the effect.
@@ -383,7 +383,7 @@ pub type HapticPeriodic = C.SDL_HapticPeriodic
 struct C.SDL_HapticCondition {
 pub:
 	@type       u16 // ::SDL_HAPTIC_SPRING, ::SDL_HAPTIC_DAMPER,                                  ::SDL_HAPTIC_INERTIA or ::SDL_HAPTIC_FRICTION
-	direction   C.SDL_HapticDirection // Direction of the effect - Not used ATM.
+	direction   HapticDirection // Direction of the effect - Not used ATM.
 	length      u32    // Duration of the effect.
 	delay       u16    // Delay before starting the effect.
 	button      u16    // Button that triggers the effect.
@@ -413,7 +413,7 @@ pub type HapticCondition = C.SDL_HapticCondition
 struct C.SDL_HapticRamp {
 pub:
 	@type         u16 // ::SDL_HAPTIC_RAMP
-	direction     C.SDL_HapticDirection // Direction of the effect.
+	direction     HapticDirection // Direction of the effect.
 	length        u32 // Duration of the effect.
 	delay         u16 // Delay before starting the effect.
 	button        u16 // Button that triggers the effect.
@@ -466,7 +466,7 @@ pub type HapticLeftRight = C.SDL_HapticLeftRight
 struct C.SDL_HapticCustom {
 pub:
 	@type         u16 // ::SDL_HAPTIC_CUSTOM
-	direction     C.SDL_HapticDirection // Direction of the effect.
+	direction     HapticDirection // Direction of the effect.
 	length        u32  // Duration of the effect.
 	delay         u16  // Delay before starting the effect.
 	button        u16  // Button that triggers the effect.
@@ -561,12 +561,12 @@ union C.SDL_HapticEffect {
 pub:
 	// Common for all force feedback effects
 	@type     u16 // Effect type.
-	constant  C.SDL_HapticConstant  // Constant effect.
-	periodic  C.SDL_HapticPeriodic  // Periodic effect.
-	condition C.SDL_HapticCondition // Condition effect.
-	ramp      C.SDL_HapticRamp      // Ramp effect.
-	leftright C.SDL_HapticLeftRight // Left/Right effect.
-	custom    C.SDL_HapticCustom    // Custom effect.
+	constant  HapticConstant  // Constant effect.
+	periodic  HapticPeriodic  // Periodic effect.
+	condition HapticCondition // Condition effect.
+	ramp      HapticRamp      // Ramp effect.
+	leftright HapticLeftRight // Left/Right effect.
+	custom    HapticCustom    // Custom effect.
 }
 
 pub type HapticEffect = C.SDL_HapticEffect
