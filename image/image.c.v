@@ -83,8 +83,9 @@ pub fn load_rw(src &sdl.RWops, freesrc int) &sdl.Surface {
 	return C.IMG_Load_RW(src, freesrc)
 }
 
-// load_texture loads an image directly into a render texture.
 fn C.IMG_LoadTexture(renderer &C.SDL_Renderer, const_file &char) &C.SDL_Texture
+
+// load_texture loads an image directly into a render texture.
 pub fn load_texture(renderer &sdl.Renderer, const_file &char) &sdl.Texture {
 	return C.IMG_LoadTexture(renderer, const_file)
 }

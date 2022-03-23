@@ -306,8 +306,9 @@ pub fn joystick_num_hats(joystick &Joystick) int {
 
 fn C.SDL_JoystickUpdate()
 
-// joystick_num_buttons gets the number of buttons on a joystick.
 fn C.SDL_JoystickNumButtons(joystick &C.SDL_Joystick) int
+
+// joystick_num_buttons gets the number of buttons on a joystick.
 pub fn joystick_num_buttons(joystick &Joystick) int {
 	return C.SDL_JoystickNumButtons(joystick)
 }
