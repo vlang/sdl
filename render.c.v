@@ -893,7 +893,6 @@ fn C.SDL_RenderDrawPointF(renderer &C.SDL_Renderer, x f32, y f32) int
 //  `y` The y coordinate of the point.
 //
 //  returns 0 on success, or -1 on error
-///
 pub fn render_draw_point_f(renderer &Renderer, x f32, y f32) int {
 	return C.SDL_RenderDrawPointF(renderer, x, y)
 }
@@ -907,7 +906,6 @@ fn C.SDL_RenderDrawPointsF(renderer &C.SDL_Renderer, const_points &C.SDL_FPoint,
 //  `count` The number of points to draw
 //
 //  returns 0 on success, or -1 on error
-///
 pub fn render_draw_points_f(renderer &Renderer, const_points &FPoint, count int) int {
 	return C.SDL_RenderDrawPointsF(renderer, const_points, count)
 }
@@ -923,7 +921,6 @@ fn C.SDL_RenderDrawLineF(renderer &C.SDL_Renderer, x1 f32, y1 f32, x2 f32, y2 f3
 //  `y`2 The y coordinate of the end point.
 //
 //  returns 0 on success, or -1 on error
-///
 pub fn render_draw_line_f(renderer &Renderer, x1 f32, y1 f32, x2 f32, y2 f32) int {
 	return C.SDL_RenderDrawLineF(renderer, x1, y1, x2, y2)
 }
@@ -937,7 +934,6 @@ fn C.SDL_RenderDrawLinesF(renderer &C.SDL_Renderer, const_points &C.SDL_FPoint, 
 //  `count` The number of points, drawing count-1 lines
 //
 //  returns 0 on success, or -1 on error
-///
 pub fn render_draw_lines_f(renderer &Renderer, const_points &FPoint, count int) int {
 	return C.SDL_RenderDrawLinesF(renderer, const_points, count)
 }
@@ -950,7 +946,6 @@ fn C.SDL_RenderDrawRectF(renderer &C.SDL_Renderer, const_rect &C.SDL_FRect) int
 //  `rect` A pointer to the destination rectangle, or NULL to outline the entire rendering target.
 //
 //  returns 0 on success, or -1 on error
-///
 pub fn render_draw_rect_f(renderer &Renderer, const_rect &FRect) int {
 	return C.SDL_RenderDrawRectF(renderer, const_rect)
 }
@@ -964,7 +959,6 @@ fn C.SDL_RenderDrawRectsF(renderer &C.SDL_Renderer, const_rects &C.SDL_FRect, co
 //  `count` The number of rectangles.
 //
 //  returns 0 on success, or -1 on error
-///
 pub fn render_draw_rects_f(renderer &Renderer, const_rects &FRect, count int) int {
 	return C.SDL_RenderDrawRectsF(renderer, const_rects, count)
 }
@@ -978,7 +972,6 @@ fn C.SDL_RenderFillRectF(renderer &C.SDL_Renderer, const_rect &C.SDL_FRect) int
 //              rendering target.
 //
 //  returns 0 on success, or -1 on error
-///
 pub fn render_fill_rect_f(renderer &Renderer, const_rect &FRect) int {
 	return C.SDL_RenderFillRectF(renderer, const_rect)
 }
@@ -992,7 +985,6 @@ fn C.SDL_RenderFillRectsF(renderer &C.SDL_Renderer, const_rects &C.SDL_FRect, co
 //  `count` The number of rectangles.
 //
 //  returns 0 on success, or -1 on error
-///
 pub fn render_fill_rects_f(renderer &Renderer, const_rects &FRect, count int) int {
 	return C.SDL_RenderFillRectsF(renderer, const_rects, count)
 }
@@ -1009,7 +1001,6 @@ fn C.SDL_RenderCopyF(renderer &C.SDL_Renderer, texture &C.SDL_Texture, const_src
 //                   entire rendering target.
 //
 //  returns 0 on success, or -1 on error
-///
 pub fn render_copy_f(renderer &Renderer, texture &Texture, const_srcrect &Rect, const_dstrect &FRect) int {
 	return C.SDL_RenderCopyF(renderer, texture, const_srcrect, const_dstrect)
 }
@@ -1029,7 +1020,6 @@ fn C.SDL_RenderCopyExF(renderer &C.SDL_Renderer, texture &C.SDL_Texture, const_s
 //  `flip`     An SDL_RendererFlip value stating which flipping actions should be performed on the texture
 //
 //  returns 0 on success, or -1 on error
-///
 pub fn render_copy_ex_f(renderer &Renderer, texture &Texture, const_srcrect &Rect, const_dstrect &FRect, const_angle f64, const_center &FPoint, const_flip RendererFlip) int {
 	return C.SDL_RenderCopyExF(renderer, texture, const_srcrect, const_dstrect, const_angle,
 		const_center, C.SDL_RendererFlip(int(const_flip)))
@@ -1104,7 +1094,6 @@ fn C.SDL_RenderFlush(renderer &C.SDL_Renderer) int
 //  This function is first available in SDL 2.0.10, and is not needed in
 //  2.0.9 and earlier, as earlier versions did not queue rendering commands
 //  at all, instead flushing them to the OS immediately.
-///
 pub fn render_flush(renderer &Renderer) int {
 	return C.SDL_RenderFlush(renderer)
 }
