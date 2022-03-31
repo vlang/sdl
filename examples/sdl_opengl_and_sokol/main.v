@@ -4,10 +4,7 @@
 module main
 
 import sdl
-import gg
 import sokol.gfx
-
-const used = gg.high_dpi()
 
 #flag -I @VMODROOT/.
 #include "example_shader.h"
@@ -28,6 +25,7 @@ struct Vertex_t {
 	a f32
 }
 
+[console]
 fn main() {
 	sdl.init(sdl.init_video)
 
