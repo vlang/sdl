@@ -20,6 +20,6 @@ $if x64 {
 #flag windows -I @VMODROOT/thirdparty/SDL2-2.0.8/include
 #flag windows -Dmain=SDL_main
 #flag windows -lSDL2main -lSDL2
-#flag windows -lgdi32
+//#flag windows -lgdi32
 
 #include <SDL.h>
