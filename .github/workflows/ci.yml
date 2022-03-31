@@ -101,5 +101,6 @@ jobs:
           copy-item $sdl_home\thirdparty\SDL2-${env:SDL2_VERSION}\lib\x64\SDL2.dll $sdl_home\examples\versions\
           v run $sdl_home\examples\versions
           v shader $sdl_home\examples\sdl_opengl_and_sokol
-          type $sdl_home\examples\sdl_opengl_and_sokol\example_shader.h
+          #type $sdl_home\examples\sdl_opengl_and_sokol\example_shader.h
+          dir $sdl_home\examples\sdl_opengl_and_sokol
           v should-compile-all $sdl_home\examples\
