@@ -102,5 +102,7 @@ jobs:
           v run $sdl_home\examples\versions
           v shader $sdl_home\examples\sdl_opengl_and_sokol
           #type $sdl_home\examples\sdl_opengl_and_sokol\example_shader.h
-          dir $sdl_home\examples\sdl_opengl_and_sokol
+          #dir $sdl_home\examples\sdl_opengl_and_sokol
+          v -o x.c C:\Users\runneradmin\.vmodules\sdl\examples\sdl_opengl_and_sokol\main.v
+          type x.c
           v should-compile-all $sdl_home\examples\
