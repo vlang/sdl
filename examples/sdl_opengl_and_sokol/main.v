@@ -7,6 +7,8 @@ import sdl
 import gg
 import sokol.gfx
 
+const used = gg.high_dpi()
+
 #flag -I @VMODROOT/.
 #include "example_shader.h"
 
