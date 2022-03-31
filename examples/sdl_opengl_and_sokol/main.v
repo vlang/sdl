@@ -4,6 +4,7 @@
 module main
 
 import sdl
+import gg
 import sokol.gfx
 
 #flag -I @VMODROOT/.
