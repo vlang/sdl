@@ -69,14 +69,11 @@ jobs:
       VFLAGS: -cc gcc -no-retry-compilation
       SDL2_VERSION: 2.0.8
     steps:
-      - name: Checkout V
-        uses: actions/checkout@v2
+
+      - name: Install V
+        uses: vlang/setup-v@v1
         with:
-          repository: vlang/v
-      - name: Build local v
-        run: |
-          ./make.bat -gcc
-          ./v symlink -githubci
+          check-latest: true
 
       - name: Checkout SDL
         uses: actions/checkout@v2
