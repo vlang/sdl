@@ -67,7 +67,7 @@ jobs:
           export SDL_V_CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
           v -cflags "$SDL_V_CFLAGS" run sdl/examples/versions
           v shader sdl/examples/sdl_opengl_and_sokol
-          VFLAGS="$VFLAGS -cflags '$SDL_V_CFLAGS'"
+          VFLAGS=$VFLAGS -cflags "$SDL_V_CFLAGS"
           v should-compile-all sdl/examples/
 
       - name: Test SDL version
