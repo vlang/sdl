@@ -32,12 +32,10 @@ jobs:
           make
           make install
 
-      - name: Checkout V
-        uses: actions/checkout@v2
+      - name: Install V
+        uses: vlang/setup-v@v1
         with:
-          repository: vlang/v
-      - name: Build local v
-        run: make && sudo ./v symlink
+          check-latest: true
 
       - name: Checkout SDL
         uses: actions/checkout@v2
@@ -58,26 +56,23 @@ jobs:
 
       - name: Build sdl shared
         run: |
-          export SDL_V_CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
-          v -cflags "$SDL_V_CFLAGS" -shared -g sdl
+          export CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
+          v -shared -g sdl
 
       - name: Run tests
         run: v test sdl
 
       - name: Build sdl examples
         run: |
-          export SDL_V_CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
-          v -cflags "$SDL_V_CFLAGS" run sdl/examples/versions
+          export CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
+          v run sdl/examples/versions
           v shader sdl/examples/sdl_opengl_and_sokol
-          for example in sdl/examples/*; do
-              echo "v -cflags \"$SDL_V_CFLAGS\" $example"
-              v -cflags "$SDL_V_CFLAGS" "$example";
-          done
+          v should-compile-all sdl/examples/
 
       - name: Test SDL version
         run: |
-          export SDL_V_CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
-          VER="$(v -cflags "$SDL_V_CFLAGS" run sdl/examples/version)"
+          export CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
+          VER="$(v run sdl/examples/version)"
           echo "${SDL2_VERSION} == $VER ?"
           test "${SDL2_VERSION}" = "$VER" || exit 1
 
@@ -88,14 +83,10 @@ jobs:
       VFLAGS: -cc gcc -no-retry-compilation
       SDL2_VERSION: 2.0.9
     steps:
-      - name: Checkout V
-        uses: actions/checkout@v2
+      - name: Install V
+        uses: vlang/setup-v@v1
         with:
-          repository: vlang/v
-      - name: Build local v
-        run: |
-          ./make.bat -gcc
-          ./v symlink -githubci
+          check-latest: true
 
       - name: Checkout SDL
         uses: actions/checkout@v2
@@ -118,7 +109,4 @@ jobs:
           copy-item $sdl_home\thirdparty\SDL2-${env:SDL2_VERSION}\lib\x64\SDL2.dll $sdl_home\examples\versions\
           v run $sdl_home\examples\versions
           v shader $sdl_home\examples\sdl_opengl_and_sokol
-          $examples = Get-ChildItem $sdl_home\examples\
-          foreach ($e in $examples){
-            v $e.FullName
-          }
+          v should-compile-all $sdl_home\examples\
