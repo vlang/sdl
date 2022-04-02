@@ -25,6 +25,7 @@ struct Vertex_t {
 	a f32
 }
 
+[console]
 fn main() {
 	sdl.init(sdl.init_video)
 
