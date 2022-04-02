@@ -56,24 +56,23 @@ jobs:
 
       - name: Build sdl shared
         run: |
-          export SDL_V_CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
-          v -cflags "$SDL_V_CFLAGS" -shared -g sdl
+          export CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
+          v -shared -g sdl
 
       - name: Run tests
         run: v test sdl
 
       - name: Build sdl examples
         run: |
-          sdl2_config=/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config
-          CFLAGS="$($sdl2_config --cflags --libs)"
+          export CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
           v run sdl/examples/versions
           v shader sdl/examples/sdl_opengl_and_sokol
           v should-compile-all sdl/examples/
 
       - name: Test SDL version
         run: |
-          export SDL_V_CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
-          VER="$(v -cflags "$SDL_V_CFLAGS" run sdl/examples/version)"
+          export CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
+          VER="$(v run sdl/examples/version)"
           echo "${SDL2_VERSION} == $VER ?"
           test "${SDL2_VERSION}" = "$VER" || exit 1
 
