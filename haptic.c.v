@@ -238,7 +238,7 @@ direction.dir[0] = 9000; // Since we only have two axes we don't need more param
 [typedef]
 struct C.SDL_HapticDirection {
 pub mut:
-	@type byte // The type of encoding
+	@type u8 // The type of encoding
 	dir   [3]int
 }
 
@@ -464,7 +464,7 @@ pub mut:
 	delay         u16  // Delay before starting the effect.
 	button        u16  // Button that triggers the effect.
 	interval      u16  // How soon it can be triggered again after button.
-	channels      byte // Axes to use, minimum of one.
+	channels      u8   // Axes to use, minimum of one.
 	period        u16  // Sample periods.
 	samples       u16  // Amount of samples.
 	data          &u16 // Should contain channels*samples items.
