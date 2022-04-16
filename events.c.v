@@ -524,7 +524,7 @@ pub:
 	// this structure, and GCC will use the alignment of the largest datatype
 	// within the union, which is 8 bytes.
 	// So... we'll add padding to force the size to be 56 bytes for both.
-	padding [56]byte
+	padding [56]u8
 }
 
 pub type Event = C.SDL_Event

@@ -156,7 +156,7 @@ pub:
 	palette       &Palette
 	BitsPerPixel  byte
 	BytesPerPixel byte
-	padding       [2]byte
+	padding       [2]u8
 	Rmask         u32
 	Gmask         u32
 	Bmask         u32
