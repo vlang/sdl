@@ -195,7 +195,7 @@ pub fn hid_open_path(const_path &char, b_exclusive int) &HidDevice {
 	return C.SDL_hid_open_path(const_path, b_exclusive)
 }
 
-fn C.SDL_hid_write(dev &C.SDL_hid_device, const_data &byte, length usize) int
+fn C.SDL_hid_write(dev &C.SDL_hid_device, const_data &u8, length usize) int
 
 // hid_write writes an Output report to a HID device.
 //
@@ -219,11 +219,11 @@ fn C.SDL_hid_write(dev &C.SDL_hid_device, const_data &byte, length usize) int
 // returns the actual number of bytes written and -1 on error.
 //
 // NOTE This function is available since SDL 2.0.18.
-pub fn hid_write(dev &HidDevice, const_data &byte, length usize) int {
+pub fn hid_write(dev &HidDevice, const_data &u8, length usize) int {
 	return C.SDL_hid_write(dev, const_data, length)
 }
 
-fn C.SDL_hid_read_timeout(dev &C.SDL_hid_device, data &byte, length usize, milliseconds int) int
+fn C.SDL_hid_read_timeout(dev &C.SDL_hid_device, data &u8, length usize, milliseconds int) int
 
 // hid_read_timeout reads an Input report from a HID device with timeout.
 //
@@ -242,11 +242,11 @@ fn C.SDL_hid_read_timeout(dev &C.SDL_hid_device, data &byte, length usize, milli
 //          returns 0.
 //
 // NOTE This function is available since SDL 2.0.18.
-pub fn hid_read_timeout(dev &HidDevice, data &byte, length usize, milliseconds int) int {
+pub fn hid_read_timeout(dev &HidDevice, data &u8, length usize, milliseconds int) int {
 	return C.SDL_hid_read_timeout(dev, data, length, milliseconds)
 }
 
-fn C.SDL_hid_read(dev &C.SDL_hid_device, data &byte, length usize) int
+fn C.SDL_hid_read(dev &C.SDL_hid_device, data &u8, length usize) int
 
 // hid_read reads an Input report from a HID device.
 //
@@ -264,7 +264,7 @@ fn C.SDL_hid_read(dev &C.SDL_hid_device, data &byte, length usize) int
 //          function returns 0.
 //
 // NOTE This function is available since SDL 2.0.18.
-pub fn hid_read(dev &HidDevice, data &byte, length usize) int {
+pub fn hid_read(dev &HidDevice, data &u8, length usize) int {
 	return C.SDL_hid_read(dev, data, length)
 }
 
@@ -288,7 +288,7 @@ pub fn hid_set_nonblocking(dev &HidDevice, nonblock int) int {
 	return C.SDL_hid_set_nonblocking(dev, nonblock)
 }
 
-fn C.SDL_hid_send_feature_report(dev &C.SDL_hid_device, const_data &byte, length usize) int
+fn C.SDL_hid_send_feature_report(dev &C.SDL_hid_device, const_data &u8, length usize) int
 
 // hid_send_feature_report sends a Feature report to the device.
 //
@@ -310,11 +310,11 @@ fn C.SDL_hid_send_feature_report(dev &C.SDL_hid_device, const_data &byte, length
 // returns the actual number of bytes written and -1 on error.
 //
 // NOTE This function is available since SDL 2.0.18.
-pub fn hid_send_feature_report(dev &HidDevice, const_data &byte, length usize) int {
+pub fn hid_send_feature_report(dev &HidDevice, const_data &u8, length usize) int {
 	return C.SDL_hid_send_feature_report(dev, const_data, length)
 }
 
-fn C.SDL_hid_get_feature_report(dev &C.SDL_hid_device, data &byte, length usize) int
+fn C.SDL_hid_get_feature_report(dev &C.SDL_hid_device, data &u8, length usize) int
 
 // hid_get_feature_report gets a feature report from a HID device.
 //
@@ -334,7 +334,7 @@ fn C.SDL_hid_get_feature_report(dev &C.SDL_hid_device, data &byte, length usize)
 //          still in the first byte), or -1 on error.
 //
 // NOTE This function is available since SDL 2.0.18.
-pub fn hid_get_feature_report(dev &HidDevice, data &byte, length usize) int {
+pub fn hid_get_feature_report(dev &HidDevice, data &u8, length usize) int {
 	return C.SDL_hid_get_feature_report(dev, data, length)
 }
 
