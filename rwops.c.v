@@ -589,7 +589,7 @@ pub fn load_file(file &char, datasize &usize) voidptr {
 // Read endian functions
 //
 // Read an item of the specified endianness and return in native format.
-fn C.SDL_ReadU8(src &C.SDL_RWops) byte
+fn C.SDL_ReadU8(src &C.SDL_RWops) u8
 
 // read_u8 reads a byte from an SDL_RWops.
 //
@@ -600,7 +600,7 @@ fn C.SDL_ReadU8(src &C.SDL_RWops) byte
 // NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_WriteU8
-pub fn read_u8(src &RWops) byte {
+pub fn read_u8(src &RWops) u8 {
 	return C.SDL_ReadU8(src)
 }
 
@@ -715,7 +715,7 @@ pub fn read_be64(src &RWops) u64 {
 // Write endian functions
 //
 // Write an item of native format to the specified endianness.
-fn C.SDL_WriteU8(dst &C.SDL_RWops, value byte) usize
+fn C.SDL_WriteU8(dst &C.SDL_RWops, value u8) usize
 
 // write_u8 writes a byte to an SDL_RWops.
 //
@@ -727,7 +727,7 @@ fn C.SDL_WriteU8(dst &C.SDL_RWops, value byte) usize
 // NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_ReadU8
-pub fn write_u8(dst &RWops, value byte) usize {
+pub fn write_u8(dst &RWops, value u8) usize {
 	return C.SDL_WriteU8(dst, value)
 }
 
