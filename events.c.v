@@ -147,14 +147,14 @@ pub type CommonEvent = C.SDL_CommonEvent
 [typedef]
 struct C.SDL_DisplayEvent {
 pub:
-	@type     u32  // ::SDL_DISPLAYEVENT
-	timestamp u32  // In milliseconds, populated using SDL_GetTicks()
-	display   u32  // The associated display index
-	event     byte // ::SDL_DisplayEventID
-	padding1  byte //
-	padding2  byte //
-	padding3  byte //
-	data1     int  // event dependent data
+	@type     u32 // ::SDL_DISPLAYEVENT
+	timestamp u32 // In milliseconds, populated using SDL_GetTicks()
+	display   u32 // The associated display index
+	event     u8  // ::SDL_DisplayEventID
+	padding1  u8  //
+	padding2  u8  //
+	padding3  u8  //
+	data1     int // event dependent data
 }
 
 pub type DisplayEvent = C.SDL_DisplayEvent
@@ -166,10 +166,10 @@ pub:
 	@type     EventType // ::SDL_WINDOWEVENT
 	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
 	windowID  u32       // The associated window
-	event     byte      // ::SDL_WindowEventID
-	padding1  byte
-	padding2  byte
-	padding3  byte
+	event     u8        // ::SDL_WindowEventID
+	padding1  u8
+	padding2  u8
+	padding3  u8
 	data1     int // event dependent data
 	data2     int // event dependent data
 }
@@ -183,10 +183,10 @@ pub:
 	@type     EventType // ::SDL_KEYDOWN or ::SDL_KEYUP
 	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
 	windowID  u32       // The window with keyboard focus, if any
-	state     byte      // ::SDL_PRESSED or ::SDL_RELEASED
-	repeat    byte      // Non-zero if this is a key repeat
-	padding2  byte
-	padding3  byte
+	state     u8        // ::SDL_PRESSED or ::SDL_RELEASED
+	repeat    u8        // Non-zero if this is a key repeat
+	padding2  u8
+	padding3  u8
 	keysym    Keysym // The key that was pressed or released
 }
 
@@ -243,10 +243,10 @@ pub:
 	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
 	windowID  u32       // The window with mouse focus, if any
 	which     u32       // The mouse instance id, or SDL_TOUCH_MOUSEID
-	button    byte      // The mouse button index
-	state     byte      // ::SDL_PRESSED or ::SDL_RELEASED
-	clicks    byte      // 1 for single-click, 2 for double-click, etc.
-	padding1  byte
+	button    u8        // The mouse button index
+	state     u8        // ::SDL_PRESSED or ::SDL_RELEASED
+	clicks    u8        // 1 for single-click, 2 for double-click, etc.
+	padding1  u8
 	x         int // X coordinate, relative to window
 	y         int // Y coordinate, relative to window
 }
@@ -275,10 +275,10 @@ pub:
 	@type     EventType  // ::SDL_JOYAXISMOTION
 	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
 	which     JoystickID // The joystick instance id
-	axis      byte       // The joystick axis index
-	padding1  byte
-	padding2  byte
-	padding3  byte
+	axis      u8 // The joystick axis index
+	padding1  u8
+	padding2  u8
+	padding3  u8
 	value     i16 // The axis value (range: -32768 to 32767)
 	padding4  u16
 }
@@ -292,10 +292,10 @@ pub:
 	@type     EventType  // ::SDL_JOYBALLMOTION
 	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
 	which     JoystickID // C.SDL_JoystickID // The joystick instance id
-	ball      byte       // The joystick trackball index
-	padding1  byte
-	padding2  byte
-	padding3  byte
+	ball      u8 // The joystick trackball index
+	padding1  u8
+	padding2  u8
+	padding3  u8
 	xrel      i16 // The relative motion in the X direction
 	yrel      i16 // The relative motion in the Y direction
 }
@@ -309,14 +309,14 @@ pub:
 	@type     EventType  // ::SDL_JOYHATMOTION
 	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
 	which     JoystickID // C.SDL_JoystickID // The joystick instance id
-	hat       byte       // The joystick hat index
-	value     byte       // The hat position value.
+	hat       u8 // The joystick hat index
+	value     u8 // The hat position value.
 	// See also: ::SDL_HAT_LEFTUP ::SDL_HAT_UP ::SDL_HAT_RIGHTUP
 	// See also: ::SDL_HAT_LEFT ::SDL_HAT_CENTERED ::SDL_HAT_RIGHT
 	// See also: ::SDL_HAT_LEFTDOWN ::SDL_HAT_DOWN ::SDL_HAT_RIGHTDOWN
 	// Note that zero means the POV is centered.
-	padding1 byte
-	padding2 byte
+	padding1 u8
+	padding2 u8
 }
 
 pub type JoyHatEvent = C.SDL_JoyHatEvent
@@ -328,10 +328,10 @@ pub:
 	@type     EventType  // ::SDL_JOYBUTTONDOWN or ::SDL_JOYBUTTONUP
 	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
 	which     JoystickID // C.SDL_JoystickID // The joystick instance id
-	button    byte       // The joystick button index
-	state     byte       // ::SDL_PRESSED or ::SDL_RELEASED
-	padding1  byte
-	padding2  byte
+	button    u8 // The joystick button index
+	state     u8 // ::SDL_PRESSED or ::SDL_RELEASED
+	padding1  u8
+	padding2  u8
 }
 
 pub type JoyButtonEvent = C.SDL_JoyButtonEvent
@@ -354,10 +354,10 @@ pub:
 	@type     EventType  // ::SDL_CONTROLLERAXISMOTION
 	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
 	which     JoystickID // C.SDL_JoystickID // The joystick instance id
-	axis      byte       // The controller axis (SDL_GameControllerAxis)
-	padding1  byte
-	padding2  byte
-	padding3  byte
+	axis      u8 // The controller axis (SDL_GameControllerAxis)
+	padding1  u8
+	padding2  u8
+	padding3  u8
 	value     i16 // The axis value (range: -32768 to 32767)
 	padding4  u16
 }
@@ -371,10 +371,10 @@ pub:
 	@type     EventType  // ::SDL_CONTROLLERBUTTONDOWN or ::SDL_CONTROLLERBUTTONUP
 	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
 	which     JoystickID // C.SDL_JoystickID // The joystick instance id
-	button    byte       // The controller button (SDL_GameControllerButton)
-	state     byte       // ::SDL_PRESSED or ::SDL_RELEASED
-	padding1  byte
-	padding2  byte
+	button    u8 // The controller button (SDL_GameControllerButton)
+	state     u8 // ::SDL_PRESSED or ::SDL_RELEASED
+	padding1  u8
+	padding2  u8
 }
 
 pub type ControllerButtonEvent = C.SDL_ControllerButtonEvent
@@ -425,10 +425,10 @@ pub:
 	@type     EventType // ::SDL_AUDIODEVICEADDED, or ::SDL_AUDIODEVICEREMOVED
 	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
 	which     u32       // The audio device index for the ADDED event (valid until next SDL_GetNumAudioDevices() call), SDL_AudioDeviceID for the REMOVED event
-	iscapture byte      // zero if an output device, non-zero if a capture device.
-	padding1  byte
-	padding2  byte
-	padding3  byte
+	iscapture u8        // zero if an output device, non-zero if a capture device.
+	padding1  u8
+	padding2  u8
+	padding3  u8
 }
 
 pub type AudioDeviceEvent = C.SDL_AudioDeviceEvent
@@ -628,7 +628,7 @@ pub:
 	// On architectures where pointers are 16 bytes, this needs rounding up to
 	// the next multiple of 16, 64, and on architectures where pointers are
 	// even larger the size of SDL_UserEvent will dominate as being 3 pointers.
-	padding [56]byte // TODO v_event_padding_size??
+	padding [56]u8 // TODO v_event_padding_size??
 	// Uint8 padding[sizeof(void *) <= 8 ? 56 : sizeof(void *) == 16 ? 64 : 3 * sizeof(void *)];
 }
 
@@ -1040,7 +1040,7 @@ pub fn filter_events(filter EventFilter, userdata voidptr) {
 	C.SDL_FilterEvents(filter, userdata)
 }
 
-fn C.SDL_EventState(@type u32, state int) byte
+fn C.SDL_EventState(@type u32, state int) u8
 
 // Set the state of processing events by type.
 //
@@ -1057,7 +1057,7 @@ fn C.SDL_EventState(@type u32, state int) byte
 //          of the event before this function makes any changes to it.
 //
 // See also: SDL_GetEventState
-pub fn event_state(@type u32, state int) byte {
+pub fn event_state(@type u32, state int) u8 {
 	return C.SDL_EventState(@type, state)
 }
 

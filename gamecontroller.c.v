@@ -729,7 +729,7 @@ pub fn game_controller_has_button(gamecontroller &GameController, button GameCon
 	return C.SDL_GameControllerHasButton(gamecontroller, C.SDL_GameControllerButton(button))
 }
 
-fn C.SDL_GameControllerGetButton(gamecontroller &C.SDL_GameController, button C.SDL_GameControllerButton) byte
+fn C.SDL_GameControllerGetButton(gamecontroller &C.SDL_GameController, button C.SDL_GameControllerButton) u8
 
 // game_controller_get_button gets the current state of a button on a game controller.
 //
@@ -741,7 +741,7 @@ fn C.SDL_GameControllerGetButton(gamecontroller &C.SDL_GameController, button C.
 // NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_GameControllerGetAxis
-pub fn game_controller_get_button(gamecontroller &GameController, button GameControllerButton) byte {
+pub fn game_controller_get_button(gamecontroller &GameController, button GameControllerButton) u8 {
 	return C.SDL_GameControllerGetButton(gamecontroller, C.SDL_GameControllerButton(button))
 }
 
@@ -760,10 +760,10 @@ pub fn game_controller_get_num_touchpad_fingers(gamecontroller &GameController, 
 	return C.SDL_GameControllerGetNumTouchpadFingers(gamecontroller, touchpad)
 }
 
-fn C.SDL_GameControllerGetTouchpadFinger(gamecontroller &GameController, touchpad int, finger int, state &byte, x &f32, y &f32, pressure &f32) int
+fn C.SDL_GameControllerGetTouchpadFinger(gamecontroller &GameController, touchpad int, finger int, state &u8, x &f32, y &f32, pressure &f32) int
 
 // game_controller_get_touchpad_finger gets the current state of a finger on a touchpad on a game controller.
-pub fn game_controller_get_touchpad_finger(gamecontroller &GameController, touchpad int, finger int, state &byte, x &f32, y &f32, pressure &f32) int {
+pub fn game_controller_get_touchpad_finger(gamecontroller &GameController, touchpad int, finger int, state &u8, x &f32, y &f32, pressure &f32) int {
 	return C.SDL_GameControllerGetTouchpadFinger(gamecontroller, touchpad, finger, state,
 		x, y, pressure)
 }
@@ -885,7 +885,7 @@ pub fn game_controller_has_led(gamecontroller &GameController) bool {
 	return C.SDL_GameControllerHasLED(gamecontroller)
 }
 
-fn C.SDL_GameControllerSetLED(gamecontroller &C.SDL_GameController, red byte, green byte, blue byte) int
+fn C.SDL_GameControllerSetLED(gamecontroller &C.SDL_GameController, red u8, green u8, blue u8) int
 
 // game_controller_set_led updates a game controller's LED color.
 //
@@ -894,7 +894,7 @@ fn C.SDL_GameControllerSetLED(gamecontroller &C.SDL_GameController, red byte, gr
 // `green` The intensity of the green LED
 // `blue` The intensity of the blue LED
 // returns 0, or -1 if this controller does not have a modifiable LED
-pub fn game_controller_set_led(gamecontroller &GameController, red byte, green byte, blue byte) int {
+pub fn game_controller_set_led(gamecontroller &GameController, red u8, green u8, blue u8) int {
 	return C.SDL_GameControllerSetLED(gamecontroller, red, green, blue)
 }
 
