@@ -216,7 +216,7 @@ pub fn get_relative_mouse_mode() bool {
 	return C.SDL_GetRelativeMouseMode()
 }
 
-fn C.SDL_CreateCursor(const_data &byte, const_mask &byte, w int, h int, hot_x int, hot_y int) &C.SDL_Cursor
+fn C.SDL_CreateCursor(const_data &u8, const_mask &u8, w int, h int, hot_x int, hot_y int) &C.SDL_Cursor
 
 // create_cursor creates a cursor, using the specified bitmap data and
 // mask (in MSB format).
@@ -236,7 +236,7 @@ fn C.SDL_CreateCursor(const_data &byte, const_mask &byte, w int, h int, hot_x in
 */
 //
 // See also: SDL_FreeCursor()
-pub fn create_cursor(const_data &byte, const_mask &byte, w int, h int, hot_x int, hot_y int) &Cursor {
+pub fn create_cursor(const_data &u8, const_mask &u8, w int, h int, hot_x int, hot_y int) &Cursor {
 	return C.SDL_CreateCursor(const_data, const_mask, w, h, hot_x, hot_y)
 }
 

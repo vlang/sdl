@@ -26,9 +26,9 @@ pub const (
 [typedef]
 struct C.SDL_version {
 pub:
-	major byte // major version
-	minor byte // minor version
-	patch byte // update version
+	major u8 // major version
+	minor u8 // minor version
+	patch u8 // update version
 }
 
 pub fn (ver C.SDL_version) str() string {

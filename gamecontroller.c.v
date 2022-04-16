@@ -364,12 +364,12 @@ pub fn game_controller_get_bind_for_button(gamecontroller &GameController, butto
 	return C.SDL_GameControllerGetBindForButton(gamecontroller, C.SDL_GameControllerButton(button))
 }
 
-fn C.SDL_GameControllerGetButton(gamecontroller &C.SDL_GameController, button C.SDL_GameControllerButton) byte
+fn C.SDL_GameControllerGetButton(gamecontroller &C.SDL_GameController, button C.SDL_GameControllerButton) u8
 
 // game_controller_get_button gets the current state of a button on a game controller.
 //
 // The button indices start at index 0.
-pub fn game_controller_get_button(gamecontroller &GameController, button GameControllerButton) byte {
+pub fn game_controller_get_button(gamecontroller &GameController, button GameControllerButton) u8 {
 	return C.SDL_GameControllerGetButton(gamecontroller, C.SDL_GameControllerButton(button))
 }
 
