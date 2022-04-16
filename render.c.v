@@ -303,7 +303,7 @@ pub fn query_texture(texture &Texture, format &u32, access &int, w &int, h &int)
 	return C.SDL_QueryTexture(texture, format, access, w, h)
 }
 
-fn C.SDL_SetTextureColorMod(texture &C.SDL_Texture, r byte, g byte, b byte) int
+fn C.SDL_SetTextureColorMod(texture &C.SDL_Texture, r u8, g u8, b u8) int
 
 // set_texture_color_mod sets an additional color value multiplied into render copy operations.
 //
@@ -325,11 +325,11 @@ fn C.SDL_SetTextureColorMod(texture &C.SDL_Texture, r byte, g byte, b byte) int
 //
 // See also: SDL_GetTextureColorMod
 // See also: SDL_SetTextureAlphaMod
-pub fn set_texture_color_mod(texture &Texture, r byte, g byte, b byte) int {
+pub fn set_texture_color_mod(texture &Texture, r u8, g u8, b u8) int {
 	return C.SDL_SetTextureColorMod(texture, r, g, b)
 }
 
-fn C.SDL_GetTextureColorMod(texture &C.SDL_Texture, r &byte, g &byte, b &byte) int
+fn C.SDL_GetTextureColorMod(texture &C.SDL_Texture, r &u8, g &u8, b &u8) int
 
 // get_texture_color_mod gets the additional color value multiplied into render copy operations.
 //
@@ -342,11 +342,11 @@ fn C.SDL_GetTextureColorMod(texture &C.SDL_Texture, r &byte, g &byte, b &byte) i
 //
 // See also: SDL_GetTextureAlphaMod
 // See also: SDL_SetTextureColorMod
-pub fn get_texture_color_mod(texture &Texture, r &byte, g &byte, b &byte) int {
+pub fn get_texture_color_mod(texture &Texture, r &u8, g &u8, b &u8) int {
 	return C.SDL_GetTextureColorMod(texture, r, g, b)
 }
 
-fn C.SDL_SetTextureAlphaMod(texture &C.SDL_Texture, alpha byte) int
+fn C.SDL_SetTextureAlphaMod(texture &C.SDL_Texture, alpha u8) int
 
 // set_texture_alpha_mod sets an additional alpha value multiplied into render copy operations.
 //
@@ -365,11 +365,11 @@ fn C.SDL_SetTextureAlphaMod(texture &C.SDL_Texture, alpha byte) int
 //
 // See also: SDL_GetTextureAlphaMod
 // See also: SDL_SetTextureColorMod
-pub fn set_texture_alpha_mod(texture &Texture, alpha byte) int {
+pub fn set_texture_alpha_mod(texture &Texture, alpha u8) int {
 	return C.SDL_SetTextureAlphaMod(texture, alpha)
 }
 
-fn C.SDL_GetTextureAlphaMod(texture &C.SDL_Texture, alpha &byte) int
+fn C.SDL_GetTextureAlphaMod(texture &C.SDL_Texture, alpha &u8) int
 
 // get_texture_alpha_mod gets the additional alpha value multiplied into render copy operations.
 //
@@ -380,7 +380,7 @@ fn C.SDL_GetTextureAlphaMod(texture &C.SDL_Texture, alpha &byte) int
 //
 // See also: SDL_GetTextureColorMod
 // See also: SDL_SetTextureAlphaMod
-pub fn get_texture_alpha_mod(texture &Texture, alpha &byte) int {
+pub fn get_texture_alpha_mod(texture &Texture, alpha &u8) int {
 	return C.SDL_GetTextureAlphaMod(texture, alpha)
 }
 
@@ -475,7 +475,7 @@ pub fn update_texture(texture &Texture, const_rect &Rect, const_pixels voidptr, 
 	return C.SDL_UpdateTexture(texture, const_rect, const_pixels, pitch)
 }
 
-fn C.SDL_UpdateYUVTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, const_yplane &byte, ypitch int, const_uplane &byte, upitch int, const_vplane &byte, vpitch int) int
+fn C.SDL_UpdateYUVTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, const_yplane &u8, ypitch int, const_uplane &u8, upitch int, const_vplane &u8, vpitch int) int
 
 // update_yuv_texture updates a rectangle within a planar YV12 or IYUV texture with new pixel
 // data.
@@ -502,7 +502,7 @@ fn C.SDL_UpdateYUVTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, const_
 // NOTE This function is available since SDL 2.0.1.
 //
 // See also: SDL_UpdateTexture
-pub fn update_yuv_texture(texture &Texture, const_rect &Rect, const_yplane &byte, ypitch int, const_uplane &byte, upitch int, const_vplane &byte, vpitch int) int {
+pub fn update_yuv_texture(texture &Texture, const_rect &Rect, const_yplane &u8, ypitch int, const_uplane &u8, upitch int, const_vplane &u8, vpitch int) int {
 	return C.SDL_UpdateYUVTexture(texture, const_rect, const_yplane, ypitch, const_uplane,
 		upitch, const_vplane, vpitch)
 }
@@ -873,7 +873,7 @@ pub fn render_get_scale(renderer &Renderer, scale_x &f32, scale_y &f32) {
 	C.SDL_RenderGetScale(renderer, scale_x, scale_y)
 }
 
-fn C.SDL_SetRenderDrawColor(renderer &C.SDL_Renderer, r byte, g byte, b byte, a byte) int
+fn C.SDL_SetRenderDrawColor(renderer &C.SDL_Renderer, r u8, g u8, b u8, a u8) int
 
 // set_render_draw_color sets the color used for drawing operations (Rect, Line and Clear).
 //
@@ -900,11 +900,11 @@ fn C.SDL_SetRenderDrawColor(renderer &C.SDL_Renderer, r byte, g byte, b byte, a 
 // See also: SDL_RenderDrawRects
 // See also: SDL_RenderFillRect
 // See also: SDL_RenderFillRects
-pub fn set_render_draw_color(renderer &Renderer, r byte, g byte, b byte, a byte) int {
+pub fn set_render_draw_color(renderer &Renderer, r u8, g u8, b u8, a u8) int {
 	return C.SDL_SetRenderDrawColor(renderer, r, g, b, a)
 }
 
-fn C.SDL_GetRenderDrawColor(renderer &C.SDL_Renderer, r &byte, g &byte, b &byte, a &byte) int
+fn C.SDL_GetRenderDrawColor(renderer &C.SDL_Renderer, r &u8, g &u8, b &u8, a &u8) int
 
 // get_render_draw_color gets the color used for drawing operations (Rect, Line and Clear).
 //
@@ -921,7 +921,7 @@ fn C.SDL_GetRenderDrawColor(renderer &C.SDL_Renderer, r &byte, g &byte, b &byte,
 //          SDL_GetError() for more information.
 //
 // See also: SDL_SetRenderDrawColor
-pub fn get_render_draw_color(renderer &Renderer, r &byte, g &byte, b &byte, a &byte) int {
+pub fn get_render_draw_color(renderer &Renderer, r &u8, g &u8, b &u8, a &u8) int {
 	return C.SDL_GetRenderDrawColor(renderer, r, g, b, a)
 }
 

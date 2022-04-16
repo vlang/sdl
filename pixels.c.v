@@ -136,10 +136,10 @@ pub enum Format {
 [typedef]
 struct C.SDL_Color {
 pub mut:
-	r byte
-	g byte
-	b byte
-	a byte
+	r u8
+	g u8
+	b u8
+	a u8
 }
 
 pub type Color = C.SDL_Color
@@ -161,21 +161,21 @@ struct C.SDL_PixelFormat {
 pub:
 	format        Format
 	palette       &Palette
-	BitsPerPixel  byte
-	BytesPerPixel byte
-	padding       [2]byte
+	BitsPerPixel  u8
+	BytesPerPixel u8
+	padding       [2]u8
 	Rmask         u32
 	Gmask         u32
 	Bmask         u32
 	Amask         u32
-	Rloss         byte
-	Gloss         byte
-	Bloss         byte
-	Aloss         byte
-	Rshift        byte
-	Gshift        byte
-	Bshift        byte
-	Ashift        byte
+	Rloss         u8
+	Gloss         u8
+	Bloss         u8
+	Aloss         u8
+	Rshift        u8
+	Gshift        u8
+	Bshift        u8
+	Ashift        u8
 	refcount      int
 	next          &PixelFormat
 }
@@ -320,7 +320,7 @@ pub fn free_palette(palette &Palette) {
 	C.SDL_FreePalette(palette)
 }
 
-fn C.SDL_MapRGB(format &C.SDL_PixelFormat, r byte, g byte, b byte) u32
+fn C.SDL_MapRGB(format &C.SDL_PixelFormat, r u8, g u8, b u8) u32
 
 // map_rgb maps an RGB triple to an opaque pixel value for a given pixel format.
 //
@@ -348,11 +348,11 @@ fn C.SDL_MapRGB(format &C.SDL_PixelFormat, r byte, g byte, b byte) u32
 // See also: SDL_GetRGB
 // See also: SDL_GetRGBA
 // See also: SDL_MapRGBA
-pub fn map_rgb(format &PixelFormat, r byte, g byte, b byte) u32 {
+pub fn map_rgb(format &PixelFormat, r u8, g u8, b u8) u32 {
 	return C.SDL_MapRGB(format, r, g, b)
 }
 
-fn C.SDL_MapRGBA(format &C.SDL_PixelFormat, r byte, g byte, b byte, a byte) u32
+fn C.SDL_MapRGBA(format &C.SDL_PixelFormat, r u8, g u8, b u8, a u8) u32
 
 // map_rgba maps an RGBA quadruple to a pixel value for a given pixel format.
 //
@@ -382,11 +382,11 @@ fn C.SDL_MapRGBA(format &C.SDL_PixelFormat, r byte, g byte, b byte, a byte) u32
 // See also: SDL_GetRGB
 // See also: SDL_GetRGBA
 // See also: SDL_MapRGB
-pub fn map_rgba(format &PixelFormat, r byte, g byte, b byte, a byte) u32 {
+pub fn map_rgba(format &PixelFormat, r u8, g u8, b u8, a u8) u32 {
 	return C.SDL_MapRGBA(format, r, g, b, a)
 }
 
-fn C.SDL_GetRGB(pixel u32, const_format &C.SDL_PixelFormat, r &byte, g &byte, b &byte)
+fn C.SDL_GetRGB(pixel u32, const_format &C.SDL_PixelFormat, r &u8, g &u8, b &u8)
 
 // get_rgb gets RGB values from a pixel in the specified format.
 //
@@ -405,11 +405,11 @@ fn C.SDL_GetRGB(pixel u32, const_format &C.SDL_PixelFormat, r &byte, g &byte, b 
 // See also: SDL_GetRGBA
 // See also: SDL_MapRGB
 // See also: SDL_MapRGBA
-pub fn get_rgb(pixel u32, const_format &PixelFormat, r &byte, g &byte, b &byte) {
+pub fn get_rgb(pixel u32, const_format &PixelFormat, r &u8, g &u8, b &u8) {
 	C.SDL_GetRGB(pixel, const_format, r, g, b)
 }
 
-fn C.SDL_GetRGBA(pixel u32, const_format &C.SDL_PixelFormat, r &byte, g &byte, b &byte, a &byte)
+fn C.SDL_GetRGBA(pixel u32, const_format &C.SDL_PixelFormat, r &u8, g &u8, b &u8, a &u8)
 
 // get_rgba gets RGBA values from a pixel in the specified format.
 //
@@ -432,7 +432,7 @@ fn C.SDL_GetRGBA(pixel u32, const_format &C.SDL_PixelFormat, r &byte, g &byte, b
 // See also: SDL_GetRGB
 // See also: SDL_MapRGB
 // See also: SDL_MapRGBA
-pub fn get_rgba(pixel u32, const_format &PixelFormat, r &byte, g &byte, b &byte, a &byte) {
+pub fn get_rgba(pixel u32, const_format &PixelFormat, r &u8, g &u8, b &u8, a &u8) {
 	C.SDL_GetRGBA(pixel, const_format, r, g, b, a)
 }
 

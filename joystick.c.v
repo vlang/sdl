@@ -34,7 +34,7 @@ pub type Joystick = C.SDL_Joystick
 [typedef]
 struct C.SDL_JoystickGUID {
 pub:
-	data [16]byte
+	data [16]u8
 }
 
 pub type JoystickGUID = C.SDL_JoystickGUID
@@ -322,7 +322,7 @@ pub fn joystick_set_virtual_axis(joystick &Joystick, axis int, value i16) int {
 	return C.SDL_JoystickSetVirtualAxis(joystick, axis, value)
 }
 
-fn C.SDL_JoystickSetVirtualButton(joystick &C.SDL_Joystick, button int, value byte) int
+fn C.SDL_JoystickSetVirtualButton(joystick &C.SDL_Joystick, button int, value u8) int
 
 // joystick_set_virtual_button sets values on an opened, virtual-joystick's button.
 //
@@ -336,11 +336,11 @@ fn C.SDL_JoystickSetVirtualButton(joystick &C.SDL_Joystick, button int, value by
 // `button` the specific button on the virtual joystick to set.
 // `value` the new value for the specified button.
 // returns 0 on success, -1 on error.
-pub fn joystick_set_virtual_button(joystick &Joystick, button int, value byte) int {
+pub fn joystick_set_virtual_button(joystick &Joystick, button int, value u8) int {
 	return C.SDL_JoystickSetVirtualButton(joystick, button, value)
 }
 
-fn C.SDL_JoystickSetVirtualHat(joystick &C.SDL_Joystick, hat int, value byte) int
+fn C.SDL_JoystickSetVirtualHat(joystick &C.SDL_Joystick, hat int, value u8) int
 
 // joystick_set_virtual_hat sets values on an opened, virtual-joystick's hat.
 //
@@ -354,7 +354,7 @@ fn C.SDL_JoystickSetVirtualHat(joystick &C.SDL_Joystick, hat int, value byte) in
 // `hat` the specific hat on the virtual joystick to set.
 // `value` the new value for the specified hat.
 // returns 0 on success, -1 on error.
-pub fn joystick_set_virtual_hat(joystick &C.SDL_Joystick, hat int, value byte) int {
+pub fn joystick_set_virtual_hat(joystick &C.SDL_Joystick, hat int, value u8) int {
 	return C.SDL_JoystickSetVirtualHat(joystick, hat, value)
 }
 
@@ -675,7 +675,7 @@ pub fn joystick_get_axis_initial_state(joystick &Joystick, axis int, state &i16)
 	return C.SDL_JoystickGetAxisInitialState(joystick, axis, state)
 }
 
-fn C.SDL_JoystickGetHat(joystick &C.SDL_Joystick, hat int) byte
+fn C.SDL_JoystickGetHat(joystick &C.SDL_Joystick, hat int) u8
 
 // joystick_get_hat gets the current state of a POV hat on a joystick.
 //
@@ -696,7 +696,7 @@ fn C.SDL_JoystickGetHat(joystick &C.SDL_Joystick, hat int) byte
 // returns the current hat position.
 //
 // See also: SDL_JoystickNumHats
-pub fn joystick_get_hat(joystick &Joystick, hat int) byte {
+pub fn joystick_get_hat(joystick &Joystick, hat int) u8 {
 	return C.SDL_JoystickGetHat(joystick, hat)
 }
 
@@ -721,7 +721,7 @@ pub fn joystick_get_ball(joystick &Joystick, ball int, dx &int, dy &int) int {
 	return C.SDL_JoystickGetBall(joystick, ball, dx, dy)
 }
 
-fn C.SDL_JoystickGetButton(joystick &C.SDL_Joystick, button int) byte
+fn C.SDL_JoystickGetButton(joystick &C.SDL_Joystick, button int) u8
 
 // joystick_get_button gets the current state of a button on a joystick.
 //
@@ -731,7 +731,7 @@ fn C.SDL_JoystickGetButton(joystick &C.SDL_Joystick, button int) byte
 // returns 1 if the specified button is pressed, 0 otherwise.
 //
 // See also: SDL_JoystickNumButtons
-pub fn joystick_get_button(joystick &Joystick, button int) byte {
+pub fn joystick_get_button(joystick &Joystick, button int) u8 {
 	return C.SDL_JoystickGetButton(joystick, button)
 }
 
@@ -790,7 +790,7 @@ pub fn joystick_has_led(joystick &Joystick) bool {
 	return C.SDL_JoystickHasLED(joystick)
 }
 
-fn C.SDL_JoystickSetLED(joystick &Joystick, red byte, green byte, blue byte) int
+fn C.SDL_JoystickSetLED(joystick &Joystick, red u8, green u8, blue u8) int
 
 // joystick_set_led updates a joystick's LED color.
 //
@@ -802,7 +802,7 @@ fn C.SDL_JoystickSetLED(joystick &Joystick, red byte, green byte, blue byte) int
 // `green` The intensity of the green LED
 // `blue` The intensity of the blue LED
 // returns 0 on success, -1 if this joystick does not have a modifiable LED
-pub fn joystick_set_led(joystick &Joystick, red byte, green byte, blue byte) int {
+pub fn joystick_set_led(joystick &Joystick, red u8, green u8, blue u8) int {
 	return C.SDL_JoystickSetLED(joystick, red, green, blue)
 }
 
