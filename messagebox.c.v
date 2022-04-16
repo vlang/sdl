@@ -39,9 +39,9 @@ pub type MessageBoxButtonData = C.SDL_MessageBoxButtonData
 [typedef]
 struct C.SDL_MessageBoxColor {
 pub:
-	r byte
-	g byte
-	b byte
+	r u8
+	g u8
+	b u8
 }
 
 pub type MessageBoxColor = C.SDL_MessageBoxColor
