@@ -29,7 +29,7 @@ pub fn get_keyboard_focus() &Window {
 	return C.SDL_GetKeyboardFocus()
 }
 
-fn C.SDL_GetKeyboardState(numkeys &int) &byte
+fn C.SDL_GetKeyboardState(numkeys &int) &u8
 
 // get_keyboard_state gets a snapshot of the current state of the keyboard.
 //
@@ -46,7 +46,7 @@ if ( state[SDL_SCANCODE_RETURN] ) {
 }
 ```
 */
-pub fn get_keyboard_state(numkeys &int) &byte {
+pub fn get_keyboard_state(numkeys &int) &u8 {
 	return C.SDL_GetKeyboardState(numkeys)
 }
 
