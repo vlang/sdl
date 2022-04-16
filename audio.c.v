@@ -132,7 +132,7 @@ pub const (
 // you like. Just open your audio device with a NULL callback.
 //
 // `typedef void (SDLCALL * SDL_AudioCallback) (void *userdata, Uint8 * stream)`
-pub type AudioCallback = fn (userdata voidptr, stream &byte)
+pub type AudioCallback = fn (userdata voidptr, stream &u8)
 
 // AudioSpec
 //
@@ -152,8 +152,8 @@ struct C.SDL_AudioSpec {
 pub:
 	freq     int // DSP frequency -- samples per second
 	format   AudioFormat // C.SDL_AudioFormat Audio data format
-	channels byte        // Number of channels: 1 mono, 2 stereo
-	silence  byte        // Audio buffer silence value (calculated)
+	channels u8  // Number of channels: 1 mono, 2 stereo
+	silence  u8  // Audio buffer silence value (calculated)
 	samples  u16 // Audio buffer size in sample FRAMES (total samples divided by channel count)
 	padding  u16 // Necessary for some compile environments
 	size     u32 // Audio buffer size in bytes (calculated)
@@ -184,7 +184,7 @@ pub:
 	src_format   AudioFormat // C.SDL_AudioFormat, Source audio format
 	dst_format   AudioFormat // C.SDL_AudioFormat, Target audio format
 	rate_incr    f64   // Rate conversion increment
-	buf          &byte // Buffer to hold entire audio data
+	buf          &u8 // Buffer to hold entire audio data
 	len          int   // Length of original audio buffer
 	len_cvt      int   // Length of converted audio buffer
 	len_mult     int   // buffer must be len*len_mult big
@@ -210,12 +210,12 @@ pub:
 	needed       int // Set to 1 if conversion possible
 	src_format   AudioFormat // C.SDL_AudioFormat, Source audio format
 	dst_format   AudioFormat // C.SDL_AudioFormat, Target audio format
-	rate_incr    f64   // Rate conversion increment
-	buf          &byte // Buffer to hold entire audio data
-	len          int   // Length of original audio buffer
-	len_cvt      int   // Length of converted audio buffer
-	len_mult     int   // buffer must be len*len_mult big
-	len_ratio    f64   // Given len, final size is len*len_ratio
+	rate_incr    f64 // Rate conversion increment
+	buf          &u8 // Buffer to hold entire audio data
+	len          int // Length of original audio buffer
+	len_cvt      int // Length of converted audio buffer
+	len_mult     int // buffer must be len*len_mult big
+	len_ratio    f64 // Given len, final size is len*len_ratio
 	filters      [10]AudioFilter // C.SDL_AudioFilter NULL-terminated list of filter functions
 	filter_index int // Current audio conversion function
 }
@@ -421,7 +421,7 @@ pub fn pause_audio_device(dev AudioDeviceID, pause_on int) {
 	C.SDL_PauseAudioDevice(C.SDL_AudioDeviceID(dev), pause_on)
 }
 
-fn C.SDL_LoadWAV_RW(src &C.SDL_RWops, freesrc int, spec &C.SDL_AudioSpec, audio_buf &&byte, audio_len &u32) &C.SDL_AudioSpec
+fn C.SDL_LoadWAV_RW(src &C.SDL_RWops, freesrc int, spec &C.SDL_AudioSpec, audio_buf &&u8, audio_len &u32) &C.SDL_AudioSpec
 
 // load_wav_rw loads a WAVE from the data source, automatically freeing
 // that source if `freesrc` is non-zero.  For example, to load a WAVE file,
@@ -441,26 +441,26 @@ fn C.SDL_LoadWAV_RW(src &C.SDL_RWops, freesrc int, spec &C.SDL_AudioSpec, audio_
 // This function returns NULL and sets the SDL error message if the
 // wave file cannot be opened, uses an unknown data format, or is
 // corrupt.  Currently raw and MS-ADPCM WAVE files are supported.
-pub fn load_wav_rw(src &RWops, freesrc int, spec &AudioSpec, audio_buf &&byte, audio_len &u32) &AudioSpec {
+pub fn load_wav_rw(src &RWops, freesrc int, spec &AudioSpec, audio_buf &&u8, audio_len &u32) &AudioSpec {
 	return C.SDL_LoadWAV_RW(src, freesrc, spec, audio_buf, audio_len)
 }
 
-fn C.SDL_LoadWAV(file &char, spec &C.SDL_AudioSpec, audio_buf &&byte, audio_len &u32) &C.SDL_AudioSpec
+fn C.SDL_LoadWAV(file &char, spec &C.SDL_AudioSpec, audio_buf &&u8, audio_len &u32) &C.SDL_AudioSpec
 
 // load_wav loads a WAV from a file.
 // Compatibility convenience function.
-pub fn load_wav(file &char, spec &AudioSpec, audio_buf &&byte, audio_len &u32) &AudioSpec {
+pub fn load_wav(file &char, spec &AudioSpec, audio_buf &&u8, audio_len &u32) &AudioSpec {
 	return C.SDL_LoadWAV(file, spec, audio_buf, audio_len)
 }
 
-fn C.SDL_FreeWAV(audio_buf &byte)
+fn C.SDL_FreeWAV(audio_buf &u8)
 
 // free_wav frees data previously allocated with SDL_LoadWAV_RW()
-pub fn free_wav(audio_buf &byte) {
+pub fn free_wav(audio_buf &u8) {
 	C.SDL_FreeWAV(audio_buf)
 }
 
-fn C.SDL_BuildAudioCVT(cvt &C.SDL_AudioCVT, src_format C.SDL_AudioFormat, src_channels byte, src_rate int, dst_format C.SDL_AudioFormat, dst_channels byte, dst_rate int) int
+fn C.SDL_BuildAudioCVT(cvt &C.SDL_AudioCVT, src_format C.SDL_AudioFormat, src_channels u8, src_rate int, dst_format C.SDL_AudioFormat, dst_channels u8, dst_rate int) int
 
 // build_audio_cvt takes a source format and rate and a destination format
 // and rate, and initializes the `cvt` structure with information needed
@@ -469,7 +469,7 @@ fn C.SDL_BuildAudioCVT(cvt &C.SDL_AudioCVT, src_format C.SDL_AudioFormat, src_ch
 //
 // returns 0 if no conversion is needed, 1 if the audio filter is set up,
 // or -1 on error.
-pub fn build_audio_cvt(cvt &AudioCVT, src_format AudioFormat, src_channels byte, src_rate int, dst_format AudioFormat, dst_channels byte, dst_rate int) int {
+pub fn build_audio_cvt(cvt &AudioCVT, src_format AudioFormat, src_channels u8, src_rate int, dst_format AudioFormat, dst_channels u8, dst_rate int) int {
 	return C.SDL_BuildAudioCVT(cvt, C.SDL_AudioFormat(src_format), src_channels, src_rate,
 		C.SDL_AudioFormat(dst_format), dst_channels, dst_rate)
 }
@@ -507,7 +507,7 @@ struct C.SDL_AudioStream {
 
 pub type AudioStream = C.SDL_AudioStream
 
-fn C.SDL_NewAudioStream(const_src_format C.SDL_AudioFormat, const_src_channels byte, const_src_rate int, const_dst_format C.SDL_AudioFormat, const_dst_channels byte, const_dst_rate int) &C.SDL_AudioStream
+fn C.SDL_NewAudioStream(const_src_format C.SDL_AudioFormat, const_src_channels u8, const_src_rate int, const_dst_format C.SDL_AudioFormat, const_dst_channels u8, const_dst_rate int) &C.SDL_AudioStream
 
 // new_audio_stream creates a new audio stream
 //
@@ -525,7 +525,7 @@ fn C.SDL_NewAudioStream(const_src_format C.SDL_AudioFormat, const_src_channels b
 // See also: SDL_AudioStreamFlush
 // See also: SDL_AudioStreamClear
 // See also: SDL_FreeAudioStream
-pub fn new_audio_stream(const_src_format AudioFormat, const_src_channels byte, const_src_rate int, const_dst_format AudioFormat, const_dst_channels byte, const_dst_rate int) &AudioStream {
+pub fn new_audio_stream(const_src_format AudioFormat, const_src_channels u8, const_src_rate int, const_dst_format AudioFormat, const_dst_channels u8, const_dst_rate int) &AudioStream {
 	return C.SDL_NewAudioStream(C.SDL_AudioFormat(const_src_format), const_src_channels,
 		const_src_rate, C.SDL_AudioFormat(const_dst_format), const_dst_channels, const_dst_rate)
 }
@@ -635,23 +635,23 @@ pub fn free_audio_stream(stream &AudioStream) {
 	C.SDL_FreeAudioStream(stream)
 }
 
-fn C.SDL_MixAudio(dst &byte, const_src &byte, len u32, volume int)
+fn C.SDL_MixAudio(dst &u8, const_src &u8, len u32, volume int)
 
 // mix_audio takes two audio buffers of the playing audio format and mixes
 // them, performing addition, volume adjustment, and overflow clipping.
 // The volume ranges from 0 - 128, and should be set to ::SDL_MIX_MAXVOLUME
 // for full audio volume.  Note this does not change hardware volume.
 // This is provided for convenience -- you can mix your own audio data.
-pub fn mix_audio(dst &byte, const_src &byte, len u32, volume int) {
+pub fn mix_audio(dst &u8, const_src &u8, len u32, volume int) {
 	C.SDL_MixAudio(dst, const_src, len, volume)
 }
 
-fn C.SDL_MixAudioFormat(dst &byte, const_src &byte, format C.SDL_AudioFormat, len u32, volume int)
+fn C.SDL_MixAudioFormat(dst &u8, const_src &u8, format C.SDL_AudioFormat, len u32, volume int)
 
 // mix_audio_format works like SDL_MixAudio(), but you specify the audio format instead of
 // using the format of audio device 1. Thus it can be used when no audio
 // device is open at all.
-pub fn mix_audio_format(dst &byte, const_src &byte, format AudioFormat, len u32, volume int) {
+pub fn mix_audio_format(dst &u8, const_src &u8, format AudioFormat, len u32, volume int) {
 	C.SDL_MixAudioFormat(dst, const_src, C.SDL_AudioFormat(format), len, volume)
 }
 

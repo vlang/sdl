@@ -34,7 +34,7 @@ pub type Joystick = C.SDL_Joystick
 [typedef]
 struct C.SDL_JoystickGUID {
 pub:
-	data [16]byte
+	data [16]u8
 }
 
 pub type JoystickGUID = C.SDL_JoystickGUID
@@ -344,7 +344,7 @@ pub fn joystick_get_axis_initial_state(joystick &Joystick, axis int, state &i16)
 	return C.SDL_JoystickGetAxisInitialState(joystick, axis, state)
 }
 
-fn C.SDL_JoystickGetHat(joystick &C.SDL_Joystick, hat int) byte
+fn C.SDL_JoystickGetHat(joystick &C.SDL_Joystick, hat int) u8
 
 // joystick_get_hat gets the current state of a POV hat on a joystick.
 //
@@ -360,7 +360,7 @@ fn C.SDL_JoystickGetHat(joystick &C.SDL_Joystick, hat int) byte
 // - ::SDL_HAT_RIGHTDOWN
 // - ::SDL_HAT_LEFTUP
 // - ::SDL_HAT_LEFTDOWN
-pub fn joystick_get_hat(joystick &Joystick, hat int) byte {
+pub fn joystick_get_hat(joystick &Joystick, hat int) u8 {
 	return C.SDL_JoystickGetHat(joystick, hat)
 }
 
@@ -375,12 +375,12 @@ pub fn joystick_get_ball(joystick &Joystick, ball int, dx &int, dy &int) int {
 	return C.SDL_JoystickGetBall(joystick, ball, dx, dy)
 }
 
-fn C.SDL_JoystickGetButton(joystick &C.SDL_Joystick, button int) byte
+fn C.SDL_JoystickGetButton(joystick &C.SDL_Joystick, button int) u8
 
 // joystick_get_button gets the current state of a button on a joystick.
 //
 // The button indices start at index 0.
-pub fn joystick_get_button(joystick &Joystick, button int) byte {
+pub fn joystick_get_button(joystick &Joystick, button int) u8 {
 	return C.SDL_JoystickGetButton(joystick, button)
 }
 
