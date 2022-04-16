@@ -17,7 +17,7 @@ pub const (
 	min_sint8  = C.SDL_MIN_SINT8 // -128
 	// An unsigned 8-bit integer type.
 	// typedef uint8_t Uint8;
-	// byte
+	// u8
 	max_uint8  = C.SDL_MAX_UINT8 // 255
 	min_uint8  = C.SDL_MIN_UINT8 // 0
 	// A signed 16-bit integer type.
