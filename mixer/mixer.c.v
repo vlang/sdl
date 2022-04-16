@@ -89,9 +89,9 @@ pub const effectsmaxspeed = 'MIX_EFFECTSMAXSPEED'
 struct C.Mix_Chunk {
 pub:
 	allocated int
-	abuf      &byte
+	abuf      &u8
 	alen      u32
-	volume    byte // Per-sample volume, 0-128
+	volume    u8 // Per-sample volume, 0-128
 }
 
 pub type Chunk = C.Mix_Chunk
@@ -196,17 +196,17 @@ pub fn load_mus_type_rw(src &sdl.RWops, @type MusicType, freesrc int) &Music {
 	return C.Mix_LoadMUSType_RW(src, C.Mix_MusicType(@type), freesrc)
 }
 
-fn C.Mix_QuickLoad_WAV(mem &byte) &C.Mix_Chunk
+fn C.Mix_QuickLoad_WAV(mem &u8) &C.Mix_Chunk
 
 // quick_load_wav loads a wave file of the mixer format from a memory buffer
-pub fn quick_load_wav(mem &byte) &Chunk {
+pub fn quick_load_wav(mem &u8) &Chunk {
 	return C.Mix_QuickLoad_WAV(mem)
 }
 
-fn C.Mix_QuickLoad_RAW(mem &byte, len u32) &C.Mix_Chunk
+fn C.Mix_QuickLoad_RAW(mem &u8, len u32) &C.Mix_Chunk
 
 // quick_load_raw loads raw audio data of the mixer format from a memory buffer
-pub fn quick_load_raw(mem &byte, len u32) &Chunk {
+pub fn quick_load_raw(mem &u8, len u32) &Chunk {
 	return C.Mix_QuickLoad_RAW(mem, len)
 }
 
@@ -286,7 +286,7 @@ pub fn get_music_type(music &Music) MusicType {
 }
 
 // `void (SDLCALL *mix_func)(void *udata, Uint8 *stream, int len)`
-pub type MixFunc = fn (udata voidptr, stream &byte, len int)
+pub type MixFunc = fn (udata voidptr, stream &u8, len int)
 
 // `void (SDLCALL *music_finished)(void)`
 pub type MusicFinished = fn ()
@@ -452,7 +452,7 @@ pub fn unregister_all_effects(channel int) int {
 // MIX_EFFECTSMAXSPEED (see above) is defined before you call
 // Mix_OpenAudio().
 
-fn C.Mix_SetPanning(channel int, left byte, right byte) int
+fn C.Mix_SetPanning(channel int, left u8, right u8) int
 
 // set_panning sets the panning of a channel. The left and right channels are specified
 // as integers between 0 and 255, quietest to loudest, respectively.
@@ -478,11 +478,11 @@ fn C.Mix_SetPanning(channel int, left byte, right byte) int
 // nonzero if panning effect enabled. Note that an audio device in mono
 // mode is a no-op, but this call will return successful in that case.
 // Error messages can be retrieved from Mix_GetError().
-pub fn set_panning(channel int, left byte, right byte) int {
+pub fn set_panning(channel int, left u8, right u8) int {
 	return C.Mix_SetPanning(channel, left, right)
 }
 
-fn C.Mix_SetPosition(channel int, angle i16, distance byte) int
+fn C.Mix_SetPosition(channel int, angle i16, distance u8) int
 
 // set_position sets the position of a channel. (angle) is an integer from 0 to 360, that
 // specifies the location of the sound in relation to the listener. (angle)
@@ -520,11 +520,11 @@ fn C.Mix_SetPosition(channel int, angle i16, distance byte) int
 // returns zero if error (no such channel or Mix_RegisterEffect() fails),
 // nonzero if position effect is enabled.
 // Error messages can be retrieved from Mix_GetError().
-pub fn set_position(channel int, angle i16, distance byte) int {
+pub fn set_position(channel int, angle i16, distance u8) int {
 	return C.Mix_SetPosition(channel, angle, distance)
 }
 
-fn C.Mix_SetDistance(channel int, distance byte) int
+fn C.Mix_SetDistance(channel int, distance u8) int
 
 // set_distance set the "distance" of a channel. (distance) is an integer from 0 to 255
 // that specifies the location of the sound in relation to the listener.
@@ -552,7 +552,7 @@ fn C.Mix_SetDistance(channel int, distance byte) int
 // returns zero if error (no such channel or Mix_RegisterEffect() fails),
 // nonzero if position effect is enabled.
 // Error messages can be retrieved from Mix_GetError().
-pub fn set_distance(channel int, distance byte) int {
+pub fn set_distance(channel int, distance u8) int {
 	return C.Mix_SetDistance(channel, distance)
 }
 

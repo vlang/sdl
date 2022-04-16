@@ -231,7 +231,7 @@ pub fn get_color_key(surface &Surface, key &u32) int {
 	return C.SDL_GetColorKey(surface, key)
 }
 
-fn C.SDL_SetSurfaceColorMod(surface &C.SDL_Surface, r byte, g byte, b byte) int
+fn C.SDL_SetSurfaceColorMod(surface &C.SDL_Surface, r u8, g u8, b u8) int
 
 // set_surface_color_mod sets an additional color value used in blit operations.
 //
@@ -243,11 +243,11 @@ fn C.SDL_SetSurfaceColorMod(surface &C.SDL_Surface, r byte, g byte, b byte) int
 // returns 0 on success, or -1 if the surface is not valid.
 //
 // See also: SDL_GetSurfaceColorMod()
-pub fn set_surface_color_mod(surface &Surface, r byte, g byte, b byte) int {
+pub fn set_surface_color_mod(surface &Surface, r u8, g u8, b u8) int {
 	return C.SDL_SetSurfaceColorMod(surface, r, g, b)
 }
 
-fn C.SDL_GetSurfaceColorMod(surface &C.SDL_Surface, r &byte, g &byte, b &byte) int
+fn C.SDL_GetSurfaceColorMod(surface &C.SDL_Surface, r &u8, g &u8, b &u8) int
 
 // get_surface_color_mod gets the additional color value used in blit operations.
 //
@@ -259,11 +259,11 @@ fn C.SDL_GetSurfaceColorMod(surface &C.SDL_Surface, r &byte, g &byte, b &byte) i
 // returns 0 on success, or -1 if the surface is not valid.
 //
 // See also: SDL_SetSurfaceColorMod()
-pub fn get_surface_color_mod(surface &Surface, r &byte, g &byte, b &byte) int {
+pub fn get_surface_color_mod(surface &Surface, r &u8, g &u8, b &u8) int {
 	return C.SDL_GetSurfaceColorMod(surface, r, g, b)
 }
 
-fn C.SDL_SetSurfaceAlphaMod(surface &C.SDL_Surface, alpha byte) int
+fn C.SDL_SetSurfaceAlphaMod(surface &C.SDL_Surface, alpha u8) int
 
 // set_surface_alpha_mod sets an additional alpha value used in blit operations.
 //
@@ -273,11 +273,11 @@ fn C.SDL_SetSurfaceAlphaMod(surface &C.SDL_Surface, alpha byte) int
 // returns 0 on success, or -1 if the surface is not valid.
 //
 // See also: SDL_GetSurfaceAlphaMod()
-pub fn set_surface_alpha_mod(surface &Surface, alpha byte) int {
+pub fn set_surface_alpha_mod(surface &Surface, alpha u8) int {
 	return C.SDL_SetSurfaceAlphaMod(surface, alpha)
 }
 
-fn C.SDL_GetSurfaceAlphaMod(surface &C.SDL_Surface, alpha &byte) int
+fn C.SDL_GetSurfaceAlphaMod(surface &C.SDL_Surface, alpha &u8) int
 
 // get_surface_alpha_mod gets the additional alpha value used in blit operations.
 //
@@ -287,7 +287,7 @@ fn C.SDL_GetSurfaceAlphaMod(surface &C.SDL_Surface, alpha &byte) int
 // returns 0 on success, or -1 if the surface is not valid.
 //
 // See also: SDL_SetSurfaceAlphaMod()
-pub fn get_surface_alpha_mod(surface &Surface, alpha &byte) int {
+pub fn get_surface_alpha_mod(surface &Surface, alpha &u8) int {
 	return C.SDL_GetSurfaceAlphaMod(surface, alpha)
 }
 
