@@ -234,3 +234,17 @@ fn C.SDL_AndroidShowToast(const_message &char, duration int, gravity int, xoffse
 pub fn android_show_toast(const_message &char, duration int, gravity int, xoffset int, yoffset int) int {
 	return C.SDL_AndroidShowToast(const_message, duration, gravity, xoffset, yoffset)
 }
+
+fn C.SDL_AndroidSendMessage(command u32, param int) int
+
+// android_send_message sends a user command to SDLActivity.
+//
+// Override "boolean onUnhandledMessage(Message msg)" to handle the message.
+//
+// `command` user command that must be greater or equal to 0x8000
+// `param` user parameter
+//
+// NOTE This function is available since SDL 2.0.22.
+pub fn android_send_message(command u32, param int) int {
+	return C.SDL_AndroidSendMessage(command, param)
+}

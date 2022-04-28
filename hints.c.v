@@ -324,6 +324,17 @@ pub const (
 	// events for a small subset of program execution.
 	hint_event_logging                            = 'SDL_EVENT_LOGGING'
 
+	//  A variable controlling whether raising the window should be done more forcefully
+	//
+	// This variable can be set to the following values:
+	// "0"       - No forcing (the default)
+	// "1"       - Extra level of forcing
+	//
+	// At present, this is only an issue under MS Windows, which makes it nearly impossible to
+	// programmatically move a window to the foreground, for "security" reasons. See
+	// http://stackoverflow.com/a/34414846 for a discussion.
+	hint_force_raisewindow                        = 'SDL_HINT_FORCE_RAISEWINDOW'
+
 	//  A variable controlling how 3D acceleration is used to accelerate the SDL screen surface.
 	//
 	// SDL can try to accelerate the SDL screen surface by using streaming
@@ -456,6 +467,15 @@ pub const (
 	// "1"       - Native UI components are displayed.
 	hint_ime_show_ui                              = 'SDL_IME_SHOW_UI'
 
+	// A variable to control if extended IME text support is enabled.
+	// If enabled then SDL_TextEditingExtEvent will be issued if the text would be truncated otherwise.
+	// Additionally SDL_TextInputEvent will be dispatched multiple times so that it is not truncated.
+	//
+	// The variable can be set to the following values:
+	// "0"       - Legacy behavior. Text can be truncated, no heap allocations. (default)
+	// "1"       - Modern behavior.
+	hint_ime_support_extended_text                = 'SDL_IME_SUPPORT_EXTENDED_TEXT'
+
 	//  A variable controlling whether the home indicator bar on iPhone X
 	// should be hidden.
 	//
@@ -493,6 +513,19 @@ pub const (
 	//
 	// The default is the value of SDL_HINT_JOYSTICK_HIDAPI
 	hint_joystick_hidapi_gamecube                 = 'SDL_JOYSTICK_HIDAPI_GAMECUBE'
+
+	//  A variable controlling whether "low_frequency_rumble" and "high_frequency_rumble" is used to implement
+	// the GameCube controller's 3 rumble modes, Stop(0), Rumble(1), and StopHard(2)
+	// this is useful for applications that need full compatibility for things like ADSR envelopes.
+	// Stop is implemented by setting "low_frequency_rumble" to "0" and "high_frequency_rumble" ">0"
+	// Rumble is both at any arbitrary value,
+	// StopHard is implemented by setting both "low_frequency_rumble" and "high_frequency_rumble" to "0"
+	//
+	// This variable can be set to the following values:
+	// "0"       - Normal rumble behavior is behavior is used (default)
+	// "1"       - Proper GameCube controller rumble behavior is used
+	//
+	hint_joystick_gamecube_rumble_brake           = 'SDL_JOYSTICK_GAMECUBE_RUMBLE_BRAKE'
 
 	//  A variable controlling whether Switch Joy-Cons should be treated the same as Switch Pro Controllers when using the HIDAPI driver.
 	//
@@ -637,6 +670,13 @@ pub const (
 	// The default is "1".  This hint applies to any joysticks opened after setting the hint.
 	hint_joystick_rawinput_correlate_xinput       = 'SDL_JOYSTICK_RAWINPUT_CORRELATE_XINPUT'
 
+	//  A variable controlling whether the ROG Chakram mice should show up as joysticks
+	//
+	// This variable can be set to the following values:
+	// "0"       - ROG Chakram mice do not show up as joysticks (the default)
+	// "1"       - ROG Chakram mice show up as joysticks
+	hint_joystick_rog_chakram                     = 'SDL_JOYSTICK_ROG_CHAKRAM'
+
 	//  A variable controlling whether a separate thread should be used
 	// for handling joystick detection and raw input messages on Windows
 	//
@@ -718,6 +758,20 @@ pub const (
 	//  A variable setting the speed scale for mouse motion, in floating point, when the mouse is not in relative mode
 	hint_mouse_normal_speed_scale                 = 'SDL_MOUSE_NORMAL_SPEED_SCALE'
 
+	//  A variable controlling whether relative mouse mode constrains the mouse to the center of the window
+	//
+	// This variable can be set to the following values:
+	// "0"       - Relative mouse mode constrains the mouse to the window
+	// "1"       - Relative mouse mode constrains the mouse to the center of the window
+	//
+	// Constraining to the center of the window works better for FPS games and when the
+	// application is running over RDP. Constraining to the whole window works better
+	// for 2D games and increases the chance that the mouse will be in the correct
+	// position when using high DPI mice.
+	//
+	// By default SDL will constrain the mouse to the center of the window
+	hint_mouse_relative_mode_center               = 'SDL_MOUSE_RELATIVE_MODE_CENTER'
+
 	//  A variable controlling whether relative mouse mode is implemented using mouse warping
 	//
 	// This variable can be set to the following values:
@@ -745,6 +799,17 @@ pub const (
 	// "0"       - Mouse events will not generate touch events (default for desktop platforms)
 	// "1"       - Mouse events will generate touch events (default for mobile platforms, such as Android and iOS)
 	hint_mouse_touch_events                       = 'SDL_MOUSE_TOUCH_EVENTS'
+
+	//  A variable controlling whether the mouse is captured while mouse buttons are pressed
+	//
+	// This variable can be set to the following values:
+	// "0"       - The mouse is not captured while mouse buttons are pressed
+	// "1"       - The mouse is captured while mouse buttons are pressed
+	//
+	// By default the mouse is captured while mouse buttons are pressed so if the mouse is dragged
+	// outside the window, the application continues to receive mouse events until the button is
+	// released.
+	hint_mouse_auto_capture                       = 'SDL_MOUSE_AUTO_CAPTURE'
 
 	// Tell SDL not to catch the SIGINT or SIGTERM signals.
 	//
@@ -1054,6 +1119,16 @@ pub const (
 	// By default SDL will generate mouse events for touch events
 	hint_touch_mouse_events                       = 'SDL_TOUCH_MOUSE_EVENTS'
 
+	//  A variable controlling which touchpad should generate synthetic mouse events
+	//
+	// This variable can be set to the following values:
+	// "0"       - Only front touchpad should generate mouse events. Default
+	// "1"       - Only back touchpad should generate mouse events.
+	// "2"       - Both touchpads should generate mouse events.
+	//
+	// By default SDL will generate mouse events for all touch devices
+	hint_vita_touch_mouse_device                  = 'SDL_HINT_VITA_TOUCH_MOUSE_DEVICE'
+
 	//  A variable controlling whether the Android / tvOS remotes
 	// should be listed as joystick devices, instead of sending keyboard events.
 	//
@@ -1145,6 +1220,18 @@ pub const (
 	// libdecor is used over xdg-shell when xdg-decoration protocol is unavailable.
 	hint_video_wayland_allow_libdecor             = 'SDL_VIDEO_WAYLAND_ALLOW_LIBDECOR'
 
+	//  A variable controlling whether the libdecor Wayland backend is preferred over native decrations.
+	//
+	// When this hint is set, libdecor will be used to provide window decorations, even if xdg-decoration is
+	// available. (Note that, by default, libdecor will use xdg-decoration itself if available).
+	//
+	// This variable can be set to the following values:
+	// "0"       - libdecor is enabled only if server-side decorations are unavailable.
+	// "1"       - libdecor is always enabled if available.
+	//
+	// libdecor is used over xdg-shell when xdg-decoration protocol is unavailable.
+	hint_video_wayland_prefer_libdecor            = 'SDL_VIDEO_WAYLAND_PREFER_LIBDECOR'
+
 	//  A variable that is the address of another SDL_Window* (as a hex string formatted with "%p").
 	//
 	// If this hint is set before SDL_CreateWindowFrom() and the SDL_Window* it is set to has
@@ -1161,6 +1248,24 @@ pub const (
 	// The address (as a string "%p") of the SDL_Window* that new windows created with SDL_CreateWindowFrom() should
 	// share a pixel format with.
 	hint_video_window_share_pixel_format          = 'SDL_VIDEO_WINDOW_SHARE_PIXEL_FORMAT'
+
+	//  When calling SDL_CreateWindowFrom(), make the window compatible with OpenGL.
+	//
+	// This variable can be set to the following values:
+	// "0" - Don't add any graphics flags to the SDL_WindowFlags
+	// "1" - Add SDL_WINDOW_OPENGL to the SDL_WindowFlags
+	//
+	// By default SDL will not make the foreign window compatible with OpenGL.
+	hint_video_foreign_window_opengl              = 'SDL_VIDEO_FOREIGN_WINDOW_OPENGL'
+
+	//  When calling SDL_CreateWindowFrom(), make the window compatible with Vulkan.
+	//
+	// This variable can be set to the following values:
+	// "0" - Don't add any graphics flags to the SDL_WindowFlags
+	// "1" - Add SDL_WINDOW_VULKAN to the SDL_WindowFlags
+	//
+	// By default SDL will not make the foreign window compatible with Vulkan.
+	hint_video_foreign_window_vulkan              = 'SDL_VIDEO_FOREIGN_WINDOW_VULKAN'
 
 	//  A variable specifying which shader compiler to preload when using the Chrome ANGLE binaries
 	//
@@ -1528,6 +1633,88 @@ pub const (
 	// This hint is available since SDL 2.0.16. Before then, virtual devices are
 	// always ignored.
 	hint_audio_include_monitors                   = 'SDL_AUDIO_INCLUDE_MONITORS'
+
+	//  A variable that forces X11 windows to create as a custom type.
+	//
+	// This is currently only used for X11 and ignored elsewhere.
+	//
+	// During SDL_CreateWindow, SDL uses the _NET_WM_WINDOW_TYPE X11 property
+	// to report to the window manager the type of window it wants to create.
+	// This might be set to various things if SDL_WINDOW_TOOLTIP or
+	// SDL_WINDOW_POPUP_MENU, etc, were specified. For "normal" windows that
+	// haven't set a specific type, this hint can be used to specify a custom
+	// type. For example, a dock window might set this to
+	// "_NET_WM_WINDOW_TYPE_DOCK".
+	//
+	// If not set or set to "", this hint is ignored. This hint must be set
+	// before the SDL_CreateWindow() call that it is intended to affect.
+	//
+	// This hint is available since SDL 2.0.22.
+	hint_x11_window_type                          = 'SDL_X11_WINDOW_TYPE'
+
+	//  A variable that decides whether to send SDL_QUIT when closing the final window.
+	//
+	// By default, SDL sends an SDL_QUIT event when there is only one window
+	// and it receives an SDL_WINDOWEVENT_CLOSE event, under the assumption most
+	// apps would also take the loss of this window as a signal to terminate the
+	// program.
+	//
+	// However, it's not unreasonable in some cases to have the program continue
+	// to live on, perhaps to create new windows later.
+	//
+	// Changing this hint to "0" will cause SDL to not send an SDL_QUIT event
+	// when the final window is requesting to close. Note that in this case,
+	// there are still other legitimate reasons one might get an SDL_QUIT
+	// event: choosing "Quit" from the macOS menu bar, sending a SIGINT (ctrl-c)
+	// on Unix, etc.
+	//
+	// The default value is "1".  This hint can be changed at any time.
+	//
+	// This hint is available since SDL 2.0.22. Before then, you always get
+	// an SDL_QUIT event when closing the final window.
+	hint_quit_on_last_window_close                = 'SDL_QUIT_ON_LAST_WINDOW_CLOSE'
+
+	//  A variable that decides what video backend to use.
+	//
+	// By default, SDL will try all available video backends in a reasonable
+	// order until it finds one that can work, but this hint allows the app
+	// or user to force a specific target, such as "x11" if, say, you are
+	// on Wayland but want to try talking to the X server instead.
+	//
+	// This functionality has existed since SDL 2.0.0 (indeed, before that)
+	// but before 2.0.22 this was an environment variable only. In 2.0.22,
+	// it was upgraded to a full SDL hint, so you can set the environment
+	// variable as usual or programatically set the hint with SDL_SetHint,
+	// which won't propagate to child processes.
+	//
+	// The default value is unset, in which case SDL will try to figure out
+	// the best video backend on your behalf. This hint needs to be set
+	// before SDL_Init() is called to be useful.
+	//
+	// This hint is available since SDL 2.0.22. Before then, you could set
+	// the environment variable to get the same effect.
+	hint_videodriver                              = 'SDL_VIDEODRIVER'
+
+	//  A variable that decides what audio backend to use.
+	//
+	// By default, SDL will try all available audio backends in a reasonable
+	// order until it finds one that can work, but this hint allows the app
+	// or user to force a specific target, such as "alsa" if, say, you are
+	// on PulseAudio but want to try talking to the lower level instead.
+	//
+	// This functionality has existed since SDL 2.0.0 (indeed, before that)
+	// but before 2.0.22 this was an environment variable only. In 2.0.22,
+	// it was upgraded to a full SDL hint, so you can set the environment
+	// variable as usual or programatically set the hint with SDL_SetHint,
+	// which won't propagate to child processes.
+	//
+	// The default value is unset, in which case SDL will try to figure out
+	// the best audio backend on your behalf. This hint needs to be set
+	// before SDL_Init() is called to be useful.
+	//
+	// This hint is available since SDL 2.0.22. Before then, you could set
+	// the environment variable to get the same effect.
+	hint_audiodriver                              = 'SDL_AUDIODRIVER'
 )
 
 // HintPriority is C.SDL_HintPriority

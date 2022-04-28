@@ -218,6 +218,19 @@ pub fn get_renderer(window &Window) &Renderer {
 	return C.SDL_GetRenderer(window)
 }
 
+fn C.SDL_RenderGetWindow(renderer &C.SDL_Renderer) &C.SDL_Window
+
+// render_get_window gets the window associated with a renderer.
+//
+// `renderer` the renderer to query
+// returns the window on success or NULL on failure; call SDL_GetError() for
+//          more information.
+//
+// NOTE This function is available since SDL 2.0.22.
+pub fn render_get_window(renderer &Renderer) &Window {
+	return C.SDL_RenderGetWindow(renderer)
+}
+
 fn C.SDL_GetRendererInfo(renderer &C.SDL_Renderer, info &C.SDL_RendererInfo) int
 
 // get_renderer_info gets information about a rendering context.
@@ -312,16 +325,20 @@ pub fn create_texture_from_surface(renderer &Renderer, surface &Surface) &Textur
 
 fn C.SDL_QueryTexture(texture &C.SDL_Texture, format &u32, access &int, w &int, h &int) int
 
-// query_texture queries the attributes of a texture.
+// query_texture querys the attributes of a texture.
 //
 // `texture` the texture to query
 // `format` a pointer filled in with the raw format of the texture; the
 //               actual format may differ, but pixel transfers will use this
-//               format (one of the SDL_PixelFormatEnum values)
+//               format (one of the SDL_PixelFormatEnum values). This argument
+//               can be NULL if you don't need this information.
 // `access` a pointer filled in with the actual access to the texture
-//               (one of the SDL_TextureAccess values)
-// `w` a pointer filled in with the width of the texture in pixels
-// `h` a pointer filled in with the height of the texture in pixels
+//               (one of the SDL_TextureAccess values). This argument can be
+//               NULL if you don't need this information.
+// `w` a pointer filled in with the width of the texture in pixels. This
+//          argument can be NULL if you don't need this information.
+// `h` a pointer filled in with the height of the texture in pixels. This
+//          argument can be NULL if you don't need this information.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
@@ -1596,6 +1613,7 @@ fn C.SDL_RenderGeometry(renderer &C.SDL_Renderer, texture &C.SDL_Texture, const_
 // vertex array Color and alpha modulation is done per vertex
 // (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).
 //
+// `renderer` The rendering context.
 // `texture` (optional) The SDL texture to use.
 // `vertices` Vertices.
 // `num_vertices` Number of vertices.
@@ -1620,6 +1638,7 @@ fn C.SDL_RenderGeometryRaw(renderer &C.SDL_Renderer, texture &C.SDL_Texture, con
 // vertex arrays Color and alpha modulation is done per vertex
 // (SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).
 //
+// `renderer` The rendering context.
 // `texture` (optional) The SDL texture to use.
 // `xy` Vertex positions
 // `xy_stride` Byte size to move from one element to the next element
@@ -1648,7 +1667,8 @@ fn C.SDL_RenderReadPixels(renderer &C.SDL_Renderer, const_rect &C.SDL_Rect, form
 // render_read_pixels reads pixels from the current rendering target to an array of pixels.
 //
 // **WARNING**: This is a very slow operation, and should not be used
-// frequently.
+// frequently. If you're using this on the main rendering target, it should be
+// called after rendering and before SDL_RenderPresent().
 //
 // `pitch` specifies the number of bytes between rows in the destination
 // `pixels` data. This allows you to write to a subrectangle or have padded

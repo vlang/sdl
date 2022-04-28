@@ -80,6 +80,7 @@ pub enum EventType {
 	textediting = C.SDL_TEXTEDITING // Keyboard text editing (composition)
 	textinput = C.SDL_TEXTINPUT // Keyboard text input
 	keymapchanged = C.SDL_KEYMAPCHANGED // Keymap changed due to a system event such as an input language or keyboard layout change.
+	textediting_ext = C.SDL_TEXTEDITING_EXT // Extended keyboard text editing (composition)
 	// Mouse events
 	mousemotion = C.SDL_MOUSEMOTION // 0x400, Mouse moved
 	mousebuttondown = C.SDL_MOUSEBUTTONDOWN // Mouse button pressed
@@ -208,6 +209,20 @@ pub:
 }
 
 pub type TextEditingEvent = C.SDL_TextEditingEvent
+
+// TextEditingExtEvent is an extended keyboard text editing event structure (event.editExt.*) when text would be
+// truncated if stored in the text buffer SDL_TextEditingEvent
+[typedef]
+struct C.SDL_TextEditingExtEvent {
+	@type     u32   // ::SDL_TEXTEDITING_EXT
+	timestamp u32   // In milliseconds, populated using SDL_GetTicks()
+	windowID  u32   // The window with keyboard focus, if any
+	text      &char // The editing text, which should be freed with SDL_free(), and will not be NULL
+	start     int   // The start cursor of selected editing text
+	length    int   // The length of selected editing text
+}
+
+pub type TextEditingExtEvent = C.SDL_TextEditingExtEvent
 
 // TextInputEvent is keyboard text input event structure (event.text.*)
 [typedef]
@@ -591,17 +606,18 @@ pub union C.SDL_Event {
 pub:
 	@type EventType // Event type, shared with all events
 	//
-	common    CommonEvent             // C.SDL_CommonEvent             // Common event data
-	display   DisplayEvent            // C.SDL_DisplayEvent            // Display event data
-	window    WindowEvent             // C.SDL_WindowEvent             // Window event data
-	key       KeyboardEvent           // C.SDL_KeyboardEvent           // Keyboard event data
-	edit      TextEditingEvent        // C.SDL_TextEditingEvent        // Text editing event data
-	text      TextInputEvent          // C.SDL_TextInputEvent          // Text input event data
-	motion    MouseMotionEvent        // C.SDL_MouseMotionEvent        // Mouse motion event data
-	button    MouseButtonEvent        // C.SDL_MouseButtonEvent        // Mouse button event data
-	wheel     MouseWheelEvent         // C.SDL_MouseWheelEvent         // Mouse wheel event data
-	jaxis     JoyAxisEvent            // C.SDL_JoyAxisEvent            // Joystick axis event data
-	jball     JoyBallEvent            // C.SDL_JoyBallEvent            // Joystick ball event data
+	common    CommonEvent         // C.SDL_CommonEvent             // Common event data
+	display   DisplayEvent        // C.SDL_DisplayEvent            // Display event data
+	window    WindowEvent         // C.SDL_WindowEvent             // Window event data
+	key       KeyboardEvent       // C.SDL_KeyboardEvent           // Keyboard event data
+	edit      TextEditingEvent    // C.SDL_TextEditingEvent        // Text editing event data
+	editExt   TextEditingExtEvent // C.SDL_TextEditingExtEvent     // Extended text editing event data
+	text      TextInputEvent      // C.SDL_TextInputEvent          // Text input event data
+	motion    MouseMotionEvent    // C.SDL_MouseMotionEvent        // Mouse motion event data
+	button    MouseButtonEvent    // C.SDL_MouseButtonEvent        // Mouse button event data
+	wheel     MouseWheelEvent     // C.SDL_MouseWheelEvent         // Mouse wheel event data
+	jaxis     JoyAxisEvent        // C.SDL_JoyAxisEvent            // Joystick axis event data
+	jball     JoyBallEvent        // C.SDL_JoyBallEvent            // Joystick ball event data
 	jhat      JoyHatEvent             // C.SDL_JoyHatEvent             // Joystick hat event data
 	jbutton   JoyButtonEvent          // C.SDL_JoyButtonEvent          // Joystick button event data
 	jdevice   JoyDeviceEvent          // C.SDL_JoyDeviceEvent          // Joystick device change event data

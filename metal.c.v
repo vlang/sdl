@@ -66,6 +66,7 @@ fn C.SDL_Metal_GetDrawableSize(window &C.SDL_Window, w &int, h &int)
 //
 // `window` SDL_Window from which the drawable size should be queried
 // `w` Pointer to variable for storing the width in pixels, may be NULL
+// `h` Pointer to variable for storing the height in pixels, may be NULL
 //
 // NOTE This function is available since SDL 2.0.14.
 //

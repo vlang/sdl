@@ -52,6 +52,11 @@ pub const (
 	min_uint64 = C.SDL_MIN_UINT64 // 0
 )
 
+// Floating-point constants
+const (
+	flt_epsilon = C.SDL_FLT_EPSILON
+)
+
 /*
 // bool
 pub enum C.SDL_bool {

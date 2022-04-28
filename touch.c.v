@@ -76,6 +76,16 @@ pub fn get_touch_device(index int) TouchID {
 	return C.SDL_GetTouchDevice(index)
 }
 
+fn C.SDL_GetTouchName(index int) &char
+
+// get_touch_name gets the touch device name as reported from the driver or NULL if the index
+// is invalid.
+//
+// NOTE This function is available since SDL 2.0.22.
+pub fn get_touch_name(index int) &char {
+	return C.SDL_GetTouchName(index)
+}
+
 fn C.SDL_GetTouchDeviceType(touch_id TouchID) C.SDL_TouchDeviceType
 
 // get_touch_device_type gets the type of the given touch device.

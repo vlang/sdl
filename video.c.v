@@ -1419,6 +1419,7 @@ fn C.SDL_SetWindowMouseGrab(window &C.SDL_Window, grabbed bool)
 // Mouse grab confines the mouse cursor to the window.
 //
 // `window` The window for which the mouse grab mode should be set.
+// `grabbed` This is SDL_TRUE to grab mouse, and SDL_FALSE to release.
 //
 // NOTE This function is available since SDL 2.0.16.
 //

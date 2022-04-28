@@ -489,9 +489,7 @@ fn C.SDL_GetAudioDeviceSpec(index int, iscapture int, spec &C.SDL_AudioSpec) int
 // hardware.
 //
 // `spec` will be filled with the sample rate, sample format, and channel
-// count. All other values in the structure are filled with 0. When the
-// supported struct members are 0, SDL was unable to get the property from the
-// backend.
+// count.
 //
 // `index` the index of the audio device; valid values range from 0 to
 //         SDL_GetNumAudioDevices() - 1

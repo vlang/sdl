@@ -24,8 +24,8 @@ pub enum BlendOperation {
 	add = C.SDL_BLENDOPERATION_ADD // 0x1, dst + src: supported by all renderers
 	subtract = C.SDL_BLENDOPERATION_SUBTRACT // 0x2, dst - src : supported by D3D9, D3D11, OpenGL, OpenGLES
 	rev_subtract = C.SDL_BLENDOPERATION_REV_SUBTRACT // 0x3, src - dst : supported by D3D9, D3D11, OpenGL, OpenGLES
-	minimum = C.SDL_BLENDOPERATION_MINIMUM // 0x4, min(dst, src) : supported by D3D11
-	maximum = C.SDL_BLENDOPERATION_MAXIMUM // 0x5 max(dst, src) : supported by D3D11
+	minimum = C.SDL_BLENDOPERATION_MINIMUM // 0x4, min(dst, src) : supported by D3D9, D3D11
+	maximum = C.SDL_BLENDOPERATION_MAXIMUM // 0x5 max(dst, src) : supported by D3D9, D3D11
 }
 
 // BlendFactor is the normalized factor used to multiply pixel components
@@ -91,10 +91,10 @@ fn C.SDL_ComposeCustomBlendMode(src_color_factor C.SDL_BlendFactor, dst_color_fa
 // SDL 2.0.6. All renderers support the four blend modes listed in the
 // SDL_BlendMode enumeration.
 //
-// - **direct3d**: Supports `SDL_BLENDOPERATION_ADD` with all factors.
-// - **direct3d11**: Supports all operations with all factors. However, some
+// - **direct3d**: Supports all operations with all factors. However, some
 //   factors produce unexpected results with `SDL_BLENDOPERATION_MINIMUM` and
 //   `SDL_BLENDOPERATION_MAXIMUM`.
+// - **direct3d11**: Same as Direct3D 9.
 // - **opengl**: Supports the `SDL_BLENDOPERATION_ADD` operation with all
 //   factors. OpenGL versions 1.1, 1.2, and 1.3 do not work correctly with SDL
 //   2.0.6.

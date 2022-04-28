@@ -14,7 +14,7 @@ jobs:
     timeout-minutes: 30
     env:
       VFLAGS: -cc tcc -no-retry-compilation
-      SDL2_VERSION: 2.0.20
+      SDL2_VERSION: 2.0.22
     steps:
       - name: Install dependencies
         run: |
@@ -82,7 +82,7 @@ jobs:
     timeout-minutes: 30
     env:
       VFLAGS: -cc gcc -no-retry-compilation
-      SDL2_VERSION: 2.0.20
+      SDL2_VERSION: 2.0.22
     steps:
       - name: Install V
         uses: vlang/setup-v@v1
@@ -104,10 +104,11 @@ jobs:
         run: |
           move-item -force sdl $home\.vmodules\
 
-      - name: Build sdl examples
-        run: |
-          $sdl_home = "$home\.vmodules\sdl"
-          copy-item $sdl_home\thirdparty\SDL2-${env:SDL2_VERSION}\lib\x64\SDL2.dll $sdl_home\examples\versions\
-          v run $sdl_home\examples\versions
-          v shader $sdl_home\examples\sdl_opengl_and_sokol
-          v should-compile-all $sdl_home\examples\
+      # TODO
+      #- name: Build sdl examples
+        #run: |
+          #$sdl_home = "$home\.vmodules\sdl"
+          #copy-item $sdl_home\thirdparty\SDL2-${env:SDL2_VERSION}\lib\x64\SDL2.dll $sdl_home\examples\versions\
+          #v run $sdl_home\examples\versions
+          #v shader $sdl_home\examples\sdl_opengl_and_sokol
+          #v should-compile-all $sdl_home\examples\

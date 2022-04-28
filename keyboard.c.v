@@ -262,9 +262,34 @@ pub fn stop_text_input() {
 	C.SDL_StopTextInput()
 }
 
+fn C.SDL_ClearComposition()
+
+// clear_composition dismiss the composition window/IME without disabling the subsystem.
+//
+// NOTE This function is available since SDL 2.0.22.
+//
+// See also: SDL_StartTextInput
+// See also: SDL_StopTextInput
+pub fn clear_composition() {
+	C.SDL_ClearComposition()
+}
+
+fn C.SDL_IsTextInputShown() bool
+
+// is_text_input_shown returns if an IME Composite or Candidate window is currently shown.
+//
+// NOTE This function is available since SDL 2.0.22.
+pub fn is_text_input_shown() bool {
+	return C.SDL_IsTextInputShown()
+}
+
 fn C.SDL_SetTextInputRect(rect &C.SDL_Rect)
 
 // set_text_input_rect sets the rectangle used to type Unicode text inputs.
+//
+// Note: If you want use system native IME window, try to set hint
+// **SDL_HINT_IME_SHOW_UI** to **1**, otherwise this function won't give you
+// any feedback.
 //
 // `rect` the SDL_Rect structure representing the rectangle to receive
 //             text (ignored if NULL)
