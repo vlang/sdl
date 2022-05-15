@@ -26,6 +26,12 @@ git clone https://github.com/vlang/sdl.git ~/.vmodules
 cd ~/.vmodules/sdl
 git checkout 2.0.12
 ```
+and for Windows (and then following the needed steps mentioned in the Windows specific section)
+```bash
+git clone https://github.com/vlang/sdl.git %HOMEPATH%/.vmodules/sdl
+cd %HOMEPATH%/.vmodules/sdl
+git checkout 2.0.12
+```
 
 You can see what `sdl` releases are available in the [GitHub repository](https://github.com/vlang/sdl/branches) via branches.
 
