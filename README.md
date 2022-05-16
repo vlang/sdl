@@ -33,6 +33,7 @@ cd %HOMEPATH%/.vmodules/sdl
 git checkout 2.0.12
 ```
 Then follow the steps in the [Windows](#windows) section below.
+
 You can see what `sdl` releases are available in the [GitHub repository](https://github.com/vlang/sdl/branches) via branches.
 
 Also note that you'll need the SDL2 libraries available on your system
