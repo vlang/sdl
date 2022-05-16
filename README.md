@@ -26,7 +26,7 @@ git clone https://github.com/vlang/sdl.git ~/.vmodules
 cd ~/.vmodules/sdl
 git checkout 2.0.12
 ```
-and for Windows (and then following the needed steps mentioned in the Windows specific section)
+and for Windows:
 ```bash
 git clone https://github.com/vlang/sdl.git %HOMEPATH%/.vmodules/sdl
 cd %HOMEPATH%/.vmodules/sdl
