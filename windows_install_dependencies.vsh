@@ -17,7 +17,7 @@ fn main() {
 	os.mkdir(destination) or {}
 	for url in urls {
 		parts := url.split('/')
-		zip_file := os.join_path(destination, parts[parts.len - 1])
+		zip_file := os.join_path(destination, parts.last())
 		http.download_file(url, zip_file) or { eprintln('Failed to download `$url`: $err') }
 		if os.exists(zip_file) {
 			szip.extract_zip_to_dir(zip_file, destination) or {
