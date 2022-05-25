@@ -34,4 +34,11 @@ fn main() {
 			return
 		}
 	}
+	// Finally, create the SDL2main.def stub file for tcc
+	stub_file := os.real_path(os.join_path(destination, 'SDL2main.def'))
+	mut f := os.create(stub_file) or {
+		println('Unable to create $stub_file')
+		return
+	}
+	f.close()
 }
