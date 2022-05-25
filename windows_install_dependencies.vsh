@@ -3,7 +3,7 @@ import szip
 import net.http
 
 const (
-	urls       = [
+	urls = [
 		'https://www.libsdl.org/release/SDL2-devel-2.0.9-VC.zip',
 		'https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-devel-2.0.14-VC.zip',
 		'https://www.libsdl.org/projects/SDL_image/release/SDL2_image-devel-2.0.3-VC.zip',
