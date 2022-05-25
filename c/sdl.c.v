@@ -8,6 +8,11 @@ pub const used_import = 1
 $if !windows {
 	#pkgconfig --cflags --libs sdl2
 	#flag -lSDL2_ttf -lSDL2_mixer -lSDL2_image
+} $else {
+	$if tinyc {
+		#define _STDINT_H_
+		#flag -L @VMODROOT/thirdparty
+	}
 }
 
 #flag -DSDL_DISABLE_IMMINTRIN_H
