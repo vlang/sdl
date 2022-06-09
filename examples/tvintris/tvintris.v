@@ -740,7 +740,7 @@ fn (g &Game) draw_v_logo() {
 	}
 	texw := 0
 	texh := 0
-	sdl.query_texture(g.sdl.tv_logo, 0, 0, &texw, &texh)
+	sdl.query_texture(g.sdl.tv_logo, sdl.null, sdl.null, &texw, &texh)
 	dstrect := sdl.Rect{(win_width / 2) - (texw / 2), 20, texw, texh}
 	// Currently we can't seem to use sdl.render_copy when we need to pass a nil pointer (eg: srcrect to be NULL)
 	sdl.render_copy(g.sdl.renderer, g.sdl.tv_logo, sdl.null, &dstrect)
@@ -752,7 +752,7 @@ fn (g &Game) draw_text(x int, y int, text string, tcol sdl.Color) {
 	ttext := sdl.create_texture_from_surface(g.sdl.renderer, tsurf)
 	texw := 0
 	texh := 0
-	sdl.query_texture(ttext, 0, 0, &texw, &texh)
+	sdl.query_texture(ttext, sdl.null, sdl.null, &texw, &texh)
 	dstrect := sdl.Rect{x, y, texw, texh}
 	sdl.render_copy(g.sdl.renderer, ttext, sdl.null, &dstrect)
 	sdl.destroy_texture(ttext)
