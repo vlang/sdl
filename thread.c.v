@@ -11,7 +11,7 @@ module sdl
 // Thread is C.SDL_Thread
 
 [typedef]
-struct C.SDL_Thread {
+pub struct C.SDL_Thread {
 }
 
 pub type Thread = C.SDL_Thread
