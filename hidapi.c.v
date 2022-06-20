@@ -8,7 +8,7 @@ module sdl
 //
 
 [typedef]
-struct C.SDL_hid_device {
+pub struct C.SDL_hid_device {
 }
 
 // HidDevice is a handle representing an open HID device
@@ -16,7 +16,7 @@ struct C.SDL_hid_device {
 pub type HidDevice = C.SDL_hid_device
 
 [typedef]
-struct C.SDL_hid_device_info {
+pub struct C.SDL_hid_device_info {
 	// Platform-specific device path
 	path &char
 	// Device Vendor ID

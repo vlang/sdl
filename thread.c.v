@@ -8,7 +8,7 @@ module sdl
 //
 
 [typedef]
-struct C.SDL_Thread {
+pub struct C.SDL_Thread {
 }
 
 // Thread is the SDL thread structure, defined in SDL_thread.c

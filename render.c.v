@@ -35,7 +35,7 @@ pub enum RendererFlags {
 }
 
 [typedef]
-struct C.SDL_RendererInfo {
+pub struct C.SDL_RendererInfo {
 pub:
 	name                &char   // The name of the renderer
 	flags               u32     // Supported ::SDL_RendererFlags
@@ -48,7 +48,7 @@ pub:
 pub type RendererInfo = C.SDL_RendererInfo
 
 [typedef]
-struct C.SDL_Vertex {
+pub struct C.SDL_Vertex {
 	position  FPoint // Vertex position, in SDL_Renderer coordinates
 	color     Color  // Vertex color
 	tex_coord FPoint // Normalized texture coordinates, if needed
@@ -88,13 +88,13 @@ pub enum RendererFlip {
 }
 
 [typedef]
-struct C.SDL_Renderer {
+pub struct C.SDL_Renderer {
 }
 
 pub type Renderer = C.SDL_Renderer
 
 [typedef]
-struct C.SDL_Texture {
+pub struct C.SDL_Texture {
 }
 
 pub type Texture = C.SDL_Texture
