@@ -13,7 +13,7 @@ module sdl
 //
 // Sensor is C.SDL_Sensor
 [typedef]
-struct C.SDL_Sensor {
+pub struct C.SDL_Sensor {
 }
 
 pub type Sensor = C.SDL_Sensor

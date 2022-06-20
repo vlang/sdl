@@ -8,7 +8,7 @@ module sdl
 //
 
 [typedef]
-struct C.SDL_Locale {
+pub struct C.SDL_Locale {
 pub:
 	language &char // const, A language name, like "en" for English.
 	country  &char // const, A country, like "US" for America. Can be NULL.

@@ -13,7 +13,7 @@ module sdl
 // which, if not NULL, contains the raw pixel data for the surface.
 //
 [typedef]
-struct C.SDL_Surface {
+pub struct C.SDL_Surface {
 pub:
 	flags  u32 // Read-only
 	format &C.SDL_PixelFormat // Read-only
