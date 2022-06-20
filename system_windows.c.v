@@ -37,7 +37,7 @@ pub fn direct_3d9_get_adapter_index(display_index int) int {
 }
 
 [typedef]
-struct C.IDirect3DDevice9 {
+pub struct C.IDirect3DDevice9 {
 }
 
 pub type IDirect3DDevice9 = C.IDirect3DDevice9
@@ -59,7 +59,7 @@ pub fn render_get_d3d9_device(renderer &Renderer) &IDirect3DDevice9 {
 }
 
 [typedef]
-struct C.ID3D11Device {
+pub struct C.ID3D11Device {
 }
 
 pub type ID3D11Device = C.ID3D11Device

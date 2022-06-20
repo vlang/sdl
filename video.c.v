@@ -17,7 +17,7 @@ module sdl
 // See also: SDL_SetWindowDisplayMode()
 // See also: SDL_GetWindowDisplayMode()
 [typedef]
-struct C.SDL_DisplayMode {
+pub struct C.SDL_DisplayMode {
 pub:
 	format       u32     // pixel format
 	w            int     // width, in screen coordinates
@@ -61,7 +61,7 @@ pub type DisplayMode = C.SDL_DisplayMode
 // See also: SDL_ShowWindow()
 //
 [typedef]
-struct C.SDL_Window {
+pub struct C.SDL_Window {
 }
 
 pub type Window = C.SDL_Window
