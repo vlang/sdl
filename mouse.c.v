@@ -7,7 +7,7 @@ module sdl
 // SDL_mouse.h
 //
 [typedef]
-struct C.SDL_Cursor {
+pub struct C.SDL_Cursor {
 }
 
 pub type Cursor = C.SDL_Cursor

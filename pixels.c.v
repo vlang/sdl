@@ -134,7 +134,7 @@ pub enum Format {
 }
 
 [typedef]
-struct C.SDL_Color {
+pub struct C.SDL_Color {
 pub mut:
 	r u8
 	g u8
@@ -150,7 +150,7 @@ pub mut:
 pub type Color = C.SDL_Color
 
 [typedef]
-struct C.SDL_Palette {
+pub struct C.SDL_Palette {
 pub mut:
 	ncolors  int
 	colors   &Color
@@ -162,7 +162,7 @@ pub type Palette = C.SDL_Palette
 
 // NOTE Everything in the pixel format structure is read-only.
 [typedef]
-struct C.SDL_PixelFormat {
+pub struct C.SDL_PixelFormat {
 pub:
 	format        Format
 	palette       &Palette

@@ -138,7 +138,7 @@ pub enum EventType {
 
 // CommonEvent is fields shared by every event
 [typedef]
-struct C.SDL_CommonEvent {
+pub struct C.SDL_CommonEvent {
 pub:
 	@type     EventType
 	timestamp u32 // In milliseconds, populated using SDL_GetTicks()
@@ -149,7 +149,7 @@ pub type CommonEvent = C.SDL_CommonEvent
 // DisplayEvent is display state change event data (event.display.*)
 // DisplayEvent is C.SDL_DisplayEvent
 [typedef]
-struct C.SDL_DisplayEvent {
+pub struct C.SDL_DisplayEvent {
 pub:
 	@type     u32 // ::SDL_DISPLAYEVENT
 	timestamp u32 // In milliseconds, populated using SDL_GetTicks()
@@ -165,7 +165,7 @@ pub type DisplayEvent = C.SDL_DisplayEvent
 
 // WindowEvent is window state change event data (event.window.*)
 [typedef]
-struct C.SDL_WindowEvent {
+pub struct C.SDL_WindowEvent {
 pub:
 	@type     EventType // ::SDL_WINDOWEVENT
 	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
@@ -182,7 +182,7 @@ pub type WindowEvent = C.SDL_WindowEvent
 
 // KeyboardEvent is Keyboard button event structure (event.key.*)
 [typedef]
-struct C.SDL_KeyboardEvent {
+pub struct C.SDL_KeyboardEvent {
 pub:
 	@type     EventType // ::SDL_KEYDOWN or ::SDL_KEYUP
 	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
@@ -198,7 +198,7 @@ pub type KeyboardEvent = C.SDL_KeyboardEvent
 
 // TextEditingEvent is keyboard text editing event structure (event.edit.*)
 [typedef]
-struct C.SDL_TextEditingEvent {
+pub struct C.SDL_TextEditingEvent {
 pub:
 	@type     EventType // ::SDL_TEXTEDITING
 	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
@@ -213,7 +213,7 @@ pub type TextEditingEvent = C.SDL_TextEditingEvent
 // TextEditingExtEvent is an extended keyboard text editing event structure (event.editExt.*) when text would be
 // truncated if stored in the text buffer SDL_TextEditingEvent
 [typedef]
-struct C.SDL_TextEditingExtEvent {
+pub struct C.SDL_TextEditingExtEvent {
 	@type     u32   // ::SDL_TEXTEDITING_EXT
 	timestamp u32   // In milliseconds, populated using SDL_GetTicks()
 	windowID  u32   // The window with keyboard focus, if any
@@ -226,7 +226,7 @@ pub type TextEditingExtEvent = C.SDL_TextEditingExtEvent
 
 // TextInputEvent is keyboard text input event structure (event.text.*)
 [typedef]
-struct C.SDL_TextInputEvent {
+pub struct C.SDL_TextInputEvent {
 pub:
 	@type     EventType // ::SDL_TEXTINPUT
 	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
@@ -238,7 +238,7 @@ pub type TextInputEvent = C.SDL_TextInputEvent
 
 // MouseMotionEvent is mouse motion event structure (event.motion.*)
 [typedef]
-struct C.SDL_MouseMotionEvent {
+pub struct C.SDL_MouseMotionEvent {
 pub:
 	@type     EventType // ::SDL_MOUSEMOTION
 	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
@@ -255,7 +255,7 @@ pub type MouseMotionEvent = C.SDL_MouseMotionEvent
 
 // MouseButtonEvent is mouse button event structure (event.button.*)
 [typedef]
-struct C.SDL_MouseButtonEvent {
+pub struct C.SDL_MouseButtonEvent {
 pub:
 	@type     EventType // ::SDL_MOUSEBUTTONDOWN or ::SDL_MOUSEBUTTONUP
 	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
@@ -273,7 +273,7 @@ pub type MouseButtonEvent = C.SDL_MouseButtonEvent
 
 // MouseWheelEvent is mouse wheel event structure (event.wheel.*)
 [typedef]
-struct C.SDL_MouseWheelEvent {
+pub struct C.SDL_MouseWheelEvent {
 pub:
 	@type     EventType // ::SDL_MOUSEWHEEL
 	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
@@ -290,7 +290,7 @@ pub type MouseWheelEvent = C.SDL_MouseWheelEvent
 
 // JoyAxisEvent is joystick axis motion event structure (event.jaxis.*)
 [typedef]
-struct C.SDL_JoyAxisEvent {
+pub struct C.SDL_JoyAxisEvent {
 pub:
 	@type     EventType  // ::SDL_JOYAXISMOTION
 	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
@@ -307,7 +307,7 @@ pub type JoyAxisEvent = C.SDL_JoyAxisEvent
 
 // JoyBallEvent is joystick trackball motion event structure (event.jball.*)
 [typedef]
-struct C.SDL_JoyBallEvent {
+pub struct C.SDL_JoyBallEvent {
 pub:
 	@type     EventType  // ::SDL_JOYBALLMOTION
 	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
@@ -324,7 +324,7 @@ pub type JoyBallEvent = C.SDL_JoyBallEvent
 
 // JoyHatEvent is joystick hat position change event structure (event.jhat.*)
 [typedef]
-struct C.SDL_JoyHatEvent {
+pub struct C.SDL_JoyHatEvent {
 pub:
 	@type     EventType  // ::SDL_JOYHATMOTION
 	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
@@ -343,7 +343,7 @@ pub type JoyHatEvent = C.SDL_JoyHatEvent
 
 // JoyButtonEvent is joystick button event structure (event.jbutton.*)
 [typedef]
-struct C.SDL_JoyButtonEvent {
+pub struct C.SDL_JoyButtonEvent {
 pub:
 	@type     EventType  // ::SDL_JOYBUTTONDOWN or ::SDL_JOYBUTTONUP
 	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
@@ -358,7 +358,7 @@ pub type JoyButtonEvent = C.SDL_JoyButtonEvent
 
 // JoyDeviceEvent is joystick device event structure (event.jdevice.*)
 [typedef]
-struct C.SDL_JoyDeviceEvent {
+pub struct C.SDL_JoyDeviceEvent {
 pub:
 	@type     EventType // ::SDL_JOYDEVICEADDED or ::SDL_JOYDEVICEREMOVED
 	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
@@ -369,7 +369,7 @@ pub type JoyDeviceEvent = C.SDL_JoyDeviceEvent
 
 // ControllerAxisEvent is game controller axis motion event structure (event.caxis.*)
 [typedef]
-struct C.SDL_ControllerAxisEvent {
+pub struct C.SDL_ControllerAxisEvent {
 pub:
 	@type     EventType  // ::SDL_CONTROLLERAXISMOTION
 	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
@@ -386,7 +386,7 @@ pub type ControllerAxisEvent = C.SDL_ControllerAxisEvent
 
 // ControllerButtonEvent is game controller button event structure (event.cbutton.*)
 [typedef]
-struct C.SDL_ControllerButtonEvent {
+pub struct C.SDL_ControllerButtonEvent {
 pub:
 	@type     EventType  // ::SDL_CONTROLLERBUTTONDOWN or ::SDL_CONTROLLERBUTTONUP
 	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
@@ -401,7 +401,7 @@ pub type ControllerButtonEvent = C.SDL_ControllerButtonEvent
 
 // ControllerDeviceEvent is controller device event structure (event.cdevice.*)
 [typedef]
-struct C.SDL_ControllerDeviceEvent {
+pub struct C.SDL_ControllerDeviceEvent {
 pub:
 	@type     EventType // ::SDL_CONTROLLERDEVICEADDED, ::SDL_CONTROLLERDEVICEREMOVED, or ::SDL_CONTROLLERDEVICEREMAPPED
 	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
@@ -412,7 +412,7 @@ pub type ControllerDeviceEvent = C.SDL_ControllerDeviceEvent
 
 // ControllerTouchpadEvent is game controller touchpad event structure (event.ctouchpad.*)
 [typedef]
-struct C.SDL_ControllerTouchpadEvent {
+pub struct C.SDL_ControllerTouchpadEvent {
 pub:
 	@type     u32        // ::SDL_CONTROLLERTOUCHPADDOWN or ::SDL_CONTROLLERTOUCHPADMOTION or ::SDL_CONTROLLERTOUCHPADUP
 	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
@@ -427,7 +427,7 @@ pub:
 pub type ControllerTouchpadEvent = C.SDL_ControllerTouchpadEvent
 
 [typedef]
-struct C.SDL_ControllerSensorEvent {
+pub struct C.SDL_ControllerSensorEvent {
 pub:
 	@type     u32 // ::SDL_CONTROLLERSENSORUPDATE
 	timestamp u32 // In milliseconds, populated using SDL_GetTicks()
@@ -440,7 +440,7 @@ pub type ControllerSensorEvent = C.SDL_ControllerSensorEvent
 
 // AudioDeviceEvent is audio device event structure (event.adevice.*)
 [typedef]
-struct C.SDL_AudioDeviceEvent {
+pub struct C.SDL_AudioDeviceEvent {
 pub:
 	@type     EventType // ::SDL_AUDIODEVICEADDED, or ::SDL_AUDIODEVICEREMOVED
 	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
@@ -455,7 +455,7 @@ pub type AudioDeviceEvent = C.SDL_AudioDeviceEvent
 
 // TouchFingerEvent is touch finger event structure (event.tfinger.*)
 [typedef]
-struct C.SDL_TouchFingerEvent {
+pub struct C.SDL_TouchFingerEvent {
 pub:
 	@type     EventType // ::SDL_FINGERMOTION or ::SDL_FINGERDOWN or ::SDL_FINGERUP
 	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
@@ -473,7 +473,7 @@ pub type TouchFingerEvent = C.SDL_TouchFingerEvent
 
 // MultiGestureEvent is Multiple Finger Gesture Event (event.mgesture.*)
 [typedef]
-struct C.SDL_MultiGestureEvent {
+pub struct C.SDL_MultiGestureEvent {
 pub:
 	@type      EventType // ::SDL_MULTIGESTURE
 	timestamp  u32       // In milliseconds, populated using SDL_GetTicks()
@@ -490,7 +490,7 @@ pub type MultiGestureEvent = C.SDL_MultiGestureEvent
 
 // DollarGestureEvent is Dollar Gesture Event (event.dgesture.*)
 [typedef]
-struct C.SDL_DollarGestureEvent {
+pub struct C.SDL_DollarGestureEvent {
 pub:
 	@type      EventType // ::SDL_DOLLARGESTURE or ::SDL_DOLLARRECORD
 	timestamp  u32       // In milliseconds, populated using SDL_GetTicks()
@@ -509,7 +509,7 @@ pub type DollarGestureEvent = C.SDL_DollarGestureEvent
 // NOTE If this event is enabled, you must free the filename in the event.
 
 [typedef]
-struct C.SDL_DropEvent {
+pub struct C.SDL_DropEvent {
 pub:
 	@type     EventType // ::SDL_DROPBEGIN or ::SDL_DROPFILE or ::SDL_DROPTEXT or ::SDL_DROPCOMPLETE
 	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
@@ -522,7 +522,7 @@ pub type DropEvent = C.SDL_DropEvent
 // SensorEvent is sensor event structure (event.sensor.*)
 // SensorEvent is C.SDL_SensorEvent
 [typedef]
-struct C.SDL_SensorEvent {
+pub struct C.SDL_SensorEvent {
 pub:
 	@type     u32    // ::SDL_SENSORUPDATE
 	timestamp u32    // In milliseconds, populated using SDL_GetTicks()
@@ -534,7 +534,7 @@ pub type SensorEvent = C.SDL_SensorEvent
 
 // QuitEvent is the "quit requested" event
 [typedef]
-struct C.SDL_QuitEvent {
+pub struct C.SDL_QuitEvent {
 pub:
 	@type     EventType // ::SDL_QUIT
 	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
@@ -544,7 +544,7 @@ pub type QuitEvent = C.SDL_QuitEvent
 
 // OSEvent is an OS Specific event
 [typedef]
-struct C.SDL_OSEvent {
+pub struct C.SDL_OSEvent {
 pub:
 	@type     EventType // ::SDL_QUIT
 	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
@@ -554,7 +554,7 @@ pub type OSEvent = C.SDL_OSEvent
 
 // UserEvent is an user-defined event type (event.user.*)
 [typedef]
-struct C.SDL_UserEvent {
+pub struct C.SDL_UserEvent {
 pub:
 	@type     EventType // ::SDL_USEREVENT through ::SDL_LASTEVENT-1
 	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
@@ -571,13 +571,13 @@ pub type UserEvent = C.SDL_UserEvent
 //
 // NOTE If you want to use this event, you should include SDL_syswm.h.
 [typedef]
-struct C.SDL_SysWMmsg {
+pub struct C.SDL_SysWMmsg {
 }
 
 pub type SysWMmsg = C.SDL_SysWMmsg
 
 [typedef]
-struct C.SDL_SysWMEvent {
+pub struct C.SDL_SysWMEvent {
 pub:
 	@type     EventType // ::SDL_SYSWMEVENT
 	timestamp u32       // In milliseconds, populated using SDL_GetTicks()
