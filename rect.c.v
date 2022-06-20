@@ -13,7 +13,7 @@ module sdl
 // See also: SDL_PointInRect
 // Point is C.SDL_Point
 [typedef]
-struct C.SDL_Point {
+pub struct C.SDL_Point {
 pub mut:
 	x int
 	y int
@@ -31,7 +31,7 @@ pub type Point = C.SDL_Point
 // See also: SDL_EnclosePoints
 // Rect is C.SDL_Rect
 [typedef]
-struct C.SDL_Rect {
+pub struct C.SDL_Rect {
 pub mut:
 	x int
 	y int

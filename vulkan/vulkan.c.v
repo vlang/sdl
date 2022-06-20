@@ -11,11 +11,11 @@ module sdl
 TODO
 [typedef]
 // C.VkInstance
-struct C.SDL_vulkanInstance {
+pub struct C.SDL_vulkanInstance {
 }
 // C.VkSurfaceKHR
 [typedef]
-struct C.SDL_vulkanSurface {
+pub struct C.SDL_vulkanSurface {
 	// for compatibility with Tizen
 }*/
 

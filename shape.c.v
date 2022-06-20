@@ -79,7 +79,7 @@ pub type WindowShapeParams = C.SDL_WindowShapeParams
 // an enum describing the type of its contents.
 // WindowShapeMode is C.SDL_WindowShapeMode
 [typedef]
-struct C.SDL_WindowShapeMode {
+pub struct C.SDL_WindowShapeMode {
 pub:
 	mode       WindowShapeModeFlag // The mode of these window-shape parameters.
 	parameters WindowShapeParams   // Window-shape parameters.

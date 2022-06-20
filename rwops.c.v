@@ -34,7 +34,7 @@ fn C.SDL_RWclose(ctx &C.SDL_RWops) int
 
 // This is the read/write operation structure -- very basic.
 [typedef]
-struct C.SDL_RWops {
+pub struct C.SDL_RWops {
 pub:
 	// Returns the size of the file in this rwops, or -1 if unknown
 	// `Sint64 (SDLCALL * size) (struct SDL_RWops * context);`

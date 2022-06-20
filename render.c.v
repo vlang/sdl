@@ -35,7 +35,7 @@ pub enum RendererFlags {
 }
 
 [typedef]
-struct C.SDL_RendererInfo {
+pub struct C.SDL_RendererInfo {
 pub:
 	name                &char   // The name of the renderer
 	flags               u32     // Supported ::SDL_RendererFlags
@@ -69,13 +69,13 @@ pub enum RendererFlip {
 }
 
 [typedef]
-struct C.SDL_Renderer {
+pub struct C.SDL_Renderer {
 }
 
 pub type Renderer = C.SDL_Renderer
 
 [typedef]
-struct C.SDL_Texture {
+pub struct C.SDL_Texture {
 }
 
 pub type Texture = C.SDL_Texture
