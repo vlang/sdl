@@ -29,7 +29,7 @@ pub enum TouchDeviceType {
 }
 
 [typedef]
-struct C.SDL_Finger {
+pub struct C.SDL_Finger {
 pub:
 	id       FingerID // C.SDL_FingerID
 	x        f32
