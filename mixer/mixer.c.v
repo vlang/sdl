@@ -14,11 +14,11 @@ pub const (
 	patchlevel    = C.SDL_MIXER_PATCHLEVEL // 2
 )
 
-fn C.SDL_MIXER_VERSION(v &.Version)
+fn C.SDL_MIXER_VERSION(v &sdl.Version)
 
 // mixer_version macro is used to fill a version structure with the compile-time
 // version of the SDL_mixer library.
-pub fn mixer_version(v &.Version) {
+pub fn mixer_version(v &sdl.Version) {
 	C.SDL_MIXER_VERSION(v)
 }
 
@@ -41,7 +41,7 @@ fn C.Mix_Linked_Version() &C.SDL_version
 // linked_version gets the version of the dynamically linked SDL_mixer library.
 // it should NOT be used to fill a version structure, instead you should
 // use the SDL_MIXER_VERSION() macro.
-pub fn linked_version() &.Version {
+pub fn linked_version() &sdl.Version {
 	return C.Mix_Linked_Version()
 }
 
@@ -165,7 +165,7 @@ pub fn query_spec(frequency &int, format &u16, channels &int) int {
 fn C.Mix_LoadWAV_RW(src &C.SDL_RWops, freesrc int) &C.Mix_Chunk
 
 // load_wav_rw loads a wave file or a music (.mod .s3m .it .xm) file
-pub fn load_wav_rw(src &.RWops, freesrc int) &Chunk {
+pub fn load_wav_rw(src &sdl.RWops, freesrc int) &Chunk {
 	return C.Mix_LoadWAV_RW(src, freesrc)
 }
 
@@ -185,12 +185,12 @@ pub fn load_mus(path &char) &Music {
 fn C.Mix_LoadMUS_RW(src &C.SDL_RWops, freesrc int) &C.Mix_Music
 
 // load_mus_rw loads a music file from an SDL_RWop object assuming a specific format
-pub fn load_mus_rw(src &.RWops, freesrc int) &Music {
+pub fn load_mus_rw(src &sdl.RWops, freesrc int) &Music {
 	return C.Mix_LoadMUS_RW(src, freesrc)
 }
 
 fn C.Mix_LoadMUSType_RW(src &C.SDL_RWops, @type C.Mix_MusicType, freesrc int) &C.Mix_Music
-pub fn load_mus_type_rw(src &.RWops, @type MusicType, freesrc int) &Music {
+pub fn load_mus_type_rw(src &sdl.RWops, @type MusicType, freesrc int) &Music {
 	return C.Mix_LoadMUSType_RW(src, C.Mix_MusicType(@type), freesrc)
 }
 

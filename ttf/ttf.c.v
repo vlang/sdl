@@ -16,10 +16,10 @@ pub const (
 
 // This macro can be used to fill a version structure with the compile-time
 // version of the SDL_ttf library.
-pub fn C.SDL_TTF_VERSION(v &.Version)
+pub fn C.SDL_TTF_VERSION(v &sdl.Version)
 
 fn C.TTF_Linked_Version() &C.SDL_version
-pub fn linked_version() &.Version {
+pub fn linked_version() &sdl.Version {
 	return C.TTF_Linked_Version()
 }
 
@@ -69,12 +69,12 @@ pub fn open_font_index(file &char, ptsize int, index int) &Font {
 }
 
 fn C.TTF_OpenFontRW(src &C.SDL_RWops, freesrc int, ptsize int) &C.TTF_Font
-pub fn open_font_rw(src &.RWops, freesrc int, ptsize int) &Font {
+pub fn open_font_rw(src &sdl.RWops, freesrc int, ptsize int) &Font {
 	return C.TTF_OpenFontRW(src, freesrc, ptsize)
 }
 
 fn C.TTF_OpenFontIndexRW(src &C.SDL_RWops, freesrc int, ptsize int, index int) &C.TTF_Font
-pub fn open_font_index_rw(src &.RWops, freesrc int, ptsize int, index int) &Font {
+pub fn open_font_index_rw(src &sdl.RWops, freesrc int, ptsize int, index int) &Font {
 	return C.TTF_OpenFontIndexRW(src, freesrc, ptsize, index)
 }
 
@@ -233,17 +233,17 @@ fn C.TTF_RenderText_Solid(font &C.TTF_Font, const_text &char, fg C.SDL_Color) &C
 // colorkey, giving a transparent background, and the 1 pixel is set
 // to the text color.
 // This function returns the new surface, or NULL if there was an error.
-pub fn render_text_solid(font &Font, const_text &char, fg .Color) &.Surface {
+pub fn render_text_solid(font &Font, const_text &char, fg sdl.Color) &sdl.Surface {
 	return C.TTF_RenderText_Solid(font, const_text, fg)
 }
 
 fn C.TTF_RenderUTF8_Solid(font &C.TTF_Font, const_text &char, fg C.SDL_Color) &C.SDL_Surface
-pub fn render_utf8_solid(font &Font, const_text &char, fg .Color) &.Surface {
+pub fn render_utf8_solid(font &Font, const_text &char, fg sdl.Color) &sdl.Surface {
 	return C.TTF_RenderUTF8_Solid(font, const_text, fg)
 }
 
 fn C.TTF_RenderUNICODE_Solid(font &C.TTF_Font, const_text &u16, fg C.SDL_Color) &C.SDL_Surface
-pub fn render_unicode_solid(font &Font, const_text &u16, fg .Color) &.Surface {
+pub fn render_unicode_solid(font &Font, const_text &u16, fg sdl.Color) &sdl.Surface {
 	return C.TTF_RenderUNICODE_Solid(font, const_text, fg)
 }
 
@@ -255,7 +255,7 @@ fn C.TTF_RenderGlyph_Solid(font &C.TTF_Font, ch u16, fg C.SDL_Color) &C.SDL_Surf
 // to the text color.  The glyph is rendered without any padding or
 // centering in the X direction, and aligned normally in the Y direction.
 // This function returns the new surface, or NULL if there was an error.
-pub fn render_glyph_solid(font &Font, ch u16, fg .Color) &.Surface {
+pub fn render_glyph_solid(font &Font, ch u16, fg sdl.Color) &sdl.Surface {
 	return C.TTF_RenderGlyph_Solid(font, ch, fg)
 }
 
@@ -265,17 +265,17 @@ fn C.TTF_RenderText_Shaded(font &C.TTF_Font, const_text &char, fg C.SDL_Color, b
 // high quality with the given font and colors.  The 0 pixel is background,
 // while other pixels have varying degrees of the foreground color.
 // This function returns the new surface, or NULL if there was an error.
-pub fn render_text_shaded(font &C.TTF_Font, const_text &char, fg .Color, bg .Color) &.Surface {
+pub fn render_text_shaded(font &C.TTF_Font, const_text &char, fg sdl.Color, bg sdl.Color) &sdl.Surface {
 	return C.TTF_RenderText_Shaded(font, const_text, fg, bg)
 }
 
 fn C.TTF_RenderUTF8_Shaded(font &C.TTF_Font, const_text &char, fg C.SDL_Color, bg C.SDL_Color) &C.SDL_Surface
-pub fn render_utf8_shaded(font &Font, const_text &char, fg .Color, bg .Color) &.Surface {
+pub fn render_utf8_shaded(font &Font, const_text &char, fg sdl.Color, bg sdl.Color) &sdl.Surface {
 	return C.TTF_RenderUTF8_Shaded(font, const_text, fg, bg)
 }
 
 fn C.TTF_RenderUNICODE_Shaded(font &C.TTF_Font, const_text &u16, fg C.SDL_Color, bg C.SDL_Color) &C.SDL_Surface
-pub fn render_unicode_shaded(font &Font, const_text &u16, fg .Color, bg .Color) &.Surface {
+pub fn render_unicode_shaded(font &Font, const_text &u16, fg sdl.Color, bg sdl.Color) &sdl.Surface {
 	return C.TTF_RenderUNICODE_Shaded(font, const_text, fg, bg)
 }
 
@@ -287,7 +287,7 @@ fn C.TTF_RenderGlyph_Shaded(font &C.TTF_Font, ch u16, fg C.SDL_Color, bg C.SDL_C
 // The glyph is rendered without any padding or centering in the X
 // direction, and aligned normally in the Y direction.
 // This function returns the new surface, or NULL if there was an error.
-pub fn render_glyph_shaded(font &Font, ch u16, fg .Color, bg .Color) &.Surface {
+pub fn render_glyph_shaded(font &Font, ch u16, fg sdl.Color, bg sdl.Color) &sdl.Surface {
 	return C.TTF_RenderGlyph_Shaded(font, ch, fg, bg)
 }
 
@@ -296,17 +296,17 @@ fn C.TTF_RenderText_Blended(font &C.TTF_Font, const_text &char, fg C.SDL_Color) 
 // render_text_blended creates a 32-bit ARGB surface and render the given text at high quality,
 // using alpha blending to dither the font with the given color.
 // This function returns the new surface, or NULL if there was an error.
-pub fn render_text_blended(font &Font, const_text &char, fg .Color) &.Surface {
+pub fn render_text_blended(font &Font, const_text &char, fg sdl.Color) &sdl.Surface {
 	return C.TTF_RenderText_Blended(font, const_text, fg)
 }
 
 fn C.TTF_RenderUTF8_Blended(font &C.TTF_Font, const_text &char, fg C.SDL_Color) &C.SDL_Surface
-pub fn render_utf8_blended(font &Font, const_text &char, fg .Color) &.Surface {
+pub fn render_utf8_blended(font &Font, const_text &char, fg sdl.Color) &sdl.Surface {
 	return C.TTF_RenderUTF8_Blended(font, const_text, fg)
 }
 
 fn C.TTF_RenderUNICODE_Blended(font &C.TTF_Font, const_text &u16, fg C.SDL_Color) &C.SDL_Surface
-pub fn render_unicode_blended(font &Font, const_text &u16, fg .Color) &.Surface {
+pub fn render_unicode_blended(font &Font, const_text &u16, fg sdl.Color) &sdl.Surface {
 	return C.TTF_RenderUNICODE_Blended(font, const_text, fg)
 }
 
@@ -317,17 +317,17 @@ fn C.TTF_RenderText_Blended_Wrapped(font &C.TTF_Font, const_text &char, fg C.SDL
 // Text is wrapped to multiple lines on line endings and on word boundaries
 // if it extends beyond wrapLength in pixels.
 // This function returns the new surface, or NULL if there was an error.
-pub fn render_text_blended_wrapped(font &Font, const_text &char, fg .Color, wrap_length u32) &.Surface {
+pub fn render_text_blended_wrapped(font &Font, const_text &char, fg sdl.Color, wrap_length u32) &sdl.Surface {
 	return C.TTF_RenderText_Blended_Wrapped(font, const_text, fg, wrap_length)
 }
 
 fn C.TTF_RenderUTF8_Blended_Wrapped(font &C.TTF_Font, const_text &char, fg C.SDL_Color, wrap_length u32) &C.SDL_Surface
-pub fn render_utf8_blended_wrapped(font &Font, const_text &char, fg .Color, wrap_length u32) &.Surface {
+pub fn render_utf8_blended_wrapped(font &Font, const_text &char, fg sdl.Color, wrap_length u32) &sdl.Surface {
 	return C.TTF_RenderUTF8_Blended_Wrapped(font, const_text, fg, wrap_length)
 }
 
 fn C.TTF_RenderUNICODE_Blended_Wrapped(font &C.TTF_Font, const_text &u16, fg C.SDL_Color, wrap_length u32) &C.SDL_Surface
-pub fn render_unicode_blended_wrapped(font &Font, const_text &u16, fg .Color, wrap_length u32) &.Surface {
+pub fn render_unicode_blended_wrapped(font &Font, const_text &u16, fg sdl.Color, wrap_length u32) &sdl.Surface {
 	return C.TTF_RenderUNICODE_Blended_Wrapped(font, const_text, fg, wrap_length)
 }
 
@@ -338,7 +338,7 @@ fn C.TTF_RenderGlyph_Blended(font &C.TTF_Font, ch u16, fg C.SDL_Color) &C.SDL_Su
 // The glyph is rendered without any padding or centering in the X
 // direction, and aligned normally in the Y direction.
 // This function returns the new surface, or NULL if there was an error.
-pub fn render_glyph_blended(font &Font, ch u16, fg .Color) &.Surface {
+pub fn render_glyph_blended(font &Font, ch u16, fg sdl.Color) &sdl.Surface {
 	return C.TTF_RenderGlyph_Blended(font, ch, fg)
 }
 
