@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file.
 module sdl
 
-import sdl.c
+import c
 
 pub const used_import = c.used_import
 

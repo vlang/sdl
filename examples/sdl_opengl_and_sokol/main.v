@@ -27,34 +27,33 @@ struct Vertex_t {
 
 [console]
 fn main() {
-	sdl.init(sdl.init_video)
+	init(init_video)
 
-	sdl.gl_set_attribute(.context_flags, int(sdl.GLcontextFlag.forward_compatible_flag))
-	sdl.gl_set_attribute(.context_profile_mask, int(sdl.GLprofile.core))
-	sdl.gl_set_attribute(.context_major_version, 3)
-	sdl.gl_set_attribute(.context_minor_version, 3)
-	sdl.gl_set_attribute(.doublebuffer, 1)
-	sdl.gl_set_attribute(.depth_size, 24)
-	sdl.gl_set_attribute(.stencil_size, 8)
+	gl_set_attribute(.context_flags, int(GLcontextFlag.forward_compatible_flag))
+	gl_set_attribute(.context_profile_mask, int(GLprofile.core))
+	gl_set_attribute(.context_major_version, 3)
+	gl_set_attribute(.context_minor_version, 3)
+	gl_set_attribute(.doublebuffer, 1)
+	gl_set_attribute(.depth_size, 24)
+	gl_set_attribute(.stencil_size, 8)
 
-	mut window_flags := u32(sdl.WindowFlags.opengl)
-	window := sdl.create_window('Hello SDL2 + Sokol (OpenGL)'.str, 300, 300, 500, 300,
-		window_flags)
-	if window == sdl.null {
-		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
+	mut window_flags := u32(WindowFlags.opengl)
+	window := create_window('Hello SDL2 + Sokol (OpenGL)'.str, 300, 300, 500, 300, window_flags)
+	if window == null {
+		error_msg := unsafe { cstring_to_vstring(get_error()) }
 		panic('Could not create SDL window, SDL says:\n$error_msg')
 	}
 
-	gl_context := sdl.gl_create_context(window)
-	if gl_context == sdl.null {
-		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
+	gl_context := gl_create_context(window)
+	if gl_context == null {
+		error_msg := unsafe { cstring_to_vstring(get_error()) }
 		panic('Could not create OpenGL context, SDL says:\n$error_msg')
 	}
 
-	sdl.gl_make_current(window, gl_context)
+	gl_make_current(window, gl_context)
 	// Enable VSYNC (Sync buffer swaps with monitors vertical refresh rate)
-	if sdl.gl_set_swap_interval(1) < 0 {
-		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
+	if gl_set_swap_interval(1) < 0 {
+		error_msg := unsafe { cstring_to_vstring(get_error()) }
 		panic('Could not set OpenGL swap interval to vsync:\n$error_msg')
 	}
 
@@ -103,8 +102,8 @@ fn main() {
 	mut w := 0
 	mut h := 0
 	for {
-		evt := sdl.Event{}
-		for 0 < sdl.poll_event(&evt) {
+		evt := Event{}
+		for 0 < poll_event(&evt) {
 			match evt.@type {
 				.quit { should_close = true }
 				else {}
@@ -114,7 +113,7 @@ fn main() {
 			break
 		}
 
-		sdl.gl_get_drawable_size(window, &w, &h)
+		gl_get_drawable_size(window, &w, &h)
 		gfx.begin_default_pass(&pass_action, w, h)
 
 		gfx.apply_pipeline(shader_pipeline)
@@ -124,11 +123,11 @@ fn main() {
 		gfx.end_pass()
 		gfx.commit()
 
-		sdl.gl_swap_window(window)
+		gl_swap_window(window)
 	}
 
 	gfx.shutdown()
-	sdl.gl_delete_context(gl_context)
-	sdl.destroy_window(window)
-	sdl.quit()
+	gl_delete_context(gl_context)
+	destroy_window(window)
+	quit()
 }
