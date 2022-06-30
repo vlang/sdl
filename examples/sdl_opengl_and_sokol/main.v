@@ -29,10 +29,15 @@ struct Vertex_t {
 fn main() {
 	sdl.init(sdl.init_video)
 
-	sdl.gl_set_attribute(.context_flags, int(sdl.GLcontextFlag.forward_compatible_flag))
-	sdl.gl_set_attribute(.context_profile_mask, int(sdl.GLprofile.core))
-	sdl.gl_set_attribute(.context_major_version, 3)
-	sdl.gl_set_attribute(.context_minor_version, 3)
+	$if android {
+		sdl.gl_set_attribute(.context_profile_mask, int(sdl.GLprofile.es))
+		sdl.gl_set_attribute(.context_major_version, 2)
+	} $else {
+		sdl.gl_set_attribute(.context_flags, int(sdl.GLcontextFlag.forward_compatible_flag))
+		sdl.gl_set_attribute(.context_profile_mask, int(sdl.GLprofile.core))
+		sdl.gl_set_attribute(.context_major_version, 3)
+		sdl.gl_set_attribute(.context_minor_version, 3)
+	}
 	sdl.gl_set_attribute(.doublebuffer, 1)
 	sdl.gl_set_attribute(.depth_size, 24)
 	sdl.gl_set_attribute(.stencil_size, 8)
