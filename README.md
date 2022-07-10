@@ -58,7 +58,7 @@ Also note that SDL2 **is not** compatible with SDL `v1.x`.
 
 [tVintris](examples/tvintris)
 
-![tVintris screenshot](/examples/tvintris/images/tvintris.png)
+![tVintris screenshot](/examples/assets/images/tvintris.png)
 
 You can run the tVintris example like this :
 ```
