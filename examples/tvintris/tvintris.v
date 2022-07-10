@@ -1,9 +1,10 @@
-// Copyright (c) 2019-2020 Alexander Medvednikov. All rights reserved.
+// Copyright (c) 2019-2022 Alexander Medvednikov. All rights reserved.
 // Use of this source code is governed by an MIT license
 // that can be found in the LICENSE file.
 
 // SDL2 port+wrapper, Twintris-like dual-game logic,
 // and more, by Nicolas Sauzede 2019.
+// V Android support added in 2022 by Lars Pontoppidan.
 
 module main
 
@@ -18,13 +19,12 @@ import sdl.ttf
 
 const (
 	title           = 'tVintris'
-	base            = os.dir(os.real_path(os.executable()))
-	font_name       = os.join_path(base, 'fonts', 'RobotoMono-Regular.ttf')
-	music_name      = os.join_path(base, 'sounds', 'TwintrisThosenine.mod')
-	snd_block_name  = os.join_path(base, 'sounds', 'block.wav')
-	snd_line_name   = os.join_path(base, 'sounds', 'single.wav')
-	snd_double_name = os.join_path(base, 'sounds', 'triple.wav')
-	v_logo          = os.join_path(base, 'images', 'v-logo_30_30.png')
+	font_name       = get_asset_path(os.join_path('fonts', 'RobotoMono-Regular.ttf'))
+	music_name      = get_asset_path(os.join_path('sounds', 'TwintrisThosenine.mod'))
+	snd_block_name  = get_asset_path(os.join_path('sounds', 'block.wav'))
+	snd_line_name   = get_asset_path(os.join_path('sounds', 'single.wav'))
+	snd_double_name = get_asset_path(os.join_path('sounds', 'triple.wav'))
+	v_logo          = get_asset_path(os.join_path('images', 'v-logo_30_30.png'))
 	block_size      = 20 // pixels
 	field_height    = 20 // # of blocks
 	field_width     = 10
@@ -163,6 +163,14 @@ pub mut:
 	//	V logo
 	v_logo  &sdl.Surface
 	tv_logo &sdl.Texture
+}
+
+fn get_asset_path(path string) string {
+	$if android {
+		return path
+	} $else {
+		return os.resource_abs_path(os.join_path('..', 'assets', path))
+	}
 }
 
 struct Game {
