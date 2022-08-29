@@ -33,7 +33,7 @@ jobs:
           make
           make install
 
-	  - name: Install V
+      - name: Install V
         uses: vlang/setup-v@v1
         with:
           check-latest: true
@@ -65,14 +65,14 @@ jobs:
 
       - name: Build sdl examples
         run: |
-		  export CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
+          export CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
           v run sdl/examples/versions
           v shader sdl/examples/sdl_opengl_and_sokol
           v should-compile-all sdl/examples/
 
       - name: Test SDL version
         run: |
-		  export CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
+          export CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
           VER="$(v run sdl/examples/version)"
           echo "${SDL2_VERSION} == $VER ?"
           test "${SDL2_VERSION}" = "$VER" || exit 1
