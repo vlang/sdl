@@ -143,7 +143,7 @@ pub fn create_thread_with_stack_size(func ThreadFunction, const_name &char, cons
 	} $else {
 		panic('TODO support this call on Windows')
 	}
-	return voidptr(0)
+	return unsafe { nil }
 }
 
 fn C.SDL_GetThreadName(thread &C.SDL_Thread) &char
