@@ -8,7 +8,7 @@ module sdl
 //
 
 pub const (
-	null = voidptr(0)
+	null = unsafe { nil }
 )
 
 // These are the flags which may be passed to SDL_Init().  You should
