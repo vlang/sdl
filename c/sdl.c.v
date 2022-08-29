@@ -6,8 +6,11 @@ module c
 pub const used_import = 1
 
 $if !windows {
-	#pkgconfig --cflags --libs sdl2
-	#flag -lSDL2_ttf -lSDL2_mixer -lSDL2_image
+	// SDL libs are loaded dynamically in Java on Android
+	$if !android || termux {
+		#pkgconfig --cflags --libs sdl2
+		#flag -lSDL2_ttf -lSDL2_mixer -lSDL2_image
+	}
 } $else {
 	$if tinyc {
 		#define _STDINT_H_
