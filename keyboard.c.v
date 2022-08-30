@@ -61,8 +61,22 @@ fn C.SDL_GetKeyboardState(numkeys &int) &u8
 // NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_PumpEvents
+// See also: SDL_ResetKeyboard
 pub fn get_keyboard_state(numkeys &int) &u8 {
 	return C.SDL_GetKeyboardState(numkeys)
+}
+
+fn C.SDL_ResetKeyboard()
+
+// reset_keyboard clears the state of the keyboard
+//
+// This function will generate key up events for all pressed keys.
+//
+// NOTE This function is available since SDL 2.24.0.
+//
+// See also: SDL_GetKeyboardState
+pub fn reset_keyboard() {
+	C.SDL_ResetKeyboard()
 }
 
 fn C.SDL_GetModState() C.SDL_Keymod
@@ -287,7 +301,11 @@ fn C.SDL_SetTextInputRect(rect &C.SDL_Rect)
 
 // set_text_input_rect sets the rectangle used to type Unicode text inputs.
 //
-// Note: If you want use system native IME window, try to set hint
+// To start text input in a given location, this function is intended to be
+// called before SDL_StartTextInput, although some platforms support moving
+// the rectangle even while text input (and a composition) is active.
+//
+// Note: If you want to use the system native IME window, try setting hint
 // **SDL_HINT_IME_SHOW_UI** to **1**, otherwise this function won't give you
 // any feedback.
 //
@@ -297,8 +315,8 @@ fn C.SDL_SetTextInputRect(rect &C.SDL_Rect)
 // NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_StartTextInput
-pub fn set_text_input_rect(rect &Rect) {
-	C.SDL_SetTextInputRect(rect)
+pub fn set_text_input_rect(const_rect &Rect) {
+	C.SDL_SetTextInputRect(const_rect)
 }
 
 fn C.SDL_HasScreenKeyboardSupport() bool

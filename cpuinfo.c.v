@@ -344,11 +344,41 @@ pub fn has_neon() bool {
 	return C.SDL_HasNEON()
 }
 
+fn C.SDL_HasLSX() bool
+
+// has_lsx determines whether the CPU has LSX (LOONGARCH SIMD) features.
+//
+// This always returns false on CPUs that aren't using LOONGARCH instruction
+// sets.
+//
+// returns SDL_TRUE if the CPU has LOONGARCH LSX features or SDL_FALSE if
+//          not.
+//
+// NOTE This function is available since SDL 2.24.0.
+pub fn has_lsx() bool {
+	return C.SDL_HasLSX()
+}
+
+fn C.SDL_HasLASX() bool
+
+// has_lasx determines whether the CPU has LASX (LOONGARCH SIMD) features.
+//
+// This always returns false on CPUs that aren't using LOONGARCH instruction
+// sets.
+//
+// returns SDL_TRUE if the CPU has LOONGARCH LASX features or SDL_FALSE if
+//          not.
+//
+// NOTE This function is available since SDL 2.24.0.
+pub fn has_lasx() bool {
+	return C.SDL_HasLASX()
+}
+
 fn C.SDL_GetSystemRAM() int
 
 // get_system_ram gets the amount of RAM configured in the system.
 //
-// returns the amount of RAM configured in the system in MB.
+// returns the amount of RAM configured in the system in MiB.
 //
 // NOTE This function is available since SDL 2.0.1.
 pub fn get_system_ram() int {
@@ -410,7 +440,7 @@ fn C.SDL_SIMDAlloc(len usize) voidptr
 //
 // NOTE This function is available since SDL 2.0.10.
 //
-// See also: SDL_SIMDAlignment
+// See also: SDL_SIMDGetAlignment
 // See also: SDL_SIMDRealloc
 // See also: SDL_SIMDFree
 pub fn simd_alloc(len usize) voidptr {
@@ -436,7 +466,7 @@ fn C.SDL_SIMDRealloc(mem voidptr, len usize) voidptr
 //
 // NOTE This function is available since SDL 2.0.14.
 //
-// See also: SDL_SIMDAlignment
+// See also: SDL_SIMDGetAlignment
 // See also: SDL_SIMDAlloc
 // See also: SDL_SIMDFree
 pub fn simd_realloc(mem voidptr, len usize) voidptr {

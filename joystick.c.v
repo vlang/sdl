@@ -31,13 +31,7 @@ pub struct C.SDL_Joystick {
 
 pub type Joystick = C.SDL_Joystick
 
-[typedef]
-pub struct C.SDL_JoystickGUID {
-pub:
-	data [16]u8
-}
-
-pub type JoystickGUID = C.SDL_JoystickGUID
+pub type JoystickGUID = C.SDL_GUID
 
 // JoystickType is C.SDL_JoystickType
 pub enum JoystickType {
@@ -112,6 +106,7 @@ fn C.SDL_NumJoysticks() int
 // NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_JoystickName
+// See also: SDL_JoystickPath
 // See also: SDL_JoystickOpen
 pub fn num_joysticks() int {
 	return C.SDL_NumJoysticks()
@@ -136,6 +131,25 @@ pub fn joystick_name_for_index(device_index int) &char {
 	return C.SDL_JoystickNameForIndex(device_index)
 }
 
+fn C.SDL_JoystickPathForIndex(device_index int) &char
+
+// joystick_path_for_index gets the implementation dependent path of a joystick.
+//
+// This can be called before any joysticks are opened.
+//
+// `device_index` the index of the joystick to query (the N'th joystick
+//                     on the system)
+// returns the path of the selected joystick. If no path can be found, this
+//          function returns NULL; call SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.24.0.
+//
+// See also: SDL_JoystickPath
+// See also: SDL_JoystickOpen
+pub fn joystick_path_for_index(device_index int) &char {
+	return C.SDL_JoystickPathForIndex(device_index)
+}
+
 fn C.SDL_JoystickGetDevicePlayerIndex(device_index int) int
 
 // joystick_get_device_player_index gets the player index of a joystick, or -1 if it's not available This can be
@@ -146,7 +160,7 @@ pub fn joystick_get_device_player_index(device_index int) int {
 	return C.SDL_JoystickGetDevicePlayerIndex(device_index)
 }
 
-fn C.SDL_JoystickGetDeviceGUID(device_index int) C.SDL_JoystickGUID
+fn C.SDL_JoystickGetDeviceGUID(device_index int) JoystickGUID
 
 // joystick_get_device_guid gets the implementation-dependent GUID for the joystick at a given device
 // index.
@@ -311,6 +325,52 @@ pub fn joystick_attach_virtual(@type JoystickType, naxes int, nbuttons int, nhat
 	return C.SDL_JoystickAttachVirtual(C.SDL_JoystickType(@type), naxes, nbuttons, nhats)
 }
 
+// The structure that defines an extended virtual joystick description
+//
+// The caller must zero the structure and then initialize the version with `SDL_VIRTUAL_JOYSTICK_DESC_VERSION` before passing it to SDL_JoystickAttachVirtualEx()
+// All other elements of this structure are optional and can be left 0.
+//
+// See also: SDL_JoystickAttachVirtualEx
+[typedef]
+pub struct C.SDL_VirtualJoystickDesc {
+pub mut:
+	version     u16     // `SDL_VIRTUAL_JOYSTICK_DESC_VERSION`
+	@type       u16     // `SDL_JoystickType`
+	naxes       u16     // the number of axes on this joystick
+	nbuttons    u16     // the number of buttons on this joystick
+	nhats       u16     // the number of hats on this joystick
+	vendor_id   u16     // the USB vendor ID of this joystick
+	product_id  u16     // the USB product ID of this joystick
+	padding     u16     // unused
+	button_mask u32     // A mask of which buttons are valid for this controllere.g. (1 << SDL_CONTROLLER_BUTTON_A)
+	axis_mask   u32     // A mask of which axes are valid for this controllere.g. (1 << SDL_CONTROLLER_AXIS_LEFTX)
+	name        &char   // the name of the joystick
+	userdata    voidptr // User data pointer passed to callbacks
+	//
+	Update         fn (userdata voidptr) // Called when the joystick state should be updated
+	SetPlayerIndex fn (userdata voidptr, player_index int) // Called when the player index is set
+	Rumble         fn (userdata voidptr, low_frequency_rumble u16, high_frequency_rumble u16) // Implements SDL_JoystickRumble()
+	RumbleTrigger  fn (userdata voidptr, left_rumble u16, right_rumble u16) // Implements SDL_JoystickRumbleTriggers()
+	SetLED         fn (userdata voidptr, red u8, green u8, blue u8)    // Implements SDL_JoystickSetLED()
+	SendEffect     fn (userdata voidptr, const_data voidptr, size int) // Implements SDL_JoystickSendEffect()
+}
+
+pub type VirtualJoystickDesc = C.SDL_VirtualJoystickDesc
+
+// virtual_joystick_desc_version is the current version of the SDL_VirtualJoystickDesc structure
+pub const virtual_joystick_desc_version = C.SDL_VIRTUAL_JOYSTICK_DESC_VERSION // 1
+
+fn C.SDL_JoystickAttachVirtualEx(const_desc &C.SDL_VirtualJoystickDesc) int
+
+// joystick_attach_virtual_ex attachs a new virtual joystick with extended properties.
+//
+// returns the joystick's device index, or -1 if an error occurred.
+//
+// NOTE This function is available since SDL 2.24.0.
+pub fn joystick_attach_virtual_ex(const_desc &VirtualJoystickDesc) int {
+	return C.SDL_JoystickAttachVirtualEx(const_desc)
+}
+
 fn C.SDL_JoystickDetachVirtual(device_index int) int
 
 // joystick_detach_virtual detachs a virtual joystick.
@@ -412,6 +472,21 @@ pub fn joystick_name(joystick &Joystick) &char {
 	return C.SDL_JoystickName(joystick)
 }
 
+fn C.SDL_JoystickPath(joystick &C.SDL_Joystick) &char
+
+// joystick_path gets the implementation dependent path of a joystick.
+//
+// `joystick` the SDL_Joystick obtained from SDL_JoystickOpen()
+// returns the path of the selected joystick. If no path can be found, this
+//          function returns NULL; call SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.24.0.
+//
+// See also: SDL_JoystickPathForIndex
+pub fn joystick_path(joystick &Joystick) &char {
+	return C.SDL_JoystickPath(joystick)
+}
+
 fn C.SDL_JoystickGetPlayerIndex(joystick &C.SDL_Joystick) int
 
 // joystick_get_player_index gets the player index of an opened joystick.
@@ -432,14 +507,15 @@ fn C.SDL_JoystickSetPlayerIndex(joystick &C.SDL_Joystick, player_index int)
 // joystick_set_player_index sets the player index of an opened joystick.
 //
 // `joystick` the SDL_Joystick obtained from SDL_JoystickOpen()
-// `player_index` the player index to set.
-// `
+// `player_index` Player index to assign to this joystick, or -1 to clear
+//                the player index and turn off player LEDs.
+//
 // NOTE This function is available since SDL 2.0.12.
 pub fn joystick_set_player_index(joystick &Joystick, player_index int) {
 	C.SDL_JoystickSetPlayerIndex(joystick, player_index)
 }
 
-fn C.SDL_JoystickGetGUID(joystick &C.SDL_Joystick) C.SDL_JoystickGUID
+fn C.SDL_JoystickGetGUID(joystick &C.SDL_Joystick) JoystickGUID
 
 // joystick_get_guid gets the implementation-dependent GUID for the joystick.
 //
@@ -500,6 +576,21 @@ pub fn joystick_get_product_version(joystick &Joystick) u16 {
 	return C.SDL_JoystickGetProductVersion(joystick)
 }
 
+fn C.SDL_JoystickGetFirmwareVersion(joystick &C.SDL_Joystick) u16
+
+// joystick_get_firmware_version gets the firmware version of an opened joystick, if available.
+//
+// If the firmware version isn't available this function returns 0.
+//
+// `joystick` the SDL_Joystick obtained from SDL_JoystickOpen()
+// returns the firmware version of the selected joystick, or 0 if
+//          unavailable.
+//
+// NOTE This function is available since SDL 2.24.0.
+pub fn joystick_get_firmware_version(joystick &Joystick) u16 {
+	return C.SDL_JoystickGetFirmwareVersion(joystick)
+}
+
 fn C.SDL_JoystickGetSerial(joystick &C.SDL_Joystick) &char
 
 // joystick_get_serial gets the serial number of an opened joystick, if available.
@@ -543,7 +634,7 @@ fn C.SDL_JoystickGetGUIDString(guid C.SDL_JoystickGUID, psz_guid &char, cb_guid 
 // See also: SDL_JoystickGetGUID
 // See also: SDL_JoystickGetGUIDFromString
 pub fn joystick_get_guid_string(guid JoystickGUID, psz_guid &char, cb_guid int) {
-	C.SDL_JoystickGetGUIDString(guid, psz_guid, cb_guid)
+	C.SDL_JoystickGetGUIDString(C.SDL_JoystickGUID(guid), psz_guid, cb_guid)
 }
 
 fn C.SDL_JoystickGetGUIDFromString(pch_guid &char) C.SDL_JoystickGUID

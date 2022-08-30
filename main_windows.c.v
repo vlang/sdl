@@ -52,3 +52,21 @@ fn C.SDL_UnregisterApp()
 pub fn unregister_app() {
 	C.SDL_UnregisterApp()
 }
+
+/*
+TODO support GDK?
+$if gdk ? {
+	fn C.SDL_GDKRunApp(main_function C.SDL_main_func, reserved voidptr) int
+	// Initialize and launch an SDL GDK application.
+	//
+	// `main_function` the SDL app's C-style main(), an SDL_main_func
+	// `reserved` reserved for future use; should be NULL
+	// returns 0 on success or -1 on failure; call SDL_GetError() to retrieve
+	//         more information on the failure.
+	//
+	// NOTE This function is available since SDL 2.24.0.
+	gdk_run_app(main_function C.SDL_main_func, reserved voidptr) int {
+		return C.SDL_GDKRunApp(main_function, reserved)
+	}
+}
+*/

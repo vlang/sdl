@@ -35,6 +35,10 @@ pub enum GameControllerType {
 	ps5 = C.SDL_CONTROLLER_TYPE_PS5
 	amazon_luna = C.SDL_CONTROLLER_TYPE_AMAZON_LUNA
 	google_stadia = C.SDL_CONTROLLER_TYPE_GOOGLE_STADIA
+	nvidia_shield = C.SDL_CONTROLLER_TYPE_NVIDIA_SHIELD
+	nintendo_switch_joycon_left = C.SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_LEFT
+	nintendo_switch_joycon_right = C.SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_RIGHT
+	nintendo_switch_joycon_pair = C.SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_PAIR
 }
 
 // GameControllerBindType is C.SDL_GameControllerBindType
@@ -211,7 +215,7 @@ fn C.SDL_GameControllerMappingForGUID(guid C.SDL_JoystickGUID) &char
 // See also: SDL_JoystickGetDeviceGUID
 // See also: SDL_JoystickGetGUID
 pub fn game_controller_mapping_for_guid(guid JoystickGUID) &char {
-	return C.SDL_GameControllerMappingForGUID(guid)
+	return C.SDL_GameControllerMappingForGUID(C.SDL_JoystickGUID(guid))
 }
 
 fn C.SDL_GameControllerMapping(gamecontroller &C.SDL_GameController) &char
@@ -276,6 +280,27 @@ fn C.SDL_GameControllerNameForIndex(joystick_index int) &char
 // See also: SDL_IsGameController
 pub fn game_controller_name_for_index(joystick_index int) &char {
 	return C.SDL_GameControllerNameForIndex(joystick_index)
+}
+
+fn C.SDL_GameControllerPathForIndex(joystick_index int) &char
+
+// game_controller_path_for_index gets the implementation dependent path for the game controller.
+//
+// This function can be called before any controllers are opened.
+//
+// `joystick_index` is the same as the `device_index` passed to
+// SDL_JoystickOpen().
+//
+// `joystick_index` the device_index of a device, from zero to
+//                       SDL_NumJoysticks()-1
+// returns the implementation-dependent path for the game controller, or NULL
+//          if there is no path or the index is invalid.
+//
+// NOTE This function is available since SDL 2.24.0.
+//
+// See also: SDL_GameControllerPath
+pub fn game_controller_path_for_index(joystick_index int) &char {
+	return C.SDL_GameControllerPathForIndex(joystick_index)
 }
 
 fn C.SDL_GameControllerTypeForIndex(joystick_index int) C.SDL_GameControllerType
@@ -367,7 +392,7 @@ pub fn game_controller_from_player_index(player_index int) &GameController {
 	return C.SDL_GameControllerFromPlayerIndex(player_index)
 }
 
-fn C.SDL_GameControllerName(gamecontroller &C.SDL_GameController) &char
+fn C.SDL_GameControllerName(gamecontroller &GameController) &char
 
 // game_controller_name gets the implementation-dependent name for an opened game controller.
 //
@@ -385,6 +410,25 @@ fn C.SDL_GameControllerName(gamecontroller &C.SDL_GameController) &char
 // See also: SDL_GameControllerOpen
 pub fn game_controller_name(gamecontroller &GameController) &char {
 	return C.SDL_GameControllerName(gamecontroller)
+}
+
+fn C.SDL_GameControllerPath(gamecontroller &C.SDL_GameController) &char
+
+// game_controller_path gets the implementation-dependent path for an opened game controller.
+//
+// This is the same path as returned by SDL_GameControllerNameForIndex(), but
+// it takes a controller identifier instead of the (unstable) device index.
+//
+// `gamecontroller` a game controller identifier previously returned by
+//                       SDL_GameControllerOpen()
+// returns the implementation dependent path for the game controller, or NULL
+//          if there is no path or the identifier passed is invalid.
+//
+// NOTE This function is available since SDL 2.24.0.
+//
+// See also: SDL_GameControllerPathForIndex
+pub fn game_controller_path(gamecontroller &GameController) &char {
+	return C.SDL_GameControllerPath(gamecontroller)
 }
 
 fn C.SDL_GameControllerGetType(gamecontroller &C.SDL_GameController) C.SDL_GameControllerType
@@ -421,7 +465,8 @@ fn C.SDL_GameControllerSetPlayerIndex(gamecontroller &C.SDL_GameController, play
 // game_controller_set_player_index sets the player index of an opened game controller.
 //
 // `gamecontroller` the game controller object to adjust.
-// `player_index` Player index to assign to this controller.
+// `player_index` Player index to assign to this controller, or -1 to
+//                clear the player index and turn off player LEDs.
 //
 // NOTE This function is available since SDL 2.0.12.
 pub fn game_controller_set_player_index(gamecontroller &GameController, player_index int) {
@@ -468,6 +513,20 @@ fn C.SDL_GameControllerGetProductVersion(gamecontroller &C.SDL_GameController) u
 // NOTE This function is available since SDL 2.0.6.
 pub fn game_controller_get_product_version(gamecontroller &GameController) u16 {
 	return C.SDL_GameControllerGetProductVersion(gamecontroller)
+}
+
+fn C.SDL_GameControllerGetFirmwareVersion(gamecontroller &C.SDL_GameController) u16
+
+// game_controller_get_firmware_version gets the firmware version of an opened controller, if available.
+//
+// If the firmware version isn't available this function returns 0.
+//
+// `gamecontroller` the game controller object to query.
+// returns the controller firmware version, or zero if unavailable.
+//
+// NOTE This function is available since SDL 2.24.0.
+pub fn game_controller_get_firmware_version(gamecontroller &GameController) u16 {
+	return C.SDL_GameControllerGetFirmwareVersion(gamecontroller)
 }
 
 fn C.SDL_GameControllerGetSerial(gamecontroller &C.SDL_GameController) &char

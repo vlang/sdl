@@ -218,6 +218,7 @@ pub enum GLattr {
 	context_release_behavior = C.SDL_GL_CONTEXT_RELEASE_BEHAVIOR
 	context_reset_notification = C.SDL_GL_CONTEXT_RESET_NOTIFICATION
 	context_no_error = C.SDL_GL_CONTEXT_NO_ERROR
+	floatbuffers = C.SDL_GL_FLOATBUFFERS
 }
 
 // GLprofile is C.SDL_GLprofile
@@ -463,6 +464,15 @@ fn C.SDL_GetDisplayDPI(display_index int, ddpi &f32, hdpi &f32, vdpi &f32) int
 // A failure of this function usually means that either no DPI information is
 // available or the `displayIndex` is out of range.
 //
+// **WARNING**: This reports the DPI that the hardware reports, and it is not
+// always reliable! It is almost always better to use SDL_GetWindowSize() to
+// find the window size, which might be in logical points instead of pixels,
+// and then SDL_GL_GetDrawableSize(), SDL_Vulkan_GetDrawableSize(),
+// SDL_Metal_GetDrawableSize(), or SDL_GetRendererOutputSize(), and compare
+// the two values to get an actual scaling value between the two. We will be
+// rethinking how high-dpi details should be managed in SDL3 to make things
+// more consistent, reliable, and clear.
+//
 // `displayIndex` the index of the display from which DPI information
 //                     should be queried
 // `ddpi` a pointer filled in with the diagonal DPI of the display; may
@@ -617,6 +627,39 @@ pub fn get_closest_display_mode(display_index int, const_mode &DisplayMode, clos
 	return C.SDL_GetClosestDisplayMode(display_index, const_mode, closest)
 }
 
+fn C.SDL_GetPointDisplayIndex(const_point &C.SDL_Point) int
+
+// get_point_display_index gets the index of the display containing a point
+//
+// `point` the point to query
+// returns the index of the display containing the point or a negative error
+//          code on failure; call SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.24.0.
+//
+// See also: SDL_GetDisplayBounds
+// See also: SDL_GetNumVideoDisplays
+pub fn get_point_display_index(const_point &Point) int {
+	return C.SDL_GetPointDisplayIndex(const_point)
+}
+
+fn C.SDL_GetRectDisplayIndex(const_rect &C.SDL_Rect) int
+
+// get_rect_display_index gets the index of the display primarily containing a rect
+//
+// `rect` the rect to query
+// returns the index of the display entirely containing the rect or closest
+//          to the center of the rect on success or a negative error code on
+//          failure; call SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.24.0.
+//
+// See also: SDL_GetDisplayBounds
+// See also: SDL_GetNumVideoDisplays
+pub fn get_rect_display_index(const_rect &Rect) int {
+	return C.SDL_GetRectDisplayIndex(const_rect)
+}
+
 fn C.SDL_GetWindowDisplayIndex(window &C.SDL_Window) int
 
 // get_window_display_index gets the index of the display associated with a window.
@@ -736,7 +779,10 @@ fn C.SDL_CreateWindow(title &char, x int, y int, w int, h int, flags u32) &C.SDL
 // in pixels may differ from its size in screen coordinates on platforms with
 // high-DPI support (e.g. iOS and macOS). Use SDL_GetWindowSize() to query the
 // client area's size in screen coordinates, and SDL_GL_GetDrawableSize() or
-// SDL_GetRendererOutputSize() to query the drawable size in pixels.
+// SDL_GetRendererOutputSize() to query the drawable size in pixels. Note that
+// when this flag is set, the drawable size can vary after the window is
+// created and should be queried after major window events such as when the
+// window is resized or moved between displays.
 //
 // If the window is set fullscreen, the width and height parameters `w` and
 // `h` will not be used. However, invalid size parameters (e.g. too large) may
@@ -2108,13 +2154,8 @@ fn C.SDL_GL_SetSwapInterval(interval int) int
 // retry the call with 1 for the interval.
 //
 // Adaptive vsync is implemented for some glX drivers with
-// GLX_EXT_swap_control_tear:
-//
-// https://www.opengl.org/registry/specs/EXT/glx_swap_control_tear.txt
-//
-// and for some Windows drivers with WGL_EXT_swap_control_tear:
-//
-// https://www.opengl.org/registry/specs/EXT/wgl_swap_control_tear.txt
+// GLX_EXT_swap_control_tear, and for some Windows drivers with
+// WGL_EXT_swap_control_tear.
 //
 // Read more on the Khronos wiki:
 // https://www.khronos.org/opengl/wiki/Swap_Interval#Adaptive_Vsync

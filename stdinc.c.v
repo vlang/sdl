@@ -101,6 +101,15 @@ pub type CallocFunc = C.SDL_calloc_func // fn(nmemb usize, size usize) voidptr
 pub type ReallocFunc = C.SDL_realloc_func // fn(mem voidptr, size usize) voidptr
 pub type FreeFunc = C.SDL_free_func //fn(mem voidptr)
 
+fn C.SDL_GetOriginalMemoryFunctions(malloc_func &C.SDL_malloc_func, calloc_func &C.SDL_calloc_func, realloc_func &C.SDL_realloc_func, free_func &C.SDL_free_func)
+
+// get_original_memory_functions gets the original set of SDL memory functions
+//
+// NOTE This function is available since SDL 2.24.0.
+pub fn get_original_memory_functions(malloc_func &C.SDL_malloc_func, calloc_func &C.SDL_calloc_func, realloc_func &C.SDL_realloc_func, free_func &C.SDL_free_func){
+	 C.SDL_GetOriginalMemoryFunctions(malloc_func, calloc_func, realloc_func, free_func)
+}
+
 fn C.SDL_GetMemoryFunctions(malloc_func &C.SDL_malloc_func, calloc_func &C.SDL_calloc_func, realloc_func &C.SDL_realloc_func, free_func &C.SDL_free_func)
 
 // get_memory_functions gets the current set of SDL memory functions
@@ -150,6 +159,13 @@ pub type QSortCompare = fn (const_a voidptr, const_b voidptr) int
 fn C.SDL_qsort(base voidptr, nmemb usize, size usize, compare QSortCompare)
 pub fn qsort(base voidptr, nmemb usize, size usize, compare QSortCompare) {
 	C.SDL_qsort(base, nmemb, size, compare)
+}
+
+fn C.SDL_bsearch(const_key voidptr, const_base voidptr, nmemb usize, size usize, compare fn (voidptr, voidptr)) voidptr
+
+// bsearch gets the number of outstanding (unfreed) allocations
+pub fn bsearch(const_key voidptr, const_base voidptr, nmemb usize, size usize, compare fn (voidptr, voidptr)) voidptr {
+	return C.SDL_bsearch(const_key, const_base, nmemb, size, compare)
 }
 
 fn C.SDL_abs(x int) int
@@ -225,6 +241,11 @@ pub fn toupper(x int) int {
 fn C.SDL_tolower(x int) int
 pub fn tolower(x int) int {
 	return C.SDL_tolower(x)
+}
+
+fn C.SDL_crc16(crc u16, const_data voidptr, len usize) u16
+pub fn crc16(crc u16, const_data voidptr, len usize) u16 {
+	return C.SDL_crc16(crc, const_data, len)
 }
 
 fn C.SDL_crc32(crc u32, const_data voidptr, len usize) u32
@@ -395,6 +416,11 @@ pub fn strtokr(s1 &char, const_s2 &char, saveptr &&char) &char {
 fn C.SDL_utf8strlen(str &char) usize
 pub fn utf8strlen(str &char) usize {
 	return C.SDL_utf8strlen(str)
+}
+
+fn C.SDL_utf8strnlen(const_str &char, bytes usize) usize
+pub fn utf8strnlen(const_str &char, bytes usize) usize {
+	return C.SDL_utf8strnlen(const_str, bytes)
 }
 
 fn C.SDL_itoa(value int, str &char, radix int) &char
@@ -778,3 +804,23 @@ fn C.SDL_iconv_utf8_locale(inbuf &char) &char
 fn C.SDL_iconv_utf8_ucs2(inbuf &char) &char
 fn C.SDL_iconv_utf8_ucs4(inbuf &char) &char
 fn C.SDL_iconv_wchar_utf8(inbuf &u16)
+
+fn C.SDL_size_mul_overflow(a usize, b usize, ret &usize) int
+
+// If a * b would overflow, return -1. Otherwise store a * b via ret
+// and return 0.
+//
+// NOTE This function is available since SDL 2.24.0.
+pub fn size_mul_overflow(a usize, b usize, ret &usize) int {
+	return C.SDL_size_mul_overflow(a, b, ret)
+}
+
+fn C.SDL_size_add_overflow(a usize, b usize, ret &usize) int
+
+// If a + b would overflow, return -1. Otherwise store a + b via ret
+// and return 0.
+//
+// NOTE This function is available since SDL 2.24.0.
+pub fn size_add_overflow(a usize, b usize, ret &usize) int {
+	return C.SDL_size_add_overflow(a, b, ret)
+}

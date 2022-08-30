@@ -305,16 +305,15 @@ pub const (
 	// The default value is "1".  This hint must be set before initializing the joystick subsystem.
 	hint_enable_steam_controllers                 = 'SDL_ENABLE_STEAM_CONTROLLERS'
 
-	//  A variable controlling whether SDL logs all events pushed onto its internal queue.
+	//  A variable controlling verbosity of the logging of SDL events pushed onto the internal queue.
 	//
-	// This variable can be set to the following values:
+	// This variable can be set to the following values, from least to most verbose:
 	//
 	// "0"     - Don't log any events (default)
-	// "1"     - Log all events except mouse and finger motion, which are pretty spammy.
-	// "2"     - Log all events.
+	// "1"     - Log most events (other than the really spammy ones).
+	// "2"     - Include mouse and finger motion events.
+	// "3"     - Include SDL_SysWMEvent events.
 	//
-	// This is generally meant to be used to debug SDL itself, but can be useful
-	// for application developers that need better visibility into what is going
 	// on in the event queue. Logged events are sent through SDL_Log(), which
 	// means by default they appear on stdout on most platforms or maybe
 	// OutputDebugString() on Windows, and can be funneled by the app with
@@ -527,14 +526,21 @@ pub const (
 	//
 	hint_joystick_gamecube_rumble_brake           = 'SDL_JOYSTICK_GAMECUBE_RUMBLE_BRAKE'
 
-	//  A variable controlling whether Switch Joy-Cons should be treated the same as Switch Pro Controllers when using the HIDAPI driver.
+	//  A variable controlling whether the HIDAPI driver for Nintendo Switch Joy-Cons should be used.
 	//
 	// This variable can be set to the following values:
-	// "0"       - basic Joy-Con support with no analog input (the default)
-	// "1"       - Joy-Cons treated as half full Pro Controllers with analog inputs and sensors
+	// "0"       - HIDAPI driver is not used
+	// "1"       - HIDAPI driver is used
 	//
-	// This does not combine Joy-Cons into a single controller. That's up to the user.
+	// The default is the value of SDL_HINT_JOYSTICK_HIDAPI
 	hint_joystick_hidapi_joy_cons                 = 'SDL_JOYSTICK_HIDAPI_JOY_CONS'
+
+	//  A variable controlling whether Nintendo Switch Joy-Con controllers will be combined into a single Pro-like controller when using the HIDAPI driver
+	//
+	// This variable can be set to the following values:
+	// "0"       - Left and right Joy-Con controllers will not be combined and each will be a mini-gamepad
+	// "1"       - Left and right Joy-Con controllers will be combined into a single controller (the default)
+	hint_joystick_hidapi_combine_joy_cons         = 'SDL_JOYSTICK_HIDAPI_COMBINE_JOY_CONS'
 
 	//  A variable controlling whether the HIDAPI driver for Amazon Luna controllers connected via Bluetooth should be used.
 	//
@@ -544,6 +550,24 @@ pub const (
 	//
 	// The default is the value of SDL_HINT_JOYSTICK_HIDAPI
 	hint_joystick_hidapi_luna                     = 'SDL_JOYSTICK_HIDAPI_LUNA'
+
+	//  A variable controlling whether the HIDAPI driver for Nintendo Online classic controllers should be used.
+	//
+	// This variable can be set to the following values:
+	// "0"       - HIDAPI driver is not used
+	// "1"       - HIDAPI driver is used
+	//
+	// The default is the value of SDL_HINT_JOYSTICK_HIDAPI
+	hint_joystick_hidapi_nintendo_classic         = 'SDL_JOYSTICK_HIDAPI_NINTENDO_CLASSIC'
+
+	//  A variable controlling whether the HIDAPI driver for NVIDIA SHIELD controllers should be used.
+	//
+	// This variable can be set to the following values:
+	// "0"       - HIDAPI driver is not used
+	// "1"       - HIDAPI driver is used
+	//
+	// The default is the value of SDL_HINT_JOYSTICK_HIDAPI
+	hint_joystick_hidapi_shield                   = 'SDL_JOYSTICK_HIDAPI_SHIELD'
 
 	//  A variable controlling whether the HIDAPI driver for PS4 controllers should be used.
 	//
@@ -633,14 +657,30 @@ pub const (
 	// The default is the value of SDL_HINT_JOYSTICK_HIDAPI
 	hint_joystick_hidapi_switch                   = 'SDL_JOYSTICK_HIDAPI_SWITCH'
 
-	//  A variable controlling whether the Home button LED should be turned on when a Nintendo Switch controller is opened
+	//  A variable controlling whether the Home button LED should be turned on when a Nintendo Switch Pro controller is opened
 	//
 	// This variable can be set to the following values:
 	// "0"       - home button LED is turned off
 	// "1"       - home button LED is turned on
 	//
-	// By default the Home button LED state is not changed.
+	// By default the Home button LED state is not changed. This hint can also be set to a floating point value between 0.0 and 1.0 which controls the brightness of the Home button LED.
 	hint_joystick_hidapi_switch_home_led          = 'SDL_JOYSTICK_HIDAPI_SWITCH_HOME_LED'
+
+	//  A variable controlling whether the Home button LED should be turned on when a Nintendo Switch Joy-Con controller is opened
+	//
+	// This variable can be set to the following values:
+	// "0"       - home button LED is turned off
+	// "1"       - home button LED is turned on
+	//
+	// By default the Home button LED state is not changed. This hint can also be set to a floating point value between 0.0 and 1.0 which controls the brightness of the Home button LED.
+	hint_joystick_hidapi_joycon_home_led          = 'SDL_JOYSTICK_HIDAPI_JOYCON_HOME_LED'
+
+	//  A variable controlling whether the player LEDs should be lit to indicate which player is associated with a Nintendo Switch controller.
+	//
+	// This variable can be set to the following values:
+	// "0"       - player LEDs are not enabled
+	// "1"       - player LEDs are enabled (the default)
+	hint_joystick_hidapi_switch_player_led        = 'SDL_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED'
 
 	//  A variable controlling whether the HIDAPI driver for XBox controllers should be used.
 	//
@@ -712,6 +752,21 @@ pub const (
 	// This variable is currently only used by the Linux joystick driver.
 	hint_joystick_device                          = 'SDL_JOYSTICK_DEVICE'
 
+	//  A variable controlling whether joysticks on Linux will always treat 'hat' axis inputs (ABS_HAT0X - ABS_HAT3Y) as 8-way digital hats without checking whether they may be analog.
+	//
+	// This variable can be set to the following values:
+	// "0"       - Only map hat axis inputs to digital hat outputs if the input axes appear to actually be digital (the default)
+	// "1"       - Always handle the input axes numbered ABS_HAT0X to ABS_HAT3Y as digital hats
+	hint_linux_digital_hats                       = 'SDL_LINUX_DIGITAL_HATS'
+
+	//  A variable controlling whether digital hats on Linux will apply deadzones to their underlying input axes or use unfiltered values.
+	//
+	// This variable can be set to the following values:
+	// "0"       - Return digital hat values based on unfiltered input axis values
+	// "1"       - Return digital hat values with deadzones on the input axes taken into account (the default)
+	//
+	hint_linux_hat_deadzones                      = 'SDL_LINUX_HAT_DEADZONES'
+
 	//  A variable controlling whether to use the classic /dev/input/js* joystick interface or the newer /dev/input/event* joystick interface on Linux
 	//
 	// This variable can be set to the following values:
@@ -739,6 +794,21 @@ pub const (
 	// If present, holding ctrl while left clicking will generate a right click
 	// event when on Mac.
 	hint_mac_ctrl_click_emulate_right_click       = 'SDL_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK'
+
+	//  A variable controlling whether dispatching OpenGL context updates should block the dispatching thread until the main thread finishes processing
+	//
+	// This variable can be set to the following values:
+	// "0"       - Dispatching OpenGL context updates will block the dispatching thread until the main thread finishes processing (default).
+	// "1"       - Dispatching OpenGL context updates will allow the dispatching thread to continue execution.
+	//
+	// Generally you want the default, but if you have OpenGL code in a background thread on a Mac, and the main thread
+	// hangs because it's waiting for that background thread, but that background thread is also hanging because it's
+	// waiting for the main thread to do an update, this might fix your issue.
+	//
+	// This hint only applies to macOS.
+	//
+	// This hint is available since SDL 2.24.0.
+	hint_mac_opengl_async_dispatch                = 'SDL_MAC_OPENGL_ASYNC_DISPATCH'
 
 	//  A variable setting the double click radius, in pixels.
 	hint_mouse_double_click_radius                = 'SDL_MOUSE_DOUBLE_CLICK_RADIUS'
@@ -792,6 +862,15 @@ pub const (
 
 	//  A variable setting the scale for mouse motion, in floating point, when the mouse is in relative mode
 	hint_mouse_relative_speed_scale               = 'SDL_MOUSE_RELATIVE_SPEED_SCALE'
+
+	//  A variable controlling whether a motion event should be generated for mouse warping in relative mode.
+	//
+	// This variable can be set to the following values:
+	// "0"       - Warping the mouse will not generate a motion event in relative mode
+	// "1"       - Warping the mouse will generate a motion event in relative mode
+	//
+	// By default warping the mouse will not generate motion events in relative mode. This avoids the application having to filter out large relative motion due to warping.
+	hint_mouse_relative_warp_motion               = 'SDL_MOUSE_RELATIVE_WARP_MOTION'
 
 	//  A variable controlling whether mouse events should generate synthetic touch events
 	//
@@ -971,6 +1050,8 @@ pub const (
 	//
 	// This variable is case insensitive and can be set to the following values:
 	// "direct3d"
+	// "direct3d11"
+	// "direct3d12"
 	// "opengl"
 	// "opengles2"
 	// "opengles"
@@ -1200,9 +1281,7 @@ pub const (
 	// SDL_WINDOW_RESIZABLE windows will offer the "fullscreen"
 	// button on their titlebars).
 	//
-	// The default value is "1". Spaces are disabled regardless of this hint if
-	// the OS isn't at least Mac OS X Lion (10.7). This hint must be set before
-	// any windows are created.
+	// The default value is "1". This hint must be set before any windows are created.
 	hint_video_mac_fullscreen_spaces              = 'SDL_VIDEO_MAC_FULLSCREEN_SPACES'
 
 	// Minimize your SDL_Window if it loses key focus when in fullscreen mode. Defaults to false.
@@ -1231,6 +1310,19 @@ pub const (
 	//
 	// libdecor is used over xdg-shell when xdg-decoration protocol is unavailable.
 	hint_video_wayland_prefer_libdecor            = 'SDL_VIDEO_WAYLAND_PREFER_LIBDECOR'
+
+	//  A variable controlling whether video mode emulation is enabled underi Wayland.
+	//
+	// When this hint is set, a standard set of emulated CVT video modes will be exposed for use by the application.
+	// If it is disabled, the only modes exposed will be the logical desktop size and, in the case of a scaled
+	// desktop, the native display resolution.
+	//
+	// This variable can be set to the following values:
+	// "0"       - Video mode emulation is disabled.
+	// "1"       - Video mode emulation is enabled.
+	//
+	// By default video mode emulation is enabled.
+	hint_video_wayland_mode_emulation             = 'SDL_VIDEO_WAYLAND_MODE_EMULATION'
 
 	//  A variable that is the address of another SDL_Window* (as a hex string formatted with "%p").
 	//
@@ -1316,13 +1408,11 @@ pub const (
 	//
 	hint_video_x11_window_visualid                = 'SDL_VIDEO_X11_WINDOW_VISUALID'
 
-	//  A variable controlling whether the X11 Xinerama extension should be used.
+	//  A no-longer-used variable controlling whether the X11 Xinerama extension should be used.
 	//
-	// This variable can be set to the following values:
-	// "0"       - Disable Xinerama
-	// "1"       - Enable Xinerama
-	//
-	// By default SDL will use Xinerama if it is available.
+	// Before SDL 2.0.24, this would let apps and users disable Xinerama support on X11.
+	// Now SDL never uses Xinerama, and does not check for this hint at all.
+	// The preprocessor define is left here for source compatibility.
 	hint_video_x11_xinerama                       = 'SDL_VIDEO_X11_XINERAMA'
 
 	//  A variable controlling whether the X11 XRandR extension should be used.
@@ -1331,16 +1421,14 @@ pub const (
 	// "0"       - Disable XRandR
 	// "1"       - Enable XRandR
 	//
-	// By default SDL will not use XRandR because of window manager issues.
+	// By default SDL will use XRandR.
 	hint_video_x11_xrandr                         = 'SDL_VIDEO_X11_XRANDR'
 
-	//  A variable controlling whether the X11 VidMode extension should be used.
+	//  A no-longer-used variable controlling whether the X11 VidMode extension should be used.
 	//
-	// This variable can be set to the following values:
-	// "0"       - Disable XVidMode
-	// "1"       - Enable XVidMode
-	//
-	// By default SDL will use XVidMode if it is available.
+	// Before SDL 2.0.24, this would let apps and users disable XVidMode support on X11.
+	// Now SDL never uses XVidMode, and does not check for this hint at all.
+	// The preprocessor define is left here for source compatibility.
 	hint_video_x11_xvidmode                       = 'SDL_VIDEO_X11_XVIDMODE'
 
 	//  Controls how the fact chunk affects the loading of a WAVE file.
@@ -1480,6 +1568,53 @@ pub const (
 	//
 	hint_windows_use_d3d9ex                       = 'SDL_WINDOWS_USE_D3D9EX'
 
+	//  Controls whether SDL will declare the process to be DPI aware.
+	//
+	// This hint must be set before initializing the video subsystem.
+	//
+	// The main purpose of declaring DPI awareness is to disable OS bitmap scaling of SDL windows on monitors with
+	// a DPI scale factor.
+	//
+	// This hint is equivalent to requesting DPI awareness via external means (e.g. calling SetProcessDpiAwarenessContext)
+	// and does not cause SDL to use a virtualized coordinate system, so it will generally give you 1 SDL coordinate = 1 pixel
+	// even on high-DPI displays.
+	//
+	// For more information, see:
+	// https://docs.microsoft.com/en-us/windows/win32/hidpi/high-dpi-desktop-application-development-on-windows
+	//
+	// This variable can be set to the following values:
+	//   ""             - Do not change the DPI awareness (default).
+	//   "unaware"      - Declare the process as DPI unaware. (Windows 8.1 and later).
+	//   "system"       - Request system DPI awareness. (Vista and later).
+	//   "permonitor"   - Request per-monitor DPI awareness. (Windows 8.1 and later).
+	//   "permonitorv2" - Request per-monitor V2 DPI awareness. (Windows 10, version 1607 and later).
+	//                    The most visible difference from "permonitor" is that window title bar will be scaled
+	//                    to the visually correct size when dragging between monitors with different scale factors.
+	//                    This is the preferred DPI awareness level.
+	//
+	// If the requested DPI awareness is not available on the currently running OS, SDL will try to request the best
+	// available match.
+	hint_windows_dpi_awareness                    = 'SDL_WINDOWS_DPI_AWARENESS'
+
+	// Uses DPI-scaled points as the SDL coordinate system on Windows.
+	//
+	// This changes the SDL coordinate system units to be DPI-scaled points, rather than pixels everywhere.
+	// This means windows will be appropriately sized, even when created on high-DPI displays with scaling.
+	//
+	// e.g. requesting a 640x480 window from SDL, on a display with 125% scaling in Windows display settings,
+	// will create a window with an 800x600 client area (in pixels).
+	//
+	// Setting this to "1" implicitly requests process DPI awareness (setting SDL_WINDOWS_DPI_AWARENESS is unnecessary),
+	// and forces SDL_WINDOW_ALLOW_HIGHDPI on all windows.
+	//
+	// This variable can be set to the following values:
+	//   "0"       - SDL coordinates equal Windows coordinates. No automatic window resizing when dragging
+	//               between monitors with different scale factors (unless this is performed by
+	//               Windows itself, which is the case when the process is DPI unaware).
+	//   "1"       - SDL coordinates are in DPI-scaled points. Automatically resize windows as needed on
+	//               displays with non-100% scale factors.
+	hint_windows_dpi_scaling                      = 'SDL_WINDOWS_DPI_SCALING'
+
 	//  A variable controlling whether the window frame and title bar are interactive when the cursor is hidden
 	//
 	// This variable can be set to the following values:
@@ -1610,6 +1745,13 @@ pub const (
 	// "1"       - Enable XInput detection (the default)
 	hint_xinput_enabled                           = 'SDL_XINPUT_ENABLED'
 
+	//  A variable that lets you disable the detection and use of DirectInput gamepad devices
+	//
+	// The variable can be set to the following values:
+	// "0"       - Disable DirectInput detection (only uses XInput)
+	// "1"       - Enable DirectInput detection (the default)
+	hint_directinput_enabled                      = 'SDL_DIRECTINPUT_ENABLED'
+
 	//  A variable that causes SDL to use the old axis and button mapping for XInput devices.
 	//
 	// This hint is for backwards compatibility only and will be removed in SDL 2.1
@@ -1715,6 +1857,37 @@ pub const (
 	// This hint is available since SDL 2.0.22. Before then, you could set
 	// the environment variable to get the same effect.
 	hint_audiodriver                              = 'SDL_AUDIODRIVER'
+
+	//  A variable that decides what KMSDRM device to use.
+	//
+	// Internally, SDL might open something like "/dev/dri/cardNN" to
+	// access KMSDRM functionality, where "NN" is a device index number.
+	//
+	// SDL makes a guess at the best index to use (usually zero), but the
+	// app or user can set this hint to a number between 0 and 99 to
+	// force selection.
+	//
+	// This hint is available since SDL 2.24.0.
+	hint_kmsdrm_device_index                      = 'SDL_KMSDRM_DEVICE_INDEX'
+
+	//  A variable that treats trackpads as touch devices.
+	//
+	// On macOS (and possibly other platforms in the future), SDL will report
+	// touches on a trackpad as mouse input, which is generally what users
+	// expect from this device; however, these are often actually full
+	// multitouch-capable touch devices, so it might be preferable to some apps
+	// to treat them as such.
+	//
+	// Setting this hint to true will make the trackpad input report as a
+	// multitouch device instead of a mouse. The default is false.
+	//
+	// Note that most platforms don't support this hint. As of 2.24.0, it
+	// only supports MacBooks' trackpads on macOS. Others may follow later.
+	//
+	// This hint is checked during SDL_Init and can not be changed after.
+	//
+	// This hint is available since SDL 2.24.0.
+	hint_trackpad_is_touch_only                   = 'SDL_TRACKPAD_IS_TOUCH_ONLY'
 )
 
 // HintPriority is C.SDL_HintPriority
@@ -1763,6 +1936,25 @@ fn C.SDL_SetHint(const_name &char, const_value &char) bool
 // See also: SDL_SetHintWithPriority
 pub fn set_hint(const_name &char, const_value &char) bool {
 	return C.SDL_SetHint(const_name, const_value)
+}
+
+pub fn C.SDL_ResetHint(const_name &char) bool
+
+// reset_hint resets a hint to the default value.
+//
+// This will reset a hint to the value of the environment variable, or NULL if
+// the environment isn't set. Callbacks will be called normally with this
+// change.
+//
+// `name` the hint to set
+// returns SDL_TRUE if the hint was set, SDL_FALSE otherwise.
+//
+// NOTE This function is available since SDL 2.24.0.
+//
+// See also: SDL_GetHint
+// See also: SDL_SetHint
+pub fn reset_hint(const_name &char) bool {
+	return C.SDL_ResetHint(const_name)
 }
 
 fn C.SDL_GetHint(name &char) &char

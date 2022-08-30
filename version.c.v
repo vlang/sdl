@@ -9,8 +9,8 @@ module sdl
 
 pub const (
 	major_version = C.SDL_MAJOR_VERSION // 2
-	minor_version = C.SDL_MINOR_VERSION // 0
-	patchlevel    = C.SDL_PATCHLEVEL // 22
+	minor_version = C.SDL_MINOR_VERSION // 24
+	patchlevel    = C.SDL_PATCHLEVEL // 0
 )
 
 // Version is information about the version of SDL in use.
@@ -62,10 +62,22 @@ pub fn version(mut ver Version) {
     (1,2,3) -> (1203)
 ```
 */
+//
 // This assumes that there will never be more than 100 patchlevels.
+//
+// In versions higher than 2.9.0, the minor version overflows into
+// the thousands digit: for example, 2.23.0 is encoded as 4300,
+// and 2.255.99 would be encoded as 25799.
+// This macro will not be available in SDL 3.x.
 pub fn C.SDL_VERSIONNUM(x int, y int, z int) int
 
 // SDL_COMPILEDVERSION is the version number macro for the current SDL version.
+//
+// In versions higher than 2.9.0, the minor version overflows into
+// the thousands digit: for example, 2.23.0 is encoded as 4300.
+// This macro will not be available in SDL 3.x.
+//
+// Deprecated, use SDL_VERSION_ATLEAST or SDL_VERSION instead.
 pub fn C.SDL_COMPILEDVERSION() int
 
 // SDL_VERSION_ATLEAST macro will evaluate to true if compiled with SDL at least X.Y.Z.

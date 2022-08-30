@@ -805,10 +805,13 @@ fn C.SDL_RenderGetLogicalSize(renderer &C.SDL_Renderer, w &int, h &int)
 
 // render_get_logical_size gets device independent resolution for rendering.
 //
-// This may return 0 for `w` and `h` if the SDL_Renderer has never had its
-// logical size set by SDL_RenderSetLogicalSize() and never had a render
-// target set.
+// When using the main rendering target (eg no target texture is set): this
+// may return 0 for `w` and `h` if the SDL_Renderer has never had its logical
+// size set by SDL_RenderSetLogicalSize(). Otherwise it returns the logical
+// width and height.
 //
+// When using a target texture: Never return 0 for `w` and `h` at first. Then
+// it returns the logical width and height that are set.//
 // `renderer` a rendering context
 // `w` an int to be filled with the width
 // `h` an int to be filled with the height
@@ -992,7 +995,7 @@ fn C.SDL_RenderWindowToLogical(renderer &C.SDL_Renderer, window_x int, window_y 
 // and logical renderer size set
 //
 // `renderer` the renderer from which the logical coordinates should be
-//                 calcualted
+//                 calculated
 // `windowX` the real X coordinate in the window
 // `windowY` the real Y coordinate in the window
 // `logicalX` the pointer filled with the logical x coordinate
@@ -1010,15 +1013,18 @@ pub fn render_window_to_logical(renderer &Renderer, window_x int, window_y int, 
 
 fn C.SDL_RenderLogicalToWindow(renderer &C.SDL_Renderer, logical_x f32, logical_y f32, window_x &int, window_y &int)
 
-// render_logical_to_window gets real coordinates of point in window when given logical coordinates of point in renderer.
-// Logical coordinates will differ from real coordinates when render is scaled and logical renderer size set
+// render_logical_to_window gets real coordinates of point in window when given logical coordinates of
+// point in renderer.
 //
-// `renderer` the renderer from which the window coordinates should be calculated
+// Logical coordinates will differ from real coordinates when render is scaled
+// and logical renderer size set
+//
+// `renderer` the renderer from which the window coordinates should be
+//                 calculated
 // `logicalX` the logical x coordinate
 // `logicalY` the logical y coordinate
 // `windowX` the pointer filled with the real X coordinate in the window
 // `windowY` the pointer filled with the real Y coordinate in the window
-//
 //
 // NOTE This function is available since SDL 2.0.18.
 //

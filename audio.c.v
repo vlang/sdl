@@ -142,7 +142,7 @@ pub type AudioCallback = fn (userdata voidptr, stream &u8)
 // 2:  FL FR                       (stereo)
 // 3:  FL FR LFE                   (2.1 surround)
 // 4:  FL FR BL BR                 (quad)
-// 5:  FL FR FC BL BR              (quad + center)
+// 5:  FL FR FC BL BR              (4.1 surround)
 // 6:  FL FR FC LFE SL SR          (5.1 surround - last two can also be BL BR)
 // 7:  FL FR FC LFE BC SL SR       (6.1 surround)
 // 8:  FL FR FC LFE BL BR SL SR    (7.1 surround)
@@ -475,6 +475,7 @@ fn C.SDL_GetAudioDeviceName(index int, iscapture int) &char
 // NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetNumAudioDevices
+// See also: SDL_GetDefaultAudioInfo
 pub fn get_audio_device_name(index int, iscapture int) &char {
 	return C.SDL_GetAudioDeviceName(index, iscapture)
 }
@@ -501,8 +502,43 @@ fn C.SDL_GetAudioDeviceSpec(index int, iscapture int, spec &C.SDL_AudioSpec) int
 // NOTE This function is available since SDL 2.0.16.
 //
 // See also: SDL_GetNumAudioDevices
+// See also: SDL_GetDefaultAudioInfo
 pub fn get_audio_device_spec(index int, iscapture int, spec &AudioSpec) int {
 	return C.SDL_GetAudioDeviceSpec(index, iscapture, spec)
+}
+
+fn C.SDL_GetDefaultAudioInfo(name &&char, spec &AudioSpec, iscapture int) int
+
+// get_default_audio_info gets the name and preferred format of the default audio device.
+//
+// Some (but not all!) platforms have an isolated mechanism to get information
+// about the "default" device. This can actually be a completely different
+// device that's not in the list you get from SDL_GetAudioDeviceSpec(). It can
+// even be a network address! (This is discussed in SDL_OpenAudioDevice().)
+//
+// As a result, this call is not guaranteed to be performant, as it can query
+// the sound server directly every time, unlike the other query functions. You
+// should call this function sparingly!
+//
+// `spec` will be filled with the sample rate, sample format, and channel
+// count, if a default device exists on the system. If `name` is provided,
+// will be filled with either a dynamically-allocated UTF-8 string or NULL.
+//
+// `name`` A pointer to be filled with the name of the default device (can
+//             be NULL). Please call SDL_free() when you are done with this
+//             pointer!
+// `spec`` The SDL_AudioSpec to be initialized by this function.
+// `iscapture` non-zero to query the default recording device, zero to
+//                  query the default output device.
+// returns 0 on success, nonzero on error
+//
+// NOTE This function is available since SDL 2.24.0.
+//
+// See also: SDL_GetAudioDeviceName
+// See also: SDL_GetAudioDeviceSpec
+// See also: SDL_OpenAudioDevice
+pub fn get_default_audio_info(name &&char, spec &AudioSpec, iscapture int) int {
+	return C.SDL_GetDefaultAudioInfo(name, spec, iscapture)
 }
 
 // open_audio_device opens a specific audio device.
@@ -570,6 +606,7 @@ pub fn get_audio_device_spec(index int, iscapture int, spec &AudioSpec) int {
 // - `SDL_AUDIO_ALLOW_FREQUENCY_CHANGE`
 // - `SDL_AUDIO_ALLOW_FORMAT_CHANGE`
 // - `SDL_AUDIO_ALLOW_CHANNELS_CHANGE`
+// - `SDL_AUDIO_ALLOW_SAMPLES_CHANGE`
 // - `SDL_AUDIO_ALLOW_ANY_CHANGE`
 //
 // These flags specify how SDL should behave when a device cannot offer a

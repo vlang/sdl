@@ -7,6 +7,11 @@ module sdl
 // SDL_surface.h
 //
 
+[typedef]
+struct C.SDL_BlitMap {}
+
+pub type BlitMap = C.SDL_BlitMap // this is an opaque type.
+
 // Surface is a collection of pixels used in software blitting.
 //
 // NOTE This structure should be treated as read-only, except for `pixels`,
@@ -26,7 +31,7 @@ pub:
 	// list_blitmap voidptr // Private
 	// clipping information
 	clip_rect C.SDL_Rect // Read-only
-	// @map &C.SDL_BlitMap // Private
+	// @map &BlitMap // Private
 	// Reference count -- used when freeing surface
 	refcount int // Read-mostly
 pub mut:

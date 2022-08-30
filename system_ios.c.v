@@ -32,7 +32,7 @@ fn C.SDL_iPhoneSetAnimationCallback(window &C.SDL_Window, interval int, callback
 // This function is only available on Apple iOS.
 //
 // For more information see:
-// [README-ios.md](https://hg.libsdl.org/SDL/file/default/docs/README-ios.md)
+// https://github.com/libsdl-org/SDL/blob/main/docs/README-ios.md
 //
 // This functions is also accessible using the macro
 // SDL_iOSSetAnimationCallback() since SDL 2.0.4.

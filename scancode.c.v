@@ -351,6 +351,25 @@ pub enum Scancode {
 	// These values are mapped from usage page 0x0C (USB consumer page).
 	scancode_audiorewind = C.SDL_SCANCODE_AUDIOREWIND // 285
 	scancode_audiofastforward = C.SDL_SCANCODE_AUDIOFASTFORWARD // 286
+	//
+	// Mobile keys
+	//
+	// These are values that are often used on mobile phones.
+	//
+	// Usually situated below the display on phones and
+	// used as a multi-function feature key for selecting
+	// a software defined function shown on the bottom left
+	// of the display.
+	scancode_softleft = C.SDL_SCANCODE_SOFTLEFT // 287
+	// Usually situated below the display on phones and
+	// used as a multi-function feature key for selecting
+	// a software defined function shown on the bottom right
+	// of the display.
+	scancode_softright = C.SDL_SCANCODE_SOFTRIGHT // 288
+	//
+	scancode_call = C.SDL_SCANCODE_CALL // 289 // Used for accepting phone calls.
+	scancode_endcall = C.SDL_SCANCODE_ENDCALL // 290 // Used for rejecting phone calls.
+	//
 	// Add any other keys here.
 	num_scancodes = C.SDL_NUM_SCANCODES // 512
 }

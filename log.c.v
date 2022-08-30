@@ -4,6 +4,9 @@
 module sdl
 
 pub const (
+	// The maximum size of a log message prior to SDL 2.0.24
+	//
+	// As of 2.0.24 there is no limit to the length of SDL log messages.
 	max_log_message = C.SDL_MAX_LOG_MESSAGE // 4096
 )
 

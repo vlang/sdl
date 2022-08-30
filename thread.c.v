@@ -57,10 +57,10 @@ pub fn create_thread(func C.SDL_ThreadFunction, name &char, data voidptr, pfn_be
 	return C.SDL_CreateThread(func, name, data, pfn_begin_thread, pfn_end_thread)
 }
 
-// extern DECLSPEC SDL_Thread *SDLCALL SDL_CreateThreadWithStackSize(int (SDLCALL * fn) (void *),                 const char *name, const size_t stacksize, void *data,                 pfnSDL_CurrentBeginThread pfnBeginThread,                 pfnSDL_CurrentEndThread pfnEndThread)
-fn C.SDL_CreateThreadWithStackSize((void* ) &C.int (SDLCALL  fn), name &char, stacksize usize, data voidptr, pfn_begin_thread C.pfnSDL_CurrentBeginThread, pfn_end_thread C.pfnSDL_CurrentEndThread) &C.SDL_Thread
-pub fn create_thread_with_stack_size((void* ) &C.int (SDLCALL  fn), name &char, stacksize usize, data voidptr, pfn_begin_thread C.pfnSDL_CurrentBeginThread, pfn_end_thread C.pfnSDL_CurrentEndThread) &C.SDL_Thread{
-	return C.SDL_CreateThreadWithStackSize((void* ), name, stacksize, data, pfn_begin_thread, pfn_end_thread)
+// extern DECLSPEC SDL_Thread *SDLCALL SDL_CreateThreadWithStackSize(SDL_ThreadFunction fn,                 const char *name, const size_t stacksize, void *data,                 pfnSDL_CurrentBeginThread pfnBeginThread,                 pfnSDL_CurrentEndThread pfnEndThread)
+fn C.SDL_CreateThreadWithStackSize(func C.SDL_ThreadFunction, const_name &char, const_stacksize usize, data voidptr, pfn_begin_thread C.pfnSDL_CurrentBeginThread, pfn_end_thread C.pfnSDL_CurrentEndThread) &C.SDL_Thread
+pub fn create_thread_with_stack_size(func C.SDL_ThreadFunction, const_name &char, const_stacksize usize, data voidptr, pfn_begin_thread C.pfnSDL_CurrentBeginThread, pfn_end_thread C.pfnSDL_CurrentEndThread) &C.SDL_Thread{
+	return C.SDL_CreateThreadWithStackSize(func, const_name, const_stacksize, data, pfn_begin_thread, pfn_end_thread)
 }
 
 // extern DECLSPEC SDL_Thread * SDLCALL SDL_CreateThread(SDL_ThreadFunction fn, const char * name, void * data,                 pfnSDL_CurrentBeginThread pfnBeginThread,                 pfnSDL_CurrentEndThread pfnEndThread)

@@ -94,6 +94,7 @@ pub enum EventType {
 	joybuttonup = C.SDL_JOYBUTTONUP // Joystick button released
 	joydeviceadded = C.SDL_JOYDEVICEADDED // A new joystick has been inserted into the system
 	joydeviceremoved = C.SDL_JOYDEVICEREMOVED // An opened joystick has been removed
+	joybatteryupdated = C.SDL_JOYBATTERYUPDATED // Joystick battery level change
 	// Game controller events
 	controlleraxismotion = C.SDL_CONTROLLERAXISMOTION // 0x650, Game controller axis motion
 	controllerbuttondown = C.SDL_CONTROLLERBUTTONDOWN // Game controller button pressed
@@ -367,6 +368,17 @@ pub:
 
 pub type JoyDeviceEvent = C.SDL_JoyDeviceEvent
 
+// JoyBatteryEvent is joysick battery level change event structure (event.jbattery.*)
+[typedef]
+pub struct C.SDL_JoyBatteryEvent {
+	@type     u32 // ::SDL_JOYBATTERYUPDATED
+	timestamp u32 // In milliseconds, populated using SDL_GetTicks()
+	which     C.SDL_JoystickID // The joystick instance id
+	level     C.SDL_JoystickPowerLevel // The joystick battery level
+}
+
+pub type JoyBatteryEvent = C.SDL_JoyBatteryEvent
+
 // ControllerAxisEvent is game controller axis motion event structure (event.caxis.*)
 [typedef]
 pub struct C.SDL_ControllerAxisEvent {
@@ -621,6 +633,7 @@ pub:
 	jhat      JoyHatEvent             // C.SDL_JoyHatEvent             // Joystick hat event data
 	jbutton   JoyButtonEvent          // C.SDL_JoyButtonEvent          // Joystick button event data
 	jdevice   JoyDeviceEvent          // C.SDL_JoyDeviceEvent          // Joystick device change event data
+	jbattery  JoyBatteryEvent         // C.SDL_JoyBatteryEvent         // Joystick battery event data
 	caxis     ControllerAxisEvent     // C.SDL_ControllerAxisEvent     // Game Controller axis event data
 	cbutton   ControllerButtonEvent   // C.SDL_ControllerButtonEvent   // Game Controller button event data
 	cdevice   ControllerDeviceEvent   // C.SDL_ControllerDeviceEvent   // Game Controller device event data

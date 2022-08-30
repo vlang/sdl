@@ -306,4 +306,9 @@ pub enum KeyCode {
 	app2 = C.SDLK_APP2
 	audiorewind = C.SDLK_AUDIOREWIND
 	audiofastforward = C.SDLK_AUDIOFASTFORWARD
+	//
+	softleft = C.SDLK_SOFTLEFT
+	softright = C.SDLK_SOFTRIGHT
+	call = C.SDLK_CALL
+	endcall = C.SDLK_ENDCALL
 }

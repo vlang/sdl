@@ -82,6 +82,28 @@ pub fn render_get_d3_d11_device(renderer &Renderer) &ID3D11Device {
 	return C.SDL_RenderGetD3D11Device(renderer)
 }
 
+[typedef]
+struct C.ID3D12Device {
+}
+
+pub type ID3D12Device = C.ID3D12Device
+
+fn C.SDL_RenderGetD3D12Device(renderer &C.SDL_Renderer) &C.ID3D12Device
+
+// render_get_d3_d12_device gets the D3D12 device associated with a renderer.
+//
+// Once you are done using the device, you should release it to avoid a
+// resource leak.
+//
+// `renderer` the renderer from which to get the associated D3D12 device
+// returns the D3D12 device associated with given renderer or NULL if it is
+//          not a D3D12 renderer; call SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.24.0.
+pub fn render_get_d3_d12_device(renderer &Renderer) &ID3D12Device {
+	return C.SDL_RenderGetD3D12Device(renderer)
+}
+
 fn C.SDL_DXGIGetOutputInfo(display_index int, adapter_index &int, output_index &int) bool
 
 // dxgi_get_output_info gets the DXGI Adapter and Output indices for the specified display index.
@@ -103,3 +125,28 @@ fn C.SDL_DXGIGetOutputInfo(display_index int, adapter_index &int, output_index &
 pub fn dxgi_get_output_info(display_index int, adapter_index &int, output_index &int) bool {
 	return C.SDL_DXGIGetOutputInfo(display_index, adapter_index, output_index)
 }
+
+/*
+TODO support GDK?
+$if gdk ? {
+	[typedef]
+	struct C.XTaskQueueHandle {}
+	pub type XTaskQueueHandle = C.XTaskQueueHandle
+
+	fn C.SDL_GDKGetTaskQueue(out_task_queue &C.XTaskQueueHandle) int
+	// gdk_get_task_queue gets a reference to the global async task queue handle for GDK,
+	// initializing if needed.
+	//
+	// Once you are done with the task queue, you should call
+	// XTaskQueueCloseHandle to reduce the reference count to avoid a resource
+	// leak.
+	//
+	// `outTaskQueue` a pointer to be filled in with task queue handle.
+	// returns 0 if success, -1 if any error occurs.
+	//
+	// NOTE This function is available since SDL 2.24.0.
+	pub fn gdk_get_task_queue(out_task_queue &XTaskQueueHandle) int{
+		return C.SDL_GDKGetTaskQueue(out_task_queue)
+	}
+}
+*/
