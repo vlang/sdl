@@ -14,9 +14,13 @@ pub const (
 	patchlevel    = C.SDL_IMAGE_PATCHLEVEL // 5
 )
 
-// This macro can be used to fill a version structure with the compile-time
+fn C.SDL_IMAGE_VERSION(v &sdl.Version)
+
+// image_version macro can be used to fill a version structure with the compile-time
 // version of the SDL_image library.
-pub fn C.SDL_IMAGE_VERSION(v &sdl.Version)
+pub fn image_version(v &sdl.Version) {
+	C.SDL_IMAGE_VERSION(v)
+}
 
 // This is the version number macro for the current SDL_image version.
 pub fn C.SDL_IMAGE_COMPILEDVERSION() int
