@@ -141,7 +141,7 @@ enum GameState {
 
 struct AudioContext {
 mut:
-	music  &mix.Music
+	music  &mix.Music = unsafe { nil }
 	volume int
 	waves  [3]&mix.Chunk
 }
@@ -151,18 +151,18 @@ pub mut:
 	//	VIDEO
 	w        int
 	h        int
-	window   &sdl.Window
-	renderer &sdl.Renderer
-	screen   &sdl.Surface
-	texture  &sdl.Texture
+	window   &sdl.Window   = unsafe { nil }
+	renderer &sdl.Renderer = unsafe { nil }
+	screen   &sdl.Surface  = unsafe { nil }
+	texture  &sdl.Texture  = unsafe { nil }
 	//	AUDIO
 	actx AudioContext
 	//	JOYSTICKS
 	jnames [2]string
 	jids   [2]int
 	//	V logo
-	v_logo  &sdl.Surface
-	tv_logo &sdl.Texture
+	v_logo  &sdl.Surface = unsafe { nil }
+	tv_logo &sdl.Texture = unsafe { nil }
 }
 
 fn get_asset_path(path string) string {
@@ -225,7 +225,7 @@ mut:
 	// SDL2 context for drawing
 	sdl SdlContext
 	// TTF context for font drawing
-	font &ttf.Font
+	font &ttf.Font = unsafe { nil }
 }
 
 fn (mut sdlc SdlContext) set_sdl_context(w int, h int, titl string) {
