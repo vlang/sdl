@@ -65,9 +65,9 @@ jobs:
 
       - name: Build sdl examples
         run: |
+          v shader sdl/examples/sdl_opengl_and_sokol
           export CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
           v run sdl/examples/versions
-          v shader sdl/examples/sdl_opengl_and_sokol
           v should-compile-all sdl/examples/
 
       - name: Test SDL version
@@ -133,9 +133,9 @@ jobs:
 
       - name: Build sdl examples
         run: |
+          v shader sdl/examples/sdl_opengl_and_sokol
           export CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
           v run sdl/examples/versions
-          v shader sdl/examples/sdl_opengl_and_sokol
           v should-compile-all sdl/examples/
 
       - name: Test SDL version
