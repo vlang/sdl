@@ -90,7 +90,7 @@ fn main() {
 					should_close = true
 				}
 				.keydown {
-					key := sdl.KeyCode(evt.key.keysym.sym)
+					key := unsafe { sdl.KeyCode(evt.key.keysym.sym) }
 					match key {
 						.escape {
 							should_close = true
