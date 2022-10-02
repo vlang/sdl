@@ -77,7 +77,7 @@ fn C.SDL_GetModState() C.SDL_Keymod
 // See also: SDL_GetKeyboardState
 // See also: SDL_SetModState
 pub fn get_mod_state() Keymod {
-	return Keymod(int(C.SDL_GetModState()))
+	return unsafe { Keymod(int(C.SDL_GetModState())) }
 }
 
 fn C.SDL_SetModState(modstate C.SDL_Keymod)
@@ -134,7 +134,7 @@ fn C.SDL_GetScancodeFromKey(key C.SDL_Keycode) C.SDL_Scancode
 // See also: SDL_GetKeyFromScancode
 // See also: SDL_GetScancodeName
 pub fn get_scancode_from_key(key Keycode) Scancode {
-	return Scancode(int(C.SDL_GetScancodeFromKey(C.SDL_Keycode(key))))
+	return unsafe { Scancode(int(C.SDL_GetScancodeFromKey(C.SDL_Keycode(key)))) }
 }
 
 fn C.SDL_GetScancodeName(scancode C.SDL_Scancode) &char
@@ -178,7 +178,7 @@ fn C.SDL_GetScancodeFromName(name &char) C.SDL_Scancode
 // See also: SDL_GetScancodeFromKey
 // See also: SDL_GetScancodeName
 pub fn get_scancode_from_name(name &char) Scancode {
-	return Scancode(int(C.SDL_GetScancodeFromName(name)))
+	return unsafe { Scancode(int(C.SDL_GetScancodeFromName(name))) }
 }
 
 fn C.SDL_GetKeyName(key C.SDL_Keycode) &char
