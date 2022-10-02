@@ -244,7 +244,7 @@ fn C.SDL_JoystickGetDeviceType(device_index int) C.SDL_JoystickType
 //
 // NOTE This function is available since SDL 2.0.6.
 pub fn joystick_get_device_type(device_index int) JoystickType {
-	return JoystickType(int(C.SDL_JoystickGetDeviceType(device_index)))
+	return unsafe { JoystickType(int(C.SDL_JoystickGetDeviceType(device_index))) }
 }
 
 fn C.SDL_JoystickGetDeviceInstanceID(device_index int) C.SDL_JoystickID
@@ -261,7 +261,7 @@ fn C.SDL_JoystickGetDeviceInstanceID(device_index int) C.SDL_JoystickID
 //
 // NOTE This function is available since SDL 2.0.6.
 pub fn joystick_get_device_instance_id(device_index int) JoystickID {
-	return int(C.SDL_JoystickGetDeviceInstanceID(device_index))
+	return unsafe { int(C.SDL_JoystickGetDeviceInstanceID(device_index)) }
 }
 
 fn C.SDL_JoystickOpen(device_index int) &C.SDL_Joystick
@@ -615,7 +615,7 @@ fn C.SDL_JoystickGetType(joystick &C.SDL_Joystick) C.SDL_JoystickType
 //
 // NOTE This function is available since SDL 2.0.6.
 pub fn joystick_get_type(joystick &Joystick) JoystickType {
-	return JoystickType(int(C.SDL_JoystickGetType(joystick)))
+	return unsafe { JoystickType(int(C.SDL_JoystickGetType(joystick))) }
 }
 
 fn C.SDL_JoystickGetGUIDString(guid C.SDL_JoystickGUID, psz_guid &char, cb_guid int)
@@ -1058,5 +1058,5 @@ fn C.SDL_JoystickCurrentPowerLevel(joystick &C.SDL_Joystick) C.SDL_JoystickPower
 //
 // NOTE This function is available since SDL 2.0.4.
 pub fn joystick_current_power_level(joystick &Joystick) JoystickPowerLevel {
-	return JoystickPowerLevel(int(C.SDL_JoystickCurrentPowerLevel(joystick)))
+	return unsafe { JoystickPowerLevel(int(C.SDL_JoystickCurrentPowerLevel(joystick))) }
 }
