@@ -290,7 +290,7 @@ fn C.SDL_GameControllerTypeForIndex(joystick_index int) C.SDL_GameControllerType
 //
 // NOTE This function is available since SDL 2.0.12.
 pub fn game_controller_type_for_index(joystick_index int) GameControllerType {
-	return GameControllerType(int(C.SDL_GameControllerTypeForIndex(joystick_index)))
+	return unsafe { GameControllerType(int(C.SDL_GameControllerTypeForIndex(joystick_index))) }
 }
 
 fn C.SDL_GameControllerMappingForDeviceIndex(joystick_index int) &char
@@ -399,7 +399,7 @@ fn C.SDL_GameControllerGetType(gamecontroller &C.SDL_GameController) C.SDL_GameC
 //
 // NOTE This function is available since SDL 2.0.12.
 pub fn game_controller_get_type(gamecontroller &GameController) GameControllerType {
-	return GameControllerType(int(C.SDL_GameControllerGetType(gamecontroller)))
+	return unsafe { GameControllerType(int(C.SDL_GameControllerGetType(gamecontroller))) }
 }
 
 fn C.SDL_GameControllerGetPlayerIndex(gamecontroller &C.SDL_GameController) int
