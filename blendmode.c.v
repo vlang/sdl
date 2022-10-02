@@ -60,7 +60,10 @@ fn C.SDL_ComposeCustomBlendMode(src_color_factor C.SDL_BlendFactor, dst_color_fa
 // and
 // dstA = dstA * dstAlphaFactor alphaOperation srcA * srcAlphaFactor
 pub fn compose_custom_blend_mode(src_color_factor BlendFactor, dst_color_factor BlendFactor, color_operation BlendOperation, src_alpha_factor BlendFactor, dst_alpha_factor BlendFactor, alpha_operation BlendOperation) BlendMode {
-	return BlendMode(int(C.SDL_ComposeCustomBlendMode(C.SDL_BlendFactor(src_color_factor),
-		C.SDL_BlendFactor(dst_color_factor), C.SDL_BlendOperation(color_operation), C.SDL_BlendFactor(src_alpha_factor),
-		C.SDL_BlendFactor(dst_alpha_factor), C.SDL_BlendOperation(alpha_operation))))
+	return unsafe {
+		BlendMode(int(C.SDL_ComposeCustomBlendMode(C.SDL_BlendFactor(src_color_factor),
+			C.SDL_BlendFactor(dst_color_factor), C.SDL_BlendOperation(color_operation),
+			C.SDL_BlendFactor(src_alpha_factor), C.SDL_BlendFactor(dst_alpha_factor),
+			C.SDL_BlendOperation(alpha_operation))))
+	}
 }

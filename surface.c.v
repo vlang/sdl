@@ -532,7 +532,7 @@ fn C.SDL_GetYUVConversionMode() C.SDL_YUV_CONVERSION_MODE
 
 // get_yuv_conversion_mode gets the YUV conversion mode
 pub fn get_yuv_conversion_mode() YUVConversionMode {
-	return YUVConversionMode(int(C.SDL_GetYUVConversionMode()))
+	return unsafe { YUVConversionMode(int(C.SDL_GetYUVConversionMode())) }
 }
 
 fn C.SDL_GetYUVConversionModeForResolution(width int, height int) C.SDL_YUV_CONVERSION_MODE
@@ -540,5 +540,7 @@ fn C.SDL_GetYUVConversionModeForResolution(width int, height int) C.SDL_YUV_CONV
 // get_yuv_conversion_mode_for_resolution gets the YUV conversion mode, returning the correct mode for the resolution when
 // the current conversion mode is SDL_YUV_CONVERSION_AUTOMATIC
 pub fn get_yuv_conversion_mode_for_resolution(width int, height int) YUVConversionMode {
-	return YUVConversionMode(int(C.SDL_GetYUVConversionModeForResolution(width, height)))
+	return unsafe {
+		YUVConversionMode(int(C.SDL_GetYUVConversionModeForResolution(width, height)))
+	}
 }
