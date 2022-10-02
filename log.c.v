@@ -81,7 +81,7 @@ fn C.SDL_LogGetPriority(category int) C.SDL_LogPriority
 
 // log_get_priority gets the priority of a particular log category
 pub fn log_get_priority(category int) LogPriority {
-	return LogPriority(int(C.SDL_LogGetPriority(category)))
+	return unsafe { LogPriority(int(C.SDL_LogGetPriority(category))) }
 }
 
 fn C.SDL_LogResetPriorities()
