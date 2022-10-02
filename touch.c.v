@@ -92,7 +92,7 @@ fn C.SDL_GetTouchDeviceType(touch_id TouchID) C.SDL_TouchDeviceType
 //
 // NOTE This function is available since SDL 2.0.10.
 pub fn get_touch_device_type(touch_id TouchID) TouchDeviceType {
-	return TouchDeviceType(int(C.SDL_GetTouchDeviceType(touch_id)))
+	return unsafe { TouchDeviceType(int(C.SDL_GetTouchDeviceType(touch_id))) }
 }
 
 fn C.SDL_GetNumTouchFingers(touch_id TouchID) int
