@@ -203,7 +203,7 @@ fn C.SDL_MasksToPixelFormatEnum(bpp int, rmask u32, gmask u32, bmask u32, amask 
 //
 // See also: SDL_PixelFormatEnumToMasks()
 pub fn masks_to_pixel_format_enum(bpp int, rmask u32, gmask u32, bmask u32, amask u32) Format {
-	return Format(C.SDL_MasksToPixelFormatEnum(bpp, rmask, gmask, bmask, amask))
+	return unsafe { Format(C.SDL_MasksToPixelFormatEnum(bpp, rmask, gmask, bmask, amask)) }
 }
 
 fn C.SDL_AllocFormat(pixel_format Format) &C.SDL_PixelFormat
