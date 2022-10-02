@@ -185,7 +185,7 @@ Use right/left arrow keys to go to next/previous sound.')
 					pc.next()
 				}
 				.keydown {
-					key := sdl.KeyCode(evt.key.keysym.sym)
+					key := unsafe { sdl.KeyCode(evt.key.keysym.sym) }
 					match key {
 						.escape {
 							should_close = true
