@@ -29,7 +29,7 @@ struct Vertex_t {
 fn main() {
 	sdl.init(sdl.init_video)
 
-	$if android {
+	$if wasm32_emscripten || android {
 		sdl.gl_set_attribute(.context_profile_mask, int(sdl.GLprofile.es))
 		sdl.gl_set_attribute(.context_major_version, 2)
 	} $else {
