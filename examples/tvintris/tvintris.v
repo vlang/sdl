@@ -249,7 +249,7 @@ fn (mut sdlc SdlContext) set_sdl_context(w int, h int, titl string) {
 	if mix.open_audio(48000, u16(mix.default_format), 2, audio_buf_size) < 0 {
 		println("couldn't open audio")
 	}
-	println('opening music $music_name')
+	println('opening music ${music_name}')
 	sdlc.actx.music = mix.load_mus(music_name.str)
 	sdlc.actx.waves[0] = mix.load_wav(snd_block_name.str)
 	sdlc.actx.waves[1] = mix.load_wav(snd_line_name.str)
@@ -262,10 +262,10 @@ fn (mut sdlc SdlContext) set_sdl_context(w int, h int, titl string) {
 	for i in 0 .. njoy {
 		sdl.joystick_open(i)
 		jn := unsafe { tos_clone(sdl.joystick_name_for_index(i)) }
-		println('JOY NAME $jn')
+		println('JOY NAME ${jn}')
 		for j in 0 .. n_joy_max {
 			if sdlc.jnames[j] == jn {
-				println('FOUND JOYSTICK $j $jn ID=$i')
+				println('FOUND JOYSTICK ${j} ${jn} ID=${i}')
 				sdlc.jids[j] = i
 			}
 		}
@@ -275,7 +275,7 @@ fn (mut sdlc SdlContext) set_sdl_context(w int, h int, titl string) {
 	if (imgres & flags) != flags {
 		println('error initializing image library.')
 	}
-	println('opening logo $v_logo')
+	println('opening logo ${v_logo}')
 	sdlc.v_logo = img.load(v_logo.str)
 	if !isnil(sdlc.v_logo) {
 		//		println('got v_logo=$sdlc.v_logo')
@@ -323,7 +323,7 @@ fn main() {
 	game.ofs_x = 0
 	game.init_game()
 	game.state = .running
-	go game.run() // Run the game loop in a new thread
+	spawn game.run() // Run the game loop in a new thread
 
 	game2.k_fire = p2_fire
 	game2.k_up = p2_up
@@ -338,7 +338,7 @@ fn main() {
 	game2.ofs_x = win_width * 2 / 3
 	game2.init_game()
 	game2.state = .running
-	go game2.run() // Run the game loop in a new thread
+	spawn game2.run() // Run the game loop in a new thread
 
 	mut g := Game{
 		font: 0
