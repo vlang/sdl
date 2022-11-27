@@ -47,20 +47,20 @@ fn main() {
 		window_flags)
 	if window == sdl.null {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
-		panic('Could not create SDL window, SDL says:\n$error_msg')
+		panic('Could not create SDL window, SDL says:\n${error_msg}')
 	}
 
 	gl_context := sdl.gl_create_context(window)
 	if gl_context == sdl.null {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
-		panic('Could not create OpenGL context, SDL says:\n$error_msg')
+		panic('Could not create OpenGL context, SDL says:\n${error_msg}')
 	}
 
 	sdl.gl_make_current(window, gl_context)
 	// Enable VSYNC (Sync buffer swaps with monitors vertical refresh rate)
 	if sdl.gl_set_swap_interval(1) < 0 {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
-		panic('Could not set OpenGL swap interval to vsync:\n$error_msg')
+		panic('Could not set OpenGL swap interval to vsync:\n${error_msg}')
 	}
 
 	desc := gfx.Desc{}
