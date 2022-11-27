@@ -30,23 +30,23 @@ fn load_image(path string) !&sdl.Surface {
 	rw := sdl.rw_from_file(asset_path.str, 'rb'.str)
 	if rw == sdl.null {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
-		return error('Could not load image "$path" RW from mem data: $error_msg')
+		return error('Could not load image "${path}" RW from mem data: ${error_msg}')
 	}
 	img := image.load_rw(rw, 1)
 	if img == sdl.null {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
-		return error('Could not load image RW "$path" data: $error_msg')
+		return error('Could not load image RW "${path}" data: ${error_msg}')
 	}
 	return img
 }
 
 fn main() {
-	println('Const version ${image.major_version}.${image.minor_version}.$image.patchlevel')
+	println('Const version ${image.major_version}.${image.minor_version}.${image.patchlevel}')
 	mut compiled_version := sdl.Version{}
 	C.SDL_IMAGE_VERSION(&compiled_version)
-	println('Compiled against version $compiled_version.str()')
+	println('Compiled against version ${compiled_version.str()}')
 	linked_version := image.linked_version()
-	println('Runtime loaded version ${linked_version.major}.${linked_version.minor}.$linked_version.patch')
+	println('Runtime loaded version ${linked_version.major}.${linked_version.minor}.${linked_version.patch}')
 
 	$if debug ? {
 		// SDL debug info, must be called before sdl.init
@@ -61,7 +61,7 @@ fn main() {
 	image_init_result := image.init(flags)
 	if (image_init_result & flags) != flags {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
-		panic('Could not initialize SDL2_image: $error_msg')
+		panic('Could not initialize SDL2_image: ${error_msg}')
 	}
 
 	// Hint the render, before creating textures, that we want
@@ -72,7 +72,7 @@ fn main() {
 	mut image_textures := []&sdl.Texture{}
 	for image in images {
 		surface := load_image(image) or {
-			eprintln('Loading of image $image failed: $err.msg()')
+			eprintln('Loading of image ${image} failed: ${err.msg()}')
 			// No panic or exit here. This way the example also
 			// serves as a visual test, of what SDL2_image *can* load
 			// on this platform.
