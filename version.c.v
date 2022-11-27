@@ -32,7 +32,7 @@ pub:
 }
 
 pub fn (ver C.SDL_version) str() string {
-	return '${ver.major}.${ver.minor}.$ver.patch'
+	return '${ver.major}.${ver.minor}.${ver.patch}'
 }
 
 pub type Version = C.SDL_version
