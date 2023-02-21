@@ -967,8 +967,8 @@ fn C.SDL_GameControllerGetSensorDataWithTimestamp(gamecontroller &C.SDL_GameCont
 //
 // NOTE This function is available since SDL 2.26.0.
 pub fn game_controller_get_sensor_data_with_timestamp(gamecontroller &GameController, @type SensorType, timestamp &u64, data &f32, num_values int) int {
-	return C.SDL_GameControllerGetSensorDataWithTimestamp(gamecontroller, @type, timestamp,
-		data, num_values)
+	return C.SDL_GameControllerGetSensorDataWithTimestamp(gamecontroller, C.SDL_SensorType(@type),
+		timestamp, data, num_values)
 }
 
 fn C.SDL_GameControllerRumble(gamecontroller &C.SDL_GameController, low_frequency_rumble u16, high_frequency_rumble u16, duration_ms u32) int
