@@ -1758,6 +1758,9 @@ fn C.SDL_DestroyRenderer(renderer &C.SDL_Renderer)
 
 // destroy_renderer destroys the rendering context for a window and free associated textures.
 //
+// If `renderer` is NULL, this function will return immediately after setting
+// the SDL error message to "Invalid renderer". See SDL_GetError().
+//
 // `renderer` the rendering context
 //
 // NOTE This function is available since SDL 2.0.0.

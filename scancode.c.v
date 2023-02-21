@@ -202,16 +202,16 @@ pub enum Scancode {
 	scancode_f23 = C.SDL_SCANCODE_F23 // 114
 	scancode_f24 = C.SDL_SCANCODE_F24 // 115
 	scancode_execute = C.SDL_SCANCODE_EXECUTE // 116
-	scancode_help = C.SDL_SCANCODE_HELP // 117
-	scancode_menu = C.SDL_SCANCODE_MENU // 118
+	scancode_help = C.SDL_SCANCODE_HELP // 117 AL Integrated Help Center
+	scancode_menu = C.SDL_SCANCODE_MENU // 118 Menu (show menu)
 	scancode_select = C.SDL_SCANCODE_SELECT // 119
-	scancode_stop = C.SDL_SCANCODE_STOP // 120
-	scancode_again = C.SDL_SCANCODE_AGAIN // 121< redo
-	scancode_undo = C.SDL_SCANCODE_UNDO // 122
-	scancode_cut = C.SDL_SCANCODE_CUT // 123
-	scancode_copy = C.SDL_SCANCODE_COPY // 124
-	scancode_paste = C.SDL_SCANCODE_PASTE // 125
-	scancode_find = C.SDL_SCANCODE_FIND // 126
+	scancode_stop = C.SDL_SCANCODE_STOP // 120 AC Stop
+	scancode_again = C.SDL_SCANCODE_AGAIN // 121 AC Redo/Repeat
+	scancode_undo = C.SDL_SCANCODE_UNDO // 122 AC Undo
+	scancode_cut = C.SDL_SCANCODE_CUT // 123 AC Cut
+	scancode_copy = C.SDL_SCANCODE_COPY // 124 AC Copy
+	scancode_paste = C.SDL_SCANCODE_PASTE // 125 AC Paste
+	scancode_find = C.SDL_SCANCODE_FIND // 126 AC Find
 	scancode_mute = C.SDL_SCANCODE_MUTE // 127
 	scancode_volumeup = C.SDL_SCANCODE_VOLUMEUP // 128
 	scancode_volumedown = C.SDL_SCANCODE_VOLUMEDOWN // 129
@@ -239,7 +239,7 @@ pub enum Scancode {
 	//
 	scancode_alterase = C.SDL_SCANCODE_ALTERASE // 153 Erase-Eaze
 	scancode_sysreq = C.SDL_SCANCODE_SYSREQ // 154
-	scancode_cancel = C.SDL_SCANCODE_CANCEL // 155
+	scancode_cancel = C.SDL_SCANCODE_CANCEL // 155 AC Cancel
 	scancode_clear = C.SDL_SCANCODE_CLEAR // 156
 	scancode_prior = C.SDL_SCANCODE_PRIOR // 157
 	scancode_return2 = C.SDL_SCANCODE_RETURN2 // 158
@@ -312,23 +312,32 @@ pub enum Scancode {
 	// I'm not sure if this is really not covered
 	// by any of the above, but since there's a
 	// special KMOD_MODE for it I'm adding it here
+	//
+	// Usage page 0x0C (additional media keys)
+	//
+	// These values are mapped from usage page 0x0C (USB consumer page).
+	// See https://usb.org/sites/default/files/hut1_2.pdf
+	//
+	// There are way more keys in the spec than we can represent in the
+	// current scancode range, so pick the ones that commonly come up in
+	// real world usage.
 	scancode_audionext = C.SDL_SCANCODE_AUDIONEXT // 258
 	scancode_audioprev = C.SDL_SCANCODE_AUDIOPREV // 259
 	scancode_audiostop = C.SDL_SCANCODE_AUDIOSTOP // 260
 	scancode_audioplay = C.SDL_SCANCODE_AUDIOPLAY // 261
 	scancode_audiomute = C.SDL_SCANCODE_AUDIOMUTE // 262
 	scancode_mediaselect = C.SDL_SCANCODE_MEDIASELECT // 263
-	scancode_www = C.SDL_SCANCODE_WWW // 264
+	scancode_www = C.SDL_SCANCODE_WWW // 264 AL Internet Browser
 	scancode_mail = C.SDL_SCANCODE_MAIL // 265
-	scancode_calculator = C.SDL_SCANCODE_CALCULATOR // 266
+	scancode_calculator = C.SDL_SCANCODE_CALCULATOR // 266 AL Calculator
 	scancode_computer = C.SDL_SCANCODE_COMPUTER // 267
-	scancode_ac_search = C.SDL_SCANCODE_AC_SEARCH // 268
-	scancode_ac_home = C.SDL_SCANCODE_AC_HOME // 269
-	scancode_ac_back = C.SDL_SCANCODE_AC_BACK // 270
-	scancode_ac_forward = C.SDL_SCANCODE_AC_FORWARD // 271
-	scancode_ac_stop = C.SDL_SCANCODE_AC_STOP // 272
-	scancode_ac_refresh = C.SDL_SCANCODE_AC_REFRESH // 273
-	scancode_ac_bookmarks = C.SDL_SCANCODE_AC_BOOKMARKS // 274
+	scancode_ac_search = C.SDL_SCANCODE_AC_SEARCH // 268 AC Search
+	scancode_ac_home = C.SDL_SCANCODE_AC_HOME // 269 AC Home
+	scancode_ac_back = C.SDL_SCANCODE_AC_BACK // 270 AC Back
+	scancode_ac_forward = C.SDL_SCANCODE_AC_FORWARD // 271 AC Forward
+	scancode_ac_stop = C.SDL_SCANCODE_AC_STOP // 272 AC Stop
+	scancode_ac_refresh = C.SDL_SCANCODE_AC_REFRESH // 273 AC Refresh
+	scancode_ac_bookmarks = C.SDL_SCANCODE_AC_BOOKMARKS // 274 AC Bookmarks
 	// Walther keys
 	//
 	// These are values that Christian Walther added (for mac keyboard?).
@@ -341,14 +350,11 @@ pub enum Scancode {
 	scancode_kbdillumdown = C.SDL_SCANCODE_KBDILLUMDOWN // 279
 	scancode_kbdillumup = C.SDL_SCANCODE_KBDILLUMUP // 280
 	scancode_eject = C.SDL_SCANCODE_EJECT // 281
-	scancode_sleep = C.SDL_SCANCODE_SLEEP // 282
+	scancode_sleep = C.SDL_SCANCODE_SLEEP // 282 SC System Sleep
 	//
 	scancode_app1 = C.SDL_SCANCODE_APP1 // 283
 	scancode_app2 = C.SDL_SCANCODE_APP2 // 284
 	//
-	// Usage page 0x0C (additional media keys)
-	//
-	// These values are mapped from usage page 0x0C (USB consumer page).
 	scancode_audiorewind = C.SDL_SCANCODE_AUDIOREWIND // 285
 	scancode_audiofastforward = C.SDL_SCANCODE_AUDIOFASTFORWARD // 286
 	//

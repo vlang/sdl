@@ -31,6 +31,10 @@ pub enum SensorType {
 	unknown = C.SDL_SENSOR_UNKNOWN // Unknown sensor type
 	accel = C.SDL_SENSOR_ACCEL // Accelerometer
 	gyro = C.SDL_SENSOR_GYRO // Gyroscope
+	sensor_accel_l = C.SDL_SENSOR_ACCEL_L // Accelerometer for left Joy-Con controller and Wii nunchuk
+	sensor_gyro_l = C.SDL_SENSOR_GYRO_L // Gyroscope for left Joy-Con controller
+	sensor_accel_r = C.SDL_SENSOR_ACCEL_R // Accelerometer for right Joy-Con controller
+	sensor_gyro_r = C.SDL_SENSOR_GYRO_R // Gyroscope for right Joy-Con controller
 }
 
 // Accelerometer sensor
@@ -259,6 +263,25 @@ fn C.SDL_SensorGetData(sensor &C.SDL_Sensor, data &f32, num_values int) int
 // NOTE This function is available since SDL 2.0.9.
 pub fn sensor_get_data(sensor &Sensor, data &f32, num_values int) int {
 	return C.SDL_SensorGetData(sensor, data, num_values)
+}
+
+fn C.SDL_SensorGetDataWithTimestamp(sensor &C.SDL_Sensor, timestamp &u64, data &f32, num_values int) int
+
+// sensor_get_data_with_timestamp gets the current state of an opened sensor with the timestamp of the last
+// update.
+//
+// The number of values and interpretation of the data is sensor dependent.
+//
+// `sensor` The SDL_Sensor object to query
+// `timestamp` A pointer filled with the timestamp in microseconds of the
+//                  current sensor reading if available, or 0 if not
+// `data` A pointer filled with the current sensor state
+// `num_values` The number of values to write to data
+// returns 0 or -1 if an error occurred.
+//
+// NOTE This function is available since SDL 2.26.0.
+pub fn sensor_get_data_with_timestamp(sensor &Sensor, timestamp &u64, data &f32, num_values int) int {
+	return C.SDL_SensorGetDataWithTimestamp(sensor, timestamp, data, num_values)
 }
 
 fn C.SDL_SensorClose(sensor &C.SDL_Sensor)

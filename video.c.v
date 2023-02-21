@@ -1105,6 +1105,28 @@ pub fn get_window_borders_size(window &Window, top &int, left &int, bottom &int,
 	return C.SDL_GetWindowBordersSize(window, top, left, bottom, right)
 }
 
+fn C.SDL_GetWindowSizeInPixels(window &C.SDL_Window, w &int, h &int)
+
+// get_window_size_in_pixels gets the size of a window in pixels.
+//
+// This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI
+// drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a
+// platform with high-DPI support (Apple calls this "Retina"), and not
+// disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.
+//
+// `window` the window from which the drawable size should be queried
+// `w` a pointer to variable for storing the width in pixels, may be NULL
+// `h` a pointer to variable for storing the height in pixels, may be
+//          NULL
+//
+// NOTE This function is available since SDL 2.26.0.
+//
+// See also: SDL_CreateWindow
+// See also: SDL_GetWindowSize
+pub fn get_window_size_in_pixels(window &Window, w &int, h &int) {
+	C.SDL_GetWindowSizeInPixels(window, w, h)
+}
+
 fn C.SDL_SetWindowMinimumSize(window &C.SDL_Window, min_w int, min_h int)
 
 // set_window_minimum_size sets the minimum size of a window's client area.
@@ -1872,6 +1894,9 @@ fn C.SDL_DisableScreenSaver()
 //
 // If you disable the screensaver, it is automatically re-enabled when SDL
 // quits.
+//
+// The screensaver is disabled by default since SDL 2.0.2. Before SDL 2.0.2
+// the screensaver was enabled by default.
 //
 // NOTE This function is available since SDL 2.0.0.
 //

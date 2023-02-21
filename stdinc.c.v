@@ -408,6 +408,11 @@ pub fn strstr(const_haystack &char, const_needle &char) &char {
 	return C.SDL_strstr(const_haystack, const_needle)
 }
 
+fn C.SDL_strcasestr(const_haystack &char, const_needle &char) &char
+pub fn strcasestr(const_haystack &char, const_needle &char) &char {
+	return C.SDL_strcasestr(const_haystack, const_needle)
+}
+
 fn C.SDL_strtokr(s1 &char, const_s2 &char, saveptr &&char) &char
 pub fn strtokr(s1 &char, const_s2 &char, saveptr &&char) &char {
 	return C.SDL_strtokr(s1, const_s2, saveptr)

@@ -207,10 +207,7 @@ pub const (
 	// If this hint isn't specified to a valid setting, or libsamplerate isn't
 	// available, SDL will use the default, internal resampling algorithm.
 	//
-	// Note that this is currently only applicable to resampling audio that is
-	// being written to a device for playback or audio being read from a device
-	// for capture. SDL_AudioCVT always uses the default resampler (although this
-	// might change for SDL 2.1).
+	// As of SDL 2.26, SDL_ConvertAudio() respects this hint when libsamplerate is available.
 	//
 	// This hint is currently only checked at audio subsystem initialization.
 	//
@@ -434,6 +431,12 @@ pub const (
 	// By default SDL will not grab the keyboard so system shortcuts still work.
 	hint_grab_keyboard                            = 'SDL_GRAB_KEYBOARD'
 
+	// A variable containing a list of devices to ignore in SDL_hid_enumerate()
+	//
+	// For example, to ignore the Shanwan DS3 controller and any Valve controller, you might
+	// have the string "0x2563/0x0523,0x28de/0x0000"
+	hint_hidapi_ignore_devices                    = 'SDL_HIDAPI_IGNORE_DEVICES'
+
 	//  A variable controlling whether the idle timer is disabled on iOS.
 	//
 	// When an iOS app does not receive touches for some time, the screen is
@@ -542,6 +545,15 @@ pub const (
 	// "1"       - Left and right Joy-Con controllers will be combined into a single controller (the default)
 	hint_joystick_hidapi_combine_joy_cons         = 'SDL_JOYSTICK_HIDAPI_COMBINE_JOY_CONS'
 
+	// A variable controlling whether Nintendo Switch Joy-Con controllers will be in vertical mode when using the HIDAPI driver
+	//
+	// This variable can be set to the following values:
+	// "0"       - Left and right Joy-Con controllers will not be in vertical mode (the default)
+	// "1"       - Left and right Joy-Con controllers will be in vertical mode
+	//
+	// This hint must be set before calling SDL_Init(SDL_INIT_GAMECONTROLLER)
+	hint_joystick_hidapi_vertical_joy_cons        = 'SDL_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS'
+
 	//  A variable controlling whether the HIDAPI driver for Amazon Luna controllers connected via Bluetooth should be used.
 	//
 	// This variable can be set to the following values:
@@ -568,6 +580,18 @@ pub const (
 	//
 	// The default is the value of SDL_HINT_JOYSTICK_HIDAPI
 	hint_joystick_hidapi_shield                   = 'SDL_JOYSTICK_HIDAPI_SHIELD'
+
+	// A variable controlling whether the HIDAPI driver for PS3 controllers should be used.
+	//
+	// This variable can be set to the following values:
+	// "0"       - HIDAPI driver is not used
+	// "1"       - HIDAPI driver is used
+	//
+	// The default is the value of SDL_HINT_JOYSTICK_HIDAPI on macOS, and "0" on other platforms.
+	//
+	// It is not possible to use this driver on Windows, due to limitations in the default drivers
+	// installed. See https://github.com/ViGEm/DsHidMini for an alternative driver on Windows.
+	hint_joystick_hidapi_ps3                      = 'SDL_JOYSTICK_HIDAPI_PS3'
 
 	//  A variable controlling whether the HIDAPI driver for PS4 controllers should be used.
 	//
@@ -638,7 +662,7 @@ pub const (
 	// The default is the value of SDL_HINT_JOYSTICK_HIDAPI
 	hint_joystick_hidapi_stadia                   = 'SDL_JOYSTICK_HIDAPI_STADIA'
 
-	//  A variable controlling whether the HIDAPI driver for Steam Controllers should be used.
+	//  A variable controlling whether the HIDAPI driver for Bluetooth Steam Controllers should be used.
 	//
 	// This variable can be set to the following values:
 	// "0"       - HIDAPI driver is not used
@@ -682,6 +706,22 @@ pub const (
 	// "1"       - player LEDs are enabled (the default)
 	hint_joystick_hidapi_switch_player_led        = 'SDL_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED'
 
+	// A variable controlling whether the HIDAPI driver for Nintendo Wii and Wii U controllers should be used.
+	//
+	// This variable can be set to the following values:
+	// "0"       - HIDAPI driver is not used
+	// "1"       - HIDAPI driver is used
+	//
+	// This driver doesn't work with the dolphinbar, so the default is SDL_FALSE for now.
+	hint_joystick_hidapi_wii                      = 'SDL_JOYSTICK_HIDAPI_WII'
+
+	// A variable controlling whether the player LEDs should be lit to indicate which player is associated with a Wii controller.
+	//
+	// This variable can be set to the following values:
+	// "0"       - player LEDs are not enabled
+	// "1"       - player LEDs are enabled (the default)
+	hint_joystick_hidapi_wii_player_led           = 'SDL_JOYSTICK_HIDAPI_WII_PLAYER_LED'
+
 	//  A variable controlling whether the HIDAPI driver for XBox controllers should be used.
 	//
 	// This variable can be set to the following values:
@@ -690,6 +730,49 @@ pub const (
 	//
 	// The default is "0" on Windows, otherwise the value of SDL_HINT_JOYSTICK_HIDAPI
 	hint_joystick_hidapi_xbox                     = 'SDL_JOYSTICK_HIDAPI_XBOX'
+
+	// A variable controlling whether the HIDAPI driver for XBox 360 controllers should be used.
+	//
+	// This variable can be set to the following values:
+	// "0"       - HIDAPI driver is not used
+	// "1"       - HIDAPI driver is used
+	//
+	// The default is the value of SDL_HINT_JOYSTICK_HIDAPI_XBOX
+	hint_joystick_hidapi_xbox_360                 = 'SDL_JOYSTICK_HIDAPI_XBOX_360'
+
+	// A variable controlling whether the player LEDs should be lit to indicate which player is associated with an Xbox 360 controller.
+	//
+	// This variable can be set to the following values:
+	// "0"       - player LEDs are not enabled
+	// "1"       - player LEDs are enabled (the default)
+	hint_joystick_hidapi_xbox_360_player_led      = 'SDL_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED'
+
+	// A variable controlling whether the HIDAPI driver for XBox 360 wireless controllers should be used.
+	//
+	// This variable can be set to the following values:
+	// "0"       - HIDAPI driver is not used
+	// "1"       - HIDAPI driver is used
+	//
+	// The default is the value of SDL_HINT_JOYSTICK_HIDAPI_XBOX_360
+	hint_joystick_hidapi_xbox_360_wireless        = 'SDL_JOYSTICK_HIDAPI_XBOX_360_WIRELESS'
+
+	// A variable controlling whether the HIDAPI driver for XBox One controllers should be used.
+	//
+	// This variable can be set to the following values:
+	// "0"       - HIDAPI driver is not used
+	// "1"       - HIDAPI driver is used
+	//
+	// The default is the value of SDL_HINT_JOYSTICK_HIDAPI_XBOX
+	hint_joystick_hidapi_xbox_one                 = 'SDL_JOYSTICK_HIDAPI_XBOX_ONE'
+
+	// A variable controlling whether the Home button LED should be turned on when an Xbox One controller is opened
+	//
+	// This variable can be set to the following values:
+	// "0"       - home button LED is turned off
+	// "1"       - home button LED is turned on
+	//
+	// By default the Home button LED state is not changed. This hint can also be set to a floating point value between 0.0 and 1.0 which controls the brightness of the Home button LED. The default brightness is 0.4.
+	hint_joystick_hidapi_xbox_one_home_led        = 'SDL_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED'
 
 	//  A variable controlling whether the RAWINPUT joystick drivers should be used for better handling XInput-capable devices.
 	//
@@ -863,6 +946,15 @@ pub const (
 	//  A variable setting the scale for mouse motion, in floating point, when the mouse is in relative mode
 	hint_mouse_relative_speed_scale               = 'SDL_MOUSE_RELATIVE_SPEED_SCALE'
 
+	// A variable controlling whether the system mouse acceleration curve is used for relative mouse motion.
+	//
+	// This variable can be set to the following values:
+	// "0"       - Relative mouse motion will be unscaled (the default)
+	// "1"       - Relative mouse motion will be scaled using the system mouse acceleration curve.
+	//
+	// If SDL_HINT_MOUSE_RELATIVE_SPEED_SCALE is set, that will override the system speed scale.
+	hint_mouse_relative_system_scale              = 'SDL_MOUSE_RELATIVE_SYSTEM_SCALE'
+
 	//  A variable controlling whether a motion event should be generated for mouse warping in relative mode.
 	//
 	// This variable can be set to the following values:
@@ -948,7 +1040,7 @@ pub const (
 	// When polling for events, SDL_PumpEvents is used to gather new events from devices.
 	// If a device keeps producing new events between calls to SDL_PumpEvents, a poll loop will
 	// become stuck until the new events stop.
-	// This is most noticable when moving a high frequency mouse.
+	// This is most noticeable when moving a high frequency mouse.
 	//
 	// By default, poll sentinels are enabled.
 	hint_poll_sentinel                            = 'SDL_POLL_SENTINEL'
@@ -1098,6 +1190,15 @@ pub const (
 	//
 	// By default SDL does not sync screen surface updates with vertical refresh.
 	hint_render_vsync                             = 'SDL_RENDER_VSYNC'
+
+	// A variable controlling if VSYNC is automatically disable if doesn't reach the enough FPS
+	//
+	// This variable can be set to the following values:
+	// "0"       - It will be using VSYNC as defined in the main flag. Default
+	// "1"       - If VSYNC was previously enabled, then it will disable VSYNC if doesn't reach enough speed
+	//
+	// By default SDL does not enable the automatic VSYNC
+	hint_ps2_dynamic_vsync                        = 'SDL_PS2_DYNAMIC_VSYNC'
 
 	// A variable to control whether the return key on the soft keyboard
 	// should hide the soft keyboard on Android and iOS.
@@ -1323,6 +1424,21 @@ pub const (
 	//
 	// By default video mode emulation is enabled.
 	hint_video_wayland_mode_emulation             = 'SDL_VIDEO_WAYLAND_MODE_EMULATION'
+
+	// Enable or disable mouse pointer warp emulation, needed by some older games.
+	//
+	// When this hint is set, any SDL will emulate mouse warps using relative mouse mode.
+	// This is required for some older games (such as Source engine games), which warp the
+	// mouse to the centre of the screen rather than using relative mouse motion. Note that
+	// relative mouse mode may have different mouse acceleration behaviour than pointer warps.
+	//
+	// This variable can be set to the following values:
+	// "0"       - All mouse warps fail, as mouse warping is not available under wayland.
+	// "1"       - Some mouse warps will be emulated by forcing relative mouse mode.
+	//
+	// If not set, this is automatically enabled unless an application uses relative mouse
+	// mode directly.
+	hint_video_wayland_emulate_mouse_warp         = 'SDL_VIDEO_WAYLAND_EMULATE_MOUSE_WARP'
 
 	//  A variable that is the address of another SDL_Window* (as a hex string formatted with "%p").
 	//
@@ -1957,6 +2073,23 @@ pub fn reset_hint(const_name &char) bool {
 	return C.SDL_ResetHint(const_name)
 }
 
+fn C.SDL_ResetHints()
+
+// reset_hints resets all hints to the default values.
+//
+// This will reset all hints to the value of the associated environment
+// variable, or NULL if the environment isn't set. Callbacks will be called
+// normally with this change.
+//
+// NOTE This function is available since SDL 2.26.0.
+//
+// See also: SDL_GetHint
+// See also: SDL_SetHint
+// See also: SDL_ResetHint
+pub fn reset_hints() {
+	C.SDL_ResetHints()
+}
+
 fn C.SDL_GetHint(name &char) &char
 
 // get_hint gets the value of a hint.
@@ -2029,9 +2162,16 @@ fn C.SDL_ClearHints()
 
 // clear_hints clears all hints.
 //
-// This function is automatically called during SDL_Quit().
+// This function is automatically called during SDL_Quit(), and deletes all
+// callbacks without calling them and frees all memory associated with hints.
+// If you're calling this from application code you probably want to call
+// SDL_ResetHints() instead.
+//
+// This function will be removed from the API the next time we rev the ABI.
 //
 // NOTE This function is available since SDL 2.0.0.
+//
+// See also: SDL_ResetHints
 pub fn clear_hints() {
 	C.SDL_ClearHints()
 }

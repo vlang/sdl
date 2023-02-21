@@ -788,7 +788,7 @@ fn C.SDL_GameControllerGetStringForButton(button C.SDL_GameControllerButton) &ch
 // The caller should not SDL_free() the returned string.
 //
 // `button` an enum value for a given SDL_GameControllerButton
-// returns a string for the given button, or NULL if an invalid axis is
+// returns a string for the given button, or NULL if an invalid button is
 //          specified. The string returned is of the format used by
 //          SDL_GameController mapping strings.
 //
@@ -946,6 +946,28 @@ fn C.SDL_GameControllerGetSensorData(gamecontroller &C.SDL_GameController, @type
 // NOTE This function is available since SDL 2.0.14.
 pub fn game_controller_get_sensor_data(gamecontroller &GameController, @type SensorType, data &f32, num_values int) int {
 	return C.SDL_GameControllerGetSensorData(gamecontroller, C.SDL_SensorType(@type),
+		data, num_values)
+}
+
+fn C.SDL_GameControllerGetSensorDataWithTimestamp(gamecontroller &C.SDL_GameController, @type C.SDL_SensorType, timestamp &u64, data &f32, num_values int) int
+
+// game_controller_get_sensor_data_with_timestamp gets the current state of a game controller sensor with the timestamp of the
+// last update.
+//
+// The number of values and interpretation of the data is sensor dependent.
+// See SDL_sensor.h for the details for each type of sensor.
+//
+// `gamecontroller` The controller to query
+// `type` The type of sensor to query
+// `timestamp` A pointer filled with the timestamp in microseconds of the
+//                  current sensor reading if available, or 0 if not
+// `data` A pointer filled with the current sensor state
+// `num_values` The number of values to write to data
+// returns 0 or -1 if an error occurred.
+//
+// NOTE This function is available since SDL 2.26.0.
+pub fn game_controller_get_sensor_data_with_timestamp(gamecontroller &GameController, @type SensorType, timestamp &u64, data &f32, num_values int) int {
+	return C.SDL_GameControllerGetSensorDataWithTimestamp(gamecontroller, @type, timestamp,
 		data, num_values)
 }
 

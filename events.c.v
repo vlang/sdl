@@ -115,7 +115,7 @@ pub enum EventType {
 	dollarrecord = C.SDL_DOLLARRECORD
 	multigesture = C.SDL_MULTIGESTURE
 	// Clipboard events
-	clipboardupdate = C.SDL_CLIPBOARDUPDATE // 0x900 The clipboard changed
+	clipboardupdate = C.SDL_CLIPBOARDUPDATE // 0x900 The clipboard or primary selection changed
 	// Drag and drop events
 	dropfile = C.SDL_DROPFILE // 0x1000 The system requests a file open
 	droptext = C.SDL_DROPTEXT // text/plain drag-and-drop event
@@ -285,6 +285,8 @@ pub:
 	direction u32       // Set to one of the SDL_MOUSEWHEEL_* defines. When FLIPPED the values in X and Y will be opposite. Multiply by -1 to change them back
 	preciseX  f32       // The amount scrolled horizontally, positive to the right and negative to the left, with float precision (added in 2.0.18)
 	preciseY  f32       // The amount scrolled vertically, positive away from the user and negative toward the user, with float precision (added in 2.0.18)
+	mouseX    int       // X coordinate, relative to window (added in 2.26.0)
+	mouseY    int       // Y coordinate, relative to window (added in 2.26.0)
 }
 
 pub type MouseWheelEvent = C.SDL_MouseWheelEvent
@@ -441,11 +443,12 @@ pub type ControllerTouchpadEvent = C.SDL_ControllerTouchpadEvent
 [typedef]
 pub struct C.SDL_ControllerSensorEvent {
 pub:
-	@type     u32 // ::SDL_CONTROLLERSENSORUPDATE
-	timestamp u32 // In milliseconds, populated using SDL_GetTicks()
-	which     C.SDL_JoystickID // The joystick instance id
-	sensor    int    // The type of the sensor, one of the values of ::SDL_SensorType
-	data      [3]f32 // Up to 3 values from the sensor, as defined in SDL_sensor.h
+	@type        u32 // ::SDL_CONTROLLERSENSORUPDATE
+	timestamp    u32 // In milliseconds, populated using SDL_GetTicks()
+	which        C.SDL_JoystickID // The joystick instance id
+	sensor       int    // The type of the sensor, one of the values of ::SDL_SensorType
+	data         [3]f32 // Up to 3 values from the sensor, as defined in SDL_sensor.h
+	timestamp_us u64    // The timestamp of the sensor reading in microseconds, if the hardware provides this information.
 }
 
 pub type ControllerSensorEvent = C.SDL_ControllerSensorEvent
@@ -536,10 +539,11 @@ pub type DropEvent = C.SDL_DropEvent
 [typedef]
 pub struct C.SDL_SensorEvent {
 pub:
-	@type     u32    // ::SDL_SENSORUPDATE
-	timestamp u32    // In milliseconds, populated using SDL_GetTicks()
-	which     int    // The instance ID of the sensor
-	data      [6]f32 // Up to 6 values from the sensor - additional values can be queried using SDL_SensorGetData()
+	@type        u32    // ::SDL_SENSORUPDATE
+	timestamp    u32    // In milliseconds, populated using SDL_GetTicks()
+	which        int    // The instance ID of the sensor
+	data         [6]f32 // Up to 6 values from the sensor - additional values can be queried using SDL_SensorGetData()
+	timestamp_us u64    // The timestamp of the sensor reading in microseconds, if the hardware provides this information.
 }
 
 pub type SensorEvent = C.SDL_SensorEvent

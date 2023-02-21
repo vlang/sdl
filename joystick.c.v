@@ -75,6 +75,11 @@ fn C.SDL_LockJoysticks()
 // the API functions that take a joystick index will be valid, and joystick
 // and game controller events will not be delivered.
 //
+// As of SDL 2.26.0, you can take the joystick lock around reinitializing the
+// joystick subsystem, to prevent other threads from seeing joysticks in an
+// uninitialized state. However, all open joysticks will be closed and SDL
+// functions called with them will fail.
+//
 // NOTE This function is available since SDL 2.0.7.
 pub fn lock_joysticks() {
 	C.SDL_LockJoysticks()
@@ -406,6 +411,10 @@ fn C.SDL_JoystickSetVirtualAxis(joystick &C.SDL_Joystick, axis int, value i16) i
 // the following: SDL_PollEvent, SDL_PumpEvents, SDL_WaitEventTimeout,
 // SDL_WaitEvent.
 //
+// Note that when sending trigger axes, you should scale the value to the full
+// range of Sint16. For example, a trigger at rest would have the value of
+// `SDL_JOYSTICK_AXIS_MIN`.
+//
 // `joystick` the virtual joystick on which to set state.
 // `axis` the specific axis on the virtual joystick to set.
 // `value` the new value for the specified axis.
@@ -653,6 +662,27 @@ fn C.SDL_JoystickGetGUIDFromString(pch_guid &char) C.SDL_JoystickGUID
 // See also: SDL_JoystickGetGUIDString
 pub fn joystick_get_guid_from_string(pch_guid &char) C.SDL_JoystickGUID {
 	return C.SDL_JoystickGetGUIDFromString(pch_guid)
+}
+
+fn C.SDL_GetJoystickGUIDInfo(guid C.SDL_JoystickGUID, vendor &u16, product &u16, version &u16, crc16 &u16)
+
+// get_joystick_guid_info gets the device information encoded in a SDL_JoystickGUID structure
+//
+// `guid` the SDL_JoystickGUID you wish to get info about
+// `vendor` A pointer filled in with the device VID, or 0 if not
+//               available
+// `product` A pointer filled in with the device PID, or 0 if not
+//                available
+// `version` A pointer filled in with the device version, or 0 if not
+//                available
+// `crc16` A pointer filled in with a CRC used to distinguish different
+//              products with the same VID/PID, or 0 if not available
+//
+// NOTE This function is available since SDL 2.26.0.
+//
+// See also: SDL_JoystickGetDeviceGUID
+pub fn get_joystick_guid_info(guid JoystickGUID, vendor &u16, product &u16, version &u16, crc16 &u16) {
+	C.SDL_GetJoystickGUIDInfo(guid, vendor, product, version, crc16)
 }
 
 fn C.SDL_JoystickGetAttached(joystick &C.SDL_Joystick) bool
