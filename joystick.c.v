@@ -682,7 +682,7 @@ fn C.SDL_GetJoystickGUIDInfo(guid C.SDL_JoystickGUID, vendor &u16, product &u16,
 //
 // See also: SDL_JoystickGetDeviceGUID
 pub fn get_joystick_guid_info(guid JoystickGUID, vendor &u16, product &u16, version &u16, crc16 &u16) {
-	C.SDL_GetJoystickGUIDInfo(guid, vendor, product, version, crc16)
+	C.SDL_GetJoystickGUIDInfo(C.SDL_JoystickGUID(guid), vendor, product, version, crc16)
 }
 
 fn C.SDL_JoystickGetAttached(joystick &C.SDL_Joystick) bool
