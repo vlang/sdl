@@ -29,6 +29,9 @@ jobs:
           cd SDL2-${SDL2_VERSION}
           mkdir build
           cd build
+          # --disable-wayland-shared fixes a troublesome wayland build
+          # affecting 2.0.14, 2.0.16 and 2.0.18 on Ubuntu 22.04+.
+          # See https://github.com/libsdl-org/SDL/issues/5088 for more info
           ../configure --disable-wayland-shared --prefix /tmp/sdl2-${SDL2_VERSION}
           make
           make install
