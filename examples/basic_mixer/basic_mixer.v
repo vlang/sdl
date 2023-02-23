@@ -39,7 +39,7 @@ fn (mut pc PlayCycle) next() {
 		return
 	}
 	music_key := music_keys[pc.cycle - 1]
-	music := pc.music[music_key]
+	music := pc.music[music_key] or { panic('Music sound "${music_key}" could not be found') }
 	if mixer.play_music(music, -1) == -1 {
 		mixer.free_music(music)
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
@@ -59,7 +59,7 @@ fn (mut pc PlayCycle) previous() {
 		pc.cycle = music_keys.len
 	}
 	music_key := music_keys[pc.cycle - 1]
-	music := pc.music[music_key]
+	music := pc.music[music_key] or { panic('Music sound "${music_key}" could not be found') }
 	if mixer.play_music(music, -1) == -1 {
 		mixer.free_music(music)
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
