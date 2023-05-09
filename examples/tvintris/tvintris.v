@@ -261,7 +261,7 @@ fn (mut sdlc SdlContext) set_sdl_context(w int, h int, titl string) {
 	njoy := sdl.num_joysticks()
 	for i in 0 .. njoy {
 		sdl.joystick_open(i)
-		jn := unsafe { tos_clone(sdl.joystick_name_for_index(i)) }
+		jn := unsafe { tos_clone(&u8(sdl.joystick_name_for_index(i))) }
 		println('JOY NAME ${jn}')
 		for j in 0 .. n_joy_max {
 			if sdlc.jnames[j] == jn {
