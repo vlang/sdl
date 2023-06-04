@@ -12,7 +12,8 @@ module sdl
 // NOTE This can be cast directly to an NSView or UIView.
 //
 // `typedef void *SDL_MetalView;`
-pub type MetalView = voidptr // C.SDL_MetalView
+// C.SDL_MetalView
+pub type MetalView = voidptr
 
 // Metal support functions
 fn C.SDL_Metal_CreateView(window &C.SDL_Window) C.SDL_MetalView
