@@ -19,7 +19,8 @@ pub type TimerCallback = fn (interval u32, param voidptr) u32
 fn C.SDL_TimerCallback(interval u32, param voidptr) u32
 
 // Definition of the timer ID type.
-pub type TimerID = int // typedef int SDL_TimerID;
+// typedef int SDL_TimerID;
+pub type TimerID = int
 
 fn C.SDL_GetTicks() u32
 
