@@ -53,7 +53,8 @@ pub enum JoystickType {
 	throttle
 }
 
-pub type JoystickID = int // C.SDL_JoystickID // Sint32 / int
+// C.SDL_JoystickID // Sint32 / int
+pub type JoystickID = int
 
 // JoystickPowerLevel is C.SDL_JoystickPowerLevel
 pub enum JoystickPowerLevel {
