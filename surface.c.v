@@ -10,7 +10,8 @@ module sdl
 [typedef]
 struct C.SDL_BlitMap {}
 
-pub type BlitMap = C.SDL_BlitMap // this is an opaque type.
+// BlitMap is an opaque type.
+pub type BlitMap = C.SDL_BlitMap
 
 // Surface is a collection of pixels used in software blitting.
 //
