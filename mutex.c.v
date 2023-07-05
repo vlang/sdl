@@ -243,7 +243,7 @@ pub fn sem_try_wait(sem &Sem) int {
 	return C.SDL_SemTryWait(sem)
 }
 
-fn C.SDL_SemWaitTimeout(sem &C.SDL_sem, ms u32) int
+fn C.SDL_SemWaitTimeout(sem &C.SDL_sem, timeout u32) int
 
 // sem_wait_timeout waits until a semaphore has a positive value and then decrements it.
 //
@@ -253,7 +253,7 @@ fn C.SDL_SemWaitTimeout(sem &C.SDL_sem, ms u32) int
 // successful it will atomically decrement the semaphore value.
 //
 // `sem` the semaphore to wait on
-// `ms` the length of the timeout, in milliseconds
+// `timeout` the length of the timeout, in milliseconds
 // returns 0 if the wait succeeds, `SDL_MUTEX_TIMEDOUT` if the wait does not
 //          succeed in the allotted time, or a negative error code on failure;
 //          call SDL_GetError() for more information.
@@ -266,8 +266,8 @@ fn C.SDL_SemWaitTimeout(sem &C.SDL_sem, ms u32) int
 // See also: SDL_SemTryWait
 // See also: SDL_SemValue
 // See also: SDL_SemWait
-pub fn sem_wait_timeout(sem &Sem, ms u32) int {
-	return C.SDL_SemWaitTimeout(sem, ms)
+pub fn sem_wait_timeout(sem &Sem, timeout u32) int {
+	return C.SDL_SemWaitTimeout(sem, timeout)
 }
 
 fn C.SDL_SemPost(sem &C.SDL_sem) int

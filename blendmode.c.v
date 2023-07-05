@@ -14,7 +14,7 @@ pub enum BlendMode {
 	blend = C.SDL_BLENDMODE_BLEND // 0x00000001, alpha blending    dstRGB = (srcRGB * srcA) + (dstRGB * (1-srcA)) dstA = srcA + (dstA * (1-srcA))
 	add = C.SDL_BLENDMODE_ADD // 0x00000002, additive blending   dstRGB = (srcRGB * srcA) + dstRGB dstA = dstA
 	mod = C.SDL_BLENDMODE_MOD // 0x00000004, color modulate      dstRGB = srcRGB * dstRGB dstA = dstA
-	mul = C.SDL_BLENDMODE_MUL // 0x00000008, color multiply dstRGB = (srcRGB * dstRGB) + (dstRGB * (1-srcA)) dstA = (srcA * dstA) + (dstA * (1-srcA))
+	mul = C.SDL_BLENDMODE_MUL // 0x00000008, color multiply dstRGB = (srcRGB * dstRGB) + (dstRGB * (1-srcA)) dstA = dstA
 	invalid = C.SDL_BLENDMODE_INVALID // 0x7FFFFFFF
 }
 

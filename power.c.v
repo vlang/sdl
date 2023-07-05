@@ -17,7 +17,7 @@ pub enum PowerState {
 	charged = C.SDL_POWERSTATE_CHARGED // Plugged in, battery charged
 }
 
-fn C.SDL_GetPowerInfo(secs &int, pct &int) C.SDL_PowerState
+fn C.SDL_GetPowerInfo(seconds &int, percent &int) C.SDL_PowerState
 
 // get_power_info gets the current power supply details.
 //
@@ -34,15 +34,15 @@ fn C.SDL_GetPowerInfo(secs &int, pct &int) C.SDL_PowerState
 // It's possible a platform can only report battery percentage or time left
 // but not both.
 //
-// `secs` seconds of battery life left, you can pass a NULL here if you
-//             don't care, will return -1 if we can't determine a value, or
-//             we're not running on a battery
-// `pct` percentage of battery life left, between 0 and 100, you can pass
-//            a NULL here if you don't care, will return -1 if we can't
-//            determine a value, or we're not running on a battery
+// `seconds` seconds of battery life left, you can pass a NULL here if
+//           you don't care, will return -1 if we can't determine a
+//           value, or we're not running on a battery
+// `percent` percentage of battery life left, between 0 and 100, you can
+//           pass a NULL here if you don't care, will return -1 if we
+//           can't determine a value, or we're not running on a battery
 // returns an SDL_PowerState enum representing the current battery state.
 //
 // NOTE This function is available since SDL 2.0.0.
-pub fn get_power_info(secs &int, pct &int) PowerState {
-	return PowerState(C.SDL_GetPowerInfo(secs, pct))
+pub fn get_power_info(seconds &int, percent &int) PowerState {
+	return PowerState(C.SDL_GetPowerInfo(seconds, percent))
 }

@@ -9,7 +9,7 @@ module sdl
 
 pub const (
 	major_version = C.SDL_MAJOR_VERSION // 2
-	minor_version = C.SDL_MINOR_VERSION // 26
+	minor_version = C.SDL_MINOR_VERSION // 28
 	patchlevel    = C.SDL_PATCHLEVEL // 0
 )
 

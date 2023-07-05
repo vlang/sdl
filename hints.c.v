@@ -293,6 +293,15 @@ pub const (
 	// any other string without a leading # sign applies to the element on the page with that ID.
 	hint_emscripten_keyboard_element              = 'SDL_EMSCRIPTEN_KEYBOARD_ELEMENT'
 
+	// A variable that controls whether the on-screen keyboard should be shown when text input is active
+	//
+	// The variable can be set to the following values:
+	// "0"       - Do not show the on-screen keyboard
+	// "1"       - Show the on-screen keyboard
+	//
+	// The default value is "1". This hint must be set before text input is activated.
+	hint_enable_screen_keyboard                   = 'SDL_ENABLE_SCREEN_KEYBOARD'
+
 	//  A variable that controls whether Steam Controllers should be exposed using the SDL joystick and game controller APIs
 	//
 	// The variable can be set to the following values:
@@ -1070,6 +1079,8 @@ pub const (
 	//
 	// This variable can be one of the following values:
 	// "primary" (default), "portrait", "landscape", "inverted-portrait", "inverted-landscape"
+	//
+	// Since SDL 2.0.22 this variable accepts a comma-separated list of values above.
 	hint_qtwayland_content_orientation            = 'SDL_QTWAYLAND_CONTENT_ORIENTATION'
 
 	//  Flags to set on QtWayland windows to integrate with the native window manager.
@@ -1618,6 +1629,26 @@ pub const (
 	// "1"       - SDL will not raise this exception, and threads will be unnamed. (default)
 	// This is necessary with .NET languages or debuggers that aren't Visual Studio.
 	hint_windows_disable_thread_naming            = 'SDL_WINDOWS_DISABLE_THREAD_NAMING'
+
+	// Controls whether menus can be opened with their keyboard shortcut (Alt+mnemonic).
+	//
+	// If the mnemonics are enabled, then menus can be opened by pressing the Alt
+	// key and the corresponding mnemonic (for example, Alt+F opens the File menu).
+	// However, in case an invalid mnemonic is pressed, Windows makes an audible
+	// beep to convey that nothing happened. This is true even if the window has
+	// no menu at all!
+	//
+	// Because most SDL applications don't have menus, and some want to use the Alt
+	// key for other purposes, SDL disables mnemonics (and the beeping) by default.
+	//
+	// Note: This also affects keyboard events: with mnemonics enabled, when a
+	// menu is opened from the keyboard, you will not receive a KEYUP event for
+	// the mnemonic key, and *might* not receive one for Alt.
+	//
+	// This variable can be set to the following values:
+	// "0"       - Alt+mnemonic does nothing, no beeping. (default)
+	// "1"       - Alt+mnemonic opens menus, invalid mnemonics produce a beep.
+	hint_windows_enable_menu_mnemonics            = 'SDL_WINDOWS_ENABLE_MENU_MNEMONICS'
 
 	//  A variable controlling whether the windows message loop is processed by SDL
 	//

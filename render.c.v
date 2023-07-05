@@ -1720,6 +1720,11 @@ fn C.SDL_RenderPresent(renderer &C.SDL_Renderer)
 //
 // `renderer` the rendering context
 //
+// NOTE (thread safety) You may only call this function on the main thread. If this
+//                      happens to work on a background thread on any given platform
+//                      or backend, it's purely by luck and you should not rely on it
+//                      to work next time.
+//
 // NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_RenderClear

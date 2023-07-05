@@ -162,6 +162,7 @@ pub enum DisplayEventID {
 	orientation = C.SDL_DISPLAYEVENT_ORIENTATION // Display orientation has changed to data1
 	connected = C.SDL_DISPLAYEVENT_CONNECTED // Display has been added to the system
 	disconnected = C.SDL_DISPLAYEVENT_DISCONNECTED // Display has been removed from the system
+	moved = C.SDL_DISPLAYEVENT_MOVED // Display has changed position
 }
 
 // Display orientation
@@ -1354,6 +1355,19 @@ pub fn set_window_fullscreen(window &Window, flags u32) int {
 	return C.SDL_SetWindowFullscreen(window, flags)
 }
 
+fn C.SDL_HasWindowSurface(window &C.SDL_Window) bool
+
+// has_window_surface returna whether the window has a surface associated with it.
+//
+// returns SDL_TRUE if there is a surface associated with the window, or SDL_FALSE otherwise.
+//
+// NOTE This function is available since SDL 2.28.0.
+//
+// See also: SDL_GetWindowSurface
+pub fn has_window_surface(window &Window) bool {
+	return C.SDL_HasWindowSurface(window)
+}
+
 fn C.SDL_GetWindowSurface(window &C.SDL_Window) &C.SDL_Surface
 
 // get_window_surface gets the SDL surface associated with the window.
@@ -1375,6 +1389,8 @@ fn C.SDL_GetWindowSurface(window &C.SDL_Window) &C.SDL_Surface
 //
 // NOTE This function is available since SDL 2.0.0.
 //
+// See also: SDL_DestroyWindowSurface
+// See also: SDL_HasWindowSurface
 // See also: SDL_UpdateWindowSurface
 // See also: SDL_UpdateWindowSurfaceRects
 pub fn get_window_surface(window &Window) &Surface {
@@ -1413,7 +1429,7 @@ fn C.SDL_UpdateWindowSurfaceRects(window &C.SDL_Window, const_rects &C.SDL_Rect,
 //
 // `window` the window to update
 // `rects` an array of SDL_Rect structures representing areas of the
-//              surface to copy
+//              surface to copy, in pixels
 // `numrects` the number of rectangles
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
@@ -1424,6 +1440,22 @@ fn C.SDL_UpdateWindowSurfaceRects(window &C.SDL_Window, const_rects &C.SDL_Rect,
 // See also: SDL_UpdateWindowSurface
 pub fn update_window_surface_rects(window &Window, const_rects &Rect, numconst_rects int) int {
 	return C.SDL_UpdateWindowSurfaceRects(window, const_rects, numconst_rects)
+}
+
+fn C.SDL_DestroyWindowSurface(window &C.SDL_Window) int
+
+// destroy_window_surface destroys the surface associated with the window.
+//
+// `window` the window to update
+// returns 0 on success or a negative error code on failure; call
+//          SDL_GetError() for more information.
+//
+// NOTE This function is available since SDL 2.28.0.
+//
+// See also: SDL_GetWindowSurface
+// See also: SDL_HasWindowSurface
+pub fn destroy_window_surface(window &Window) int {
+	return C.SDL_DestroyWindowSurface(window)
 }
 
 fn C.SDL_SetWindowGrab(window &C.SDL_Window, grabbed bool)

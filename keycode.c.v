@@ -15,7 +15,7 @@ module sdl
 // an SDLK_* constant for those keys that do not generate characters.
 //
 // A special exception is the number keys at the top of the keyboard which
-// always map to SDLK_0...SDLK_9, regardless of layout.
+// map to SDLK_0...SDLK_9 on AZERTY layouts.
 
 // Sint32 C.SDL_Keycode;
 pub type Keycode = int
