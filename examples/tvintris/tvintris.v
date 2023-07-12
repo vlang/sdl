@@ -255,7 +255,7 @@ fn (mut sdlc SdlContext) set_sdl_context(w int, h int, titl string) {
 	sdlc.actx.waves[1] = mix.load_wav(snd_line_name.str)
 	sdlc.actx.waves[2] = mix.load_wav(snd_double_name.str)
 	sdlc.actx.volume = mix.maxvolume
-	if mix.play_music(sdlc.actx.music, 1) != -1 {
+	if mix.play_music(sdlc.actx.music, -1) != -1 {
 		mix.volume_music(sdlc.actx.volume)
 	}
 	njoy := sdl.num_joysticks()
