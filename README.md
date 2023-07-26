@@ -23,8 +23,7 @@ it via `git` or by manual download.
 An example of installing the system provided version of SDL2 via `git`:
 ```bash
 git clone https://github.com/vlang/sdl.git ~/.vmodules
-cd ~/.vmodules/sdl
-sdl_version=$(sdl2-config --version); git checkout "${sdl_version%.*}.0"
+v ~/.vmodules/sdl/setup.vsh
 ```
 
 Should `sdl2-config` be absent on your system you can try the following instead,
