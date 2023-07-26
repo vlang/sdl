@@ -20,6 +20,16 @@ v install sdl
 If you want to use another version of SDL2 you will, currently, have to install
 it via `git` or by manual download.
 
+An example of installing the system provided version of SDL2 via `git`:
+```bash
+git clone https://github.com/vlang/sdl.git ~/.vmodules
+cd ~/.vmodules/sdl
+sdl_version=$(sdl2-config --version); git checkout "${sdl_version%.*}.0"
+```
+
+Should `sdl2-config` be absent on your system you can try the following instead,
+by providing the version manually:
+
 An example of installing SDL2 `v2.0.12` via `git`:
 ```bash
 git clone https://github.com/vlang/sdl.git ~/.vmodules
