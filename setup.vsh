@@ -19,6 +19,12 @@ mut supported_versions := remotes.output.split_into_lines().map(it.trim_space())
 supported_versions.insert(0, '2.0.8') // master
 println('The SDL module officially supports these versions of SDL:\n   ${supported_versions}')
 
+if system_version == '2.0.8' {
+	println('Setting up the repository to branch master, that exactly matches your system SDL version 2.0.8')
+	os.system('git checkout master')
+	exit(0)
+}
+
 if system_version in supported_versions {
 	println('Setting up the repository to branch ${system_version} that exactly matches your system SDL version')
 	os.system('git checkout ${system_version}')
