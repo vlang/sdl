@@ -115,8 +115,8 @@ fn C.SDL_GetThreadName(thread &C.SDL_Thread) &char
 // specified thread, or NULL if it doesn't have a name. This is internal
 // memory, not to be free()'d by the caller, and remains valid until the
 // specified thread is cleaned up by SDL_WaitThread().
-pub fn get_thread_name(thread &Thread) &char {
-	return C.SDL_GetThreadName(thread)
+pub fn get_thread_name(thrd &Thread) &char {
+	return C.SDL_GetThreadName(thrd)
 }
 
 fn C.SDL_ThreadID() C.SDL_threadID
