@@ -149,22 +149,22 @@ pub fn create_thread_with_stack_size(func ThreadFunction, const_name &char, cons
 	return unsafe { nil }
 }
 
-fn C.SDL_GetThreadName(thread &C.SDL_Thread) &char
+fn C.SDL_GetThreadName(pthread &C.SDL_Thread) &char
 
 // get_thread_name gets the thread name as it was specified in SDL_CreateThread().
 //
 // This is internal memory, not to be freed by the caller, and remains valid
 // until the specified thread is cleaned up by SDL_WaitThread().
 //
-// `thread` the thread to query
+// `pthread` the thread to query
 // returns a pointer to a UTF-8 string that names the specified thread, or
 //          NULL if it doesn't have a name.
 //
 // NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateThread
-pub fn get_thread_name(thread &Thread) &char {
-	return C.SDL_GetThreadName(thread)
+pub fn get_thread_name(pthread &Thread) &char {
+	return C.SDL_GetThreadName(pthread)
 }
 
 fn C.SDL_ThreadID() C.SDL_threadID
