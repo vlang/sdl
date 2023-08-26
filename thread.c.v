@@ -153,7 +153,7 @@ fn C.SDL_GetThreadName(pthread &C.SDL_Thread) &char
 // This is internal memory, not to be freed by the caller, and remains valid
 // until the specified thread is cleaned up by SDL_WaitThread().
 //
-// `thread` the thread to query
+// `pthread` the thread to query
 // returns a pointer to a UTF-8 string that names the specified thread, or
 //          NULL if it doesn't have a name.
 //
