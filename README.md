@@ -22,7 +22,7 @@ it via `git` or by manual download.
 
 An example of installing the system provided version of SDL2 via `git`:
 ```bash
-git clone https://github.com/vlang/sdl.git ~/.vmodules
+git clone https://github.com/vlang/sdl.git ~/.vmodules/sdl
 v ~/.vmodules/sdl/setup.vsh
 ```
 
@@ -31,7 +31,7 @@ by providing the version manually:
 
 An example of installing SDL2 `v2.0.12` via `git`:
 ```bash
-git clone https://github.com/vlang/sdl.git ~/.vmodules
+git clone https://github.com/vlang/sdl.git ~/.vmodules/sdl
 cd ~/.vmodules/sdl
 git checkout 2.0.12
 ```
