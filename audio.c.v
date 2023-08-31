@@ -131,8 +131,8 @@ pub const (
 // You can choose to avoid callbacks and use SDL_QueueAudio() instead, if
 // you like. Just open your audio device with a NULL callback.
 //
-// `typedef void (SDLCALL * SDL_AudioCallback) (void *userdata, Uint8 * stream)`
-pub type AudioCallback = fn (userdata voidptr, stream &u8)
+// `typedef void (SDLCALL * SDL_AudioCallback) (void *userdata, Uint8 * stream, int len)`
+pub type AudioCallback = fn (userdata voidptr, stream &u8, len int)
 
 // AudioSpec
 //
