@@ -25,10 +25,10 @@ pub type GameController = C.SDL_GameController
 
 // GameControllerBindType is C.SDL_GameControllerBindType
 pub enum GameControllerBindType {
-	@none = C.SDL_CONTROLLER_BINDTYPE_NONE // 0
+	@none  = C.SDL_CONTROLLER_BINDTYPE_NONE // 0
 	button = C.SDL_CONTROLLER_BINDTYPE_BUTTON
-	axis = C.SDL_CONTROLLER_BINDTYPE_AXIS
-	hat = C.SDL_CONTROLLER_BINDTYPE_HAT
+	axis   = C.SDL_CONTROLLER_BINDTYPE_AXIS
+	hat    = C.SDL_CONTROLLER_BINDTYPE_HAT
 }
 
 pub union Value {
@@ -278,14 +278,14 @@ pub fn game_controller_update() {
 //
 // GameControllerAxis is C.SDL_GameControllerAxis
 pub enum GameControllerAxis {
-	invalid = C.SDL_CONTROLLER_AXIS_INVALID // -1
-	leftx = C.SDL_CONTROLLER_AXIS_LEFTX
-	lefty = C.SDL_CONTROLLER_AXIS_LEFTY
-	rightx = C.SDL_CONTROLLER_AXIS_RIGHTX
-	righty = C.SDL_CONTROLLER_AXIS_RIGHTY
-	triggerleft = C.SDL_CONTROLLER_AXIS_TRIGGERLEFT
+	invalid      = C.SDL_CONTROLLER_AXIS_INVALID // -1
+	leftx        = C.SDL_CONTROLLER_AXIS_LEFTX
+	lefty        = C.SDL_CONTROLLER_AXIS_LEFTY
+	rightx       = C.SDL_CONTROLLER_AXIS_RIGHTX
+	righty       = C.SDL_CONTROLLER_AXIS_RIGHTY
+	triggerleft  = C.SDL_CONTROLLER_AXIS_TRIGGERLEFT
 	triggerright = C.SDL_CONTROLLER_AXIS_TRIGGERRIGHT
-	max = C.SDL_CONTROLLER_AXIS_MAX
+	max          = C.SDL_CONTROLLER_AXIS_MAX
 }
 
 fn C.SDL_GameControllerGetAxisFromString(pch_string &char) C.SDL_GameControllerAxis
@@ -324,23 +324,23 @@ pub fn game_controller_get_axis(gamecontroller &GameController, axis GameControl
 // GameControllerButton is the list of buttons available from a controller
 // GameControllerButton is C.SDL_GameControllerButton
 pub enum GameControllerButton {
-	invalid = C.SDL_CONTROLLER_BUTTON_INVALID // -1
-	a = C.SDL_CONTROLLER_BUTTON_A
-	b = C.SDL_CONTROLLER_BUTTON_B
-	x = C.SDL_CONTROLLER_BUTTON_X
-	y = C.SDL_CONTROLLER_BUTTON_Y
-	back = C.SDL_CONTROLLER_BUTTON_BACK
-	guide = C.SDL_CONTROLLER_BUTTON_GUIDE
-	start = C.SDL_CONTROLLER_BUTTON_START
-	leftstick = C.SDL_CONTROLLER_BUTTON_LEFTSTICK
-	rightstick = C.SDL_CONTROLLER_BUTTON_RIGHTSTICK
-	leftshoulder = C.SDL_CONTROLLER_BUTTON_LEFTSHOULDER
+	invalid       = C.SDL_CONTROLLER_BUTTON_INVALID // -1
+	a             = C.SDL_CONTROLLER_BUTTON_A
+	b             = C.SDL_CONTROLLER_BUTTON_B
+	x             = C.SDL_CONTROLLER_BUTTON_X
+	y             = C.SDL_CONTROLLER_BUTTON_Y
+	back          = C.SDL_CONTROLLER_BUTTON_BACK
+	guide         = C.SDL_CONTROLLER_BUTTON_GUIDE
+	start         = C.SDL_CONTROLLER_BUTTON_START
+	leftstick     = C.SDL_CONTROLLER_BUTTON_LEFTSTICK
+	rightstick    = C.SDL_CONTROLLER_BUTTON_RIGHTSTICK
+	leftshoulder  = C.SDL_CONTROLLER_BUTTON_LEFTSHOULDER
 	rightshoulder = C.SDL_CONTROLLER_BUTTON_RIGHTSHOULDER
-	dpad_up = C.SDL_CONTROLLER_BUTTON_DPAD_UP
-	dpad_down = C.SDL_CONTROLLER_BUTTON_DPAD_DOWN
-	dpad_left = C.SDL_CONTROLLER_BUTTON_DPAD_LEFT
-	dpad_right = C.SDL_CONTROLLER_BUTTON_DPAD_RIGHT
-	max = C.SDL_CONTROLLER_BUTTON_MAX
+	dpad_up       = C.SDL_CONTROLLER_BUTTON_DPAD_UP
+	dpad_down     = C.SDL_CONTROLLER_BUTTON_DPAD_DOWN
+	dpad_left     = C.SDL_CONTROLLER_BUTTON_DPAD_LEFT
+	dpad_right    = C.SDL_CONTROLLER_BUTTON_DPAD_RIGHT
+	max           = C.SDL_CONTROLLER_BUTTON_MAX
 }
 
 fn C.SDL_GameControllerGetButtonFromString(pch_string &char) C.SDL_GameControllerButton
