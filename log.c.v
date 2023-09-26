@@ -25,25 +25,25 @@ pub type LogOutputFunction = fn (userdata voidptr, category int, priority LogPri
 // LogCategory is C.SDL_LogCategory
 pub enum LogCategory {
 	application = C.SDL_LOG_CATEGORY_APPLICATION
-	error = C.SDL_LOG_CATEGORY_ERROR
-	@assert = C.SDL_LOG_CATEGORY_ASSERT
-	system = C.SDL_LOG_CATEGORY_SYSTEM
-	audio = C.SDL_LOG_CATEGORY_AUDIO
-	video = C.SDL_LOG_CATEGORY_VIDEO
-	render = C.SDL_LOG_CATEGORY_RENDER
-	input = C.SDL_LOG_CATEGORY_INPUT
-	test = C.SDL_LOG_CATEGORY_TEST
+	error       = C.SDL_LOG_CATEGORY_ERROR
+	@assert     = C.SDL_LOG_CATEGORY_ASSERT
+	system      = C.SDL_LOG_CATEGORY_SYSTEM
+	audio       = C.SDL_LOG_CATEGORY_AUDIO
+	video       = C.SDL_LOG_CATEGORY_VIDEO
+	render      = C.SDL_LOG_CATEGORY_RENDER
+	input       = C.SDL_LOG_CATEGORY_INPUT
+	test        = C.SDL_LOG_CATEGORY_TEST
 	// Reserved for future SDL library use
-	reserved1 = C.SDL_LOG_CATEGORY_RESERVED1
-	reserved2 = C.SDL_LOG_CATEGORY_RESERVED2
-	reserved3 = C.SDL_LOG_CATEGORY_RESERVED3
-	reserved4 = C.SDL_LOG_CATEGORY_RESERVED4
-	reserved5 = C.SDL_LOG_CATEGORY_RESERVED5
-	reserved6 = C.SDL_LOG_CATEGORY_RESERVED6
-	reserved7 = C.SDL_LOG_CATEGORY_RESERVED7
-	reserved8 = C.SDL_LOG_CATEGORY_RESERVED8
-	reserved9 = C.SDL_LOG_CATEGORY_RESERVED9
-	reserved10 = C.SDL_LOG_CATEGORY_RESERVED10
+	reserved1   = C.SDL_LOG_CATEGORY_RESERVED1
+	reserved2   = C.SDL_LOG_CATEGORY_RESERVED2
+	reserved3   = C.SDL_LOG_CATEGORY_RESERVED3
+	reserved4   = C.SDL_LOG_CATEGORY_RESERVED4
+	reserved5   = C.SDL_LOG_CATEGORY_RESERVED5
+	reserved6   = C.SDL_LOG_CATEGORY_RESERVED6
+	reserved7   = C.SDL_LOG_CATEGORY_RESERVED7
+	reserved8   = C.SDL_LOG_CATEGORY_RESERVED8
+	reserved9   = C.SDL_LOG_CATEGORY_RESERVED9
+	reserved10  = C.SDL_LOG_CATEGORY_RESERVED10
 	// Beyond this point is reserved for application use, e.g.
 	//   enum {
 	//       MYAPP_CATEGORY_AWESOME1 = SDL_LOG_CATEGORY_CUSTOM,
@@ -52,17 +52,17 @@ pub enum LogCategory {
 	//       ...
 	//   };
 	//
-	custom = C.SDL_LOG_CATEGORY_CUSTOM
+	custom      = C.SDL_LOG_CATEGORY_CUSTOM
 }
 
 // LogPriority is C.SDL_LogPriority
 pub enum LogPriority {
-	verbose = C.SDL_LOG_PRIORITY_VERBOSE // 1
-	debug = C.SDL_LOG_PRIORITY_DEBUG
-	info = C.SDL_LOG_PRIORITY_INFO
-	warn = C.SDL_LOG_PRIORITY_WARN
-	error = C.SDL_LOG_PRIORITY_ERROR
-	critical = C.SDL_LOG_PRIORITY_CRITICAL
+	verbose            = C.SDL_LOG_PRIORITY_VERBOSE // 1
+	debug              = C.SDL_LOG_PRIORITY_DEBUG
+	info               = C.SDL_LOG_PRIORITY_INFO
+	warn               = C.SDL_LOG_PRIORITY_WARN
+	error              = C.SDL_LOG_PRIORITY_ERROR
+	critical           = C.SDL_LOG_PRIORITY_CRITICAL
 	num_log_priorities = C.SDL_NUM_LOG_PRIORITIES
 }
 
