@@ -30,9 +30,9 @@ pub type TLSID = u32
 //
 // ThreadPriority is C.SDL_ThreadPriority
 pub enum ThreadPriority {
-	low = C.SDL_THREAD_PRIORITY_LOW
+	low    = C.SDL_THREAD_PRIORITY_LOW
 	normal = C.SDL_THREAD_PRIORITY_NORMAL
-	high = C.SDL_THREAD_PRIORITY_HIGH
+	high   = C.SDL_THREAD_PRIORITY_HIGH
 }
 
 // ThreadFunction is the function passed to SDL_CreateThread().

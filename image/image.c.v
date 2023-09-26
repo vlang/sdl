@@ -41,9 +41,9 @@ pub fn linked_version() &sdl.Version {
 
 // InitFlags isC.IMG_InitFlags
 pub enum InitFlags {
-	jpg = C.IMG_INIT_JPG // 0x00000001
-	png = C.IMG_INIT_PNG // 0x00000002
-	tif = C.IMG_INIT_TIF // 0x00000004
+	jpg  = C.IMG_INIT_JPG // 0x00000001
+	png  = C.IMG_INIT_PNG // 0x00000002
+	tif  = C.IMG_INIT_TIF // 0x00000004
 	webp = C.IMG_INIT_WEBP // 0x00000008
 }
 
