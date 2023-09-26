@@ -666,7 +666,7 @@ fn C.SDL_OpenAudioDevice(const_device &char, iscapture int, const_desired &C.SDL
 pub enum AudioStatus {
 	audio_stopped = C.SDL_AUDIO_STOPPED // 0
 	audio_playing = C.SDL_AUDIO_PLAYING
-	audio_paused = C.SDL_AUDIO_PAUSED
+	audio_paused  = C.SDL_AUDIO_PAUSED
 }
 
 fn C.SDL_GetAudioStatus() C.SDL_AudioStatus

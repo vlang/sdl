@@ -41,100 +41,100 @@ pub type EventFilter = fn (userdata voidptr, event &Event)
 
 // EventType is C.SDL_EventType
 pub enum EventType {
-	firstevent = C.SDL_FIRSTEVENT // Unused (do not remove)
-	quit = C.SDL_QUIT // 0x100 User-requested quit
+	firstevent               = C.SDL_FIRSTEVENT // Unused (do not remove)
+	quit                     = C.SDL_QUIT // 0x100 User-requested quit
 	// These application events have special meaning on iOS, see README-ios.md in SDL for details
 	// The application is being terminated by the OS
 	// Called on iOS in applicationWillTerminate()
 	// Called on Android in onDestroy()
-	app_terminating = C.SDL_APP_TERMINATING
+	app_terminating          = C.SDL_APP_TERMINATING
 	// The application is low on memory, free memory if possible.
 	// Called on iOS in applicationDidReceiveMemoryWarning()
 	// Called on Android in onLowMemory()
-	app_lowmemory = C.SDL_APP_LOWMEMORY
+	app_lowmemory            = C.SDL_APP_LOWMEMORY
 	// The application is about to enter the background
 	// Called on iOS in applicationWillResignActive()
 	// Called on Android in onPause()
-	app_willenterbackground = C.SDL_APP_WILLENTERBACKGROUND
+	app_willenterbackground  = C.SDL_APP_WILLENTERBACKGROUND
 	// The application did enter the background and may not get CPU for some time
 	// Called on iOS in applicationDidEnterBackground()
 	// Called on Android in onPause()
-	app_didenterbackground = C.SDL_APP_DIDENTERBACKGROUND
+	app_didenterbackground   = C.SDL_APP_DIDENTERBACKGROUND
 	// The application is about to enter the foreground
 	// Called on iOS in applicationWillEnterForeground()
 	// Called on Android in onResume()
-	app_willenterforeground = C.SDL_APP_WILLENTERFOREGROUND
+	app_willenterforeground  = C.SDL_APP_WILLENTERFOREGROUND
 	// The application is now interactive
 	// Called on iOS in applicationDidBecomeActive()
 	// Called on Android in onResume()
-	app_didenterforeground = C.SDL_APP_DIDENTERFOREGROUND
-	localechanged = C.SDL_LOCALECHANGED // The user's locale preferences have changed.
+	app_didenterforeground   = C.SDL_APP_DIDENTERFOREGROUND
+	localechanged            = C.SDL_LOCALECHANGED // The user's locale preferences have changed.
 	// Display events
-	displayevent = C.SDL_DISPLAYEVENT // 0x150 Display state change
+	displayevent             = C.SDL_DISPLAYEVENT // 0x150 Display state change
 	// Window events
-	windowevent = C.SDL_WINDOWEVENT // 0x200 Window state change
-	syswmevent = C.SDL_SYSWMEVENT
+	windowevent              = C.SDL_WINDOWEVENT // 0x200 Window state change
+	syswmevent               = C.SDL_SYSWMEVENT
 	// Keyboard events
-	keydown = C.SDL_KEYDOWN // 0x300, Key pressed
-	keyup = C.SDL_KEYUP // Key released
-	textediting = C.SDL_TEXTEDITING // Keyboard text editing (composition)
-	textinput = C.SDL_TEXTINPUT // Keyboard text input
-	keymapchanged = C.SDL_KEYMAPCHANGED // Keymap changed due to a system event such as an input language or keyboard layout change.
-	textediting_ext = C.SDL_TEXTEDITING_EXT // Extended keyboard text editing (composition)
+	keydown                  = C.SDL_KEYDOWN // 0x300, Key pressed
+	keyup                    = C.SDL_KEYUP // Key released
+	textediting              = C.SDL_TEXTEDITING // Keyboard text editing (composition)
+	textinput                = C.SDL_TEXTINPUT // Keyboard text input
+	keymapchanged            = C.SDL_KEYMAPCHANGED // Keymap changed due to a system event such as an input language or keyboard layout change.
+	textediting_ext          = C.SDL_TEXTEDITING_EXT // Extended keyboard text editing (composition)
 	// Mouse events
-	mousemotion = C.SDL_MOUSEMOTION // 0x400, Mouse moved
-	mousebuttondown = C.SDL_MOUSEBUTTONDOWN // Mouse button pressed
-	mousebuttonup = C.SDL_MOUSEBUTTONUP // Mouse button released
-	mousewheel = C.SDL_MOUSEWHEEL // Mouse wheel motion
+	mousemotion              = C.SDL_MOUSEMOTION // 0x400, Mouse moved
+	mousebuttondown          = C.SDL_MOUSEBUTTONDOWN // Mouse button pressed
+	mousebuttonup            = C.SDL_MOUSEBUTTONUP // Mouse button released
+	mousewheel               = C.SDL_MOUSEWHEEL // Mouse wheel motion
 	// Joystick events
-	joyaxismotion = C.SDL_JOYAXISMOTION // 0x600, Joystick axis motion
-	joyballmotion = C.SDL_JOYBALLMOTION // Joystick trackball motion
-	joyhatmotion = C.SDL_JOYHATMOTION // Joystick hat position change
-	joybuttondown = C.SDL_JOYBUTTONDOWN // Joystick button pressed
-	joybuttonup = C.SDL_JOYBUTTONUP // Joystick button released
-	joydeviceadded = C.SDL_JOYDEVICEADDED // A new joystick has been inserted into the system
-	joydeviceremoved = C.SDL_JOYDEVICEREMOVED // An opened joystick has been removed
-	joybatteryupdated = C.SDL_JOYBATTERYUPDATED // Joystick battery level change
+	joyaxismotion            = C.SDL_JOYAXISMOTION // 0x600, Joystick axis motion
+	joyballmotion            = C.SDL_JOYBALLMOTION // Joystick trackball motion
+	joyhatmotion             = C.SDL_JOYHATMOTION // Joystick hat position change
+	joybuttondown            = C.SDL_JOYBUTTONDOWN // Joystick button pressed
+	joybuttonup              = C.SDL_JOYBUTTONUP // Joystick button released
+	joydeviceadded           = C.SDL_JOYDEVICEADDED // A new joystick has been inserted into the system
+	joydeviceremoved         = C.SDL_JOYDEVICEREMOVED // An opened joystick has been removed
+	joybatteryupdated        = C.SDL_JOYBATTERYUPDATED // Joystick battery level change
 	// Game controller events
-	controlleraxismotion = C.SDL_CONTROLLERAXISMOTION // 0x650, Game controller axis motion
-	controllerbuttondown = C.SDL_CONTROLLERBUTTONDOWN // Game controller button pressed
-	controllerbuttonup = C.SDL_CONTROLLERBUTTONUP // Game controller button released
-	controllerdeviceadded = C.SDL_CONTROLLERDEVICEADDED // A new Game controller has been inserted into the system
-	controllerdeviceremoved = C.SDL_CONTROLLERDEVICEREMOVED // An opened Game controller has been removed
+	controlleraxismotion     = C.SDL_CONTROLLERAXISMOTION // 0x650, Game controller axis motion
+	controllerbuttondown     = C.SDL_CONTROLLERBUTTONDOWN // Game controller button pressed
+	controllerbuttonup       = C.SDL_CONTROLLERBUTTONUP // Game controller button released
+	controllerdeviceadded    = C.SDL_CONTROLLERDEVICEADDED // A new Game controller has been inserted into the system
+	controllerdeviceremoved  = C.SDL_CONTROLLERDEVICEREMOVED // An opened Game controller has been removed
 	controllerdeviceremapped = C.SDL_CONTROLLERDEVICEREMAPPED // The controller mapping was updated
-	controllertouchpaddown = C.SDL_CONTROLLERTOUCHPADDOWN // Game controller touchpad was touched
+	controllertouchpaddown   = C.SDL_CONTROLLERTOUCHPADDOWN // Game controller touchpad was touched
 	controllertouchpadmotion = C.SDL_CONTROLLERTOUCHPADMOTION // Game controller touchpad finger was moved
-	controllertouchpadup = C.SDL_CONTROLLERTOUCHPADUP // Game controller touchpad finger was lifted
-	controllersensorupdate = C.SDL_CONTROLLERSENSORUPDATE // Game controller sensor was updated
+	controllertouchpadup     = C.SDL_CONTROLLERTOUCHPADUP // Game controller touchpad finger was lifted
+	controllersensorupdate   = C.SDL_CONTROLLERSENSORUPDATE // Game controller sensor was updated
 	// Touch events
-	fingerdown = C.SDL_FINGERDOWN // 0x700
-	fingerup = C.SDL_FINGERUP
-	fingermotion = C.SDL_FINGERMOTION
+	fingerdown               = C.SDL_FINGERDOWN // 0x700
+	fingerup                 = C.SDL_FINGERUP
+	fingermotion             = C.SDL_FINGERMOTION
 	// Gesture events
-	dollargesture = C.SDL_DOLLARGESTURE // 0x800
-	dollarrecord = C.SDL_DOLLARRECORD
-	multigesture = C.SDL_MULTIGESTURE
+	dollargesture            = C.SDL_DOLLARGESTURE // 0x800
+	dollarrecord             = C.SDL_DOLLARRECORD
+	multigesture             = C.SDL_MULTIGESTURE
 	// Clipboard events
-	clipboardupdate = C.SDL_CLIPBOARDUPDATE // 0x900 The clipboard changed
+	clipboardupdate          = C.SDL_CLIPBOARDUPDATE // 0x900 The clipboard changed
 	// Drag and drop events
-	dropfile = C.SDL_DROPFILE // 0x1000 The system requests a file open
-	droptext = C.SDL_DROPTEXT // text/plain drag-and-drop event
-	dropbegin = C.SDL_DROPBEGIN // A new set of drops is beginning (NULL filename)
-	dropcomplete = C.SDL_DROPCOMPLETE // Current set of drops is now complete (NULL filename)
+	dropfile                 = C.SDL_DROPFILE // 0x1000 The system requests a file open
+	droptext                 = C.SDL_DROPTEXT // text/plain drag-and-drop event
+	dropbegin                = C.SDL_DROPBEGIN // A new set of drops is beginning (NULL filename)
+	dropcomplete             = C.SDL_DROPCOMPLETE // Current set of drops is now complete (NULL filename)
 	// Audio hotplug events
-	audiodeviceadded = C.SDL_AUDIODEVICEADDED // 0x1100 A new audio device is available
-	audiodeviceremoved = C.SDL_AUDIODEVICEREMOVED // An audio device has been removed.
+	audiodeviceadded         = C.SDL_AUDIODEVICEADDED // 0x1100 A new audio device is available
+	audiodeviceremoved       = C.SDL_AUDIODEVICEREMOVED // An audio device has been removed.
 	// Sensor events
-	sensorupdate = C.SDL_SENSORUPDATE // 0x1200 A sensor was updated
+	sensorupdate             = C.SDL_SENSORUPDATE // 0x1200 A sensor was updated
 	// Render events
-	render_targets_reset = C.SDL_RENDER_TARGETS_RESET // 0x2000 The render targets have been reset and their contents need to be updated
-	render_device_reset = C.SDL_RENDER_DEVICE_RESET // The device has been reset and all textures need to be recreated
+	render_targets_reset     = C.SDL_RENDER_TARGETS_RESET // 0x2000 The render targets have been reset and their contents need to be updated
+	render_device_reset      = C.SDL_RENDER_DEVICE_RESET // The device has been reset and all textures need to be recreated
 	// Internal events
-	pollsentinel = C.SDL_POLLSENTINEL // 0x7F00, Signals the end of an event poll cycle
+	pollsentinel             = C.SDL_POLLSENTINEL // 0x7F00, Signals the end of an event poll cycle
 	// Events ::SDL_USEREVENT through ::SDL_LASTEVENT are for your use, and should be allocated with SDL_RegisterEvents()
-	userevent = C.SDL_USEREVENT
+	userevent                = C.SDL_USEREVENT
 	// This last event is only for bounding internal arrays
-	lastevent = C.SDL_LASTEVENT // 0xFFFF
+	lastevent                = C.SDL_LASTEVENT // 0xFFFF
 }
 
 // CommonEvent is fields shared by every event
@@ -696,9 +696,9 @@ pub fn pump_events() {
 
 // EventAction is C.SDL_eventaction
 pub enum EventAction {
-	addevent = C.SDL_ADDEVENT
+	addevent  = C.SDL_ADDEVENT
 	peekevent = C.SDL_PEEKEVENT
-	getevent = C.SDL_GETEVENT
+	getevent  = C.SDL_GETEVENT
 }
 
 fn C.SDL_PeepEvents(events &C.SDL_Event, numevents int, action C.SDL_eventaction, min_type u32, max_type u32) int
