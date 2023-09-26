@@ -975,8 +975,8 @@ pub const (
 
 // HintPriority is C.SDL_HintPriority
 pub enum HintPriority {
-	default = C.SDL_HINT_DEFAULT
-	normal = C.SDL_HINT_NORMAL
+	default  = C.SDL_HINT_DEFAULT
+	normal   = C.SDL_HINT_NORMAL
 	override = C.SDL_HINT_OVERRIDE
 }
 
