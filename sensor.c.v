@@ -29,8 +29,8 @@ pub type SensorID = int
 pub enum SensorType {
 	invalid = C.SDL_SENSOR_INVALID // -1, Returned for an invalid sensor
 	unknown = C.SDL_SENSOR_UNKNOWN // Unknown sensor type
-	accel = C.SDL_SENSOR_ACCEL // Accelerometer
-	gyro = C.SDL_SENSOR_GYRO // Gyroscope
+	accel   = C.SDL_SENSOR_ACCEL // Accelerometer
+	gyro    = C.SDL_SENSOR_GYRO // Gyroscope
 }
 
 // Accelerometer sensor

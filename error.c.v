@@ -83,12 +83,12 @@ pub fn clear_error() {
 
 // ErrorCode is C.SDL_errorcode
 pub enum ErrorCode {
-	enomem = C.SDL_ENOMEM
-	efread = C.SDL_EFREAD
-	efwrite = C.SDL_EFWRITE
-	efseek = C.SDL_EFSEEK
+	enomem      = C.SDL_ENOMEM
+	efread      = C.SDL_EFREAD
+	efwrite     = C.SDL_EFWRITE
+	efseek      = C.SDL_EFSEEK
 	unsupported = C.SDL_UNSUPPORTED
-	lasterror = C.SDL_LASTERROR
+	lasterror   = C.SDL_LASTERROR
 }
 
 fn C.SDL_Error(code C.SDL_errorcode) int
