@@ -27,14 +27,14 @@ pub type SensorID = int
 
 // SensorType is C.SDL_SensorType
 pub enum SensorType {
-	invalid = C.SDL_SENSOR_INVALID // -1, Returned for an invalid sensor
-	unknown = C.SDL_SENSOR_UNKNOWN // Unknown sensor type
-	accel = C.SDL_SENSOR_ACCEL // Accelerometer
-	gyro = C.SDL_SENSOR_GYRO // Gyroscope
+	invalid        = C.SDL_SENSOR_INVALID // -1, Returned for an invalid sensor
+	unknown        = C.SDL_SENSOR_UNKNOWN // Unknown sensor type
+	accel          = C.SDL_SENSOR_ACCEL // Accelerometer
+	gyro           = C.SDL_SENSOR_GYRO // Gyroscope
 	sensor_accel_l = C.SDL_SENSOR_ACCEL_L // Accelerometer for left Joy-Con controller and Wii nunchuk
-	sensor_gyro_l = C.SDL_SENSOR_GYRO_L // Gyroscope for left Joy-Con controller
+	sensor_gyro_l  = C.SDL_SENSOR_GYRO_L // Gyroscope for left Joy-Con controller
 	sensor_accel_r = C.SDL_SENSOR_ACCEL_R // Accelerometer for right Joy-Con controller
-	sensor_gyro_r = C.SDL_SENSOR_GYRO_R // Gyroscope for right Joy-Con controller
+	sensor_gyro_r  = C.SDL_SENSOR_GYRO_R // Gyroscope for right Joy-Con controller
 }
 
 // Accelerometer sensor

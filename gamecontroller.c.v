@@ -25,28 +25,28 @@ pub type GameController = C.SDL_GameController
 
 // GameControllerType is C.SDL_GameControllerType
 pub enum GameControllerType {
-	unknown = C.SDL_CONTROLLER_TYPE_UNKNOWN // 0
-	xbox360 = C.SDL_CONTROLLER_TYPE_XBOX360
-	xboxone = C.SDL_CONTROLLER_TYPE_XBOXONE
-	ps3 = C.SDL_CONTROLLER_TYPE_PS3
-	ps4 = C.SDL_CONTROLLER_TYPE_PS4
-	nintendo_switch_pro = C.SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_PRO
-	virtual = C.SDL_CONTROLLER_TYPE_VIRTUAL
-	ps5 = C.SDL_CONTROLLER_TYPE_PS5
-	amazon_luna = C.SDL_CONTROLLER_TYPE_AMAZON_LUNA
-	google_stadia = C.SDL_CONTROLLER_TYPE_GOOGLE_STADIA
-	nvidia_shield = C.SDL_CONTROLLER_TYPE_NVIDIA_SHIELD
-	nintendo_switch_joycon_left = C.SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_LEFT
+	unknown                      = C.SDL_CONTROLLER_TYPE_UNKNOWN // 0
+	xbox360                      = C.SDL_CONTROLLER_TYPE_XBOX360
+	xboxone                      = C.SDL_CONTROLLER_TYPE_XBOXONE
+	ps3                          = C.SDL_CONTROLLER_TYPE_PS3
+	ps4                          = C.SDL_CONTROLLER_TYPE_PS4
+	nintendo_switch_pro          = C.SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_PRO
+	virtual                      = C.SDL_CONTROLLER_TYPE_VIRTUAL
+	ps5                          = C.SDL_CONTROLLER_TYPE_PS5
+	amazon_luna                  = C.SDL_CONTROLLER_TYPE_AMAZON_LUNA
+	google_stadia                = C.SDL_CONTROLLER_TYPE_GOOGLE_STADIA
+	nvidia_shield                = C.SDL_CONTROLLER_TYPE_NVIDIA_SHIELD
+	nintendo_switch_joycon_left  = C.SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_LEFT
 	nintendo_switch_joycon_right = C.SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_RIGHT
-	nintendo_switch_joycon_pair = C.SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_PAIR
+	nintendo_switch_joycon_pair  = C.SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_PAIR
 }
 
 // GameControllerBindType is C.SDL_GameControllerBindType
 pub enum GameControllerBindType {
-	@none = C.SDL_CONTROLLER_BINDTYPE_NONE // 0
+	@none  = C.SDL_CONTROLLER_BINDTYPE_NONE // 0
 	button = C.SDL_CONTROLLER_BINDTYPE_BUTTON
-	axis = C.SDL_CONTROLLER_BINDTYPE_AXIS
-	hat = C.SDL_CONTROLLER_BINDTYPE_HAT
+	axis   = C.SDL_CONTROLLER_BINDTYPE_AXIS
+	hat    = C.SDL_CONTROLLER_BINDTYPE_HAT
 }
 
 pub union Value {
@@ -629,14 +629,14 @@ pub fn game_controller_update() {
 //
 // GameControllerAxis is C.SDL_GameControllerAxis
 pub enum GameControllerAxis {
-	invalid = C.SDL_CONTROLLER_AXIS_INVALID // -1
-	leftx = C.SDL_CONTROLLER_AXIS_LEFTX
-	lefty = C.SDL_CONTROLLER_AXIS_LEFTY
-	rightx = C.SDL_CONTROLLER_AXIS_RIGHTX
-	righty = C.SDL_CONTROLLER_AXIS_RIGHTY
-	triggerleft = C.SDL_CONTROLLER_AXIS_TRIGGERLEFT
+	invalid      = C.SDL_CONTROLLER_AXIS_INVALID // -1
+	leftx        = C.SDL_CONTROLLER_AXIS_LEFTX
+	lefty        = C.SDL_CONTROLLER_AXIS_LEFTY
+	rightx       = C.SDL_CONTROLLER_AXIS_RIGHTX
+	righty       = C.SDL_CONTROLLER_AXIS_RIGHTY
+	triggerleft  = C.SDL_CONTROLLER_AXIS_TRIGGERLEFT
 	triggerright = C.SDL_CONTROLLER_AXIS_TRIGGERRIGHT
-	max = C.SDL_CONTROLLER_AXIS_MAX
+	max          = C.SDL_CONTROLLER_AXIS_MAX
 }
 
 fn C.SDL_GameControllerGetAxisFromString(const_str &char) C.SDL_GameControllerAxis
@@ -738,29 +738,29 @@ pub fn game_controller_get_axis(gamecontroller &GameController, axis GameControl
 // GameControllerButton is the list of buttons available from a controller
 // GameControllerButton is C.SDL_GameControllerButton
 pub enum GameControllerButton {
-	invalid = C.SDL_CONTROLLER_BUTTON_INVALID // -1
-	a = C.SDL_CONTROLLER_BUTTON_A
-	b = C.SDL_CONTROLLER_BUTTON_B
-	x = C.SDL_CONTROLLER_BUTTON_X
-	y = C.SDL_CONTROLLER_BUTTON_Y
-	back = C.SDL_CONTROLLER_BUTTON_BACK
-	guide = C.SDL_CONTROLLER_BUTTON_GUIDE
-	start = C.SDL_CONTROLLER_BUTTON_START
-	leftstick = C.SDL_CONTROLLER_BUTTON_LEFTSTICK
-	rightstick = C.SDL_CONTROLLER_BUTTON_RIGHTSTICK
-	leftshoulder = C.SDL_CONTROLLER_BUTTON_LEFTSHOULDER
+	invalid       = C.SDL_CONTROLLER_BUTTON_INVALID // -1
+	a             = C.SDL_CONTROLLER_BUTTON_A
+	b             = C.SDL_CONTROLLER_BUTTON_B
+	x             = C.SDL_CONTROLLER_BUTTON_X
+	y             = C.SDL_CONTROLLER_BUTTON_Y
+	back          = C.SDL_CONTROLLER_BUTTON_BACK
+	guide         = C.SDL_CONTROLLER_BUTTON_GUIDE
+	start         = C.SDL_CONTROLLER_BUTTON_START
+	leftstick     = C.SDL_CONTROLLER_BUTTON_LEFTSTICK
+	rightstick    = C.SDL_CONTROLLER_BUTTON_RIGHTSTICK
+	leftshoulder  = C.SDL_CONTROLLER_BUTTON_LEFTSHOULDER
 	rightshoulder = C.SDL_CONTROLLER_BUTTON_RIGHTSHOULDER
-	dpad_up = C.SDL_CONTROLLER_BUTTON_DPAD_UP
-	dpad_down = C.SDL_CONTROLLER_BUTTON_DPAD_DOWN
-	dpad_left = C.SDL_CONTROLLER_BUTTON_DPAD_LEFT
-	dpad_right = C.SDL_CONTROLLER_BUTTON_DPAD_RIGHT
-	misc1 = C.SDL_CONTROLLER_BUTTON_MISC1 // Xbox Series X share button, PS5 microphone button, Nintendo Switch Pro capture button, Amazon Luna microphone button
-	paddle1 = C.SDL_CONTROLLER_BUTTON_PADDLE1 // Xbox Elite paddle P1 (upper left, facing the back)
-	paddle2 = C.SDL_CONTROLLER_BUTTON_PADDLE2 // Xbox Elite paddle P3 (upper right, facing the back)
-	paddle3 = C.SDL_CONTROLLER_BUTTON_PADDLE3 // Xbox Elite paddle P2 (lower left, facing the back)
-	paddle4 = C.SDL_CONTROLLER_BUTTON_PADDLE4 // Xbox Elite paddle P4 (lower right, facing the back)
-	touchpad = C.SDL_CONTROLLER_BUTTON_TOUCHPAD // PS4/PS5 touchpad button
-	max = C.SDL_CONTROLLER_BUTTON_MAX
+	dpad_up       = C.SDL_CONTROLLER_BUTTON_DPAD_UP
+	dpad_down     = C.SDL_CONTROLLER_BUTTON_DPAD_DOWN
+	dpad_left     = C.SDL_CONTROLLER_BUTTON_DPAD_LEFT
+	dpad_right    = C.SDL_CONTROLLER_BUTTON_DPAD_RIGHT
+	misc1         = C.SDL_CONTROLLER_BUTTON_MISC1 // Xbox Series X share button, PS5 microphone button, Nintendo Switch Pro capture button, Amazon Luna microphone button
+	paddle1       = C.SDL_CONTROLLER_BUTTON_PADDLE1 // Xbox Elite paddle P1 (upper left, facing the back)
+	paddle2       = C.SDL_CONTROLLER_BUTTON_PADDLE2 // Xbox Elite paddle P3 (upper right, facing the back)
+	paddle3       = C.SDL_CONTROLLER_BUTTON_PADDLE3 // Xbox Elite paddle P2 (lower left, facing the back)
+	paddle4       = C.SDL_CONTROLLER_BUTTON_PADDLE4 // Xbox Elite paddle P4 (lower right, facing the back)
+	touchpad      = C.SDL_CONTROLLER_BUTTON_TOUCHPAD // PS4/PS5 touchpad button
+	max           = C.SDL_CONTROLLER_BUTTON_MAX
 }
 
 fn C.SDL_GameControllerGetButtonFromString(const_str &char) C.SDL_GameControllerButton
