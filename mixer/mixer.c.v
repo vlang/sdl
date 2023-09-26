@@ -48,10 +48,10 @@ pub fn linked_version() &sdl.Version {
 // InitFlags is C.MIX_InitFlags
 pub enum InitFlags {
 	flac = C.MIX_INIT_FLAC // 0x00000001
-	mod = C.MIX_INIT_MOD // 0x00000002
-	mp3 = C.MIX_INIT_MP3 // 0x00000008
-	ogg = C.MIX_INIT_OGG // 0x00000010
-	mid = C.MIX_INIT_MID // 0x00000020
+	mod  = C.MIX_INIT_MOD // 0x00000002
+	mp3  = C.MIX_INIT_MP3 // 0x00000008
+	ogg  = C.MIX_INIT_OGG // 0x00000010
+	mid  = C.MIX_INIT_MID // 0x00000020
 }
 
 fn C.Mix_Init(flags int) int
@@ -98,23 +98,23 @@ pub type Chunk = C.Mix_Chunk
 // Fading is the different fading types supported
 // Fading is C.Mix_Fading
 pub enum Fading {
-	no_fading = C.MIX_NO_FADING
+	no_fading  = C.MIX_NO_FADING
 	fading_out = C.MIX_FADING_OUT
-	fading_in = C.MIX_FADING_IN
+	fading_in  = C.MIX_FADING_IN
 }
 
 // MusicType are types of music files (not libraries used to load them)
 // MusicType is C.Mix_MusicType
 pub enum MusicType {
-	@none = C.MUS_NONE
-	cmd = C.MUS_CMD
-	wav = C.MUS_WAV
-	mod = C.MUS_MOD
-	mid = C.MUS_MID
-	ogg = C.MUS_OGG
-	mp3 = C.MUS_MP3
+	@none          = C.MUS_NONE
+	cmd            = C.MUS_CMD
+	wav            = C.MUS_WAV
+	mod            = C.MUS_MOD
+	mid            = C.MUS_MID
+	ogg            = C.MUS_OGG
+	mp3            = C.MUS_MP3
 	mp3_mad_unused = C.MUS_MP3_MAD_UNUSED
-	flac = C.MUS_FLAC
+	flac           = C.MUS_FLAC
 	modplug_unused = C.MUS_MODPLUG_UNUSED
 }
 
