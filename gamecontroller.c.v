@@ -25,22 +25,22 @@ pub type GameController = C.SDL_GameController
 
 // GameControllerType is C.SDL_GameControllerType
 pub enum GameControllerType {
-	unknown = C.SDL_CONTROLLER_TYPE_UNKNOWN // 0
-	xbox360 = C.SDL_CONTROLLER_TYPE_XBOX360
-	xboxone = C.SDL_CONTROLLER_TYPE_XBOXONE
-	ps3 = C.SDL_CONTROLLER_TYPE_PS3
-	ps4 = C.SDL_CONTROLLER_TYPE_PS4
+	unknown             = C.SDL_CONTROLLER_TYPE_UNKNOWN // 0
+	xbox360             = C.SDL_CONTROLLER_TYPE_XBOX360
+	xboxone             = C.SDL_CONTROLLER_TYPE_XBOXONE
+	ps3                 = C.SDL_CONTROLLER_TYPE_PS3
+	ps4                 = C.SDL_CONTROLLER_TYPE_PS4
 	nintendo_switch_pro = C.SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_PRO
-	virtual = C.SDL_CONTROLLER_TYPE_VIRTUAL
-	ps5 = C.SDL_CONTROLLER_TYPE_PS5
+	virtual             = C.SDL_CONTROLLER_TYPE_VIRTUAL
+	ps5                 = C.SDL_CONTROLLER_TYPE_PS5
 }
 
 // GameControllerBindType is C.SDL_GameControllerBindType
 pub enum GameControllerBindType {
-	@none = C.SDL_CONTROLLER_BINDTYPE_NONE // 0
+	@none  = C.SDL_CONTROLLER_BINDTYPE_NONE // 0
 	button = C.SDL_CONTROLLER_BINDTYPE_BUTTON
-	axis = C.SDL_CONTROLLER_BINDTYPE_AXIS
-	hat = C.SDL_CONTROLLER_BINDTYPE_HAT
+	axis   = C.SDL_CONTROLLER_BINDTYPE_AXIS
+	hat    = C.SDL_CONTROLLER_BINDTYPE_HAT
 }
 
 pub union Value {
@@ -327,14 +327,14 @@ pub fn game_controller_update() {
 //
 // GameControllerAxis is C.SDL_GameControllerAxis
 pub enum GameControllerAxis {
-	invalid = C.SDL_CONTROLLER_AXIS_INVALID // -1
-	leftx = C.SDL_CONTROLLER_AXIS_LEFTX
-	lefty = C.SDL_CONTROLLER_AXIS_LEFTY
-	rightx = C.SDL_CONTROLLER_AXIS_RIGHTX
-	righty = C.SDL_CONTROLLER_AXIS_RIGHTY
-	triggerleft = C.SDL_CONTROLLER_AXIS_TRIGGERLEFT
+	invalid      = C.SDL_CONTROLLER_AXIS_INVALID // -1
+	leftx        = C.SDL_CONTROLLER_AXIS_LEFTX
+	lefty        = C.SDL_CONTROLLER_AXIS_LEFTY
+	rightx       = C.SDL_CONTROLLER_AXIS_RIGHTX
+	righty       = C.SDL_CONTROLLER_AXIS_RIGHTY
+	triggerleft  = C.SDL_CONTROLLER_AXIS_TRIGGERLEFT
 	triggerright = C.SDL_CONTROLLER_AXIS_TRIGGERRIGHT
-	max = C.SDL_CONTROLLER_AXIS_MAX
+	max          = C.SDL_CONTROLLER_AXIS_MAX
 }
 
 fn C.SDL_GameControllerGetAxisFromString(pch_string &char) C.SDL_GameControllerAxis
@@ -380,29 +380,29 @@ pub fn game_controller_get_axis(gamecontroller &GameController, axis GameControl
 // GameControllerButton is the list of buttons available from a controller
 // GameControllerButton is C.SDL_GameControllerButton
 pub enum GameControllerButton {
-	invalid = C.SDL_CONTROLLER_BUTTON_INVALID // -1
-	a = C.SDL_CONTROLLER_BUTTON_A
-	b = C.SDL_CONTROLLER_BUTTON_B
-	x = C.SDL_CONTROLLER_BUTTON_X
-	y = C.SDL_CONTROLLER_BUTTON_Y
-	back = C.SDL_CONTROLLER_BUTTON_BACK
-	guide = C.SDL_CONTROLLER_BUTTON_GUIDE
-	start = C.SDL_CONTROLLER_BUTTON_START
-	leftstick = C.SDL_CONTROLLER_BUTTON_LEFTSTICK
-	rightstick = C.SDL_CONTROLLER_BUTTON_RIGHTSTICK
-	leftshoulder = C.SDL_CONTROLLER_BUTTON_LEFTSHOULDER
+	invalid       = C.SDL_CONTROLLER_BUTTON_INVALID // -1
+	a             = C.SDL_CONTROLLER_BUTTON_A
+	b             = C.SDL_CONTROLLER_BUTTON_B
+	x             = C.SDL_CONTROLLER_BUTTON_X
+	y             = C.SDL_CONTROLLER_BUTTON_Y
+	back          = C.SDL_CONTROLLER_BUTTON_BACK
+	guide         = C.SDL_CONTROLLER_BUTTON_GUIDE
+	start         = C.SDL_CONTROLLER_BUTTON_START
+	leftstick     = C.SDL_CONTROLLER_BUTTON_LEFTSTICK
+	rightstick    = C.SDL_CONTROLLER_BUTTON_RIGHTSTICK
+	leftshoulder  = C.SDL_CONTROLLER_BUTTON_LEFTSHOULDER
 	rightshoulder = C.SDL_CONTROLLER_BUTTON_RIGHTSHOULDER
-	dpad_up = C.SDL_CONTROLLER_BUTTON_DPAD_UP
-	dpad_down = C.SDL_CONTROLLER_BUTTON_DPAD_DOWN
-	dpad_left = C.SDL_CONTROLLER_BUTTON_DPAD_LEFT
-	dpad_right = C.SDL_CONTROLLER_BUTTON_DPAD_RIGHT
-	misc1 = C.SDL_CONTROLLER_BUTTON_MISC1 // Xbox Series X share button, PS5 microphone button, Nintendo Switch Pro capture button
-	paddle1 = C.SDL_CONTROLLER_BUTTON_PADDLE1 // Xbox Elite paddle P1
-	paddle2 = C.SDL_CONTROLLER_BUTTON_PADDLE2 // Xbox Elite paddle P3
-	paddle3 = C.SDL_CONTROLLER_BUTTON_PADDLE3 // Xbox Elite paddle P2
-	paddle4 = C.SDL_CONTROLLER_BUTTON_PADDLE4 // Xbox Elite paddle P4
-	touchpad = C.SDL_CONTROLLER_BUTTON_TOUCHPAD // PS4/PS5 touchpad button
-	max = C.SDL_CONTROLLER_BUTTON_MAX
+	dpad_up       = C.SDL_CONTROLLER_BUTTON_DPAD_UP
+	dpad_down     = C.SDL_CONTROLLER_BUTTON_DPAD_DOWN
+	dpad_left     = C.SDL_CONTROLLER_BUTTON_DPAD_LEFT
+	dpad_right    = C.SDL_CONTROLLER_BUTTON_DPAD_RIGHT
+	misc1         = C.SDL_CONTROLLER_BUTTON_MISC1 // Xbox Series X share button, PS5 microphone button, Nintendo Switch Pro capture button
+	paddle1       = C.SDL_CONTROLLER_BUTTON_PADDLE1 // Xbox Elite paddle P1
+	paddle2       = C.SDL_CONTROLLER_BUTTON_PADDLE2 // Xbox Elite paddle P3
+	paddle3       = C.SDL_CONTROLLER_BUTTON_PADDLE3 // Xbox Elite paddle P2
+	paddle4       = C.SDL_CONTROLLER_BUTTON_PADDLE4 // Xbox Elite paddle P4
+	touchpad      = C.SDL_CONTROLLER_BUTTON_TOUCHPAD // PS4/PS5 touchpad button
+	max           = C.SDL_CONTROLLER_BUTTON_MAX
 }
 
 fn C.SDL_GameControllerGetButtonFromString(pch_string &char) C.SDL_GameControllerButton
