@@ -34,12 +34,4 @@ $if x64 {
 #flag windows -Dmain=SDL_main
 #flag windows -lSDL2main -lSDL2
 
-$if gcboehm ? {
-	#define SDL_malloc GC_MALLOC
-	#define SDL_calloc(n,m) V_GC_SDL_calloc(n, m)
-	#define SDL_realloc GC_REALLOC
-	#define SDL_free GC_FREE
-	#insert "@VMODROOT/c/v_gc_sdl_boehm.c"
-}
-
 #include <SDL.h>
