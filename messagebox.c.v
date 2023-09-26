@@ -10,9 +10,9 @@ module sdl
 // MessageBoxFlags is C.SDL_MessageBoxFlags
 // MessageBox flags. If supported will display warning icon, etc.
 pub enum MessageBoxFlags {
-	error = C.SDL_MESSAGEBOX_ERROR // 0x00000010, error dialog
-	warning = C.SDL_MESSAGEBOX_WARNING // 0x00000020, warning dialog
-	information = C.SDL_MESSAGEBOX_INFORMATION // 0x00000040, informational dialog
+	error                 = C.SDL_MESSAGEBOX_ERROR // 0x00000010, error dialog
+	warning               = C.SDL_MESSAGEBOX_WARNING // 0x00000020, warning dialog
+	information           = C.SDL_MESSAGEBOX_INFORMATION // 0x00000040, informational dialog
 	buttons_left_to_right = C.SDL_MESSAGEBOX_BUTTONS_LEFT_TO_RIGHT // 0x00000080, buttons placed left to right
 	buttons_right_to_left = C.SDL_MESSAGEBOX_BUTTONS_RIGHT_TO_LEFT // 0x00000100, buttons placed right to left
 }
@@ -48,12 +48,12 @@ pub type MessageBoxColor = C.SDL_MessageBoxColor
 
 // MessageBoxColorType is C.SDL_MessageBoxColorType
 pub enum MessageBoxColorType {
-	background = C.SDL_MESSAGEBOX_COLOR_BACKGROUND
-	text = C.SDL_MESSAGEBOX_COLOR_TEXT
-	button_border = C.SDL_MESSAGEBOX_COLOR_BUTTON_BORDER
+	background        = C.SDL_MESSAGEBOX_COLOR_BACKGROUND
+	text              = C.SDL_MESSAGEBOX_COLOR_TEXT
+	button_border     = C.SDL_MESSAGEBOX_COLOR_BUTTON_BORDER
 	button_background = C.SDL_MESSAGEBOX_COLOR_BUTTON_BACKGROUND
-	button_selected = C.SDL_MESSAGEBOX_COLOR_BUTTON_SELECTED
-	max = C.SDL_MESSAGEBOX_COLOR_MAX
+	button_selected   = C.SDL_MESSAGEBOX_COLOR_BUTTON_SELECTED
+	max               = C.SDL_MESSAGEBOX_COLOR_MAX
 }
 
 // MessageBoxColorScheme is a set of colors to use for message box dialogs

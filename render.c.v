@@ -28,9 +28,9 @@ module sdl
 
 // RendererFlags is C.SDL_RendererFlags
 pub enum RendererFlags {
-	software = C.SDL_RENDERER_SOFTWARE // 0x00000001 The renderer is a software fallback
-	accelerated = C.SDL_RENDERER_ACCELERATED // 0x00000002 The renderer uses hardware acceleration
-	presentvsync = C.SDL_RENDERER_PRESENTVSYNC // 0x00000004 Present is synchronized with the refresh rate
+	software      = C.SDL_RENDERER_SOFTWARE // 0x00000001 The renderer is a software fallback
+	accelerated   = C.SDL_RENDERER_ACCELERATED // 0x00000002 The renderer uses hardware acceleration
+	presentvsync  = C.SDL_RENDERER_PRESENTVSYNC // 0x00000004 Present is synchronized with the refresh rate
 	targettexture = C.SDL_RENDERER_TARGETTEXTURE // 0x00000008
 }
 
@@ -51,15 +51,15 @@ pub type RendererInfo = C.SDL_RendererInfo
 // ScaleMode is C.SDL_ScaleMode
 pub enum ScaleMode {
 	nearest = C.SDL_ScaleModeNearest // nearest pixel sampling
-	linear = C.SDL_ScaleModeLinear // linear filtering
-	best = C.SDL_ScaleModeBest // anisotropic filtering
+	linear  = C.SDL_ScaleModeLinear // linear filtering
+	best    = C.SDL_ScaleModeBest // anisotropic filtering
 }
 
 // TextureAccess is C.SDL_TextureAccess
 pub enum TextureAccess {
-	@static = C.SDL_TEXTUREACCESS_STATIC // Changes rarely, not lockable
+	@static   = C.SDL_TEXTUREACCESS_STATIC // Changes rarely, not lockable
 	streaming = C.SDL_TEXTUREACCESS_STREAMING // Changes frequently, lockable
-	target = C.SDL_TEXTUREACCESS_TARGET // Texture can be used as a render target
+	target    = C.SDL_TEXTUREACCESS_TARGET // Texture can be used as a render target
 }
 
 // TextureModulate is C.SDL_TextureModulate
@@ -71,9 +71,9 @@ pub enum TextureModulate {
 
 // RendererFlip is C.SDL_RendererFlip
 pub enum RendererFlip {
-	@none = C.SDL_FLIP_NONE // 0x00000000 Do not flip
+	@none      = C.SDL_FLIP_NONE // 0x00000000 Do not flip
 	horizontal = C.SDL_FLIP_HORIZONTAL // 0x00000001 flip horizontally
-	vertical = C.SDL_FLIP_VERTICAL // 0x00000002  flip vertically
+	vertical   = C.SDL_FLIP_VERTICAL // 0x00000002  flip vertically
 }
 
 [typedef]
