@@ -171,7 +171,7 @@ pub fn game_controller_name_for_index(joystick_index int) &char {
 	return C.SDL_GameControllerNameForIndex(joystick_index)
 }
 
-fn C.SDL_GameControllerTypeForIndex(joystick_index int) C.SDL_GameControllerType
+fn C.SDL_GameControllerTypeForIndex(joystick_index int) GameControllerType
 
 // game_controller_type_for_index gets the type of a game controller.
 // This can be called before any controllers are opened.
@@ -223,7 +223,7 @@ pub fn game_controller_name(gamecontroller &GameController) &char {
 	return C.SDL_GameControllerName(gamecontroller)
 }
 
-fn C.SDL_GameControllerGetType(gamecontroller &C.SDL_GameController) C.SDL_GameControllerType
+fn C.SDL_GameControllerGetType(gamecontroller &C.SDL_GameController) GameControllerType
 
 // game_controller_get_type returns the type of this currently opened controller
 pub fn game_controller_get_type(gamecontroller &GameController) GameControllerType {
@@ -337,7 +337,7 @@ pub enum GameControllerAxis {
 	max          = C.SDL_CONTROLLER_AXIS_MAX
 }
 
-fn C.SDL_GameControllerGetAxisFromString(pch_string &char) C.SDL_GameControllerAxis
+fn C.SDL_GameControllerGetAxisFromString(pch_string &char) GameControllerAxis
 
 // game_controller_get_axis_from_string turns the string into an axis mapping
 pub fn game_controller_get_axis_from_string(pch_string &char) GameControllerAxis {
@@ -405,7 +405,7 @@ pub enum GameControllerButton {
 	max           = C.SDL_CONTROLLER_BUTTON_MAX
 }
 
-fn C.SDL_GameControllerGetButtonFromString(pch_string &char) C.SDL_GameControllerButton
+fn C.SDL_GameControllerGetButtonFromString(pch_string &char) GameControllerButton
 
 // game_controller_get_button_from_string turns the string into a button mapping
 pub fn game_controller_get_button_from_string(pch_string &char) GameControllerButton {
