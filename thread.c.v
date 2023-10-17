@@ -167,7 +167,7 @@ pub fn get_thread_name(pthread &Thread) &char {
 	return C.SDL_GetThreadName(pthread)
 }
 
-fn C.SDL_ThreadID() C.SDL_threadID
+fn C.SDL_ThreadID() ThreadID
 
 // thread_id gets the thread identifier for the current thread.
 //
@@ -187,7 +187,7 @@ pub fn thread_id() ThreadID {
 	return ThreadID(u32(C.SDL_ThreadID()))
 }
 
-fn C.SDL_GetThreadID(thrd &C.SDL_Thread) C.SDL_threadID
+fn C.SDL_GetThreadID(thrd &C.SDL_Thread) ThreadID
 
 // get_thread_id gets the thread identifier for the specified thread.
 //
@@ -298,7 +298,7 @@ pub fn detach_thread(thrd &Thread) {
 	C.SDL_DetachThread(thrd)
 }
 
-fn C.SDL_TLSCreate() C.SDL_TLSID
+fn C.SDL_TLSCreate() TLSID
 
 // tls_create creates a piece of thread-local storage.
 //
