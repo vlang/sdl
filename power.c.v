@@ -17,7 +17,7 @@ pub enum PowerState {
 	charged    = C.SDL_POWERSTATE_CHARGED // Plugged in, battery charged
 }
 
-fn C.SDL_GetPowerInfo(seconds &int, percent &int) C.SDL_PowerState
+fn C.SDL_GetPowerInfo(seconds &int, percent &int) PowerState
 
 // get_power_info gets the current power supply details.
 //
