@@ -303,7 +303,7 @@ pub fn game_controller_path_for_index(joystick_index int) &char {
 	return C.SDL_GameControllerPathForIndex(joystick_index)
 }
 
-fn C.SDL_GameControllerTypeForIndex(joystick_index int) C.SDL_GameControllerType
+fn C.SDL_GameControllerTypeForIndex(joystick_index int) GameControllerType
 
 // game_controller_type_for_index gets the type of a game controller.
 //
@@ -431,7 +431,7 @@ pub fn game_controller_path(gamecontroller &GameController) &char {
 	return C.SDL_GameControllerPath(gamecontroller)
 }
 
-fn C.SDL_GameControllerGetType(gamecontroller &C.SDL_GameController) C.SDL_GameControllerType
+fn C.SDL_GameControllerGetType(gamecontroller &C.SDL_GameController) GameControllerType
 
 // game_controller_get_type gets the type of this currently opened controller
 //
@@ -639,7 +639,7 @@ pub enum GameControllerAxis {
 	max          = C.SDL_CONTROLLER_AXIS_MAX
 }
 
-fn C.SDL_GameControllerGetAxisFromString(const_str &char) C.SDL_GameControllerAxis
+fn C.SDL_GameControllerGetAxisFromString(const_str &char) GameControllerAxis
 
 // game_controller_get_axis_from_string converts a string into SDL_GameControllerAxis enum.
 //
@@ -763,7 +763,7 @@ pub enum GameControllerButton {
 	max           = C.SDL_CONTROLLER_BUTTON_MAX
 }
 
-fn C.SDL_GameControllerGetButtonFromString(const_str &char) C.SDL_GameControllerButton
+fn C.SDL_GameControllerGetButtonFromString(const_str &char) GameControllerButton
 
 // game_controller_get_button_from_string converts a string into an SDL_GameControllerButton enum.
 //
@@ -1087,7 +1087,7 @@ pub fn game_controller_close(gamecontroller &GameController) {
 	C.SDL_GameControllerClose(gamecontroller)
 }
 
-fn C.SDL_GameControllerGetAppleSFSymbolsNameForButton(gamecontroller &C.SDL_GameController, button C.SDL_GameControllerButton) &char
+fn C.SDL_GameControllerGetAppleSFSymbolsNameForButton(gamecontroller &GameController, button GameControllerButton) &char
 
 // game_controller_get_apple_sf_symbols_name_for_button returns the sfSymbolsName for a given button on a game controller on Apple
 // platforms.
@@ -1099,11 +1099,11 @@ fn C.SDL_GameControllerGetAppleSFSymbolsNameForButton(gamecontroller &C.SDL_Game
 // NOTE This function is available since SDL 2.0.18.
 //
 // See also: SDL_GameControllerGetAppleSFSymbolsNameForAxis
-pub fn game_controller_get_apple_sf_symbols_name_for_button(gamecontroller &C.SDL_GameController, button C.SDL_GameControllerButton) &char {
+pub fn game_controller_get_apple_sf_symbols_name_for_button(gamecontroller &GameController, button GameControllerButton) &char {
 	return C.SDL_GameControllerGetAppleSFSymbolsNameForButton(gamecontroller, button)
 }
 
-fn C.SDL_GameControllerGetAppleSFSymbolsNameForAxis(gamecontroller &C.SDL_GameController, axis C.SDL_GameControllerAxis) &char
+fn C.SDL_GameControllerGetAppleSFSymbolsNameForAxis(gamecontroller &GameController, axis GameControllerAxis) &char
 
 // game_controller_get_apple_sf_symbols_name_for_axis returns the sfSymbolsName for a given axis on a game controller on Apple
 // platforms.
@@ -1115,6 +1115,6 @@ fn C.SDL_GameControllerGetAppleSFSymbolsNameForAxis(gamecontroller &C.SDL_GameCo
 // NOTE This function is available since SDL 2.0.18.
 //
 // See also: SDL_GameControllerGetAppleSFSymbolsNameForButton
-pub fn game_controller_get_apple_sf_symbols_name_for_axis(gamecontroller &C.SDL_GameController, axis C.SDL_GameControllerAxis) &char {
+pub fn game_controller_get_apple_sf_symbols_name_for_axis(gamecontroller &GameController, axis GameControllerAxis) &char {
 	return C.SDL_GameControllerGetAppleSFSymbolsNameForAxis(gamecontroller, axis)
 }
