@@ -53,8 +53,8 @@ pub enum JoystickType {
 	throttle
 }
 
-// C.SDL_JoystickID // Sint32 / int
-pub type JoystickID = int
+// C.SDL_JoystickID // Sint32
+pub type JoystickID = i32
 
 // JoystickPowerLevel is C.SDL_JoystickPowerLevel
 pub enum JoystickPowerLevel {
@@ -146,7 +146,7 @@ pub fn joystick_get_device_product_version(device_index int) u16 {
 	return C.SDL_JoystickGetDeviceProductVersion(device_index)
 }
 
-fn C.SDL_JoystickGetDeviceType(device_index int) C.SDL_JoystickType
+fn C.SDL_JoystickGetDeviceType(device_index int) JoystickType
 
 // joystick_get_device_type gets the type of a joystick, if available.
 // This can be called before any joysticks are opened.
@@ -154,7 +154,7 @@ pub fn joystick_get_device_type(device_index int) JoystickType {
 	return unsafe { JoystickType(int(C.SDL_JoystickGetDeviceType(device_index))) }
 }
 
-fn C.SDL_JoystickGetDeviceInstanceID(device_index int) C.SDL_JoystickID
+fn C.SDL_JoystickGetDeviceInstanceID(device_index int) JoystickID
 
 // joystick_get_device_instance_id gets the instance ID of a joystick.
 // This can be called before any joysticks are opened.
@@ -231,7 +231,7 @@ pub fn joystick_get_product_version(joystick &Joystick) u16 {
 	return C.SDL_JoystickGetProductVersion(joystick)
 }
 
-fn C.SDL_JoystickGetType(joystick &C.SDL_Joystick) C.SDL_JoystickType
+fn C.SDL_JoystickGetType(joystick &C.SDL_Joystick) JoystickType
 
 // joystick_get_type gets the type of an opened joystick.
 pub fn joystick_get_type(joystick &Joystick) JoystickType {
@@ -260,10 +260,10 @@ pub fn joystick_get_attached(joystick &Joystick) bool {
 	return C.SDL_JoystickGetAttached(joystick)
 }
 
-fn C.SDL_JoystickInstanceID(joystick &C.SDL_Joystick) C.SDL_JoystickID
+fn C.SDL_JoystickInstanceID(joystick &C.SDL_Joystick) JoystickID
 
 // joystick_instance_id gets the instance ID of an opened joystick or -1 if the joystick is invalid.
-pub fn joystick_instance_id(joystick &Joystick) C.SDL_JoystickID {
+pub fn joystick_instance_id(joystick &Joystick) JoystickID {
 	return C.SDL_JoystickInstanceID(joystick)
 }
 
@@ -408,7 +408,7 @@ pub fn joystick_close(joystick &Joystick) {
 	C.SDL_JoystickClose(joystick)
 }
 
-fn C.SDL_JoystickCurrentPowerLevel(joystick &C.SDL_Joystick) C.SDL_JoystickPowerLevel
+fn C.SDL_JoystickCurrentPowerLevel(joystick &C.SDL_Joystick) JoystickPowerLevel
 
 // joystick_current_power_level returns the battery level of this joystick
 pub fn joystick_current_power_level(joystick &Joystick) JoystickPowerLevel {
