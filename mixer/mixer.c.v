@@ -275,7 +275,7 @@ pub fn has_music_decoder(name &char) bool {
 }
 */
 
-fn C.Mix_GetMusicType(music &C.Mix_Music) C.Mix_MusicType
+fn C.Mix_GetMusicType(music &C.Mix_Music) MusicType
 
 // get_music_type finds out the music format of a mixer music, or the currently playing
 // music, if 'music' is NULL.
@@ -747,14 +747,14 @@ pub fn fade_out_music(ms int) int {
 	return C.Mix_FadeOutMusic(ms)
 }
 
-fn C.Mix_FadingMusic() C.Mix_Fading
+fn C.Mix_FadingMusic() Fading
 
 // fading_music queries the fading status of a channel
 pub fn fading_music() Fading {
 	return Fading(C.Mix_FadingMusic())
 }
 
-fn C.Mix_FadingChannel(which int) C.Mix_Fading
+fn C.Mix_FadingChannel(which int) Fading
 pub fn fading_channel(which int) Fading {
 	return Fading(C.Mix_FadingChannel(which))
 }

@@ -269,7 +269,7 @@ pub enum GameControllerAxis {
 	max          = C.SDL_CONTROLLER_AXIS_MAX
 }
 
-fn C.SDL_GameControllerGetAxisFromString(pch_string &char) C.SDL_GameControllerAxis
+fn C.SDL_GameControllerGetAxisFromString(pch_string &char) GameControllerAxis
 
 // game_controller_get_axis_from_string turns the string into an axis mapping
 pub fn game_controller_get_axis_from_string(pch_string &char) GameControllerAxis {
@@ -324,7 +324,7 @@ pub enum GameControllerButton {
 	max           = C.SDL_CONTROLLER_BUTTON_MAX
 }
 
-fn C.SDL_GameControllerGetButtonFromString(pch_string &char) C.SDL_GameControllerButton
+fn C.SDL_GameControllerGetButtonFromString(pch_string &char) GameControllerButton
 
 // game_controller_get_button_from_string turns the string into a button mapping
 pub fn game_controller_get_button_from_string(pch_string &char) GameControllerButton {
