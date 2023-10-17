@@ -43,7 +43,7 @@ pub enum BlendFactor {
 	one_minus_dst_alpha = C.SDL_BLENDFACTOR_ONE_MINUS_DST_ALPHA // 0xA, 1-dstA, 1-dstA, 1-dstA, 1-dstA
 }
 
-fn C.SDL_ComposeCustomBlendMode(src_color_factor C.SDL_BlendFactor, dst_color_factor C.SDL_BlendFactor, color_operation C.SDL_BlendOperation, src_alpha_factor C.SDL_BlendFactor, dst_alpha_factor C.SDL_BlendFactor, alpha_operation C.SDL_BlendOperation) C.SDL_BlendMode
+fn C.SDL_ComposeCustomBlendMode(src_color_factor C.SDL_BlendFactor, dst_color_factor C.SDL_BlendFactor, color_operation C.SDL_BlendOperation, src_alpha_factor C.SDL_BlendFactor, dst_alpha_factor C.SDL_BlendFactor, alpha_operation C.SDL_BlendOperation) BlendMode
 
 // compose_custom_blend_mode creates a custom blend mode, which may
 // or may not be supported by a given renderer
