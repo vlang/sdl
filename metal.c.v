@@ -16,7 +16,7 @@ module sdl
 pub type MetalView = voidptr
 
 // Metal support functions
-fn C.SDL_Metal_CreateView(window &C.SDL_Window) C.SDL_MetalView
+fn C.SDL_Metal_CreateView(window &C.SDL_Window) MetalView
 
 // metal_create_view creates a CAMetalLayer-backed NSView/UIView and attach it to the
 // specified window.
