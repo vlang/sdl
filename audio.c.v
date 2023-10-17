@@ -655,7 +655,7 @@ pub fn open_audio_device(const_device &char, iscapture int, const_desired &Audio
 		allowed_changes))
 }
 
-fn C.SDL_OpenAudioDevice(const_device &char, iscapture int, const_desired &C.SDL_AudioSpec, obtained &C.SDL_AudioSpec, allowed_changes int) C.SDL_AudioDeviceID
+fn C.SDL_OpenAudioDevice(const_device &char, iscapture int, const_desired &C.SDL_AudioSpec, obtained &C.SDL_AudioSpec, allowed_changes int) AudioDeviceID
 
 // AudioStatus
 //
@@ -669,7 +669,7 @@ pub enum AudioStatus {
 	audio_paused  = C.SDL_AUDIO_PAUSED
 }
 
-fn C.SDL_GetAudioStatus() C.SDL_AudioStatus
+fn C.SDL_GetAudioStatus() AudioStatus
 
 // get_audio_status is a legacy means of querying the audio device.
 //
@@ -691,7 +691,7 @@ pub fn get_audio_status() AudioStatus {
 	return AudioStatus(C.SDL_GetAudioStatus())
 }
 
-fn C.SDL_GetAudioDeviceStatus(dev C.SDL_AudioDeviceID) C.SDL_AudioStatus
+fn C.SDL_GetAudioDeviceStatus(dev C.SDL_AudioDeviceID) AudioStatus
 
 // get_audio_device_status gets the current audio state of an audio device.
 //

@@ -138,7 +138,7 @@ pub fn sensor_get_device_name(device_index int) &char {
 	return C.SDL_SensorGetDeviceName(device_index)
 }
 
-fn C.SDL_SensorGetDeviceType(device_index int) C.SDL_SensorType
+fn C.SDL_SensorGetDeviceType(device_index int) SensorType
 
 // sensor_get_device_type gets the type of a sensor.
 //
@@ -164,7 +164,7 @@ pub fn sensor_get_device_non_portable_type(device_index int) int {
 	return C.SDL_SensorGetDeviceNonPortableType(device_index)
 }
 
-fn C.SDL_SensorGetDeviceInstanceID(device_index int) C.SDL_SensorID
+fn C.SDL_SensorGetDeviceInstanceID(device_index int) SensorID
 
 // sensor_get_device_instance_id gets the instance ID of a sensor.
 //
@@ -188,7 +188,7 @@ pub fn sensor_open(device_index int) &Sensor {
 	return C.SDL_SensorOpen(device_index)
 }
 
-fn C.SDL_SensorFromInstanceID(instance_id C.SDL_SensorID) &C.SDL_Sensor
+fn C.SDL_SensorFromInstanceID(instance_id SensorID) &Sensor
 
 // sensor_from_instance_id returns the SDL_Sensor associated with an instance id.
 //
@@ -196,7 +196,7 @@ fn C.SDL_SensorFromInstanceID(instance_id C.SDL_SensorID) &C.SDL_Sensor
 // returns an SDL_Sensor object.
 //
 // NOTE This function is available since SDL 2.0.9.
-pub fn sensor_from_instance_id(instance_id C.SDL_SensorID) &Sensor {
+pub fn sensor_from_instance_id(instance_id SensorID) &Sensor {
 	return C.SDL_SensorFromInstanceID(instance_id)
 }
 
@@ -212,7 +212,7 @@ pub fn sensor_get_name(sensor &Sensor) &char {
 	return C.SDL_SensorGetName(sensor)
 }
 
-fn C.SDL_SensorGetType(sensor &C.SDL_Sensor) C.SDL_SensorType
+fn C.SDL_SensorGetType(sensor &C.SDL_Sensor) SensorType
 
 // sensor_get_type gets the type of a sensor.
 //
@@ -237,7 +237,7 @@ pub fn sensor_get_non_portable_type(sensor &Sensor) int {
 	return C.SDL_SensorGetNonPortableType(sensor)
 }
 
-fn C.SDL_SensorGetInstanceID(sensor &C.SDL_Sensor) C.SDL_SensorID
+fn C.SDL_SensorGetInstanceID(sensor &C.SDL_Sensor) SensorID
 
 // sensor_get_instance_id gets the instance ID of a sensor.
 //
