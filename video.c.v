@@ -389,7 +389,7 @@ pub fn get_display_dpi(display_index int, ddpi &f32, hdpi &f32, vdpi &f32) int {
 	return C.SDL_GetDisplayDPI(display_index, ddpi, hdpi, vdpi)
 }
 
-fn C.SDL_GetDisplayOrientation(display_index int) C.SDL_DisplayOrientation
+fn C.SDL_GetDisplayOrientation(display_index int) DisplayOrientation
 
 // get_display_orientation gets the orientation of a display
 //
@@ -1260,7 +1260,7 @@ pub fn gl_get_attribute(attr GLattr, value &int) int {
 	return C.SDL_GL_GetAttribute(C.SDL_GLattr(int(attr)), value)
 }
 
-fn C.SDL_GL_CreateContext(window &C.SDL_Window) C.SDL_GLContext
+fn C.SDL_GL_CreateContext(window &C.SDL_Window) GLContext
 
 // gl_create_context creates an OpenGL context for use with an OpenGL window, and make it
 // current.
@@ -1286,7 +1286,7 @@ pub fn gl_get_current_window() &Window {
 	return C.SDL_GL_GetCurrentWindow()
 }
 
-fn C.SDL_GL_GetCurrentContext() C.SDL_GLContext
+fn C.SDL_GL_GetCurrentContext() GLContext
 
 // gl_get_current_context gets the currently active OpenGL context.
 pub fn gl_get_current_context() GLContext {
