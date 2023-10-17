@@ -429,11 +429,11 @@ pub type ControllerTouchpadEvent = C.SDL_ControllerTouchpadEvent
 [typedef]
 pub struct C.SDL_ControllerSensorEvent {
 pub:
-	@type     u32 // ::SDL_CONTROLLERSENSORUPDATE
-	timestamp u32 // In milliseconds, populated using SDL_GetTicks()
-	which     C.SDL_JoystickID // The joystick instance id
-	sensor    int    // The type of the sensor, one of the values of ::SDL_SensorType
-	data      [3]f32 // Up to 3 values from the sensor, as defined in SDL_sensor.h
+	@type     u32        // ::SDL_CONTROLLERSENSORUPDATE
+	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
+	which     JoystickID // The joystick instance id
+	sensor    int        // The type of the sensor, one of the values of ::SDL_SensorType
+	data      [3]f32     // Up to 3 values from the sensor, as defined in SDL_sensor.h
 }
 
 pub type ControllerSensorEvent = C.SDL_ControllerSensorEvent

@@ -417,8 +417,8 @@ pub fn ultoa(value u32, str &char, radix int) &char {
 	return C.SDL_ultoa(value, str, radix)
 }
 
-fn C.SDL_lltoa(value C.Sint64, str &char, radix int) &char
-pub fn lltoa(value C.Sint64, str &char, radix int) &char {
+fn C.SDL_lltoa(value i64, str &char, radix int) &char
+pub fn lltoa(value i64, str &char, radix int) &char {
 	return C.SDL_lltoa(value, str, radix)
 }
 
@@ -447,8 +447,8 @@ pub fn strtoul(str &char, endp &&char, base int) u32 {
 	return C.SDL_strtoul(str, endp, base)
 }
 
-fn C.SDL_strtoll(str &char, endp &&char, base int) C.Sint64
-pub fn strtoll(str &char, endp &&char, base int) C.Sint64 {
+fn C.SDL_strtoll(str &char, endp &&char, base int) i64
+pub fn strtoll(str &char, endp &&char, base int) i64 {
 	return C.SDL_strtoll(str, endp, base)
 }
 
