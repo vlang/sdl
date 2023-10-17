@@ -79,7 +79,7 @@ pub fn reset_keyboard() {
 	C.SDL_ResetKeyboard()
 }
 
-fn C.SDL_GetModState() C.SDL_Keymod
+fn C.SDL_GetModState() Keymod
 
 // get_mod_state gets the current key modifier state for the keyboard.
 //
@@ -115,7 +115,7 @@ pub fn set_mod_state(modstate Keymod) {
 	C.SDL_SetModState(C.SDL_Keymod(modstate))
 }
 
-fn C.SDL_GetKeyFromScancode(scancode C.SDL_Scancode) C.SDL_Keycode
+fn C.SDL_GetKeyFromScancode(scancode C.SDL_Scancode) Keycode
 
 // get_key_from_scancode gets the key code corresponding to the given scancode according to the
 // current keyboard layout.
@@ -133,7 +133,7 @@ pub fn get_key_from_scancode(scancode Scancode) Keycode {
 	return Keycode(int(C.SDL_GetKeyFromScancode(C.SDL_Scancode(scancode))))
 }
 
-fn C.SDL_GetScancodeFromKey(key C.SDL_Keycode) C.SDL_Scancode
+fn C.SDL_GetScancodeFromKey(key C.SDL_Keycode) Scancode
 
 // get_scancode_from_key gets the scancode corresponding to the given key code according to the
 // current keyboard layout.
@@ -178,7 +178,7 @@ pub fn get_scancode_name(scancode Scancode) &char {
 	return C.SDL_GetScancodeName(C.SDL_Scancode(scancode))
 }
 
-fn C.SDL_GetScancodeFromName(name &char) C.SDL_Scancode
+fn C.SDL_GetScancodeFromName(name &char) Scancode
 
 // get_scancode_from_name gets a scancode from a human-readable name.
 //
@@ -216,7 +216,7 @@ pub fn get_key_name(key Keycode) &char {
 	return C.SDL_GetKeyName(C.SDL_Keycode(key))
 }
 
-fn C.SDL_GetKeyFromName(name &char) C.SDL_Keycode
+fn C.SDL_GetKeyFromName(name &char) Keycode
 
 // get_key_from_name gets a key code from a human-readable name.
 //

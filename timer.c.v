@@ -145,7 +145,7 @@ pub fn delay(ms u32) {
 	C.SDL_Delay(ms)
 }
 
-fn C.SDL_AddTimer(interval u32, callback C.SDL_TimerCallback, param voidptr) C.SDL_TimerID
+fn C.SDL_AddTimer(interval u32, callback C.SDL_TimerCallback, param voidptr) TimerID
 
 // add_timer calls a callback function at a future time.
 //
