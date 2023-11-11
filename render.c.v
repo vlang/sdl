@@ -507,7 +507,7 @@ pub fn update_yuv_texture(texture &Texture, const_rect &Rect, const_yplane &u8, 
 		upitch, const_vplane, vpitch)
 }
 
-fn C.SDL_UpdateNVTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, const_yplane &byte, ypitch int, const_u_vplane &byte, u_vpitch int) int
+fn C.SDL_UpdateNVTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, const_yplane &u8, ypitch int, const_u_vplane &u8, u_vpitch int) int
 
 // update_nv_texture updates a rectangle within a planar NV12 or NV21 texture with new pixels.
 //
@@ -525,7 +525,7 @@ fn C.SDL_UpdateNVTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, const_y
 // `UVpitch` the number of bytes between rows of pixel data for the UV
 //                plane.
 // returns 0 on success, or -1 if the texture is not valid.
-pub fn update_nv_texture(texture &C.SDL_Texture, const_rect &Rect, const_yplane &byte, ypitch int, const_u_vplane &byte, u_vpitch int) int {
+pub fn update_nv_texture(texture &C.SDL_Texture, const_rect &Rect, const_yplane &u8, ypitch int, const_u_vplane &u8, u_vpitch int) int {
 	return C.SDL_UpdateNVTexture(texture, const_rect, const_yplane, ypitch, const_u_vplane,
 		u_vpitch)
 }
