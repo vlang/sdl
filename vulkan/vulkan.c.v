@@ -1,7 +1,9 @@
 // Copyright(C) 2021 Lars Pontoppidan. All rights reserved.
 // Use of this source code is governed by an MIT license
 // that can be found in the LICENSE file.
-module sdl
+module vulkan
+
+import sdl
 
 //
 // SDL_vulkan.h
@@ -117,7 +119,7 @@ fn C.SDL_Vulkan_GetInstanceExtensions(window &C.SDL_Window, p_count &u32, p_name
 // NOTE This function is available in SDL 2.0.6
 //
 // See also: SDL_Vulkan_CreateSurface
-pub fn vulkan_get_instance_extensions(window &Window, p_count &u32, p_names &&char) bool {
+pub fn vulkan_get_instance_extensions(window &sdl.Window, p_count &u32, p_names &&char) bool {
 	return C.SDL_Vulkan_GetInstanceExtensions(window, p_count, p_names)
 }
 
@@ -163,6 +165,6 @@ fn C.SDL_Vulkan_GetDrawableSize(window &C.SDL_Window, w &int, h &int)
 // See also: SDL_GetWindowSize
 // See also: SDL_CreateWindow
 // See also: SDL_Vulkan_CreateSurface
-pub fn vulkan_get_drawable_size(window &Window, w &int, h &int) {
+pub fn vulkan_get_drawable_size(window &sdl.Window, w &int, h &int) {
 	C.SDL_Vulkan_GetDrawableSize(window, w, h)
 }
