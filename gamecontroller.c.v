@@ -17,7 +17,7 @@ module sdl
 //
 
 // GameController is the gamecontroller structure used to identify an SDL game controller
-[typedef]
+@[typedef]
 pub struct C.SDL_GameController {
 }
 
@@ -57,7 +57,7 @@ pub:
 	hat_mask int
 }
 
-[typedef]
+@[typedef]
 pub struct C.SDL_GameControllerButtonBind {
 pub:
 	bindType GameControllerBindType // C.SDL_GameControllerBindType

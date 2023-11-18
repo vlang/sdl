@@ -10,7 +10,7 @@ module sdl
 // The SDL keysym structure, used in key events.
 //
 // NOTE  If you are looking for translated character input, see the ::SDL_TEXTINPUT event.
-[typedef]
+@[typedef]
 pub struct C.SDL_Keysym {
 pub:
 	scancode Scancode // C.SDL_Scancode // SDL physical key code - see ::SDL_Scancode for details
