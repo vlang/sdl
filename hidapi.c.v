@@ -7,7 +7,7 @@ module sdl
 // SDL_hidapi.h
 //
 
-[typedef]
+@[typedef]
 pub struct C.SDL_hid_device {
 }
 
@@ -15,7 +15,7 @@ pub struct C.SDL_hid_device {
 // HidDevice is C.SDL_hid_device
 pub type HidDevice = C.SDL_hid_device
 
-[typedef]
+@[typedef]
 pub struct C.SDL_hid_device_info {
 	// Platform-specific device path
 	path &char

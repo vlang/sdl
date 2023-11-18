@@ -25,7 +25,7 @@ pub const (
 	hat_leftdown  = C.SDL_HAT_LEFTDOWN // hat_left | hat_down
 )
 
-[typedef]
+@[typedef]
 pub struct C.SDL_Joystick {
 }
 
@@ -336,7 +336,7 @@ pub fn joystick_attach_virtual(@type JoystickType, naxes int, nbuttons int, nhat
 // All other elements of this structure are optional and can be left 0.
 //
 // See also: SDL_JoystickAttachVirtualEx
-[typedef]
+@[typedef]
 pub struct C.SDL_VirtualJoystickDesc {
 pub mut:
 	version     u16     // `SDL_VIRTUAL_JOYSTICK_DESC_VERSION`
