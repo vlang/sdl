@@ -17,7 +17,7 @@ pub const (
 	touch_mouseid = C.SDL_TOUCH_MOUSEID
 )
 
-[typedef]
+@[typedef]
 pub struct C.SDL_Finger {
 pub:
 	id       FingerID // C.SDL_FingerID

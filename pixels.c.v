@@ -126,7 +126,7 @@ pub enum Format {
 	external_oes = C.SDL_PIXELFORMAT_EXTERNAL_OES // Android video texture format
 }
 
-[typedef]
+@[typedef]
 pub struct C.SDL_Color {
 pub mut:
 	r u8
@@ -137,7 +137,7 @@ pub mut:
 
 pub type Color = C.SDL_Color
 
-[typedef]
+@[typedef]
 pub struct C.SDL_Palette {
 pub mut:
 	ncolors  int
@@ -149,7 +149,7 @@ pub mut:
 pub type Palette = C.SDL_Palette
 
 // NOTE Everything in the pixel format structure is read-only.
-[typedef]
+@[typedef]
 pub struct C.SDL_PixelFormat {
 pub:
 	format        Format

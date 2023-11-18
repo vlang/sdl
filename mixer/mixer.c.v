@@ -84,7 +84,7 @@ pub const (
 pub const effectsmaxspeed = 'MIX_EFFECTSMAXSPEED'
 
 // Chunk is the internal format for an audio chunk
-[typedef]
+@[typedef]
 pub struct C.Mix_Chunk {
 pub:
 	allocated int
@@ -123,7 +123,7 @@ pub const (
 )
 
 // Music is the internal format for a music chunk interpreted via mikmod
-[typedef]
+@[typedef]
 pub struct C.Mix_Music {
 }
 
