@@ -25,7 +25,7 @@ pub enum MessageBoxButtonFlags {
 }
 
 // MessageBoxButtonData is individual button data.
-[typedef]
+@[typedef]
 pub struct C.SDL_MessageBoxButtonData {
 pub:
 	flags    u32   // ::SDL_MessageBoxButtonFlags
@@ -36,7 +36,7 @@ pub:
 pub type MessageBoxButtonData = C.SDL_MessageBoxButtonData
 
 // MessageBoxColor is a RGB value used in a message box color scheme
-[typedef]
+@[typedef]
 pub struct C.SDL_MessageBoxColor {
 pub:
 	r u8
@@ -57,7 +57,7 @@ pub enum MessageBoxColorType {
 }
 
 // MessageBoxColorScheme is a set of colors to use for message box dialogs
-[typedef]
+@[typedef]
 pub struct C.SDL_MessageBoxColorScheme {
 pub:
 	colors [6]MessageBoxColor
@@ -66,7 +66,7 @@ pub:
 pub type MessageBoxColorScheme = C.SDL_MessageBoxColorScheme
 
 // MessageBoxData is a MessageBox structure containing title, text, window, etc.
-[typedef]
+@[typedef]
 pub struct C.SDL_MessageBoxData {
 pub:
 	flags       u32     // ::SDL_MessageBoxFlags

@@ -147,7 +147,7 @@ pub type AudioCallback = fn (userdata voidptr, stream &u8, len int)
 // 7:  FL FR FC LFE BC SL SR       (6.1 surround)
 // 8:  FL FR FC LFE BL BR SL SR    (7.1 surround)
 
-[typedef]
+@[typedef]
 pub struct C.SDL_AudioSpec {
 pub:
 	freq     int // DSP frequency -- samples per second
@@ -204,7 +204,7 @@ pub type AudioCVTPackedSDLAudioCVT = C.SDL_AUDIOCVT_PACKEDSDL_AudioCVT
 // you to pass it aligned data, but can possibly run much faster if you
 // set both its (buf) field to a pointer that is aligned to 16 bytes, and its
 // (len) field to something that's a multiple of 16, if possible.
-[typedef]
+@[typedef]
 pub struct C.SDL_AudioCVT {
 pub:
 	needed       int // Set to 1 if conversion possible
@@ -534,7 +534,7 @@ pub fn convert_audio(cvt &AudioCVT) int {
 // - You push data as you have it, and pull it when you need it
 //
 // this is opaque to the outside world.
-[typedef]
+@[typedef]
 pub struct C.SDL_AudioStream {
 }
 
