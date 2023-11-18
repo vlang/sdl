@@ -451,7 +451,7 @@ enum Action {
 	fire
 }
 
-[inline]
+@[inline]
 fn (game &Game) fill_rect(s &sdl.Surface, r &sdl.Rect, c &sdl.Color) {
 	sdl.fill_rect(s, r, sdl.map_rgba(game.sdl.screen.format, c.r, c.g, c.b, c.a))
 }
@@ -767,12 +767,12 @@ fn (g &Game) draw_text(x int, y int, text string, tcol sdl.Color) {
 	sdl.free_surface(tsurf)
 }
 
-[inline]
+@[inline]
 fn (g &Game) draw_ptext(x int, y int, text string, tcol sdl.Color) {
 	g.draw_text(g.ofs_x + x, y, text, tcol)
 }
 
-[live]
+@[live]
 fn (g &Game) draw_begin() {
 	//	println('about to clear')
 	sdl.render_clear(g.sdl.renderer)
