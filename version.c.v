@@ -23,7 +23,7 @@ pub const (
 //
 // See also: SDL_VERSION
 // See also: SDL_GetVersion
-[typedef]
+@[typedef]
 pub struct C.SDL_version {
 pub:
 	major u8 // major version
