@@ -76,7 +76,7 @@ pub fn rw_close(context &RWops) int {
 }
 
 // This is the read/write operation structure -- very basic.
-[typedef]
+@[typedef]
 pub struct C.SDL_RWops {
 pub:
 	// Returns the size of the file in this rwops, or -1 if unknown

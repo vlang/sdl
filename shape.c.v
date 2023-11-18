@@ -66,7 +66,7 @@ pub fn shapemodealpha(mode WindowShapeModeFlag) bool {
 
 // WindowShapeParams is a union containing parameters for shaped windows.
 // WindowShapeParams is C.SDL_WindowShapeParams
-[typedef]
+@[typedef]
 union C.SDL_WindowShapeParams {
 pub mut:
 	binarizationCutoff u8 // A cutoff alpha value for binarization of the window shape's alpha channel.
@@ -78,7 +78,7 @@ pub type WindowShapeParams = C.SDL_WindowShapeParams
 // WindowShapeMode is a struct that tags the SDL_WindowShapeParams union with
 // an enum describing the type of its contents.
 // WindowShapeMode is C.SDL_WindowShapeMode
-[typedef]
+@[typedef]
 pub struct C.SDL_WindowShapeMode {
 pub:
 	mode       WindowShapeModeFlag // The mode of these window-shape parameters.
