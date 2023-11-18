@@ -12,7 +12,7 @@ module sdl
 // for sensors, and load appropriate drivers.
 //
 // Sensor is C.SDL_Sensor
-[typedef]
+@[typedef]
 pub struct C.SDL_Sensor {
 }
 

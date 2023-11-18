@@ -16,7 +16,7 @@ module sdl
 // See also: SDL_GetClosestDisplayMode()
 // See also: SDL_SetWindowDisplayMode()
 // See also: SDL_GetWindowDisplayMode()
-[typedef]
+@[typedef]
 pub struct C.SDL_DisplayMode {
 pub:
 	format       u32     // pixel format
@@ -60,7 +60,7 @@ pub type DisplayMode = C.SDL_DisplayMode
 // See also: SDL_SetWindowTitle()
 // See also: SDL_ShowWindow()
 //
-[typedef]
+@[typedef]
 pub struct C.SDL_Window {
 }
 
