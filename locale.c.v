@@ -7,7 +7,7 @@ module sdl
 // SDL_locale.h
 //
 
-[typedef]
+@[typedef]
 pub struct C.SDL_Locale {
 pub:
 	language &char // const, A language name, like "en" for English.
