@@ -111,7 +111,7 @@ fn load_mus(path string) !&mixer.Music {
 // We output to terminal to prevent depending on e.g. sdl.tff, in case
 // it doesn't work or is broken - it then become easier to
 // diagnose any potential library problems a setup might have.
-[console]
+@[console]
 fn main() {
 	println('Const version ${mixer.major_version}.${mixer.minor_version}.${mixer.patchlevel}')
 	mut compiled_version := sdl.Version{}

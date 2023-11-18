@@ -26,7 +26,7 @@ pub fn direct_3d9_get_adapter_index(display_index int) int {
 	return C.SDL_Direct3D9GetAdapterIndex(display_index)
 }
 
-[typedef]
+@[typedef]
 pub struct C.IDirect3DDevice9 {
 }
 
