@@ -38,7 +38,7 @@ pub fn direct_3d9_get_adapter_index(display_index int) int {
 	return C.SDL_Direct3D9GetAdapterIndex(display_index)
 }
 
-[typedef]
+@[typedef]
 pub struct C.IDirect3DDevice9 {
 }
 
@@ -60,7 +60,7 @@ pub fn render_get_d3d9_device(renderer &Renderer) &IDirect3DDevice9 {
 	return C.SDL_RenderGetD3D9Device(renderer)
 }
 
-[typedef]
+@[typedef]
 pub struct C.ID3D11Device {
 }
 
@@ -82,7 +82,7 @@ pub fn render_get_d3_d11_device(renderer &Renderer) &ID3D11Device {
 	return C.SDL_RenderGetD3D11Device(renderer)
 }
 
-[typedef]
+@[typedef]
 struct C.ID3D12Device {
 }
 

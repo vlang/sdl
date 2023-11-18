@@ -7,7 +7,7 @@ module sdl
 // SDL_surface.h
 //
 
-[typedef]
+@[typedef]
 struct C.SDL_BlitMap {}
 
 // BlitMap is an opaque type.
@@ -18,7 +18,7 @@ pub type BlitMap = C.SDL_BlitMap
 // NOTE This structure should be treated as read-only, except for `pixels`,
 // which, if not NULL, contains the raw pixel data for the surface.
 //
-[typedef]
+@[typedef]
 pub struct C.SDL_Surface {
 pub:
 	flags  u32 // Read-only

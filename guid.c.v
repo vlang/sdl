@@ -21,7 +21,7 @@ module sdl
 //
 // GUIDs may be platform-dependent (i.e., the same device may report
 //   different GUIDs on different operating systems).
-[typedef]
+@[typedef]
 struct C.SDL_GUID {
 	data [16]u8
 }
