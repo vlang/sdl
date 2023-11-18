@@ -28,7 +28,7 @@ pub enum TouchDeviceType {
 	indirect_relative = C.SDL_TOUCH_DEVICE_INDIRECT_RELATIVE // trackpad with screen cursor-relative coordinates
 }
 
-[typedef]
+@[typedef]
 pub struct C.SDL_Finger {
 pub:
 	id       FingerID // C.SDL_FingerID

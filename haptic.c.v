@@ -137,7 +137,7 @@ pub const (
 	haptic_infinity      = C.SDL_HAPTIC_INFINITY // 4294967295U
 )
 
-[typedef]
+@[typedef]
 pub struct C.SDL_Haptic {
 }
 
@@ -242,7 +242,7 @@ direction.dir[0] = 9000; // Since we only have two axes we don't need more param
 // See also: SDL_HapticEffect
 // See also: SDL_HapticNumAxes
 
-[typedef]
+@[typedef]
 pub struct C.SDL_HapticDirection {
 pub mut:
 	@type u8 // The type of encoding
@@ -260,7 +260,7 @@ pub type HapticDirection = C.SDL_HapticDirection
 //
 // See also: SDL_HAPTIC_CONSTANT
 // See also: SDL_HapticEffect
-[typedef]
+@[typedef]
 pub struct C.SDL_HapticConstant {
 pub mut:
 	@type         u16 // ::SDL_HAPTIC_CONSTANT
@@ -336,7 +336,7 @@ pub type HapticConstant = C.SDL_HapticConstant
 // See also: SDL_HAPTIC_SAWTOOTHDOWN
 // See also: SDL_HapticEffect
 
-[typedef]
+@[typedef]
 pub struct C.SDL_HapticPeriodic {
 pub mut:
 	@type         u16 // ::SDL_HAPTIC_SINE, ::SDL_HAPTIC_LEFTRIGHT, ::SDL_HAPTIC_TRIANGLE, ::SDL_HAPTIC_SAWTOOTHUP or ::SDL_HAPTIC_SAWTOOTHDOWN
@@ -379,7 +379,7 @@ pub type HapticPeriodic = C.SDL_HapticPeriodic
 // See also: SDL_HAPTIC_INERTIA
 // See also: SDL_HAPTIC_FRICTION
 // See also: SDL_HapticEffect
-[typedef]
+@[typedef]
 pub struct C.SDL_HapticCondition {
 pub mut:
 	@type       u16 // ::SDL_HAPTIC_SPRING, ::SDL_HAPTIC_DAMPER,                                  ::SDL_HAPTIC_INERTIA or ::SDL_HAPTIC_FRICTION
@@ -409,7 +409,7 @@ pub type HapticCondition = C.SDL_HapticCondition
 //
 // See also: SDL_HAPTIC_RAMP
 // See also: SDL_HapticEffect
-[typedef]
+@[typedef]
 pub struct C.SDL_HapticRamp {
 pub mut:
 	@type         u16 // ::SDL_HAPTIC_RAMP
@@ -438,7 +438,7 @@ pub type HapticRamp = C.SDL_HapticRamp
 //
 // See also: SDL_HAPTIC_LEFTRIGHT
 // See also: SDL_HapticEffect
-[typedef]
+@[typedef]
 pub struct C.SDL_HapticLeftRight {
 pub mut:
 	@type           u16 // ::SDL_HAPTIC_LEFTRIGHT
@@ -462,7 +462,7 @@ pub type HapticLeftRight = C.SDL_HapticLeftRight
 //
 // See also: SDL_HAPTIC_CUSTOM
 // See also: SDL_HapticEffect
-[typedef]
+@[typedef]
 pub struct C.SDL_HapticCustom {
 pub mut:
 	@type         u16 // ::SDL_HAPTIC_CUSTOM
@@ -556,7 +556,7 @@ Uint16 fade_level;    // Level at the end of the fade.
 // See also: SDL_HapticLeftRight
 // See also: SDL_HapticCustom
 
-[typedef]
+@[typedef]
 union C.SDL_HapticEffect {
 pub mut:
 	// Common for all force feedback effects

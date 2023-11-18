@@ -23,7 +23,7 @@ pub const (
 //
 // See also: SDL_VERSION
 // See also: SDL_GetVersion
-[typedef]
+@[typedef]
 pub struct C.SDL_version {
 pub:
 	major u8 // major version
@@ -140,7 +140,7 @@ fn C.SDL_GetRevisionNumber() int
 // This number was not reliable for several reasons, but more importantly,
 // SDL is now hosted in a git repository, which does not offer numbers at
 // all, only hashes. This function only ever returns zero now. Don't use it.
-[deprecated]
+@[deprecated]
 pub fn get_revision_number() int {
 	return C.SDL_GetRevisionNumber()
 }

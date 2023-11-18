@@ -16,7 +16,7 @@ pub const mutex_maxwait = C.SDL_MUTEX_MAXWAIT // (~(Uint32)0)
 
 // Mutex is the SDL mutex structure, defined in SDL_sysmutex.c
 // Mutex is C.SDL_mutex
-[typedef]
+@[typedef]
 pub struct C.SDL_mutex {
 }
 
@@ -125,7 +125,7 @@ pub fn destroy_mutex(mutex &Mutex) {
 
 // Sem is the SDL semaphore structure, defined in SDL_syssem.c
 // Sem is C.SDL_sem
-[typedef]
+@[typedef]
 pub struct C.SDL_sem {
 }
 
@@ -282,7 +282,7 @@ pub fn sem_value(sem &Sem) u32 {
 
 // Cond is the SDL condition variable structure, defined in SDL_syscond.c
 // Cond is C.SDL_cond
-[typedef]
+@[typedef]
 pub struct C.SDL_cond {
 }
 
