@@ -113,7 +113,7 @@ pub enum EventType {
 }
 
 // CommonEvent is fields shared by every event
-[typedef]
+@[typedef]
 pub struct C.SDL_CommonEvent {
 pub:
 	@type     EventType
@@ -123,7 +123,7 @@ pub:
 pub type CommonEvent = C.SDL_CommonEvent
 
 // WindowEvent is window state change event data (event.window.*)
-[typedef]
+@[typedef]
 pub struct C.SDL_WindowEvent {
 pub:
 	@type     EventType // ::SDL_WINDOWEVENT
@@ -140,7 +140,7 @@ pub:
 pub type WindowEvent = C.SDL_WindowEvent
 
 // KeyboardEvent is Keyboard button event structure (event.key.*)
-[typedef]
+@[typedef]
 pub struct C.SDL_KeyboardEvent {
 pub:
 	@type     EventType // ::SDL_KEYDOWN or ::SDL_KEYUP
@@ -156,7 +156,7 @@ pub:
 pub type KeyboardEvent = C.SDL_KeyboardEvent
 
 // TextEditingEvent is keyboard text editing event structure (event.edit.*)
-[typedef]
+@[typedef]
 pub struct C.SDL_TextEditingEvent {
 pub:
 	@type     EventType // ::SDL_TEXTEDITING
@@ -170,7 +170,7 @@ pub:
 pub type TextEditingEvent = C.SDL_TextEditingEvent
 
 // TextInputEvent is keyboard text input event structure (event.text.*)
-[typedef]
+@[typedef]
 pub struct C.SDL_TextInputEvent {
 pub:
 	@type     EventType // ::SDL_TEXTINPUT
@@ -182,7 +182,7 @@ pub:
 pub type TextInputEvent = C.SDL_TextInputEvent
 
 // MouseMotionEvent is mouse motion event structure (event.motion.*)
-[typedef]
+@[typedef]
 pub struct C.SDL_MouseMotionEvent {
 pub:
 	@type     EventType // ::SDL_MOUSEMOTION
@@ -199,7 +199,7 @@ pub:
 pub type MouseMotionEvent = C.SDL_MouseMotionEvent
 
 // MouseButtonEvent is mouse button event structure (event.button.*)
-[typedef]
+@[typedef]
 pub struct C.SDL_MouseButtonEvent {
 pub:
 	@type     EventType // ::SDL_MOUSEBUTTONDOWN or ::SDL_MOUSEBUTTONUP
@@ -217,7 +217,7 @@ pub:
 pub type MouseButtonEvent = C.SDL_MouseButtonEvent
 
 // MouseWheelEvent is mouse wheel event structure (event.wheel.*)
-[typedef]
+@[typedef]
 pub struct C.SDL_MouseWheelEvent {
 pub:
 	@type     EventType // ::SDL_MOUSEWHEEL
@@ -232,7 +232,7 @@ pub:
 pub type MouseWheelEvent = C.SDL_MouseWheelEvent
 
 // JoyAxisEvent is joystick axis motion event structure (event.jaxis.*)
-[typedef]
+@[typedef]
 pub struct C.SDL_JoyAxisEvent {
 pub:
 	@type     EventType  // ::SDL_JOYAXISMOTION
@@ -249,7 +249,7 @@ pub:
 pub type JoyAxisEvent = C.SDL_JoyAxisEvent
 
 // JoyBallEvent is joystick trackball motion event structure (event.jball.*)
-[typedef]
+@[typedef]
 pub struct C.SDL_JoyBallEvent {
 pub:
 	@type     EventType  // ::SDL_JOYBALLMOTION
@@ -266,7 +266,7 @@ pub:
 pub type JoyBallEvent = C.SDL_JoyBallEvent
 
 // JoyHatEvent is joystick hat position change event structure (event.jhat.*)
-[typedef]
+@[typedef]
 pub struct C.SDL_JoyHatEvent {
 pub:
 	@type     EventType  // ::SDL_JOYHATMOTION
@@ -285,7 +285,7 @@ pub:
 pub type JoyHatEvent = C.SDL_JoyHatEvent
 
 // JoyButtonEvent is joystick button event structure (event.jbutton.*)
-[typedef]
+@[typedef]
 pub struct C.SDL_JoyButtonEvent {
 pub:
 	@type     EventType  // ::SDL_JOYBUTTONDOWN or ::SDL_JOYBUTTONUP
@@ -300,7 +300,7 @@ pub:
 pub type JoyButtonEvent = C.SDL_JoyButtonEvent
 
 // JoyDeviceEvent is joystick device event structure (event.jdevice.*)
-[typedef]
+@[typedef]
 pub struct C.SDL_JoyDeviceEvent {
 pub:
 	@type     EventType // ::SDL_JOYDEVICEADDED or ::SDL_JOYDEVICEREMOVED
@@ -311,7 +311,7 @@ pub:
 pub type JoyDeviceEvent = C.SDL_JoyDeviceEvent
 
 // ControllerAxisEvent is game controller axis motion event structure (event.caxis.*)
-[typedef]
+@[typedef]
 pub struct C.SDL_ControllerAxisEvent {
 pub:
 	@type     EventType  // ::SDL_CONTROLLERAXISMOTION
@@ -328,7 +328,7 @@ pub:
 pub type ControllerAxisEvent = C.SDL_ControllerAxisEvent
 
 // ControllerButtonEvent is game controller button event structure (event.cbutton.*)
-[typedef]
+@[typedef]
 pub struct C.SDL_ControllerButtonEvent {
 pub:
 	@type     EventType  // ::SDL_CONTROLLERBUTTONDOWN or ::SDL_CONTROLLERBUTTONUP
@@ -343,7 +343,7 @@ pub:
 pub type ControllerButtonEvent = C.SDL_ControllerButtonEvent
 
 // ControllerDeviceEvent is controller device event structure (event.cdevice.*)
-[typedef]
+@[typedef]
 pub struct C.SDL_ControllerDeviceEvent {
 pub:
 	@type     EventType // ::SDL_CONTROLLERDEVICEADDED, ::SDL_CONTROLLERDEVICEREMOVED, or ::SDL_CONTROLLERDEVICEREMAPPED
@@ -354,7 +354,7 @@ pub:
 pub type ControllerDeviceEvent = C.SDL_ControllerDeviceEvent
 
 // AudioDeviceEvent is audio device event structure (event.adevice.*)
-[typedef]
+@[typedef]
 pub struct C.SDL_AudioDeviceEvent {
 pub:
 	@type     EventType // ::SDL_AUDIODEVICEADDED, or ::SDL_AUDIODEVICEREMOVED
@@ -369,7 +369,7 @@ pub:
 pub type AudioDeviceEvent = C.SDL_AudioDeviceEvent
 
 // TouchFingerEvent is touch finger event structure (event.tfinger.*)
-[typedef]
+@[typedef]
 pub struct C.SDL_TouchFingerEvent {
 pub:
 	@type     EventType // ::SDL_FINGERMOTION or ::SDL_FINGERDOWN or ::SDL_FINGERUP
@@ -386,7 +386,7 @@ pub:
 pub type TouchFingerEvent = C.SDL_TouchFingerEvent
 
 // MultiGestureEvent is Multiple Finger Gesture Event (event.mgesture.*)
-[typedef]
+@[typedef]
 pub struct C.SDL_MultiGestureEvent {
 pub:
 	@type      EventType // ::SDL_MULTIGESTURE
@@ -403,7 +403,7 @@ pub:
 pub type MultiGestureEvent = C.SDL_MultiGestureEvent
 
 // DollarGestureEvent is Dollar Gesture Event (event.dgesture.*)
-[typedef]
+@[typedef]
 pub struct C.SDL_DollarGestureEvent {
 pub:
 	@type      EventType // ::SDL_DOLLARGESTURE or ::SDL_DOLLARRECORD
@@ -422,7 +422,7 @@ pub type DollarGestureEvent = C.SDL_DollarGestureEvent
 // This event is enabled by default, you can disable it with SDL_EventState().
 // NOTE If this event is enabled, you must free the filename in the event.
 
-[typedef]
+@[typedef]
 pub struct C.SDL_DropEvent {
 pub:
 	@type     EventType // ::SDL_DROPBEGIN or ::SDL_DROPFILE or ::SDL_DROPTEXT or ::SDL_DROPCOMPLETE
@@ -434,7 +434,7 @@ pub:
 pub type DropEvent = C.SDL_DropEvent
 
 // QuitEvent is the "quit requested" event
-[typedef]
+@[typedef]
 pub struct C.SDL_QuitEvent {
 pub:
 	@type     EventType // ::SDL_QUIT
@@ -444,7 +444,7 @@ pub:
 pub type QuitEvent = C.SDL_QuitEvent
 
 // OSEvent is an OS Specific event
-[typedef]
+@[typedef]
 pub struct C.SDL_OSEvent {
 pub:
 	@type     EventType // ::SDL_QUIT
@@ -454,7 +454,7 @@ pub:
 pub type OSEvent = C.SDL_OSEvent
 
 // UserEvent is an user-defined event type (event.user.*)
-[typedef]
+@[typedef]
 pub struct C.SDL_UserEvent {
 pub:
 	@type     EventType // ::SDL_USEREVENT through ::SDL_LASTEVENT-1
@@ -471,13 +471,13 @@ pub type UserEvent = C.SDL_UserEvent
 // This event is disabled by default, you can enable it with SDL_EventState()
 //
 // NOTE If you want to use this event, you should include SDL_syswm.h.
-[typedef]
+@[typedef]
 pub struct C.SDL_SysWMmsg {
 }
 
 pub type SysWMmsg = C.SDL_SysWMmsg
 
-[typedef]
+@[typedef]
 pub struct C.SDL_SysWMEvent {
 pub:
 	@type     EventType // ::SDL_SYSWMEVENT
@@ -488,7 +488,7 @@ pub:
 pub type SysWMEvent = C.SDL_SysWMEvent
 
 // Event is a general event structure.
-[typedef]
+@[typedef]
 pub union C.SDL_Event {
 pub:
 	@type EventType // Event type, shared with all events

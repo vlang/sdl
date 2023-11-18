@@ -1,5 +1,5 @@
 module sdl
 
 // va_list
-[typedef]
+@[typedef]
 pub struct C.va_list {}
