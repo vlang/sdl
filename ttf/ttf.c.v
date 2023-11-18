@@ -40,7 +40,7 @@ pub fn byte_swapped_unicode(swapped int) {
 
 // Font is the internal structure containing font information
 // Font is C.TTF_Font
-[typedef]
+@[typedef]
 pub struct C.TTF_Font {
 }
 

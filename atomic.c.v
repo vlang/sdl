@@ -116,7 +116,7 @@ pub fn memory_barrier_acquire_function() {
 
 // AtomicT is a type representing an atomic integer value.  It is a struct
 // so people don't accidentally use numeric operations on it.
-[typedef]
+@[typedef]
 pub struct C.SDL_atomic_t {
 pub:
 	value int

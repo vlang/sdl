@@ -12,7 +12,7 @@ module sdl
 // See also: SDL_EnclosePoints
 // See also: SDL_PointInRect
 // Point is C.SDL_Point
-[typedef]
+@[typedef]
 pub struct C.SDL_Point {
 pub mut:
 	x int
@@ -30,7 +30,7 @@ pub type Point = C.SDL_Point
 // See also: SDL_UnionRect
 // See also: SDL_EnclosePoints
 // Rect is C.SDL_Rect
-[typedef]
+@[typedef]
 pub struct C.SDL_Rect {
 pub mut:
 	x int
@@ -67,7 +67,7 @@ fn C.SDL_HasIntersection(const_a &C.SDL_Rect, const_b &C.SDL_Rect) bool
 // has_intersection determine whether two rectangles intersect.
 //
 // returns SDL_TRUE if there is an intersection, SDL_FALSE otherwise.
-[inline]
+@[inline]
 pub fn has_intersection(const_a &Rect, const_b &Rect) bool {
 	return C.SDL_HasIntersection(const_a, const_b)
 }
