@@ -719,7 +719,7 @@ pub const (
 
 // SDL_iconv_* are now always real symbols/types, not macros or inlined.
 // typedef struct _SDL_iconv_t *SDL_iconv_t;
-[typedef]
+@[typedef]
 pub struct C.SDL_iconv_t {
 }
 

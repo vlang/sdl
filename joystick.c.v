@@ -25,13 +25,13 @@ pub const (
 	hat_leftdown  = C.SDL_HAT_LEFTDOWN // hat_left | hat_down
 )
 
-[typedef]
+@[typedef]
 pub struct C.SDL_Joystick {
 }
 
 pub type Joystick = C.SDL_Joystick
 
-[typedef]
+@[typedef]
 pub struct C.SDL_JoystickGUID {
 pub:
 	data [16]u8
