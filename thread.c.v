@@ -7,7 +7,7 @@ module sdl
 // SDL_thread.h
 //
 
-[typedef]
+@[typedef]
 pub struct C.SDL_Thread {
 }
 
