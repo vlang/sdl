@@ -30,7 +30,7 @@ jobs:
           cd build
           ../configure
           make
-          make install
+          sudo make install
 
       - name: Install V
         uses: vlang/setup-v@v1
