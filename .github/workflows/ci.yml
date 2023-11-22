@@ -19,8 +19,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install --quiet -y libsdl2-dev libsdl2-ttf-dev
-          sudo apt-get install --quiet -y libsdl2-mixer-dev libsdl2-image-dev
+          sudo apt-get install --quiet -y libsdl2-mixer-dev libsdl2-image-dev libsdl2-ttf-dev
           curl -L https://www.libsdl.org/release/SDL2-${SDL2_VERSION}.tar.gz -o SDL2.tar.gz
           tar -zxvf SDL2.tar.gz
 
@@ -29,7 +28,7 @@ jobs:
           cd SDL2-${SDL2_VERSION}
           mkdir build
           cd build
-          ../configure --prefix /tmp/sdl2-${SDL2_VERSION}
+          ../configure
           make
           make install
 
@@ -57,7 +56,6 @@ jobs:
 
       - name: Build sdl shared
         run: |
-          export CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
           v -shared -g sdl
 
       - name: Run tests
@@ -65,7 +63,6 @@ jobs:
 
       - name: Test SDL version
         run: |
-          export CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
           VER="$(v run sdl/examples/version)"
           echo "${SDL2_VERSION} == $VER ?"
           test "${SDL2_VERSION}" = "$VER" || exit 1
@@ -73,13 +70,11 @@ jobs:
       - name: Build sdl examples
         run: |
           v shader sdl/examples/sdl_opengl_and_sokol
-          export CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
           v run sdl/examples/versions
           v should-compile-all sdl/examples/
 
       - name: Build and run sdl example with `-prod`
         run: |
-          export CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
           v -cc gcc -prod run sdl/examples/versions
 
   macos:
