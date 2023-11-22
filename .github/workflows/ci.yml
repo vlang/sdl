@@ -9,7 +9,7 @@ on:
       - "**.md"
 
 jobs:
-  ubuntu-tcc:
+  ubuntu:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -63,6 +63,13 @@ jobs:
       - name: Run tests
         run: v test sdl
 
+      - name: Test SDL version
+        run: |
+          export CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
+          VER="$(v run sdl/examples/version)"
+          echo "${SDL2_VERSION} == $VER ?"
+          test "${SDL2_VERSION}" = "$VER" || exit 1
+
       - name: Build sdl examples
         run: |
           v shader sdl/examples/sdl_opengl_and_sokol
@@ -70,12 +77,10 @@ jobs:
           v run sdl/examples/versions
           v should-compile-all sdl/examples/
 
-      - name: Test SDL version
+      - name: Build and run sdl example with `-prod`
         run: |
           export CFLAGS="$(/tmp/sdl2-${SDL2_VERSION}/bin/sdl2-config --cflags --libs)"
-          VER="$(v run sdl/examples/version)"
-          echo "${SDL2_VERSION} == $VER ?"
-          test "${SDL2_VERSION}" = "$VER" || exit 1
+          v -cc gcc -prod run sdl/examples/versions
 
   macos:
     runs-on: macos-11
