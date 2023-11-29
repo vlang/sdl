@@ -7,11 +7,11 @@ module sdl
 // SDL_shape.h
 //
 
-pub const (
-	nonshapeable_window    = C.SDL_NONSHAPEABLE_WINDOW // -1
-	invalid_shape_argument = C.SDL_INVALID_SHAPE_ARGUMENT // -2
-	window_lacks_shape     = C.SDL_WINDOW_LACKS_SHAPE // -3
-)
+pub const nonshapeable_window = C.SDL_NONSHAPEABLE_WINDOW // -1
+
+pub const invalid_shape_argument = C.SDL_INVALID_SHAPE_ARGUMENT // -2
+
+pub const window_lacks_shape = C.SDL_WINDOW_LACKS_SHAPE // -3
 
 fn C.SDL_CreateShapedWindow(title &char, x u32, y u32, w u32, h u32, flags u32) &C.SDL_Window
 

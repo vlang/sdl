@@ -10,10 +10,9 @@ module sdl
 // Transparency definitions
 //
 // These define alpha as the opacity of a surface.
-pub const (
-	alpha_opaque      = C.SDL_ALPHA_OPAQUE // 255
-	alpha_transparent = C.SDL_ALPHA_TRANSPARENT // 0
-)
+pub const alpha_opaque = C.SDL_ALPHA_OPAQUE // 255
+
+pub const alpha_transparent = C.SDL_ALPHA_TRANSPARENT // 0
 
 // Pixel type.
 // PixelType is C.SDL_PixelType
