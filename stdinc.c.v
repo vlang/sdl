@@ -9,48 +9,61 @@ module sdl
 
 // Basic data types
 
-pub const (
-	// A signed 8-bit integer type.
-	// typedef int8_t Sint8;
-	// i8
-	max_sint8  = C.SDL_MAX_SINT8 // 127
-	min_sint8  = C.SDL_MIN_SINT8 // -128
-	// An unsigned 8-bit integer type.
-	// typedef uint8_t Uint8;
-	// u8
-	max_uint8  = C.SDL_MAX_UINT8 // 255
-	min_uint8  = C.SDL_MIN_UINT8 // 0
-	// A signed 16-bit integer type.
-	// typedef int16_t Sint16;
-	// i16
-	max_sint16 = C.SDL_MAX_SINT16 // 32767
-	min_sint16 = C.SDL_MIN_SINT16 // -32768
-	// An unsigned 16-bit integer type.
-	// typedef uint16_t Uint16;
-	// u16
-	max_uint16 = C.SDL_MAX_UINT16 // 65535
-	min_uint16 = C.SDL_MIN_UINT16 // 0
-	// A signed 32-bit integer type.
-	// typedef int32_t Sint32;
-	// int
-	max_sint32 = C.SDL_MAX_SINT32 // 2147483647
-	min_sint32 = C.SDL_MIN_SINT32 // -2147483648
-	// An unsigned 32-bit integer type.
-	// typedef uint32_t Uint32;
-	// u32
-	max_uint32 = C.SDL_MAX_UINT32 // 4294967295
-	min_uint32 = C.SDL_MIN_UINT32 // 0
-	// A signed 64-bit integer type.
-	// typedef int64_t Sint64;
-	// i64
-	max_sint64 = C.SDL_MAX_SINT64 // 9223372036854775807
-	min_sint64 = C.SDL_MIN_SINT64 // -9223372036854775808
-	// An unsigned 64-bit integer type.
-	// typedef uint64_t Uint64;
-	// u64
-	max_uint64 = C.SDL_MAX_UINT64 // 18446744073709551615
-	min_uint64 = C.SDL_MIN_UINT64 // 0
-)
+// A signed 8-bit integer type.
+// typedef int8_t Sint8;
+// i8
+pub const max_sint8 = C.SDL_MAX_SINT8 // 127
+
+pub const min_sint8 = C.SDL_MIN_SINT8 // -128
+
+// An unsigned 8-bit integer type.
+// typedef uint8_t Uint8;
+// u8
+pub const max_uint8 = C.SDL_MAX_UINT8 // 255
+
+pub const min_uint8 = C.SDL_MIN_UINT8 // 0
+
+// A signed 16-bit integer type.
+// typedef int16_t Sint16;
+// i16
+pub const max_sint16 = C.SDL_MAX_SINT16 // 32767
+
+pub const min_sint16 = C.SDL_MIN_SINT16 // -32768
+
+// An unsigned 16-bit integer type.
+// typedef uint16_t Uint16;
+// u16
+pub const max_uint16 = C.SDL_MAX_UINT16 // 65535
+
+pub const min_uint16 = C.SDL_MIN_UINT16 // 0
+
+// A signed 32-bit integer type.
+// typedef int32_t Sint32;
+// int
+pub const max_sint32 = C.SDL_MAX_SINT32 // 2147483647
+
+pub const min_sint32 = C.SDL_MIN_SINT32 // -2147483648
+
+// An unsigned 32-bit integer type.
+// typedef uint32_t Uint32;
+// u32
+pub const max_uint32 = C.SDL_MAX_UINT32 // 4294967295
+
+pub const min_uint32 = C.SDL_MIN_UINT32 // 0
+
+// A signed 64-bit integer type.
+// typedef int64_t Sint64;
+// i64
+pub const max_sint64 = C.SDL_MAX_SINT64 // 9223372036854775807
+
+pub const min_sint64 = C.SDL_MIN_SINT64 // -9223372036854775808
+
+// An unsigned 64-bit integer type.
+// typedef uint64_t Uint64;
+// u64
+pub const max_uint64 = C.SDL_MAX_UINT64 // 18446744073709551615
+
+pub const min_uint64 = C.SDL_MIN_UINT64 // 0
 
 /*
 // bool
@@ -438,9 +451,7 @@ pub fn vsnprintf(text &C.SDL_OUT_Z_CAP(maxlen) char, maxlen usize, fmt &char, ap
 }
 */
 
-pub const (
-	m_pi = C.M_PI // 3.14159265358979323846264338327950288 // pi
-)
+pub const m_pi = C.M_PI // 3.14159265358979323846264338327950288 // pi
 
 fn C.SDL_acos(x f64) f64
 pub fn acos(x f64) f64 {
@@ -622,13 +633,14 @@ pub fn tanf(x f32) f32 {
 	return C.SDL_tanf(x)
 }
 
-pub const (
-	// The SDL implementation of iconv() returns these error codes
-	iconv_error  = C.SDL_ICONV_ERROR // (size_t)-1
-	iconv_e2big  = C.SDL_ICONV_E2BIG // (size_t)-2
-	iconv_eilseq = C.SDL_ICONV_EILSEQ // (size_t)-3
-	iconv_einval = C.SDL_ICONV_EINVAL // (size_t)-4
-)
+// The SDL implementation of iconv() returns these error codes
+pub const iconv_error = C.SDL_ICONV_ERROR // (size_t)-1
+
+pub const iconv_e2big = C.SDL_ICONV_E2BIG // (size_t)-2
+
+pub const iconv_eilseq = C.SDL_ICONV_EILSEQ // (size_t)-3
+
+pub const iconv_einval = C.SDL_ICONV_EINVAL // (size_t)-4
 
 // SDL_iconv_* are now always real symbols/types, not macros or inlined.
 // typedef struct _SDL_iconv_t *SDL_iconv_t;
