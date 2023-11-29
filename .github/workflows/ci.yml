@@ -120,8 +120,8 @@ jobs:
       - name: Test code formatting
         run: |
           cd sdl
-          v test-fmt
-          v fmt -verify .
+          VJOBS=1 v test-fmt
+          VJOBS=1 v fmt -verify .
 
       - name: Build sdl shared
         run: |
