@@ -7,22 +7,21 @@ module sdl
 // SDL_events.h
 //
 
-pub const (
-	released = C.SDL_RELEASED // 0
-	pressed  = C.SDL_PRESSED // 1
-)
+pub const released = C.SDL_RELEASED // 0
 
-pub const (
-	textinputevent_text_size   = C.SDL_TEXTINPUTEVENT_TEXT_SIZE // (32)
-	texteditingevent_text_size = C.SDL_TEXTEDITINGEVENT_TEXT_SIZE // (32)
-)
+pub const pressed = C.SDL_PRESSED // 1
 
-pub const (
-	query   = C.SDL_QUERY // -1
-	ignore  = C.SDL_IGNORE // 0
-	disable = C.SDL_DISABLE // 0
-	enable  = C.SDL_ENABLE // 1
-)
+pub const textinputevent_text_size = C.SDL_TEXTINPUTEVENT_TEXT_SIZE // (32)
+
+pub const texteditingevent_text_size = C.SDL_TEXTEDITINGEVENT_TEXT_SIZE // (32)
+
+pub const query = C.SDL_QUERY // -1
+
+pub const ignore = C.SDL_IGNORE // 0
+
+pub const disable = C.SDL_DISABLE // 0
+
+pub const enable = C.SDL_ENABLE // 1
 
 // EventFilter is a function pointer used for callbacks that watch the event queue.
 //
