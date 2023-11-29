@@ -16,11 +16,9 @@ import os
 import sdl
 import sdl.mixer
 
-const (
-	wav_sound = 'sounds/sound_01.wav'
-	sounds    = ['sounds/sound_02.mp3', 'sounds/sound_03.flac', 'sounds/sound_04.ogg',
-		'sounds/TwintrisThosenine.mod', 'sounds/IcyGarden.mid']
-)
+const wav_sound = 'sounds/sound_01.wav'
+const sounds = ['sounds/sound_02.mp3', 'sounds/sound_03.flac', 'sounds/sound_04.ogg',
+	'sounds/TwintrisThosenine.mod', 'sounds/IcyGarden.mid']
 
 struct PlayCycle {
 pub mut:
