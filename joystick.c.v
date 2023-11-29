@@ -7,23 +7,28 @@ module sdl
 // SDL_joystick.h
 //
 
-pub const (
-	joystick_axis_max = C.SDL_JOYSTICK_AXIS_MAX // 32767
-	joystick_axis_min = C.SDL_JOYSTICK_AXIS_MIN // -32768
-)
+pub const joystick_axis_max = C.SDL_JOYSTICK_AXIS_MAX // 32767
+
+pub const joystick_axis_min = C.SDL_JOYSTICK_AXIS_MIN // -32768
 
 // Hat positions
-pub const (
-	hat_centered  = C.SDL_HAT_CENTERED // 0x00
-	hat_up        = C.SDL_HAT_UP // 0x01
-	hat_right     = C.SDL_HAT_RIGHT // 0x02
-	hat_down      = C.SDL_HAT_DOWN // 0x04
-	hat_left      = C.SDL_HAT_LEFT // 0x08
-	hat_rightup   = C.SDL_HAT_RIGHTUP // hat_right | hat_up
-	hat_rightdown = C.SDL_HAT_RIGHTDOWN // hat_right | hat_down
-	hat_leftup    = C.SDL_HAT_LEFTUP // hat_left | hat_up
-	hat_leftdown  = C.SDL_HAT_LEFTDOWN // hat_left | hat_down
-)
+pub const hat_centered = C.SDL_HAT_CENTERED // 0x00
+
+pub const hat_up = C.SDL_HAT_UP // 0x01
+
+pub const hat_right = C.SDL_HAT_RIGHT // 0x02
+
+pub const hat_down = C.SDL_HAT_DOWN // 0x04
+
+pub const hat_left = C.SDL_HAT_LEFT // 0x08
+
+pub const hat_rightup = C.SDL_HAT_RIGHTUP // hat_right | hat_up
+
+pub const hat_rightdown = C.SDL_HAT_RIGHTDOWN // hat_right | hat_down
+
+pub const hat_leftup = C.SDL_HAT_LEFTUP // hat_left | hat_up
+
+pub const hat_leftdown = C.SDL_HAT_LEFTDOWN // hat_left | hat_down
 
 @[typedef]
 pub struct C.SDL_Joystick {

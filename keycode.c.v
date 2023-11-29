@@ -20,9 +20,7 @@ module sdl
 // Sint32 C.SDL_Keycode;
 pub type Keycode = int
 
-pub const (
-	sdlk_scancode_mask = C.SDLK_SCANCODE_MASK // (1<<30)
-)
+pub const sdlk_scancode_mask = C.SDLK_SCANCODE_MASK // (1<<30)
 
 fn C.SDL_SCANCODE_TO_KEYCODE(x int) Keycode
 
