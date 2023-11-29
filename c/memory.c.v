@@ -30,7 +30,7 @@ fn cb_realloc_func(mem voidptr, size usize) voidptr {
 
 fn cb_free_func(mem voidptr) {
 	$if trace_sdl_memory ? {
-		C.fprintf(C.stderr, c'>> sdl.c.cb_free_func | mem: %p\n')
+		C.fprintf(C.stderr, c'>> sdl.c.cb_free_func | mem: %p\n', mem)
 	}
 	unsafe { free(mem) }
 }
