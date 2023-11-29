@@ -8,11 +8,11 @@ module image
 //
 import sdl
 
-pub const (
-	major_version = C.SDL_IMAGE_MAJOR_VERSION // 2
-	minor_version = C.SDL_IMAGE_MINOR_VERSION // 0
-	patchlevel    = C.SDL_IMAGE_PATCHLEVEL // 5
-)
+pub const major_version = C.SDL_IMAGE_MAJOR_VERSION // 2
+
+pub const minor_version = C.SDL_IMAGE_MINOR_VERSION // 0
+
+pub const patchlevel = C.SDL_IMAGE_PATCHLEVEL // 5
 
 fn C.SDL_IMAGE_VERSION(v &sdl.Version)
 

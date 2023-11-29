@@ -7,11 +7,9 @@ module sdl
 // SDL_endian.h
 //
 
-pub const (
-	lil_endian = C.SDL_LIL_ENDIAN
-	big_endian = C.SDL_BIG_ENDIAN
-	byteorder  = C.SDL_BYTEORDER
-)
+pub const lil_endian = C.SDL_LIL_ENDIAN
+pub const big_endian = C.SDL_BIG_ENDIAN
+pub const byteorder = C.SDL_BYTEORDER
 
 fn C.SDL_Swap16(x u16) u16
 pub fn swap16(x u16) u16 {
