@@ -13,12 +13,11 @@ pub type TouchID = i64
 // `typedef Sint64 SDL_FingerID;`
 pub type FingerID = i64
 
-pub const (
-	// Used as the device ID for mouse events simulated with touch input
-	touch_mouseid  = C.SDL_TOUCH_MOUSEID // ((Uint32)-1)
-	// Used as the SDL_TouchID for touch events simulated with mouse input
-	mouse_touch_id = C.SDL_MOUSE_TOUCHID // ((Sint64)-1)
-)
+// Used as the device ID for mouse events simulated with touch input
+pub const touch_mouseid = C.SDL_TOUCH_MOUSEID // ((Uint32)-1)
+
+// Used as the SDL_TouchID for touch events simulated with mouse input
+pub const mouse_touch_id = C.SDL_MOUSE_TOUCHID // ((Sint64)-1)
 
 // TouchDeviceType is C.SDL_TouchDeviceType
 pub enum TouchDeviceType {
