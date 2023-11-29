@@ -3,9 +3,7 @@
 // that can be found in the LICENSE file.
 module sdl
 
-pub const (
-	max_log_message = C.SDL_MAX_LOG_MESSAGE // 4096
-)
+pub const max_log_message = C.SDL_MAX_LOG_MESSAGE // 4096
 
 // LogOutputFunction is the prototype for the log output function
 // C.SDL_LogOutputFunction
