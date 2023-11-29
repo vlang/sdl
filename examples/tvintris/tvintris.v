@@ -17,114 +17,113 @@ import sdl.image as img
 import sdl.mixer as mix
 import sdl.ttf
 
-const (
-	title           = 'tVintris'
-	font_name       = get_asset_path(os.join_path('fonts', 'RobotoMono-Regular.ttf'))
-	music_name      = get_asset_path(os.join_path('sounds', 'TwintrisThosenine.mod'))
-	snd_block_name  = get_asset_path(os.join_path('sounds', 'block.wav'))
-	snd_line_name   = get_asset_path(os.join_path('sounds', 'single.wav'))
-	snd_double_name = get_asset_path(os.join_path('sounds', 'triple.wav'))
-	v_logo          = get_asset_path(os.join_path('images', 'v-logo_30_30.png'))
-	block_size      = 20 // pixels
-	field_height    = 20 // # of blocks
-	field_width     = 10
-	tetro_size      = 4
-	win_width       = block_size * field_width * 3
-	win_height      = block_size * field_height
-	timer_period    = 250 // ms
-	text_size       = 16
-	audio_buf_size  = 1024
+const title = 'tVintris'
+const font_name = get_asset_path(os.join_path('fonts', 'RobotoMono-Regular.ttf'))
+const music_name = get_asset_path(os.join_path('sounds', 'TwintrisThosenine.mod'))
+const snd_block_name = get_asset_path(os.join_path('sounds', 'block.wav'))
+const snd_line_name = get_asset_path(os.join_path('sounds', 'single.wav'))
+const snd_double_name = get_asset_path(os.join_path('sounds', 'triple.wav'))
+const v_logo = get_asset_path(os.join_path('images', 'v-logo_30_30.png'))
+const block_size = 20 // pixels
 
-	p2_fire         = sdl.KeyCode.l
-	p2_up           = sdl.KeyCode.up
-	p2_down         = sdl.KeyCode.down
-	p2_left         = sdl.KeyCode.left
-	p2_right        = sdl.KeyCode.right
+const field_height = 20 // # of blocks
 
-	p1_fire         = sdl.KeyCode.s
-	p1_up           = sdl.KeyCode.w
-	p1_down         = sdl.KeyCode.x
-	p1_left         = sdl.KeyCode.a
-	p1_right        = sdl.KeyCode.d
+const field_width = 10
+const tetro_size = 4
+const win_width = block_size * field_width * 3
+const win_height = block_size * field_height
+const timer_period = 250 // ms
 
-	n_joy_max       = 2
-	// joystick name => enter your own device name
-	joy_p1_name     = 'Generic X-Box pad'
-	// following are joystick button number
-	jb_p1_fire      = 1
-	// following are joystick hat value
-	jh_p1_up        = 1
-	jh_p1_down      = 4
-	jh_p1_left      = 8
-	jh_p1_right     = 3
+const text_size = 16
+const audio_buf_size = 1024
 
-	// joystick name => enter your own device name
-	joy_p2_name     = 'RedOctane Guitar Hero X-plorer'
-	// following are joystick button number
-	jb_p2_fire      = 0
-	// following are joystick hat value
-	jh_p2_up        = 4
-	jh_p2_down      = 1
-	jh_p2_left      = 8
-	jh_p2_right     = 2
-)
+const p2_fire = sdl.KeyCode.l
+const p2_up = sdl.KeyCode.up
+const p2_down = sdl.KeyCode.down
+const p2_left = sdl.KeyCode.left
+const p2_right = sdl.KeyCode.right
 
-const (
-	// Tetros' 4 possible states are encoded in binaries
-	b_tetros         = [
-		// 0000 0
-		// 0000 0
-		// 0110 6
-		// 0110 6
-		[66, 66, 66, 66],
-		// 0000 0
-		// 0000 0
-		// 0010 2
-		// 0111 7
-		[27, 131, 72, 232],
-		// 0000 0
-		// 0000 0
-		// 0011 3
-		// 0110 6
-		[36, 231, 36, 231],
-		// 0000 0
-		// 0000 0
-		// 0110 6
-		// 0011 3
-		[63, 132, 63, 132],
-		// 0000 0
-		// 0011 3
-		// 0001 1
-		// 0001 1
-		[311, 17, 223, 74],
-		// 0000 0
-		// 0011 3
-		// 0010 2
-		// 0010 2
-		[322, 71, 113, 47],
-		// Special case since 15 can't be used
-		// 1111
-		[1111, 9, 1111, 9],
-	]
-	// Each tetro has its unique color
-	colors           = [
-		sdl.Color{0, 0, 0, 0}, // unused ?
-		sdl.Color{0, 0x62, 0xc0, 0}, // quad : darkblue 0062c0
-		sdl.Color{0xca, 0x7d, 0x5f, 0}, // tricorn : lightbrown ca7d5f
-		sdl.Color{0, 0xc1, 0xbf, 0}, // short topright : lightblue 00c1bf
-		sdl.Color{0, 0xc1, 0, 0}, // short topleft : lightgreen 00c100
-		sdl.Color{0xbf, 0xbe, 0, 0}, // long topleft : yellowish bfbe00
-		sdl.Color{0xd1, 0, 0xbf, 0}, // long topright : pink d100bf
-		sdl.Color{0xd1, 0, 0, 0}, // longest : lightred d10000
-		sdl.Color{0, 170, 170, 0}, // unused ?
-	]
-	// Background color
-	background_color = sdl.Color{0, 0, 0, 0}
-	// Foreground color
-	foreground_color = sdl.Color{0, 170, 170, 0}
-	// Text color
-	text_color       = sdl.Color{0xca, 0x7d, 0x5f, 0}
-)
+const p1_fire = sdl.KeyCode.s
+const p1_up = sdl.KeyCode.w
+const p1_down = sdl.KeyCode.x
+const p1_left = sdl.KeyCode.a
+const p1_right = sdl.KeyCode.d
+
+const n_joy_max = 2
+// joystick name => enter your own device name
+const joy_p1_name = 'Generic X-Box pad'
+// following are joystick button number
+const jb_p1_fire = 1
+// following are joystick hat value
+const jh_p1_up = 1
+const jh_p1_down = 4
+const jh_p1_left = 8
+const jh_p1_right = 3
+
+// joystick name => enter your own device name
+const joy_p2_name = 'RedOctane Guitar Hero X-plorer'
+// following are joystick button number
+const jb_p2_fire = 0
+// following are joystick hat value
+const jh_p2_up = 4
+const jh_p2_down = 1
+const jh_p2_left = 8
+const jh_p2_right = 2
+
+// Tetros' 4 possible states are encoded in binaries
+const b_tetros = [
+	// 0000 0
+	// 0000 0
+	// 0110 6
+	// 0110 6
+	[66, 66, 66, 66],
+	// 0000 0
+	// 0000 0
+	// 0010 2
+	// 0111 7
+	[27, 131, 72, 232],
+	// 0000 0
+	// 0000 0
+	// 0011 3
+	// 0110 6
+	[36, 231, 36, 231],
+	// 0000 0
+	// 0000 0
+	// 0110 6
+	// 0011 3
+	[63, 132, 63, 132],
+	// 0000 0
+	// 0011 3
+	// 0001 1
+	// 0001 1
+	[311, 17, 223, 74],
+	// 0000 0
+	// 0011 3
+	// 0010 2
+	// 0010 2
+	[322, 71, 113, 47],
+	// Special case since 15 can't be used
+	// 1111
+	[1111, 9, 1111, 9],
+]
+// Each tetro has its unique color
+const colors = [
+	sdl.Color{0, 0, 0, 0}, // unused ?
+	sdl.Color{0, 0x62, 0xc0, 0}, // quad : darkblue 0062c0
+	sdl.Color{0xca, 0x7d, 0x5f, 0}, // tricorn : lightbrown ca7d5f
+	sdl.Color{0, 0xc1, 0xbf, 0}, // short topright : lightblue 00c1bf
+	sdl.Color{0, 0xc1, 0, 0}, // short topleft : lightgreen 00c100
+	sdl.Color{0xbf, 0xbe, 0, 0}, // long topleft : yellowish bfbe00
+	sdl.Color{0xd1, 0, 0xbf, 0}, // long topright : pink d100bf
+	sdl.Color{0xd1, 0, 0, 0}, // longest : lightred d10000
+	sdl.Color{0, 170, 170, 0}, // unused ?
+]
+// Background color
+const background_color = sdl.Color{0, 0, 0, 0}
+// Foreground color
+const foreground_color = sdl.Color{0, 170, 170, 0}
+// Text color
+const text_color = sdl.Color{0xca, 0x7d, 0x5f, 0}
 
 // TODO: type Tetro [tetro_size]struct{ x, y int }
 struct Block {
