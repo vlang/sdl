@@ -3,12 +3,10 @@
 // that can be found in the LICENSE file.
 module sdl
 
-pub const (
-	// The maximum size of a log message prior to SDL 2.0.24
-	//
-	// As of 2.0.24 there is no limit to the length of SDL log messages.
-	max_log_message = C.SDL_MAX_LOG_MESSAGE // 4096
-)
+// The maximum size of a log message prior to SDL 2.0.24
+//
+// As of 2.0.24 there is no limit to the length of SDL log messages.
+pub const max_log_message = C.SDL_MAX_LOG_MESSAGE // 4096
 
 // LogOutputFunction is the prototype for the log output function
 // C.SDL_LogOutputFunction

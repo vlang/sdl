@@ -7,20 +7,23 @@ module sdl
 // SDL_rwops.h
 //
 
-pub const (
-	rwops_unknown   = C.SDL_RWOPS_UNKNOWN // 0U, Unknown stream type
-	rwops_winfile   = C.SDL_RWOPS_WINFILE // 1U, Win32 file
-	rwops_stdfile   = C.SDL_RWOPS_STDFILE // 2U, Stdio file
-	rwops_jnifile   = C.SDL_RWOPS_JNIFILE // 3U, Android asset
-	rwops_memory    = C.SDL_RWOPS_MEMORY // 4U, Memory stream
-	rwops_memory_ro = C.SDL_RWOPS_MEMORY_RO // 5U, Read-Only memory stream
-)
+pub const rwops_unknown = C.SDL_RWOPS_UNKNOWN // 0U, Unknown stream type
 
-pub const (
-	rw_seek_set = C.RW_SEEK_SET // 0, Seek from the beginning of data
-	rw_seek_cur = C.RW_SEEK_CUR // 1, Seek relative to current read point
-	rw_seek_end = C.RW_SEEK_END // 2, Seek relative to the end of data
-)
+pub const rwops_winfile = C.SDL_RWOPS_WINFILE // 1U, Win32 file
+
+pub const rwops_stdfile = C.SDL_RWOPS_STDFILE // 2U, Stdio file
+
+pub const rwops_jnifile = C.SDL_RWOPS_JNIFILE // 3U, Android asset
+
+pub const rwops_memory = C.SDL_RWOPS_MEMORY // 4U, Memory stream
+
+pub const rwops_memory_ro = C.SDL_RWOPS_MEMORY_RO // 5U, Read-Only memory stream
+
+pub const rw_seek_set = C.RW_SEEK_SET // 0, Seek from the beginning of data
+
+pub const rw_seek_cur = C.RW_SEEK_CUR // 1, Seek relative to current read point
+
+pub const rw_seek_end = C.RW_SEEK_END // 2, Seek relative to the end of data
 
 fn C.SDL_RWsize(context &C.SDL_RWops) i64
 
