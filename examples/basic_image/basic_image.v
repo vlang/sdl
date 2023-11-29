@@ -13,9 +13,7 @@ import os
 import sdl
 import sdl.image
 
-const (
-	images = ['v-logo.svg', 'v-logo.png', 'v-logo.jpg', 'v-logo.lossless.webp', 'v-logo.webp']
-)
+const images = ['v-logo.svg', 'v-logo.png', 'v-logo.jpg', 'v-logo.lossless.webp', 'v-logo.webp']
 
 fn get_asset_path(path string) string {
 	$if android {
