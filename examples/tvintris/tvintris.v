@@ -286,18 +286,14 @@ fn (mut sdlc SdlContext) set_sdl_context(w int, h int, titl string) {
 
 fn main() {
 	println('tVintris -- tribute to venerable Twintris')
-	mut game := &Game{
-		font: 0
-	}
+	mut game := &Game{}
 	game.sdl.jnames[0] = joy_p1_name
 	game.sdl.jnames[1] = joy_p2_name
 	game.sdl.jids[0] = -1
 	game.sdl.jids[1] = -1
 	game.sdl.set_sdl_context(win_width, win_height, title)
 	game.font = ttf.open_font(font_name.str, text_size)
-	mut game2 := &Game{
-		font: 0
-	}
+	mut game2 := &Game{}
 	game2.sdl = game.sdl
 	game2.font = game.font
 
@@ -339,9 +335,7 @@ fn main() {
 	game2.state = .running
 	spawn game2.run() // Run the game loop in a new thread
 
-	mut g := Game{
-		font: 0
-	}
+	mut g := Game{}
 	mut should_close := false
 	mut total_frames := u32(0)
 
