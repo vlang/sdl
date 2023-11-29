@@ -29,12 +29,10 @@ module sdl
 pub type AudioFormat = u16
 
 // Audio flags
-pub const (
-	audio_mask_bitsize  = C.SDL_AUDIO_MASK_BITSIZE
-	audio_mask_datatype = C.SDL_AUDIO_MASK_DATATYPE
-	audio_mask_endian   = C.SDL_AUDIO_MASK_ENDIAN
-	audio_mask_signed   = C.SDL_AUDIO_MASK_SIGNED
-)
+pub const audio_mask_bitsize = C.SDL_AUDIO_MASK_BITSIZE
+pub const audio_mask_datatype = C.SDL_AUDIO_MASK_DATATYPE
+pub const audio_mask_endian = C.SDL_AUDIO_MASK_ENDIAN
+pub const audio_mask_signed = C.SDL_AUDIO_MASK_SIGNED
 
 fn C.SDL_AUDIO_BITSIZE(x int) int
 pub fn audio_bitsize(x int) int {
@@ -74,48 +72,52 @@ pub fn audio_isunsigned(x int) bool {
 // Audio format flags
 //
 // Defaults to LSB byte order.
-pub const (
-	audio_u8     = C.AUDIO_U8 // 0x0008, Unsigned 8-bit samples
-	audio_s8     = C.AUDIO_S8 // 0x8008, Signed 8-bit samples
-	audio_u16lsb = C.AUDIO_U16LSB // 0x0010, Unsigned 16-bit samples
-	audio_s16lsb = C.AUDIO_S16LSB // 0x8010, Signed 16-bit samples
-	audio_u16msb = C.AUDIO_U16MSB // 0x1010, As above, but big-endian byte order
-	audio_s16msb = C.AUDIO_S16MSB // 0x9010, As above, but big-endian byte order
-	audio_u16    = C.AUDIO_U16 // AUDIO_U16LSB
-	audio_s16    = C.AUDIO_S16 // AUDIO_S16LSB
-)
+pub const audio_u8 = C.AUDIO_U8 // 0x0008, Unsigned 8-bit samples
+
+pub const audio_s8 = C.AUDIO_S8 // 0x8008, Signed 8-bit samples
+
+pub const audio_u16lsb = C.AUDIO_U16LSB // 0x0010, Unsigned 16-bit samples
+
+pub const audio_s16lsb = C.AUDIO_S16LSB // 0x8010, Signed 16-bit samples
+
+pub const audio_u16msb = C.AUDIO_U16MSB // 0x1010, As above, but big-endian byte order
+
+pub const audio_s16msb = C.AUDIO_S16MSB // 0x9010, As above, but big-endian byte order
+
+pub const audio_u16 = C.AUDIO_U16 // AUDIO_U16LSB
+
+pub const audio_s16 = C.AUDIO_S16 // AUDIO_S16LSB
 
 // int32 support
-pub const (
-	audio_s32lsb = C.AUDIO_S32LSB // 0x8020, 32-bit integer samples
-	audio_s32msb = C.AUDIO_S32MSB // 0x9020, As above, but big-endian byte order
-	audio_s32    = C.AUDIO_S32 // AUDIO_S32LSB
-)
+pub const audio_s32lsb = C.AUDIO_S32LSB // 0x8020, 32-bit integer samples
+
+pub const audio_s32msb = C.AUDIO_S32MSB // 0x9020, As above, but big-endian byte order
+
+pub const audio_s32 = C.AUDIO_S32 // AUDIO_S32LSB
 
 // float32 support
-pub const (
-	audio_f32lsb = C.AUDIO_F32LSB // 0x8120, 32-bit floating point samples
-	audio_f32msb = C.AUDIO_F32MSB // 0x9120, As above, but big-endian byte order
-	audio_f32    = C.AUDIO_F32
-)
+pub const audio_f32lsb = C.AUDIO_F32LSB // 0x8120, 32-bit floating point samples
+
+pub const audio_f32msb = C.AUDIO_F32MSB // 0x9120, As above, but big-endian byte order
+
+pub const audio_f32 = C.AUDIO_F32
 
 // Native audio byte ordering
-pub const (
-	audio_u16sys = C.AUDIO_U16SYS
-	audio_s16sys = C.AUDIO_S16SYS
-	audio_s32sys = C.AUDIO_S32SYS
-	audio_f32sys = C.AUDIO_F32SYS
-)
+pub const audio_u16sys = C.AUDIO_U16SYS
+pub const audio_s16sys = C.AUDIO_S16SYS
+pub const audio_s32sys = C.AUDIO_S32SYS
+pub const audio_f32sys = C.AUDIO_F32SYS
 
 // Allow change flags
 //
 // Which audio format changes are allowed when opening a device.
-pub const (
-	audio_allow_frequency_change = C.SDL_AUDIO_ALLOW_FREQUENCY_CHANGE // 0x00000001
-	audio_allow_format_change    = C.SDL_AUDIO_ALLOW_FORMAT_CHANGE // 0x00000002
-	audio_allow_channels_change  = C.SDL_AUDIO_ALLOW_CHANNELS_CHANGE // 0x00000004
-	audio_allow_any_change       = C.SDL_AUDIO_ALLOW_ANY_CHANGE
-)
+pub const audio_allow_frequency_change = C.SDL_AUDIO_ALLOW_FREQUENCY_CHANGE // 0x00000001
+
+pub const audio_allow_format_change = C.SDL_AUDIO_ALLOW_FORMAT_CHANGE // 0x00000002
+
+pub const audio_allow_channels_change = C.SDL_AUDIO_ALLOW_CHANNELS_CHANGE // 0x00000004
+
+pub const audio_allow_any_change = C.SDL_AUDIO_ALLOW_ANY_CHANGE
 
 // This function is called when the audio device needs more data.
 //

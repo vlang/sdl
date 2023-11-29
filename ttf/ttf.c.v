@@ -8,11 +8,11 @@ module ttf
 //
 import sdl
 
-pub const (
-	major_version = C.SDL_TTF_MAJOR_VERSION // 2
-	minor_version = C.SDL_TTF_MINOR_VERSION // 0
-	patchlevel    = C.SDL_TTF_PATCHLEVEL // 14
-)
+pub const major_version = C.SDL_TTF_MAJOR_VERSION // 2
+
+pub const minor_version = C.SDL_TTF_MINOR_VERSION // 0
+
+pub const patchlevel = C.SDL_TTF_PATCHLEVEL // 14
 
 // This macro can be used to fill a version structure with the compile-time
 // version of the SDL_ttf library.
@@ -24,10 +24,9 @@ pub fn linked_version() &sdl.Version {
 }
 
 // ZERO WIDTH NO-BREAKSPACE (Unicode byte order mark)
-pub const (
-	unicode_bom_native  = C.UNICODE_BOM_NATIVE // 0xFEFF
-	unicode_bom_swapped = C.UNICODE_BOM_SWAPPED // 0xFFFE
-)
+pub const unicode_bom_native = C.UNICODE_BOM_NATIVE // 0xFEFF
+
+pub const unicode_bom_swapped = C.UNICODE_BOM_SWAPPED // 0xFFFE
 
 fn C.TTF_ByteSwappedUNICODE(swapped int)
 
@@ -79,13 +78,15 @@ pub fn open_font_index_rw(src &sdl.RWops, freesrc int, ptsize int, index int) &F
 }
 
 // Set and retrieve the font style
-pub const (
-	style_normal        = C.TTF_STYLE_NORMAL // 0x00
-	style_bold          = C.TTF_STYLE_BOLD // 0x01
-	style_italic        = C.TTF_STYLE_ITALIC // 0x02
-	style_underline     = C.TTF_STYLE_UNDERLINE // 0x04
-	style_strikethrough = C.TTF_STYLE_STRIKETHROUGH // 0x08
-)
+pub const style_normal = C.TTF_STYLE_NORMAL // 0x00
+
+pub const style_bold = C.TTF_STYLE_BOLD // 0x01
+
+pub const style_italic = C.TTF_STYLE_ITALIC // 0x02
+
+pub const style_underline = C.TTF_STYLE_UNDERLINE // 0x04
+
+pub const style_strikethrough = C.TTF_STYLE_STRIKETHROUGH // 0x08
 
 fn C.TTF_GetFontStyle(font &C.TTF_Font) int
 pub fn get_font_style(font &Font) int {
@@ -108,12 +109,13 @@ pub fn set_font_outline(font &Font, outline int) {
 }
 
 // Set and retrieve FreeType hinter settings
-pub const (
-	hinting_normal = C.TTF_HINTING_NORMAL // 0
-	hinting_light  = C.TTF_HINTING_LIGHT // 1
-	hinting_mono   = C.TTF_HINTING_MONO // 2
-	hinting_none   = C.TTF_HINTING_NONE // 3
-)
+pub const hinting_normal = C.TTF_HINTING_NORMAL // 0
+
+pub const hinting_light = C.TTF_HINTING_LIGHT // 1
+
+pub const hinting_mono = C.TTF_HINTING_MONO // 2
+
+pub const hinting_none = C.TTF_HINTING_NONE // 3
 
 fn C.TTF_GetFontHinting(font &C.TTF_Font) int
 pub fn get_font_hinting(font &Font) int {
