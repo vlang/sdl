@@ -7,11 +7,11 @@ module sdl
 // SDL_version.h
 //
 
-pub const (
-	major_version = C.SDL_MAJOR_VERSION // 2
-	minor_version = C.SDL_MINOR_VERSION // 26
-	patchlevel    = C.SDL_PATCHLEVEL // 0
-)
+pub const major_version = C.SDL_MAJOR_VERSION // 2
+
+pub const minor_version = C.SDL_MINOR_VERSION // 26
+
+pub const patchlevel = C.SDL_PATCHLEVEL // 0
 
 // Version is information about the version of SDL in use.
 //
