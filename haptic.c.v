@@ -7,135 +7,152 @@ module sdl
 // SDL_haptic.h
 //
 
-pub const (
-	// Constant effect supported.
-	//
-	// Constant haptic effect.
-	//
-	// See also: SDL_HapticCondition
-	haptic_constant      = C.SDL_HAPTIC_CONSTANT // (1u<<0) // u32(1) << 0
-	// Sine wave effect supported.
-	//
-	// Periodic haptic effect that simulates sine waves.
-	//
-	// See also: SDL_HapticPeriodic
-	haptic_sine          = C.SDL_HAPTIC_SINE // (1u<<1)
-	// Left/Right effect supported.
-	//
-	// Haptic effect for direct control over high/low frequency motors.
-	//
-	// See also: SDL_HapticLeftRight
-	// WARNING this value was SDL_HAPTIC_SQUARE right before 2.0.0 shipped. Sorry,
-	// we ran out of bits, and this is important for XInput devices.
-	haptic_leftright     = C.SDL_HAPTIC_LEFTRIGHT // (1u<<2)
-	// Triangle wave effect supported.
-	//
-	// Periodic haptic effect that simulates triangular waves.
-	//
-	// See also: SDL_HapticPeriodic
-	haptic_triangle      = C.SDL_HAPTIC_TRIANGLE //  (1u<<3)
-	// Sawtoothup wave effect supported.
-	//
-	// Periodic haptic effect that simulates saw tooth up waves.
-	//
-	// See also: SDL_HapticPeriodic
-	haptic_sawtoothup    = C.SDL_HAPTIC_SAWTOOTHUP //(1u<<4)
-	// Sawtoothdown wave effect supported.
-	//
-	// Periodic haptic effect that simulates saw tooth down waves.
-	//
-	// See also: SDL_HapticPeriodic
-	haptic_sawtoothdown  = C.SDL_HAPTIC_SAWTOOTHDOWN //(1u<<5)
-	// Ramp effect supported.
-	//
-	// Ramp haptic effect.
-	//
-	// See also: SDL_HapticRamp
-	haptic_ramp          = C.SDL_HAPTIC_RAMP //     (1u<<6)
-	// Spring effect supported - uses axes position.
-	//
-	// Condition haptic effect that simulates a spring.  Effect is based on the
-	// axes position.
-	//
-	// See also: SDL_HapticCondition
-	haptic_spring        = C.SDL_HAPTIC_SPRING //   (1u<<7)
-	// Damper effect supported - uses axes velocity.
-	//
-	// Condition haptic effect that simulates dampening.  Effect is based on the
-	// axes velocity.
-	//
-	// See also: SDL_HapticCondition
-	haptic_damper        = C.SDL_HAPTIC_DAMPER //  (1u<<8)
-	// Inertia effect supported - uses axes acceleration.
-	//
-	// Condition haptic effect that simulates inertia.  Effect is based on the axes
-	// acceleration.
-	//
-	// See also: SDL_HapticCondition
-	haptic_inertia       = C.SDL_HAPTIC_INERTIA //  (1u<<9)
-	// Friction effect supported - uses axes movement.
-	//
-	// Condition haptic effect that simulates friction.  Effect is based on the
-	// axes movement.
-	//
-	// See also: SDL_HapticCondition
-	haptic_friction      = C.SDL_HAPTIC_FRICTION //  (1u<<10)
-	// Custom effect is supported.
-	//
-	// User defined custom haptic effect.
-	haptic_custom        = C.SDL_HAPTIC_CUSTOM //  (1u<<11)
-	// Haptic effects
-	// These last few are features the device has, not effects
-	// Device can set global gain.
-	//
-	// Device supports setting the global gain.
-	//
-	// See also: SDL_HapticSetGain
-	haptic_gain          = C.SDL_HAPTIC_GAIN //   (1u<<12)
-	// Device can set autocenter.
-	//
-	// Device supports setting autocenter.
-	//
-	// See also: SDL_HapticSetAutocenter
-	haptic_autocenter    = C.SDL_HAPTIC_AUTOCENTER //(1u<<13)
-	// Device can be queried for effect status.
-	//
-	// Device supports querying effect status.
-	//
-	// See also: SDL_HapticGetEffectStatus
-	haptic_status        = C.SDL_HAPTIC_STATUS //   (1u<<14)
-	// Device can be paused.
-	//
-	// Devices supports being paused.
-	//
-	// See also: SDL_HapticPause
-	// See also: SDL_HapticUnpause
-	haptic_pause         = C.SDL_HAPTIC_PAUSE //   (1u<<15)
-	// Direction encodings
-	//@{
-	// Uses polar coordinates for the direction.
-	//
-	// See also: SDL_HapticDirection
-	haptic_polar         = C.SDL_HAPTIC_POLAR // 0
-	// Uses cartesian coordinates for the direction.
-	//
-	// See also: SDL_HapticDirection
-	haptic_cartesian     = C.SDL_HAPTIC_CARTESIAN // 1
-	// Uses spherical coordinates for the direction.
-	//
-	// See also: SDL_HapticDirection
-	haptic_spherical     = C.SDL_HAPTIC_SPHERICAL // 2
-	// Use this value to play an effect on the steering wheel axis. This
-	// provides better compatibility across platforms and devices as SDL will guess
-	// the correct axis.
-	// See also: SDL_HapticDirection
-	haptic_steering_axis = C.SDL_HAPTIC_STEERING_AXIS
+// Constant effect supported.
+//
+// Constant haptic effect.
+//
+// See also: SDL_HapticCondition
+pub const haptic_constant = C.SDL_HAPTIC_CONSTANT // (1u<<0) // u32(1) << 0
 
-	// Used to play a device an infinite number of times.
-	//
-	// See also: SDL_HapticRunEffect
-	haptic_infinity      = C.SDL_HAPTIC_INFINITY // 4294967295U
-)
+// Sine wave effect supported.
+//
+// Periodic haptic effect that simulates sine waves.
+//
+// See also: SDL_HapticPeriodic
+pub const haptic_sine = C.SDL_HAPTIC_SINE // (1u<<1)
+
+// Left/Right effect supported.
+//
+// Haptic effect for direct control over high/low frequency motors.
+//
+// See also: SDL_HapticLeftRight
+// WARNING this value was SDL_HAPTIC_SQUARE right before 2.0.0 shipped. Sorry,
+// we ran out of bits, and this is important for XInput devices.
+pub const haptic_leftright = C.SDL_HAPTIC_LEFTRIGHT // (1u<<2)
+
+// Triangle wave effect supported.
+//
+// Periodic haptic effect that simulates triangular waves.
+//
+// See also: SDL_HapticPeriodic
+pub const haptic_triangle = C.SDL_HAPTIC_TRIANGLE //  (1u<<3)
+
+// Sawtoothup wave effect supported.
+//
+// Periodic haptic effect that simulates saw tooth up waves.
+//
+// See also: SDL_HapticPeriodic
+pub const haptic_sawtoothup = C.SDL_HAPTIC_SAWTOOTHUP //(1u<<4)
+
+// Sawtoothdown wave effect supported.
+//
+// Periodic haptic effect that simulates saw tooth down waves.
+//
+// See also: SDL_HapticPeriodic
+pub const haptic_sawtoothdown = C.SDL_HAPTIC_SAWTOOTHDOWN //(1u<<5)
+
+// Ramp effect supported.
+//
+// Ramp haptic effect.
+//
+// See also: SDL_HapticRamp
+pub const haptic_ramp = C.SDL_HAPTIC_RAMP //     (1u<<6)
+
+// Spring effect supported - uses axes position.
+//
+// Condition haptic effect that simulates a spring.  Effect is based on the
+// axes position.
+//
+// See also: SDL_HapticCondition
+pub const haptic_spring = C.SDL_HAPTIC_SPRING //   (1u<<7)
+
+// Damper effect supported - uses axes velocity.
+//
+// Condition haptic effect that simulates dampening.  Effect is based on the
+// axes velocity.
+//
+// See also: SDL_HapticCondition
+pub const haptic_damper = C.SDL_HAPTIC_DAMPER //  (1u<<8)
+
+// Inertia effect supported - uses axes acceleration.
+//
+// Condition haptic effect that simulates inertia.  Effect is based on the axes
+// acceleration.
+//
+// See also: SDL_HapticCondition
+pub const haptic_inertia = C.SDL_HAPTIC_INERTIA //  (1u<<9)
+
+// Friction effect supported - uses axes movement.
+//
+// Condition haptic effect that simulates friction.  Effect is based on the
+// axes movement.
+//
+// See also: SDL_HapticCondition
+pub const haptic_friction = C.SDL_HAPTIC_FRICTION //  (1u<<10)
+
+// Custom effect is supported.
+//
+// User defined custom haptic effect.
+pub const haptic_custom = C.SDL_HAPTIC_CUSTOM //  (1u<<11)
+
+// Haptic effects
+// These last few are features the device has, not effects
+// Device can set global gain.
+//
+// Device supports setting the global gain.
+//
+// See also: SDL_HapticSetGain
+pub const haptic_gain = C.SDL_HAPTIC_GAIN //   (1u<<12)
+
+// Device can set autocenter.
+//
+// Device supports setting autocenter.
+//
+// See also: SDL_HapticSetAutocenter
+pub const haptic_autocenter = C.SDL_HAPTIC_AUTOCENTER //(1u<<13)
+
+// Device can be queried for effect status.
+//
+// Device supports querying effect status.
+//
+// See also: SDL_HapticGetEffectStatus
+pub const haptic_status = C.SDL_HAPTIC_STATUS //   (1u<<14)
+
+// Device can be paused.
+//
+// Devices supports being paused.
+//
+// See also: SDL_HapticPause
+// See also: SDL_HapticUnpause
+pub const haptic_pause = C.SDL_HAPTIC_PAUSE //   (1u<<15)
+
+// Direction encodings
+//@{
+// Uses polar coordinates for the direction.
+//
+// See also: SDL_HapticDirection
+pub const haptic_polar = C.SDL_HAPTIC_POLAR // 0
+
+// Uses cartesian coordinates for the direction.
+//
+// See also: SDL_HapticDirection
+pub const haptic_cartesian = C.SDL_HAPTIC_CARTESIAN // 1
+
+// Uses spherical coordinates for the direction.
+//
+// See also: SDL_HapticDirection
+pub const haptic_spherical = C.SDL_HAPTIC_SPHERICAL // 2
+
+// Use this value to play an effect on the steering wheel axis. This
+// provides better compatibility across platforms and devices as SDL will guess
+// the correct axis.
+// See also: SDL_HapticDirection
+pub const haptic_steering_axis = C.SDL_HAPTIC_STEERING_AXIS
+
+// Used to play a device an infinite number of times.
+//
+// See also: SDL_HapticRunEffect
+pub const haptic_infinity = C.SDL_HAPTIC_INFINITY // 4294967295U
 
 @[typedef]
 pub struct C.SDL_Haptic {
