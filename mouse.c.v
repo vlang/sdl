@@ -33,18 +33,25 @@ pub fn button(mask int) int {
 	return C.SDL_BUTTON(mask)
 }
 
-pub const (
-	button_left   = int(C.SDL_BUTTON_LEFT) // 1
-	button_middle = int(C.SDL_BUTTON_MIDDLE) // 2
-	button_right  = int(C.SDL_BUTTON_RIGHT) // 3
-	button_x1     = int(C.SDL_BUTTON_X1) // 4
-	button_x2     = int(C.SDL_BUTTON_X2) // 5
-	button_lmask  = int(C.SDL_BUTTON_LMASK) // SDL_BUTTON(SDL_BUTTON_LEFT)
-	button_mmask  = int(C.SDL_BUTTON_MMASK) // SDL_BUTTON(SDL_BUTTON_MIDDLE)
-	button_rmask  = int(C.SDL_BUTTON_RMASK) // SDL_BUTTON(SDL_BUTTON_RIGHT)
-	button_x1mask = int(C.SDL_BUTTON_X1MASK) // SDL_BUTTON(SDL_BUTTON_X1)
-	button_x2mask = int(C.SDL_BUTTON_X2MASK) // SDL_BUTTON(SDL_BUTTON_X2)
-)
+pub const button_left = int(C.SDL_BUTTON_LEFT) // 1
+
+pub const button_middle = int(C.SDL_BUTTON_MIDDLE) // 2
+
+pub const button_right = int(C.SDL_BUTTON_RIGHT) // 3
+
+pub const button_x1 = int(C.SDL_BUTTON_X1) // 4
+
+pub const button_x2 = int(C.SDL_BUTTON_X2) // 5
+
+pub const button_lmask = int(C.SDL_BUTTON_LMASK) // SDL_BUTTON(SDL_BUTTON_LEFT)
+
+pub const button_mmask = int(C.SDL_BUTTON_MMASK) // SDL_BUTTON(SDL_BUTTON_MIDDLE)
+
+pub const button_rmask = int(C.SDL_BUTTON_RMASK) // SDL_BUTTON(SDL_BUTTON_RIGHT)
+
+pub const button_x1mask = int(C.SDL_BUTTON_X1MASK) // SDL_BUTTON(SDL_BUTTON_X1)
+
+pub const button_x2mask = int(C.SDL_BUTTON_X2MASK) // SDL_BUTTON(SDL_BUTTON_X2)
 
 // SystemCursor is C.SDL_SystemCursor
 // Cursor types for SDL_CreateSystemCursor().

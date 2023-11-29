@@ -8,11 +8,11 @@ module mixer
 //
 import sdl
 
-pub const (
-	major_version = C.SDL_MIXER_MAJOR_VERSION // 2
-	minor_version = C.SDL_MIXER_MINOR_VERSION // 0
-	patchlevel    = C.SDL_MIXER_PATCHLEVEL // 2
-)
+pub const major_version = C.SDL_MIXER_MAJOR_VERSION // 2
+
+pub const minor_version = C.SDL_MIXER_MINOR_VERSION // 0
+
+pub const patchlevel = C.SDL_MIXER_PATCHLEVEL // 2
 
 fn C.SDL_MIXER_VERSION(v &sdl.Version)
 
@@ -71,14 +71,15 @@ pub fn quit() {
 }
 
 // The default mixer has 8 simultaneous mixing channels
-pub const (
-	mix_channels      = C.MIX_CHANNELS // 8
-	// Good default values for a PC soundcard
-	default_frequency = C.MIX_DEFAULT_FREQUENCY // 22050
-	default_format    = C.MIX_DEFAULT_FORMAT
-	default_channels  = C.MIX_DEFAULT_CHANNELS // 2
-	maxvolume         = C.SDL_MIX_MAXVOLUME // Volume of a chunk
-)
+pub const mix_channels = C.MIX_CHANNELS // 8
+
+// Good default values for a PC soundcard
+pub const default_frequency = C.MIX_DEFAULT_FREQUENCY // 22050
+
+pub const default_format = C.MIX_DEFAULT_FORMAT
+pub const default_channels = C.MIX_DEFAULT_CHANNELS // 2
+
+pub const maxvolume = C.SDL_MIX_MAXVOLUME // Volume of a chunk
 
 // effectsmaxspeed is C.MIX_EFFECTSMAXSPEED = "MIX_EFFECTSMAXSPEED"
 pub const effectsmaxspeed = 'MIX_EFFECTSMAXSPEED'
@@ -118,9 +119,7 @@ pub enum MusicType {
 	modplug_unused = C.MUS_MODPLUG_UNUSED
 }
 
-pub const (
-	channel_post = C.MIX_CHANNEL_POST // -2
-)
+pub const channel_post = C.MIX_CHANNEL_POST // -2
 
 // Music is the internal format for a music chunk interpreted via mikmod
 @[typedef]
