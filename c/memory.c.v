@@ -65,18 +65,16 @@ pub type FreeFunc = fn (mem voidptr) // fn(mem voidptr)
 fn C.SDL_SetMemoryFunctions(malloc_func MallocFunc, calloc_func CallocFunc, realloc_func ReallocFunc, free_func FreeFunc) int
 fn C.SDL_GetNumAllocations() int
 
+@[if !sdl_no_init ?]
 fn init() {
-	// TODO move to `@[if !sdl_no_init ?]` when supported
-	$if !sdl_no_init ? {
-		prev_allocations := C.SDL_GetNumAllocations()
-		if prev_allocations > 0 {
-			eprintln('SDL memory allocation functions should have been replaced with the V ones, but vsdl found, that you did already ${prev_allocations} allocations.')
-			return
-		}
-		replaced := C.SDL_SetMemoryFunctions(cb_malloc_func, cb_calloc_func, cb_realloc_func,
-			cb_free_func)
-		if replaced != 0 {
-			eprintln('SDL memory allocation functions were not replaced.')
-		}
+	prev_allocations := C.SDL_GetNumAllocations()
+	if prev_allocations > 0 {
+		eprintln('SDL memory allocation functions should have been replaced with the V ones, but vsdl found, that you did already ${prev_allocations} allocations.')
+		return
+	}
+	replaced := C.SDL_SetMemoryFunctions(cb_malloc_func, cb_calloc_func, cb_realloc_func,
+		cb_free_func)
+	if replaced != 0 {
+		eprintln('SDL memory allocation functions were not replaced.')
 	}
 }
