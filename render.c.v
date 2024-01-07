@@ -1909,6 +1909,19 @@ fn C.SDL_RenderSetVSync(renderer &C.SDL_Renderer, vsync int) int
 // returns a 0 int on success, or non-zero on failure
 //
 // NOTE This function is available since SDL 2.0.18.
+@[deprecated: 'use render_set_vsync instead']
+@[deprecated_after: '2024-07-04']
 pub fn render_set_v_sync(renderer &Renderer, vsync int) int {
+	return C.SDL_RenderSetVSync(renderer, vsync)
+}
+
+// render_set_vsync toggles VSync of the given renderer.
+//
+// `renderer` The renderer to toggle
+// `vsync` 1 for on, 0 for off. All other values are reserved
+// returns a 0 int on success, or non-zero on failure
+//
+// NOTE This function is available since SDL 2.0.18.
+pub fn render_set_vsync(renderer &Renderer, vsync int) int {
 	return C.SDL_RenderSetVSync(renderer, vsync)
 }
