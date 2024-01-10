@@ -60,7 +60,7 @@ pub type DisplayMode = C.SDL_DisplayMode
 // See also: SDL_SetWindowTitle()
 // See also: SDL_ShowWindow()
 //
-@[typedef]
+@[noinit; typedef]
 pub struct C.SDL_Window {
 }
 
