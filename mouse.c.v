@@ -6,7 +6,7 @@ module sdl
 //
 // SDL_mouse.h
 //
-@[typedef]
+@[noinit; typedef]
 pub struct C.SDL_Cursor {
 }
 
