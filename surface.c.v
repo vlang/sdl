@@ -12,7 +12,7 @@ module sdl
 // NOTE This structure should be treated as read-only, except for `pixels`,
 // which, if not NULL, contains the raw pixel data for the surface.
 //
-@[typedef]
+@[noinit; typedef]
 pub struct C.SDL_Surface {
 pub:
 	flags  u32 // Read-only
