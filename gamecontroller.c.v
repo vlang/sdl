@@ -39,6 +39,7 @@ pub enum GameControllerType {
 	nintendo_switch_joycon_left  = C.SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_LEFT
 	nintendo_switch_joycon_right = C.SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_RIGHT
 	nintendo_switch_joycon_pair  = C.SDL_CONTROLLER_TYPE_NINTENDO_SWITCH_JOYCON_PAIR
+	max                          = C.SDL_CONTROLLER_TYPE_MAX
 }
 
 // GameControllerBindType is C.SDL_GameControllerBindType
@@ -544,6 +545,21 @@ pub fn game_controller_get_serial(gamecontroller &GameController) &char {
 	return C.SDL_GameControllerGetSerial(gamecontroller)
 }
 
+fn C.SDL_GameControllerGetSteamHandle(gamecontroller &GameController) u64
+
+// Get the Steam Input handle of an opened controller, if available.
+//
+// Returns an InputHandle_t for the controller that can be used with Steam Input API:
+// https://partner.steamgames.com/doc/api/ISteamInput
+//
+// `gamecontroller` the game controller object to query.
+// returns the gamepad handle, or 0 if unavailable.
+//
+// NOTE This function is available since SDL 2.30.0.
+pub fn game_controller_get_steam_handle(gamecontroller &GameController) u64 {
+	return C.SDL_GameControllerGetSteamHandle(gamecontroller)
+}
+
 fn C.SDL_GameControllerGetAttached(gamecontroller &C.SDL_GameController) bool
 
 // game_controller_get_attached checks if a controller has been opened and is currently connected.
@@ -625,7 +641,9 @@ pub fn game_controller_update() {
 // and are centered within ~8000 of zero, though advanced UI will allow users to set
 // or autodetect the dead zone, which varies between controllers.
 //
-// Trigger axis values range from 0 to SDL_JOYSTICK_AXIS_MAX.
+// Trigger axis values range from 0 (released) to SDL_JOYSTICK_AXIS_MAX
+// (fully pressed) when reported by SDL_GameControllerGetAxis(). Note that this is not the
+// same range that will be reported by the lower-level SDL_GetJoystickAxis().
 //
 // GameControllerAxis is C.SDL_GameControllerAxis
 pub enum GameControllerAxis {
@@ -720,8 +738,13 @@ fn C.SDL_GameControllerGetAxis(gamecontroller &C.SDL_GameController, axis C.SDL_
 //
 // The axis indices start at index 0.
 //
-// The state is a value ranging from -32768 to 32767. Triggers, however, range
-// from 0 to 32767 (they never return a negative value).
+// For thumbsticks, the state is a value ranging from -32768 (up/left)
+// to 32767 (down/right).
+//
+// Triggers range from 0 when released to 32767 when fully pressed, and
+// never return a negative value. Note that this differs from the value
+// reported by the lower-level SDL_GetJoystickAxis(), which normally uses
+// the full range.
 //
 // `gamecontroller` a game controller
 // `axis` an axis index (one of the SDL_GameControllerAxis values)

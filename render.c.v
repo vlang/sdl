@@ -24,7 +24,7 @@ module sdl
 // of the many good 3D engines.
 //
 // These functions must be called from the main thread.
-// See this bug for details: http://bugzilla.libsdl.org/show_bug.cgi?id=1995
+// See this bug for details: https://github.com/libsdl-org/SDL/issues/986
 
 // RendererFlags is C.SDL_RendererFlags
 pub enum RendererFlags {
@@ -1892,7 +1892,7 @@ fn C.SDL_RenderGetMetalCommandEncoder(renderer &C.SDL_Renderer) voidptr
 // Note that as of SDL 2.0.18, this will return NULL if Metal refuses to give
 // SDL a drawable to render to, which might happen if the window is
 // hidden/minimized/offscreen. This doesn't apply to command encoders for
-// render targets, just the window's backbacker. Check your return values!
+// render targets, just the window's backbuffer. Check your return values!
 //
 // `renderer` The renderer to query
 // returns an `id<MTLRenderCommandEncoder>` on success, or NULL if the

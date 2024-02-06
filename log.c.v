@@ -18,7 +18,7 @@ pub type LogOutputFunction = fn (userdata voidptr, category int, priority LogPri
 // By default the application category is enabled at the INFO level,
 // the assert category is enabled at the WARN level, test is enabled
 // at the VERBOSE level and all other categories are enabled at the
-// CRITICAL level.
+// ERROR level.
 //
 // LogCategory is C.SDL_LogCategory
 pub enum LogCategory {

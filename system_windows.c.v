@@ -130,8 +130,12 @@ pub fn dxgi_get_output_info(display_index int, adapter_index &int, output_index 
 TODO support GDK?
 $if gdk ? {
 	[typedef]
-	struct C.XTaskQueueHandle {}
+	struct C.XTaskQueueHandle {} // XTaskQueueObject
 	pub type XTaskQueueHandle = C.XTaskQueueHandle
+
+	[typedef]
+	struct C.XUserHandle {} // XUser
+	pub type XUserHandle = C.XUserHandle
 
 	fn C.SDL_GDKGetTaskQueue(out_task_queue &C.XTaskQueueHandle) int
 	// gdk_get_task_queue gets a reference to the global async task queue handle for GDK,
@@ -147,6 +151,21 @@ $if gdk ? {
 	// NOTE This function is available since SDL 2.24.0.
 	pub fn gdk_get_task_queue(out_task_queue &XTaskQueueHandle) int{
 		return C.SDL_GDKGetTaskQueue(out_task_queue)
+	}
+
+	fn C.SDL_GDKGetDefaultUser(XUserHandle * outUserHandle) int
+	// Gets a reference to the default user handle for GDK.
+	//
+	// This is effectively a synchronous version of XUserAddAsync, which always
+	// prefers the default user and allows a sign-in UI.
+	//
+	// `outUserHandle` a pointer to be filled in with the default user
+	//  handle.
+	// returns 0 if success, -1 if any error occurs.
+	//
+	// NOTE This function is available since SDL 2.28.0.
+	pub fn gdk_get_default_user(out_user_handle &XUserHandle) int {
+		return C.SDL_GDKGetDefaultUser(out_user_handle)
 	}
 }
 */

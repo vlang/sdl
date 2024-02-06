@@ -29,6 +29,8 @@ pub enum PixelType {
 	arrayu32 = C.SDL_PIXELTYPE_ARRAYU32
 	arrayf16 = C.SDL_PIXELTYPE_ARRAYF16
 	arrayf32 = C.SDL_PIXELTYPE_ARRAYF32
+	// This must be at the end of the list to avoid breaking the existing ABI
+	index2   = C.SDL_PIXELTYPE_INDEX2
 }
 
 // Bitmap pixel order, high bit -> low bit.
@@ -83,6 +85,8 @@ pub enum Format {
 	unknown      = C.SDL_PIXELFORMAT_UNKNOWN
 	index1lsb    = C.SDL_PIXELFORMAT_INDEX1LSB
 	index1msb    = C.SDL_PIXELFORMAT_INDEX1MSB
+	index2lsb    = C.SDL_PIXELFORMAT_INDEX2LSB
+	index2msb    = C.SDL_PIXELFORMAT_INDEX2MSB
 	index4lsb    = C.SDL_PIXELFORMAT_INDEX4LSB
 	index4msb    = C.SDL_PIXELFORMAT_INDEX4MSB
 	index8       = C.SDL_PIXELFORMAT_INDEX8

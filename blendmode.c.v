@@ -22,8 +22,8 @@ pub enum BlendMode {
 // BlendOperation is C.SDL_BlendOperation
 pub enum BlendOperation {
 	add          = C.SDL_BLENDOPERATION_ADD // 0x1, dst + src: supported by all renderers
-	subtract     = C.SDL_BLENDOPERATION_SUBTRACT // 0x2, dst - src : supported by D3D9, D3D11, OpenGL, OpenGLES
-	rev_subtract = C.SDL_BLENDOPERATION_REV_SUBTRACT // 0x3, src - dst : supported by D3D9, D3D11, OpenGL, OpenGLES
+	subtract     = C.SDL_BLENDOPERATION_SUBTRACT // 0x2, src - dst : supported by D3D9, D3D11, OpenGL, OpenGLES
+	rev_subtract = C.SDL_BLENDOPERATION_REV_SUBTRACT // 0x3, dst - src : supported by D3D9, D3D11, OpenGL, OpenGLES
 	minimum      = C.SDL_BLENDOPERATION_MINIMUM // 0x4, min(dst, src) : supported by D3D9, D3D11
 	maximum      = C.SDL_BLENDOPERATION_MAXIMUM // 0x5 max(dst, src) : supported by D3D9, D3D11
 }

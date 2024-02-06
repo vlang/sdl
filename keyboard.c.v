@@ -299,7 +299,9 @@ pub fn is_text_input_shown() bool {
 
 fn C.SDL_SetTextInputRect(rect &C.SDL_Rect)
 
-// set_text_input_rect sets the rectangle used to type Unicode text inputs.
+// set_text_input_rect sets the rectangle used to type Unicode text inputs. Native input methods
+// will place a window with word suggestions near it, without covering the
+// text being inputted.
 //
 // To start text input in a given location, this function is intended to be
 // called before SDL_StartTextInput, although some platforms support moving

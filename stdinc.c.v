@@ -807,8 +807,8 @@ pub fn iconv(cd C.SDL_iconv_t, const_inbuf &&char, inbytesleft &usize, outbuf &&
 
 fn C.SDL_iconv_string(const_tocode &char, const_fromcode &char, const_inbuf &char, inbytesleft usize) &char
 
-// iconv_string converts a buffer or string between encodings in one pass, returning a
-// string that must be freed with SDL_free() or NULL on error.
+// iconv_string converts a buffer or string between encodings in one pass,
+// returning a string that must be freed with SDL_free() or NULL on error.
 //
 // NOTE This function is available since SDL 2.0.0.
 pub fn iconv_string(const_tocode &char, const_fromcode &char, const_inbuf &char, inbytesleft usize) &char {
