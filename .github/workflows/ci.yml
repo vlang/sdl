@@ -79,7 +79,7 @@ jobs:
 
   macos:
     runs-on: macos-11
-    timeout-minutes: 45
+    timeout-minutes: 60
     env:
       SDL2_VERSION: 2.0.8
     steps:
