@@ -9,13 +9,16 @@ module sdl
 
 // Platform specific functions for Windows
 
-fn C.SDL_SetWindowsMessageHook(callback C.SDL_WindowsMessageHook, userdata voidptr)
+// WindowsMessageHook is `typedef void (SDLCALL * SDL_WindowsMessageHook)(void *userdata, void *hWnd, unsigned int message, Uint64 wParam, Sint64 lParam)`
+pub type WindowsMessageHook = fn (userdata voidptr, h_wnd voidptr, message u32, w_param u64, l_param i64)
+
+fn C.SDL_SetWindowsMessageHook(callback WindowsMessageHook, userdata voidptr)
 
 // set_windows_message_hook sets a callback for every Windows message, run before TranslateMessage().
 //
 // `callback` The SDL_WindowsMessageHook function to call.
 // `userdata` a pointer to pass to every iteration of `callback`
-pub fn set_windows_message_hook(callback C.SDL_WindowsMessageHook, userdata voidptr) {
+pub fn set_windows_message_hook(callback WindowsMessageHook, userdata voidptr) {
 	C.SDL_SetWindowsMessageHook(callback, userdata)
 }
 
