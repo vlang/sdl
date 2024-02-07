@@ -78,8 +78,8 @@ jobs:
           test "${SDL2_VERSION}" = "$VER" || exit 1
 
   macos:
-    runs-on: macos-11
-    timeout-minutes: 30
+    runs-on: macos-12
+    timeout-minutes: 60
     env:
       SDL2_VERSION: 2.24.0
     steps:
