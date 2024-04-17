@@ -2,16 +2,14 @@ import os
 
 os.chdir(os.dir(os.executable()))!
 
-res := os.execute('sdl2-config --version')
-if res.exit_code != 0 {
+res := os.execute_opt('sdl2-config --version') or {
 	println('sdl2-config is missing')
 	exit(1)
 }
 system_version := res.output.trim_space()
 println('Your version is ${system_version}')
 
-remotes := os.execute('git branch -r --list')
-if remotes.exit_code != 0 {
+remotes := os.execute_opt('git branch -r --list') or {
 	println('git is missing')
 	exit(1)
 }
@@ -20,7 +18,7 @@ if remotes.output.split_into_lines().len == 2 {
 	// origin/HEAD -> origin/master
 	// origin/master
 	os.execute("git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'")
-	os.execute("git fetch --all")
+	os.execute('git fetch --all')
 }
 
 mut supported_versions := remotes.output.split_into_lines().map(it.trim_space()).filter(it.starts_with('origin/2')).map(it.all_after('origin/'))
