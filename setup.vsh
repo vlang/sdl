@@ -15,6 +15,14 @@ if remotes.exit_code != 0 {
 	println('git is missing')
 	exit(1)
 }
+if remotes.output.split_into_lines().len == 2 {
+	// Shallow clone:
+	// origin/HEAD -> origin/master
+	// origin/master
+	os.execute("git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'")
+	os.execute("git fetch --all")
+}
+
 mut supported_versions := remotes.output.split_into_lines().map(it.trim_space()).filter(it.starts_with('origin/2')).map(it.all_after('origin/'))
 supported_versions.insert(0, '2.0.8') // master
 println('The SDL module officially supports these versions of SDL:\n   ${supported_versions}')
