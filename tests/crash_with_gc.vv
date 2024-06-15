@@ -1,0 +1,54 @@
+module main
+
+import sdl
+
+struct Data1 {
+mut:
+	a int
+}
+
+fn main() {
+	mut data1 := []&Data1{cap: 200}
+	for i in 0 .. 200 {
+		data1 << &Data1{
+			a: i
+		}
+	}
+
+	sdl.init(sdl.init_video)
+	window := sdl.create_window('Hello SDL2'.str, 300, 300, 500, 300, 0)
+	renderer := sdl.create_renderer(window, -1, u32(sdl.RendererFlags.accelerated) | u32(sdl.RendererFlags.presentvsync))
+
+	mut should_close := false
+	mut ticks := 0
+	for {
+		ticks++
+		evt := sdl.Event{}
+		for 0 < sdl.poll_event(&evt) {
+			match evt.@type {
+				.quit { should_close = true }
+				else {}
+			}
+		}
+
+		data1[0].a = ticks
+		data1.delete(10)
+		data1 << &Data1{
+			a: ticks
+		}
+
+		println('ticks: ${ticks}')
+		if should_close || ticks == 1000 {
+			break
+		}
+
+		sdl.set_render_draw_color(renderer, 255, 55, 55, 255)
+		sdl.render_clear(renderer)
+		sdl.render_present(renderer)
+	}
+	println('Exiting. If this was compiled without `-d sdl_memory_no_gc`, an invalid memory access error should occur')
+
+	sdl.destroy_renderer(renderer)
+	sdl.destroy_window(window)
+	sdl.quit()
+}
