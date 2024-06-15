@@ -1,3 +1,10 @@
+// This file serves as a MRE (minimal reproducible example) of a runtime crash triggered by compiling and running
+// this file with just `v run ~/.vmodules/sdl/tests/crash_with_gc.vv`. On some setups, the problem seems to be
+// memory corruption happening between actions in SDL2's memory allocations and V's default garbage collector.
+// Especially when a lot of heap allocations occur.
+//
+// The example does not crash if compiled with `-d sdl_memory_no_gc`.
+// See also: https://github.com/vlang/sdl/issues/744
 module main
 
 import sdl
