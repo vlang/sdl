@@ -56,6 +56,22 @@ against newer versions of the SDL2 library.
 
 Also note that SDL2 **is not** compatible with SDL `v1.x`.
 
+## Notes on garbage collection and memory issues
+
+Currently, with some setups, SDL2 is known to trigger crashes when used in conjunction
+with V's default garbage collector. In these cases running apps importing `sdl` with
+`v run` you may experience runtime crashes and output similar to this:
+
+```
+main__main: RUNTIME ERROR: invalid memory access
+```
+
+We are tracking the issue here: https://github.com/vlang/sdl/issues/744
+
+The crashes can be avoided by passing `-d sdl_memory_no_gc` when compiling V applications
+that contains `import sdl` and managing SDL2's memory manually with calls to the various
+`destroy` and `sdl.free/1` functions.
+
 ## Support
 
 `sdl` is currently supported on:
