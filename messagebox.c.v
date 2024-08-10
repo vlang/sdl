@@ -10,8 +10,8 @@ module sdl
 // MessageBoxFlags is C.SDL_MessageBoxFlags
 // MessageBox flags. If supported will display warning icon, etc.
 pub enum MessageBoxFlags {
-	error       = C.SDL_MESSAGEBOX_ERROR // 0x00000010, error dialog
-	warning     = C.SDL_MESSAGEBOX_WARNING // 0x00000020, warning dialog
+	error       = C.SDL_MESSAGEBOX_ERROR       // 0x00000010, error dialog
+	warning     = C.SDL_MESSAGEBOX_WARNING     // 0x00000020, warning dialog
 	information = C.SDL_MESSAGEBOX_INFORMATION // 0x00000040, informational dialog
 }
 
