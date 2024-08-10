@@ -10,11 +10,11 @@ module sdl
 // PowerState is the basic state for the system's power supply.
 // PowerState is C.SDL_PowerState
 pub enum PowerState {
-	unknown    = C.SDL_POWERSTATE_UNKNOWN // cannot determine power status
+	unknown    = C.SDL_POWERSTATE_UNKNOWN    // cannot determine power status
 	on_battery = C.SDL_POWERSTATE_ON_BATTERY // Not plugged in, running on the battery
 	no_battery = C.SDL_POWERSTATE_NO_BATTERY // Plugged in, no battery available
-	charging   = C.SDL_POWERSTATE_CHARGING // Plugged in, charging battery
-	charged    = C.SDL_POWERSTATE_CHARGED // Plugged in, battery charged
+	charging   = C.SDL_POWERSTATE_CHARGING   // Plugged in, charging battery
+	charged    = C.SDL_POWERSTATE_CHARGED    // Plugged in, battery charged
 }
 
 fn C.SDL_GetPowerInfo(seconds &int, percent &int) PowerState
