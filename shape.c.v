@@ -53,10 +53,10 @@ pub fn is_shaped_window(window &Window) bool {
 // WindowShapeMode is an enum denoting the specific type of contents present in an SDL_WindowShapeParams union.
 // WindowShapeMode is C.WindowShapeMode
 pub enum WindowShapeModeFlag {
-	default                = C.ShapeModeDefault // The default mode, a binarized alpha cutoff of 1.
-	binarize_alpha         = C.ShapeModeBinarizeAlpha // A binarized alpha cutoff with a given integer value.
+	default                = C.ShapeModeDefault              // The default mode, a binarized alpha cutoff of 1.
+	binarize_alpha         = C.ShapeModeBinarizeAlpha        // A binarized alpha cutoff with a given integer value.
 	reverse_binarize_alpha = C.ShapeModeReverseBinarizeAlpha // A binarized alpha cutoff with a given integer value, but with the opposite comparison.
-	color_key              = C.ShapeModeColorKey // A color key is applied.
+	color_key              = C.ShapeModeColorKey             // A color key is applied.
 }
 
 fn C.SDL_SHAPEMODEALPHA(mode WindowShapeModeFlag) bool
