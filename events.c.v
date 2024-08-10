@@ -29,90 +29,90 @@ pub type EventFilter = fn (userdata voidptr, event &Event)
 
 // EventType is C.SDL_EventType
 pub enum EventType {
-	firstevent               = C.SDL_FIRSTEVENT // Unused (do not remove)
-	quit                     = C.SDL_QUIT // 0x100 User-requested quit
+	firstevent = C.SDL_FIRSTEVENT // Unused (do not remove)
+	quit       = C.SDL_QUIT       // 0x100 User-requested quit
 	// These application events have special meaning on iOS, see README-ios.md in SDL for details
 	// The application is being terminated by the OS
 	// Called on iOS in applicationWillTerminate()
 	// Called on Android in onDestroy()
-	app_terminating          = C.SDL_APP_TERMINATING
+	app_terminating = C.SDL_APP_TERMINATING
 	// The application is low on memory, free memory if possible.
 	// Called on iOS in applicationDidReceiveMemoryWarning()
 	// Called on Android in onLowMemory()
-	app_lowmemory            = C.SDL_APP_LOWMEMORY
+	app_lowmemory = C.SDL_APP_LOWMEMORY
 	// The application is about to enter the background
 	// Called on iOS in applicationWillResignActive()
 	// Called on Android in onPause()
-	app_willenterbackground  = C.SDL_APP_WILLENTERBACKGROUND
+	app_willenterbackground = C.SDL_APP_WILLENTERBACKGROUND
 	// The application did enter the background and may not get CPU for some time
 	// Called on iOS in applicationDidEnterBackground()
 	// Called on Android in onPause()
-	app_didenterbackground   = C.SDL_APP_DIDENTERBACKGROUND
+	app_didenterbackground = C.SDL_APP_DIDENTERBACKGROUND
 	// The application is about to enter the foreground
 	// Called on iOS in applicationWillEnterForeground()
 	// Called on Android in onResume()
-	app_willenterforeground  = C.SDL_APP_WILLENTERFOREGROUND
+	app_willenterforeground = C.SDL_APP_WILLENTERFOREGROUND
 	// The application is now interactive
 	// Called on iOS in applicationDidBecomeActive()
 	// Called on Android in onResume()
-	app_didenterforeground   = C.SDL_APP_DIDENTERFOREGROUND
+	app_didenterforeground = C.SDL_APP_DIDENTERFOREGROUND
 	// Display events
-	displayevent             = C.SDL_DISPLAYEVENT // 0x150 Display state change
+	displayevent = C.SDL_DISPLAYEVENT // 0x150 Display state change
 	// Window events
-	windowevent              = C.SDL_WINDOWEVENT // 0x200 Window state change
-	syswmevent               = C.SDL_SYSWMEVENT
+	windowevent = C.SDL_WINDOWEVENT // 0x200 Window state change
+	syswmevent  = C.SDL_SYSWMEVENT
 	// Keyboard events
-	keydown                  = C.SDL_KEYDOWN // 0x300, Key pressed
-	keyup                    = C.SDL_KEYUP // Key released
-	textediting              = C.SDL_TEXTEDITING // Keyboard text editing (composition)
-	textinput                = C.SDL_TEXTINPUT // Keyboard text input
-	keymapchanged            = C.SDL_KEYMAPCHANGED // Keymap changed due to a system event such as an input language or keyboard layout change.
+	keydown       = C.SDL_KEYDOWN       // 0x300, Key pressed
+	keyup         = C.SDL_KEYUP         // Key released
+	textediting   = C.SDL_TEXTEDITING   // Keyboard text editing (composition)
+	textinput     = C.SDL_TEXTINPUT     // Keyboard text input
+	keymapchanged = C.SDL_KEYMAPCHANGED // Keymap changed due to a system event such as an input language or keyboard layout change.
 	// Mouse events
-	mousemotion              = C.SDL_MOUSEMOTION // 0x400, Mouse moved
-	mousebuttondown          = C.SDL_MOUSEBUTTONDOWN // Mouse button pressed
-	mousebuttonup            = C.SDL_MOUSEBUTTONUP // Mouse button released
-	mousewheel               = C.SDL_MOUSEWHEEL // Mouse wheel motion
+	mousemotion     = C.SDL_MOUSEMOTION     // 0x400, Mouse moved
+	mousebuttondown = C.SDL_MOUSEBUTTONDOWN // Mouse button pressed
+	mousebuttonup   = C.SDL_MOUSEBUTTONUP   // Mouse button released
+	mousewheel      = C.SDL_MOUSEWHEEL      // Mouse wheel motion
 	// Joystick events
-	joyaxismotion            = C.SDL_JOYAXISMOTION // 0x600, Joystick axis motion
-	joyballmotion            = C.SDL_JOYBALLMOTION // Joystick trackball motion
-	joyhatmotion             = C.SDL_JOYHATMOTION // Joystick hat position change
-	joybuttondown            = C.SDL_JOYBUTTONDOWN // Joystick button pressed
-	joybuttonup              = C.SDL_JOYBUTTONUP // Joystick button released
-	joydeviceadded           = C.SDL_JOYDEVICEADDED // A new joystick has been inserted into the system
-	joydeviceremoved         = C.SDL_JOYDEVICEREMOVED // An opened joystick has been removed
+	joyaxismotion    = C.SDL_JOYAXISMOTION    // 0x600, Joystick axis motion
+	joyballmotion    = C.SDL_JOYBALLMOTION    // Joystick trackball motion
+	joyhatmotion     = C.SDL_JOYHATMOTION     // Joystick hat position change
+	joybuttondown    = C.SDL_JOYBUTTONDOWN    // Joystick button pressed
+	joybuttonup      = C.SDL_JOYBUTTONUP      // Joystick button released
+	joydeviceadded   = C.SDL_JOYDEVICEADDED   // A new joystick has been inserted into the system
+	joydeviceremoved = C.SDL_JOYDEVICEREMOVED // An opened joystick has been removed
 	// Game controller events
-	controlleraxismotion     = C.SDL_CONTROLLERAXISMOTION // 0x650, Game controller axis motion
-	controllerbuttondown     = C.SDL_CONTROLLERBUTTONDOWN // Game controller button pressed
-	controllerbuttonup       = C.SDL_CONTROLLERBUTTONUP // Game controller button released
-	controllerdeviceadded    = C.SDL_CONTROLLERDEVICEADDED // A new Game controller has been inserted into the system
-	controllerdeviceremoved  = C.SDL_CONTROLLERDEVICEREMOVED // An opened Game controller has been removed
+	controlleraxismotion     = C.SDL_CONTROLLERAXISMOTION     // 0x650, Game controller axis motion
+	controllerbuttondown     = C.SDL_CONTROLLERBUTTONDOWN     // Game controller button pressed
+	controllerbuttonup       = C.SDL_CONTROLLERBUTTONUP       // Game controller button released
+	controllerdeviceadded    = C.SDL_CONTROLLERDEVICEADDED    // A new Game controller has been inserted into the system
+	controllerdeviceremoved  = C.SDL_CONTROLLERDEVICEREMOVED  // An opened Game controller has been removed
 	controllerdeviceremapped = C.SDL_CONTROLLERDEVICEREMAPPED // The controller mapping was updated
 	// Touch events
-	fingerdown               = C.SDL_FINGERDOWN // 0x700
-	fingerup                 = C.SDL_FINGERUP
-	fingermotion             = C.SDL_FINGERMOTION
+	fingerdown   = C.SDL_FINGERDOWN // 0x700
+	fingerup     = C.SDL_FINGERUP
+	fingermotion = C.SDL_FINGERMOTION
 	// Gesture events
-	dollargesture            = C.SDL_DOLLARGESTURE // 0x800
-	dollarrecord             = C.SDL_DOLLARRECORD
-	multigesture             = C.SDL_MULTIGESTURE
+	dollargesture = C.SDL_DOLLARGESTURE // 0x800
+	dollarrecord  = C.SDL_DOLLARRECORD
+	multigesture  = C.SDL_MULTIGESTURE
 	// Clipboard events
-	clipboardupdate          = C.SDL_CLIPBOARDUPDATE // 0x900 The clipboard changed
+	clipboardupdate = C.SDL_CLIPBOARDUPDATE // 0x900 The clipboard changed
 	// Drag and drop events
-	dropfile                 = C.SDL_DROPFILE // 0x1000 The system requests a file open
-	droptext                 = C.SDL_DROPTEXT // text/plain drag-and-drop event
-	dropbegin                = C.SDL_DROPBEGIN // A new set of drops is beginning (NULL filename)
-	dropcomplete             = C.SDL_DROPCOMPLETE // Current set of drops is now complete (NULL filename)
+	dropfile     = C.SDL_DROPFILE     // 0x1000 The system requests a file open
+	droptext     = C.SDL_DROPTEXT     // text/plain drag-and-drop event
+	dropbegin    = C.SDL_DROPBEGIN    // A new set of drops is beginning (NULL filename)
+	dropcomplete = C.SDL_DROPCOMPLETE // Current set of drops is now complete (NULL filename)
 	// Audio hotplug events
-	audiodeviceadded         = C.SDL_AUDIODEVICEADDED // 0x1100 A new audio device is available
-	audiodeviceremoved       = C.SDL_AUDIODEVICEREMOVED // An audio device has been removed.
+	audiodeviceadded   = C.SDL_AUDIODEVICEADDED   // 0x1100 A new audio device is available
+	audiodeviceremoved = C.SDL_AUDIODEVICEREMOVED // An audio device has been removed.
 	// Sensor events
-	sensorupdate             = C.SDL_SENSORUPDATE // 0x1200 A sensor was updated
+	sensorupdate = C.SDL_SENSORUPDATE // 0x1200 A sensor was updated
 	// Render events
-	render_targets_reset     = C.SDL_RENDER_TARGETS_RESET // 0x2000 The render targets have been reset and their contents need to be updated
-	render_device_reset      = C.SDL_RENDER_DEVICE_RESET /// The device has been reset and all textures need to be recreated
-	userevent                = C.SDL_USEREVENT // Events ::SDL_USEREVENT through ::SDL_LASTEVENT are for your use, and should be allocated with SDL_RegisterEvents()
+	render_targets_reset = C.SDL_RENDER_TARGETS_RESET // 0x2000 The render targets have been reset and their contents need to be updated
+	render_device_reset  = C.SDL_RENDER_DEVICE_RESET  /// The device has been reset and all textures need to be recreated
+	userevent            = C.SDL_USEREVENT            // Events ::SDL_USEREVENT through ::SDL_LASTEVENT are for your use, and should be allocated with SDL_RegisterEvents()
 	// This last event is only for bounding internal arrays
-	lastevent                = C.SDL_LASTEVENT // 0xFFFF
+	lastevent = C.SDL_LASTEVENT // 0xFFFF
 }
 
 // CommonEvent is fields shared by every event
@@ -258,7 +258,7 @@ pub:
 	@type     EventType  // ::SDL_JOYAXISMOTION
 	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
 	which     JoystickID // The joystick instance id
-	axis      u8 // The joystick axis index
+	axis      u8         // The joystick axis index
 	padding1  u8
 	padding2  u8
 	padding3  u8
@@ -275,7 +275,7 @@ pub:
 	@type     EventType  // ::SDL_JOYBALLMOTION
 	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
 	which     JoystickID // C.SDL_JoystickID // The joystick instance id
-	ball      u8 // The joystick trackball index
+	ball      u8         // The joystick trackball index
 	padding1  u8
 	padding2  u8
 	padding3  u8
@@ -292,8 +292,8 @@ pub:
 	@type     EventType  // ::SDL_JOYHATMOTION
 	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
 	which     JoystickID // C.SDL_JoystickID // The joystick instance id
-	hat       u8 // The joystick hat index
-	value     u8 // The hat position value.
+	hat       u8         // The joystick hat index
+	value     u8         // The hat position value.
 	// See also: ::SDL_HAT_LEFTUP ::SDL_HAT_UP ::SDL_HAT_RIGHTUP
 	// See also: ::SDL_HAT_LEFT ::SDL_HAT_CENTERED ::SDL_HAT_RIGHT
 	// See also: ::SDL_HAT_LEFTDOWN ::SDL_HAT_DOWN ::SDL_HAT_RIGHTDOWN
@@ -311,8 +311,8 @@ pub:
 	@type     EventType  // ::SDL_JOYBUTTONDOWN or ::SDL_JOYBUTTONUP
 	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
 	which     JoystickID // C.SDL_JoystickID // The joystick instance id
-	button    u8 // The joystick button index
-	state     u8 // ::SDL_PRESSED or ::SDL_RELEASED
+	button    u8         // The joystick button index
+	state     u8         // ::SDL_PRESSED or ::SDL_RELEASED
 	padding1  u8
 	padding2  u8
 }
@@ -337,7 +337,7 @@ pub:
 	@type     EventType  // ::SDL_CONTROLLERAXISMOTION
 	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
 	which     JoystickID // C.SDL_JoystickID // The joystick instance id
-	axis      u8 // The controller axis (SDL_GameControllerAxis)
+	axis      u8         // The controller axis (SDL_GameControllerAxis)
 	padding1  u8
 	padding2  u8
 	padding3  u8
@@ -354,8 +354,8 @@ pub:
 	@type     EventType  // ::SDL_CONTROLLERBUTTONDOWN or ::SDL_CONTROLLERBUTTONUP
 	timestamp u32        // In milliseconds, populated using SDL_GetTicks()
 	which     JoystickID // C.SDL_JoystickID // The joystick instance id
-	button    u8 // The controller button (SDL_GameControllerButton)
-	state     u8 // ::SDL_PRESSED or ::SDL_RELEASED
+	button    u8         // The controller button (SDL_GameControllerButton)
+	state     u8         // ::SDL_PRESSED or ::SDL_RELEASED
 	padding1  u8
 	padding2  u8
 }
@@ -544,7 +544,7 @@ pub:
 	cbutton ControllerButtonEvent // C.SDL_ControllerButtonEvent // Game Controller button event data
 	cdevice ControllerDeviceEvent // C.SDL_ControllerDeviceEvent // Game Controller device event data
 	adevice AudioDeviceEvent      // C.SDL_AudioDeviceEvent      // Audio device event data
-	sensor  SensorEvent // C.SDL_SensorEvent           // Sensor event data
+	sensor  SensorEvent           // C.SDL_SensorEvent           // Sensor event data
 	//
 
 	quit     QuitEvent          // C.SDL_QuitEvent          // Quit request event data
@@ -553,7 +553,7 @@ pub:
 	tfinger  TouchFingerEvent   // C.SDL_TouchFingerEvent   // Touch finger event data
 	mgesture MultiGestureEvent  // C.SDL_MultiGestureEvent  // Gesture event data
 	dgesture DollarGestureEvent // C.SDL_DollarGestureEvent // Gesture event data
-	drop     DropEvent // C.SDL_DropEvent // Drag and drop event data
+	drop     DropEvent          // C.SDL_DropEvent // Drag and drop event data
 	// This is necessary for ABI compatibility between Visual C++ and GCC
 	// Visual C++ will respect the push pack pragma and use 52 bytes for
 	// this structure, and GCC will use the alignment of the largest datatype
