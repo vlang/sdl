@@ -58,25 +58,25 @@ pub const button_x2mask = int(C.SDL_BUTTON_X2MASK) // SDL_BUTTON(SDL_BUTTON_X2)
 // SystemCursor is C.SDL_SystemCursor
 // Cursor types for SDL_CreateSystemCursor().
 pub enum SystemCursor {
-	arrow       = C.SDL_SYSTEM_CURSOR_ARROW // Arrow
-	ibeam       = C.SDL_SYSTEM_CURSOR_IBEAM // I-beam
-	wait        = C.SDL_SYSTEM_CURSOR_WAIT // Wait
+	arrow       = C.SDL_SYSTEM_CURSOR_ARROW     // Arrow
+	ibeam       = C.SDL_SYSTEM_CURSOR_IBEAM     // I-beam
+	wait        = C.SDL_SYSTEM_CURSOR_WAIT      // Wait
 	crosshair   = C.SDL_SYSTEM_CURSOR_CROSSHAIR // Crosshair
 	waitarrow   = C.SDL_SYSTEM_CURSOR_WAITARROW // Small wait cursor (or Wait if not available)
-	sizenwse    = C.SDL_SYSTEM_CURSOR_SIZENWSE // Double arrow pointing northwest and southeast
-	sizenesw    = C.SDL_SYSTEM_CURSOR_SIZENESW // Double arrow pointing northeast and southwest
-	sizewe      = C.SDL_SYSTEM_CURSOR_SIZEWE // Double arrow pointing west and east
-	sizens      = C.SDL_SYSTEM_CURSOR_SIZENS // Double arrow pointing north and south
-	sizeall     = C.SDL_SYSTEM_CURSOR_SIZEALL // Four pointed arrow pointing north, south, east, and west
-	no          = C.SDL_SYSTEM_CURSOR_NO // Slashed circle or crossbones
-	hand        = C.SDL_SYSTEM_CURSOR_HAND // Hand
+	sizenwse    = C.SDL_SYSTEM_CURSOR_SIZENWSE  // Double arrow pointing northwest and southeast
+	sizenesw    = C.SDL_SYSTEM_CURSOR_SIZENESW  // Double arrow pointing northeast and southwest
+	sizewe      = C.SDL_SYSTEM_CURSOR_SIZEWE    // Double arrow pointing west and east
+	sizens      = C.SDL_SYSTEM_CURSOR_SIZENS    // Double arrow pointing north and south
+	sizeall     = C.SDL_SYSTEM_CURSOR_SIZEALL   // Four pointed arrow pointing north, south, east, and west
+	no          = C.SDL_SYSTEM_CURSOR_NO        // Slashed circle or crossbones
+	hand        = C.SDL_SYSTEM_CURSOR_HAND      // Hand
 	num_cursors = C.SDL_NUM_SYSTEM_CURSORS
 }
 
 // MouseWheelDirection is C.SDL_MouseWheelDirection
 // Scroll direction types for the Scroll event
 pub enum MouseWheelDirection {
-	normal  = C.SDL_MOUSEWHEEL_NORMAL // The scroll direction is normal
+	normal  = C.SDL_MOUSEWHEEL_NORMAL  // The scroll direction is normal
 	flipped = C.SDL_MOUSEWHEEL_FLIPPED // The scroll direction is flipped / natural
 }
 
