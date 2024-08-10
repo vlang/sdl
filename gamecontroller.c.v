@@ -754,11 +754,11 @@ pub enum GameControllerButton {
 	dpad_down     = C.SDL_CONTROLLER_BUTTON_DPAD_DOWN
 	dpad_left     = C.SDL_CONTROLLER_BUTTON_DPAD_LEFT
 	dpad_right    = C.SDL_CONTROLLER_BUTTON_DPAD_RIGHT
-	misc1         = C.SDL_CONTROLLER_BUTTON_MISC1 // Xbox Series X share button, PS5 microphone button, Nintendo Switch Pro capture button, Amazon Luna microphone button
-	paddle1       = C.SDL_CONTROLLER_BUTTON_PADDLE1 // Xbox Elite paddle P1
-	paddle2       = C.SDL_CONTROLLER_BUTTON_PADDLE2 // Xbox Elite paddle P3
-	paddle3       = C.SDL_CONTROLLER_BUTTON_PADDLE3 // Xbox Elite paddle P2
-	paddle4       = C.SDL_CONTROLLER_BUTTON_PADDLE4 // Xbox Elite paddle P4
+	misc1         = C.SDL_CONTROLLER_BUTTON_MISC1    // Xbox Series X share button, PS5 microphone button, Nintendo Switch Pro capture button, Amazon Luna microphone button
+	paddle1       = C.SDL_CONTROLLER_BUTTON_PADDLE1  // Xbox Elite paddle P1
+	paddle2       = C.SDL_CONTROLLER_BUTTON_PADDLE2  // Xbox Elite paddle P3
+	paddle3       = C.SDL_CONTROLLER_BUTTON_PADDLE3  // Xbox Elite paddle P2
+	paddle4       = C.SDL_CONTROLLER_BUTTON_PADDLE4  // Xbox Elite paddle P4
 	touchpad      = C.SDL_CONTROLLER_BUTTON_TOUCHPAD // PS4/PS5 touchpad button
 	max           = C.SDL_CONTROLLER_BUTTON_MAX
 }

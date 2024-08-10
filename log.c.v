@@ -32,16 +32,16 @@ pub enum LogCategory {
 	input       = C.SDL_LOG_CATEGORY_INPUT
 	test        = C.SDL_LOG_CATEGORY_TEST
 	// Reserved for future SDL library use
-	reserved1   = C.SDL_LOG_CATEGORY_RESERVED1
-	reserved2   = C.SDL_LOG_CATEGORY_RESERVED2
-	reserved3   = C.SDL_LOG_CATEGORY_RESERVED3
-	reserved4   = C.SDL_LOG_CATEGORY_RESERVED4
-	reserved5   = C.SDL_LOG_CATEGORY_RESERVED5
-	reserved6   = C.SDL_LOG_CATEGORY_RESERVED6
-	reserved7   = C.SDL_LOG_CATEGORY_RESERVED7
-	reserved8   = C.SDL_LOG_CATEGORY_RESERVED8
-	reserved9   = C.SDL_LOG_CATEGORY_RESERVED9
-	reserved10  = C.SDL_LOG_CATEGORY_RESERVED10
+	reserved1  = C.SDL_LOG_CATEGORY_RESERVED1
+	reserved2  = C.SDL_LOG_CATEGORY_RESERVED2
+	reserved3  = C.SDL_LOG_CATEGORY_RESERVED3
+	reserved4  = C.SDL_LOG_CATEGORY_RESERVED4
+	reserved5  = C.SDL_LOG_CATEGORY_RESERVED5
+	reserved6  = C.SDL_LOG_CATEGORY_RESERVED6
+	reserved7  = C.SDL_LOG_CATEGORY_RESERVED7
+	reserved8  = C.SDL_LOG_CATEGORY_RESERVED8
+	reserved9  = C.SDL_LOG_CATEGORY_RESERVED9
+	reserved10 = C.SDL_LOG_CATEGORY_RESERVED10
 	// Beyond this point is reserved for application use, e.g.
 	//   enum {
 	//       MYAPP_CATEGORY_AWESOME1 = SDL_LOG_CATEGORY_CUSTOM,
@@ -50,7 +50,7 @@ pub enum LogCategory {
 	//       ...
 	//   };
 	//
-	custom      = C.SDL_LOG_CATEGORY_CUSTOM
+	custom = C.SDL_LOG_CATEGORY_CUSTOM
 }
 
 // LogPriority is C.SDL_LogPriority
