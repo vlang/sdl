@@ -153,13 +153,13 @@ pub type AudioCallback = fn (userdata voidptr, stream &u8, len int)
 @[typedef]
 pub struct C.SDL_AudioSpec {
 pub:
-	freq     int // DSP frequency -- samples per second
-	format   AudioFormat // C.SDL_AudioFormat Audio data format
-	channels u8  // Number of channels: 1 mono, 2 stereo
-	silence  u8  // Audio buffer silence value (calculated)
-	samples  u16 // Audio buffer size in sample FRAMES (total samples divided by channel count)
-	padding  u16 // Necessary for some compile environments
-	size     u32 // Audio buffer size in bytes (calculated)
+	freq     int           // DSP frequency -- samples per second
+	format   AudioFormat   // C.SDL_AudioFormat Audio data format
+	channels u8            // Number of channels: 1 mono, 2 stereo
+	silence  u8            // Audio buffer silence value (calculated)
+	samples  u16           // Audio buffer size in sample FRAMES (total samples divided by channel count)
+	padding  u16           // Necessary for some compile environments
+	size     u32           // Audio buffer size in bytes (calculated)
 	callback AudioCallback // C.SDL_AudioCallback // Callback that feeds the audio device (NULL to use SDL_QueueAudio()).
 	userdata voidptr       // Userdata passed to callback (ignored for NULL callbacks).
 }
@@ -210,17 +210,17 @@ pub type AudioCVTPackedSDLAudioCVT = C.SDL_AUDIOCVT_PACKEDSDL_AudioCVT
 @[typedef]
 pub struct C.SDL_AudioCVT {
 pub:
-	needed       int // Set to 1 if conversion possible
-	src_format   AudioFormat // C.SDL_AudioFormat, Source audio format
-	dst_format   AudioFormat // C.SDL_AudioFormat, Target audio format
-	rate_incr    f64 // Rate conversion increment
-	buf          &u8 // Buffer to hold entire audio data
-	len          int // Length of original audio buffer
-	len_cvt      int // Length of converted audio buffer
-	len_mult     int // buffer must be len*len_mult big
-	len_ratio    f64 // Given len, final size is len*len_ratio
+	needed       int             // Set to 1 if conversion possible
+	src_format   AudioFormat     // C.SDL_AudioFormat, Source audio format
+	dst_format   AudioFormat     // C.SDL_AudioFormat, Target audio format
+	rate_incr    f64             // Rate conversion increment
+	buf          &u8             // Buffer to hold entire audio data
+	len          int             // Length of original audio buffer
+	len_cvt      int             // Length of converted audio buffer
+	len_mult     int             // buffer must be len*len_mult big
+	len_ratio    f64             // Given len, final size is len*len_ratio
 	filters      [10]AudioFilter // C.SDL_AudioFilter NULL-terminated list of filter functions
-	filter_index int // Current audio conversion function
+	filter_index int             // Current audio conversion function
 }
 
 pub type AudioCVT = C.SDL_AudioCVT

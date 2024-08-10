@@ -30,7 +30,7 @@ pub enum PixelType {
 	arrayf16 = C.SDL_PIXELTYPE_ARRAYF16
 	arrayf32 = C.SDL_PIXELTYPE_ARRAYF32
 	// This must be at the end of the list to avoid breaking the existing ABI
-	index2   = C.SDL_PIXELTYPE_INDEX2
+	index2 = C.SDL_PIXELTYPE_INDEX2
 }
 
 // Bitmap pixel order, high bit -> low bit.
@@ -126,13 +126,13 @@ pub enum Format {
 	argb32       = C.SDL_PIXELFORMAT_ARGB32
 	bgra32       = C.SDL_PIXELFORMAT_BGRA32
 	abgr32       = C.SDL_PIXELFORMAT_ABGR32
-	yv12         = C.SDL_PIXELFORMAT_YV12 // Planar mode: Y + V + U  (3 planes)
-	iyuv         = C.SDL_PIXELFORMAT_IYUV // Planar mode: Y + U + V  (3 planes)
-	yuy2         = C.SDL_PIXELFORMAT_YUY2 // Packed mode: Y0+U0+Y1+V0 (1 plane)
-	uyvy         = C.SDL_PIXELFORMAT_UYVY // Packed mode: U0+Y0+V0+Y1 (1 plane)
-	yvyu         = C.SDL_PIXELFORMAT_YVYU // Packed mode: Y0+V0+Y1+U0 (1 plane)
-	nv12         = C.SDL_PIXELFORMAT_NV12 // Planar mode: Y + U/V interleaved  (2 planes)
-	nv21         = C.SDL_PIXELFORMAT_NV21 // Planar mode: Y + V/U interleaved  (2 planes)
+	yv12         = C.SDL_PIXELFORMAT_YV12         // Planar mode: Y + V + U  (3 planes)
+	iyuv         = C.SDL_PIXELFORMAT_IYUV         // Planar mode: Y + U + V  (3 planes)
+	yuy2         = C.SDL_PIXELFORMAT_YUY2         // Packed mode: Y0+U0+Y1+V0 (1 plane)
+	uyvy         = C.SDL_PIXELFORMAT_UYVY         // Packed mode: U0+Y0+V0+Y1 (1 plane)
+	yvyu         = C.SDL_PIXELFORMAT_YVYU         // Packed mode: Y0+V0+Y1+U0 (1 plane)
+	nv12         = C.SDL_PIXELFORMAT_NV12         // Planar mode: Y + U/V interleaved  (2 planes)
+	nv21         = C.SDL_PIXELFORMAT_NV21         // Planar mode: Y + V/U interleaved  (2 planes)
 	external_oes = C.SDL_PIXELFORMAT_EXTERNAL_OES // Android video texture format
 }
 

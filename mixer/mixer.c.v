@@ -48,10 +48,10 @@ pub fn linked_version() &sdl.Version {
 // InitFlags is C.MIX_InitFlags
 pub enum InitFlags {
 	flac = C.MIX_INIT_FLAC // 0x00000001
-	mod  = C.MIX_INIT_MOD // 0x00000002
-	mp3  = C.MIX_INIT_MP3 // 0x00000008
-	ogg  = C.MIX_INIT_OGG // 0x00000010
-	mid  = C.MIX_INIT_MID // 0x00000020
+	mod  = C.MIX_INIT_MOD  // 0x00000002
+	mp3  = C.MIX_INIT_MP3  // 0x00000008
+	ogg  = C.MIX_INIT_OGG  // 0x00000010
+	mid  = C.MIX_INIT_MID  // 0x00000020
 	opus = C.MIX_INIT_OPUS // 0x00000040
 }
 

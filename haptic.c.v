@@ -280,17 +280,17 @@ pub type HapticDirection = C.SDL_HapticDirection
 @[typedef]
 pub struct C.SDL_HapticConstant {
 pub mut:
-	@type         u16 // ::SDL_HAPTIC_CONSTANT
+	@type         u16             // ::SDL_HAPTIC_CONSTANT
 	direction     HapticDirection // Direction of the effect.
-	length        u32 // Duration of the effect.
-	delay         u16 // Delay before starting the effect.
-	button        u16 // Button that triggers the effect.
-	interval      u16 // How soon it can be triggered again after button.
-	level         i16 // Strength of the constant effect.
-	attack_length u16 // Duration of the attack.
-	attack_level  u16 // Level at the start of the attack.
-	fade_length   u16 // Duration of the fade.
-	fade_level    u16 // Level at the end of the fade.
+	length        u32             // Duration of the effect.
+	delay         u16             // Delay before starting the effect.
+	button        u16             // Button that triggers the effect.
+	interval      u16             // How soon it can be triggered again after button.
+	level         i16             // Strength of the constant effect.
+	attack_length u16             // Duration of the attack.
+	attack_level  u16             // Level at the start of the attack.
+	fade_length   u16             // Duration of the fade.
+	fade_level    u16             // Level at the end of the fade.
 }
 
 pub type HapticConstant = C.SDL_HapticConstant
@@ -356,20 +356,20 @@ pub type HapticConstant = C.SDL_HapticConstant
 @[typedef]
 pub struct C.SDL_HapticPeriodic {
 pub mut:
-	@type         u16 // ::SDL_HAPTIC_SINE, ::SDL_HAPTIC_LEFTRIGHT, ::SDL_HAPTIC_TRIANGLE, ::SDL_HAPTIC_SAWTOOTHUP or ::SDL_HAPTIC_SAWTOOTHDOWN
+	@type         u16             // ::SDL_HAPTIC_SINE, ::SDL_HAPTIC_LEFTRIGHT, ::SDL_HAPTIC_TRIANGLE, ::SDL_HAPTIC_SAWTOOTHUP or ::SDL_HAPTIC_SAWTOOTHDOWN
 	direction     HapticDirection // Direction of the effect.
-	length        u32 // Duration of the effect.
-	delay         u16 // Delay before starting the effect.
-	button        u16 // Button that triggers the effect.
-	interval      u16 // How soon it can be triggered again after button.
-	period        u16 // Period of the wave.
-	magnitude     i16 // Peak value; if negative, equivalent to 180 degrees extra phase shift.
-	offset        i16 // Mean value of the wave.
-	phase         u16 // Positive phase shift given by hundredth of a degree.
-	attack_length u16 // Duration of the attack.
-	attack_level  u16 // Level at the start of the attack.
-	fade_length   u16 // Duration of the fade.
-	fade_level    u16 // Level at the end of the fade.
+	length        u32             // Duration of the effect.
+	delay         u16             // Delay before starting the effect.
+	button        u16             // Button that triggers the effect.
+	interval      u16             // How soon it can be triggered again after button.
+	period        u16             // Period of the wave.
+	magnitude     i16             // Peak value; if negative, equivalent to 180 degrees extra phase shift.
+	offset        i16             // Mean value of the wave.
+	phase         u16             // Positive phase shift given by hundredth of a degree.
+	attack_length u16             // Duration of the attack.
+	attack_level  u16             // Level at the start of the attack.
+	fade_length   u16             // Duration of the fade.
+	fade_level    u16             // Level at the end of the fade.
 }
 
 pub type HapticPeriodic = C.SDL_HapticPeriodic
@@ -399,18 +399,18 @@ pub type HapticPeriodic = C.SDL_HapticPeriodic
 @[typedef]
 pub struct C.SDL_HapticCondition {
 pub mut:
-	@type       u16 // ::SDL_HAPTIC_SPRING, ::SDL_HAPTIC_DAMPER,                                  ::SDL_HAPTIC_INERTIA or ::SDL_HAPTIC_FRICTION
+	@type       u16             // ::SDL_HAPTIC_SPRING, ::SDL_HAPTIC_DAMPER,                                  ::SDL_HAPTIC_INERTIA or ::SDL_HAPTIC_FRICTION
 	direction   HapticDirection // Direction of the effect - Not used ATM.
-	length      u32    // Duration of the effect.
-	delay       u16    // Delay before starting the effect.
-	button      u16    // Button that triggers the effect.
-	interval    u16    // How soon it can be triggered again after button.
-	right_sat   [3]u16 // Level when joystick is to the positive side; max 0xFFFF.
-	left_sat    [3]u16 // Level when joystick is to the negative side; max 0xFFFF.
-	right_coeff [3]i16 // How fast to increase the force towards the positive side.
-	left_coeff  [3]i16 // How fast to increase the force towards the negative side.
-	deadband    [3]u16 // Size of the dead zone; max 0xFFFF: whole axis-range when 0-centered.
-	center      [3]i16 // Position of the dead zone.
+	length      u32             // Duration of the effect.
+	delay       u16             // Delay before starting the effect.
+	button      u16             // Button that triggers the effect.
+	interval    u16             // How soon it can be triggered again after button.
+	right_sat   [3]u16          // Level when joystick is to the positive side; max 0xFFFF.
+	left_sat    [3]u16          // Level when joystick is to the negative side; max 0xFFFF.
+	right_coeff [3]i16          // How fast to increase the force towards the positive side.
+	left_coeff  [3]i16          // How fast to increase the force towards the negative side.
+	deadband    [3]u16          // Size of the dead zone; max 0xFFFF: whole axis-range when 0-centered.
+	center      [3]i16          // Position of the dead zone.
 }
 
 pub type HapticCondition = C.SDL_HapticCondition
@@ -429,18 +429,18 @@ pub type HapticCondition = C.SDL_HapticCondition
 @[typedef]
 pub struct C.SDL_HapticRamp {
 pub mut:
-	@type         u16 // ::SDL_HAPTIC_RAMP
+	@type         u16             // ::SDL_HAPTIC_RAMP
 	direction     HapticDirection // Direction of the effect.
-	length        u32 // Duration of the effect.
-	delay         u16 // Delay before starting the effect.
-	button        u16 // Button that triggers the effect.
-	interval      u16 // How soon it can be triggered again after button.
-	start         i16 // Beginning strength level.
-	end           i16 // Ending strength level.
-	attack_length u16 // Duration of the attack.
-	attack_level  u16 // Level at the start of the attack.
-	fade_length   u16 // Duration of the fade.
-	fade_level    u16 // Level at the end of the fade.
+	length        u32             // Duration of the effect.
+	delay         u16             // Delay before starting the effect.
+	button        u16             // Button that triggers the effect.
+	interval      u16             // How soon it can be triggered again after button.
+	start         i16             // Beginning strength level.
+	end           i16             // Ending strength level.
+	attack_length u16             // Duration of the attack.
+	attack_level  u16             // Level at the start of the attack.
+	fade_length   u16             // Duration of the fade.
+	fade_level    u16             // Level at the end of the fade.
 }
 
 pub type HapticRamp = C.SDL_HapticRamp
@@ -482,20 +482,20 @@ pub type HapticLeftRight = C.SDL_HapticLeftRight
 @[typedef]
 pub struct C.SDL_HapticCustom {
 pub mut:
-	@type         u16 // ::SDL_HAPTIC_CUSTOM
+	@type         u16             // ::SDL_HAPTIC_CUSTOM
 	direction     HapticDirection // Direction of the effect.
-	length        u32  // Duration of the effect.
-	delay         u16  // Delay before starting the effect.
-	button        u16  // Button that triggers the effect.
-	interval      u16  // How soon it can be triggered again after button.
-	channels      u8   // Axes to use, minimum of one.
-	period        u16  // Sample periods.
-	samples       u16  // Amount of samples.
-	data          &u16 // Should contain channels*samples items.
-	attack_length u16  // Duration of the attack.
-	attack_level  u16  // Level at the start of the attack.
-	fade_length   u16  // Duration of the fade.
-	fade_level    u16  // Level at the end of the fade.
+	length        u32             // Duration of the effect.
+	delay         u16             // Delay before starting the effect.
+	button        u16             // Button that triggers the effect.
+	interval      u16             // How soon it can be triggered again after button.
+	channels      u8              // Axes to use, minimum of one.
+	period        u16             // Sample periods.
+	samples       u16             // Amount of samples.
+	data          &u16            // Should contain channels*samples items.
+	attack_length u16             // Duration of the attack.
+	attack_level  u16             // Level at the start of the attack.
+	fade_length   u16             // Duration of the fade.
+	fade_level    u16             // Level at the end of the fade.
 }
 
 pub type HapticCustom = C.SDL_HapticCustom
@@ -577,7 +577,7 @@ Uint16 fade_level;    // Level at the end of the fade.
 union C.SDL_HapticEffect {
 pub mut:
 	// Common for all force feedback effects
-	@type     u16 // Effect type.
+	@type     u16             // Effect type.
 	constant  HapticConstant  // Constant effect.
 	periodic  HapticPeriodic  // Periodic effect.
 	condition HapticCondition // Condition effect.
