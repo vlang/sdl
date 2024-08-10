@@ -58,10 +58,10 @@ pub type JoystickID = i32
 // JoystickPowerLevel is C.SDL_JoystickPowerLevel
 pub enum JoystickPowerLevel {
 	unknown = -1
-	empty // <= 5%
-	low // <= 20%
+	empty  // <= 5%
+	low    // <= 20%
 	medium // <= 70%
-	full // <= 100%
+	full   // <= 100%
 	wired
 	max
 }
@@ -358,10 +358,10 @@ pub mut:
 	name        &char   // the name of the joystick
 	userdata    voidptr // User data pointer passed to callbacks
 	//
-	Update         fn (userdata voidptr) // Called when the joystick state should be updated
+	Update         fn (userdata voidptr)                   // Called when the joystick state should be updated
 	SetPlayerIndex fn (userdata voidptr, player_index int) // Called when the player index is set
 	Rumble         fn (userdata voidptr, low_frequency_rumble u16, high_frequency_rumble u16) // Implements SDL_JoystickRumble()
-	RumbleTrigger  fn (userdata voidptr, left_rumble u16, right_rumble u16) // Implements SDL_JoystickRumbleTriggers()
+	RumbleTrigger  fn (userdata voidptr, left_rumble u16, right_rumble u16)                   // Implements SDL_JoystickRumbleTriggers()
 	SetLED         fn (userdata voidptr, red u8, green u8, blue u8)    // Implements SDL_JoystickSetLED()
 	SendEffect     fn (userdata voidptr, const_data voidptr, size int) // Implements SDL_JoystickSendEffect()
 }
