@@ -21,8 +21,8 @@ pub const mouse_touch_id = C.SDL_MOUSE_TOUCHID // ((Sint64)-1)
 
 // TouchDeviceType is C.SDL_TouchDeviceType
 pub enum TouchDeviceType {
-	invalid           = C.SDL_TOUCH_DEVICE_INVALID // -1
-	direct            = C.SDL_TOUCH_DEVICE_DIRECT // touch screen with window-relative coordinates
+	invalid           = C.SDL_TOUCH_DEVICE_INVALID           // -1
+	direct            = C.SDL_TOUCH_DEVICE_DIRECT            // touch screen with window-relative coordinates
 	indirect_absolute = C.SDL_TOUCH_DEVICE_INDIRECT_ABSOLUTE // trackpad with absolute device coordinates
 	indirect_relative = C.SDL_TOUCH_DEVICE_INDIRECT_RELATIVE // trackpad with screen cursor-relative coordinates
 }

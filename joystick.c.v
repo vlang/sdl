@@ -64,10 +64,10 @@ pub type JoystickID = i32
 // JoystickPowerLevel is C.SDL_JoystickPowerLevel
 pub enum JoystickPowerLevel {
 	unknown = -1
-	empty // <= 5%
-	low // <= 20%
+	empty  // <= 5%
+	low    // <= 20%
 	medium // <= 70%
-	full // <= 100%
+	full   // <= 100%
 	wired
 	max
 }
