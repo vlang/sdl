@@ -25,26 +25,71 @@ struct Vertex_t {
 	a f32
 }
 
+const win_width = 500
+const win_height = 300
+const sample_count = 4
+
+pub fn create_desc() gfx.Desc {
+	return gfx.Desc{
+		environment: glue_environment()
+	}
+}
+
+// create_default_pass creates a default `gfx.Pass` compatible with `SDL` and `sokol.gfx.begin_pass/1`.
+pub fn create_default_pass(action gfx.PassAction) gfx.Pass {
+	return gfx.Pass{
+		action:    action
+		swapchain: glue_swapchain()
+	}
+}
+
+// glue_environment returns a `gfx.Environment` compatible for use with `SDL` specific `gfx.Pass`es.
+// The retuned `gfx.Environment` can be used when rendering via `SDL`.
+// See also: documentation at the top of thirdparty/sokol/sokol_gfx.h
+pub fn glue_environment() gfx.Environment {
+	mut env := gfx.Environment{}
+	unsafe { vmemset(&env, 0, int(sizeof(env))) }
+	env.defaults.color_format = .rgba8
+	env.defaults.depth_format = .@none
+	env.defaults.sample_count = sample_count
+	return env
+}
+
+// glue_swapchain returns a `gfx.Swapchain` compatible for use with `SDL` specific display/rendering `gfx.Pass`es.
+// The retuned `gfx.Swapchain` can be used when rendering via `SDL`.
+// See also: documentation at the top of thirdparty/sokol/sokol_gfx.h
+pub fn glue_swapchain() gfx.Swapchain {
+	mut swapchain := gfx.Swapchain{}
+	unsafe { vmemset(&swapchain, 0, int(sizeof(swapchain))) }
+	swapchain.width = win_width
+	swapchain.height = win_height
+	swapchain.sample_count = sample_count
+	swapchain.color_format = .rgba8
+	swapchain.depth_format = .@none
+	swapchain.gl.framebuffer = 0 // use default framebuffer (usually 0)
+	return swapchain
+}
+
 @[console]
 fn main() {
 	sdl.init(sdl.init_video)
 
 	$if wasm32_emscripten || android {
 		sdl.gl_set_attribute(.context_profile_mask, int(sdl.GLprofile.es))
-		sdl.gl_set_attribute(.context_major_version, 2)
+		sdl.gl_set_attribute(.context_major_version, 3)
 	} $else {
 		sdl.gl_set_attribute(.context_flags, int(sdl.GLcontextFlag.forward_compatible_flag))
 		sdl.gl_set_attribute(.context_profile_mask, int(sdl.GLprofile.core))
-		sdl.gl_set_attribute(.context_major_version, 3)
-		sdl.gl_set_attribute(.context_minor_version, 3)
+		sdl.gl_set_attribute(.context_major_version, 4)
+		sdl.gl_set_attribute(.context_minor_version, 1)
 	}
 	sdl.gl_set_attribute(.doublebuffer, 1)
 	sdl.gl_set_attribute(.depth_size, 24)
 	sdl.gl_set_attribute(.stencil_size, 8)
 
 	mut window_flags := u32(sdl.WindowFlags.opengl)
-	window := sdl.create_window('Hello SDL2 + Sokol (OpenGL)'.str, 300, 300, 500, 300,
-		window_flags)
+	window := sdl.create_window('Hello SDL2 + Sokol (OpenGL)'.str, 300, 300, win_width,
+		win_height, window_flags)
 	if window == sdl.null {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		panic('Could not create SDL window, SDL says:\n${error_msg}')
@@ -63,11 +108,12 @@ fn main() {
 		panic('Could not set OpenGL swap interval to vsync:\n${error_msg}')
 	}
 
-	desc := gfx.Desc{}
+	desc := create_desc()
 	gfx.setup(&desc)
 	assert gfx.is_valid() == true
 
-	pass_action := gfx.create_clear_pass(0.0, 0.0, 0.0, 1.0)
+	pass_action := gfx.create_clear_pass_action(0.0, 0.0, 0.0, 1.0)
+	pass := create_default_pass(pass_action)
 	mut bind := gfx.Bindings{}
 
 	vertices := [
@@ -105,8 +151,6 @@ fn main() {
 
 	mut should_close := false
 
-	mut w := 0
-	mut h := 0
 	for {
 		evt := sdl.Event{}
 		for 0 < sdl.poll_event(&evt) {
@@ -119,8 +163,7 @@ fn main() {
 			break
 		}
 
-		sdl.gl_get_drawable_size(window, &w, &h)
-		gfx.begin_default_pass(&pass_action, w, h)
+		gfx.begin_pass(&pass)
 
 		gfx.apply_pipeline(shader_pipeline)
 		gfx.apply_bindings(&bind)
