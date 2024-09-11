@@ -27,7 +27,7 @@ pub fn C.SDL_IMAGE_COMPILEDVERSION() int
 
 // compiledversion is the version number macro for the current SDL_image version.
 pub fn compiledversion() int {
-	return C.SDL_VERSIONNUM(image.major_version, image.minor_version, image.patchlevel)
+	return C.SDL_VERSIONNUM(major_version, minor_version, patchlevel)
 }
 
 // This macro will evaluate to true if compiled with SDL_image at least X.Y.Z.
