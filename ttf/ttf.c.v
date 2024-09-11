@@ -28,7 +28,7 @@ fn C.SDL_TTF_COMPILEDVERSION() int
 
 // compiledversion is the version number macro for the current SDL_ttf version.
 pub fn compiledversion() int {
-	return C.SDL_VERSIONNUM(ttf.major_version, ttf.minor_version, ttf.patchlevel)
+	return C.SDL_VERSIONNUM(major_version, minor_version, patchlevel)
 }
 
 pub fn C.SDL_TTF_VERSION_ATLEAST(x int, y int, z int) bool
