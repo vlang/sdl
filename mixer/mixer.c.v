@@ -26,7 +26,7 @@ fn C.SDL_MIXER_COMPILEDVERSION() int
 
 // compiledversion is the version number macro for the current SDL_mixer version.
 pub fn compiledversion() int {
-	return C.SDL_VERSIONNUM(mixer.major_version, mixer.minor_version, mixer.patchlevel)
+	return C.SDL_VERSIONNUM(major_version, minor_version, patchlevel)
 }
 
 pub fn C.SDL_MIXER_VERSION_ATLEAST(x int, y int, z int) bool
