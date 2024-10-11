@@ -30,8 +30,8 @@ $if x64 {
 } $else {
 	#flag windows -L @VMODROOT/thirdparty/SDL2-2.26.0/lib/x86
 }
+
 #flag windows -I @VMODROOT/thirdparty/SDL2-2.26.0/include
-#flag windows -Dmain=SDL_main
-#flag windows -lSDL2main -lSDL2
+#flag windows -lSDL2
 
 #include <SDL.h>
