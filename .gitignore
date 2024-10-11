@@ -1,2 +1,6 @@
 # Ignore binary files
 *.so
+*.exe
+*.tmp.obj
+*.dll
+thirdparty/
