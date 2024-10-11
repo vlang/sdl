@@ -1,6 +1,8 @@
 import os
-import szip
+import compress.szip
 import net.http
+
+const is_terminal = os.is_atty(1) > 0
 
 const urls = [
 	'https://www.libsdl.org/release/SDL2-devel-2.0.10-VC.zip',
@@ -16,7 +18,9 @@ fn main() {
 	for url in urls {
 		parts := url.split('/')
 		zip_file := os.join_path(destination, parts.last())
-		http.download_file(url, zip_file) or { eprintln('Failed to download `${url}`: ${err}') }
+		println('>>> Downloading from: ${url} ... <<<')
+		download(url, zip_file) or { eprintln('Failed to download ${url}: ${err}') }
+		println('>>>>>>>> Finished downloading, size: ${os.file_size(zip_file)} .')
 		if os.exists(zip_file) {
 			szip.extract_zip_to_dir(zip_file, destination) or {
 				eprintln('Unable to delete ${zip_file}')
@@ -34,4 +38,17 @@ fn main() {
 		return
 	}
 	f.close()
+}
+
+fn download(url string, location string) ! {
+	$if windows {
+		http.download_file(url, location)!
+		return
+	}
+	downloader := if is_terminal {
+		&http.Downloader(http.TerminalStreamingDownloader{})
+	} else {
+		&http.Downloader(http.SilentStreamingDownloader{})
+	}
+	http.download_file_with_progress(url, location, downloader: downloader)!
 }
