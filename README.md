@@ -59,8 +59,12 @@ Also note that SDL2 **is not** compatible with SDL `v1.x`.
 ## Notes on garbage collection and memory issues
 
 Currently, with some setups, SDL2 is known to trigger crashes when used in conjunction
-with V's default garbage collector. In these cases running apps importing `sdl` with
-`v run` you may experience runtime crashes and output similar to this:
+with V's default garbage collector. Because of this you have to explicitly **opt-in**
+to use V's garbage collection with SDL2.
+
+If you choose to use the garbage collector
+(by running apps importing `sdl` with `v -d sdl_use_gc run`)
+you may experience runtime crashes and output similar to this:
 
 ```
 main__main: RUNTIME ERROR: invalid memory access
@@ -68,9 +72,9 @@ main__main: RUNTIME ERROR: invalid memory access
 
 We are tracking the issue here: https://github.com/vlang/sdl/issues/744
 
-The crashes can be avoided by passing `-d sdl_memory_no_gc` when compiling V applications
-that contains `import sdl` and managing SDL2's memory manually with calls to the various
-`destroy` and `sdl.free/1` functions.
+The crashes can be avoided by simply **not** passing `-d sdl_use_gc` and
+manage memory manually with SDL's memory functions like `sdl.free/1`, `sdl.malloc/1`,
+`sdl.calloc/2`, `sdl.realloc/2` and the various `create_*` and `destroy` functions.
 
 ## Support
 
@@ -131,9 +135,9 @@ To do this, change to the root directory of the sdl module, like
 `cd %HOMEPATH%\.vmodules\sdl`
 and run
 `v run windows_install_dependencies.vsh`.
-This will create a directory called "thirdparty" which will be used to download and extract the required libraries.
-To successfully run a provided example or your own projects, the sdl dlls must be copied to the main application directory.
-e.g.:
+This will create a directory called "thirdparty" which will be used to download and
+extract the required libraries. To successfully run a provided example or your own projects,
+the sdl dlls must be copied to the main application directory. e.g.:
 ```bash
 copy thirdparty\SDL2-2.26.0\lib\x64\SDL2.dll examples\basic_window\
 cd ..
