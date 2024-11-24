@@ -62,7 +62,7 @@ Currently, with some setups, SDL2 is known to trigger crashes when used in conju
 with V's default garbage collector. Because of this you have to explicitly **opt-in**
 to use V's garbage collection with SDL2.
 
-If you choose to use the garbage collector
+If you choose to use the garbage collector with SDL objects
 (by running apps importing `sdl` with `v -d sdl_use_gc run`)
 you may experience runtime crashes and output similar to this:
 
