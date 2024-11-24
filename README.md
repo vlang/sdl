@@ -73,7 +73,7 @@ main__main: RUNTIME ERROR: invalid memory access
 We are tracking the issue here: https://github.com/vlang/sdl/issues/744
 
 The crashes can be avoided by simply **not** passing `-d sdl_use_gc` and
-manage memory manually with SDL's memory functions like `sdl.free/1`, `sdl.malloc/1`,
+managing memory manually with SDL's memory functions like `sdl.free/1`, `sdl.malloc/1`,
 `sdl.calloc/2`, `sdl.realloc/2` and the various `create_*` and `destroy` functions.
 
 ## Support
