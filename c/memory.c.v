@@ -4,10 +4,10 @@ module c
 // that Boehm will later know how to process. The callbacks here provide such versions:
 fn cb_malloc_func(size usize) voidptr {
 	mut res := unsafe { nil }
-	$if sdl_memory_no_gc ? {
-		res = unsafe { C.malloc(size) }
-	} $else {
+	$if sdl_use_gc ? {
 		res = unsafe { malloc(int(size)) }
+	} $else {
+		res = unsafe { C.malloc(size) }
 	}
 	$if trace_sdl_memory ? {
 		C.fprintf(C.stderr, c'>> sdl.c.cb_malloc_func | size: %lu | => %p\n', size, res)
@@ -17,10 +17,10 @@ fn cb_malloc_func(size usize) voidptr {
 
 fn cb_calloc_func(nmemb usize, size usize) voidptr {
 	mut res := unsafe { nil }
-	$if sdl_memory_no_gc ? {
-		res = unsafe { C.calloc(int(nmemb), int(size)) }
-	} $else {
+	$if sdl_use_gc ? {
 		res = unsafe { vcalloc(isize(nmemb) * isize(size)) }
+	} $else {
+		res = unsafe { C.calloc(int(nmemb), int(size)) }
 	}
 	$if trace_sdl_memory ? {
 		C.fprintf(C.stderr, c'>> sdl.c.cb_calloc_func | nmemb: %lu | size: %lu | => %p\n',
@@ -31,10 +31,10 @@ fn cb_calloc_func(nmemb usize, size usize) voidptr {
 
 fn cb_realloc_func(mem voidptr, size usize) voidptr {
 	mut res := unsafe { nil }
-	$if sdl_memory_no_gc ? {
-		res = unsafe { C.realloc(&u8(mem), int(size)) }
-	} $else {
+	$if sdl_use_gc ? {
 		res = unsafe { v_realloc(&u8(mem), isize(size)) }
+	} $else {
+		res = unsafe { C.realloc(&u8(mem), int(size)) }
 	}
 	$if trace_sdl_memory ? {
 		C.fprintf(C.stderr, c'>> sdl.c.cb_realloc_func | mem: %p | size: %lu | => %p\n',
@@ -47,10 +47,10 @@ fn cb_free_func(mem voidptr) {
 	$if trace_sdl_memory ? {
 		C.fprintf(C.stderr, c'>> sdl.c.cb_free_func | mem: %p\n', mem)
 	}
-	$if sdl_memory_no_gc ? {
-		unsafe { C.free(mem) }
-	} $else {
+	$if sdl_use_gc ? {
 		unsafe { free(mem) }
+	} $else {
+		unsafe { C.free(mem) }
 	}
 }
 
