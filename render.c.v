@@ -626,7 +626,7 @@ pub fn update_nv_texture(texture &C.SDL_Texture, const_rect &Rect, const_yplane 
 		u_vpitch)
 }
 
-fn C.SDL_LockTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, pixels voidptr, pitch &int) int
+fn C.SDL_LockTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, pixels &voidptr, pitch &int) int
 
 // lock_texture locks a portion of the texture for **write-only** pixel access.
 //
@@ -653,7 +653,7 @@ fn C.SDL_LockTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, pixels void
 // NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_UnlockTexture
-pub fn lock_texture(texture &Texture, const_rect &Rect, pixels voidptr, pitch &int) int {
+pub fn lock_texture(texture &Texture, const_rect &Rect, pixels &voidptr, pitch &int) int {
 	return C.SDL_LockTexture(texture, const_rect, pixels, pitch)
 }
 
