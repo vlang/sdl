@@ -413,7 +413,7 @@ pub fn update_yuv_texture(texture &Texture, const_rect &Rect, const_yplane &u8, 
 		upitch, const_vplane, vpitch)
 }
 
-fn C.SDL_LockTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, pixels voidptr, pitch &int) int
+fn C.SDL_LockTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, pixels &voidptr, pitch &int) int
 
 // lock_texture locks a portion of the texture for write-only pixel access.
 //
@@ -428,7 +428,7 @@ fn C.SDL_LockTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, pixels void
 // returns 0 on success, or -1 if the texture is not valid or was not created with ::SDL_TEXTUREACCESS_STREAMING.
 //
 // See also: SDL_UnlockTexture()
-pub fn lock_texture(texture &Texture, const_rect &Rect, pixels voidptr, pitch &int) int {
+pub fn lock_texture(texture &Texture, const_rect &Rect, pixels &voidptr, pitch &int) int {
 	return C.SDL_LockTexture(texture, const_rect, pixels, pitch)
 }
 
