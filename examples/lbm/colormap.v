@@ -39,8 +39,6 @@ pub fn Colormap.build(c1 u32, c2 u32, steps int) []u32 {
 	return cm
 }
 
-
-
 // dual creates a color map with start color, intermediate color and final color, equaly sized.
 fn Colormap.dual(c1 u32, c2 u32, c3 u32, steps int) []u32 {
 	assert steps > 2, 'Error, generating dual-colormap needs at least three steps.'

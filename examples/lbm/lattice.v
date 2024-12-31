@@ -39,7 +39,7 @@ pub fn (l Lattice) total_rho() f64 {
 
 // clear the Lattice : File fields with zeros.
 pub fn (mut l Lattice) clear() {
-	unsafe{vmemset(l.m.data, 0, u32(l.m.len) * sizeof(Cell) )}
+	unsafe { vmemset(l.m.data, 0, u32(l.m.len) * sizeof(Cell)) }
 }
 
 // add_flow create an artificial flow of i intensity in v direction
@@ -211,10 +211,10 @@ pub fn (l Lattice) move(mut output Lattice) {
 	output.clear()
 
 	for y in 0 .. l.h {
-		for x in 0 .. l.w  {
+		for x in 0 .. l.w {
 			output.m[index].obstacle = l.m[index].obstacle // Copy src reachable state to output
 			for m in vi { // For this cell, for all direction vectors or mini particles
-			    mini_part := l.m[index].get(m)
+				mini_part := l.m[index].get(m)
 				if dst_ind := l.reachable(x, y, m) {
 					output.m[dst_ind].sum(m, mini_part) // move mini-particle
 				} else {
@@ -271,8 +271,8 @@ fn (l Lattice) reachable(x int, y int, v Vi) ?int {
 	ind := nx + (l.w * ny) // Get 1D index in lattice.
 
 	return if l.m[ind].obstacle {
-		 none
+		none
 	} else {
-		ind  // Destination cell is obstacle free. Return it's index.
+		ind // Destination cell is obstacle free. Return it's index.
 	}
 }

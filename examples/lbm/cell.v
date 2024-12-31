@@ -71,7 +71,7 @@ mut:
 fn Cell.new(o bool) Cell {
 	return Cell{
 		obstacle: o
-		sp: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]!
+		sp:       [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]!
 	} // ! means fixed size array ! Will change a day !
 }
 
@@ -135,7 +135,8 @@ fn (c &Cell) ux() f64 {
 // uy computes y (vertical) component of cell speed vector.
 fn (c &Cell) uy() f64 {
 	rho := c.rho()
-	r := 1.0 / rho * (-c.sp[Vi.north] - c.sp[Vi.north_east] - c.sp[Vi.north_west] + c.sp[Vi.south_east] + c.sp[Vi.south] + c.sp[Vi.south_west])
+	r := 1.0 / rho * (-c.sp[Vi.north] - c.sp[Vi.north_east] - c.sp[Vi.north_west] +
+		c.sp[Vi.south_east] + c.sp[Vi.south] + c.sp[Vi.south_west])
 	assert math.is_nan(r) == false
 	return r
 }
@@ -148,7 +149,8 @@ fn (c &Cell) ux_no_rho(rho f64) f64 {
 
 // uy_no_rho computes y (vertical) component of cell speed vector, when rho is already known and passed as param.
 fn (c &Cell) uy_no_rho(rho f64) f64 {
-	r := 1.0 / rho * (-c.sp[Vi.north] - c.sp[Vi.north_east] - c.sp[Vi.north_west] + c.sp[Vi.south_east] + c.sp[Vi.south] + c.sp[Vi.south_west])
+	r := 1.0 / rho * (-c.sp[Vi.north] - c.sp[Vi.north_east] - c.sp[Vi.north_west] +
+		c.sp[Vi.south_east] + c.sp[Vi.south] + c.sp[Vi.south_west])
 	return r
 }
 
@@ -158,8 +160,8 @@ fn (c &Cell) equ(i Vi) f64 {
 	ux := c.ux_no_rho(rho)
 	uy := c.uy_no_rho(rho)
 
-	t1 := 3.0 * (ux * dvx_f[i] +uy * dvy_f[i])
-	mut t2 := (ux * dvx_f[i] +uy * dvy_f[i])
+	t1 := 3.0 * (ux * dvx_f[i] + uy * dvy_f[i])
+	mut t2 := (ux * dvx_f[i] + uy * dvy_f[i])
 
 	t2 *= t2 // t2^2
 	t2 *= (9.0 / 2.0)
