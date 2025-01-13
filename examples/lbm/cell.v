@@ -60,10 +60,10 @@ fn (v Vi) opposite() Vi {
 // Discrete velocity vectors, by component, with respect to SDL display orientation (North is negative on y axis)
 // f64 and int are provided to avoid unnecessary casts.
 // Warning: These vectors must be coherent with Vi enum order !
-const dvx_f = [0.0, 0.0, 1.0, 1.0, 1.0, 0.0, -1.0, -1.0, -1.0]
-const dvy_f = [0.0, -1.0, -1.0, 0.0, 1.0, 1.0, 1.0, 0.0, -1.0]
-const dvx_i = [0, 0, 1, 1, 1, 0, -1, -1, -1]
-const dvy_i = [0, -1, -1, 0, 1, 1, 1, 0, -1]
+const dvx_f = [0.0, 0.0, 1.0, 1.0, 1.0, 0.0, -1.0, -1.0, -1.0]!
+const dvy_f = [0.0, -1.0, -1.0, 0.0, 1.0, 1.0, 1.0, 0.0, -1.0]!
+const dvx_i = [0, 0, 1, 1, 1, 0, -1, -1, -1]!
+const dvy_i = [0, -1, -1, 0, 1, 1, 1, 0, -1]!
 
 struct Cell {
 mut:
