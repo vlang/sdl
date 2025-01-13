@@ -44,7 +44,6 @@ const vi = [
 
 // wi is the weight of mini-cells.
 // Warning: This array must be coherent with Vi enum order !
-// vfmt off
 const wi = [
 	f64(16.0 / 36.0),   4.0 / 36.0,    1.0 / 36.0, 
 	4.0 / 36.0,         1.0 / 36.0,    4.0 / 36.0, 
