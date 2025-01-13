@@ -3,8 +3,6 @@ module main
 import math
 import rand
 
-// vfmt off
-//
 // This file contains Code and data structures for a Lattice-Boltzmann-Method (LBM)
 // fluid flow simulation. The simulation is 2 Dimension, with 9 possible directions (D2Q9)
 //
@@ -15,33 +13,50 @@ import rand
 //  6     5     4
 
 // Vi is an enum for direction vector of D2Q9 Lattice.
-pub enum Vi as int {
-	center =0
-	north = 1
-	north_east =2
-	east=3
-	south_east=4
-	south= 5
+pub enum Vi {
+	center     = 0
+	north      = 1
+	north_east = 2
+	//
+	east       = 3
+	south_east = 4
+	south      = 5
+	//
 	south_west = 6
-	west=7
+	west       = 7
 	north_west = 8
 }
+
+// vfmt off
+const opp = [
+	Vi.center,          Vi.south,      Vi.south_west, 
+	Vi.west,            Vi.north_west, Vi.north, 
+	Vi.north_east, 	    Vi.east,       Vi.south_east,
+]!
+
+// Array defined here in order to loop over a Vi enum.
+// Warning: This array must be coherent with Vi enum order !
+const vi = [
+	Vi.center,          Vi.north,      Vi.north_east,
+	Vi.east,            Vi.south_east, Vi.south, 
+	Vi.south_west,      Vi.west,       Vi.north_west,
+]!
+
+// wi is the weight of mini-cells.
+// Warning: This array must be coherent with Vi enum order !
+// vfmt off
+const wi = [
+	f64(16.0 / 36.0),   4.0 / 36.0,    1.0 / 36.0, 
+	4.0 / 36.0,         1.0 / 36.0,    4.0 / 36.0, 
+	1.0 / 36.0,         4.0 / 36.0,    1.0 / 36.0,
+]
+// vfmt on
 
 // opposite returns vector of opposite direction. Yes Enum can have methods in V.
 // Warning: This array must be coherent with Vi enum order !
 fn (v Vi) opposite() Vi {
-	 opp :=[Vi.center, Vi.south, Vi.south_west,
-				  Vi.west, Vi.north_west, Vi.north,
-				  Vi.north_east, Vi.east, Vi.south_east]
-
 	return opp[int(v)]
 }
-
-//Array defined here in order to loop over a Vi enum.
-// Warning: This array must be coherent with Vi enum order !
-const vi = [Vi.center, Vi.north, Vi.north_east,
-                  Vi.east, Vi.south_east, Vi.south,
-                  Vi.south_west, Vi.west, Vi.north_west]
 
 // Discrete velocity vectors, by component, with respect to SDL display orientation (North is negative on y axis)
 // f64 and int are provided to avoid unnecessary casts.
@@ -50,15 +65,6 @@ const dvx_f = [0.0, 0.0, 1.0, 1.0, 1.0, 0.0, -1.0, -1.0, -1.0]
 const dvy_f = [0.0, -1.0, -1.0, 0.0, 1.0, 1.0, 1.0, 0.0, -1.0]
 const dvx_i = [0, 0, 1, 1, 1, 0, -1, -1, -1]
 const dvy_i = [0, -1, -1, 0, 1, 1, 1, 0, -1]
-
-// wi is the weight of mini-cells.
-// Warning: This array must be coherent with Vi enum order !
-const wi = [f64(16.0 / 36.0), 4.0 / 36.0, 1.0 / 36.0,
-	                   4.0 / 36.0,   1.0 / 36.0, 4.0 / 36.0,
-		 	           1.0 / 36.0,   4.0 / 36.0, 1.0 / 36.0
-]
-
-// vfmt on
 
 struct Cell {
 mut:
