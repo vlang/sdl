@@ -49,7 +49,7 @@ const wi = [
 	f64(16.0 / 36.0),   4.0 / 36.0,    1.0 / 36.0, 
 	4.0 / 36.0,         1.0 / 36.0,    4.0 / 36.0, 
 	1.0 / 36.0,         4.0 / 36.0,    1.0 / 36.0,
-]
+]!
 // vfmt on
 
 // opposite returns vector of opposite direction. Yes Enum can have methods in V.
