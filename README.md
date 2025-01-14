@@ -13,7 +13,7 @@ So, among many other things, you can:
 # Install
 
 To use `vlang/sdl` you need SDL2 libraries installed and the corresponding
-`vlang/v` *branch* checked out that *matches the SDL2 version installed* on the target system.
+`vlang/sdl` *branch* checked out that *matches the SDL2 version installed* on the target system.
 
 See [Dependencies](#Dependencies) section below for how to install SDL2
 for different OSes and systems.
