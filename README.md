@@ -35,7 +35,7 @@ v ~/.vmodules/sdl/setup.vsh
 Should `sdl2-config` be absent on your system you can try the following instead,
 by providing the version manually:
 
-An example of installing SDL2 `v2.0.12` via `git`:
+An example of installing the `2.0.12` branch (that *matches* SDL2 version 2.0.12) via `git`:
 ```bash
 git clone https://github.com/vlang/sdl.git ~/.vmodules/sdl
 cd ~/.vmodules/sdl
@@ -50,9 +50,6 @@ git checkout 2.0.12
 Then follow the steps in the [Windows](#windows) section below.
 
 You can see what `sdl` releases are available in the [GitHub repository](https://github.com/vlang/sdl/branches) via branches.
-
-Also note that you'll need the SDL2 libraries available on your system
-see the [Dependencies](#dependencies) section below for more details.
 
 ### Version notes
 
