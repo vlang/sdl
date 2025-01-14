@@ -12,6 +12,12 @@ So, among many other things, you can:
 
 # Install
 
+To use `vlang/sdl` you need SDL2 libraries installed and the corresponding
+`vlang/v` *branch* checked out that *matches the SDL2 version installed* on the target system.
+
+See [Dependencies](#Dependencies) section below for how to install SDL2
+for different OSes and systems.
+
 If you have SDL2 version `2.30.x` installed on your system you can simply do:
 ```bash
 v install sdl
@@ -130,7 +136,7 @@ brew reinstall --build-from-source --force sdl2 sdl2_gfx sdl2_image sdl2_mixer s
 ```
 
 ### Windows
-It is necessary to install the sdl2 development libraries for Windows.
+It is necessary to install the SDL2 development libraries for Windows.
 To do this, change to the root directory of the sdl module, like
 `cd %HOMEPATH%\.vmodules\sdl`
 and run
