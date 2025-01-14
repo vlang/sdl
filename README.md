@@ -12,9 +12,16 @@ So, among many other things, you can:
 
 # Install
 
-If you want to use SDL2 `v2.0.8` you can simply do:
+To use `vlang/sdl` you need SDL2 libraries installed and the corresponding
+`vlang/sdl` *branch* checked out that *matches the SDL2 version installed* on the target system.
+
+See [Dependencies](#Dependencies) section below for how to install SDL2
+for different OSes and systems.
+
+If you have SDL2 version `2.30.x` installed on your system you can simply do:
 ```bash
 v install sdl
+v ~/.vmodules/sdl/setup.vsh
 ```
 
 If you want to use another version of SDL2 you will, currently, have to install
@@ -29,7 +36,7 @@ v ~/.vmodules/sdl/setup.vsh
 Should `sdl2-config` be absent on your system you can try the following instead,
 by providing the version manually:
 
-An example of installing SDL2 `v2.0.12` via `git`:
+An example of installing the `2.0.12` branch (that *matches* SDL2 version 2.0.12) via `git`:
 ```bash
 git clone https://github.com/vlang/sdl.git ~/.vmodules/sdl
 cd ~/.vmodules/sdl
@@ -44,9 +51,6 @@ git checkout 2.0.12
 Then follow the steps in the [Windows](#windows) section below.
 
 You can see what `sdl` releases are available in the [GitHub repository](https://github.com/vlang/sdl/branches) via branches.
-
-Also note that you'll need the SDL2 libraries available on your system
-see the [Dependencies](#dependencies) section below for more details.
 
 ### Version notes
 
@@ -130,7 +134,7 @@ brew reinstall --build-from-source --force sdl2 sdl2_gfx sdl2_image sdl2_mixer s
 ```
 
 ### Windows
-It is necessary to install the sdl2 development libraries for Windows.
+It is necessary to install the SDL2 development libraries for Windows.
 To do this, change to the root directory of the sdl module, like
 `cd %HOMEPATH%\.vmodules\sdl`
 and run
