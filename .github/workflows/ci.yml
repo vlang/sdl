@@ -100,8 +100,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: sdl
-          ref: "2.30.0"
-          fetch-depth: 0
 
       - name: Link local SDL folder in ~/.vmodules/sdl
         run: |
