@@ -21,6 +21,7 @@ for different OSes and systems.
 If you have SDL2 version `2.30.x` installed on your system you can simply do:
 ```bash
 v install sdl
+v ~/.vmodules/sdl/setup.vsh
 ```
 
 If you want to use another version of SDL2 you will, currently, have to install
