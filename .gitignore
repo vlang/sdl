@@ -1,0 +1,9 @@
+# Ignore binary files
+*.so
+*.exe
+*.tmp.obj
+*.dll
+thirdparty/
+
+windows_install_dependencies
+setup
