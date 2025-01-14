@@ -12,7 +12,7 @@ So, among many other things, you can:
 
 # Install
 
-If you want to use SDL2 `v2.0.8` you can simply do:
+If you have SDL2 version `2.30.x` installed on your system you can simply do:
 ```bash
 v install sdl
 ```
