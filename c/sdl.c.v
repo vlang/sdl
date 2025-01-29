@@ -13,7 +13,12 @@ $if !windows {
 		// This is especially useful when building/linking against a
 		// custom compiled version of the libs on *nix.
 		$if !sdl_no_compile_flags ? {
-			#pkgconfig --cflags --libs sdl2
+			$if sdl_compat ? {
+				// Use SDL2 through SDL3 via the compatibility layer
+				#pkgconfig --cflags --libs sdl2_compat
+			} $else {
+				#pkgconfig --cflags --libs sdl2
+			}
 		}
 	}
 } $else {
