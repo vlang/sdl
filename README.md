@@ -59,6 +59,10 @@ SDL2 is backwards compatible - so anything written against `v2.0.8` can be compi
 against newer versions of the SDL2 library.
 
 Also note that SDL2 **is not** compatible with SDL `v1.x`.
+SDL2 is however compatible with SDL3 through the [`sdl2-compat`](https://github.com/libsdl-org/sdl2-compat) layer.
+Which makes it possible to use the SDL2 API through the SDL3 libraries.
+You can tell `sdl` to use this compatibility layer on systems that support `pkgconfig` by
+passing the compile time flag `-d sdl_compat` when building your `sdl`/SDL2 based V application.
 
 ## Notes on garbage collection and memory issues
 
