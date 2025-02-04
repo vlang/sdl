@@ -44,13 +44,11 @@ pub struct C.VkAllocationCallbacks {}
 
 pub type VkAllocationCallbacks = C.VkAllocationCallbacks
 
-// TODO Non-numerical: #define NO_SDL_VULKAN_TYPEDEFS
+// TODO: #define VK_DEFINE_HANDLE(object) typedef struct object##_T* object;
 
-// TODO Non-numerical: #define VK_DEFINE_HANDLE(object) typedef struct object##_T* object;
+// TODO: #define VK_DEFINE_NON_DISPATCHABLE_HANDLE(object) typedef struct object##_T *object;
 
-// TODO Non-numerical: #define VK_DEFINE_NON_DISPATCHABLE_HANDLE(object) typedef struct object##_T *object;
-
-// TODO Non-numerical: #define VK_DEFINE_NON_DISPATCHABLE_HANDLE(object) typedef uint64_t object;
+// TODO: #define VK_DEFINE_NON_DISPATCHABLE_HANDLE(object) typedef uint64_t object;
 
 // C.SDL_Vulkan_LoadLibrary [official documentation](https://wiki.libsdl.org/SDL3/SDL_Vulkan_LoadLibrary)
 fn C.SDL_Vulkan_LoadLibrary(const_path &char) bool

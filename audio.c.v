@@ -124,7 +124,7 @@ pub const audio_mask_big_endian = C.SDL_AUDIO_MASK_BIG_ENDIAN // (1u<<12)
 
 pub const audio_mask_signed = C.SDL_AUDIO_MASK_SIGNED // (1u<<15)
 
-// TODO Non-numerical: #define SDL_DEFINE_AUDIO_FORMAT(signed, bigendian, flt, size) \
+// TODO: Non-numerical: #define SDL_DEFINE_AUDIO_FORMAT(signed, bigendian, flt, size) \
 
 // AudioFormat is C.SDL_AudioFormat
 pub enum AudioFormat {
@@ -199,7 +199,7 @@ pub mut:
 
 pub type AudioSpec = C.SDL_AudioSpec
 
-// TODO Function: #define SDL_AUDIO_FRAMESIZE(x) (SDL_AUDIO_BYTESIZE((x).format) * (x).channels)
+// TODO: Function: #define SDL_AUDIO_FRAMESIZE(x) (SDL_AUDIO_BYTESIZE((x).format) * (x).channels)
 
 @[noinit; typedef]
 pub struct C.SDL_AudioStream {

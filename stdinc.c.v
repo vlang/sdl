@@ -84,9 +84,9 @@ pub type Uint64 = u64
 // See also: minsin_t64 (SDL_MIN_SINT64)
 pub type Time = i64
 
-// TODO Non-numerical: #define SDL_INCLUDE_STDBOOL_H
+// TODO: Non-numerical: #define SDL_INCLUDE_STDBOOL_H
 
-// TODO Non-numerical: #define bool  unsigned char
+// TODO: Non-numerical: #define bool  unsigned char
 
 // Visual Studio 2017
 pub const @false = 0
@@ -111,61 +111,61 @@ pub const __bool_true_false_are_defined = C.__bool_true_false_are_defined // 1
 // defined, for various technical reasons.
 pub const nolonglong = C.SDL_NOLONGLONG // 1
 
-// TODO Non-numerical: #define SDL_SIZE_MAX SIZE_MAX
+// TODO: Non-numerical: #define SDL_SIZE_MAX SIZE_MAX
 
-// TODO Function: #define SDL_COMPILE_TIME_ASSERT(name, x) FailToCompileIf_x_IsFalse(x)
+// TODO: Function: #define SDL_COMPILE_TIME_ASSERT(name, x) FailToCompileIf_x_IsFalse(x)
 
-// TODO Function: #define SDL_COMPILE_TIME_ASSERT(name, x)  static_assert(x, #x)
+// TODO: Function: #define SDL_COMPILE_TIME_ASSERT(name, x)  static_assert(x, #x)
 
-// TODO Function: #define SDL_COMPILE_TIME_ASSERT(name, x)  static_assert(x, #x)
+// TODO: Function: #define SDL_COMPILE_TIME_ASSERT(name, x)  static_assert(x, #x)
 
-// TODO Function: #define SDL_COMPILE_TIME_ASSERT(name, x) _Static_assert(x, #x)
+// TODO: Function: #define SDL_COMPILE_TIME_ASSERT(name, x) _Static_assert(x, #x)
 
-// TODO Non-numerical: #define SDL_COMPILE_TIME_ASSERT(name, x)               \
+// TODO: Non-numerical: #define SDL_COMPILE_TIME_ASSERT(name, x)               \
 
-// TODO Function: #define SDL_arraysize(array) (sizeof(array)/sizeof(array[0]))
+// TODO: Function: #define SDL_arraysize(array) (sizeof(array)/sizeof(array[0]))
 
-// TODO Non-numerical: #define SDL_STRINGIFY_ARG(arg)  #arg
+// TODO: Non-numerical: #define SDL_STRINGIFY_ARG(arg)  #arg
 
-// TODO Function: #define SDL_reinterpret_cast(type, expression) reinterpret_cast<type>(expression)
+// TODO: Function: #define SDL_reinterpret_cast(type, expression) reinterpret_cast<type>(expression)
 
-// TODO Function: #define SDL_static_cast(type, expression) static_cast<type>(expression)
+// TODO: Function: #define SDL_static_cast(type, expression) static_cast<type>(expression)
 
-// TODO Function: #define SDL_const_cast(type, expression) const_cast<type>(expression)
+// TODO: Function: #define SDL_const_cast(type, expression) const_cast<type>(expression)
 
-// TODO Function: #define SDL_reinterpret_cast(type, expression) reinterpret_cast<type>(expression)
+// TODO: Function: #define SDL_reinterpret_cast(type, expression) reinterpret_cast<type>(expression)
 
-// TODO Function: #define SDL_static_cast(type, expression) static_cast<type>(expression)
+// TODO: Function: #define SDL_static_cast(type, expression) static_cast<type>(expression)
 
-// TODO Function: #define SDL_const_cast(type, expression) const_cast<type>(expression)
+// TODO: Function: #define SDL_const_cast(type, expression) const_cast<type>(expression)
 
-// TODO Function: #define SDL_reinterpret_cast(type, expression) ((type)(expression))
+// TODO: Function: #define SDL_reinterpret_cast(type, expression) ((type)(expression))
 
-// TODO Function: #define SDL_static_cast(type, expression) ((type)(expression))
+// TODO: Function: #define SDL_static_cast(type, expression) ((type)(expression))
 
-// TODO Function: #define SDL_const_cast(type, expression) ((type)(expression))
+// TODO: Function: #define SDL_const_cast(type, expression) ((type)(expression))
 
-// TODO Non-numerical: #define SDL_FOURCC(A, B, C, D) \
+// TODO: Non-numerical: #define SDL_FOURCC(A, B, C, D) \
 
-// TODO Non-numerical: #define SDL_SINT64_C(c)  c ## LL
+// TODO: Non-numerical: #define SDL_SINT64_C(c)  c ## LL
 
-// TODO Non-numerical: #define SDL_UINT64_C(c)  c ## ULL
+// TODO: Non-numerical: #define SDL_UINT64_C(c)  c ## ULL
 
-// TODO Function: #define SDL_SINT64_C(c)  INT64_C(c)
+// TODO: Function: #define SDL_SINT64_C(c)  INT64_C(c)
 
-// TODO Non-numerical: #define SDL_SINT64_C(c)  c ## i64
+// TODO: Non-numerical: #define SDL_SINT64_C(c)  c ## i64
 
-// TODO Non-numerical: #define SDL_SINT64_C(c)  c ## L
+// TODO: Non-numerical: #define SDL_SINT64_C(c)  c ## L
 
-// TODO Non-numerical: #define SDL_SINT64_C(c)  c ## LL
+// TODO: Non-numerical: #define SDL_SINT64_C(c)  c ## LL
 
-// TODO Function: #define SDL_UINT64_C(c)  UINT64_C(c)
+// TODO: Function: #define SDL_UINT64_C(c)  UINT64_C(c)
 
-// TODO Non-numerical: #define SDL_UINT64_C(c)  c ## ui64
+// TODO: Non-numerical: #define SDL_UINT64_C(c)  c ## ui64
 
-// TODO Non-numerical: #define SDL_UINT64_C(c)  c ## UL
+// TODO: Non-numerical: #define SDL_UINT64_C(c)  c ## UL
 
-// TODO Non-numerical: #define SDL_UINT64_C(c)  c ## ULL
+// TODO: Non-numerical: #define SDL_UINT64_C(c)  c ## ULL
 
 pub const max_sint8 = C.SDL_MAX_SINT8 // ((Sint8)0x7F)
 
@@ -203,9 +203,9 @@ pub const max_time = C.SDL_MAX_TIME // SDL_MAX_SINT64
 
 pub const min_time = C.SDL_MIN_TIME // SDL_MIN_SINT64
 
-// TODO Non-numerical: #define SDL_FLT_EPSILON FLT_EPSILON
+// TODO: Non-numerical: #define SDL_FLT_EPSILON FLT_EPSILON
 
-// TODO Non-numerical: #define SDL_FLT_EPSILON 1.1920928955078125e-07F
+// TODO: Non-numerical: #define SDL_FLT_EPSILON 1.1920928955078125e-07F
 
 // A printf-formatting string for an Sint64 value.
 //
@@ -355,117 +355,117 @@ pub const prillx = C.SDL_PRILLx // SDL_PRILL_PREFIX 'x'
 // NOTE: This macro is available since SDL 3.2.0.
 pub const prillxx = C.SDL_PRILLX // SDL_PRILL_PREFIX 'X'
 
-// TODO Function: #define SDL_IN_BYTECAP(x) _In_bytecount_(x)
+// TODO: Function: #define SDL_IN_BYTECAP(x) _In_bytecount_(x)
 
-// TODO Function: #define SDL_INOUT_Z_CAP(x) _Inout_z_cap_(x)
+// TODO: Function: #define SDL_INOUT_Z_CAP(x) _Inout_z_cap_(x)
 
-// TODO Function: #define SDL_OUT_Z_CAP(x) _Out_z_cap_(x)
+// TODO: Function: #define SDL_OUT_Z_CAP(x) _Out_z_cap_(x)
 
-// TODO Function: #define SDL_OUT_CAP(x) _Out_cap_(x)
+// TODO: Function: #define SDL_OUT_CAP(x) _Out_cap_(x)
 
-// TODO Function: #define SDL_OUT_BYTECAP(x) _Out_bytecap_(x)
+// TODO: Function: #define SDL_OUT_BYTECAP(x) _Out_bytecap_(x)
 
-// TODO Function: #define SDL_OUT_Z_BYTECAP(x) _Out_z_bytecap_(x)
+// TODO: Function: #define SDL_OUT_Z_BYTECAP(x) _Out_z_bytecap_(x)
 
-// TODO Non-numerical: #define SDL_PRINTF_FORMAT_STRING _Printf_format_string_
+// TODO: Non-numerical: #define SDL_PRINTF_FORMAT_STRING _Printf_format_string_
 
-// TODO Non-numerical: #define SDL_SCANF_FORMAT_STRING _Scanf_format_string_impl_
+// TODO: Non-numerical: #define SDL_SCANF_FORMAT_STRING _Scanf_format_string_impl_
 
-// TODO Function: #define SDL_PRINTF_VARARG_FUNC( fmtargnumber ) __attribute__ (( format( __printf__, fmtargnumber, fmtargnumber+1 )))
+// TODO: Function: #define SDL_PRINTF_VARARG_FUNC( fmtargnumber ) __attribute__ (( format( __printf__, fmtargnumber, fmtargnumber+1 )))
 
-// TODO Function: #define SDL_PRINTF_VARARG_FUNCV( fmtargnumber ) __attribute__(( format( __printf__, fmtargnumber, 0 )))
+// TODO: Function: #define SDL_PRINTF_VARARG_FUNCV( fmtargnumber ) __attribute__(( format( __printf__, fmtargnumber, 0 )))
 
-// TODO Function: #define SDL_SCANF_VARARG_FUNC( fmtargnumber ) __attribute__ (( format( __scanf__, fmtargnumber, fmtargnumber+1 )))
+// TODO: Function: #define SDL_SCANF_VARARG_FUNC( fmtargnumber ) __attribute__ (( format( __scanf__, fmtargnumber, fmtargnumber+1 )))
 
-// TODO Function: #define SDL_SCANF_VARARG_FUNCV( fmtargnumber ) __attribute__(( format( __scanf__, fmtargnumber, 0 )))
+// TODO: Function: #define SDL_SCANF_VARARG_FUNCV( fmtargnumber ) __attribute__(( format( __scanf__, fmtargnumber, 0 )))
 
-// TODO Non-numerical: #define SDL_WPRINTF_VARARG_FUNC( fmtargnumber )
+// TODO: Non-numerical: #define SDL_WPRINTF_VARARG_FUNC( fmtargnumber )
 
-// TODO Non-numerical: #define SDL_WPRINTF_VARARG_FUNCV( fmtargnumber )
+// TODO: Non-numerical: #define SDL_WPRINTF_VARARG_FUNCV( fmtargnumber )
 
-// TODO Function: #define SDL_IN_BYTECAP(x)
+// TODO: Function: #define SDL_IN_BYTECAP(x)
 
-// TODO Function: #define SDL_INOUT_Z_CAP(x)
+// TODO: Function: #define SDL_INOUT_Z_CAP(x)
 
-// TODO Function: #define SDL_OUT_Z_CAP(x)
+// TODO: Function: #define SDL_OUT_Z_CAP(x)
 
-// TODO Function: #define SDL_OUT_CAP(x)
+// TODO: Function: #define SDL_OUT_CAP(x)
 
-// TODO Function: #define SDL_OUT_BYTECAP(x)
+// TODO: Function: #define SDL_OUT_BYTECAP(x)
 
-// TODO Function: #define SDL_OUT_Z_BYTECAP(x)
+// TODO: Function: #define SDL_OUT_Z_BYTECAP(x)
 
-// TODO Non-numerical: #define SDL_PRINTF_FORMAT_STRING
+// TODO: Non-numerical: #define SDL_PRINTF_FORMAT_STRING
 
-// TODO Non-numerical: #define SDL_SCANF_FORMAT_STRING
+// TODO: Non-numerical: #define SDL_SCANF_FORMAT_STRING
 
-// TODO Non-numerical: #define SDL_PRINTF_VARARG_FUNC( fmtargnumber )
+// TODO: Non-numerical: #define SDL_PRINTF_VARARG_FUNC( fmtargnumber )
 
-// TODO Non-numerical: #define SDL_PRINTF_VARARG_FUNCV( fmtargnumber )
+// TODO: Non-numerical: #define SDL_PRINTF_VARARG_FUNCV( fmtargnumber )
 
-// TODO Non-numerical: #define SDL_SCANF_VARARG_FUNC( fmtargnumber )
+// TODO: Non-numerical: #define SDL_SCANF_VARARG_FUNC( fmtargnumber )
 
-// TODO Non-numerical: #define SDL_SCANF_VARARG_FUNCV( fmtargnumber )
+// TODO: Non-numerical: #define SDL_SCANF_VARARG_FUNCV( fmtargnumber )
 
-// TODO Non-numerical: #define SDL_WPRINTF_VARARG_FUNC( fmtargnumber )
+// TODO: Non-numerical: #define SDL_WPRINTF_VARARG_FUNC( fmtargnumber )
 
-// TODO Non-numerical: #define SDL_WPRINTF_VARARG_FUNCV( fmtargnumber )
+// TODO: Non-numerical: #define SDL_WPRINTF_VARARG_FUNCV( fmtargnumber )
 
-// TODO Function: #define SDL_IN_BYTECAP(x) _In_bytecount_(x)
+// TODO: Function: #define SDL_IN_BYTECAP(x) _In_bytecount_(x)
 
-// TODO Function: #define SDL_INOUT_Z_CAP(x) _Inout_z_cap_(x)
+// TODO: Function: #define SDL_INOUT_Z_CAP(x) _Inout_z_cap_(x)
 
-// TODO Function: #define SDL_OUT_Z_CAP(x) _Out_z_cap_(x)
+// TODO: Function: #define SDL_OUT_Z_CAP(x) _Out_z_cap_(x)
 
-// TODO Function: #define SDL_OUT_CAP(x) _Out_cap_(x)
+// TODO: Function: #define SDL_OUT_CAP(x) _Out_cap_(x)
 
-// TODO Function: #define SDL_OUT_BYTECAP(x) _Out_bytecap_(x)
+// TODO: Function: #define SDL_OUT_BYTECAP(x) _Out_bytecap_(x)
 
-// TODO Function: #define SDL_OUT_Z_BYTECAP(x) _Out_z_bytecap_(x)
+// TODO: Function: #define SDL_OUT_Z_BYTECAP(x) _Out_z_bytecap_(x)
 
-// TODO Non-numerical: #define SDL_PRINTF_FORMAT_STRING _Printf_format_string_
+// TODO: Non-numerical: #define SDL_PRINTF_FORMAT_STRING _Printf_format_string_
 
-// TODO Non-numerical: #define SDL_SCANF_FORMAT_STRING _Scanf_format_string_impl_
+// TODO: Non-numerical: #define SDL_SCANF_FORMAT_STRING _Scanf_format_string_impl_
 
-// TODO Function: #define SDL_IN_BYTECAP(x)
+// TODO: Function: #define SDL_IN_BYTECAP(x)
 
-// TODO Function: #define SDL_INOUT_Z_CAP(x)
+// TODO: Function: #define SDL_INOUT_Z_CAP(x)
 
-// TODO Function: #define SDL_OUT_Z_CAP(x)
+// TODO: Function: #define SDL_OUT_Z_CAP(x)
 
-// TODO Function: #define SDL_OUT_CAP(x)
+// TODO: Function: #define SDL_OUT_CAP(x)
 
-// TODO Function: #define SDL_OUT_BYTECAP(x)
+// TODO: Function: #define SDL_OUT_BYTECAP(x)
 
-// TODO Function: #define SDL_OUT_Z_BYTECAP(x)
+// TODO: Function: #define SDL_OUT_Z_BYTECAP(x)
 
-// TODO Non-numerical: #define SDL_PRINTF_FORMAT_STRING
+// TODO: Non-numerical: #define SDL_PRINTF_FORMAT_STRING
 
-// TODO Non-numerical: #define SDL_SCANF_FORMAT_STRING
+// TODO: Non-numerical: #define SDL_SCANF_FORMAT_STRING
 
-// TODO Function: #define SDL_PRINTF_VARARG_FUNC( fmtargnumber ) __attribute__ (( format( __printf__, fmtargnumber, fmtargnumber+1 )))
+// TODO: Function: #define SDL_PRINTF_VARARG_FUNC( fmtargnumber ) __attribute__ (( format( __printf__, fmtargnumber, fmtargnumber+1 )))
 
-// TODO Function: #define SDL_PRINTF_VARARG_FUNCV( fmtargnumber ) __attribute__(( format( __printf__, fmtargnumber, 0 )))
+// TODO: Function: #define SDL_PRINTF_VARARG_FUNCV( fmtargnumber ) __attribute__(( format( __printf__, fmtargnumber, 0 )))
 
-// TODO Function: #define SDL_SCANF_VARARG_FUNC( fmtargnumber ) __attribute__ (( format( __scanf__, fmtargnumber, fmtargnumber+1 )))
+// TODO: Function: #define SDL_SCANF_VARARG_FUNC( fmtargnumber ) __attribute__ (( format( __scanf__, fmtargnumber, fmtargnumber+1 )))
 
-// TODO Function: #define SDL_SCANF_VARARG_FUNCV( fmtargnumber ) __attribute__(( format( __scanf__, fmtargnumber, 0 )))
+// TODO: Function: #define SDL_SCANF_VARARG_FUNCV( fmtargnumber ) __attribute__(( format( __scanf__, fmtargnumber, 0 )))
 
-// TODO Non-numerical: #define SDL_WPRINTF_VARARG_FUNC( fmtargnumber )
+// TODO: Non-numerical: #define SDL_WPRINTF_VARARG_FUNC( fmtargnumber )
 
-// TODO Non-numerical: #define SDL_WPRINTF_VARARG_FUNCV( fmtargnumber )
+// TODO: Non-numerical: #define SDL_WPRINTF_VARARG_FUNCV( fmtargnumber )
 
-// TODO Non-numerical: #define SDL_PRINTF_VARARG_FUNC( fmtargnumber )
+// TODO: Non-numerical: #define SDL_PRINTF_VARARG_FUNC( fmtargnumber )
 
-// TODO Non-numerical: #define SDL_PRINTF_VARARG_FUNCV( fmtargnumber )
+// TODO: Non-numerical: #define SDL_PRINTF_VARARG_FUNCV( fmtargnumber )
 
-// TODO Non-numerical: #define SDL_SCANF_VARARG_FUNC( fmtargnumber )
+// TODO: Non-numerical: #define SDL_SCANF_VARARG_FUNC( fmtargnumber )
 
-// TODO Non-numerical: #define SDL_SCANF_VARARG_FUNCV( fmtargnumber )
+// TODO: Non-numerical: #define SDL_SCANF_VARARG_FUNCV( fmtargnumber )
 
-// TODO Non-numerical: #define SDL_WPRINTF_VARARG_FUNC( fmtargnumber )
+// TODO: Non-numerical: #define SDL_WPRINTF_VARARG_FUNC( fmtargnumber )
 
-// TODO Non-numerical: #define SDL_WPRINTF_VARARG_FUNCV( fmtargnumber )
+// TODO: Non-numerical: #define SDL_WPRINTF_VARARG_FUNCV( fmtargnumber )
 
 @[typedef]
 pub struct C.SDL_alignment_test {
@@ -481,19 +481,19 @@ pub enum DUMMYENUM {
 	value = C.DUMMY_ENUM_VALUE
 }
 
-// TODO Non-numerical: #define SDL_INIT_INTERFACE(iface)               \
+// TODO: Non-numerical: #define SDL_INIT_INTERFACE(iface)               \
 
-// TODO Function: #define SDL_stack_alloc(type, count)    (type*)alloca(sizeof(type)*(count))
+// TODO: Function: #define SDL_stack_alloc(type, count)    (type*)alloca(sizeof(type)*(count))
 
-// TODO Function: #define SDL_stack_free(data)
+// TODO: Function: #define SDL_stack_free(data)
 
-// TODO Function: #define SDL_stack_alloc(type, count)    (type*)alloca(sizeof(type)*(count))
+// TODO: Function: #define SDL_stack_alloc(type, count)    (type*)alloca(sizeof(type)*(count))
 
-// TODO Function: #define SDL_stack_free(data)
+// TODO: Function: #define SDL_stack_free(data)
 
-// TODO Function: #define SDL_stack_alloc(type, count)    (type*)SDL_malloc(sizeof(type)*(count))
+// TODO: Function: #define SDL_stack_alloc(type, count)    (type*)SDL_malloc(sizeof(type)*(count))
 
-// TODO Function: #define SDL_stack_free(data)            SDL_free(data)
+// TODO: Function: #define SDL_stack_free(data)            SDL_free(data)
 
 // C.SDL_malloc [official documentation](https://wiki.libsdl.org/SDL3/SDL_malloc)
 fn C.SDL_malloc(size usize) voidptr
@@ -1352,11 +1352,11 @@ pub fn abs(x int) int {
 	return C.SDL_abs(x)
 }
 
-// TODO Function: #define SDL_min(x, y) (((x) < (y)) ? (x) : (y))
+// TODO: Function: #define SDL_min(x, y) (((x) < (y)) ? (x) : (y))
 
-// TODO Function: #define SDL_max(x, y) (((x) > (y)) ? (x) : (y))
+// TODO: Function: #define SDL_max(x, y) (((x) > (y)) ? (x) : (y))
 
-// TODO Function: #define SDL_clamp(x, a, b) (((x) < (a)) ? (a) : (((x) > (b)) ? (b) : (x)))
+// TODO: Function: #define SDL_clamp(x, a, b) (((x) < (a)) ? (a) : (((x) > (b)) ? (b) : (x)))
 
 // C.SDL_isalpha [official documentation](https://wiki.libsdl.org/SDL3/SDL_isalpha)
 fn C.SDL_isalpha(x int) int
@@ -1736,9 +1736,9 @@ pub fn memcpy(dst voidptr, const_src voidptr, len usize) voidptr {
 	return C.SDL_memcpy(dst, const_src, len)
 }
 
-// TODO Non-numerical: #define SDL_memcpy  memcpy
+// TODO: Non-numerical: #define SDL_memcpy  memcpy
 
-// TODO Non-numerical: #define SDL_copyp(dst, src)                                                                 \
+// TODO: Non-numerical: #define SDL_copyp(dst, src)                                                                 \
 
 // C.SDL_memmove [official documentation](https://wiki.libsdl.org/SDL3/SDL_memmove)
 fn C.SDL_memmove(dst voidptr, const_src voidptr, len usize) voidptr
@@ -1762,7 +1762,7 @@ pub fn memmove(dst voidptr, const_src voidptr, len usize) voidptr {
 	return C.SDL_memmove(dst, const_src, len)
 }
 
-// TODO Non-numerical: #define SDL_memmove memmove
+// TODO: Non-numerical: #define SDL_memmove memmove
 
 // C.SDL_memset [official documentation](https://wiki.libsdl.org/SDL3/SDL_memset)
 fn C.SDL_memset(dst voidptr, c int, len usize) voidptr
@@ -1810,13 +1810,13 @@ pub fn memset4(dst voidptr, val u32, dwords usize) voidptr {
 	return C.SDL_memset4(dst, val, dwords)
 }
 
-// TODO Non-numerical: #define SDL_memset  memset
+// TODO: Non-numerical: #define SDL_memset  memset
 
-// TODO Function: #define SDL_zero(x) SDL_memset(&(x), 0, sizeof((x)))
+// TODO: Function: #define SDL_zero(x) SDL_memset(&(x), 0, sizeof((x)))
 
-// TODO Function: #define SDL_zerop(x) SDL_memset((x), 0, sizeof(*(x)))
+// TODO: Function: #define SDL_zerop(x) SDL_memset((x), 0, sizeof(*(x)))
 
-// TODO Function: #define SDL_zeroa(x) SDL_memset((x), 0, sizeof((x)))
+// TODO: Function: #define SDL_zeroa(x) SDL_memset((x), 0, sizeof((x)))
 
 // C.SDL_memcmp [official documentation](https://wiki.libsdl.org/SDL3/SDL_memcmp)
 fn C.SDL_memcmp(const_s1 voidptr, const_s2 voidptr, len usize) int
@@ -1838,7 +1838,7 @@ pub fn memcmp(const_s1 voidptr, const_s2 voidptr, len usize) int {
 }
 
 // C.SDL_wcslen [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcslen)
-fn C.SDL_wcslen(const_wstr &C.wchar_t) usize
+fn C.SDL_wcslen(const_wstr &WCharT) usize
 
 // wcslen this works exactly like wcslen() but doesn't require access to a C runtime.
 //
@@ -1863,12 +1863,12 @@ fn C.SDL_wcslen(const_wstr &C.wchar_t) usize
 // See also: wcsnlen (SDL_wcsnlen)
 // See also: utf8strlen (SDL_utf8strlen)
 // See also: utf8strnlen (SDL_utf8strnlen)
-pub fn wcslen(const_wstr &C.wchar_t) usize {
+pub fn wcslen(const_wstr &WCharT) usize {
 	return C.SDL_wcslen(const_wstr)
 }
 
 // C.SDL_wcsnlen [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcsnlen)
-fn C.SDL_wcsnlen(const_wstr &C.wchar_t, maxlen usize) usize
+fn C.SDL_wcsnlen(const_wstr &WCharT, maxlen usize) usize
 
 // wcsnlen this works exactly like wcsnlen() but doesn't require access to a C
 // runtime.
@@ -1897,12 +1897,12 @@ fn C.SDL_wcsnlen(const_wstr &C.wchar_t, maxlen usize) usize
 // See also: wcslen (SDL_wcslen)
 // See also: utf8strlen (SDL_utf8strlen)
 // See also: utf8strnlen (SDL_utf8strnlen)
-pub fn wcsnlen(const_wstr &C.wchar_t, maxlen usize) usize {
+pub fn wcsnlen(const_wstr &WCharT, maxlen usize) usize {
 	return C.SDL_wcsnlen(const_wstr, maxlen)
 }
 
 // C.SDL_wcslcpy [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcslcpy)
-fn C.SDL_wcslcpy(dst &C.wchar_t, const_src &C.wchar_t, maxlen usize) usize
+fn C.SDL_wcslcpy(dst &WCharT, const_src &WCharT, maxlen usize) usize
 
 // wcslcpy copys a wide string.
 //
@@ -1927,12 +1927,12 @@ fn C.SDL_wcslcpy(dst &C.wchar_t, const_src &C.wchar_t, maxlen usize) usize
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: wcslcat (SDL_wcslcat)
-pub fn wcslcpy(dst C.wchar_t, const_src &C.wchar_t, maxlen usize) usize {
+pub fn wcslcpy(dst WCharT, const_src &WCharT, maxlen usize) usize {
 	return C.SDL_wcslcpy(dst, const_src, maxlen)
 }
 
 // C.SDL_wcslcat [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcslcat)
-fn C.SDL_wcslcat(dst &C.wchar_t, const_src &C.wchar_t, maxlen usize) usize
+fn C.SDL_wcslcat(dst &WCharT, const_src &WCharT, maxlen usize) usize
 
 // wcslcat concatenates wide strings.
 //
@@ -1960,12 +1960,12 @@ fn C.SDL_wcslcat(dst &C.wchar_t, const_src &C.wchar_t, maxlen usize) usize
 //
 // See also: wcslcpy (SDL_wcslcpy)
 //
-pub fn wcslcat(dst C.wchar_t, const_src &C.wchar_t, maxlen usize) usize {
+pub fn wcslcat(dst WCharT, const_src &WCharT, maxlen usize) usize {
 	return C.SDL_wcslcat(dst, const_src, maxlen)
 }
 
 // C.SDL_wcsdup [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcsdup)
-fn C.SDL_wcsdup(const_wstr &C.wchar_t) &C.wchar_t
+fn C.SDL_wcsdup(const_wstr &WCharT) &WCharT
 
 // wcsdup allocates a copy of a wide string.
 //
@@ -1981,12 +1981,12 @@ fn C.SDL_wcsdup(const_wstr &C.wchar_t) &C.wchar_t
 // NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn wcsdup(const_wstr &C.wchar_t) &C.wchar_t {
+pub fn wcsdup(const_wstr &WCharT) &WCharT {
 	return C.SDL_wcsdup(const_wstr)
 }
 
 // C.SDL_wcsstr [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcsstr)
-fn C.SDL_wcsstr(const_haystack &C.wchar_t, const_needle &C.wchar_t) &C.wchar_t
+fn C.SDL_wcsstr(const_haystack &WCharT, const_needle &WCharT) &WCharT
 
 // wcsstr searchs a wide string for the first instance of a specific substring.
 //
@@ -2004,12 +2004,12 @@ fn C.SDL_wcsstr(const_haystack &C.wchar_t, const_needle &C.wchar_t) &C.wchar_t
 // NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn wcsstr(const_haystack &C.wchar_t, const_needle &C.wchar_t) &C.wchar_t {
+pub fn wcsstr(const_haystack &WCharT, const_needle &WCharT) &WCharT {
 	return C.SDL_wcsstr(const_haystack, const_needle)
 }
 
 // C.SDL_wcsnstr [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcsnstr)
-fn C.SDL_wcsnstr(const_haystack &C.wchar_t, const_needle &C.wchar_t, maxlen usize) &C.wchar_t
+fn C.SDL_wcsnstr(const_haystack &WCharT, const_needle &WCharT, maxlen usize) &WCharT
 
 // wcsnstr searchs a wide string, up to n wide chars, for the first instance of a
 // specific substring.
@@ -2032,12 +2032,12 @@ fn C.SDL_wcsnstr(const_haystack &C.wchar_t, const_needle &C.wchar_t, maxlen usiz
 // NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn wcsnstr(const_haystack &C.wchar_t, const_needle &C.wchar_t, maxlen usize) &C.wchar_t {
+pub fn wcsnstr(const_haystack &WCharT, const_needle &WCharT, maxlen usize) &WCharT {
 	return C.SDL_wcsnstr(const_haystack, const_needle, maxlen)
 }
 
 // C.SDL_wcscmp [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcscmp)
-fn C.SDL_wcscmp(const_str1 &C.wchar_t, const_str2 &C.wchar_t) int
+fn C.SDL_wcscmp(const_str1 &WCharT, const_str2 &WCharT) int
 
 // wcscmp compares two null-terminated wide strings.
 //
@@ -2054,12 +2054,12 @@ fn C.SDL_wcscmp(const_str1 &C.wchar_t, const_str2 &C.wchar_t) int
 // NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn wcscmp(const_str1 &C.wchar_t, const_str2 &C.wchar_t) int {
+pub fn wcscmp(const_str1 &WCharT, const_str2 &WCharT) int {
 	return C.SDL_wcscmp(const_str1, const_str2)
 }
 
 // C.SDL_wcsncmp [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcsncmp)
-fn C.SDL_wcsncmp(const_str1 &C.wchar_t, const_str2 &C.wchar_t, maxlen usize) int
+fn C.SDL_wcsncmp(const_str1 &WCharT, const_str2 &WCharT, maxlen usize) int
 
 // wcsncmp compares two wide strings up to a number of wchar_t values.
 //
@@ -2088,12 +2088,12 @@ fn C.SDL_wcsncmp(const_str1 &C.wchar_t, const_str2 &C.wchar_t, maxlen usize) int
 // NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn wcsncmp(const_str1 &C.wchar_t, const_str2 &C.wchar_t, maxlen usize) int {
+pub fn wcsncmp(const_str1 &WCharT, const_str2 &WCharT, maxlen usize) int {
 	return C.SDL_wcsncmp(const_str1, const_str2, maxlen)
 }
 
 // C.SDL_wcscasecmp [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcscasecmp)
-fn C.SDL_wcscasecmp(const_str1 &C.wchar_t, const_str2 &C.wchar_t) int
+fn C.SDL_wcscasecmp(const_str1 &WCharT, const_str2 &WCharT) int
 
 // wcscasecmp compares two null-terminated wide strings, case-insensitively.
 //
@@ -2121,12 +2121,12 @@ fn C.SDL_wcscasecmp(const_str1 &C.wchar_t, const_str2 &C.wchar_t) int
 // NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn wcscasecmp(const_str1 &C.wchar_t, const_str2 &C.wchar_t) int {
+pub fn wcscasecmp(const_str1 &WCharT, const_str2 &WCharT) int {
 	return C.SDL_wcscasecmp(const_str1, const_str2)
 }
 
 // C.SDL_wcsncasecmp [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcsncasecmp)
-fn C.SDL_wcsncasecmp(const_str1 &C.wchar_t, const_str2 &C.wchar_t, maxlen usize) int
+fn C.SDL_wcsncasecmp(const_str1 &WCharT, const_str2 &WCharT, maxlen usize) int
 
 // wcsncasecmp compares two wide strings, case-insensitively, up to a number of wchar_t.
 //
@@ -2166,12 +2166,12 @@ fn C.SDL_wcsncasecmp(const_str1 &C.wchar_t, const_str2 &C.wchar_t, maxlen usize)
 // NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn wcsncasecmp(const_str1 &C.wchar_t, const_str2 &C.wchar_t, maxlen usize) int {
+pub fn wcsncasecmp(const_str1 &WCharT, const_str2 &WCharT, maxlen usize) int {
 	return C.SDL_wcsncasecmp(const_str1, const_str2, maxlen)
 }
 
 // C.SDL_wcstol [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcstol)
-fn C.SDL_wcstol(const_str &C.wchar_t, endp &&C.wchar_t, base int) int
+fn C.SDL_wcstol(const_str &WCharT, endp &&WCharT, base int) int
 
 // wcstol parses a `long` from a wide string.
 //
@@ -2196,7 +2196,7 @@ fn C.SDL_wcstol(const_str &C.wchar_t, endp &&C.wchar_t, base int) int
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: strtol (SDL_strtol)
-pub fn wcstol(const_str &C.wchar_t, endp &&C.wchar_t, base int) int {
+pub fn wcstol(const_str &WCharT, endp &&WCharT, base int) int {
 	return C.SDL_wcstol(const_str, endp, base)
 }
 
@@ -5475,73 +5475,73 @@ pub fn iconv_string(const_tocode &char, const_fromcode &char, const_inbuf &char,
 // NOTE: This macro is available since SDL 3.2.0.
 // TODO: pub const iconv_wchar_utf8(s) = SDL_iconv_string('UTF-8', 'WCHAR_T', (char *)S, (SDL_wcslen(S)+1)*sizeof(wchar_t))
 
-// TODO Non-numerical: #define SDL_malloc malloc
+// TODO: Non-numerical: #define SDL_malloc malloc
 
-// TODO Non-numerical: #define SDL_calloc calloc
+// TODO: Non-numerical: #define SDL_calloc calloc
 
-// TODO Non-numerical: #define SDL_realloc realloc
+// TODO: Non-numerical: #define SDL_realloc realloc
 
-// TODO Non-numerical: #define SDL_free free
+// TODO: Non-numerical: #define SDL_free free
 
-// TODO Non-numerical: #define SDL_memcpy memcpy
+// TODO: Non-numerical: #define SDL_memcpy memcpy
 
-// TODO Non-numerical: #define SDL_memmove memmove
+// TODO: Non-numerical: #define SDL_memmove memmove
 
-// TODO Non-numerical: #define SDL_memset memset
+// TODO: Non-numerical: #define SDL_memset memset
 
-// TODO Non-numerical: #define SDL_memcmp memcmp
+// TODO: Non-numerical: #define SDL_memcmp memcmp
 
-// TODO Non-numerical: #define SDL_strlcpy strlcpy
+// TODO: Non-numerical: #define SDL_strlcpy strlcpy
 
-// TODO Non-numerical: #define SDL_strlcat strlcat
+// TODO: Non-numerical: #define SDL_strlcat strlcat
 
-// TODO Non-numerical: #define SDL_strlen strlen
+// TODO: Non-numerical: #define SDL_strlen strlen
 
-// TODO Non-numerical: #define SDL_wcslen wcslen
+// TODO: Non-numerical: #define SDL_wcslen wcslen
 
-// TODO Non-numerical: #define SDL_wcslcpy wcslcpy
+// TODO: Non-numerical: #define SDL_wcslcpy wcslcpy
 
-// TODO Non-numerical: #define SDL_wcslcat wcslcat
+// TODO: Non-numerical: #define SDL_wcslcat wcslcat
 
-// TODO Non-numerical: #define SDL_strdup strdup
+// TODO: Non-numerical: #define SDL_strdup strdup
 
-// TODO Non-numerical: #define SDL_wcsdup wcsdup
+// TODO: Non-numerical: #define SDL_wcsdup wcsdup
 
-// TODO Non-numerical: #define SDL_strchr strchr
+// TODO: Non-numerical: #define SDL_strchr strchr
 
-// TODO Non-numerical: #define SDL_strrchr strrchr
+// TODO: Non-numerical: #define SDL_strrchr strrchr
 
-// TODO Non-numerical: #define SDL_strstr strstr
+// TODO: Non-numerical: #define SDL_strstr strstr
 
-// TODO Non-numerical: #define SDL_wcsstr wcsstr
+// TODO: Non-numerical: #define SDL_wcsstr wcsstr
 
-// TODO Non-numerical: #define SDL_strtok_r strtok_r
+// TODO: Non-numerical: #define SDL_strtok_r strtok_r
 
-// TODO Non-numerical: #define SDL_strcmp strcmp
+// TODO: Non-numerical: #define SDL_strcmp strcmp
 
-// TODO Non-numerical: #define SDL_wcscmp wcscmp
+// TODO: Non-numerical: #define SDL_wcscmp wcscmp
 
-// TODO Non-numerical: #define SDL_strncmp strncmp
+// TODO: Non-numerical: #define SDL_strncmp strncmp
 
-// TODO Non-numerical: #define SDL_wcsncmp wcsncmp
+// TODO: Non-numerical: #define SDL_wcsncmp wcsncmp
 
-// TODO Non-numerical: #define SDL_strcasecmp strcasecmp
+// TODO: Non-numerical: #define SDL_strcasecmp strcasecmp
 
-// TODO Non-numerical: #define SDL_strncasecmp strncasecmp
+// TODO: Non-numerical: #define SDL_strncasecmp strncasecmp
 
-// TODO Non-numerical: #define SDL_strpbrk strpbrk
+// TODO: Non-numerical: #define SDL_strpbrk strpbrk
 
-// TODO Non-numerical: #define SDL_sscanf sscanf
+// TODO: Non-numerical: #define SDL_sscanf sscanf
 
-// TODO Non-numerical: #define SDL_vsscanf vsscanf
+// TODO: Non-numerical: #define SDL_vsscanf vsscanf
 
-// TODO Non-numerical: #define SDL_snprintf snprintf
+// TODO: Non-numerical: #define SDL_snprintf snprintf
 
-// TODO Non-numerical: #define SDL_vsnprintf vsnprintf
+// TODO: Non-numerical: #define SDL_vsnprintf vsnprintf
 
-// TODO Function: #define SDL_size_mul_check_overflow(a, b, ret) SDL_size_mul_check_overflow_builtin(a, b, ret)
+// TODO: Function: #define SDL_size_mul_check_overflow(a, b, ret) SDL_size_mul_check_overflow_builtin(a, b, ret)
 
-// TODO Function: #define SDL_size_add_check_overflow(a, b, ret) SDL_size_add_check_overflow_builtin(a, b, ret)
+// TODO: Function: #define SDL_size_add_check_overflow(a, b, ret) SDL_size_add_check_overflow_builtin(a, b, ret)
 
 // FunctionPointer as generic function pointer.
 //

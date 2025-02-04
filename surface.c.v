@@ -36,7 +36,7 @@ pub const surface_locked = C.SDL_SURFACE_LOCKED // 0x00000004u
 
 pub const surface_simd_aligned = C.SDL_SURFACE_SIMD_ALIGNED // 0x00000008u
 
-// TODO Function: #define SDL_MUSTLOCK(S) ((((S)->flags & SDL_SURFACE_LOCK_NEEDED)) == SDL_SURFACE_LOCK_NEEDED)
+// TODO: Function: #define SDL_MUSTLOCK(S) ((((S)->flags & SDL_SURFACE_LOCK_NEEDED)) == SDL_SURFACE_LOCK_NEEDED)
 
 // ScaleMode is C.SDL_ScaleMode
 pub enum ScaleMode {

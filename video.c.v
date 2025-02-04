@@ -223,19 +223,19 @@ pub const window_not_focusable = C.SDL_WINDOW_NOT_FOCUSABLE // SDL_UINT64_C(0x00
 
 pub const windowpos_undefined_mask = C.SDL_WINDOWPOS_UNDEFINED_MASK // 0x1FFF0000u
 
-// TODO Function: #define SDL_WINDOWPOS_UNDEFINED_DISPLAY(X)  (SDL_WINDOWPOS_UNDEFINED_MASK|(X))
+// TODO: Function: #define SDL_WINDOWPOS_UNDEFINED_DISPLAY(X)  (SDL_WINDOWPOS_UNDEFINED_MASK|(X))
 
 pub const windowpos_undefined = C.SDL_WINDOWPOS_UNDEFINED // SDL_WINDOWPOS_UNDEFINED_DISPLAY(0)
 
-// TODO Function: #define SDL_WINDOWPOS_ISUNDEFINED(X)    (((X)&0xFFFF0000) == SDL_WINDOWPOS_UNDEFINED_MASK)
+// TODO: Function: #define SDL_WINDOWPOS_ISUNDEFINED(X)    (((X)&0xFFFF0000) == SDL_WINDOWPOS_UNDEFINED_MASK)
 
 pub const windowpos_centered_mask = C.SDL_WINDOWPOS_CENTERED_MASK // 0x2FFF0000u
 
-// TODO Function: #define SDL_WINDOWPOS_CENTERED_DISPLAY(X)  (SDL_WINDOWPOS_CENTERED_MASK|(X))
+// TODO: Function: #define SDL_WINDOWPOS_CENTERED_DISPLAY(X)  (SDL_WINDOWPOS_CENTERED_MASK|(X))
 
 pub const windowpos_centered = C.SDL_WINDOWPOS_CENTERED // SDL_WINDOWPOS_CENTERED_DISPLAY(0)
 
-// TODO Non-numerical: #define SDL_WINDOWPOS_ISCENTERED(X)    \
+// TODO: Non-numerical: #define SDL_WINDOWPOS_ISCENTERED(X)    \
 
 // FlashOperation is C.SDL_FlashOperation
 pub enum FlashOperation {

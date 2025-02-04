@@ -57,17 +57,17 @@ pub const ns_per_ms = C.SDL_NS_PER_MS // 1000000
 // NOTE: This macro is available since SDL 3.2.0.
 pub const ns_per_us = C.SDL_NS_PER_US // 1000
 
-// TODO Function: #define SDL_SECONDS_TO_NS(S)    (((Uint64)(S)) * SDL_NS_PER_SECOND)
+// TODO: Function: #define SDL_SECONDS_TO_NS(S)    (((Uint64)(S)) * SDL_NS_PER_SECOND)
 
-// TODO Function: #define SDL_NS_TO_SECONDS(NS)   ((NS) / SDL_NS_PER_SECOND)
+// TODO: Function: #define SDL_NS_TO_SECONDS(NS)   ((NS) / SDL_NS_PER_SECOND)
 
-// TODO Function: #define SDL_MS_TO_NS(MS)        (((Uint64)(MS)) * SDL_NS_PER_MS)
+// TODO: Function: #define SDL_MS_TO_NS(MS)        (((Uint64)(MS)) * SDL_NS_PER_MS)
 
-// TODO Function: #define SDL_NS_TO_MS(NS)        ((NS) / SDL_NS_PER_MS)
+// TODO: Function: #define SDL_NS_TO_MS(NS)        ((NS) / SDL_NS_PER_MS)
 
-// TODO Function: #define SDL_US_TO_NS(US)        (((Uint64)(US)) * SDL_NS_PER_US)
+// TODO: Function: #define SDL_US_TO_NS(US)        (((Uint64)(US)) * SDL_NS_PER_US)
 
-// TODO Function: #define SDL_NS_TO_US(NS)        ((NS) / SDL_NS_PER_US)
+// TODO: Function: #define SDL_NS_TO_US(NS)        ((NS) / SDL_NS_PER_US)
 
 // C.SDL_GetTicks [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetTicks)
 fn C.SDL_GetTicks() u64

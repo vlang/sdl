@@ -21,51 +21,51 @@ module sdl
 // only one thread initializes/deinitializes some resource that several
 // threads might try to use for the first time simultaneously.
 
-// TODO Function: #define SDL_THREAD_ANNOTATION_ATTRIBUTE__(x)   __attribute__((x))
+// TODO: Function: #define SDL_THREAD_ANNOTATION_ATTRIBUTE__(x)   __attribute__((x))
 
-// TODO Function: #define SDL_THREAD_ANNOTATION_ATTRIBUTE__(x)   __attribute__((x))
+// TODO: Function: #define SDL_THREAD_ANNOTATION_ATTRIBUTE__(x)   __attribute__((x))
 
-// TODO Function: #define SDL_THREAD_ANNOTATION_ATTRIBUTE__(x)
+// TODO: Function: #define SDL_THREAD_ANNOTATION_ATTRIBUTE__(x)
 
-// TODO Non-numerical: #define SDL_CAPABILITY(x) \
+// TODO: Non-numerical: #define SDL_CAPABILITY(x) \
 
-// TODO Non-numerical: #define SDL_SCOPED_CAPABILITY \
+// TODO: Non-numerical: #define SDL_SCOPED_CAPABILITY \
 
-// TODO Non-numerical: #define SDL_GUARDED_BY(x) \
+// TODO: Non-numerical: #define SDL_GUARDED_BY(x) \
 
-// TODO Non-numerical: #define SDL_PT_GUARDED_BY(x) \
+// TODO: Non-numerical: #define SDL_PT_GUARDED_BY(x) \
 
-// TODO Non-numerical: #define SDL_ACQUIRED_BEFORE(x) \
+// TODO: Non-numerical: #define SDL_ACQUIRED_BEFORE(x) \
 
-// TODO Non-numerical: #define SDL_ACQUIRED_AFTER(x) \
+// TODO: Non-numerical: #define SDL_ACQUIRED_AFTER(x) \
 
-// TODO Non-numerical: #define SDL_REQUIRES(x) \
+// TODO: Non-numerical: #define SDL_REQUIRES(x) \
 
-// TODO Non-numerical: #define SDL_REQUIRES_SHARED(x) \
+// TODO: Non-numerical: #define SDL_REQUIRES_SHARED(x) \
 
-// TODO Non-numerical: #define SDL_ACQUIRE(x) \
+// TODO: Non-numerical: #define SDL_ACQUIRE(x) \
 
-// TODO Non-numerical: #define SDL_ACQUIRE_SHARED(x) \
+// TODO: Non-numerical: #define SDL_ACQUIRE_SHARED(x) \
 
-// TODO Non-numerical: #define SDL_RELEASE(x) \
+// TODO: Non-numerical: #define SDL_RELEASE(x) \
 
-// TODO Non-numerical: #define SDL_RELEASE_SHARED(x) \
+// TODO: Non-numerical: #define SDL_RELEASE_SHARED(x) \
 
-// TODO Non-numerical: #define SDL_RELEASE_GENERIC(x) \
+// TODO: Non-numerical: #define SDL_RELEASE_GENERIC(x) \
 
-// TODO Non-numerical: #define SDL_TRY_ACQUIRE(x, y) \
+// TODO: Non-numerical: #define SDL_TRY_ACQUIRE(x, y) \
 
-// TODO Non-numerical: #define SDL_TRY_ACQUIRE_SHARED(x, y) \
+// TODO: Non-numerical: #define SDL_TRY_ACQUIRE_SHARED(x, y) \
 
-// TODO Non-numerical: #define SDL_EXCLUDES(x) \
+// TODO: Non-numerical: #define SDL_EXCLUDES(x) \
 
-// TODO Non-numerical: #define SDL_ASSERT_CAPABILITY(x) \
+// TODO: Non-numerical: #define SDL_ASSERT_CAPABILITY(x) \
 
-// TODO Non-numerical: #define SDL_ASSERT_SHARED_CAPABILITY(x) \
+// TODO: Non-numerical: #define SDL_ASSERT_SHARED_CAPABILITY(x) \
 
-// TODO Non-numerical: #define SDL_RETURN_CAPABILITY(x) \
+// TODO: Non-numerical: #define SDL_RETURN_CAPABILITY(x) \
 
-// TODO Non-numerical: #define SDL_NO_THREAD_SAFETY_ANALYSIS \
+// TODO: Non-numerical: #define SDL_NO_THREAD_SAFETY_ANALYSIS \
 
 @[noinit; typedef]
 pub struct C.SDL_Mutex {
@@ -100,7 +100,7 @@ pub fn create_mutex() &Mutex {
 }
 
 // C.SDL_LockMutex [official documentation](https://wiki.libsdl.org/SDL3/SDL_LockMutex)
-fn C.SDL_LockMutex() // TODO HAS ... ARGS
+fn C.SDL_LockMutex() // TODO: HAS ... ARGS
 
 // lock_mutex locks the mutex.
 //
@@ -123,7 +123,7 @@ fn C.SDL_LockMutex() // TODO HAS ... ARGS
 // See also: try_lock_mutex (SDL_TryLockMutex)
 // See also: unlock_mutex (SDL_UnlockMutex)
 pub fn lock_mutex() {
-	// TODO HAS ... ARGS
+	// TODO: HAS ... ARGS
 	C.SDL_LockMutex() // TODO: fixme HAS ARGS
 }
 
@@ -156,7 +156,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_TryLockMutex(SDL_Mutex *mutex) SDL_TRY_ACQU
 */
 
 // C.SDL_UnlockMutex [official documentation](https://wiki.libsdl.org/SDL3/SDL_UnlockMutex)
-fn C.SDL_UnlockMutex() // TODO HAS ... ARGS
+fn C.SDL_UnlockMutex() // TODO: HAS ... ARGS
 
 // unlock_mutex unlocks the mutex.
 //
@@ -174,7 +174,7 @@ fn C.SDL_UnlockMutex() // TODO HAS ... ARGS
 // See also: lock_mutex (SDL_LockMutex)
 // See also: try_lock_mutex (SDL_TryLockMutex)
 pub fn unlock_mutex() {
-	// TODO HAS ... ARGS
+	// TODO: HAS ... ARGS
 	C.SDL_UnlockMutex() // TODO: fixme HAS ARGS
 }
 
@@ -251,7 +251,7 @@ pub fn create_rw_lock() &RWLock {
 }
 
 // C.SDL_LockRWLockForReading [official documentation](https://wiki.libsdl.org/SDL3/SDL_LockRWLockForReading)
-fn C.SDL_LockRWLockForReading() // TODO HAS ... ARGS
+fn C.SDL_LockRWLockForReading() // TODO: HAS ... ARGS
 
 // lock_rw_lock_for_reading locks the read/write lock for _read only_ operations.
 //
@@ -287,12 +287,12 @@ fn C.SDL_LockRWLockForReading() // TODO HAS ... ARGS
 // See also: try_lock_rw_lock_for_reading (SDL_TryLockRWLockForReading)
 // See also: unlock_rw_lock (SDL_UnlockRWLock)
 pub fn lock_rw_lock_for_reading() {
-	// TODO HAS ... ARGS
+	// TODO: HAS ... ARGS
 	C.SDL_LockRWLockForReading() // TODO: fixme HAS ARGS
 }
 
 // C.SDL_LockRWLockForWriting [official documentation](https://wiki.libsdl.org/SDL3/SDL_LockRWLockForWriting)
-fn C.SDL_LockRWLockForWriting() // TODO HAS ... ARGS
+fn C.SDL_LockRWLockForWriting() // TODO: HAS ... ARGS
 
 // lock_rw_lock_for_writing locks the read/write lock for _write_ operations.
 //
@@ -322,7 +322,7 @@ fn C.SDL_LockRWLockForWriting() // TODO HAS ... ARGS
 // See also: try_lock_rw_lock_for_writing (SDL_TryLockRWLockForWriting)
 // See also: unlock_rw_lock (SDL_UnlockRWLock)
 pub fn lock_rw_lock_for_writing() {
-	// TODO HAS ... ARGS
+	// TODO: HAS ... ARGS
 	C.SDL_LockRWLockForWriting() // TODO: fixme HAS ARGS
 }
 
@@ -396,7 +396,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_TryLockRWLockForWriting(SDL_RWLock *rwlock)
 */
 
 // C.SDL_UnlockRWLock [official documentation](https://wiki.libsdl.org/SDL3/SDL_UnlockRWLock)
-fn C.SDL_UnlockRWLock() // TODO HAS ... ARGS
+fn C.SDL_UnlockRWLock() // TODO: HAS ... ARGS
 
 // unlock_rw_lock unlocks the read/write lock.
 //
@@ -420,7 +420,7 @@ fn C.SDL_UnlockRWLock() // TODO HAS ... ARGS
 // See also: try_lock_rw_lock_for_reading (SDL_TryLockRWLockForReading)
 // See also: try_lock_rw_lock_for_writing (SDL_TryLockRWLockForWriting)
 pub fn unlock_rw_lock() {
-	// TODO HAS ... ARGS
+	// TODO: HAS ... ARGS
 	C.SDL_UnlockRWLock() // TODO: fixme HAS ARGS
 }
 

@@ -111,7 +111,7 @@ pub const button_x1 = C.SDL_BUTTON_X1 // 4
 
 pub const button_x2 = C.SDL_BUTTON_X2 // 5
 
-// TODO Function: #define SDL_BUTTON_MASK(X)  (1u << ((X)-1))
+// TODO: Function: #define SDL_BUTTON_MASK(X)  (1u << ((X)-1))
 
 pub const button_lmask = C.SDL_BUTTON_LMASK // SDL_BUTTON_MASK(SDL_BUTTON_LEFT)
 

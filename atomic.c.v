@@ -113,14 +113,14 @@ pub fn unlock_spinlock(@lock &int) {
 	C.SDL_UnlockSpinlock(@lock)
 }
 
-// TODO Function: #define SDL_CompilerBarrier() DoCompilerSpecificReadWriteBarrier()
+// TODO: Function: #define SDL_CompilerBarrier() DoCompilerSpecificReadWriteBarrier()
 
-// TODO Function: #define SDL_CompilerBarrier()   _ReadWriteBarrier()
+// TODO: Function: #define SDL_CompilerBarrier()   _ReadWriteBarrier()
 
 // This is correct for all CPUs when using GCC or Solaris Studio 12.1+.
 // TODO: pub const compilerbarrier() = __asm__ __volatile__ ('' : : : 'memory')
 
-// TODO Non-numerical: #define SDL_CompilerBarrier()   \
+// TODO: Non-numerical: #define SDL_CompilerBarrier()   \
 
 // C.SDL_MemoryBarrierReleaseFunction [official documentation](https://wiki.libsdl.org/SDL3/SDL_MemoryBarrierReleaseFunction)
 fn C.SDL_MemoryBarrierReleaseFunction()
@@ -168,9 +168,9 @@ pub fn memory_barrier_acquire_function() {
 	C.SDL_MemoryBarrierAcquireFunction()
 }
 
-// TODO Function: #define SDL_MemoryBarrierRelease() SDL_MemoryBarrierReleaseFunction()
+// TODO: Function: #define SDL_MemoryBarrierRelease() SDL_MemoryBarrierReleaseFunction()
 
-// TODO Function: #define SDL_MemoryBarrierAcquire() SDL_MemoryBarrierAcquireFunction()
+// TODO: Function: #define SDL_MemoryBarrierAcquire() SDL_MemoryBarrierAcquireFunction()
 
 // TODO: pub const memorybarrierrelease() = __asm__ __volatile__ ('lwsync' : : : 'memory')
 
@@ -187,19 +187,19 @@ pub fn memory_barrier_acquire_function() {
 // [Official documentation](https://wiki.libsdl.org/SDL3/SDL_KernelMemoryBarrierFunc)
 pub type KernelMemoryBarrierFunc = fn ()
 
-// TODO Function: #define SDL_MemoryBarrierRelease()  ((SDL_KernelMemoryBarrierFunc)0xffff0fa0)()
+// TODO: Function: #define SDL_MemoryBarrierRelease()  ((SDL_KernelMemoryBarrierFunc)0xffff0fa0)()
 
-// TODO Function: #define SDL_MemoryBarrierAcquire()  ((SDL_KernelMemoryBarrierFunc)0xffff0fa0)()
+// TODO: Function: #define SDL_MemoryBarrierAcquire()  ((SDL_KernelMemoryBarrierFunc)0xffff0fa0)()
 
 // TODO: pub const memorybarrierrelease() = __asm__ __volatile__ ('dmb ish' : : : 'memory')
 
 // TODO: pub const memorybarrieracquire() = __asm__ __volatile__ ('dmb ish' : : : 'memory')
 
-// TODO Non-numerical: #define SDL_MEMORY_BARRIER_USES_FUNCTION
+// TODO: Non-numerical: #define SDL_MEMORY_BARRIER_USES_FUNCTION
 
-// TODO Function: #define SDL_MemoryBarrierRelease()   SDL_MemoryBarrierReleaseFunction()
+// TODO: Function: #define SDL_MemoryBarrierRelease()   SDL_MemoryBarrierReleaseFunction()
 
-// TODO Function: #define SDL_MemoryBarrierAcquire()   SDL_MemoryBarrierAcquireFunction()
+// TODO: Function: #define SDL_MemoryBarrierAcquire()   SDL_MemoryBarrierAcquireFunction()
 
 // The mcr instruction isn't available in thumb mode, use real functions
 // TODO: pub const memorybarrierrelease() = __asm__ __volatile__ ('mcr p15, 0, %0, c7, c10, 5' : : 'r'(0) : 'memory')
@@ -211,15 +211,15 @@ pub type KernelMemoryBarrierFunc = fn ()
 
 // TODO: pub const memorybarrieracquire() = __asm__ __volatile__ ('' : : : 'memory')
 
-// TODO Function: #define SDL_MemoryBarrierRelease()  __machine_rel_barrier()
+// TODO: Function: #define SDL_MemoryBarrierRelease()  __machine_rel_barrier()
 
-// TODO Function: #define SDL_MemoryBarrierAcquire()  __machine_acq_barrier()
+// TODO: Function: #define SDL_MemoryBarrierAcquire()  __machine_acq_barrier()
 
-// TODO Function: #define SDL_MemoryBarrierRelease()  SDL_CompilerBarrier()
+// TODO: Function: #define SDL_MemoryBarrierRelease()  SDL_CompilerBarrier()
 
-// TODO Function: #define SDL_MemoryBarrierAcquire()  SDL_CompilerBarrier()
+// TODO: Function: #define SDL_MemoryBarrierAcquire()  SDL_CompilerBarrier()
 
-// TODO Non-numerical: #define SDL_CPUPauseInstruction() DoACPUPauseInACompilerAndArchitectureSpecificWay
+// TODO: Non-numerical: #define SDL_CPUPauseInstruction() DoACPUPauseInACompilerAndArchitectureSpecificWay
 
 @[typedef]
 pub struct C.SDL_AtomicInt {}
@@ -316,9 +316,9 @@ pub fn add_atomic_int(a &AtomicInt, v int) int {
 	return C.SDL_AddAtomicInt(a, v)
 }
 
-// TODO Function: #define SDL_AtomicIncRef(a)    SDL_AddAtomicInt(a, 1)
+// TODO: Function: #define SDL_AtomicIncRef(a)    SDL_AddAtomicInt(a, 1)
 
-// TODO Function: #define SDL_AtomicDecRef(a)    (SDL_AddAtomicInt(a, -1) == 1)
+// TODO: Function: #define SDL_AtomicDecRef(a)    (SDL_AddAtomicInt(a, -1) == 1)
 
 @[typedef]
 pub struct C.SDL_AtomicU32 {}

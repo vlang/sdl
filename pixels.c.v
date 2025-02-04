@@ -141,35 +141,35 @@ pub enum PackedLayout {
 	_1010102 = C.SDL_PACKEDLAYOUT_1010102
 }
 
-// TODO Function: #define SDL_DEFINE_PIXELFOURCC(A, B, C, D) SDL_FOURCC(A, B, C, D)
+// TODO: Function: #define SDL_DEFINE_PIXELFOURCC(A, B, C, D) SDL_FOURCC(A, B, C, D)
 
-// TODO Non-numerical: #define SDL_DEFINE_PIXELFORMAT(type, order, layout, bits, bytes) \
+// TODO: Non-numerical: #define SDL_DEFINE_PIXELFORMAT(type, order, layout, bits, bytes) \
 
-// TODO Function: #define SDL_PIXELFLAG(format)    (((format) >> 28) & 0x0F)
+// TODO: Function: #define SDL_PIXELFLAG(format)    (((format) >> 28) & 0x0F)
 
-// TODO Function: #define SDL_PIXELTYPE(format)    (((format) >> 24) & 0x0F)
+// TODO: Function: #define SDL_PIXELTYPE(format)    (((format) >> 24) & 0x0F)
 
-// TODO Function: #define SDL_PIXELORDER(format)   (((format) >> 20) & 0x0F)
+// TODO: Function: #define SDL_PIXELORDER(format)   (((format) >> 20) & 0x0F)
 
-// TODO Function: #define SDL_PIXELLAYOUT(format)  (((format) >> 16) & 0x0F)
+// TODO: Function: #define SDL_PIXELLAYOUT(format)  (((format) >> 16) & 0x0F)
 
-// TODO Non-numerical: #define SDL_BITSPERPIXEL(format) \
+// TODO: Non-numerical: #define SDL_BITSPERPIXEL(format) \
 
-// TODO Non-numerical: #define SDL_BYTESPERPIXEL(format) \
+// TODO: Non-numerical: #define SDL_BYTESPERPIXEL(format) \
 
-// TODO Non-numerical: #define SDL_ISPIXELFORMAT_INDEXED(format)   \
+// TODO: Non-numerical: #define SDL_ISPIXELFORMAT_INDEXED(format)   \
 
-// TODO Non-numerical: #define SDL_ISPIXELFORMAT_PACKED(format) \
+// TODO: Non-numerical: #define SDL_ISPIXELFORMAT_PACKED(format) \
 
-// TODO Non-numerical: #define SDL_ISPIXELFORMAT_ARRAY(format) \
+// TODO: Non-numerical: #define SDL_ISPIXELFORMAT_ARRAY(format) \
 
-// TODO Non-numerical: #define SDL_ISPIXELFORMAT_10BIT(format)    \
+// TODO: Non-numerical: #define SDL_ISPIXELFORMAT_10BIT(format)    \
 
-// TODO Non-numerical: #define SDL_ISPIXELFORMAT_FLOAT(format)    \
+// TODO: Non-numerical: #define SDL_ISPIXELFORMAT_FLOAT(format)    \
 
-// TODO Non-numerical: #define SDL_ISPIXELFORMAT_ALPHA(format)   \
+// TODO: Non-numerical: #define SDL_ISPIXELFORMAT_ALPHA(format)   \
 
-// TODO Function: #define SDL_ISPIXELFORMAT_FOURCC(format)
+// TODO: Function: #define SDL_ISPIXELFORMAT_FOURCC(format)
 
 // PixelFormat is C.SDL_PixelFormat
 pub enum PixelFormat {
@@ -382,29 +382,29 @@ pub enum ChromaLocation {
 	topleft = C.SDL_CHROMA_LOCATION_TOPLEFT // 3, In HEVC for BT.2020 and BT.2100 content (in particular on Blu-rays), Cb and Cr are sampled at the same location as the group's top-left Y pixel ("co-sited", "co-located").
 }
 
-// TODO Non-numerical: #define SDL_DEFINE_COLORSPACE(type, range, primaries, transfer, matrix, chroma) \
+// TODO: Non-numerical: #define SDL_DEFINE_COLORSPACE(type, range, primaries, transfer, matrix, chroma) \
 
-// TODO Function: #define SDL_COLORSPACETYPE(cspace)       (SDL_ColorType)(((cspace) >> 28) & 0x0F)
+// TODO: Function: #define SDL_COLORSPACETYPE(cspace)       (SDL_ColorType)(((cspace) >> 28) & 0x0F)
 
-// TODO Function: #define SDL_COLORSPACERANGE(cspace)      (SDL_ColorRange)(((cspace) >> 24) & 0x0F)
+// TODO: Function: #define SDL_COLORSPACERANGE(cspace)      (SDL_ColorRange)(((cspace) >> 24) & 0x0F)
 
-// TODO Function: #define SDL_COLORSPACECHROMA(cspace)     (SDL_ChromaLocation)(((cspace) >> 20) & 0x0F)
+// TODO: Function: #define SDL_COLORSPACECHROMA(cspace)     (SDL_ChromaLocation)(((cspace) >> 20) & 0x0F)
 
-// TODO Function: #define SDL_COLORSPACEPRIMARIES(cspace)  (SDL_ColorPrimaries)(((cspace) >> 10) & 0x1F)
+// TODO: Function: #define SDL_COLORSPACEPRIMARIES(cspace)  (SDL_ColorPrimaries)(((cspace) >> 10) & 0x1F)
 
-// TODO Function: #define SDL_COLORSPACETRANSFER(cspace)   (SDL_TransferCharacteristics)(((cspace) >> 5) & 0x1F)
+// TODO: Function: #define SDL_COLORSPACETRANSFER(cspace)   (SDL_TransferCharacteristics)(((cspace) >> 5) & 0x1F)
 
-// TODO Function: #define SDL_COLORSPACEMATRIX(cspace)     (SDL_MatrixCoefficients)((cspace) & 0x1F)
+// TODO: Function: #define SDL_COLORSPACEMATRIX(cspace)     (SDL_MatrixCoefficients)((cspace) & 0x1F)
 
-// TODO Function: #define SDL_ISCOLORSPACE_MATRIX_BT601(cspace)        (SDL_COLORSPACEMATRIX(cspace) == SDL_MATRIX_COEFFICIENTS_BT601 || SDL_COLORSPACEMATRIX(cspace) == SDL_MATRIX_COEFFICIENTS_BT470BG)
+// TODO: Function: #define SDL_ISCOLORSPACE_MATRIX_BT601(cspace)        (SDL_COLORSPACEMATRIX(cspace) == SDL_MATRIX_COEFFICIENTS_BT601 || SDL_COLORSPACEMATRIX(cspace) == SDL_MATRIX_COEFFICIENTS_BT470BG)
 
-// TODO Function: #define SDL_ISCOLORSPACE_MATRIX_BT709(cspace)        (SDL_COLORSPACEMATRIX(cspace) == SDL_MATRIX_COEFFICIENTS_BT709)
+// TODO: Function: #define SDL_ISCOLORSPACE_MATRIX_BT709(cspace)        (SDL_COLORSPACEMATRIX(cspace) == SDL_MATRIX_COEFFICIENTS_BT709)
 
-// TODO Function: #define SDL_ISCOLORSPACE_MATRIX_BT2020_NCL(cspace)   (SDL_COLORSPACEMATRIX(cspace) == SDL_MATRIX_COEFFICIENTS_BT2020_NCL)
+// TODO: Function: #define SDL_ISCOLORSPACE_MATRIX_BT2020_NCL(cspace)   (SDL_COLORSPACEMATRIX(cspace) == SDL_MATRIX_COEFFICIENTS_BT2020_NCL)
 
-// TODO Function: #define SDL_ISCOLORSPACE_LIMITED_RANGE(cspace)       (SDL_COLORSPACERANGE(cspace) != SDL_COLOR_RANGE_FULL)
+// TODO: Function: #define SDL_ISCOLORSPACE_LIMITED_RANGE(cspace)       (SDL_COLORSPACERANGE(cspace) != SDL_COLOR_RANGE_FULL)
 
-// TODO Function: #define SDL_ISCOLORSPACE_FULL_RANGE(cspace)          (SDL_COLORSPACERANGE(cspace) == SDL_COLOR_RANGE_FULL)
+// TODO: Function: #define SDL_ISCOLORSPACE_FULL_RANGE(cspace)          (SDL_COLORSPACERANGE(cspace) == SDL_COLOR_RANGE_FULL)
 
 // Colorspace is C.SDL_Colorspace
 pub enum Colorspace {

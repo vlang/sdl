@@ -162,6 +162,6 @@ pub const avx2_intrinsics = C.SDL_AVX2_INTRINSICS // 1
 // See also: SDL_AVX2_INTRINSICS
 pub const avx512f_intrinsics = C.SDL_AVX512F_INTRINSICS // 1
 
-// TODO Non-numerical: #define SDL_HAS_TARGET_ATTRIBS
+// TODO: Non-numerical: #define SDL_HAS_TARGET_ATTRIBS
 
-// TODO Function: #define SDL_TARGETING(x) __attribute__((target(x)))
+// TODO: Function: #define SDL_TARGETING(x) __attribute__((target(x)))

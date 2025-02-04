@@ -91,7 +91,7 @@ pub const joystick_axis_max = C.SDL_JOYSTICK_AXIS_MAX // 32767
 pub const joystick_axis_min = C.SDL_JOYSTICK_AXIS_MIN // -32768
 
 // C.SDL_LockJoysticks [official documentation](https://wiki.libsdl.org/SDL3/SDL_LockJoysticks)
-fn C.SDL_LockJoysticks() // TODO HAS ... ARGS
+fn C.SDL_LockJoysticks() // TODO: HAS ... ARGS
 
 // lock_joysticks lockings for atomic access to the joystick API.
 //
@@ -101,18 +101,18 @@ fn C.SDL_LockJoysticks() // TODO HAS ... ARGS
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn lock_joysticks() {
-	// TODO HAS ... ARGS
+	// TODO: HAS ... ARGS
 	C.SDL_LockJoysticks() // TODO: fixme HAS ARGS
 }
 
 // C.SDL_UnlockJoysticks [official documentation](https://wiki.libsdl.org/SDL3/SDL_UnlockJoysticks)
-fn C.SDL_UnlockJoysticks() // TODO HAS ... ARGS
+fn C.SDL_UnlockJoysticks() // TODO: HAS ... ARGS
 
 // unlock_joysticks unlockings for atomic access to the joystick API.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn unlock_joysticks() {
-	// TODO HAS ... ARGS
+	// TODO: HAS ... ARGS
 	C.SDL_UnlockJoysticks() // TODO: fixme HAS ARGS
 }
 

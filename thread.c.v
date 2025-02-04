@@ -226,9 +226,9 @@ pub fn create_thread_with_properties_runtime(props PropertiesID, pfn_begin_threa
 	return C.SDL_CreateThreadWithPropertiesRuntime(props, pfn_begin_thread, pfn_end_thread)
 }
 
-// TODO Function: #define SDL_CreateThread(fn, name, data) SDL_CreateThreadRuntime((fn), (name), (data), (SDL_FunctionPointer) (SDL_BeginThreadFunction), (SDL_FunctionPointer) (SDL_EndThreadFunction))
+// TODO: Function: #define SDL_CreateThread(fn, name, data) SDL_CreateThreadRuntime((fn), (name), (data), (SDL_FunctionPointer) (SDL_BeginThreadFunction), (SDL_FunctionPointer) (SDL_EndThreadFunction))
 
-// TODO Function: #define SDL_CreateThreadWithProperties(props) SDL_CreateThreadWithPropertiesRuntime((props), (SDL_FunctionPointer) (SDL_BeginThreadFunction), (SDL_FunctionPointer) (SDL_EndThreadFunction))
+// TODO: Function: #define SDL_CreateThreadWithProperties(props) SDL_CreateThreadWithPropertiesRuntime((props), (SDL_FunctionPointer) (SDL_BeginThreadFunction), (SDL_FunctionPointer) (SDL_EndThreadFunction))
 
 // C.SDL_GetThreadName [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetThreadName)
 fn C.SDL_GetThreadName(thread_ &Thread) &char

@@ -15,7 +15,7 @@ module sdl
 // documentation on all the strange ways humans might have configured their
 // language settings.
 
-// TODO Non-numerical: #define SDL_locale_h
+// TODO: Non-numerical: #define SDL_locale_h
 
 @[typedef]
 pub struct C.SDL_Locale {
