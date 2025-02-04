@@ -3,17 +3,6 @@
 // that can be found in the LICENSE file.
 module sdl
 
-// TODO: is wchar available everywhere??
-#include <wchar.h>
-
-@[typedef]
-pub struct C.wchar_t {}
-
-// Character is a type, that eases working with the platform dependent C.wchar_t type.
-// Note: the size of C.wchar_t varies between platforms, it is 2 bytes on windows,
-// and usually 4 bytes elsewhere.
-// pub type WChar = C.wchar_t
-
 //
 // SDL_hidapi.h
 //
@@ -77,20 +66,29 @@ pub enum HidBusType {
 @[typedef]
 pub struct C.SDL_hid_device_info {
 pub mut:
-	// * Platform-specific device path
-	path                &char = unsafe { nil } // * Device Vendor ID
-	short               u32 // vendor_id* Device Product ID
-	serial_number       &C.wchar_t = unsafe { nil } // * Device Release Number in binary-coded decimal, also known as Device Version Number
-	manufacturer_string &C.wchar_t = unsafe { nil } // * Product string
-	product_string      &C.wchar_t = unsafe { nil } // * Usage Page for this Device/Interface (Windows/Mac/hidraw only)
-	interface_number    int // * Additional information about the USB interface. Valid on libusb and Android implementations.
-	interface_class     int
-	interface_subclass  int
-	interface_protocol  int        // * Underlying bus type
-	bus_type            HidBusType // * Pointer to the next device
+	path                &char = unsafe { nil } // * Platform-specific device path
+	vendor_id           u16 // Device Vendor ID
+	product_id          u16 // Device Product ID
+	serial_number       &WCharT = unsafe { nil } // Serial Number
+	release_number      u16 // Device Release Number in binary-coded decimal, also known as Device Version Number
+	manufacturer_string &WCharT = unsafe { nil } // Manufacturer String
+	product_string      &WCharT = unsafe { nil } // Product string
+	usage_page          u16 // Usage Page for this Device/Interface (Windows/Mac/hidraw only)
+	usage               u16 // Usage for this Device/Interface (Windows/Mac/hidraw only)
+	// The USB interface which this logical device
+	// represents.
+	//
+	// Valid only if the device is a USB HID device.
+	// Set to -1 in all other cases.
+	interface_number int
+	// Additional information about the USB interface. Valid on libusb and Android implementations.
+	interface_class    int
+	interface_subclass int
+	interface_protocol int
+	bus_type           HidBusType // * Underlying bus type
+	next               &HidDeviceInfo = unsafe { nil } // Pointer to the next device
 }
 
-// TODO belongs OVER // struct SDL_hid_device_info*; next
 pub type HidDeviceInfo = C.SDL_hid_device_info
 
 // C.SDL_hid_init [official documentation](https://wiki.libsdl.org/SDL3/SDL_hid_init)
@@ -205,7 +203,7 @@ pub fn hid_free_enumeration(devs &HidDeviceInfo) {
 }
 
 // C.SDL_hid_open [official documentation](https://wiki.libsdl.org/SDL3/SDL_hid_open)
-fn C.SDL_hid_open(vendor_id u16, product_id u16, const_serial_number &C.wchar_t) &HidDevice
+fn C.SDL_hid_open(vendor_id u16, product_id u16, const_serial_number &WCharT) &HidDevice
 
 // hid_open opens a HID device using a Vendor ID (VID), Product ID (PID) and optionally
 // a serial number.
@@ -221,7 +219,7 @@ fn C.SDL_hid_open(vendor_id u16, product_id u16, const_serial_number &C.wchar_t)
 //          failure; call SDL_GetError() for more information.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn hid_open(vendor_id u16, product_id u16, const_serial_number &C.wchar_t) &HidDevice {
+pub fn hid_open(vendor_id u16, product_id u16, const_serial_number &WCharT) &HidDevice {
 	return C.SDL_hid_open(vendor_id, product_id, const_serial_number)
 }
 
@@ -437,7 +435,7 @@ pub fn hid_close(dev &HidDevice) int {
 }
 
 // C.SDL_hid_get_manufacturer_string [official documentation](https://wiki.libsdl.org/SDL3/SDL_hid_get_manufacturer_string)
-fn C.SDL_hid_get_manufacturer_string(dev &HidDevice, str &C.wchar_t, maxlen usize) int
+fn C.SDL_hid_get_manufacturer_string(dev &HidDevice, str &WCharT, maxlen usize) int
 
 // hid_get_manufacturer_string gets The Manufacturer String from a HID device.
 //
@@ -448,12 +446,12 @@ fn C.SDL_hid_get_manufacturer_string(dev &HidDevice, str &C.wchar_t, maxlen usiz
 //          SDL_GetError() for more information.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn hid_get_manufacturer_string(dev &HidDevice, str &C.wchar_t, maxlen usize) int {
+pub fn hid_get_manufacturer_string(dev &HidDevice, str &WCharT, maxlen usize) int {
 	return C.SDL_hid_get_manufacturer_string(dev, str, maxlen)
 }
 
 // C.SDL_hid_get_product_string [official documentation](https://wiki.libsdl.org/SDL3/SDL_hid_get_product_string)
-fn C.SDL_hid_get_product_string(dev &HidDevice, str &C.wchar_t, maxlen usize) int
+fn C.SDL_hid_get_product_string(dev &HidDevice, str &WCharT, maxlen usize) int
 
 // hid_get_product_string gets The Product String from a HID device.
 //
@@ -464,12 +462,12 @@ fn C.SDL_hid_get_product_string(dev &HidDevice, str &C.wchar_t, maxlen usize) in
 //          SDL_GetError() for more information.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn hid_get_product_string(dev &HidDevice, str &C.wchar_t, maxlen usize) int {
+pub fn hid_get_product_string(dev &HidDevice, str &WCharT, maxlen usize) int {
 	return C.SDL_hid_get_product_string(dev, str, maxlen)
 }
 
 // C.SDL_hid_get_serial_number_string [official documentation](https://wiki.libsdl.org/SDL3/SDL_hid_get_serial_number_string)
-fn C.SDL_hid_get_serial_number_string(dev &HidDevice, str &C.wchar_t, maxlen usize) int
+fn C.SDL_hid_get_serial_number_string(dev &HidDevice, str &WCharT, maxlen usize) int
 
 // hid_get_serial_number_string gets The Serial Number String from a HID device.
 //
@@ -480,12 +478,12 @@ fn C.SDL_hid_get_serial_number_string(dev &HidDevice, str &C.wchar_t, maxlen usi
 //          SDL_GetError() for more information.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn hid_get_serial_number_string(dev &HidDevice, str &C.wchar_t, maxlen usize) int {
+pub fn hid_get_serial_number_string(dev &HidDevice, str &WCharT, maxlen usize) int {
 	return C.SDL_hid_get_serial_number_string(dev, str, maxlen)
 }
 
 // C.SDL_hid_get_indexed_string [official documentation](https://wiki.libsdl.org/SDL3/SDL_hid_get_indexed_string)
-fn C.SDL_hid_get_indexed_string(dev &HidDevice, string_index int, str &C.wchar_t, maxlen usize) int
+fn C.SDL_hid_get_indexed_string(dev &HidDevice, string_index int, str &WCharT, maxlen usize) int
 
 // hid_get_indexed_string gets a string from a HID device, based on its string index.
 //
@@ -497,7 +495,7 @@ fn C.SDL_hid_get_indexed_string(dev &HidDevice, string_index int, str &C.wchar_t
 //          SDL_GetError() for more information.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn hid_get_indexed_string(dev &HidDevice, string_index int, str &C.wchar_t, maxlen usize) int {
+pub fn hid_get_indexed_string(dev &HidDevice, string_index int, str &WCharT, maxlen usize) int {
 	return C.SDL_hid_get_indexed_string(dev, string_index, str, maxlen)
 }
 
