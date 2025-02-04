@@ -1,4 +1,4 @@
-// Copyright(C) 2021 Lars Pontoppidan. All rights reserved.
+// Copyright(C) 2025 Lars Pontoppidan. All rights reserved.
 // Use of this source code is governed by an MIT license
 // that can be found in the LICENSE file.
 module sdl
@@ -7,7 +7,10 @@ module sdl
 // SDL_misc.h
 //
 
-fn C.SDL_OpenURL(url &char) int
+// SDL API functions that don't fit elsewhere.
+
+// C.SDL_OpenURL [official documentation](https://wiki.libsdl.org/SDL3/SDL_OpenURL)
+fn C.SDL_OpenURL(const_url &char) bool
 
 // open_url opens a URL/URI in the browser or other appropriate external application.
 //
@@ -30,12 +33,12 @@ fn C.SDL_OpenURL(url &char) int
 // All this to say: this function can be useful, but you should definitely
 // test it on every platform you target.
 //
-// `url` A valid URL/URI to open. Use `file:///full/path/to/file` for
+// `url` url a valid URL/URI to open. Use `file:///full/path/to/file` for
 //            local files, if supported.
-// returns 0 on success, or -1 on error; call SDL_GetError() for more
+// returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
-// NOTE This function is available since SDL 2.0.14.
-pub fn open_url(url &char) int {
-	return C.SDL_OpenURL(url)
+// NOTE: This function is available since SDL 3.2.0.
+pub fn open_url(const_url &char) bool {
+	return C.SDL_OpenURL(const_url)
 }

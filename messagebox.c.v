@@ -1,4 +1,4 @@
-// Copyright(C) 2021 Lars Pontoppidan. All rights reserved.
+// Copyright(C) 2025 Lars Pontoppidan. All rights reserved.
 // Use of this source code is governed by an MIT license
 // that can be found in the LICENSE file.
 module sdl
@@ -7,38 +7,58 @@ module sdl
 // SDL_messagebox.h
 //
 
-// MessageBoxFlags is C.SDL_MessageBoxFlags
-// MessageBox flags. If supported will display warning icon, etc.
-pub enum MessageBoxFlags {
-	error                 = C.SDL_MESSAGEBOX_ERROR                 // 0x00000010, error dialog
-	warning               = C.SDL_MESSAGEBOX_WARNING               // 0x00000020, warning dialog
-	information           = C.SDL_MESSAGEBOX_INFORMATION           // 0x00000040, informational dialog
-	buttons_left_to_right = C.SDL_MESSAGEBOX_BUTTONS_LEFT_TO_RIGHT // 0x00000080, buttons placed left to right
-	buttons_right_to_left = C.SDL_MESSAGEBOX_BUTTONS_RIGHT_TO_LEFT // 0x00000100, buttons placed right to left
-}
+// SDL offers a simple message box API, which is useful for simple alerts,
+// such as informing the user when something fatal happens at startup without
+// the need to build a UI for it (or informing the user _before_ your UI is
+// ready).
+//
+// These message boxes are native system dialogs where possible.
+//
+// There is both a customizable function (SDL_ShowMessageBox()) that offers
+// lots of options for what to display and reports on what choice the user
+// made, and also a much-simplified version (SDL_ShowSimpleMessageBox()),
+// merely takes a text message and title, and waits until the user presses a
+// single "OK" UI button. Often, this is all that is necessary.
 
-// MessageBoxButtonFlags is C.SDL_MessageBoxButtonFlags
-// Flags for SDL_MessageBoxButtonData.
-pub enum MessageBoxButtonFlags {
-	returnkey_default = C.SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT // 0x00000001, Marks the default button when return is hit
-	escapekey_default = C.SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT // 0x00000002, Marks the default button when escape is hit
-}
+// Message box flags.
+//
+// If supported will display warning icon, etc.
+//
+// NOTE: This datatype is available since SDL 3.2.0.
+pub type MessageBoxFlags = u32
 
-// MessageBoxButtonData is individual button data.
+// SDL_MessageBoxButtonData flags.
+//
+// NOTE: This datatype is available since SDL 3.2.0.
+pub type MessageBoxButtonFlags = u32
+
+pub const messagebox_error = C.SDL_MESSAGEBOX_ERROR // 0x00000010u
+
+pub const messagebox_warning = C.SDL_MESSAGEBOX_WARNING // 0x00000020u
+
+pub const messagebox_information = C.SDL_MESSAGEBOX_INFORMATION // 0x00000040u
+
+pub const messagebox_buttons_left_to_right = C.SDL_MESSAGEBOX_BUTTONS_LEFT_TO_RIGHT // 0x00000080u
+
+pub const messagebox_buttons_right_to_left = C.SDL_MESSAGEBOX_BUTTONS_RIGHT_TO_LEFT // 0x00000100u
+
+pub const messagebox_button_returnkey_default = C.SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT // 0x00000001u
+
+pub const messagebox_button_escapekey_default = C.SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT // 0x00000002u
+
 @[typedef]
 pub struct C.SDL_MessageBoxButtonData {
-pub:
-	flags    u32   // ::SDL_MessageBoxButtonFlags
-	buttonid int   // User defined button id (value returned via SDL_ShowMessageBox)
-	text     &char // The UTF-8 button text
+pub mut:
+	flags    MessageBoxButtonFlags
+	buttonID int // User defined button id (value returned via SDL_ShowMessageBox)
+	text     &char = unsafe { nil } // The UTF-8 button text
 }
 
 pub type MessageBoxButtonData = C.SDL_MessageBoxButtonData
 
-// MessageBoxColor is a RGB value used in a message box color scheme
 @[typedef]
 pub struct C.SDL_MessageBoxColor {
-pub:
+pub mut:
 	r u8
 	g u8
 	b u8
@@ -53,34 +73,32 @@ pub enum MessageBoxColorType {
 	button_border     = C.SDL_MESSAGEBOX_COLOR_BUTTON_BORDER
 	button_background = C.SDL_MESSAGEBOX_COLOR_BUTTON_BACKGROUND
 	button_selected   = C.SDL_MESSAGEBOX_COLOR_BUTTON_SELECTED
-	max               = C.SDL_MESSAGEBOX_COLOR_MAX
+	count             = C.SDL_MESSAGEBOX_COLOR_COUNT // `count` Size of the colors array of SDL_MessageBoxColorScheme.
 }
 
-// MessageBoxColorScheme is a set of colors to use for message box dialogs
 @[typedef]
 pub struct C.SDL_MessageBoxColorScheme {
-pub:
-	colors [6]MessageBoxColor
+	// TODO 	colors [SDL_MESSAGEBOX_COLOR_COUNT]MessageBoxColor
 }
 
 pub type MessageBoxColorScheme = C.SDL_MessageBoxColorScheme
 
-// MessageBoxData is a MessageBox structure containing title, text, window, etc.
 @[typedef]
 pub struct C.SDL_MessageBoxData {
-pub:
-	flags       u32     // ::SDL_MessageBoxFlags
-	window      &Window // Parent window, can be NULL
-	title       &char   // UTF-8 title
-	message     &char   // UTF-8 message text
+pub mut:
+	flags       MessageBoxFlags
+	window      &Window = unsafe { nil } // Parent window, can be NULL
+	title       &char   = unsafe { nil } // UTF-8 title
+	message     &char   = unsafe { nil } // UTF-8 message text
 	numbuttons  int
-	buttons     &MessageBoxButtonData  // C.SDL_MessageBoxButtonData
-	colorScheme &MessageBoxColorScheme // C.SDL_MessageBoxColorScheme, ::SDL_MessageBoxColorScheme, can be NULL to use system settings
+	buttons     &MessageBoxButtonData  = unsafe { nil }
+	colorScheme &MessageBoxColorScheme = unsafe { nil } // SDL_MessageBoxColorScheme, can be NULL to use system settings
 }
 
 pub type MessageBoxData = C.SDL_MessageBoxData
 
-fn C.SDL_ShowMessageBox(messageboxdata &C.SDL_MessageBoxData, buttonid &int) int
+// C.SDL_ShowMessageBox [official documentation](https://wiki.libsdl.org/SDL3/SDL_ShowMessageBox)
+fn C.SDL_ShowMessageBox(const_messageboxdata &MessageBoxData, buttonid &int) bool
 
 // show_message_box creates a modal message box.
 //
@@ -104,20 +122,22 @@ fn C.SDL_ShowMessageBox(messageboxdata &C.SDL_MessageBoxData, buttonid &int) int
 // concern, check the return value from this function and fall back to writing
 // to stderr if you can.
 //
-// `messageboxdata` the SDL_MessageBoxData structure with title, text and
-//                       other options
-// `buttonid` the pointer to which user id of hit button should be copied
-// returns 0 on success or a negative error code on failure; call
-//          SDL_GetError() for more information.
+// `messageboxdata` messageboxdata the SDL_MessageBoxData structure with title, text and
+//                       other options.
+// `buttonid` buttonid the pointer to which user id of hit button should be
+//                 copied.
+// returns true on success or false on failure; call SDL_GetError() for more
+//          information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 3.2.0.
 //
-// See also: SDL_ShowSimpleMessageBox
-pub fn show_message_box(messageboxdata &MessageBoxData, buttonid &int) int {
-	return C.SDL_ShowMessageBox(messageboxdata, buttonid)
+// See also: show_simple_message_box (SDL_ShowSimpleMessageBox)
+pub fn show_message_box(const_messageboxdata &MessageBoxData, buttonid &int) bool {
+	return C.SDL_ShowMessageBox(const_messageboxdata, buttonid)
 }
 
-fn C.SDL_ShowSimpleMessageBox(flags u32, const_title &char, const_message &char, window &C.SDL_Window) int
+// C.SDL_ShowSimpleMessageBox [official documentation](https://wiki.libsdl.org/SDL3/SDL_ShowSimpleMessageBox)
+fn C.SDL_ShowSimpleMessageBox(flags MessageBoxFlags, const_title &char, const_message &char, window &Window) bool
 
 // show_simple_message_box displays a simple modal message box.
 //
@@ -147,16 +167,16 @@ fn C.SDL_ShowSimpleMessageBox(flags u32, const_title &char, const_message &char,
 // concern, check the return value from this function and fall back to writing
 // to stderr if you can.
 //
-// `flags` an SDL_MessageBoxFlags value
-// `title` UTF-8 title text
-// `message` UTF-8 message text
-// `window` the parent window, or NULL for no parent
-// returns 0 on success or a negative error code on failure; call
-//          SDL_GetError() for more information.
+// `flags` flags an SDL_MessageBoxFlags value.
+// `title` title UTF-8 title text.
+// `message` message UTF-8 message text.
+// `window` window the parent window, or NULL for no parent.
+// returns true on success or false on failure; call SDL_GetError() for more
+//          information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 3.2.0.
 //
-// See also: SDL_ShowMessageBox
-pub fn show_simple_message_box(flags u32, const_title &char, const_message &char, window &Window) int {
+// See also: show_message_box (SDL_ShowMessageBox)
+pub fn show_simple_message_box(flags MessageBoxFlags, const_title &char, const_message &char, window &Window) bool {
 	return C.SDL_ShowSimpleMessageBox(flags, const_title, const_message, window)
 }

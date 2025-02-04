@@ -1,4 +1,4 @@
-// Copyright(C) 2021 Lars Pontoppidan. All rights reserved.
+// Copyright(C) 2025 Lars Pontoppidan. All rights reserved.
 // Use of this source code is governed by an MIT license
 // that can be found in the LICENSE file.
 module sdl
@@ -7,168 +7,149 @@ module sdl
 // SDL_system.h
 //
 
-// Platform specific functions for Windows
+@[typedef]
+pub struct C.tagMSG {}
 
-// WindowsMessageHook is `typedef void (SDLCALL * SDL_WindowsMessageHook)(void *userdata, void *hWnd, unsigned int message, Uint64 wParam, Sint64 lParam)`
-pub type WindowsMessageHook = fn (userdata voidptr, h_wnd voidptr, message u32, w_param u64, l_param i64)
+pub type TagMSG = C.tagMSG
 
+@[typedef]
+pub struct C.MSG {}
+
+pub type MSG = C.MSG
+
+// WindowsMessageHook as callback to be used with SDL_SetWindowsMessageHook.
+//
+// This callback may modify the message, and should return true if the message
+// should continue to be processed, or false to prevent further processing.
+//
+// As this is processing a message directly from the Windows event loop, this
+// callback should do the minimum required work and return quickly.
+//
+// `userdata` userdata the app-defined pointer provided to
+//                 SDL_SetWindowsMessageHook.
+// `msg` msg a pointer to a Win32 event structure to process.
+// returns true to let event continue on, false to drop it.
+//
+// NOTE: (thread safety) This may only be called (by SDL) from the thread handling the
+//               Windows event loop.
+//
+// NOTE: This datatype is available since SDL 3.2.0.
+//
+// See also: set_windows_message_hook (SDL_SetWindowsMessageHook)
+// See also: hintwindowsenablemessageloop (SDL_HINT_WINDOWS_ENABLE_MESSAGELOOP)
+//
+// [Official documentation](https://wiki.libsdl.org/SDL3/SDL_WindowsMessageHook)
+pub type WindowsMessageHook = fn (userdata voidptr, msg &MSG) bool
+
+// C.SDL_SetWindowsMessageHook [official documentation](https://wiki.libsdl.org/SDL3/SDL_SetWindowsMessageHook)
 fn C.SDL_SetWindowsMessageHook(callback WindowsMessageHook, userdata voidptr)
 
 // set_windows_message_hook sets a callback for every Windows message, run before TranslateMessage().
 //
-// `callback` The SDL_WindowsMessageHook function to call.
-// `userdata` a pointer to pass to every iteration of `callback`
+// The callback may modify the message, and should return true if the message
+// should continue to be processed, or false to prevent further processing.
 //
-// NOTE This function is available since SDL 2.0.4.
+// `callback` callback the SDL_WindowsMessageHook function to call.
+// `userdata` userdata a pointer to pass to every iteration of `callback`.
+//
+// NOTE: This function is available since SDL 3.2.0.
+//
+// See also: windows_message_hook (SDL_WindowsMessageHook)
+// See also: hintwindowsenablemessageloop (SDL_HINT_WINDOWS_ENABLE_MESSAGELOOP)
 pub fn set_windows_message_hook(callback WindowsMessageHook, userdata voidptr) {
 	C.SDL_SetWindowsMessageHook(callback, userdata)
 }
 
-fn C.SDL_Direct3D9GetAdapterIndex(display_index int) int
+// C.SDL_GetDirect3D9AdapterIndex [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetDirect3D9AdapterIndex)
+fn C.SDL_GetDirect3D9AdapterIndex(display_id DisplayID) int
 
-// direct_3d9_get_adapter_index gets the D3D9 adapter index that matches the specified display index.
+// get_direct3_d9_adapter_index gets the D3D9 adapter index that matches the specified display.
 //
 // The returned adapter index can be passed to `IDirect3D9::CreateDevice` and
 // controls on which monitor a full screen application will appear.
 //
-// `displayIndex` the display index for which to get the D3D9 adapter
-//                     index
-// returns the D3D9 adapter index on success or a negative error code on
-//          failure; call SDL_GetError() for more information.
+// `display_id` displayID the instance of the display to query.
+// returns the D3D9 adapter index on success or -1 on failure; call
+//          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.1.
-pub fn direct_3d9_get_adapter_index(display_index int) int {
-	return C.SDL_Direct3D9GetAdapterIndex(display_index)
+// NOTE: This function is available since SDL 3.2.0.
+pub fn get_direct3_d9_adapter_index(display_id DisplayID) int {
+	return C.SDL_GetDirect3D9AdapterIndex(display_id)
 }
 
-@[typedef]
-pub struct C.IDirect3DDevice9 {
-}
+// C.SDL_GetDXGIOutputInfo [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetDXGIOutputInfo)
+fn C.SDL_GetDXGIOutputInfo(display_id DisplayID, adapter_index &int, output_index &int) bool
 
-pub type IDirect3DDevice9 = C.IDirect3DDevice9
-
-fn C.SDL_RenderGetD3D9Device(renderer &C.SDL_Renderer) &C.IDirect3DDevice9
-
-// render_get_d3d9_device gets the D3D9 device associated with a renderer.
-//
-// Once you are done using the device, you should release it to avoid a
-// resource leak.
-//
-// `renderer` the renderer from which to get the associated D3D device
-// returns the D3D9 device associated with given renderer or NULL if it is
-//          not a D3D9 renderer; call SDL_GetError() for more information.
-//
-// NOTE This function is available since SDL 2.0.1.
-pub fn render_get_d3d9_device(renderer &Renderer) &IDirect3DDevice9 {
-	return C.SDL_RenderGetD3D9Device(renderer)
-}
-
-@[typedef]
-pub struct C.ID3D11Device {
-}
-
-pub type ID3D11Device = C.ID3D11Device
-
-fn C.SDL_RenderGetD3D11Device(renderer &C.SDL_Renderer) &C.ID3D11Device
-
-// render_get_d3_d11_device gets the D3D11 device associated with a renderer.
-//
-// Once you are done using the device, you should release it to avoid a
-// resource leak.
-//
-// `renderer` the renderer from which to get the associated D3D11 device
-// returns the D3D11 device associated with given renderer or NULL if it is
-//          not a D3D11 renderer; call SDL_GetError() for more information.
-//
-// NOTE This function is available since SDL 2.0.16.
-pub fn render_get_d3_d11_device(renderer &Renderer) &ID3D11Device {
-	return C.SDL_RenderGetD3D11Device(renderer)
-}
-
-@[typedef]
-struct C.ID3D12Device {
-}
-
-pub type ID3D12Device = C.ID3D12Device
-
-fn C.SDL_RenderGetD3D12Device(renderer &C.SDL_Renderer) &C.ID3D12Device
-
-// render_get_d3_d12_device gets the D3D12 device associated with a renderer.
-//
-// Once you are done using the device, you should release it to avoid a
-// resource leak.
-//
-// `renderer` the renderer from which to get the associated D3D12 device
-// returns the D3D12 device associated with given renderer or NULL if it is
-//          not a D3D12 renderer; call SDL_GetError() for more information.
-//
-// NOTE This function is available since SDL 2.24.0.
-pub fn render_get_d3_d12_device(renderer &Renderer) &ID3D12Device {
-	return C.SDL_RenderGetD3D12Device(renderer)
-}
-
-fn C.SDL_DXGIGetOutputInfo(display_index int, adapter_index &int, output_index &int) bool
-
-// dxgi_get_output_info gets the DXGI Adapter and Output indices for the specified display index.
+// get_dxgi_output_info gets the DXGI Adapter and Output indices for the specified display.
 //
 // The DXGI Adapter and Output indices can be passed to `EnumAdapters` and
 // `EnumOutputs` respectively to get the objects required to create a DX10 or
 // DX11 device and swap chain.
 //
-// Before SDL 2.0.4 this function did not return a value. Since SDL 2.0.4 it
-// returns an SDL_bool.
+// `display_id` displayID the instance of the display to query.
+// `adapter_index` adapterIndex a pointer to be filled in with the adapter index.
+// `output_index` outputIndex a pointer to be filled in with the output index.
+// returns true on success or false on failure; call SDL_GetError() for more
+//          information.
 //
-// `displayIndex` the display index for which to get both indices
-// `adapterIndex` a pointer to be filled in with the adapter index
-// `outputIndex` a pointer to be filled in with the output index
-// returns SDL_TRUE on success or SDL_FALSE on failure; call SDL_GetError()
-//          for more information.
-//
-// NOTE This function is available since SDL 2.0.2.
-pub fn dxgi_get_output_info(display_index int, adapter_index &int, output_index &int) bool {
-	return C.SDL_DXGIGetOutputInfo(display_index, adapter_index, output_index)
+// NOTE: This function is available since SDL 3.2.0.
+pub fn get_dxgi_output_info(display_id DisplayID, adapter_index &int, output_index &int) bool {
+	return C.SDL_GetDXGIOutputInfo(display_id, adapter_index, output_index)
 }
 
-/*
-TODO support GDK?
-$if gdk ? {
-	[typedef]
-	struct C.XTaskQueueHandle {} // XTaskQueueObject
-	pub type XTaskQueueHandle = C.XTaskQueueHandle
+@[typedef]
+pub struct C.XTaskQueueHandle {}
 
-	[typedef]
-	struct C.XUserHandle {} // XUser
-	pub type XUserHandle = C.XUserHandle
+pub type XTaskQueueHandle = C.XTaskQueueHandle
 
-	fn C.SDL_GDKGetTaskQueue(out_task_queue &C.XTaskQueueHandle) int
-	// gdk_get_task_queue gets a reference to the global async task queue handle for GDK,
-	// initializing if needed.
-	//
-	// Once you are done with the task queue, you should call
-	// XTaskQueueCloseHandle to reduce the reference count to avoid a resource
-	// leak.
-	//
-	// `outTaskQueue` a pointer to be filled in with task queue handle.
-	// returns 0 if success, -1 if any error occurs.
-	//
-	// NOTE This function is available since SDL 2.24.0.
-	pub fn gdk_get_task_queue(out_task_queue &XTaskQueueHandle) int{
-		return C.SDL_GDKGetTaskQueue(out_task_queue)
-	}
+@[typedef]
+pub struct C.XUserHandle {}
 
-	fn C.SDL_GDKGetDefaultUser(XUserHandle * outUserHandle) int
-	// Gets a reference to the default user handle for GDK.
-	//
-	// This is effectively a synchronous version of XUserAddAsync, which always
-	// prefers the default user and allows a sign-in UI.
-	//
-	// `outUserHandle` a pointer to be filled in with the default user
-	//  handle.
-	// returns 0 if success, -1 if any error occurs.
-	//
-	// NOTE This function is available since SDL 2.28.0.
-	pub fn gdk_get_default_user(out_user_handle &XUserHandle) int {
-		return C.SDL_GDKGetDefaultUser(out_user_handle)
-	}
+pub type XUserHandle = C.XUserHandle
+
+@[typedef]
+pub struct C.XTaskQueueObject {}
+
+pub type XTaskQueueObject = C.XTaskQueueObject
+
+@[typedef]
+pub struct C.XUser {}
+
+pub type XUser = C.XUser
+
+// C.SDL_GetGDKTaskQueue [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGDKTaskQueue)
+fn C.SDL_GetGDKTaskQueue(out_task_queue &XTaskQueueHandle) bool
+
+// get_gdk_task_queue gets a reference to the global async task queue handle for GDK,
+// initializing if needed.
+//
+// Once you are done with the task queue, you should call
+// XTaskQueueCloseHandle to reduce the reference count to avoid a resource
+// leak.
+//
+// `out_task_queue` outTaskQueue a pointer to be filled in with task queue handle.
+// returns true on success or false on failure; call SDL_GetError() for more
+//          information.
+//
+// NOTE: This function is available since SDL 3.2.0.
+pub fn get_gdk_task_queue(out_task_queue &XTaskQueueHandle) bool {
+	return C.SDL_GetGDKTaskQueue(out_task_queue)
 }
-*/
+
+// C.SDL_GetGDKDefaultUser [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGDKDefaultUser)
+fn C.SDL_GetGDKDefaultUser(out_user_handle &XUserHandle) bool
+
+// get_gdk_default_user gets a reference to the default user handle for GDK.
+//
+// This is effectively a synchronous version of XUserAddAsync, which always
+// prefers the default user and allows a sign-in UI.
+//
+// `out_user_handle` outUserHandle a pointer to be filled in with the default user
+//                      handle.
+// returns true if success or false on failure; call SDL_GetError() for more
+//          information.
+//
+// NOTE: This function is available since SDL 3.2.0.
+pub fn get_gdk_default_user(out_user_handle &XUserHandle) bool {
+	return C.SDL_GetGDKDefaultUser(out_user_handle)
+}

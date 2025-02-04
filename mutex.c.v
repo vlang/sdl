@@ -1,4 +1,4 @@
-// Copyright(C) 2021 Lars Pontoppidan. All rights reserved.
+// Copyright(C) 2025 Lars Pontoppidan. All rights reserved.
 // Use of this source code is governed by an MIT license
 // that can be found in the LICENSE file.
 module sdl
@@ -7,22 +7,75 @@ module sdl
 // SDL_mutex.h
 //
 
-// mutex_timeout. Synchronization functions which can time out return this value
-// if they time out.
-pub const mutex_timeout = C.SDL_MUTEX_TIMEDOUT // 1
+// SDL offers several thread synchronization primitives. This document can't
+// cover the complicated topic of thread safety, but reading up on what each
+// of these primitives are, why they are useful, and how to correctly use them
+// is vital to writing correct and safe multithreaded programs.
+//
+// - Mutexes: SDL_CreateMutex()
+// - Read/Write locks: SDL_CreateRWLock()
+// - Semaphores: SDL_CreateSemaphore()
+// - Condition variables: SDL_CreateCondition()
+//
+// SDL also offers a datatype, SDL_InitState, which can be used to make sure
+// only one thread initializes/deinitializes some resource that several
+// threads might try to use for the first time simultaneously.
 
-// mutex_maxwait is the timeout value which corresponds to never time out.
-pub const mutex_maxwait = C.SDL_MUTEX_MAXWAIT // (~(Uint32)0)
+// TODO Function: #define SDL_THREAD_ANNOTATION_ATTRIBUTE__(x)   __attribute__((x))
 
-// Mutex is the SDL mutex structure, defined in SDL_sysmutex.c
-// Mutex is C.SDL_mutex
+// TODO Function: #define SDL_THREAD_ANNOTATION_ATTRIBUTE__(x)   __attribute__((x))
+
+// TODO Function: #define SDL_THREAD_ANNOTATION_ATTRIBUTE__(x)
+
+// TODO Non-numerical: #define SDL_CAPABILITY(x) \
+
+// TODO Non-numerical: #define SDL_SCOPED_CAPABILITY \
+
+// TODO Non-numerical: #define SDL_GUARDED_BY(x) \
+
+// TODO Non-numerical: #define SDL_PT_GUARDED_BY(x) \
+
+// TODO Non-numerical: #define SDL_ACQUIRED_BEFORE(x) \
+
+// TODO Non-numerical: #define SDL_ACQUIRED_AFTER(x) \
+
+// TODO Non-numerical: #define SDL_REQUIRES(x) \
+
+// TODO Non-numerical: #define SDL_REQUIRES_SHARED(x) \
+
+// TODO Non-numerical: #define SDL_ACQUIRE(x) \
+
+// TODO Non-numerical: #define SDL_ACQUIRE_SHARED(x) \
+
+// TODO Non-numerical: #define SDL_RELEASE(x) \
+
+// TODO Non-numerical: #define SDL_RELEASE_SHARED(x) \
+
+// TODO Non-numerical: #define SDL_RELEASE_GENERIC(x) \
+
+// TODO Non-numerical: #define SDL_TRY_ACQUIRE(x, y) \
+
+// TODO Non-numerical: #define SDL_TRY_ACQUIRE_SHARED(x, y) \
+
+// TODO Non-numerical: #define SDL_EXCLUDES(x) \
+
+// TODO Non-numerical: #define SDL_ASSERT_CAPABILITY(x) \
+
+// TODO Non-numerical: #define SDL_ASSERT_SHARED_CAPABILITY(x) \
+
+// TODO Non-numerical: #define SDL_RETURN_CAPABILITY(x) \
+
+// TODO Non-numerical: #define SDL_NO_THREAD_SAFETY_ANALYSIS \
+
 @[noinit; typedef]
-pub struct C.SDL_mutex {
+pub struct C.SDL_Mutex {
+	// NOTE: Opaque type
 }
 
-pub type Mutex = C.SDL_mutex
+pub type Mutex = C.SDL_Mutex
 
-fn C.SDL_CreateMutex() &C.SDL_mutex
+// C.SDL_CreateMutex [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreateMutex)
+fn C.SDL_CreateMutex() &Mutex
 
 // create_mutex creates a new mutex.
 //
@@ -36,17 +89,18 @@ fn C.SDL_CreateMutex() &C.SDL_mutex
 // returns the initialized and unlocked mutex or NULL on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 3.2.0.
 //
-// See also: SDL_DestroyMutex
-// See also: SDL_LockMutex
-// See also: SDL_TryLockMutex
-// See also: SDL_UnlockMutex
-pub fn create_mutex() &C.SDL_mutex {
+// See also: destroy_mutex (SDL_DestroyMutex)
+// See also: lock_mutex (SDL_LockMutex)
+// See also: try_lock_mutex (SDL_TryLockMutex)
+// See also: unlock_mutex (SDL_UnlockMutex)
+pub fn create_mutex() &Mutex {
 	return C.SDL_CreateMutex()
 }
 
-fn C.SDL_LockMutex(mutex &C.SDL_mutex) int
+// C.SDL_LockMutex [official documentation](https://wiki.libsdl.org/SDL3/SDL_LockMutex)
+fn C.SDL_LockMutex() // TODO HAS ... ARGS
 
 // lock_mutex locks the mutex.
 //
@@ -58,39 +112,51 @@ fn C.SDL_LockMutex(mutex &C.SDL_mutex) int
 // unlock it the same number of times before it is actually made available for
 // other threads in the system (this is known as a "recursive mutex").
 //
-// `mutex` the mutex to lock
-// returns 0, or -1 on error.
+// This function does not fail; if mutex is NULL, it will return immediately
+// having locked nothing. If the mutex is valid, this function will always
+// block until it can lock the mutex, and return with it locked.
 //
-// NOTE This function is available since SDL 2.0.0.
-pub fn lock_mutex(mutex &Mutex) int {
-	return C.SDL_LockMutex(mutex)
+// `mutex` mutex the mutex to lock.
+//
+// NOTE: This function is available since SDL 3.2.0.
+//
+// See also: try_lock_mutex (SDL_TryLockMutex)
+// See also: unlock_mutex (SDL_UnlockMutex)
+pub fn lock_mutex() {
+	// TODO HAS ... ARGS
+	C.SDL_LockMutex() // TODO: fixme HAS ARGS
 }
 
-fn C.SDL_TryLockMutex(mutex &C.SDL_mutex) int
+/*
+TODO:
+extern SDL_DECLSPEC bool SDLCALL SDL_TryLockMutex(SDL_Mutex *mutex) SDL_TRY_ACQUIRE(0, mutex);
+*/
 
-// try_lock_mutex trys to lock a mutex without blocking.
+// /* TODO: */ trys to lock a mutex without blocking.
 //
 // This works just like SDL_LockMutex(), but if the mutex is not available,
-// this function returns `SDL_MUTEX_TIMEOUT` immediately.
+// this function returns false immediately.
 //
 // This technique is useful if you need exclusive access to a resource but
 // don't want to wait for it, and will return to it to try again later.
 //
-// `mutex` the mutex to try to lock
-// returns 0, `SDL_MUTEX_TIMEDOUT`, or -1 on error; call SDL_GetError() for
-//          more information.
+// This function returns true if passed a NULL mutex.
 //
-// NOTE This function is available since SDL 2.0.0.
+// `mutex` mutex the mutex to try to lock.
+// returns true on success, false if the mutex would block.
 //
-// See also: SDL_CreateMutex
-// See also: SDL_DestroyMutex
-// See also: SDL_LockMutex
-// See also: SDL_UnlockMutex
-pub fn try_lock_mutex(mutex &Mutex) int {
-	return C.SDL_TryLockMutex(mutex)
-}
+// NOTE: This function is available since SDL 3.2.0.
+//
+// See also: lock_mutex (SDL_LockMutex)
+// See also: unlock_mutex (SDL_UnlockMutex)
+//
+/*
+TODO:
+extern SDL_DECLSPEC bool SDLCALL SDL_TryLockMutex(SDL_Mutex *mutex) SDL_TRY_ACQUIRE(0, mutex);
+*/
 
-fn C.SDL_UnlockMutex(mutex &C.SDL_mutex) int
+// C.SDL_UnlockMutex [official documentation](https://wiki.libsdl.org/SDL3/SDL_UnlockMutex)
+fn C.SDL_UnlockMutex() // TODO HAS ... ARGS
 
 // unlock_mutex unlocks the mutex.
 //
@@ -98,20 +164,22 @@ fn C.SDL_UnlockMutex(mutex &C.SDL_mutex) int
 // unlock it the same number of times before it is actually made available for
 // other threads in the system (this is known as a "recursive mutex").
 //
-// It is an error to unlock a mutex that has not been locked by the current
+// It is illegal to unlock a mutex that has not been locked by the current
 // thread, and doing so results in undefined behavior.
 //
-// It is also an error to unlock a mutex that isn't locked at all.
+// `mutex` mutex the mutex to unlock.
 //
-// `mutex` the mutex to unlock.
-// returns 0, or -1 on error.
+// NOTE: This function is available since SDL 3.2.0.
 //
-// NOTE This function is available since SDL 2.0.0.
-pub fn unlock_mutex(mutex &Mutex) int {
-	return C.SDL_UnlockMutex(mutex)
+// See also: lock_mutex (SDL_LockMutex)
+// See also: try_lock_mutex (SDL_TryLockMutex)
+pub fn unlock_mutex() {
+	// TODO HAS ... ARGS
+	C.SDL_UnlockMutex() // TODO: fixme HAS ARGS
 }
 
-fn C.SDL_DestroyMutex(mutex &C.SDL_mutex)
+// C.SDL_DestroyMutex [official documentation](https://wiki.libsdl.org/SDL3/SDL_DestroyMutex)
+fn C.SDL_DestroyMutex(mutex &Mutex)
 
 // destroy_mutex destroys a mutex created with SDL_CreateMutex().
 //
@@ -121,27 +189,270 @@ fn C.SDL_DestroyMutex(mutex &C.SDL_mutex)
 // to destroy a locked mutex, and may result in undefined behavior depending
 // on the platform.
 //
-// `mutex` the mutex to destroy
+// `mutex` mutex the mutex to destroy.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 3.2.0.
 //
-// See also: SDL_CreateMutex
-// See also: SDL_LockMutex
-// See also: SDL_TryLockMutex
-// See also: SDL_UnlockMutex
+// See also: create_mutex (SDL_CreateMutex)
 pub fn destroy_mutex(mutex &Mutex) {
 	C.SDL_DestroyMutex(mutex)
 }
 
-// Sem is the SDL semaphore structure, defined in SDL_syssem.c
-// Sem is C.SDL_sem
 @[noinit; typedef]
-pub struct C.SDL_sem {
+pub struct C.SDL_RWLock {
+	// NOTE: Opaque type
 }
 
-pub type Sem = C.SDL_sem
+pub type RWLock = C.SDL_RWLock
 
-fn C.SDL_CreateSemaphore(initial_value u32) &C.SDL_sem
+// C.SDL_CreateRWLock [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreateRWLock)
+fn C.SDL_CreateRWLock() &RWLock
+
+// create_rw_lock creates a new read/write lock.
+//
+// A read/write lock is useful for situations where you have multiple threads
+// trying to access a resource that is rarely updated. All threads requesting
+// a read-only lock will be allowed to run in parallel; if a thread requests a
+// write lock, it will be provided exclusive access. This makes it safe for
+// multiple threads to use a resource at the same time if they promise not to
+// change it, and when it has to be changed, the rwlock will serve as a
+// gateway to make sure those changes can be made safely.
+//
+// In the right situation, a rwlock can be more efficient than a mutex, which
+// only lets a single thread proceed at a time, even if it won't be modifying
+// the data.
+//
+// All newly-created read/write locks begin in the _unlocked_ state.
+//
+// Calls to SDL_LockRWLockForReading() and SDL_LockRWLockForWriting will not
+// return while the rwlock is locked _for writing_ by another thread. See
+// SDL_TryLockRWLockForReading() and SDL_TryLockRWLockForWriting() to attempt
+// to lock without blocking.
+//
+// SDL read/write locks are only recursive for read-only locks! They are not
+// guaranteed to be fair, or provide access in a FIFO manner! They are not
+// guaranteed to favor writers. You may not lock a rwlock for both read-only
+// and write access at the same time from the same thread (so you can't
+// promote your read-only lock to a write lock without unlocking first).
+//
+// returns the initialized and unlocked read/write lock or NULL on failure;
+//          call SDL_GetError() for more information.
+//
+// NOTE: This function is available since SDL 3.2.0.
+//
+// See also: destroy_rw_lock (SDL_DestroyRWLock)
+// See also: lock_rw_lock_for_reading (SDL_LockRWLockForReading)
+// See also: lock_rw_lock_for_writing (SDL_LockRWLockForWriting)
+// See also: try_lock_rw_lock_for_reading (SDL_TryLockRWLockForReading)
+// See also: try_lock_rw_lock_for_writing (SDL_TryLockRWLockForWriting)
+// See also: unlock_rw_lock (SDL_UnlockRWLock)
+pub fn create_rw_lock() &RWLock {
+	return C.SDL_CreateRWLock()
+}
+
+// C.SDL_LockRWLockForReading [official documentation](https://wiki.libsdl.org/SDL3/SDL_LockRWLockForReading)
+fn C.SDL_LockRWLockForReading() // TODO HAS ... ARGS
+
+// lock_rw_lock_for_reading locks the read/write lock for _read only_ operations.
+//
+// This will block until the rwlock is available, which is to say it is not
+// locked for writing by any other thread. Of all threads waiting to lock the
+// rwlock, all may do so at the same time as long as they are requesting
+// read-only access; if a thread wants to lock for writing, only one may do so
+// at a time, and no other threads, read-only or not, may hold the lock at the
+// same time.
+//
+// It is legal for the owning thread to lock an already-locked rwlock for
+// reading. It must unlock it the same number of times before it is actually
+// made available for other threads in the system (this is known as a
+// "recursive rwlock").
+//
+// Note that locking for writing is not recursive (this is only available to
+// read-only locks).
+//
+// It is illegal to request a read-only lock from a thread that already holds
+// the write lock. Doing so results in undefined behavior. Unlock the write
+// lock before requesting a read-only lock. (But, of course, if you have the
+// write lock, you don't need further locks to read in any case.)
+//
+// This function does not fail; if rwlock is NULL, it will return immediately
+// having locked nothing. If the rwlock is valid, this function will always
+// block until it can lock the mutex, and return with it locked.
+//
+// `rwlock` rwlock the read/write lock to lock.
+//
+// NOTE: This function is available since SDL 3.2.0.
+//
+// See also: lock_rw_lock_for_writing (SDL_LockRWLockForWriting)
+// See also: try_lock_rw_lock_for_reading (SDL_TryLockRWLockForReading)
+// See also: unlock_rw_lock (SDL_UnlockRWLock)
+pub fn lock_rw_lock_for_reading() {
+	// TODO HAS ... ARGS
+	C.SDL_LockRWLockForReading() // TODO: fixme HAS ARGS
+}
+
+// C.SDL_LockRWLockForWriting [official documentation](https://wiki.libsdl.org/SDL3/SDL_LockRWLockForWriting)
+fn C.SDL_LockRWLockForWriting() // TODO HAS ... ARGS
+
+// lock_rw_lock_for_writing locks the read/write lock for _write_ operations.
+//
+// This will block until the rwlock is available, which is to say it is not
+// locked for reading or writing by any other thread. Only one thread may hold
+// the lock when it requests write access; all other threads, whether they
+// also want to write or only want read-only access, must wait until the
+// writer thread has released the lock.
+//
+// It is illegal for the owning thread to lock an already-locked rwlock for
+// writing (read-only may be locked recursively, writing can not). Doing so
+// results in undefined behavior.
+//
+// It is illegal to request a write lock from a thread that already holds a
+// read-only lock. Doing so results in undefined behavior. Unlock the
+// read-only lock before requesting a write lock.
+//
+// This function does not fail; if rwlock is NULL, it will return immediately
+// having locked nothing. If the rwlock is valid, this function will always
+// block until it can lock the mutex, and return with it locked.
+//
+// `rwlock` rwlock the read/write lock to lock.
+//
+// NOTE: This function is available since SDL 3.2.0.
+//
+// See also: lock_rw_lock_for_reading (SDL_LockRWLockForReading)
+// See also: try_lock_rw_lock_for_writing (SDL_TryLockRWLockForWriting)
+// See also: unlock_rw_lock (SDL_UnlockRWLock)
+pub fn lock_rw_lock_for_writing() {
+	// TODO HAS ... ARGS
+	C.SDL_LockRWLockForWriting() // TODO: fixme HAS ARGS
+}
+
+/*
+TODO:
+extern SDL_DECLSPEC bool SDLCALL SDL_TryLockRWLockForReading(SDL_RWLock *rwlock) SDL_TRY_ACQUIRE_SHARED(0, rwlock);
+*/
+
+// /* TODO: */ trys to lock a read/write lock _for reading_ without blocking.
+//
+// This works just like SDL_LockRWLockForReading(), but if the rwlock is not
+// available, then this function returns false immediately.
+//
+// This technique is useful if you need access to a resource but don't want to
+// wait for it, and will return to it to try again later.
+//
+// Trying to lock for read-only access can succeed if other threads are
+// holding read-only locks, as this won't prevent access.
+//
+// This function returns true if passed a NULL rwlock.
+//
+// `rwlock` rwlock the rwlock to try to lock.
+// returns true on success, false if the lock would block.
+//
+// NOTE: This function is available since SDL 3.2.0.
+//
+// See also: lock_rw_lock_for_reading (SDL_LockRWLockForReading)
+// See also: try_lock_rw_lock_for_writing (SDL_TryLockRWLockForWriting)
+// See also: unlock_rw_lock (SDL_UnlockRWLock)
+//
+/*
+TODO:
+extern SDL_DECLSPEC bool SDLCALL SDL_TryLockRWLockForReading(SDL_RWLock *rwlock) SDL_TRY_ACQUIRE_SHARED(0, rwlock);
+*/
+
+/*
+TODO:
+extern SDL_DECLSPEC bool SDLCALL SDL_TryLockRWLockForWriting(SDL_RWLock *rwlock) SDL_TRY_ACQUIRE(0, rwlock);
+*/
+
+// /* TODO: */ trys to lock a read/write lock _for writing_ without blocking.
+//
+// This works just like SDL_LockRWLockForWriting(), but if the rwlock is not
+// available, then this function returns false immediately.
+//
+// This technique is useful if you need exclusive access to a resource but
+// don't want to wait for it, and will return to it to try again later.
+//
+// It is illegal for the owning thread to lock an already-locked rwlock for
+// writing (read-only may be locked recursively, writing can not). Doing so
+// results in undefined behavior.
+//
+// It is illegal to request a write lock from a thread that already holds a
+// read-only lock. Doing so results in undefined behavior. Unlock the
+// read-only lock before requesting a write lock.
+//
+// This function returns true if passed a NULL rwlock.
+//
+// `rwlock` rwlock the rwlock to try to lock.
+// returns true on success, false if the lock would block.
+//
+// NOTE: This function is available since SDL 3.2.0.
+//
+// See also: lock_rw_lock_for_writing (SDL_LockRWLockForWriting)
+// See also: try_lock_rw_lock_for_reading (SDL_TryLockRWLockForReading)
+// See also: unlock_rw_lock (SDL_UnlockRWLock)
+//
+/*
+TODO:
+extern SDL_DECLSPEC bool SDLCALL SDL_TryLockRWLockForWriting(SDL_RWLock *rwlock) SDL_TRY_ACQUIRE(0, rwlock);
+*/
+
+// C.SDL_UnlockRWLock [official documentation](https://wiki.libsdl.org/SDL3/SDL_UnlockRWLock)
+fn C.SDL_UnlockRWLock() // TODO HAS ... ARGS
+
+// unlock_rw_lock unlocks the read/write lock.
+//
+// Use this function to unlock the rwlock, whether it was locked for read-only
+// or write operations.
+//
+// It is legal for the owning thread to lock an already-locked read-only lock.
+// It must unlock it the same number of times before it is actually made
+// available for other threads in the system (this is known as a "recursive
+// rwlock").
+//
+// It is illegal to unlock a rwlock that has not been locked by the current
+// thread, and doing so results in undefined behavior.
+//
+// `rwlock` rwlock the rwlock to unlock.
+//
+// NOTE: This function is available since SDL 3.2.0.
+//
+// See also: lock_rw_lock_for_reading (SDL_LockRWLockForReading)
+// See also: lock_rw_lock_for_writing (SDL_LockRWLockForWriting)
+// See also: try_lock_rw_lock_for_reading (SDL_TryLockRWLockForReading)
+// See also: try_lock_rw_lock_for_writing (SDL_TryLockRWLockForWriting)
+pub fn unlock_rw_lock() {
+	// TODO HAS ... ARGS
+	C.SDL_UnlockRWLock() // TODO: fixme HAS ARGS
+}
+
+// C.SDL_DestroyRWLock [official documentation](https://wiki.libsdl.org/SDL3/SDL_DestroyRWLock)
+fn C.SDL_DestroyRWLock(rwlock &RWLock)
+
+// destroy_rw_lock destroys a read/write lock created with SDL_CreateRWLock().
+//
+// This function must be called on any read/write lock that is no longer
+// needed. Failure to destroy a rwlock will result in a system memory or
+// resource leak. While it is safe to destroy a rwlock that is _unlocked_, it
+// is not safe to attempt to destroy a locked rwlock, and may result in
+// undefined behavior depending on the platform.
+//
+// `rwlock` rwlock the rwlock to destroy.
+//
+// NOTE: This function is available since SDL 3.2.0.
+//
+// See also: create_rw_lock (SDL_CreateRWLock)
+pub fn destroy_rw_lock(rwlock &RWLock) {
+	C.SDL_DestroyRWLock(rwlock)
+}
+
+@[noinit; typedef]
+pub struct C.SDL_Semaphore {
+	// NOTE: Opaque type
+}
+
+pub type Semaphore = C.SDL_Semaphore
+
+// C.SDL_CreateSemaphore [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreateSemaphore)
+fn C.SDL_CreateSemaphore(initial_value u32) &Semaphore
 
 // create_semaphore creates a semaphore.
 //
@@ -151,297 +462,362 @@ fn C.SDL_CreateSemaphore(initial_value u32) &C.SDL_sem
 // is 0. Each post operation will atomically increment the semaphore value and
 // wake waiting threads and allow them to retry the wait operation.
 //
-// `initial_value` the starting value of the semaphore
+// `initial_value` initial_value the starting value of the semaphore.
 // returns a new semaphore or NULL on failure; call SDL_GetError() for more
 //          information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 3.2.0.
 //
-// See also: SDL_DestroySemaphore
-// See also: SDL_SemPost
-// See also: SDL_SemTryWait
-// See also: SDL_SemValue
-// See also: SDL_SemWait
-// See also: SDL_SemWaitTimeout
-pub fn create_semaphore(initial_value u32) &Sem {
+// See also: destroy_semaphore (SDL_DestroySemaphore)
+// See also: signal_semaphore (SDL_SignalSemaphore)
+// See also: try_wait_semaphore (SDL_TryWaitSemaphore)
+// See also: get_semaphore_value (SDL_GetSemaphoreValue)
+// See also: wait_semaphore (SDL_WaitSemaphore)
+// See also: wait_semaphore_timeout (SDL_WaitSemaphoreTimeout)
+pub fn create_semaphore(initial_value u32) &Semaphore {
 	return C.SDL_CreateSemaphore(initial_value)
 }
 
-fn C.SDL_DestroySemaphore(sem &C.SDL_sem)
+// C.SDL_DestroySemaphore [official documentation](https://wiki.libsdl.org/SDL3/SDL_DestroySemaphore)
+fn C.SDL_DestroySemaphore(sem &Semaphore)
 
 // destroy_semaphore destroys a semaphore.
 //
 // It is not safe to destroy a semaphore if there are threads currently
 // waiting on it.
 //
-// `sem` the semaphore to destroy
+// `sem` sem the semaphore to destroy.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 3.2.0.
 //
-// See also: SDL_CreateSemaphore
-// See also: SDL_SemPost
-// See also: SDL_SemTryWait
-// See also: SDL_SemValue
-// See also: SDL_SemWait
-// See also: SDL_SemWaitTimeout
-pub fn destroy_semaphore(sem &Sem) {
+// See also: create_semaphore (SDL_CreateSemaphore)
+pub fn destroy_semaphore(sem &Semaphore) {
 	C.SDL_DestroySemaphore(sem)
 }
 
-fn C.SDL_SemWait(sem &C.SDL_sem) int
+// C.SDL_WaitSemaphore [official documentation](https://wiki.libsdl.org/SDL3/SDL_WaitSemaphore)
+fn C.SDL_WaitSemaphore(sem &Semaphore)
 
-// sem_wait waits until a semaphore has a positive value and then decrements it.
+// wait_semaphore waits until a semaphore has a positive value and then decrements it.
 //
-// This function suspends the calling thread until either the semaphore
-// pointed to by `sem` has a positive value or the call is interrupted by a
-// signal or error. If the call is successful it will atomically decrement the
-// semaphore value.
+// This function suspends the calling thread until the semaphore pointed to by
+// `sem` has a positive value, and then atomically decrement the semaphore
+// value.
 //
-// This function is the equivalent of calling SDL_SemWaitTimeout() with a time
-// length of `SDL_MUTEX_MAXWAIT`.
+// This function is the equivalent of calling SDL_WaitSemaphoreTimeout() with
+// a time length of -1.
 //
-// `sem` the semaphore wait on
-// returns 0 on success or a negative error code on failure; call
-//          SDL_GetError() for more information.
+// `sem` sem the semaphore wait on.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 3.2.0.
 //
-// See also: SDL_CreateSemaphore
-// See also: SDL_DestroySemaphore
-// See also: SDL_SemPost
-// See also: SDL_SemTryWait
-// See also: SDL_SemValue
-// See also: SDL_SemWait
-// See also: SDL_SemWaitTimeout
-pub fn sem_wait(sem &Sem) int {
-	return C.SDL_SemWait(sem)
+// See also: signal_semaphore (SDL_SignalSemaphore)
+// See also: try_wait_semaphore (SDL_TryWaitSemaphore)
+// See also: wait_semaphore_timeout (SDL_WaitSemaphoreTimeout)
+pub fn wait_semaphore(sem &Semaphore) {
+	C.SDL_WaitSemaphore(sem)
 }
 
-fn C.SDL_SemTryWait(sem &C.SDL_sem) int
+// C.SDL_TryWaitSemaphore [official documentation](https://wiki.libsdl.org/SDL3/SDL_TryWaitSemaphore)
+fn C.SDL_TryWaitSemaphore(sem &Semaphore) bool
 
-// sem_try_wait sees if a semaphore has a positive value and decrement it if it does.
+// try_wait_semaphore sees if a semaphore has a positive value and decrement it if it does.
 //
 // This function checks to see if the semaphore pointed to by `sem` has a
 // positive value and atomically decrements the semaphore value if it does. If
 // the semaphore doesn't have a positive value, the function immediately
-// returns SDL_MUTEX_TIMEDOUT.
+// returns false.
 //
-// `sem` the semaphore to wait on
-// returns 0 if the wait succeeds, `SDL_MUTEX_TIMEDOUT` if the wait would
-//          block, or a negative error code on failure; call SDL_GetError()
-//          for more information.
+// `sem` sem the semaphore to wait on.
+// returns true if the wait succeeds, false if the wait would block.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 3.2.0.
 //
-// See also: SDL_CreateSemaphore
-// See also: SDL_DestroySemaphore
-// See also: SDL_SemPost
-// See also: SDL_SemValue
-// See also: SDL_SemWait
-// See also: SDL_SemWaitTimeout
-pub fn sem_try_wait(sem &Sem) int {
-	return C.SDL_SemTryWait(sem)
+// See also: signal_semaphore (SDL_SignalSemaphore)
+// See also: wait_semaphore (SDL_WaitSemaphore)
+// See also: wait_semaphore_timeout (SDL_WaitSemaphoreTimeout)
+pub fn try_wait_semaphore(sem &Semaphore) bool {
+	return C.SDL_TryWaitSemaphore(sem)
 }
 
-fn C.SDL_SemWaitTimeout(sem &C.SDL_sem, timeout u32) int
+// C.SDL_WaitSemaphoreTimeout [official documentation](https://wiki.libsdl.org/SDL3/SDL_WaitSemaphoreTimeout)
+fn C.SDL_WaitSemaphoreTimeout(sem &Semaphore, timeout_ms int) bool
 
-// sem_wait_timeout waits until a semaphore has a positive value and then decrements it.
+// wait_semaphore_timeout waits until a semaphore has a positive value and then decrements it.
 //
 // This function suspends the calling thread until either the semaphore
-// pointed to by `sem` has a positive value, the call is interrupted by a
-// signal or error, or the specified time has elapsed. If the call is
-// successful it will atomically decrement the semaphore value.
+// pointed to by `sem` has a positive value or the specified time has elapsed.
+// If the call is successful it will atomically decrement the semaphore value.
 //
-// `sem` the semaphore to wait on
-// `timeout` the length of the timeout, in milliseconds
-// returns 0 if the wait succeeds, `SDL_MUTEX_TIMEDOUT` if the wait does not
-//          succeed in the allotted time, or a negative error code on failure;
-//          call SDL_GetError() for more information.
+// `sem` sem the semaphore to wait on.
+// `timeout_ms` timeoutMS the length of the timeout, in milliseconds, or -1 to wait
+//                  indefinitely.
+// returns true if the wait succeeds or false if the wait times out.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 3.2.0.
 //
-// See also: SDL_CreateSemaphore
-// See also: SDL_DestroySemaphore
-// See also: SDL_SemPost
-// See also: SDL_SemTryWait
-// See also: SDL_SemValue
-// See also: SDL_SemWait
-pub fn sem_wait_timeout(sem &Sem, timeout u32) int {
-	return C.SDL_SemWaitTimeout(sem, timeout)
+// See also: signal_semaphore (SDL_SignalSemaphore)
+// See also: try_wait_semaphore (SDL_TryWaitSemaphore)
+// See also: wait_semaphore (SDL_WaitSemaphore)
+pub fn wait_semaphore_timeout(sem &Semaphore, timeout_ms int) bool {
+	return C.SDL_WaitSemaphoreTimeout(sem, timeout_ms)
 }
 
-fn C.SDL_SemPost(sem &C.SDL_sem) int
+// C.SDL_SignalSemaphore [official documentation](https://wiki.libsdl.org/SDL3/SDL_SignalSemaphore)
+fn C.SDL_SignalSemaphore(sem &Semaphore)
 
-// sem_post atomically increments a semaphore's value and wake waiting threads.
+// signal_semaphore atomicallys increment a semaphore's value and wake waiting threads.
 //
-// `sem` the semaphore to increment
-// returns 0 on success or a negative error code on failure; call
-//          SDL_GetError() for more information.
+// `sem` sem the semaphore to increment.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 3.2.0.
 //
-// See also: SDL_CreateSemaphore
-// See also: SDL_DestroySemaphore
-// See also: SDL_SemTryWait
-// See also: SDL_SemValue
-// See also: SDL_SemWait
-// See also: SDL_SemWaitTimeout
-pub fn sem_post(sem &Sem) int {
-	return C.SDL_SemPost(sem)
+// See also: try_wait_semaphore (SDL_TryWaitSemaphore)
+// See also: wait_semaphore (SDL_WaitSemaphore)
+// See also: wait_semaphore_timeout (SDL_WaitSemaphoreTimeout)
+pub fn signal_semaphore(sem &Semaphore) {
+	C.SDL_SignalSemaphore(sem)
 }
 
-fn C.SDL_SemValue(sem &C.SDL_sem) u32
+// C.SDL_GetSemaphoreValue [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetSemaphoreValue)
+fn C.SDL_GetSemaphoreValue(sem &Semaphore) u32
 
-// sem_value gets the current value of a semaphore.
+// get_semaphore_value gets the current value of a semaphore.
 //
-// `sem` the semaphore to query
+// `sem` sem the semaphore to query.
 // returns the current value of the semaphore.
 //
-// NOTE This function is available since SDL 2.0.0.
-//
-// See also: SDL_CreateSemaphore
-pub fn sem_value(sem &Sem) u32 {
-	return C.SDL_SemValue(sem)
+// NOTE: This function is available since SDL 3.2.0.
+pub fn get_semaphore_value(sem &Semaphore) u32 {
+	return C.SDL_GetSemaphoreValue(sem)
 }
 
-// Cond is the SDL condition variable structure, defined in SDL_syscond.c
-// Cond is C.SDL_cond
 @[noinit; typedef]
-pub struct C.SDL_cond {
+pub struct C.SDL_Condition {
+	// NOTE: Opaque type
 }
 
-pub type Cond = C.SDL_cond
+pub type Condition = C.SDL_Condition
 
-fn C.SDL_CreateCond() &C.SDL_cond
+// C.SDL_CreateCondition [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreateCondition)
+fn C.SDL_CreateCondition() &Condition
 
-// create_cond creates a condition variable.
+// create_condition creates a condition variable.
 //
 // returns a new condition variable or NULL on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 3.2.0.
 //
-// See also: SDL_CondBroadcast
-// See also: SDL_CondSignal
-// See also: SDL_CondWait
-// See also: SDL_CondWaitTimeout
-// See also: SDL_DestroyCond
-pub fn create_cond() &Cond {
-	return C.SDL_CreateCond()
+// See also: broadcast_condition (SDL_BroadcastCondition)
+// See also: signal_condition (SDL_SignalCondition)
+// See also: wait_condition (SDL_WaitCondition)
+// See also: wait_condition_timeout (SDL_WaitConditionTimeout)
+// See also: destroy_condition (SDL_DestroyCondition)
+pub fn create_condition() &Condition {
+	return C.SDL_CreateCondition()
 }
 
-fn C.SDL_DestroyCond(cond &C.SDL_cond)
+// C.SDL_DestroyCondition [official documentation](https://wiki.libsdl.org/SDL3/SDL_DestroyCondition)
+fn C.SDL_DestroyCondition(cond &Condition)
 
-// destroy_cond destroys a condition variable.
+// destroy_condition destroys a condition variable.
 //
-// `cond` the condition variable to destroy
+// `cond` cond the condition variable to destroy.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 3.2.0.
 //
-// See also: SDL_CondBroadcast
-// See also: SDL_CondSignal
-// See also: SDL_CondWait
-// See also: SDL_CondWaitTimeout
-// See also: SDL_CreateCond
-pub fn destroy_cond(cond &Cond) {
-	C.SDL_DestroyCond(cond)
+// See also: create_condition (SDL_CreateCondition)
+pub fn destroy_condition(cond &Condition) {
+	C.SDL_DestroyCondition(cond)
 }
 
-fn C.SDL_CondSignal(cond &C.SDL_cond) int
+// C.SDL_SignalCondition [official documentation](https://wiki.libsdl.org/SDL3/SDL_SignalCondition)
+fn C.SDL_SignalCondition(cond &Condition)
 
-// cond_signal restarts one of the threads that are waiting on the condition variable.
+// signal_condition restarts one of the threads that are waiting on the condition variable.
 //
-// `cond` the condition variable to signal
-// returns 0 on success or a negative error code on failure; call
-//          SDL_GetError() for more information.
+// `cond` cond the condition variable to signal.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
-// See also: SDL_CondBroadcast
-// See also: SDL_CondWait
-// See also: SDL_CondWaitTimeout
-// See also: SDL_CreateCond
-// See also: SDL_DestroyCond
-pub fn cond_signal(cond &Cond) int {
-	return C.SDL_CondSignal(cond)
+// NOTE: This function is available since SDL 3.2.0.
+//
+// See also: broadcast_condition (SDL_BroadcastCondition)
+// See also: wait_condition (SDL_WaitCondition)
+// See also: wait_condition_timeout (SDL_WaitConditionTimeout)
+pub fn signal_condition(cond &Condition) {
+	C.SDL_SignalCondition(cond)
 }
 
-fn C.SDL_CondBroadcast(cond &C.SDL_cond) int
+// C.SDL_BroadcastCondition [official documentation](https://wiki.libsdl.org/SDL3/SDL_BroadcastCondition)
+fn C.SDL_BroadcastCondition(cond &Condition)
 
-// cond_broadcast restarts all threads that are waiting on the condition variable.
+// broadcast_condition restarts all threads that are waiting on the condition variable.
 //
-// `cond` the condition variable to signal
-// returns 0 on success or a negative error code on failure; call
-//          SDL_GetError() for more information.
+// `cond` cond the condition variable to signal.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
-// See also: SDL_CondSignal
-// See also: SDL_CondWait
-// See also: SDL_CondWaitTimeout
-// See also: SDL_CreateCond
-// See also: SDL_DestroyCond
-pub fn cond_broadcast(cond &Cond) int {
-	return C.SDL_CondBroadcast(cond)
+// NOTE: This function is available since SDL 3.2.0.
+//
+// See also: signal_condition (SDL_SignalCondition)
+// See also: wait_condition (SDL_WaitCondition)
+// See also: wait_condition_timeout (SDL_WaitConditionTimeout)
+pub fn broadcast_condition(cond &Condition) {
+	C.SDL_BroadcastCondition(cond)
 }
 
-fn C.SDL_CondWait(cond &C.SDL_cond, mutex &C.SDL_mutex) int
+// C.SDL_WaitCondition [official documentation](https://wiki.libsdl.org/SDL3/SDL_WaitCondition)
+fn C.SDL_WaitCondition(cond &Condition, mutex &Mutex)
 
-// cond_wait waits until a condition variable is signaled.
+// wait_condition waits until a condition variable is signaled.
 //
 // This function unlocks the specified `mutex` and waits for another thread to
-// call SDL_CondSignal() or SDL_CondBroadcast() on the condition variable
-// `cond`. Once the condition variable is signaled, the mutex is re-locked and
-// the function returns.
+// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition
+// variable `cond`. Once the condition variable is signaled, the mutex is
+// re-locked and the function returns.
 //
-// The mutex must be locked before calling this function.
+// The mutex must be locked before calling this function. Locking the mutex
+// recursively (more than once) is not supported and leads to undefined
+// behavior.
 //
-// This function is the equivalent of calling SDL_CondWaitTimeout() with a
-// time length of `SDL_MUTEX_MAXWAIT`.
+// This function is the equivalent of calling SDL_WaitConditionTimeout() with
+// a time length of -1.
 //
-// `cond` the condition variable to wait on
-// `mutex` the mutex used to coordinate thread access
-// returns 0 when it is signaled or a negative error code on failure; call
-//          SDL_GetError() for more information.
+// `cond` cond the condition variable to wait on.
+// `mutex` mutex the mutex used to coordinate thread access.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
-// See also: SDL_CondBroadcast
-// See also: SDL_CondSignal
-// See also: SDL_CondWaitTimeout
-// See also: SDL_CreateCond
-// See also: SDL_DestroyCond
-pub fn cond_wait(cond &Cond, mutex &Mutex) int {
-	return C.SDL_CondWait(cond, mutex)
+// NOTE: This function is available since SDL 3.2.0.
+//
+// See also: broadcast_condition (SDL_BroadcastCondition)
+// See also: signal_condition (SDL_SignalCondition)
+// See also: wait_condition_timeout (SDL_WaitConditionTimeout)
+pub fn wait_condition(cond &Condition, mutex &Mutex) {
+	C.SDL_WaitCondition(cond, mutex)
 }
 
-fn C.SDL_CondWaitTimeout(cond &C.SDL_cond, mutex &C.SDL_mutex, ms u32) int
+// C.SDL_WaitConditionTimeout [official documentation](https://wiki.libsdl.org/SDL3/SDL_WaitConditionTimeout)
+fn C.SDL_WaitConditionTimeout(cond &Condition, mutex &Mutex, timeout_ms int) bool
 
-// cond_wait_timeout waits until a condition variable is signaled or a certain time has passed.
+// wait_condition_timeout waits until a condition variable is signaled or a certain time has passed.
 //
 // This function unlocks the specified `mutex` and waits for another thread to
-// call SDL_CondSignal() or SDL_CondBroadcast() on the condition variable
-// `cond`, or for the specified time to elapse. Once the condition variable is
-// signaled or the time elapsed, the mutex is re-locked and the function
-// returns.
+// call SDL_SignalCondition() or SDL_BroadcastCondition() on the condition
+// variable `cond`, or for the specified time to elapse. Once the condition
+// variable is signaled or the time elapsed, the mutex is re-locked and the
+// function returns.
 //
-// The mutex must be locked before calling this function.
+// The mutex must be locked before calling this function. Locking the mutex
+// recursively (more than once) is not supported and leads to undefined
+// behavior.
 //
-// `cond` the condition variable to wait on
-// `mutex` the mutex used to coordinate thread access
-// `ms` the maximum time to wait, in milliseconds, or `SDL_MUTEX_MAXWAIT`
-//           to wait indefinitely
-// returns 0 if the condition variable is signaled, `SDL_MUTEX_TIMEDOUT` if
-//          the condition is not signaled in the allotted time, or a negative
-//          error code on failure; call SDL_GetError() for more information.
+// `cond` cond the condition variable to wait on.
+// `mutex` mutex the mutex used to coordinate thread access.
+// `timeout_ms` timeoutMS the maximum time to wait, in milliseconds, or -1 to wait
+//                  indefinitely.
+// returns true if the condition variable is signaled, false if the condition
+//          is not signaled in the allotted time.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
-// See also: SDL_CondBroadcast
-// See also: SDL_CondSignal
-// See also: SDL_CondWait
-// See also: SDL_CreateCond
-// See also: SDL_DestroyCond
-pub fn cond_wait_timeout(cond &Cond, mutex &Mutex, ms u32) int {
-	return C.SDL_CondWaitTimeout(cond, mutex, ms)
+// NOTE: This function is available since SDL 3.2.0.
+//
+// See also: broadcast_condition (SDL_BroadcastCondition)
+// See also: signal_condition (SDL_SignalCondition)
+// See also: wait_condition (SDL_WaitCondition)
+pub fn wait_condition_timeout(cond &Condition, mutex &Mutex, timeout_ms int) bool {
+	return C.SDL_WaitConditionTimeout(cond, mutex, timeout_ms)
+}
+
+// InitStatus is C.SDL_InitStatus
+pub enum InitStatus {
+	uninitialized  = C.SDL_INIT_STATUS_UNINITIALIZED
+	initializing   = C.SDL_INIT_STATUS_INITIALIZING
+	initialized    = C.SDL_INIT_STATUS_INITIALIZED
+	uninitializing = C.SDL_INIT_STATUS_UNINITIALIZING
+}
+
+@[typedef]
+pub struct C.SDL_InitState {
+pub mut:
+	status   AtomicInt
+	thread   ThreadID
+	reserved voidptr
+}
+
+pub type InitState = C.SDL_InitState
+
+// C.SDL_ShouldInit [official documentation](https://wiki.libsdl.org/SDL3/SDL_ShouldInit)
+fn C.SDL_ShouldInit(state &InitState) bool
+
+// should_init returns whether initialization should be done.
+//
+// This function checks the passed in state and if initialization should be
+// done, sets the status to `SDL_INIT_STATUS_INITIALIZING` and returns true.
+// If another thread is already modifying this state, it will wait until
+// that's done before returning.
+//
+// If this function returns true, the calling code must call
+// SDL_SetInitialized() to complete the initialization.
+//
+// `state` state the initialization state to check.
+// returns true if initialization needs to be done, false otherwise.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
+// NOTE: This function is available since SDL 3.2.0.
+//
+// See also: set_initialized (SDL_SetInitialized)
+// See also: should_quit (SDL_ShouldQuit)
+pub fn should_init(state &InitState) bool {
+	return C.SDL_ShouldInit(state)
+}
+
+// C.SDL_ShouldQuit [official documentation](https://wiki.libsdl.org/SDL3/SDL_ShouldQuit)
+fn C.SDL_ShouldQuit(state &InitState) bool
+
+// should_quit returns whether cleanup should be done.
+//
+// This function checks the passed in state and if cleanup should be done,
+// sets the status to `SDL_INIT_STATUS_UNINITIALIZING` and returns true.
+//
+// If this function returns true, the calling code must call
+// SDL_SetInitialized() to complete the cleanup.
+//
+// `state` state the initialization state to check.
+// returns true if cleanup needs to be done, false otherwise.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
+// NOTE: This function is available since SDL 3.2.0.
+//
+// See also: set_initialized (SDL_SetInitialized)
+// See also: should_init (SDL_ShouldInit)
+pub fn should_quit(state &InitState) bool {
+	return C.SDL_ShouldQuit(state)
+}
+
+// C.SDL_SetInitialized [official documentation](https://wiki.libsdl.org/SDL3/SDL_SetInitialized)
+fn C.SDL_SetInitialized(state &InitState, initialized bool)
+
+// set_initialized finishs an initialization state transition.
+//
+// This function sets the status of the passed in state to
+// `SDL_INIT_STATUS_INITIALIZED` or `SDL_INIT_STATUS_UNINITIALIZED` and allows
+// any threads waiting for the status to proceed.
+//
+// `state` state the initialization state to check.
+// `initialized` initialized the new initialization state.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
+// NOTE: This function is available since SDL 3.2.0.
+//
+// See also: should_init (SDL_ShouldInit)
+// See also: should_quit (SDL_ShouldQuit)
+pub fn set_initialized(state &InitState, initialized bool) {
+	C.SDL_SetInitialized(state, initialized)
 }

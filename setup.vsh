@@ -2,9 +2,9 @@ import os
 
 os.chdir(os.dir(os.executable()))!
 
-res := os.execute('sdl2-config --version')
+res := os.execute('pkg-config --modversion sdl3')
 if res.exit_code != 0 {
-	println('sdl2-config is missing')
+	println('pkg-config is missing')
 	exit(1)
 }
 system_version := res.output.trim_space()
@@ -16,14 +16,7 @@ if remotes.exit_code != 0 {
 	exit(1)
 }
 mut supported_versions := remotes.output.split_into_lines().map(it.trim_space()).filter(it.starts_with('origin/2')).map(it.all_after('origin/'))
-supported_versions.insert(0, '2.0.8') // master
 println('The SDL module officially supports these versions of SDL:\n   ${supported_versions}')
-
-if system_version == '2.0.8' {
-	println('Setting up the repository to branch master, that exactly matches your system SDL version 2.0.8')
-	os.system('git checkout master')
-	exit(0)
-}
 
 if system_version in supported_versions {
 	println('Setting up the repository to branch ${system_version} that exactly matches your system SDL version')

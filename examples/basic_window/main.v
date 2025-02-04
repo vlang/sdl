@@ -2,17 +2,37 @@ module main
 
 import sdl
 
+struct SDLApp {
+	window   &sdl.Window   = unsafe { nil }
+	renderer &sdl.Renderer = unsafe { nil }
+}
+
 fn main() {
-	sdl.init(sdl.init_video)
-	window := sdl.create_window('Hello SDL2'.str, 300, 300, 500, 300, 0)
-	renderer := sdl.create_renderer(window, -1, u32(sdl.RendererFlags.accelerated) | u32(sdl.RendererFlags.presentvsync))
+	mut app := SDLApp{}
+
+	sdl.init(sdl.init_video | sdl.init_events)
+
+	if !sdl.create_window_and_renderer('Hello SDL3'.str, 500, 300, sdl.WindowFlags(0),
+		&app.window, &app.renderer) {
+		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
+		panic('Could not create SDL window and renderer. SDL error:\n${error_msg}')
+	}
 
 	mut should_close := false
 	for {
 		evt := sdl.Event{}
-		for 0 < sdl.poll_event(&evt) {
-			match evt.@type {
-				.quit { should_close = true }
+		for sdl.poll_event(&evt) {
+			match evt.type {
+				.quit {
+					should_close = true
+				}
+				.key_down {
+					key := unsafe { sdl.KeyCode(evt.key.key) }
+					match key {
+						.escape { should_close = true }
+						else {}
+					}
+				}
 				else {}
 			}
 		}
@@ -20,12 +40,12 @@ fn main() {
 			break
 		}
 
-		sdl.set_render_draw_color(renderer, 255, 55, 55, 255)
-		sdl.render_clear(renderer)
-		sdl.render_present(renderer)
+		sdl.set_render_draw_color(app.renderer, 255, 55, 55, sdl.alpha_opaque)
+		sdl.render_clear(app.renderer)
+		sdl.render_present(app.renderer)
 	}
 
-	sdl.destroy_renderer(renderer)
-	sdl.destroy_window(window)
+	sdl.destroy_renderer(app.renderer)
+	sdl.destroy_window(app.window)
 	sdl.quit()
 }

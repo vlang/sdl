@@ -3,8 +3,6 @@
 // that can be found in the LICENSE file.
 module c
 
-pub const used_import = 1
-
 $if !windows {
 	// SDL libs are loaded dynamically from Java on Android
 	$if !android || termux {
@@ -13,30 +11,31 @@ $if !windows {
 		// This is especially useful when building/linking against a
 		// custom compiled version of the libs on *nix.
 		$if !sdl_no_compile_flags ? {
-			$if sdl_compat ? {
-				// Use SDL2 through SDL3 via the compatibility layer
-				#pkgconfig --cflags --libs sdl2_compat
-			} $else {
-				#pkgconfig --cflags --libs sdl2
-			}
+			#pkgconfig --cflags --libs sdl3
 		}
 	}
 } $else {
 	$if tinyc {
-		#define _STDINT_H_
+		// #define _STDINT_H_
 		#flag -L @VMODROOT/thirdparty
 	}
 }
 
-#flag -DSDL_DISABLE_IMMINTRIN_H
-
 $if x64 {
-	#flag windows -L @VMODROOT/thirdparty/SDL2-2.30.0/lib/x64
+	#flag windows -L @VMODROOT/thirdparty/SDL3-3.2.0/lib/x64
 } $else {
-	#flag windows -L @VMODROOT/thirdparty/SDL2-2.30.0/lib/x86
+	#flag windows -L @VMODROOT/thirdparty/SDL3-3.2.0/lib/x86
 }
 
-#flag windows -I @VMODROOT/thirdparty/SDL2-2.30.0/include
-#flag windows -lSDL2
+#flag windows -I @VMODROOT/thirdparty/SDL3-3.2.0/include
+#flag windows -lSDL3
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
+
+$if sdl_use_main_callbacks ? {
+	// TODO: @[use_once]
+	#define SDL_MAIN_USE_CALLBACKS 1
+}
+
+@[use_once]
+#include <SDL3/SDL_main.h>

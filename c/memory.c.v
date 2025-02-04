@@ -62,7 +62,7 @@ pub type ReallocFunc = fn (mem voidptr, size usize) voidptr // fn(mem voidptr, s
 
 pub type FreeFunc = fn (mem voidptr) // fn(mem voidptr)
 
-fn C.SDL_SetMemoryFunctions(malloc_func MallocFunc, calloc_func CallocFunc, realloc_func ReallocFunc, free_func FreeFunc) int
+fn C.SDL_SetMemoryFunctions(malloc_func MallocFunc, calloc_func CallocFunc, realloc_func ReallocFunc, free_func FreeFunc) bool
 fn C.SDL_GetNumAllocations() int
 
 @[if !sdl_no_init ?]
@@ -74,7 +74,7 @@ fn init() {
 	}
 	replaced := C.SDL_SetMemoryFunctions(cb_malloc_func, cb_calloc_func, cb_realloc_func,
 		cb_free_func)
-	if replaced != 0 {
+	if !replaced {
 		eprintln('SDL memory allocation functions were not replaced.')
 	}
 }

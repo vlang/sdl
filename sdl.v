@@ -3,9 +3,9 @@
 // that can be found in the LICENSE file.
 module sdl
 
-import sdl.c
+import sdl.c as _
 
-pub const used_import = c.used_import
+pub const null = unsafe { nil }
 
 pub fn vmod_version() string {
 	mut v := '0.0.0'

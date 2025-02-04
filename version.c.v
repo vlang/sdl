@@ -1,4 +1,4 @@
-// Copyright(C) 2021 Lars Pontoppidan. All rights reserved.
+// Copyright(C) 2025 Lars Pontoppidan. All rights reserved.
 // Use of this source code is governed by an MIT license
 // that can be found in the LICENSE file.
 module sdl
@@ -7,115 +7,148 @@ module sdl
 // SDL_version.h
 //
 
-pub const major_version = C.SDL_MAJOR_VERSION // 2
+// Functionality to query the current SDL version, both as headers the app was
+// compiled against, and a library the app is linked to.
 
-pub const minor_version = C.SDL_MINOR_VERSION // 30
-
-pub const patchlevel = C.SDL_PATCHLEVEL // 0
-
-// Version is information about the version of SDL in use.
-//
-// Represents the library's version as three levels: major revision
-// (increments with massive changes, additions, and enhancements),
-// minor revision (increments with backwards-compatible changes to the
-// major revision), and patchlevel (increments with fixes to the minor
-// revision).
-//
-// See also: SDL_VERSION
-// See also: SDL_GetVersion
-@[typedef]
-pub struct C.SDL_version {
-pub:
-	major u8 // major version
-	minor u8 // minor version
-	patch u8 // update version
+// compiled_version_string is a function added by the V wrapper to make it easier to
+// transition from the `Version` struct used in SDL2.
+pub fn compiled_version_string() string {
+	return '${u8(major_version)}.${u8(minor_version)}.${u8(micro_version)}'
 }
 
-pub fn (ver C.SDL_version) str() string {
-	return '${ver.major}.${ver.minor}.${ver.patch}'
+// linked_version_string is a function added by the V wrapper to make it easier to
+// transition from the `Version` struct used in SDL2.
+pub fn linked_version_string() string {
+	sdl_version := get_version()
+	major := versionnum_major(sdl_version)
+	minor := versionnum_minor(sdl_version)
+	micro := versionnum_micro(sdl_version)
+	return '${major}.${minor}.${micro}'
 }
 
-pub type Version = C.SDL_version
+// The current major version of SDL headers.
+//
+// If this were SDL version 3.2.1, this value would be 3.
+//
+// NOTE: This macro is available since SDL 3.2.0.
+pub const major_version = C.SDL_MAJOR_VERSION // 3
 
-fn C.SDL_VERSION(ver &C.SDL_version)
+// The current minor version of the SDL headers.
+//
+// If this were SDL version 3.2.1, this value would be 2.
+//
+// NOTE: This macro is available since SDL 3.2.0.
+pub const minor_version = C.SDL_MINOR_VERSION // 2
 
-// SDL_VERSION is a macro to determine SDL version program was compiled against.
+// The current micro (or patchlevel) version of the SDL headers.
 //
-// This macro fills in a SDL_version structure with the version of the
-// library you compiled against. This is determined by what header the
-// compiler uses. Note that if you dynamically linked the library, you might
-// have a slightly newer or older version at runtime. That version can be
-// determined with SDL_GetVersion(), which, unlike SDL_VERSION(),
-// is not a macro.
+// If this were SDL version 3.2.1, this value would be 1.
 //
-// `x` A pointer to a SDL_version struct to initialize.
+// NOTE: This macro is available since SDL 3.2.0.
+pub const micro_version = C.SDL_MICRO_VERSION // 0
+
+// C.SDL_VERSIONNUM [official documentation](https://wiki.libsdl.org/SDL3/SDL_VERSIONNUM)
+fn C.SDL_VERSIONNUM(x int, y int, z int) int
+
+// This macro turns the version numbers into a numeric value.
 //
-// See also: SDL_version
-// See also: SDL_GetVersion
-pub fn version(mut ver Version) {
-	C.SDL_VERSION(&ver)
+// (1,2,3) becomes 1002003.
+//
+// `major` the major version number.
+// `minor` the minorversion number.
+// `patch` the patch version number.
+//
+// NOTE: This macro is available since SDL 3.2.0.
+pub fn versionnum(x int, y int, z int) int {
+	return C.SDL_VERSIONNUM(x, y, z)
 }
 
-// This macro turns the version numbers into a numeric value:
-/*
-```
-    (1,2,3) -> (1203)
-```
-*/
-//
-// This assumes that there will never be more than 100 patchlevels.
-//
-// In versions higher than 2.9.0, the minor version overflows into
-// the thousands digit: for example, 2.23.0 is encoded as 4300,
-// and 2.255.99 would be encoded as 25799.
-// This macro will not be available in SDL 3.x.
-pub fn C.SDL_VERSIONNUM(x int, y int, z int) int
+// C.SDL_VERSIONNUM_MAJOR [official documentation](https://wiki.libsdl.org/SDL3/SDL_VERSIONNUM_MAJOR)
+fn C.SDL_VERSIONNUM_MAJOR(version int) int
 
-// SDL_COMPILEDVERSION is the version number macro for the current SDL version.
+// This macro extracts the major version from a version number
 //
-// In versions higher than 2.9.0, the minor version overflows into
-// the thousands digit: for example, 2.23.0 is encoded as 4300.
-// This macro will not be available in SDL 3.x.
+// 1002003 becomes 1.
 //
-// Deprecated, use SDL_VERSION_ATLEAST or SDL_VERSION instead.
-pub fn C.SDL_COMPILEDVERSION() int
+// `version` the version number.
+//
+// NOTE: This macro is available since SDL 3.2.0.
+pub fn versionnum_major(version int) int {
+	return C.SDL_VERSIONNUM_MAJOR(version)
+}
 
-// SDL_VERSION_ATLEAST macro will evaluate to true if compiled with SDL at least X.Y.Z.
-pub fn C.SDL_VERSION_ATLEAST(x int, y int, z int) bool
+// C.SDL_VERSIONNUM_MINOR [official documentation](https://wiki.libsdl.org/SDL3/SDL_VERSIONNUM_MINOR)
+fn C.SDL_VERSIONNUM_MINOR(version int) int
 
-fn C.SDL_GetVersion(ver &C.SDL_version)
+// This macro extracts the minor version from a version number
+//
+// 1002003 becomes 2.
+//
+// `version` the version number.
+//
+// NOTE: This macro is available since SDL 3.2.0.
+pub fn versionnum_minor(version int) int {
+	return C.SDL_VERSIONNUM_MINOR(version)
+}
+
+// C.SDL_VERSIONNUM_MICRO [official documentation](https://wiki.libsdl.org/SDL3/SDL_VERSIONNUM_MICRO)
+fn C.SDL_VERSIONNUM_MICRO(version int) int
+
+// This macro extracts the micro version from a version number
+//
+// 1002003 becomes 3.
+//
+// `version` the version number.
+//
+// NOTE: This macro is available since SDL 3.2.0.
+pub fn versionnum_micro(version int) int {
+	return C.SDL_VERSIONNUM_MICRO(version)
+}
+
+// C.SDL_VERSION [official documentation](https://wiki.libsdl.org/SDL3/SDL_VERSION)
+fn C.SDL_VERSION() int
+
+// This is the version number macro for the current SDL version.
+//
+// NOTE: This macro is available since SDL 3.2.0.
+//
+// See also: get_version (SDL_GetVersion)
+pub fn version() int {
+	return C.SDL_VERSION()
+}
+
+// C.SDL_VERSION_ATLEAST [official documentation](https://wiki.libsdl.org/SDL3/SDL_VERSION_ATLEAST)
+fn C.SDL_VERSION_ATLEAST(x int, y int, z int) bool
+
+// This macro will evaluate to true if compiled with SDL at least X.Y.Z.
+//
+// NOTE: This macro is available since SDL 3.2.0.
+pub fn version_atleast(x int, y int, z int) bool {
+	return C.SDL_VERSION_ATLEAST(x, y, z)
+}
+
+// C.SDL_GetVersion [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetVersion)
+fn C.SDL_GetVersion() int
 
 // get_version gets the version of SDL that is linked against your program.
 //
-// If you are linking to SDL dynamically, then it is possible that the
-// current version will be different than the version you compiled against.
-// This function returns the current version, while SDL_VERSION() is a
-// macro that tells you what version you compiled with.
-//
-/*
-```
-SDL_version compiled;
-SDL_version linked;
-
-SDL_VERSION(&compiled);
-SDL_GetVersion(&linked);
-printf("We compiled against SDL version %d.%d.%d ...\n", compiled.major, compiled.minor, compiled.patch);
-printf("But we linked against SDL version %d.%d.%d.\n", linked.major, linked.minor, linked.patch);
-```
-*/
+// If you are linking to SDL dynamically, then it is possible that the current
+// version will be different than the version you compiled against. This
+// function returns the current version, while SDL_VERSION is the version you
+// compiled with.
 //
 // This function may be called safely at any time, even before SDL_Init().
 //
-// `ver` the SDL_version structure that contains the version information
+// returns the version of the linked library.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 3.2.0.
 //
-// See also: SDL_VERSION
-// Seealso: SDL_GetRevision
-pub fn get_version(mut ver Version) {
-	C.SDL_GetVersion(&ver)
+// See also: get_revision (SDL_GetRevision)
+pub fn get_version() int {
+	return C.SDL_GetVersion()
 }
 
+// C.SDL_GetRevision [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetRevision)
 fn C.SDL_GetRevision() &char
 
 // get_revision gets the code revision of SDL that is linked against your program.
@@ -131,44 +164,15 @@ fn C.SDL_GetRevision() &char
 // If SDL wasn't built from a git repository with the appropriate tools, this
 // will return an empty string.
 //
-// Prior to SDL 2.0.16, before development moved to GitHub, this returned a
-// hash for a Mercurial repository.
-//
 // You shouldn't use this function for anything but logging it for debugging
 // purposes. The string is not intended to be reliable in any way.
 //
 // returns an arbitrary string, uniquely identifying the exact revision of
 //          the SDL library in use.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 3.2.0.
 //
-// See also: SDL_GetVersion
+// See also: get_version (SDL_GetVersion)
 pub fn get_revision() &char {
 	return C.SDL_GetRevision()
-}
-
-fn C.SDL_GetRevisionNumber() int
-
-// get_revision_number is an obsolete function, do not use.
-//
-// When SDL was hosted in a Mercurial repository, and was built carefully,
-// this would return the revision number that the build was created from. This
-// number was not reliable for several reasons, but more importantly, SDL is
-// now hosted in a git repository, which does not offer numbers at all, only
-// hashes. This function only ever returns zero now. Don't use it.
-//
-// Before SDL 2.0.16, this might have returned an unreliable, but non-zero
-// number.
-//
-// deprecated Use SDL_GetRevision() instead; if SDL was carefully built, it
-//             will return a git hash.
-//
-// returns zero, always, in modern SDL releases.
-//
-// NOTE This function is available since SDL 2.0.0.
-//
-// See also SDL_GetRevision
-@[deprecated: 'Use SDL_GetRevision() instead; if SDL was carefully built, it will return a git hash.']
-pub fn get_revision_number() int {
-	return C.SDL_GetRevisionNumber()
 }

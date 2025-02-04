@@ -1,4 +1,4 @@
-// Copyright(C) 2021 Lars Pontoppidan. All rights reserved.
+// Copyright(C) 2025 Lars Pontoppidan. All rights reserved.
 // Use of this source code is governed by an MIT license
 // that can be found in the LICENSE file.
 module sdl
@@ -7,28 +7,46 @@ module sdl
 // SDL_blendmode.h
 //
 
-// BlendMode is the blend mode used in SDL_RenderCopy() and drawing operations.
-// BlendMode is SDL_BlendMode
-pub enum BlendMode {
-	@none   = C.SDL_BLENDMODE_NONE    // 0x00000000, no blending       dstRGBA = srcRGBA
-	blend   = C.SDL_BLENDMODE_BLEND   // 0x00000001, alpha blending    dstRGB = (srcRGB * srcA) + (dstRGB * (1-srcA)) dstA = srcA + (dstA * (1-srcA))
-	add     = C.SDL_BLENDMODE_ADD     // 0x00000002, additive blending   dstRGB = (srcRGB * srcA) + dstRGB dstA = dstA
-	mod     = C.SDL_BLENDMODE_MOD     // 0x00000004, color modulate      dstRGB = srcRGB * dstRGB dstA = dstA
-	mul     = C.SDL_BLENDMODE_MUL     // 0x00000008, color multiply dstRGB = (srcRGB * dstRGB) + (dstRGB * (1-srcA)) dstA = dstA
-	invalid = C.SDL_BLENDMODE_INVALID // 0x7FFFFFFF
-}
+// Blend modes decide how two colors will mix together. There are both
+// standard modes for basic needs and a means to create custom modes,
+// dictating what sort of math to do on what color components.
 
-// BlendOperation is the blend operation used when combining source and destination pixel components
+// A set of blend modes used in drawing operations.
+//
+// These predefined blend modes are supported everywhere.
+//
+// Additional values may be obtained from SDL_ComposeCustomBlendMode.
+//
+// NOTE: This datatype is available since SDL 3.2.0.
+//
+// See also: compose_custom_blend_mode (SDL_ComposeCustomBlendMode)
+pub type BlendMode = u32
+
+pub const blendmode_none = C.SDL_BLENDMODE_NONE // 0x00000000u
+
+pub const blendmode_blend = C.SDL_BLENDMODE_BLEND // 0x00000001u
+
+pub const blendmode_blend_premultiplied = C.SDL_BLENDMODE_BLEND_PREMULTIPLIED // 0x00000010u
+
+pub const blendmode_add = C.SDL_BLENDMODE_ADD // 0x00000002u
+
+pub const blendmode_add_premultiplied = C.SDL_BLENDMODE_ADD_PREMULTIPLIED // 0x00000020u
+
+pub const blendmode_mod = C.SDL_BLENDMODE_MOD // 0x00000004u
+
+pub const blendmode_mul = C.SDL_BLENDMODE_MUL // 0x00000008u
+
+pub const blendmode_invalid = C.SDL_BLENDMODE_INVALID // 0x7FFFFFFFu
+
 // BlendOperation is C.SDL_BlendOperation
 pub enum BlendOperation {
 	add          = C.SDL_BLENDOPERATION_ADD          // 0x1, dst + src: supported by all renderers
-	subtract     = C.SDL_BLENDOPERATION_SUBTRACT     // 0x2, src - dst : supported by D3D9, D3D11, OpenGL, OpenGLES
-	rev_subtract = C.SDL_BLENDOPERATION_REV_SUBTRACT // 0x3, dst - src : supported by D3D9, D3D11, OpenGL, OpenGLES
-	minimum      = C.SDL_BLENDOPERATION_MINIMUM      // 0x4, min(dst, src) : supported by D3D9, D3D11
-	maximum      = C.SDL_BLENDOPERATION_MAXIMUM      // 0x5 max(dst, src) : supported by D3D9, D3D11
+	subtract     = C.SDL_BLENDOPERATION_SUBTRACT     // 0x2, src - dst : supported by D3D, OpenGL, OpenGLES, and Vulkan
+	rev_subtract = C.SDL_BLENDOPERATION_REV_SUBTRACT // 0x3, dst - src : supported by D3D, OpenGL, OpenGLES, and Vulkan
+	minimum      = C.SDL_BLENDOPERATION_MINIMUM      // 0x4, min(dst, src) : supported by D3D, OpenGL, OpenGLES, and Vulkan
+	maximum      = C.SDL_BLENDOPERATION_MAXIMUM      // 0x5, max(dst, src) : supported by D3D, OpenGL, OpenGLES, and Vulkan
 }
 
-// BlendFactor is the normalized factor used to multiply pixel components
 // BlendFactor is C.SDL_BlendFactor
 pub enum BlendFactor {
 	zero                = C.SDL_BLENDFACTOR_ZERO                // 0x1, 0, 0, 0, 0
@@ -43,7 +61,8 @@ pub enum BlendFactor {
 	one_minus_dst_alpha = C.SDL_BLENDFACTOR_ONE_MINUS_DST_ALPHA // 0xA, 1-dstA, 1-dstA, 1-dstA, 1-dstA
 }
 
-fn C.SDL_ComposeCustomBlendMode(src_color_factor C.SDL_BlendFactor, dst_color_factor C.SDL_BlendFactor, color_operation C.SDL_BlendOperation, src_alpha_factor C.SDL_BlendFactor, dst_alpha_factor C.SDL_BlendFactor, alpha_operation C.SDL_BlendOperation) BlendMode
+// C.SDL_ComposeCustomBlendMode [official documentation](https://wiki.libsdl.org/SDL3/SDL_ComposeCustomBlendMode)
+fn C.SDL_ComposeCustomBlendMode(src_color_factor BlendFactor, dst_color_factor BlendFactor, color_operation BlendOperation, src_alpha_factor BlendFactor, dst_alpha_factor BlendFactor, alpha_operation BlendOperation) BlendMode
 
 // compose_custom_blend_mode composes a custom blend mode for renderers.
 //
@@ -58,12 +77,10 @@ fn C.SDL_ComposeCustomBlendMode(src_color_factor C.SDL_BlendFactor, dst_color_fa
 //
 // Expressed in pseudocode, it would look like this:
 //
-/*
-```c
- dstRGB = colorOperation(srcRGB * srcColorFactor, dstRGB * dstColorFactor);
- dstA = alphaOperation(srcA * srcAlphaFactor, dstA * dstAlphaFactor);
-```
-*/
+// ```c
+// dstRGB = colorOperation(srcRGB * srcColorFactor, dstRGB * dstColorFactor);
+// dstA = alphaOperation(srcA * srcAlphaFactor, dstA * dstAlphaFactor);
+// ```
 //
 // Where the functions `colorOperation(src, dst)` and `alphaOperation(src,
 // dst)` can return one of the following:
@@ -87,23 +104,16 @@ fn C.SDL_ComposeCustomBlendMode(src_color_factor C.SDL_BlendFactor, dst_color_fa
 // either SDL_SetRenderDrawBlendMode or SDL_SetTextureBlendMode. They will
 // return with an error if the blend mode is not supported.
 //
-// This list describes the support of custom blend modes for each renderer in
-// SDL 2.0.6. All renderers support the four blend modes listed in the
-// SDL_BlendMode enumeration.
+// This list describes the support of custom blend modes for each renderer.
+// All renderers support the four blend modes listed in the SDL_BlendMode
+// enumeration.
 //
 // - **direct3d**: Supports all operations with all factors. However, some
 //   factors produce unexpected results with `SDL_BLENDOPERATION_MINIMUM` and
 //   `SDL_BLENDOPERATION_MAXIMUM`.
 // - **direct3d11**: Same as Direct3D 9.
 // - **opengl**: Supports the `SDL_BLENDOPERATION_ADD` operation with all
-//   factors. OpenGL versions 1.1, 1.2, and 1.3 do not work correctly with SDL
-//   2.0.6.
-// - **opengles**: Supports the `SDL_BLENDOPERATION_ADD` operation with all
-//   factors. Color and alpha factors need to be the same. OpenGL ES 1
-//   implementation specific: May also support `SDL_BLENDOPERATION_SUBTRACT`
-//   and `SDL_BLENDOPERATION_REV_SUBTRACT`. May support color and alpha
-//   operations being different from each other. May support color and alpha
-//   factors being different from each other.
+//   factors. OpenGL versions 1.1, 1.2, and 1.3 do not work correctly here.
 // - **opengles2**: Supports the `SDL_BLENDOPERATION_ADD`,
 //   `SDL_BLENDOPERATION_SUBTRACT`, `SDL_BLENDOPERATION_REV_SUBTRACT`
 //   operations with all factors.
@@ -115,33 +125,31 @@ fn C.SDL_ComposeCustomBlendMode(src_color_factor C.SDL_BlendFactor, dst_color_fa
 // `SDL_BLENDFACTOR_ONE_MINUS_DST_ALPHA` factors do not have an effect in this
 // case.
 //
-// `srcColorFactor` the SDL_BlendFactor applied to the red, green, and
-//                  blue components of the source pixels
-// `dstColorFactor` the SDL_BlendFactor applied to the red, green, and
-//                  blue components of the destination pixels
-// `colorOperation` the SDL_BlendOperation used to combine the red,
-//                  green, and blue components of the source and
-//                  destination pixels
-// `srcAlphaFactor` the SDL_BlendFactor applied to the alpha component of
-//                  the source pixels
-// `dstAlphaFactor` the SDL_BlendFactor applied to the alpha component of
-//                  the destination pixels
-// `alphaOperation` the SDL_BlendOperation used to combine the alpha
-//                  component of the source and destination pixels
+// `src_color_factor` srcColorFactor the SDL_BlendFactor applied to the red, green, and
+//                       blue components of the source pixels.
+// `dst_color_factor` dstColorFactor the SDL_BlendFactor applied to the red, green, and
+//                       blue components of the destination pixels.
+// `color_operation` colorOperation the SDL_BlendOperation used to combine the red,
+//                       green, and blue components of the source and
+//                       destination pixels.
+// `src_alpha_factor` srcAlphaFactor the SDL_BlendFactor applied to the alpha component of
+//                       the source pixels.
+// `dst_alpha_factor` dstAlphaFactor the SDL_BlendFactor applied to the alpha component of
+//                       the destination pixels.
+// `alpha_operation` alphaOperation the SDL_BlendOperation used to combine the alpha
+//                       component of the source and destination pixels.
 // returns an SDL_BlendMode that represents the chosen factors and
-//         operations.
+//          operations.
 //
-// NOTE This function is available since SDL 2.0.6.
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
-// See also: SDL_SetRenderDrawBlendMode
-// See also: SDL_GetRenderDrawBlendMode
-// See also: SDL_SetTextureBlendMode
-// See also: SDL_GetTextureBlendMode
+// NOTE: This function is available since SDL 3.2.0.
+//
+// See also: set_render_draw_blend_mode (SDL_SetRenderDrawBlendMode)
+// See also: get_render_draw_blend_mode (SDL_GetRenderDrawBlendMode)
+// See also: set_texture_blend_mode (SDL_SetTextureBlendMode)
+// See also: get_texture_blend_mode (SDL_GetTextureBlendMode)
 pub fn compose_custom_blend_mode(src_color_factor BlendFactor, dst_color_factor BlendFactor, color_operation BlendOperation, src_alpha_factor BlendFactor, dst_alpha_factor BlendFactor, alpha_operation BlendOperation) BlendMode {
-	return unsafe {
-		BlendMode(int(C.SDL_ComposeCustomBlendMode(C.SDL_BlendFactor(src_color_factor),
-			C.SDL_BlendFactor(dst_color_factor), C.SDL_BlendOperation(color_operation),
-			C.SDL_BlendFactor(src_alpha_factor), C.SDL_BlendFactor(dst_alpha_factor),
-			C.SDL_BlendOperation(alpha_operation))))
-	}
+	return C.SDL_ComposeCustomBlendMode(src_color_factor, dst_color_factor, color_operation,
+		src_alpha_factor, dst_alpha_factor, alpha_operation)
 }

@@ -5,10 +5,10 @@ import net.http
 const is_terminal = os.is_atty(1) > 0
 
 const urls = [
-	'https://www.libsdl.org/release/SDL2-devel-2.30.0-VC.zip',
-	'https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-devel-2.0.15-VC.zip',
-	'https://www.libsdl.org/projects/SDL_image/release/SDL2_image-devel-2.0.5-VC.zip',
-	'https://www.libsdl.org/projects/SDL_mixer/release/SDL2_mixer-devel-2.0.4-VC.zip',
+	'https://www.libsdl.org/release/SDL3-devel-3.2.0-VC.zip',
+	// 'https://www.libsdl.org/projects/SDL_ttf/release/SDL3_ttf-devel-2.0.15-VC.zip',
+	// 'https://www.libsdl.org/projects/SDL_image/release/SDL3_image-devel-2.0.5-VC.zip',
+	// 'https://www.libsdl.org/projects/SDL_mixer/release/SDL3_mixer-devel-2.0.4-VC.zip',
 ]
 
 fn main() {
@@ -32,12 +32,12 @@ fn main() {
 		}
 	}
 	// Finally, create the SDL2main.def stub file for tcc
-	stub_file := os.real_path(os.join_path(destination, 'SDL2main.def'))
-	mut f := os.create(stub_file) or {
-		eprintln('Unable to create ${stub_file}')
-		return
-	}
-	f.close()
+	// stub_file := os.real_path(os.join_path(destination, 'SDL2main.def'))
+	// mut f := os.create(stub_file) or {
+	// 	eprintln('Unable to create ${stub_file}')
+	// 	return
+	// }
+	// f.close()
 }
 
 fn download(url string, location string) ! {

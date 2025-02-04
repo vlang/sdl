@@ -4,7 +4,5 @@ module main
 import sdl
 
 fn main() {
-	mut v := sdl.Version{}
-	sdl.version(mut v)
-	println(v.str())
+	println(sdl.version_string())
 }

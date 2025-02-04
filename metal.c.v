@@ -1,4 +1,4 @@
-// Copyright(C) 2021 Lars Pontoppidan. All rights reserved.
+// Copyright(C) 2025 Lars Pontoppidan. All rights reserved.
 // Use of this source code is governed by an MIT license
 // that can be found in the LICENSE file.
 module sdl
@@ -7,16 +7,19 @@ module sdl
 // SDL_metal.h
 //
 
+// Functions to creating Metal layers and views on SDL windows.
+//
+// This provides some platform-specific glue for Apple platforms. Most macOS
+// and iOS apps can use SDL without these functions, but this API they can be
+// useful for specific OS-level integration tasks.
+
 // A handle to a CAMetalLayer-backed NSView (macOS) or UIView (iOS/tvOS).
 //
-// NOTE This can be cast directly to an NSView or UIView.
-//
-// `typedef void *SDL_MetalView;`
-// C.SDL_MetalView
+// NOTE: This datatype is available since SDL 3.2.0.
 pub type MetalView = voidptr
 
-// Metal support functions
-fn C.SDL_Metal_CreateView(window &C.SDL_Window) MetalView
+// C.SDL_Metal_CreateView [official documentation](https://wiki.libsdl.org/SDL3/SDL_Metal_CreateView)
+fn C.SDL_Metal_CreateView(window &Window) MetalView
 
 // metal_create_view creates a CAMetalLayer-backed NSView/UIView and attach it to the specified
 // window.
@@ -27,52 +30,43 @@ fn C.SDL_Metal_CreateView(window &C.SDL_Window) MetalView
 // The returned handle can be casted directly to a NSView or UIView. To access
 // the backing CAMetalLayer, call SDL_Metal_GetLayer().
 //
-// NOTE This function is available since SDL 2.0.12.
+// `window` window the window.
+// returns handle NSView or UIView.
 //
-// See also: SDL_Metal_DestroyView
-// See also: SDL_Metal_GetLayer
+// NOTE: This function is available since SDL 3.2.0.
+//
+// See also: metal_destroy_view (SDL_Metal_DestroyView)
+// See also: metal_get_layer (SDL_Metal_GetLayer)
 pub fn metal_create_view(window &Window) MetalView {
-	return MetalView(voidptr(C.SDL_Metal_CreateView(window)))
+	return C.SDL_Metal_CreateView(window)
 }
 
-fn C.SDL_Metal_DestroyView(view C.SDL_MetalView)
+// C.SDL_Metal_DestroyView [official documentation](https://wiki.libsdl.org/SDL3/SDL_Metal_DestroyView)
+fn C.SDL_Metal_DestroyView(view MetalView)
 
 // metal_destroy_view destroys an existing SDL_MetalView object.
 //
 // This should be called before SDL_DestroyWindow, if SDL_Metal_CreateView was
 // called after SDL_CreateWindow.
 //
-// NOTE This function is available since SDL 2.0.12.
+// `view` view the SDL_MetalView object.
 //
-// See also: SDL_Metal_CreateView
+// NOTE: This function is available since SDL 3.2.0.
+//
+// See also: metal_create_view (SDL_Metal_CreateView)
 pub fn metal_destroy_view(view MetalView) {
-	C.SDL_Metal_DestroyView(voidptr(view))
+	C.SDL_Metal_DestroyView(view)
 }
 
-fn C.SDL_Metal_GetLayer(view C.SDL_MetalView) voidptr
+// C.SDL_Metal_GetLayer [official documentation](https://wiki.libsdl.org/SDL3/SDL_Metal_GetLayer)
+fn C.SDL_Metal_GetLayer(view MetalView) voidptr
 
 // metal_get_layer gets a pointer to the backing CAMetalLayer for the given view.
 //
-// NOTE This function is available since SDL 2.0.14.
+// `view` view the SDL_MetalView object.
+// returns a pointer.
 //
-// See also: SDL_MetalCreateView
+// NOTE: This function is available since SDL 3.2.0.
 pub fn metal_get_layer(view MetalView) voidptr {
-	return C.SDL_Metal_GetLayer(voidptr(view))
-}
-
-fn C.SDL_Metal_GetDrawableSize(window &C.SDL_Window, w &int, h &int)
-
-// metal_get_drawable_size gets the size of a window's underlying drawable in pixels (for use with
-// setting viewport, scissor & etc).
-//
-// `window` SDL_Window from which the drawable size should be queried
-// `w` Pointer to variable for storing the width in pixels, may be NULL
-// `h` Pointer to variable for storing the height in pixels, may be NULL
-//
-// NOTE This function is available since SDL 2.0.14.
-//
-// See also: SDL_GetWindowSize
-// See also: SDL_CreateWindow
-pub fn metal_get_drawable_size(window &Window, w &int, h &int) {
-	C.SDL_Metal_GetDrawableSize(window, w, h)
+	return C.SDL_Metal_GetLayer(view)
 }

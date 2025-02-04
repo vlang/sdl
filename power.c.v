@@ -1,4 +1,4 @@
-// Copyright(C) 2021 Lars Pontoppidan. All rights reserved.
+// Copyright(C) 2025 Lars Pontoppidan. All rights reserved.
 // Use of this source code is governed by an MIT license
 // that can be found in the LICENSE file.
 module sdl
@@ -7,16 +7,28 @@ module sdl
 // SDL_power.h
 //
 
-// PowerState is the basic state for the system's power supply.
+// SDL power management routines.
+//
+// There is a single function in this category: SDL_GetPowerInfo().
+//
+// This function is useful for games on the go. This allows an app to know if
+// it's running on a draining battery, which can be useful if the app wants to
+// reduce processing, or perhaps framerate, to extend the duration of the
+// battery's charge. Perhaps the app just wants to show a battery meter when
+// fullscreen, or alert the user when the power is getting extremely low, so
+// they can save their game.
+
 // PowerState is C.SDL_PowerState
 pub enum PowerState {
-	unknown    = C.SDL_POWERSTATE_UNKNOWN    // cannot determine power status
-	on_battery = C.SDL_POWERSTATE_ON_BATTERY // Not plugged in, running on the battery
-	no_battery = C.SDL_POWERSTATE_NO_BATTERY // Plugged in, no battery available
-	charging   = C.SDL_POWERSTATE_CHARGING   // Plugged in, charging battery
-	charged    = C.SDL_POWERSTATE_CHARGED    // Plugged in, battery charged
+	error      = C.SDL_POWERSTATE_ERROR      // -1, error determining power status
+	unknown    = C.SDL_POWERSTATE_UNKNOWN    // `unknown` cannot determine power status
+	on_battery = C.SDL_POWERSTATE_ON_BATTERY // `on_battery` Not plugged in, running on the battery
+	no_battery = C.SDL_POWERSTATE_NO_BATTERY // `no_battery` Plugged in, no battery available
+	charging   = C.SDL_POWERSTATE_CHARGING   // `charging` Plugged in, charging battery
+	charged    = C.SDL_POWERSTATE_CHARGED    // `charged` Plugged in, battery charged
 }
 
+// C.SDL_GetPowerInfo [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetPowerInfo)
 fn C.SDL_GetPowerInfo(seconds &int, percent &int) PowerState
 
 // get_power_info gets the current power supply details.
@@ -34,15 +46,17 @@ fn C.SDL_GetPowerInfo(seconds &int, percent &int) PowerState
 // It's possible a platform can only report battery percentage or time left
 // but not both.
 //
-// `seconds` seconds of battery life left, you can pass a NULL here if
-//           you don't care, will return -1 if we can't determine a
-//           value, or we're not running on a battery
-// `percent` percentage of battery life left, between 0 and 100, you can
-//           pass a NULL here if you don't care, will return -1 if we
-//           can't determine a value, or we're not running on a battery
-// returns an SDL_PowerState enum representing the current battery state.
+// `seconds` seconds a pointer filled in with the seconds of battery life left,
+//                or NULL to ignore. This will be filled in with -1 if we
+//                can't determine a value or there is no battery.
+// `percent` percent a pointer filled in with the percentage of battery life
+//                left, between 0 and 100, or NULL to ignore. This will be
+//                filled in with -1 we can't determine a value or there is no
+//                battery.
+// returns the current battery state or `SDL_POWERSTATE_ERROR` on failure;
+//          call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 3.2.0.
 pub fn get_power_info(seconds &int, percent &int) PowerState {
-	return PowerState(C.SDL_GetPowerInfo(seconds, percent))
+	return C.SDL_GetPowerInfo(seconds, percent)
 }
