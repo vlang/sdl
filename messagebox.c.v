@@ -78,7 +78,10 @@ pub enum MessageBoxColorType {
 
 @[typedef]
 pub struct C.SDL_MessageBoxColorScheme {
-	// TODO 	colors [SDL_MESSAGEBOX_COLOR_COUNT]MessageBoxColor
+	colors [5]MessageBoxColor // TODO: this is a workaround for V a bug not allowing to set fixed array sizes from consts assigned values from C enums/consts/values.
+	// colors [MessageBoxColorType.count]MessageBoxColor
+	// or:
+	// colors [some_v_const]MessageBoxColor // - where `some_v_const` is `pub const some_v_const = C.VALUE`
 }
 
 pub type MessageBoxColorScheme = C.SDL_MessageBoxColorScheme

@@ -14,7 +14,7 @@ module sdl
 
 @[typedef]
 pub struct C.SDL_GUID {
-	// TODO 	data [16]u8
+	data [16]u8
 }
 
 pub type GUID = C.SDL_GUID

@@ -268,11 +268,11 @@ pub type TextEditingEvent = C.SDL_TextEditingEvent
 @[typedef]
 pub struct C.SDL_TextEditingCandidatesEvent {
 pub mut:
-	type      EventType // SDL_EVENT_TEXT_EDITING_CANDIDATES
-	reserved  u32
-	timestamp u64      // In nanoseconds, populated using SDL_GetTicksNS()
-	windowID  WindowID // The window with keyboard focus, if any
-	// TODO 	const* &char = unsafe { nil } // candidates The list of candidates, or NULL if there are no candidates available
+	type               EventType // SDL_EVENT_TEXT_EDITING_CANDIDATES
+	reserved           u32
+	timestamp          u64      // In nanoseconds, populated using SDL_GetTicksNS()
+	windowID           WindowID // The window with keyboard focus, if any
+	candidates         &&char = unsafe { nil } // candidates The list of candidates, or NULL if there are no candidates available
 	num_candidates     i32  // The number of strings in `candidates`
 	selected_candidate i32  // The index of the selected candidate, or -1 if no candidate is selected
 	horizontal         bool // true if the list is horizontal, false if it's vertical
@@ -675,7 +675,7 @@ pub mut:
 	timestamp      u64  // In nanoseconds, populated using SDL_GetTicksNS()
 	owner          bool // are we owning the clipboard (internal update)
 	num_mime_types i32  // number of mime types
-	mime_types &&char = unsafe { nil } // current mime types
+	mime_types     &&char = unsafe { nil } // current mime types
 }
 
 pub type ClipboardEvent = C.SDL_ClipboardEvent
@@ -683,12 +683,12 @@ pub type ClipboardEvent = C.SDL_ClipboardEvent
 @[typedef]
 pub struct C.SDL_SensorEvent {
 pub mut:
-	type      EventType // SDL_EVENT_SENSOR_UPDATE
-	reserved  u32
-	timestamp u64      // In nanoseconds, populated using SDL_GetTicksNS()
-	which     SensorID // The instance ID of the sensor
-	data [6]f32 // Up to 6 values from the sensor - additional values can be queried using SDL_GetSensorData()
-	sensor_timestamp u64 // The timestamp of the sensor reading in nanoseconds, not necessarily synchronized with the system clock
+	type             EventType // SDL_EVENT_SENSOR_UPDATE
+	reserved         u32
+	timestamp        u64      // In nanoseconds, populated using SDL_GetTicksNS()
+	which            SensorID // The instance ID of the sensor
+	data             [6]f32   // Up to 6 values from the sensor - additional values can be queried using SDL_GetSensorData()
+	sensor_timestamp u64      // The timestamp of the sensor reading in nanoseconds, not necessarily synchronized with the system clock
 }
 
 pub type SensorEvent = C.SDL_SensorEvent
@@ -758,8 +758,19 @@ pub mut:
 	render          RenderEvent                // Render event data
 	drop            DropEvent                  // Drag and drop event data
 	clipboard       ClipboardEvent             // Clipboard event data
-	// TODO 	// This is necessary for ABI compatibility between Visual C++ and GCC. Visual C++ will respect the push pack pragma and use 52 bytes (size of SDL_TextEditingEvent, the largest structure for 32-bit and 64-bit architectures) for this union, and GCC will use the alignment of the largest datatype within the union, which is 8 bytes on 64-bit architectures. So... we'll add padding to force the size to be the same for both. On architectures where pointers are 16 bytes, this needs rounding up to the next multiple of 16, 64, and on architectures where pointers are even larger the size of SDL_UserEvent will dominate as being 3 pointers.
 
+	// This is necessary for ABI compatibility between Visual C++ and GCC.
+	// Visual C++ will respect the push pack pragma and use 52 bytes (size of
+	// SDL_TextEditingEvent, the largest structure for 32-bit and 64-bit
+	// architectures) for this union, and GCC will use the alignment of the
+	// largest datatype within the union, which is 8 bytes on 64-bit
+	// architectures.
+	//
+	// So... we'll add padding to force the size to be the same for both.
+	//
+	// On architectures where pointers are 16 bytes, this needs rounding up to
+	// the next multiple of 16, 64, and on architectures where pointers are
+	// even larger the size of SDL_UserEvent will dominate as being 3 pointers.
 	padding [128]u8
 }
 

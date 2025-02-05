@@ -358,7 +358,7 @@ pub fn get_joystick_from_player_index(player_index int) &Joystick {
 pub struct C.SDL_VirtualJoystickTouchpadDesc {
 pub mut:
 	nfingers u16 // the number of simultaneous fingers on this touchpad
-	// TODO 	padding [3]u16
+	padding  [3]u16
 }
 
 pub type VirtualJoystickTouchpadDesc = C.SDL_VirtualJoystickTouchpadDesc
@@ -375,32 +375,32 @@ pub type VirtualJoystickSensorDesc = C.SDL_VirtualJoystickSensorDesc
 @[typedef]
 pub struct C.SDL_VirtualJoystickDesc {
 pub mut:
-	version    u32 // the version of this interface
-	type       u16 // `SDL_JoystickType`
-	padding    u16 // unused
-	vendor_id  u16 // the USB vendor ID of this joystick
-	product_id u16 // the USB product ID of this joystick
-	naxes      u16 // the number of axes on this joystick
-	nbuttons   u16 // the number of buttons on this joystick
-	nballs     u16 // the number of balls on this joystick
-	nhats      u16 // the number of hats on this joystick
-	ntouchpads u16 // the number of touchpads on this joystick, requires `touchpads` to point at valid descriptions
-	nsensors   u16 // the number of sensors on this joystick, requires `sensors` to point at valid descriptions
-	// TODO 	padding2 [2]u16 // unused
-	button_mask       u32 // A mask of which buttons are valid for this controller e.g. (1 << SDL_GAMEPAD_BUTTON_SOUTH)
-	axis_mask         u32 // A mask of which axes are valid for this controller e.g. (1 << SDL_GAMEPAD_AXIS_LEFTX)
+	version           u32    // the version of this interface
+	type              u16    // `SDL_JoystickType`
+	padding           u16    // unused
+	vendor_id         u16    // the USB vendor ID of this joystick
+	product_id        u16    // the USB product ID of this joystick
+	naxes             u16    // the number of axes on this joystick
+	nbuttons          u16    // the number of buttons on this joystick
+	nballs            u16    // the number of balls on this joystick
+	nhats             u16    // the number of hats on this joystick
+	ntouchpads        u16    // the number of touchpads on this joystick, requires `touchpads` to point at valid descriptions
+	nsensors          u16    // the number of sensors on this joystick, requires `sensors` to point at valid descriptions
+	padding2          [2]u16 // unused
+	button_mask       u32    // A mask of which buttons are valid for this controller e.g. (1 << SDL_GAMEPAD_BUTTON_SOUTH)
+	axis_mask         u32    // A mask of which axes are valid for this controller e.g. (1 << SDL_GAMEPAD_AXIS_LEFTX)
 	name              &char                        = unsafe { nil } // the name of the joystick
 	touchpads         &VirtualJoystickTouchpadDesc = unsafe { nil } // A pointer to an array of touchpad descriptions, required if `ntouchpads` is > 0
 	sensors           &VirtualJoystickSensorDesc   = unsafe { nil } // A pointer to an array of sensor descriptions, required if `nsensors` is > 0
 	userdata          voidptr                                 // User data pointer passed to callbacks
-	Update            fn (userdata voidptr)                   // Update)(void* Called when the joystick state should be updated
-	SetPlayerIndex    fn (userdata voidptr, player_index int) // SetPlayerIndex)(void* Called when the player index is set
-	Rumble            fn (userdata voidptr, low_frequency_rumble u16, high_frequency_rumble u16) bool // Rumble)(void* Implements SDL_RumbleJoystick()
-	RumbleTriggers    fn (userdata voidptr, left_rumble u16, right_rumble u16) bool                   // RumbleTriggers)(void* Implements SDL_RumbleJoystickTriggers()
-	SetLED            fn (userdata voidptr, red u8, green u8, blue u8) bool    // SetLED)(void* Implements SDL_SetJoystickLED()
-	SendEffect        fn (userdata voidptr, const_data voidptr, size int) bool // SendEffect)(void* Implements SDL_SendJoystickEffect()
-	SetSensorsEnabled fn (userdata voidptr, enabled bool) bool                 // SetSensorsEnabled)(void* Implements SDL_SetGamepadSensorEnabled()
-	Cleanup           fn (userdata voidptr) // Cleanup)(void* Cleans up the userdata when the joystick is detached
+	Update            fn (userdata voidptr)                   // Called when the joystick state should be updated
+	SetPlayerIndex    fn (userdata voidptr, player_index int) // Called when the player index is set
+	Rumble            fn (userdata voidptr, low_frequency_rumble u16, high_frequency_rumble u16) bool
+	RumbleTriggers    fn (userdata voidptr, left_rumble u16, right_rumble u16) bool
+	SetLED            fn (userdata voidptr, red u8, green u8, blue u8) bool
+	SendEffect        fn (userdata voidptr, const_data voidptr, size int) bool
+	SetSensorsEnabled fn (userdata voidptr, enabled bool) bool
+	Cleanup           fn (userdata voidptr) // Cleans up the userdata when the joystick is detached
 }
 
 pub type VirtualJoystickDesc = C.SDL_VirtualJoystickDesc
