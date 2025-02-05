@@ -190,12 +190,13 @@ pub const haptic_infinity = C.SDL_HAPTIC_INFINITY // 4294967295U
 @[typedef]
 pub struct C.SDL_HapticDirection {
 pub mut:
-	type u8 // The type of encoding.
-	// TODO 	dir [3]int // The encoded direction.
+	type u8     // The type of encoding.
+	dir  [3]i32 // The encoded direction.
 }
 
 pub type HapticDirection = C.SDL_HapticDirection
 
+// C.SDL_HapticConstant [official documentation](https://wiki.libsdl.org/SDL3/SDL_HapticConstant)
 @[typedef]
 pub struct C.SDL_HapticConstant {
 pub mut:
@@ -203,26 +204,34 @@ pub mut:
 	type      u16             // SDL_HAPTIC_CONSTANT
 	direction HapticDirection // Direction of the effect.
 	// Replay
-
 	length u32 // Duration of the effect.
 	delay  u16 // Delay before starting the effect.
 	// Trigger
-
 	button   u16 // Button that triggers the effect.
 	interval u16 // How soon it can be triggered again after button.
 	// Constant
-
 	level i16 // Strength of the constant effect.
 	// Envelope
-
 	attack_length u16 // Duration of the attack.
 	attack_level  u16 // Level at the start of the attack.
 	fade_length   u16 // Duration of the fade.
 	fade_level    u16 // Level at the end of the fade.
 }
 
+// A structure containing a template for a Constant effect.
+//
+// This struct is exclusively for the SDL_HAPTIC_CONSTANT effect.
+//
+// A constant effect applies a constant force in the specified direction to
+// the joystick.
+//
+// NOTE: This struct is available since SDL 3.2.0.
+//
+// See also: SDL_HAPTIC_CONSTANT
+// See also: SDL_HapticEffect
 pub type HapticConstant = C.SDL_HapticConstant
 
+// C.SDL_HapticPeriodic [official documentation](https://wiki.libsdl.org/SDL3/SDL_HapticPeriodic)
 @[typedef]
 pub struct C.SDL_HapticPeriodic {
 pub mut:
@@ -230,36 +239,85 @@ pub mut:
 	type      u16             // SDL_HAPTIC_SINE, SDL_HAPTIC_SQUARE SDL_HAPTIC_TRIANGLE, SDL_HAPTIC_SAWTOOTHUP or SDL_HAPTIC_SAWTOOTHDOWN
 	direction HapticDirection // Direction of the effect.
 	// Replay
-
 	length u32 // Duration of the effect.
 	delay  u16 // Delay before starting the effect.
 	// Trigger
-
 	button   u16 // Button that triggers the effect.
 	interval u16 // How soon it can be triggered again after button.
 	// Periodic
-
 	period    u16 // Period of the wave.
 	magnitude i16 // Peak value
-	// TODO: 	negative C.if
-	// TODO: 	equivalent C.if
-	// TODO: 	to C.if
-	// TODO: 	180 C.if
-	// TODO: 	degrees C.if
-	// TODO: 	extra C.if
-	// TODO: 	phase C.if
-	// TODO: // TODO 	shift.*/ C.if
-	offset i16 // Mean value of the wave.
+	offset    i16 // Mean value of the wave.
 	// Envelope
-
 	attack_length u16 // Duration of the attack.
 	attack_level  u16 // Level at the start of the attack.
 	fade_length   u16 // Duration of the fade.
 	fade_level    u16 // Level at the end of the fade.
 }
 
+// A structure containing a template for a Periodic effect.
+//
+// The struct handles the following effects:
+//
+// - SDL_HAPTIC_SINE
+// - SDL_HAPTIC_SQUARE
+// - SDL_HAPTIC_TRIANGLE
+// - SDL_HAPTIC_SAWTOOTHUP
+// - SDL_HAPTIC_SAWTOOTHDOWN
+//
+// A periodic effect consists in a wave-shaped effect that repeats itself over
+// time. The type determines the shape of the wave and the parameters
+// determine the dimensions of the wave.
+//
+// Phase is given by hundredth of a degree meaning that giving the phase a
+// value of 9000 will displace it 25% of its period. Here are sample values:
+//
+// - 0: No phase displacement.
+// - 9000: Displaced 25% of its period.
+// - 18000: Displaced 50% of its period.
+// - 27000: Displaced 75% of its period.
+// - 36000: Displaced 100% of its period, same as 0, but 0 is preferred.
+//
+// Examples:
+//
+// ```
+//   SDL_HAPTIC_SINE
+//     __      __      __      __
+//    /  \    /  \    /  \    /
+//   /    \__/    \__/    \__/
+//
+//   SDL_HAPTIC_SQUARE
+//    __    __    __    __    __
+//   |  |  |  |  |  |  |  |  |  |
+//   |  |__|  |__|  |__|  |__|  |
+//
+//   SDL_HAPTIC_TRIANGLE
+//     /\    /\    /\    /\    /\
+//    /  \  /  \  /  \  /  \  /
+//   /    \/    \/    \/    \/
+//
+//   SDL_HAPTIC_SAWTOOTHUP
+//     /|  /|  /|  /|  /|  /|  /|
+//    / | / | / | / | / | / | / |
+//   /  |/  |/  |/  |/  |/  |/  |
+//
+//   SDL_HAPTIC_SAWTOOTHDOWN
+//   \  |\  |\  |\  |\  |\  |\  |
+//    \ | \ | \ | \ | \ | \ | \ |
+//     \|  \|  \|  \|  \|  \|  \|
+// ```
+//
+// NOTE: This struct is available since SDL 3.2.0.
+//
+// See also: SDL_HAPTIC_SINE
+// See also: SDL_HAPTIC_SQUARE
+// See also: SDL_HAPTIC_TRIANGLE
+// See also: SDL_HAPTIC_SAWTOOTHUP
+// See also: SDL_HAPTIC_SAWTOOTHDOWN
+// See also: SDL_HapticEffect
 pub type HapticPeriodic = C.SDL_HapticPeriodic
 
+// C.SDL_HapticCondition [official documentation](https://wiki.libsdl.org/SDL3/SDL_HapticCondition)
 @[typedef]
 pub struct C.SDL_HapticCondition {
 pub mut:
@@ -267,25 +325,45 @@ pub mut:
 	type      u16             // SDL_HAPTIC_SPRING, SDL_HAPTIC_DAMPER, SDL_HAPTIC_INERTIA or SDL_HAPTIC_FRICTION
 	direction HapticDirection // Direction of the effect.
 	// Replay
-
 	length u32 // Duration of the effect.
 	delay  u16 // Delay before starting the effect.
 	// Trigger
-
 	button   u16 // Button that triggers the effect.
 	interval u16 // How soon it can be triggered again after button.
-	// TODO 	// Condition
-
-	right_sat [3]u16 // Level when joystick is to the positive side
-	// TODO 	0xFFFF.*/ C.max
-	// TODO 	left_sat [3]u16 // Level when joystick is to the negative side
-	// TODO 	right_coeff [3]i16 // How fast to increase the force towards the positive side.
-	// TODO 	left_coeff [3]i16 // How fast to increase the force towards the negative side.
-	// TODO 	deadband [3]u16 // Size of the dead zone
-	// TODO 	0xFFFF: C.max // whole
-	// TODO 	center [3]i16 // Position of the dead zone.
+	// Condition
+	right_sat   [3]u16 // Level when joystick is to the positive side; max 0xFFFF.
+	left_sat    [3]u16 // Level when joystick is to the negative side; max 0xFFFF.
+	right_coeff [3]i16 // How fast to increase the force towards the positive side.
+	left_coeff  [3]i16 // How fast to increase the force towards the negative side.
+	deadband    [3]u16 // Size of the dead zone; max 0xFFFF: whole axis-range when 0-centered.
+	center      [3]i16 // Position of the dead zone.
 }
 
+// A structure containing a template for a Condition effect.
+//
+// The struct handles the following effects:
+//
+// - SDL_HAPTIC_SPRING: Effect based on axes position.
+// - SDL_HAPTIC_DAMPER: Effect based on axes velocity.
+// - SDL_HAPTIC_INERTIA: Effect based on axes acceleration.
+// - SDL_HAPTIC_FRICTION: Effect based on axes movement.
+//
+// Direction is handled by condition internals instead of a direction member.
+// The condition effect specific members have three parameters. The first
+// refers to the X axis, the second refers to the Y axis and the third refers
+// to the Z axis. The right terms refer to the positive side of the axis and
+// the left terms refer to the negative side of the axis. Please refer to the
+// SDL_HapticDirection diagram for which side is positive and which is
+// negative.
+//
+// NOTE: This struct is available since SDL 3.2.0.
+//
+// See also: SDL_HapticDirection
+// See also: SDL_HAPTIC_SPRING
+// See also: SDL_HAPTIC_DAMPER
+// See also: SDL_HAPTIC_INERTIA
+// See also: SDL_HAPTIC_FRICTION
+// See also: SDL_HapticEffect
 pub type HapticCondition = C.SDL_HapticCondition
 
 @[typedef]

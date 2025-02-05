@@ -405,7 +405,7 @@ pub fn get_async_io_result(queue &AsyncIOQueue, outcome &AsyncIOOutcome) bool {
 }
 
 // C.SDL_WaitAsyncIOResult [official documentation](https://wiki.libsdl.org/SDL3/SDL_WaitAsyncIOResult)
-fn C.SDL_WaitAsyncIOResult(queue &AsyncIOQueue, outcome &AsyncIOOutcome, timeout_ms int) bool
+fn C.SDL_WaitAsyncIOResult(queue &AsyncIOQueue, outcome &AsyncIOOutcome, timeout_ms i32) bool
 
 // wait_async_io_result blocks until an async I/O task queue has a completed task.
 //
@@ -447,7 +447,7 @@ fn C.SDL_WaitAsyncIOResult(queue &AsyncIOQueue, outcome &AsyncIOOutcome, timeout
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: signal_async_io_queue (SDL_SignalAsyncIOQueue)
-pub fn wait_async_io_result(queue &AsyncIOQueue, outcome &AsyncIOOutcome, timeout_ms int) bool {
+pub fn wait_async_io_result(queue &AsyncIOQueue, outcome &AsyncIOOutcome, timeout_ms i32) bool {
 	return C.SDL_WaitAsyncIOResult(queue, outcome, timeout_ms)
 }
 

@@ -541,7 +541,7 @@ pub fn try_wait_semaphore(sem &Semaphore) bool {
 }
 
 // C.SDL_WaitSemaphoreTimeout [official documentation](https://wiki.libsdl.org/SDL3/SDL_WaitSemaphoreTimeout)
-fn C.SDL_WaitSemaphoreTimeout(sem &Semaphore, timeout_ms int) bool
+fn C.SDL_WaitSemaphoreTimeout(sem &Semaphore, timeout_ms i32) bool
 
 // wait_semaphore_timeout waits until a semaphore has a positive value and then decrements it.
 //
@@ -559,7 +559,7 @@ fn C.SDL_WaitSemaphoreTimeout(sem &Semaphore, timeout_ms int) bool
 // See also: signal_semaphore (SDL_SignalSemaphore)
 // See also: try_wait_semaphore (SDL_TryWaitSemaphore)
 // See also: wait_semaphore (SDL_WaitSemaphore)
-pub fn wait_semaphore_timeout(sem &Semaphore, timeout_ms int) bool {
+pub fn wait_semaphore_timeout(sem &Semaphore, timeout_ms i32) bool {
 	return C.SDL_WaitSemaphoreTimeout(sem, timeout_ms)
 }
 

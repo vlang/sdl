@@ -892,7 +892,7 @@ pub fn read_u32_le(src &IOStream, value &u32) bool {
 }
 
 // C.SDL_ReadS32LE [official documentation](https://wiki.libsdl.org/SDL3/SDL_ReadS32LE)
-fn C.SDL_ReadS32LE(src &IOStream, value &int) bool
+fn C.SDL_ReadS32LE(src &IOStream, value &i32) bool
 
 // read_s32_le uses this function to read 32 bits of little-endian data from an
 // SDL_IOStream and return in native format.
@@ -913,7 +913,7 @@ fn C.SDL_ReadS32LE(src &IOStream, value &int) bool
 // NOTE: (thread safety) This function is not thread safe.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn read_s32_le(src &IOStream, value &int) bool {
+pub fn read_s32_le(src &IOStream, value &i32) bool {
 	return C.SDL_ReadS32LE(src, value)
 }
 
@@ -944,7 +944,7 @@ pub fn read_u32_be(src &IOStream, value &u32) bool {
 }
 
 // C.SDL_ReadS32BE [official documentation](https://wiki.libsdl.org/SDL3/SDL_ReadS32BE)
-fn C.SDL_ReadS32BE(src &IOStream, value &int) bool
+fn C.SDL_ReadS32BE(src &IOStream, value &i32) bool
 
 // read_s32_be uses this function to read 32 bits of big-endian data from an SDL_IOStream
 // and return in native format.
@@ -965,7 +965,7 @@ fn C.SDL_ReadS32BE(src &IOStream, value &int) bool
 // NOTE: (thread safety) This function is not thread safe.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn read_s32_be(src &IOStream, value &int) bool {
+pub fn read_s32_be(src &IOStream, value &i32) bool {
 	return C.SDL_ReadS32BE(src, value)
 }
 
@@ -1216,7 +1216,7 @@ pub fn write_u32_le(dst &IOStream, value u32) bool {
 }
 
 // C.SDL_WriteS32LE [official documentation](https://wiki.libsdl.org/SDL3/SDL_WriteS32LE)
-fn C.SDL_WriteS32LE(dst &IOStream, value int) bool
+fn C.SDL_WriteS32LE(dst &IOStream, value i32) bool
 
 // write_s32_le uses this function to write 32 bits in native format to an SDL_IOStream as
 // little-endian data.
@@ -1233,7 +1233,7 @@ fn C.SDL_WriteS32LE(dst &IOStream, value int) bool
 // NOTE: (thread safety) This function is not thread safe.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn write_s32_le(dst &IOStream, value int) bool {
+pub fn write_s32_le(dst &IOStream, value i32) bool {
 	return C.SDL_WriteS32LE(dst, value)
 }
 
@@ -1259,7 +1259,7 @@ pub fn write_u32_be(dst &IOStream, value u32) bool {
 }
 
 // C.SDL_WriteS32BE [official documentation](https://wiki.libsdl.org/SDL3/SDL_WriteS32BE)
-fn C.SDL_WriteS32BE(dst &IOStream, value int) bool
+fn C.SDL_WriteS32BE(dst &IOStream, value i32) bool
 
 // write_s32_be uses this function to write 32 bits in native format to an SDL_IOStream as
 // big-endian data.
@@ -1275,7 +1275,7 @@ fn C.SDL_WriteS32BE(dst &IOStream, value int) bool
 // NOTE: (thread safety) This function is not thread safe.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn write_s32_be(dst &IOStream, value int) bool {
+pub fn write_s32_be(dst &IOStream, value i32) bool {
 	return C.SDL_WriteS32BE(dst, value)
 }
 

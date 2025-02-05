@@ -3656,7 +3656,7 @@ pub fn srand(seed u64) {
 }
 
 // C.SDL_rand [official documentation](https://wiki.libsdl.org/SDL3/SDL_rand)
-fn C.SDL_rand(n int) int
+fn C.SDL_rand(n i32) i32
 
 // rand generates a pseudo-random number less than n for positive n
 //
@@ -3688,7 +3688,7 @@ fn C.SDL_rand(n int) int
 //
 // See also: srand (SDL_srand)
 // See also: randf (SDL_randf)
-pub fn rand(n int) int {
+pub fn rand(n i32) i32 {
 	return C.SDL_rand(n)
 }
 
@@ -3745,7 +3745,7 @@ pub fn rand_bits() u32 {
 }
 
 // C.SDL_rand_r [official documentation](https://wiki.libsdl.org/SDL3/SDL_rand_r)
-fn C.SDL_rand_r(state &u64, n int) int
+fn C.SDL_rand_r(state &u64, n i32) i32
 
 // rand_r generates a pseudo-random number less than n for positive n
 //
@@ -3778,7 +3778,7 @@ fn C.SDL_rand_r(state &u64, n int) int
 // See also: rand (SDL_rand)
 // See also: rand_bits_r (SDL_rand_bits_r)
 // See also: randf_r (SDL_randf_r)
-pub fn rand_r(state &u64, n int) int {
+pub fn rand_r(state &u64, n i32) i32 {
 	return C.SDL_rand_r(state, n)
 }
 

@@ -937,7 +937,7 @@ pub mut:
 	num_indices    u32 // The number of indices to draw per instance.
 	num_instances  u32 // The number of instances to draw.
 	first_index    u32 // The base index within the index buffer.
-	vertex_offset  int // The value added to the vertex index before indexing into the vertex buffer.
+	vertex_offset  i32 // The value added to the vertex index before indexing into the vertex buffer.
 	first_instance u32 // The ID of the first instance to draw.
 }
 
@@ -2377,7 +2377,7 @@ pub fn bind_gpu_fragment_storage_buffers(render_pass &GPURenderPass, first_slot 
 }
 
 // C.SDL_DrawGPUIndexedPrimitives [official documentation](https://wiki.libsdl.org/SDL3/SDL_DrawGPUIndexedPrimitives)
-fn C.SDL_DrawGPUIndexedPrimitives(render_pass &GPURenderPass, num_indices u32, num_instances u32, first_index u32, vertex_offset int, first_instance u32)
+fn C.SDL_DrawGPUIndexedPrimitives(render_pass &GPURenderPass, num_indices u32, num_instances u32, first_index u32, vertex_offset i32, first_instance u32)
 
 // draw_gpu_indexed_primitives draws data using bound graphics state with an index buffer and instancing
 // enabled.
@@ -2400,7 +2400,7 @@ fn C.SDL_DrawGPUIndexedPrimitives(render_pass &GPURenderPass, num_indices u32, n
 // `first_instance` first_instance the ID of the first instance to draw.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn draw_gpu_indexed_primitives(render_pass &GPURenderPass, num_indices u32, num_instances u32, first_index u32, vertex_offset int, first_instance u32) {
+pub fn draw_gpu_indexed_primitives(render_pass &GPURenderPass, num_indices u32, num_instances u32, first_index u32, vertex_offset i32, first_instance u32) {
 	C.SDL_DrawGPUIndexedPrimitives(render_pass, num_indices, num_instances, first_index,
 		vertex_offset, first_instance)
 }

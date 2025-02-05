@@ -203,8 +203,8 @@ pub mut:
 	reserved  u32
 	timestamp u64       // In nanoseconds, populated using SDL_GetTicksNS()
 	displayID DisplayID // The associated display
-	data1     int       // event dependent data
-	data2     int       // event dependent data
+	data1     i32       // event dependent data
+	data2     i32       // event dependent data
 }
 
 pub type DisplayEvent = C.SDL_DisplayEvent
@@ -216,8 +216,8 @@ pub mut:
 	reserved  u32
 	timestamp u64      // In nanoseconds, populated using SDL_GetTicksNS()
 	windowID  WindowID // The associated window
-	data1     int      // event dependent data
-	data2     int      // event dependent data
+	data1     i32      // event dependent data
+	data2     i32      // event dependent data
 }
 
 pub type WindowEvent = C.SDL_WindowEvent
@@ -259,8 +259,8 @@ pub mut:
 	timestamp u64      // In nanoseconds, populated using SDL_GetTicksNS()
 	windowID  WindowID // The window with keyboard focus, if any
 	text      &char = unsafe { nil } // The editing text
-	start     int // The start cursor of selected editing text, or -1 if not set
-	length    int // The length of selected editing text, or -1 if not set
+	start     i32 // The start cursor of selected editing text, or -1 if not set
+	length    i32 // The length of selected editing text, or -1 if not set
 }
 
 pub type TextEditingEvent = C.SDL_TextEditingEvent
@@ -273,8 +273,8 @@ pub mut:
 	timestamp u64      // In nanoseconds, populated using SDL_GetTicksNS()
 	windowID  WindowID // The window with keyboard focus, if any
 	// TODO 	const* &char = unsafe { nil } // candidates The list of candidates, or NULL if there are no candidates available
-	num_candidates     int  // The number of strings in `candidates`
-	selected_candidate int  // The index of the selected candidate, or -1 if no candidate is selected
+	num_candidates     i32  // The number of strings in `candidates`
+	selected_candidate i32  // The index of the selected candidate, or -1 if no candidate is selected
 	horizontal         bool // true if the list is horizontal, false if it's vertical
 	padding1           u8
 	padding2           u8
@@ -496,8 +496,8 @@ pub mut:
 	reserved  u32
 	timestamp u64        // In nanoseconds, populated using SDL_GetTicksNS()
 	which     JoystickID // The joystick instance id
-	touchpad  int        // The index of the touchpad
-	finger    int        // The index of the finger on the touchpad
+	touchpad  i32        // The index of the touchpad
+	finger    i32        // The index of the finger on the touchpad
 	x         f32        // Normalized in the range 0...1 with 0 being on the left
 	y         f32        // Normalized in the range 0...1 with 0 being at the top
 	pressure  f32        // Normalized in the range 0...1
@@ -508,13 +508,13 @@ pub type GamepadTouchpadEvent = C.SDL_GamepadTouchpadEvent
 @[typedef]
 pub struct C.SDL_GamepadSensorEvent {
 pub mut:
-	type      EventType // SDL_EVENT_GAMEPAD_SENSOR_UPDATE
-	reserved  u32
-	timestamp u64        // In nanoseconds, populated using SDL_GetTicksNS()
-	which     JoystickID // The joystick instance id
-	sensor    int        // The type of the sensor, one of the values of SDL_SensorType
-	// TODO 	data [3]f32 // Up to 3 values from the sensor, as defined in SDL_sensor.h
-	sensor_timestamp u64 // The timestamp of the sensor reading in nanoseconds, not necessarily synchronized with the system clock
+	type             EventType // SDL_EVENT_GAMEPAD_SENSOR_UPDATE
+	reserved         u32
+	timestamp        u64        // In nanoseconds, populated using SDL_GetTicksNS()
+	which            JoystickID // The joystick instance id
+	sensor           i32        // The type of the sensor, one of the values of SDL_SensorType
+	data             [3]f32     // Up to 3 values from the sensor, as defined in SDL_sensor.h
+	sensor_timestamp u64        // The timestamp of the sensor reading in nanoseconds, not necessarily synchronized with the system clock
 }
 
 pub type GamepadSensorEvent = C.SDL_GamepadSensorEvent
@@ -674,8 +674,8 @@ pub mut:
 	reserved       u32
 	timestamp      u64  // In nanoseconds, populated using SDL_GetTicksNS()
 	owner          bool // are we owning the clipboard (internal update)
-	num_mime_types int  // number of mime types
-	// TODO 	*mime_types &char = unsafe { nil } // current mime types
+	num_mime_types i32  // number of mime types
+	mime_types &&char = unsafe { nil } // current mime types
 }
 
 pub type ClipboardEvent = C.SDL_ClipboardEvent
@@ -687,7 +687,7 @@ pub mut:
 	reserved  u32
 	timestamp u64      // In nanoseconds, populated using SDL_GetTicksNS()
 	which     SensorID // The instance ID of the sensor
-	// TODO 	data [6]f32 // Up to 6 values from the sensor - additional values can be queried using SDL_GetSensorData()
+	data [6]f32 // Up to 6 values from the sensor - additional values can be queried using SDL_GetSensorData()
 	sensor_timestamp u64 // The timestamp of the sensor reading in nanoseconds, not necessarily synchronized with the system clock
 }
 
@@ -710,7 +710,7 @@ pub mut:
 	reserved  u32
 	timestamp u64      // In nanoseconds, populated using SDL_GetTicksNS()
 	windowID  WindowID // The associated window if any
-	code      int      // User defined event code
+	code      i32      // User defined event code
 	data1     voidptr  // User defined data pointer
 	data2     voidptr  // User defined data pointer
 }
@@ -1026,7 +1026,7 @@ pub fn wait_event(event &Event) bool {
 }
 
 // C.SDL_WaitEventTimeout [official documentation](https://wiki.libsdl.org/SDL3/SDL_WaitEventTimeout)
-fn C.SDL_WaitEventTimeout(event &Event, timeout_ms int) bool
+fn C.SDL_WaitEventTimeout(event &Event, timeout_ms i32) bool
 
 // wait_event_timeout waits until the specified timeout (in milliseconds) for the next available
 // event.
@@ -1054,7 +1054,7 @@ fn C.SDL_WaitEventTimeout(event &Event, timeout_ms int) bool
 // See also: poll_event (SDL_PollEvent)
 // See also: push_event (SDL_PushEvent)
 // See also: wait_event (SDL_WaitEvent)
-pub fn wait_event_timeout(event &Event, timeout_ms int) bool {
+pub fn wait_event_timeout(event &Event, timeout_ms i32) bool {
 	return C.SDL_WaitEventTimeout(event, timeout_ms)
 }
 
