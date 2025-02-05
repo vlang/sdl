@@ -7,6 +7,9 @@ import sdl
 import os
 
 // Ported from clear.c https://examples.libsdl.org/SDL3/renderer/01-clear/
+//
+// For educational purposes the original C sources are kept in comments above
+// the equivalent V code.
 
 // This example code creates an SDL window and renderer, and then clears the
 // window to a different color every frame, so you'll effectively get a window
@@ -30,7 +33,9 @@ fn main() {
 // SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
 //@[export: 'SDL_AppInit']
 pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
+	// Allocate / instantiate the state struct on the heap
 	mut app := &SDLApp{}
+	// Hand it over to SDL so it can be retreived in the other App* callbacks
 	unsafe {
 		*appstate = app
 	}
@@ -80,7 +85,8 @@ pub fn app_event(appstate voidptr, event &sdl.Event) sdl.AppResult {
 // SDL_AppResult SDL_AppIterate(void *appstate)
 //@[export: 'SDL_AppIterate']
 pub fn app_iterate(appstate voidptr) sdl.AppResult {
-	mut app := unsafe { &SDLApp(appstate) }
+	mut app := unsafe { &SDLApp(appstate) } // Retreive the state struct we initialized in `app_init`.
+
 	//     const double now = ((double)SDL_GetTicks()) / 1000.0;  /* convert from milliseconds to seconds. */
 	now := f64(sdl.get_ticks()) / 1000.0
 	//     /* choose the color for the frame we will draw. The sine wave trick makes it fade between colors smoothly. */
