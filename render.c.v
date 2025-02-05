@@ -2808,7 +2808,6 @@ pub fn render_debug_text(renderer &Renderer, x f32, y f32, const_str &char) bool
 	return C.SDL_RenderDebugText(renderer, x, y, const_str)
 }
 
-
 // TODO: extern SDL_DECLSPEC bool SDLCALL SDL_RenderDebugTextFormat(SDL_Renderer *renderer, float x, float y, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(4);
 
 // render_debug_text_format draws debug text to an SDL_Renderer.

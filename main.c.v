@@ -364,5 +364,3 @@ fn C.SDL_EnterAppMainCallbacks(argc int, argv voidptr, appinit AppInitFunc, appi
 pub fn enter_app_main_callbacks(argc int, argv &&char, appinit AppInitFunc, appiter AppIterateFunc, appevent AppEventFunc, appquit AppQuitFunc) int {
 	return C.SDL_EnterAppMainCallbacks(argc, argv, appinit, appiter, appevent, appquit)
 }
-
-
