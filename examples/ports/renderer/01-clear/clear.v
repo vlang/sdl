@@ -48,7 +48,7 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 	if !sdl.init(sdl.init_video) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		eprintln('Could not initialize SDL: ${error_msg}')
-		return sdl.AppResult.failure
+		return .failure
 	}
 	//     if (!SDL_CreateWindowAndRenderer("examples/renderer/clear", 640, 480, 0, &window, &renderer)) {
 	//         SDL_Log("Couldn't create window/renderer: %s", SDL_GetError());
@@ -58,10 +58,10 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 		&app.window, &app.renderer) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		eprintln('Could not create window/renderer: ${error_msg}')
-		return sdl.AppResult.failure
+		return .failure
 	}
 	//     return SDL_APP_CONTINUE;  /* carry on with the program! */
-	return sdl.AppResult.continue
+	return .continue
 }
 
 // This function runs when a new event (mouse input, keypresses, etc) occurs.
@@ -73,12 +73,12 @@ pub fn app_event(appstate voidptr, event &sdl.Event) sdl.AppResult {
 	//     }
 	match event.type {
 		.quit {
-			return sdl.AppResult.success
+			return .success
 		}
 		else {}
 	}
 	//     return SDL_APP_CONTINUE;  /* carry on with the program! */
-	return sdl.AppResult.continue
+	return .continue
 }
 
 // This function runs once per frame, and is the heart of the program.
@@ -106,7 +106,7 @@ pub fn app_iterate(appstate voidptr) sdl.AppResult {
 	sdl.render_present(app.renderer)
 	//
 	//     return SDL_APP_CONTINUE;  /* carry on with the program! */
-	return sdl.AppResult.continue
+	return .continue
 }
 
 // This function runs once at shutdown.

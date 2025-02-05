@@ -38,14 +38,14 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 	if !sdl.init(sdl.init_video) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		eprintln('Could not initialize SDL: ${error_msg}')
-		return sdl.AppResult.failure
+		return .failure
 	}
 
 	if !sdl.create_window_and_renderer('examples/renderer/primitives'.str, 640, 480, sdl.WindowFlags(0),
 		&app.window, &app.renderer) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		eprintln('Could not create window/renderer: ${error_msg}')
-		return sdl.AppResult.failure
+		return .failure
 	}
 
 	// set up some random points
@@ -54,18 +54,18 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 		app.points[i].y = (sdl.randf() * 280.0) + 100.0
 	}
 
-	return sdl.AppResult.continue // carry on with the program!
+	return .continue // carry on with the program!
 }
 
 // This function runs when a new event (mouse input, keypresses, etc) occurs.
 pub fn app_event(appstate voidptr, event &sdl.Event) sdl.AppResult {
 	match event.type {
 		.quit {
-			return sdl.AppResult.success
+			return .success // end the program, reporting success to the OS.
 		}
 		else {}
 	}
-	return sdl.AppResult.continue
+	return .continue // carry on with the program!
 }
 
 // This function runs once per frame, and is the heart of the program.
@@ -76,7 +76,7 @@ pub fn app_iterate(appstate voidptr) sdl.AppResult {
 
 	// as you can see from this, rendering draws over whatever was drawn before it.
 	sdl.set_render_draw_color(app.renderer, 33, 33, 33, sdl.alpha_opaque) // dark gray, full alpha
-	sdl.render_clear(app.renderer)
+	sdl.render_clear(app.renderer) // start with a blank canvas.
 
 	// draw a filled rectangle in the middle of the canvas.
 	sdl.set_render_draw_color(app.renderer, 0, 0, 255, sdl.alpha_opaque) // blue, full alpha
@@ -102,7 +102,7 @@ pub fn app_iterate(appstate voidptr) sdl.AppResult {
 	sdl.render_line(app.renderer, 0, 0, 640, 480)
 	sdl.render_line(app.renderer, 0, 480, 640, 0)
 	sdl.render_present(app.renderer) // put it all on the screen!
-	return sdl.AppResult.continue
+	return .continue
 }
 
 // This function runs once at shutdown.
