@@ -88,7 +88,7 @@ pub const main_use_callbacks = C.SDL_MAIN_USE_CALLBACKS // 1
 // If using the callbacks, don't define a "main" function. Instead, implement
 // the functions listed below in your program.
 
-//$if sdl_use_main_callbacks {
+// $if sdl_use_main_callbacks {
 
 // App-implemented initial entry point for SDL_MAIN_USE_CALLBACKS apps.
 //
@@ -119,20 +119,20 @@ pub const main_use_callbacks = C.SDL_MAIN_USE_CALLBACKS // 1
 //
 // This function is called by SDL on the main thread.
 //
-// \param appstate a place where the app can optionally store a pointer for
+// `appstate` a place where the app can optionally store a pointer for
 //                 future use.
-// \param argc the standard ANSI C main's argc; number of elements in `argv`.
-// \param argv the standard ANSI C main's argv; array of command line
+// `argc` the standard ANSI C main's argc; number of elements in `argv`.
+// `param` argv the standard ANSI C main's argv; array of command line
 //             arguments.
-// \returns SDL_APP_FAILURE to terminate with an error, SDL_APP_SUCCESS to
+// returns SDL_APP_FAILURE to terminate with an error, SDL_APP_SUCCESS to
 //          terminate with success, SDL_APP_CONTINUE to continue.
 //
-// \since This function is available since SDL 3.2.0.
+// NOTE: This function is available since SDL 3.2.0.
 //
-// \sa SDL_AppIterate
-// \sa SDL_AppEvent
-// \sa SDL_AppQuit
-// TODO: extern SDLMAIN_DECLSPEC SDL_AppResult SDLCALL SDL_AppInit(void **appstate, int argc, char *argv[]);
+// See also: SDL_AppIterate
+// See also: SDL_AppEvent
+// See also: SDL_AppQuit
+// extern SDLMAIN_DECLSPEC SDL_AppResult SDLCALL SDL_AppInit(void **appstate, int argc, char *argv[]);
 
 // App-implemented iteration entry point for SDL_MAIN_USE_CALLBACKS apps.
 //
@@ -170,18 +170,18 @@ pub const main_use_callbacks = C.SDL_MAIN_USE_CALLBACKS // 1
 //
 // This function is called by SDL on the main thread.
 //
-// \param appstate an optional pointer, provided by the app in SDL_AppInit.
-// \returns SDL_APP_FAILURE to terminate with an error, SDL_APP_SUCCESS to
+// `appstate` an optional pointer, provided by the app in SDL_AppInit.
+// returns SDL_APP_FAILURE to terminate with an error, SDL_APP_SUCCESS to
 //          terminate with success, SDL_APP_CONTINUE to continue.
 //
-// \threadsafety This function may get called concurrently with SDL_AppEvent()
+// NOTE: (thread safety) This function may get called concurrently with SDL_AppEvent()
 //               for events not pushed on the main thread.
 //
-// \since This function is available since SDL 3.2.0.
+// NOTE: This function is available since SDL 3.2.0.
 //
-// \sa SDL_AppInit
-// \sa SDL_AppEvent
-// TODO: extern SDLMAIN_DECLSPEC SDL_AppResult SDLCALL SDL_AppIterate(void *appstate);
+// See also: SDL_AppInit
+// See also: SDL_AppEvent
+// extern SDLMAIN_DECLSPEC SDL_AppResult SDLCALL SDL_AppIterate(void *appstate);
 
 // App-implemented event entry point for SDL_MAIN_USE_CALLBACKS apps.
 //
@@ -215,19 +215,19 @@ pub const main_use_callbacks = C.SDL_MAIN_USE_CALLBACKS // 1
 // SDL_AppQuit and terminates with an exit code that reports success to the
 // platform.
 //
-// \param appstate an optional pointer, provided by the app in SDL_AppInit.
-// \param event the new event for the app to examine.
-// \returns SDL_APP_FAILURE to terminate with an error, SDL_APP_SUCCESS to
+// `appstate` an optional pointer, provided by the app in SDL_AppInit.
+// `event` the new event for the app to examine.
+// returns SDL_APP_FAILURE to terminate with an error, SDL_APP_SUCCESS to
 //          terminate with success, SDL_APP_CONTINUE to continue.
 //
-// \threadsafety This function may get called concurrently with
+// NOTE: (thread safety) This function may get called concurrently with
 //               SDL_AppIterate() or SDL_AppQuit() for events not pushed from
 //               the main thread.
 //
-// \since This function is available since SDL 3.2.0.
+// NOTE: This function is available since SDL 3.2.0.
 //
-// \sa SDL_AppInit
-// \sa SDL_AppIterate
+// See also: SDL_AppInit
+// See also: SDL_AppIterate
 // extern SDLMAIN_DECLSPEC SDL_AppResult SDLCALL SDL_AppEvent(void *appstate, SDL_Event *event);
 
 // C.SDL_AppQuit [official documentation](https://wiki.libsdl.org/SDL3/SDL_AppQuit)
@@ -258,18 +258,18 @@ pub const main_use_callbacks = C.SDL_MAIN_USE_CALLBACKS // 1
 //
 // This function is called by SDL on the main thread.
 //
-// \param appstate an optional pointer, provided by the app in SDL_AppInit.
-// \param result the result code that terminated the app (success or failure).
+// `appstate` an optional pointer, provided by the app in SDL_AppInit.
+// `result` the result code that terminated the app (success or failure).
 //
-// \threadsafety SDL_AppEvent() may get called concurrently with this function
+// NOTE: (thread safety) SDL_AppEvent() may get called concurrently with this function
 //               if other threads that push events are still active.
 //
-// \since This function is available since SDL 3.2.0.
+// NOTE: This function is available since SDL 3.2.0.
 //
-// \sa SDL_AppInit
-// pub fn app_quit(appstate voidptr, result AppResult) {}
+// See also: SDL_AppInit
+// extern SDLMAIN_DECLSPEC void SDLCALL SDL_AppQuit(void *appstate, SDL_AppResult result);
 
-//}
+// } // $if sdl_use_main_callbacks
 
 // MainFunc thes prototype for the application's main() function
 //
@@ -365,70 +365,4 @@ pub fn enter_app_main_callbacks(argc int, argv &&char, appinit AppInitFunc, appi
 	return C.SDL_EnterAppMainCallbacks(argc, argv, appinit, appiter, appevent, appquit)
 }
 
-/*
-$if windows {
 
-  // C.SDL_RegisterApp [official documentation](https://wiki.libsdl.org/SDL3/SDL_RegisterApp)
-  fn C.SDL_RegisterApp(const_name &char, style u32, h_inst voidptr) bool
-
-  // register_app registers a win32 window class for SDL's use.
-  //
-  // This can be called to set the application window class at startup. It is
-  // safe to call this multiple times, as long as every call is eventually
-  // paired with a call to SDL_UnregisterApp, but a second registration attempt
-  // while a previous registration is still active will be ignored, other than
-  // to increment a counter.
-  //
-  // Most applications do not need to, and should not, call this directly; SDL
-  // will call it when initializing the video subsystem.
-  //
-  // `name` name the window class name, in UTF-8 encoding. If NULL, SDL
-  //             currently uses "SDL_app" but this isn't guaranteed.
-  // `style` style the value to use in WNDCLASSEX::style. If `name` is NULL, SDL
-  //              currently uses `(CS_BYTEALIGNCLIENT | CS_OWNDC)` regardless of
-  //              what is specified here.
-  // `h_inst` hInst the HINSTANCE to use in WNDCLASSEX::hInstance. If zero, SDL
-  //              will use `GetModuleHandle(NULL)` instead.
-  // returns true on success or false on failure; call SDL_GetError() for more
-  //          information.
-  //
-  // NOTE: This function is available since SDL 3.2.0.
-  pub fn register_app(const_name &char, style u32, h_inst voidptr) bool {
-    return C.SDL_RegisterApp(const_name, style, h_inst)
-  }
-
-  // C.SDL_UnregisterApp [official documentation](https://wiki.libsdl.org/SDL3/SDL_UnregisterApp)
-  fn C.SDL_UnregisterApp()
-
-  // unregister_app deregisters the win32 window class from an SDL_RegisterApp call.
-  //
-  // This can be called to undo the effects of SDL_RegisterApp.
-  //
-  // Most applications do not need to, and should not, call this directly; SDL
-  // will call it when deinitializing the video subsystem.
-  //
-  // It is safe to call this multiple times, as long as every call is eventually
-  // paired with a prior call to SDL_RegisterApp. The window class will only be
-  // deregistered when the registration counter in SDL_RegisterApp decrements to
-  // zero through calls to this function.
-  //
-  // NOTE: This function is available since SDL 3.2.0.
-  pub fn unregister_app() {
-    C.SDL_UnregisterApp()
-  }
-
-}
-*/
-
-// C.SDL_GDKSuspendComplete [official documentation](https://wiki.libsdl.org/SDL3/SDL_GDKSuspendComplete)
-fn C.SDL_GDKSuspendComplete()
-
-// gdk_suspend_complete callbacks from the application to let the suspend continue.
-//
-// This function is only needed for Xbox GDK support; all other platforms will
-// do nothing and set an "unsupported" error message.
-//
-// NOTE: This function is available since SDL 3.2.0.
-pub fn gdk_suspend_complete() {
-	C.SDL_GDKSuspendComplete()
-}
