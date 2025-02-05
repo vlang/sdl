@@ -76,9 +76,13 @@ pub enum MessageBoxColorType {
 	count             = C.SDL_MESSAGEBOX_COLOR_COUNT // `count` Size of the colors array of SDL_MessageBoxColorScheme.
 }
 
+const sdl_messagebox_color_count = 5 // NOTE: This value should be updated if `MessageBoxColorType.count` changes.
+
+// TODO: the above is a workaround for a V limitation not allowing to resolve fixed array sizes from consts assigned values from C enums/consts/values.
+
 @[typedef]
 pub struct C.SDL_MessageBoxColorScheme {
-	colors [5]MessageBoxColor // TODO: this is a workaround for V a bug not allowing to set fixed array sizes from consts assigned values from C enums/consts/values.
+	colors [sdl_messagebox_color_count]MessageBoxColor // NOTE: see workaround note above
 	// colors [MessageBoxColorType.count]MessageBoxColor
 	// or:
 	// colors [some_v_const]MessageBoxColor // - where `some_v_const` is `pub const some_v_const = C.VALUE`

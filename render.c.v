@@ -2808,12 +2808,10 @@ pub fn render_debug_text(renderer &Renderer, x f32, y f32, const_str &char) bool
 	return C.SDL_RenderDebugText(renderer, x, y, const_str)
 }
 
-/*
-TODO:
-extern SDL_DECLSPEC bool SDLCALL SDL_RenderDebugTextFormat(SDL_Renderer *renderer, float x, float y, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(4);
-*/
 
-// /* TODO: */ draws debug text to an SDL_Renderer.
+// TODO: extern SDL_DECLSPEC bool SDLCALL SDL_RenderDebugTextFormat(SDL_Renderer *renderer, float x, float y, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(4);
+
+// render_debug_text_format draws debug text to an SDL_Renderer.
 //
 // This function will render a printf()-style format string to a renderer.
 // Note that this is a convinence function for debugging, with severe
@@ -2837,8 +2835,4 @@ extern SDL_DECLSPEC bool SDLCALL SDL_RenderDebugTextFormat(SDL_Renderer *rendere
 //
 // See also: render_debug_text (SDL_RenderDebugText)
 // See also: debugtextfontcharactersize (SDL_DEBUG_TEXT_FONT_CHARACTER_SIZE)
-//
-/*
-TODO:
-extern SDL_DECLSPEC bool SDLCALL SDL_RenderDebugTextFormat(SDL_Renderer *renderer, float x, float y, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(4);
-*/
+// TODO: render_debug_text_format(renderer &Renderer, x f32, y f32, const_fmt &char, ...) bool {}

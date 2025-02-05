@@ -29,12 +29,9 @@ module sdl
 // It's also common to just return `false` in this case if the failing thing
 // is known to call SDL_SetError(), so errors simply propagate through.
 
-/*
-TODO:
-extern SDL_DECLSPEC bool SDLCALL SDL_SetError(SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(1);
-*/
+// TODO: extern SDL_DECLSPEC bool SDLCALL SDL_SetError(SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(1);
 
-// /* TODO: */ sets the SDL error message for the current thread.
+// set_error sets the SDL error message for the current thread.
 //
 // Calling this function will replace any previous error message that was set.
 //
@@ -60,17 +57,11 @@ extern SDL_DECLSPEC bool SDLCALL SDL_SetError(SDL_PRINTF_FORMAT_STRING const cha
 // See also: get_error (SDL_GetError)
 // See also: set_error_v (SDL_SetErrorV)
 //
-/*
-TODO:
-extern SDL_DECLSPEC bool SDLCALL SDL_SetError(SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(1);
-*/
+// TODO: set_error(const_fmt &char, ...) bool {}
 
-/*
-TODO:
-extern SDL_DECLSPEC bool SDLCALL SDL_SetErrorV(SDL_PRINTF_FORMAT_STRING const char *fmt, va_list ap) SDL_PRINTF_VARARG_FUNCV(1);
-*/
+// TODO: extern SDL_DECLSPEC bool SDLCALL SDL_SetErrorV(SDL_PRINTF_FORMAT_STRING const char *fmt, va_list ap) SDL_PRINTF_VARARG_FUNCV(1);
 
-// /* TODO: */ sets the SDL error message for the current thread.
+// set_error_v sets the SDL error message for the current thread.
 //
 // Calling this function will replace any previous error message that was set.
 //
@@ -86,10 +77,7 @@ extern SDL_DECLSPEC bool SDLCALL SDL_SetErrorV(SDL_PRINTF_FORMAT_STRING const ch
 // See also: get_error (SDL_GetError)
 // See also: set_error (SDL_SetError)
 //
-/*
-TODO:
-extern SDL_DECLSPEC bool SDLCALL SDL_SetErrorV(SDL_PRINTF_FORMAT_STRING const char *fmt, va_list ap) SDL_PRINTF_VARARG_FUNCV(1);
-*/
+// TODO: set_error_v(const_fmt &char, ap C.va_list) bool {}
 
 // C.SDL_OutOfMemory [official documentation](https://wiki.libsdl.org/SDL3/SDL_OutOfMemory)
 fn C.SDL_OutOfMemory() bool
