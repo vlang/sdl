@@ -35,7 +35,7 @@ module sdl
 // NOTE: This macro is available since SDL 3.2.0.
 //
 // See also: SDL_LASX_INTRINSICS
-pub const lsx_intrinsics = C.SDL_LSX_INTRINSICS // 1
+// pub const lsx_intrinsics = C.SDL_LSX_INTRINSICS // 1
 
 // Defined if (and only if) the compiler supports Loongarch LSX intrinsics.
 //
@@ -44,7 +44,7 @@ pub const lsx_intrinsics = C.SDL_LSX_INTRINSICS // 1
 // NOTE: This macro is available since SDL 3.2.0.
 //
 // See also: SDL_LASX_INTRINSICS
-pub const lasx_intrinsics = C.SDL_LASX_INTRINSICS // 1
+// pub const lasx_intrinsics = C.SDL_LASX_INTRINSICS // 1
 
 // Defined if (and only if) the compiler supports ARM NEON intrinsics.
 //
@@ -52,14 +52,14 @@ pub const lasx_intrinsics = C.SDL_LASX_INTRINSICS // 1
 // `<arm_neon.h>`, `<arm64intr.h>`, and `<arm64_neon.h>`, as appropriate.
 //
 // NOTE: This macro is available since SDL 3.2.0.
-pub const neon_intrinsics = C.SDL_NEON_INTRINSICS // 1
+// pub const neon_intrinsics = C.SDL_NEON_INTRINSICS // 1
 
 // Defined if (and only if) the compiler supports PowerPC Altivec intrinsics.
 //
 // If this macro is defined, SDL will have already included `<altivec.h>`
 //
 // NOTE: This macro is available since SDL 3.2.0.
-pub const altivec_intrinsics = C.SDL_ALTIVEC_INTRINSICS // 1
+// pub const altivec_intrinsics = C.SDL_ALTIVEC_INTRINSICS // 1
 
 // Defined if (and only if) the compiler supports Intel MMX intrinsics.
 //
@@ -68,7 +68,7 @@ pub const altivec_intrinsics = C.SDL_ALTIVEC_INTRINSICS // 1
 // NOTE: This macro is available since SDL 3.2.0.
 //
 // See also: SDL_SSE_INTRINSICS
-pub const mmx_intrinsics = C.SDL_MMX_INTRINSICS // 1
+// pub const mmx_intrinsics = C.SDL_MMX_INTRINSICS // 1
 
 // Defined if (and only if) the compiler supports Intel SSE intrinsics.
 //
@@ -80,7 +80,7 @@ pub const mmx_intrinsics = C.SDL_MMX_INTRINSICS // 1
 // See also: SDL_SSE3_INTRINSICS
 // See also: SDL_SSE4_1_INTRINSICS
 // See also: SDL_SSE4_2_INTRINSICS
-pub const sse_intrinsics = C.SDL_SSE_INTRINSICS // 1
+// pub const sse_intrinsics = C.SDL_SSE_INTRINSICS // 1
 
 // Defined if (and only if) the compiler supports Intel SSE2 intrinsics.
 //
@@ -92,7 +92,7 @@ pub const sse_intrinsics = C.SDL_SSE_INTRINSICS // 1
 // See also: SDL_SSE3_INTRINSICS
 // See also: SDL_SSE4_1_INTRINSICS
 // See also: SDL_SSE4_2_INTRINSICS
-pub const sse2_intrinsics = C.SDL_SSE2_INTRINSICS // 1
+// pub const sse2_intrinsics = C.SDL_SSE2_INTRINSICS // 1
 
 // Defined if (and only if) the compiler supports Intel SSE3 intrinsics.
 //
@@ -104,7 +104,7 @@ pub const sse2_intrinsics = C.SDL_SSE2_INTRINSICS // 1
 // See also: SDL_SSE2_INTRINSICS
 // See also: SDL_SSE4_1_INTRINSICS
 // See also: SDL_SSE4_2_INTRINSICS
-pub const sse3_intrinsics = C.SDL_SSE3_INTRINSICS // 1
+// pub const sse3_intrinsics = C.SDL_SSE3_INTRINSICS // 1
 
 // Defined if (and only if) the compiler supports Intel SSE4.1 intrinsics.
 //
@@ -116,7 +116,7 @@ pub const sse3_intrinsics = C.SDL_SSE3_INTRINSICS // 1
 // See also: SDL_SSE2_INTRINSICS
 // See also: SDL_SSE3_INTRINSICS
 // See also: SDL_SSE4_2_INTRINSICS
-pub const sse4_1_intrinsics = C.SDL_SSE4_1_INTRINSICS // 1
+// pub const sse4_1_intrinsics = C.SDL_SSE4_1_INTRINSICS // 1
 
 // Defined if (and only if) the compiler supports Intel SSE4.2 intrinsics.
 //
@@ -128,7 +128,7 @@ pub const sse4_1_intrinsics = C.SDL_SSE4_1_INTRINSICS // 1
 // See also: SDL_SSE2_INTRINSICS
 // See also: SDL_SSE3_INTRINSICS
 // See also: SDL_SSE4_1_INTRINSICS
-pub const sse4_2_intrinsics = C.SDL_SSE4_2_INTRINSICS // 1
+// pub const sse4_2_intrinsics = C.SDL_SSE4_2_INTRINSICS // 1
 
 // Defined if (and only if) the compiler supports Intel AVX intrinsics.
 //
@@ -138,7 +138,7 @@ pub const sse4_2_intrinsics = C.SDL_SSE4_2_INTRINSICS // 1
 //
 // See also: SDL_AVX2_INTRINSICS
 // See also: SDL_AVX512F_INTRINSICS
-pub const avx_intrinsics = C.SDL_AVX_INTRINSICS // 1
+// pub const avx_intrinsics = C.SDL_AVX_INTRINSICS // 1
 
 // Defined if (and only if) the compiler supports Intel AVX2 intrinsics.
 //
@@ -148,7 +148,7 @@ pub const avx_intrinsics = C.SDL_AVX_INTRINSICS // 1
 //
 // See also: SDL_AVX_INTRINSICS
 // See also: SDL_AVX512F_INTRINSICS
-pub const avx2_intrinsics = C.SDL_AVX2_INTRINSICS // 1
+// pub const avx2_intrinsics = C.SDL_AVX2_INTRINSICS // 1
 
 // Defined if (and only if) the compiler supports Intel AVX-512F intrinsics.
 //
@@ -160,7 +160,7 @@ pub const avx2_intrinsics = C.SDL_AVX2_INTRINSICS // 1
 //
 // See also: SDL_AVX_INTRINSICS
 // See also: SDL_AVX2_INTRINSICS
-pub const avx512f_intrinsics = C.SDL_AVX512F_INTRINSICS // 1
+// pub const avx512f_intrinsics = C.SDL_AVX512F_INTRINSICS // 1
 
 // TODO: Non-numerical: #define SDL_HAS_TARGET_ATTRIBS
 
