@@ -344,7 +344,7 @@ fn C.SDL_TryLockRWLockForReading(rwlock &RWLock) bool
 // See also: unlock_rw_lock (SDL_UnlockRWLock)
 //
 pub fn try_lock_rw_lock_for_reading(rwlock &RWLock) bool {
-  return C.SDL_TryLockRWLockForReading(rwlock)
+	return C.SDL_TryLockRWLockForReading(rwlock)
 }
 
 // C.SDL_TryLockRWLockForWriting [official documentation](https://wiki.libsdl.org/SDL3/SDL_TryLockRWLockForWriting)
@@ -378,11 +378,11 @@ fn C.SDL_TryLockRWLockForWriting(rwlock &RWLock) bool
 // See also: unlock_rw_lock (SDL_UnlockRWLock)
 //
 pub fn try_lock_rw_lock_for_writing(rwlock &RWLock) bool {
- return C.SDL_TryLockRWLockForWriting(rwlock)
+	return C.SDL_TryLockRWLockForWriting(rwlock)
 }
 
 // C.SDL_UnlockRWLock [official documentation](https://wiki.libsdl.org/SDL3/SDL_UnlockRWLock)
-fn C.SDL_UnlockRWLock(rwlock &RWLock) 
+fn C.SDL_UnlockRWLock(rwlock &RWLock)
 
 // unlock_rw_lock unlocks the read/write lock.
 //

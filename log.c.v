@@ -417,7 +417,6 @@ pub fn set_log_priority_prefix(priority LogPriority, const_prefix &char) bool {
 //
 // TODO: log_message(category int, priority LogPriority, const_fmt &char, ...)
 
-
 // TODO: extern SDL_DECLSPEC void SDLCALL SDL_LogMessageV(int category, SDL_LogPriority priority, SDL_PRINTF_FORMAT_STRING const char *fmt, va_list ap) SDL_PRINTF_VARARG_FUNCV(3);
 
 // log_message_v logs a message with the specified category and priority.
