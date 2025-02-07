@@ -84,8 +84,6 @@ pub type Uint64 = u64
 // See also: minsin_t64 (SDL_MIN_SINT64)
 pub type Time = i64
 
-// TODO: Non-numerical: #define SDL_INCLUDE_STDBOOL_H
-
 // TODO: Non-numerical: #define bool  unsigned char
 
 // Visual Studio 2017
@@ -111,7 +109,7 @@ pub const __bool_true_false_are_defined = C.__bool_true_false_are_defined // 1
 // defined, for various technical reasons.
 pub const nolonglong = C.SDL_NOLONGLONG // 1
 
-// TODO: Non-numerical: #define SDL_SIZE_MAX SIZE_MAX
+pub const size_max = C.SDL_SIZE_MAX
 
 // TODO: Function: #define SDL_COMPILE_TIME_ASSERT(name, x) FailToCompileIf_x_IsFalse(x)
 
@@ -203,9 +201,7 @@ pub const max_time = C.SDL_MAX_TIME // SDL_MAX_SINT64
 
 pub const min_time = C.SDL_MIN_TIME // SDL_MIN_SINT64
 
-// TODO: Non-numerical: #define SDL_FLT_EPSILON FLT_EPSILON
-
-// TODO: Non-numerical: #define SDL_FLT_EPSILON 1.1920928955078125e-07F
+pub const flt_epsilon = C.SDL_FLT_EPSILON // 1.1920928955078125e-07F
 
 // A printf-formatting string for an Sint64 value.
 //
@@ -523,12 +519,10 @@ pub fn malloc(size usize) voidptr {
 	return C.SDL_malloc(size)
 }
 
-/*
-TODO:
-extern SDL_DECLSPEC SDL_MALLOC SDL_ALLOC_SIZE2(1, 2) void * SDLCALL SDL_calloc(size_t nmemb, size_t size);
-*/
+// C.SDL_calloc [official documentation](https://wiki.libsdl.org/SDL3/SDL_calloc)
+fn C.SDL_calloc(nmemb usize, size usize) voidptr
 
-// /* TODO: */ allocates a zero-initialized array.
+// calloc allocates a zero-initialized array.
 //
 // The memory returned by this function must be freed with SDL_free().
 //
@@ -546,17 +540,14 @@ extern SDL_DECLSPEC SDL_MALLOC SDL_ALLOC_SIZE2(1, 2) void * SDLCALL SDL_calloc(s
 // See also: malloc (SDL_malloc)
 // See also: realloc (SDL_realloc)
 //
-/*
-TODO:
-extern SDL_DECLSPEC SDL_MALLOC SDL_ALLOC_SIZE2(1, 2) void * SDLCALL SDL_calloc(size_t nmemb, size_t size);
-*/
+pub fn calloc(nmemb usize, size usize) voidptr {
+	return C.SDL_calloc(nmemb, size)
+}
 
-/*
-TODO:
-extern SDL_DECLSPEC SDL_ALLOC_SIZE(2) void * SDLCALL SDL_realloc(void *mem, size_t size);
-*/
+// C.SDL_realloc [official documentation](https://wiki.libsdl.org/SDL3/SDL_realloc)
+fn C.SDL_realloc(mem voidptr, size usize) voidptr
 
-// /* TODO: */ changes the size of allocated memory.
+// realloc changes the size of allocated memory.
 //
 // The memory returned by this function must be freed with SDL_free().
 //
@@ -588,10 +579,9 @@ extern SDL_DECLSPEC SDL_ALLOC_SIZE(2) void * SDLCALL SDL_realloc(void *mem, size
 // See also: malloc (SDL_malloc)
 // See also: calloc (SDL_calloc)
 //
-/*
-TODO:
-extern SDL_DECLSPEC SDL_ALLOC_SIZE(2) void * SDLCALL SDL_realloc(void *mem, size_t size);
-*/
+pub fn realloc(mem voidptr, size usize) voidptr {
+	return C.SDL_realloc(mem, size)
+}
 
 // C.SDL_free [official documentation](https://wiki.libsdl.org/SDL3/SDL_free)
 fn C.SDL_free(mem voidptr)
@@ -1736,9 +1726,7 @@ pub fn memcpy(dst voidptr, const_src voidptr, len usize) voidptr {
 	return C.SDL_memcpy(dst, const_src, len)
 }
 
-// TODO: Non-numerical: #define SDL_memcpy  memcpy
-
-// TODO: Non-numerical: #define SDL_copyp(dst, src)                                                                 \
+// TODO: Non-numerical: #define SDL_copyp(dst, src) \
 
 // C.SDL_memmove [official documentation](https://wiki.libsdl.org/SDL3/SDL_memmove)
 fn C.SDL_memmove(dst voidptr, const_src voidptr, len usize) voidptr
@@ -1761,8 +1749,6 @@ fn C.SDL_memmove(dst voidptr, const_src voidptr, len usize) voidptr
 pub fn memmove(dst voidptr, const_src voidptr, len usize) voidptr {
 	return C.SDL_memmove(dst, const_src, len)
 }
-
-// TODO: Non-numerical: #define SDL_memmove memmove
 
 // C.SDL_memset [official documentation](https://wiki.libsdl.org/SDL3/SDL_memset)
 fn C.SDL_memset(dst voidptr, c int, len usize) voidptr
@@ -1809,8 +1795,6 @@ fn C.SDL_memset4(dst voidptr, val u32, dwords usize) voidptr
 pub fn memset4(dst voidptr, val u32, dwords usize) voidptr {
 	return C.SDL_memset4(dst, val, dwords)
 }
-
-// TODO: Non-numerical: #define SDL_memset  memset
 
 // TODO: Function: #define SDL_zero(x) SDL_memset(&(x), 0, sizeof((x)))
 
@@ -3384,12 +3368,10 @@ pub fn uc_s4_to_ut_f8(codepoint u32, dst &char) &char {
 	return C.SDL_UCS4ToUTF8(codepoint, dst)
 }
 
-/*
-TODO:
-extern SDL_DECLSPEC int SDLCALL SDL_sscanf(const char *text, SDL_SCANF_FORMAT_STRING const char *fmt, ...) SDL_SCANF_VARARG_FUNC(2);
-*/
+// C.SDL_sscanf [official documentation](https://wiki.libsdl.org/SDL3/SDL_sscanf)
+// TODO: extern SDL_DECLSPEC int SDLCALL SDL_sscanf(const char *text, SDL_SCANF_FORMAT_STRING const char *fmt, ...) SDL_SCANF_VARARG_FUNC(2);
 
-// /* TODO: */ this works exactly like sscanf() but doesn't require access to a C runtime.
+// sscanf this works exactly like sscanf() but doesn't require access to a C runtime.
 //
 // Scan a string, matching a format string, converting each '%' item and
 // storing it to pointers provided through variable arguments.
@@ -3403,17 +3385,12 @@ extern SDL_DECLSPEC int SDLCALL SDL_sscanf(const char *text, SDL_SCANF_FORMAT_ST
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
-/*
-TODO:
-extern SDL_DECLSPEC int SDLCALL SDL_sscanf(const char *text, SDL_SCANF_FORMAT_STRING const char *fmt, ...) SDL_SCANF_VARARG_FUNC(2);
-*/
+// TODO: sscanf(const_text &char, const_fmt &char, ...) {}
 
-/*
-TODO:
-extern SDL_DECLSPEC int SDLCALL SDL_vsscanf(const char *text, SDL_SCANF_FORMAT_STRING const char *fmt, va_list ap) SDL_SCANF_VARARG_FUNCV(2);
-*/
+// C.SDL_vsscanf [official documentation](https://wiki.libsdl.org/SDL3/SDL_vsscanf)
+// TODO: extern SDL_DECLSPEC int SDLCALL SDL_vsscanf(const char *text, SDL_SCANF_FORMAT_STRING const char *fmt, va_list ap) SDL_SCANF_VARARG_FUNCV(2);
 
-// /* TODO: */ this works exactly like vsscanf() but doesn't require access to a C
+// vsscanf this works exactly like vsscanf() but doesn't require access to a C
 // runtime.
 //
 // Functions identically to SDL_sscanf(), except it takes a `va_list` instead
@@ -3429,17 +3406,12 @@ extern SDL_DECLSPEC int SDLCALL SDL_vsscanf(const char *text, SDL_SCANF_FORMAT_S
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
-/*
-TODO:
-extern SDL_DECLSPEC int SDLCALL SDL_vsscanf(const char *text, SDL_SCANF_FORMAT_STRING const char *fmt, va_list ap) SDL_SCANF_VARARG_FUNCV(2);
-*/
+// TODO: vsscanf(const_text &char, const_fmt &char, ap C.va_list) int {}
 
-/*
-TODO:
-extern SDL_DECLSPEC int SDLCALL SDL_snprintf(SDL_OUT_Z_CAP(maxlen) char *text, size_t maxlen, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(3);
-*/
+// C.SDL_snprintf [official documentation](https://wiki.libsdl.org/SDL3/SDL_snprintf)
+// TODO: extern SDL_DECLSPEC int SDLCALL SDL_snprintf(SDL_OUT_Z_CAP(maxlen) char *text, size_t maxlen, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(3);
 
-// /* TODO: */ this works exactly like snprintf() but doesn't require access to a C
+// snprintf this works exactly like snprintf() but doesn't require access to a C
 // runtime.
 //
 // Format a string of up to `maxlen`-1 bytes, converting each '%' item with
@@ -3469,17 +3441,11 @@ extern SDL_DECLSPEC int SDLCALL SDL_snprintf(SDL_OUT_Z_CAP(maxlen) char *text, s
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
-/*
-TODO:
-extern SDL_DECLSPEC int SDLCALL SDL_snprintf(SDL_OUT_Z_CAP(maxlen) char *text, size_t maxlen, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(3);
-*/
+// TODO: pub fn snprintf(text &char, maxlen usize, const_fmt &char, ...) int
 
-/*
-TODO:
-extern SDL_DECLSPEC int SDLCALL SDL_swprintf(SDL_OUT_Z_CAP(maxlen) wchar_t *text, size_t maxlen, SDL_PRINTF_FORMAT_STRING const wchar_t *fmt, ...) SDL_WPRINTF_VARARG_FUNC(3);
-*/
+// TODO: extern SDL_DECLSPEC int SDLCALL SDL_swprintf(SDL_OUT_Z_CAP(maxlen) wchar_t *text, size_t maxlen, SDL_PRINTF_FORMAT_STRING const wchar_t *fmt, ...) SDL_WPRINTF_VARARG_FUNC(3);
 
-// /* TODO: */ this works exactly like swprintf() but doesn't require access to a C
+// swprintf this works exactly like swprintf() but doesn't require access to a C
 // runtime.
 //
 // Format a wide string of up to `maxlen`-1 wchar_t values, converting each
@@ -3510,17 +3476,11 @@ extern SDL_DECLSPEC int SDLCALL SDL_swprintf(SDL_OUT_Z_CAP(maxlen) wchar_t *text
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
-/*
-TODO:
-extern SDL_DECLSPEC int SDLCALL SDL_swprintf(SDL_OUT_Z_CAP(maxlen) wchar_t *text, size_t maxlen, SDL_PRINTF_FORMAT_STRING const wchar_t *fmt, ...) SDL_WPRINTF_VARARG_FUNC(3);
-*/
+// pub fn swprintf(text &WCharT, maxlen usize, const_fmt &WCharT, ...) int {}
 
-/*
-TODO:
-extern SDL_DECLSPEC int SDLCALL SDL_vsnprintf(SDL_OUT_Z_CAP(maxlen) char *text, size_t maxlen, SDL_PRINTF_FORMAT_STRING const char *fmt, va_list ap) SDL_PRINTF_VARARG_FUNCV(3);
-*/
+// TODO: extern SDL_DECLSPEC int SDLCALL SDL_vsnprintf(SDL_OUT_Z_CAP(maxlen) char *text, size_t maxlen, SDL_PRINTF_FORMAT_STRING const char *fmt, va_list ap) SDL_PRINTF_VARARG_FUNCV(3);
 
-// /* TODO: */ this works exactly like vsnprintf() but doesn't require access to a C
+// vsnprintf this works exactly like vsnprintf() but doesn't require access to a C
 // runtime.
 //
 // Functions identically to SDL_snprintf(), except it takes a `va_list`
@@ -3537,17 +3497,11 @@ extern SDL_DECLSPEC int SDLCALL SDL_vsnprintf(SDL_OUT_Z_CAP(maxlen) char *text, 
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
-/*
-TODO:
-extern SDL_DECLSPEC int SDLCALL SDL_vsnprintf(SDL_OUT_Z_CAP(maxlen) char *text, size_t maxlen, SDL_PRINTF_FORMAT_STRING const char *fmt, va_list ap) SDL_PRINTF_VARARG_FUNCV(3);
-*/
+// pub fn vsnprintf(text &char, maxlen usize, const_fmt &char, ap C.va_list) int {}
 
-/*
-TODO:
-extern SDL_DECLSPEC int SDLCALL SDL_vswprintf(SDL_OUT_Z_CAP(maxlen) wchar_t *text, size_t maxlen, SDL_PRINTF_FORMAT_STRING const wchar_t *fmt, va_list ap) SDL_WPRINTF_VARARG_FUNCV(3);
-*/
+// TODO: extern SDL_DECLSPEC int SDLCALL SDL_vswprintf(SDL_OUT_Z_CAP(maxlen) wchar_t *text, size_t maxlen, SDL_PRINTF_FORMAT_STRING const wchar_t *fmt, va_list ap) SDL_WPRINTF_VARARG_FUNCV(3);
 
-// /* TODO: */ this works exactly like vswprintf() but doesn't require access to a C
+// vswprintf this works exactly like vswprintf() but doesn't require access to a C
 // runtime.
 //
 // Functions identically to SDL_swprintf(), except it takes a `va_list`
@@ -3565,17 +3519,11 @@ extern SDL_DECLSPEC int SDLCALL SDL_vswprintf(SDL_OUT_Z_CAP(maxlen) wchar_t *tex
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
-/*
-TODO:
-extern SDL_DECLSPEC int SDLCALL SDL_vswprintf(SDL_OUT_Z_CAP(maxlen) wchar_t *text, size_t maxlen, SDL_PRINTF_FORMAT_STRING const wchar_t *fmt, va_list ap) SDL_WPRINTF_VARARG_FUNCV(3);
-*/
+// pub fn vswprintf(text &WCharT, maxlen usize, const_fmt &WCharT, ap C.va_list) int {}
 
-/*
-TODO:
-extern SDL_DECLSPEC int SDLCALL SDL_asprintf(char **strp, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
-*/
+// TODO: extern SDL_DECLSPEC int SDLCALL SDL_asprintf(char **strp, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
 
-// /* TODO: */ this works exactly like asprintf() but doesn't require access to a C
+// asprintf this works exactly like asprintf() but doesn't require access to a C
 // runtime.
 //
 // Functions identically to SDL_snprintf(), except it allocates a buffer large
@@ -3601,17 +3549,11 @@ extern SDL_DECLSPEC int SDLCALL SDL_asprintf(char **strp, SDL_PRINTF_FORMAT_STRI
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
-/*
-TODO:
-extern SDL_DECLSPEC int SDLCALL SDL_asprintf(char **strp, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
-*/
+// pub fn asprintf(strp &&char, const_fmt &char, ...) int {}
 
-/*
-TODO:
-extern SDL_DECLSPEC int SDLCALL SDL_vasprintf(char **strp, SDL_PRINTF_FORMAT_STRING const char *fmt, va_list ap) SDL_PRINTF_VARARG_FUNCV(2);
-*/
+// TODO: extern SDL_DECLSPEC int SDLCALL SDL_vasprintf(char **strp, SDL_PRINTF_FORMAT_STRING const char *fmt, va_list ap) SDL_PRINTF_VARARG_FUNCV(2);
 
-// /* TODO: */ this works exactly like vasprintf() but doesn't require access to a C
+// vasprintf this works exactly like vasprintf() but doesn't require access to a C
 // runtime.
 //
 // Functions identically to SDL_asprintf(), except it takes a `va_list`
@@ -3627,10 +3569,7 @@ extern SDL_DECLSPEC int SDLCALL SDL_vasprintf(char **strp, SDL_PRINTF_FORMAT_STR
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
-/*
-TODO:
-extern SDL_DECLSPEC int SDLCALL SDL_vasprintf(char **strp, SDL_PRINTF_FORMAT_STRING const char *fmt, va_list ap) SDL_PRINTF_VARARG_FUNCV(2);
-*/
+// pub fn vasprintf(strp &&char, const_fmt &char, ap C.va_list) int {}
 
 // C.SDL_srand [official documentation](https://wiki.libsdl.org/SDL3/SDL_srand)
 fn C.SDL_srand(seed u64)
@@ -5474,70 +5413,6 @@ pub fn iconv_string(const_tocode &char, const_fromcode &char, const_inbuf &char,
 //
 // NOTE: This macro is available since SDL 3.2.0.
 // TODO: pub const iconv_wchar_utf8(s) = SDL_iconv_string('UTF-8', 'WCHAR_T', (char *)S, (SDL_wcslen(S)+1)*sizeof(wchar_t))
-
-// TODO: Non-numerical: #define SDL_malloc malloc
-
-// TODO: Non-numerical: #define SDL_calloc calloc
-
-// TODO: Non-numerical: #define SDL_realloc realloc
-
-// TODO: Non-numerical: #define SDL_free free
-
-// TODO: Non-numerical: #define SDL_memcpy memcpy
-
-// TODO: Non-numerical: #define SDL_memmove memmove
-
-// TODO: Non-numerical: #define SDL_memset memset
-
-// TODO: Non-numerical: #define SDL_memcmp memcmp
-
-// TODO: Non-numerical: #define SDL_strlcpy strlcpy
-
-// TODO: Non-numerical: #define SDL_strlcat strlcat
-
-// TODO: Non-numerical: #define SDL_strlen strlen
-
-// TODO: Non-numerical: #define SDL_wcslen wcslen
-
-// TODO: Non-numerical: #define SDL_wcslcpy wcslcpy
-
-// TODO: Non-numerical: #define SDL_wcslcat wcslcat
-
-// TODO: Non-numerical: #define SDL_strdup strdup
-
-// TODO: Non-numerical: #define SDL_wcsdup wcsdup
-
-// TODO: Non-numerical: #define SDL_strchr strchr
-
-// TODO: Non-numerical: #define SDL_strrchr strrchr
-
-// TODO: Non-numerical: #define SDL_strstr strstr
-
-// TODO: Non-numerical: #define SDL_wcsstr wcsstr
-
-// TODO: Non-numerical: #define SDL_strtok_r strtok_r
-
-// TODO: Non-numerical: #define SDL_strcmp strcmp
-
-// TODO: Non-numerical: #define SDL_wcscmp wcscmp
-
-// TODO: Non-numerical: #define SDL_strncmp strncmp
-
-// TODO: Non-numerical: #define SDL_wcsncmp wcsncmp
-
-// TODO: Non-numerical: #define SDL_strcasecmp strcasecmp
-
-// TODO: Non-numerical: #define SDL_strncasecmp strncasecmp
-
-// TODO: Non-numerical: #define SDL_strpbrk strpbrk
-
-// TODO: Non-numerical: #define SDL_sscanf sscanf
-
-// TODO: Non-numerical: #define SDL_vsscanf vsscanf
-
-// TODO: Non-numerical: #define SDL_snprintf snprintf
-
-// TODO: Non-numerical: #define SDL_vsnprintf vsnprintf
 
 // TODO: Function: #define SDL_size_mul_check_overflow(a, b, ret) SDL_size_mul_check_overflow_builtin(a, b, ret)
 

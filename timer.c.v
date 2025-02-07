@@ -57,17 +57,47 @@ pub const ns_per_ms = C.SDL_NS_PER_MS // 1000000
 // NOTE: This macro is available since SDL 3.2.0.
 pub const ns_per_us = C.SDL_NS_PER_US // 1000
 
-// TODO: Function: #define SDL_SECONDS_TO_NS(S)    (((Uint64)(S)) * SDL_NS_PER_SECOND)
+// C.SDL_SECONDS_TO_NS is `#define SDL_SECONDS_TO_NS(S)    (((Uint64)(S)) * SDL_NS_PER_SECOND)`
+// C.SDL_SECONDS_TO_NS [official documentation](https://wiki.libsdl.org/SDL3/SDL_SECONDS_TO_NS)
+fn C.SDL_SECONDS_TO_NS(s u64) u64
+pub fn seconds_to_ns(s u64) u64 {
+	return C.SDL_SECONDS_TO_NS(s)
+}
 
-// TODO: Function: #define SDL_NS_TO_SECONDS(NS)   ((NS) / SDL_NS_PER_SECOND)
+// C.SDL_NS_TO_SECONDS is `#define SDL_NS_TO_SECONDS(NS)   ((NS) / SDL_NS_PER_SECOND)`
+// C.SDL_NS_TO_SECONDS [official documentation](https://wiki.libsdl.org/SDL3/SDL_NS_TO_SECONDS)
+fn C.SDL_NS_TO_SECONDS(ns u64) u64
+pub fn ns_to_seconds(ns u64) u64 {
+	return C.SDL_NS_TO_SECONDS(ns)
+}
 
-// TODO: Function: #define SDL_MS_TO_NS(MS)        (((Uint64)(MS)) * SDL_NS_PER_MS)
+// C.SDL_MS_TO_NS is `#define SDL_MS_TO_NS(MS)        (((Uint64)(MS)) * SDL_NS_PER_MS)`
+// C.SDL_MS_TO_NS [official documentation](https://wiki.libsdl.org/SDL3/SDL_MS_TO_NS)
+fn C.SDL_MS_TO_NS(ms u64) u64
+pub fn ms_to_ns(ms u64) u64 {
+	return C.SDL_MS_TO_NS(ms)
+}
 
-// TODO: Function: #define SDL_NS_TO_MS(NS)        ((NS) / SDL_NS_PER_MS)
+// C.SDL_NS_TO_MS is `#define SDL_NS_TO_MS(NS)        ((NS) / SDL_NS_PER_MS)`
+// C.SDL_NS_TO_MS [official documentation](https://wiki.libsdl.org/SDL3/SDL_NS_TO_MS)
+fn C.SDL_NS_TO_MS(ns u64) u64
+pub fn ns_to_ms(ns u64) u64 {
+	return C.SDL_NS_TO_MS(ns)
+}
 
-// TODO: Function: #define SDL_US_TO_NS(US)        (((Uint64)(US)) * SDL_NS_PER_US)
+// C.SDL_US_TO_NS is `#define SDL_US_TO_NS(US)        (((Uint64)(US)) * SDL_NS_PER_US)`
+// C.SDL_US_TO_NS [official documentation](https://wiki.libsdl.org/SDL3/SDL_US_TO_NS)
+fn C.SDL_US_TO_NS(us u64) u64
+pub fn us_to_ns(us u64) u64 {
+	return C.SDL_US_TO_NS(us)
+}
 
-// TODO: Function: #define SDL_NS_TO_US(NS)        ((NS) / SDL_NS_PER_US)
+// C.SDL_NS_TO_US is `#define SDL_NS_TO_US(NS)        ((NS) / SDL_NS_PER_US)`
+// C.SDL_NS_TO_US [official documentation](https://wiki.libsdl.org/SDL3/SDL_NS_TO_US)
+fn C.SDL_NS_TO_US(ns u64) u64
+pub fn ns_to_us(ns u64) u64 {
+	return C.SDL_NS_TO_US(ns)
+}
 
 // C.SDL_GetTicks [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetTicks)
 fn C.SDL_GetTicks() u64

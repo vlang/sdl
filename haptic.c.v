@@ -583,7 +583,7 @@ pub fn is_mouse_haptic() bool {
 // C.SDL_OpenHapticFromMouse [official documentation](https://wiki.libsdl.org/SDL3/SDL_OpenHapticFromMouse)
 fn C.SDL_OpenHapticFromMouse() &Haptic
 
-// open_haptic_from_mouse trys to open a haptic device from the current mouse.
+// open_haptic_from_mouse tries to open a haptic device from the current mouse.
 //
 // returns the haptic device identifier or NULL on failure; call
 //          SDL_GetError() for more information.

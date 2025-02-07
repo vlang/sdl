@@ -146,19 +146,29 @@ pub enum GamepadBindingType {
 @[typedef]
 pub struct C.SDL_GamepadBinding {
 pub mut:
-	input_type GamepadBindingType
-
-	// TODO// union {
-	//  int button; struct {
-	//  int axis; int axis_min; int axis_max; } axis
-	// TODO// struct {
-	//  int hat; int hat_mask; } hat; } input
+	input_type  GamepadBindingType
+	input       union {
+		button int
+		axis   struct {
+			axis     int
+			axis_min int
+			axis_max int
+		}
+		hat    struct {
+			hat      int
+			hat_mask int
+		}
+	}
 	output_type GamepadBindingType
+	output      union {
+		button GamepadButton
+		axis   struct {
+			axis     GamepadAxis
+			axis_min int
+			axis_max int
+		}
+	}
 }
-
-// TODO: BELONGS ABOVE // union {
-//  SDL_GamepadButton button; struct {
-//  SDL_GamepadAxis axis; int axis_min; int axis_max; } axis; } output
 
 pub type GamepadBinding = C.SDL_GamepadBinding
 

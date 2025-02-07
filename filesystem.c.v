@@ -199,7 +199,7 @@ pub mut:
 
 pub type PathInfo = C.SDL_PathInfo
 
-// TODO: Function: #define SDL_GLOB_CASEINSENSITIVE (1u << 0)
+pub const glob_caseinsensitive = C.SDL_GLOB_CASEINSENSITIVE // (1u << 0)
 
 // C.SDL_CreateDirectory [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreateDirectory)
 fn C.SDL_CreateDirectory(const_path &char) bool

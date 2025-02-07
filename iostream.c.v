@@ -529,7 +529,7 @@ fn C.SDL_WriteIO(context &IOStream, const_ptr voidptr, size usize) usize
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
-// See also: i_oprintf (SDL_IOprintf)
+// See also: io_printf (SDL_IOprintf)
 // See also: read_io (SDL_ReadIO)
 // See also: seek_io (SDL_SeekIO)
 // See also: flush_io (SDL_FlushIO)
@@ -538,12 +538,9 @@ pub fn write_io(context &IOStream, const_ptr voidptr, size usize) usize {
 	return C.SDL_WriteIO(context, const_ptr, size)
 }
 
-/*
-TODO:
-extern SDL_DECLSPEC size_t SDLCALL SDL_IOprintf(SDL_IOStream *context, SDL_PRINTF_FORMAT_STRING const char *fmt, ...)  SDL_PRINTF_VARARG_FUNC(2);
-*/
+// TODO: extern SDL_DECLSPEC size_t SDLCALL SDL_IOprintf(SDL_IOStream *context, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
 
-// /* TODO: */ prints to an SDL_IOStream data stream.
+// io_printf prints to an SDL_IOStream data stream.
 //
 // This function does formatted printing to the stream.
 //
@@ -558,20 +555,14 @@ extern SDL_DECLSPEC size_t SDLCALL SDL_IOprintf(SDL_IOStream *context, SDL_PRINT
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
-// See also: i_ovprintf (SDL_IOvprintf)
+// See also: iov_printf (SDL_IOvprintf)
 // See also: write_io (SDL_WriteIO)
 //
-/*
-TODO:
-extern SDL_DECLSPEC size_t SDLCALL SDL_IOprintf(SDL_IOStream *context, SDL_PRINTF_FORMAT_STRING const char *fmt, ...)  SDL_PRINTF_VARARG_FUNC(2);
-*/
+// TODO: io_printf(context &IOStream, const_fmt &char, ...) size_t {}
 
-/*
-TODO:
-extern SDL_DECLSPEC size_t SDLCALL SDL_IOvprintf(SDL_IOStream *context, SDL_PRINTF_FORMAT_STRING const char *fmt, va_list ap) SDL_PRINTF_VARARG_FUNCV(2);
-*/
+// TODO: extern SDL_DECLSPEC size_t SDLCALL SDL_IOvprintf(SDL_IOStream *context, SDL_PRINTF_FORMAT_STRING const char *fmt, va_list ap) SDL_PRINTF_VARARG_FUNCV(2);
 
-// /* TODO: */ prints to an SDL_IOStream data stream.
+// iov_printf prints to an SDL_IOStream data stream.
 //
 // This function does formatted printing to the stream.
 //
@@ -585,13 +576,10 @@ extern SDL_DECLSPEC size_t SDLCALL SDL_IOvprintf(SDL_IOStream *context, SDL_PRIN
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
-// See also: i_oprintf (SDL_IOprintf)
+// See also: io_printf (SDL_IOprintf)
 // See also: write_io (SDL_WriteIO)
 //
-/*
-TODO:
-extern SDL_DECLSPEC size_t SDLCALL SDL_IOvprintf(SDL_IOStream *context, SDL_PRINTF_FORMAT_STRING const char *fmt, va_list ap) SDL_PRINTF_VARARG_FUNCV(2);
-*/
+// TODO: iov_printf(context &IOStream, const_fmt &char, ap C.va_list)
 
 // C.SDL_FlushIO [official documentation](https://wiki.libsdl.org/SDL3/SDL_FlushIO)
 fn C.SDL_FlushIO(context &IOStream) bool

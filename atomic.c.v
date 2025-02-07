@@ -53,7 +53,7 @@ pub type SpinLock = int
 // C.SDL_TryLockSpinlock [official documentation](https://wiki.libsdl.org/SDL3/SDL_TryLockSpinlock)
 fn C.SDL_TryLockSpinlock(@lock &int) bool
 
-// try_lock_spinlock trys to lock a spin lock by setting it to a non-zero value.
+// try_lock_spinlock tries to lock a spin lock by setting it to a non-zero value.
 //
 // ***Please note that spinlocks are dangerous if you don't know what you're
 // doing. Please be careful using any sort of spinlock!***

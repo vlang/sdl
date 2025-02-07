@@ -192,12 +192,9 @@ pub fn set_log_priority_prefix(priority LogPriority, const_prefix &char) bool {
 	return C.SDL_SetLogPriorityPrefix(priority, const_prefix)
 }
 
-/*
-TODO:
-extern SDL_DECLSPEC void SDLCALL SDL_Log(SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(1);
-*/
+// TODO: extern SDL_DECLSPEC void SDLCALL SDL_Log(SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(1);
 
-// /* TODO: */ logs a message with SDL_LOG_CATEGORY_APPLICATION and SDL_LOG_PRIORITY_INFO.
+// log logs a message with SDL_LOG_CATEGORY_APPLICATION and SDL_LOG_PRIORITY_INFO.
 //
 // `fmt` fmt a printf() style message format string.
 // `...` ... additional parameters matching % tokens in the `fmt` string, if
@@ -217,17 +214,11 @@ extern SDL_DECLSPEC void SDLCALL SDL_Log(SDL_PRINTF_FORMAT_STRING const char *fm
 // See also: log_verbose (SDL_LogVerbose)
 // See also: log_warn (SDL_LogWarn)
 //
-/*
-TODO:
-extern SDL_DECLSPEC void SDLCALL SDL_Log(SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(1);
-*/
+// TODO: log_info(const_fmt &char, ...) {}
 
-/*
-TODO:
-extern SDL_DECLSPEC void SDLCALL SDL_LogTrace(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
-*/
+// TODO: extern SDL_DECLSPEC void SDLCALL SDL_LogTrace(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
 
-// /* TODO: */ logs a message with SDL_LOG_PRIORITY_TRACE.
+// log_trace logs a message with SDL_LOG_PRIORITY_TRACE.
 //
 // `category` category the category of the message.
 // `fmt` fmt a printf() style message format string.
@@ -249,17 +240,11 @@ extern SDL_DECLSPEC void SDLCALL SDL_LogTrace(int category, SDL_PRINTF_FORMAT_ST
 // See also: log_verbose (SDL_LogVerbose)
 // See also: log_warn (SDL_LogWarn)
 //
-/*
-TODO:
-extern SDL_DECLSPEC void SDLCALL SDL_LogTrace(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
-*/
+// TODO: log_trace(category int, const_fmt &char, ...) {}
 
-/*
-TODO:
-extern SDL_DECLSPEC void SDLCALL SDL_LogVerbose(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
-*/
+// TODO: extern SDL_DECLSPEC void SDLCALL SDL_LogVerbose(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
 
-// /* TODO: */ logs a message with SDL_LOG_PRIORITY_VERBOSE.
+// log_verbose logs a message with SDL_LOG_PRIORITY_VERBOSE.
 //
 // `category` category the category of the message.
 // `fmt` fmt a printf() style message format string.
@@ -279,17 +264,11 @@ extern SDL_DECLSPEC void SDLCALL SDL_LogVerbose(int category, SDL_PRINTF_FORMAT_
 // See also: log_message_v (SDL_LogMessageV)
 // See also: log_warn (SDL_LogWarn)
 //
-/*
-TODO:
-extern SDL_DECLSPEC void SDLCALL SDL_LogVerbose(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
-*/
+// TODO: log_verbose(category int, const_fmt &char, ...) {}
 
-/*
-TODO:
-extern SDL_DECLSPEC void SDLCALL SDL_LogDebug(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
-*/
+// TODO: extern SDL_DECLSPEC void SDLCALL SDL_LogDebug(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
 
-// /* TODO: */ logs a message with SDL_LOG_PRIORITY_DEBUG.
+// log_debug logs a message with SDL_LOG_PRIORITY_DEBUG.
 //
 // `category` category the category of the message.
 // `fmt` fmt a printf() style message format string.
@@ -310,17 +289,11 @@ extern SDL_DECLSPEC void SDLCALL SDL_LogDebug(int category, SDL_PRINTF_FORMAT_ST
 // See also: log_verbose (SDL_LogVerbose)
 // See also: log_warn (SDL_LogWarn)
 //
-/*
-TODO:
-extern SDL_DECLSPEC void SDLCALL SDL_LogDebug(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
-*/
+// TODO: log_debug(category int, const_fmt &char, ...) {}
 
-/*
-TODO:
-extern SDL_DECLSPEC void SDLCALL SDL_LogInfo(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
-*/
+// TODO: extern SDL_DECLSPEC void SDLCALL SDL_LogInfo(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
 
-// /* TODO: */ logs a message with SDL_LOG_PRIORITY_INFO.
+// log_info logs a message with SDL_LOG_PRIORITY_INFO.
 //
 // `category` category the category of the message.
 // `fmt` fmt a printf() style message format string.
@@ -341,17 +314,11 @@ extern SDL_DECLSPEC void SDLCALL SDL_LogInfo(int category, SDL_PRINTF_FORMAT_STR
 // See also: log_verbose (SDL_LogVerbose)
 // See also: log_warn (SDL_LogWarn)
 //
-/*
-TODO:
-extern SDL_DECLSPEC void SDLCALL SDL_LogInfo(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
-*/
+// TODO: log_info(category int, const_fmt &char, ...) {}
 
-/*
-TODO:
-extern SDL_DECLSPEC void SDLCALL SDL_LogWarn(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
-*/
+// TODO: extern SDL_DECLSPEC void SDLCALL SDL_LogWarn(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
 
-// /* TODO: */ logs a message with SDL_LOG_PRIORITY_WARN.
+// log_warn logs a message with SDL_LOG_PRIORITY_WARN.
 //
 // `category` category the category of the message.
 // `fmt` fmt a printf() style message format string.
@@ -372,17 +339,11 @@ extern SDL_DECLSPEC void SDLCALL SDL_LogWarn(int category, SDL_PRINTF_FORMAT_STR
 // See also: log_trace (SDL_LogTrace)
 // See also: log_verbose (SDL_LogVerbose)
 //
-/*
-TODO:
-extern SDL_DECLSPEC void SDLCALL SDL_LogWarn(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
-*/
+// TODO: log_warn(category int, const_fmt &char, ...) {}
 
-/*
-TODO:
-extern SDL_DECLSPEC void SDLCALL SDL_LogError(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
-*/
+// TODO: extern SDL_DECLSPEC void SDLCALL SDL_LogError(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
 
-// /* TODO: */ logs a message with SDL_LOG_PRIORITY_ERROR.
+// log_error logs a message with SDL_LOG_PRIORITY_ERROR.
 //
 // `category` category the category of the message.
 // `fmt` fmt a printf() style message format string.
@@ -403,17 +364,11 @@ extern SDL_DECLSPEC void SDLCALL SDL_LogError(int category, SDL_PRINTF_FORMAT_ST
 // See also: log_verbose (SDL_LogVerbose)
 // See also: log_warn (SDL_LogWarn)
 //
-/*
-TODO:
-extern SDL_DECLSPEC void SDLCALL SDL_LogError(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
-*/
+// TODO: log_error(category int, const_fmt &char, ...) {}
 
-/*
-TODO:
-extern SDL_DECLSPEC void SDLCALL SDL_LogCritical(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
-*/
+// TODO: extern SDL_DECLSPEC void SDLCALL SDL_LogCritical(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
 
-// /* TODO: */ logs a message with SDL_LOG_PRIORITY_CRITICAL.
+// log_critical logs a message with SDL_LOG_PRIORITY_CRITICAL.
 //
 // `category` category the category of the message.
 // `fmt` fmt a printf() style message format string.
@@ -434,17 +389,11 @@ extern SDL_DECLSPEC void SDLCALL SDL_LogCritical(int category, SDL_PRINTF_FORMAT
 // See also: log_verbose (SDL_LogVerbose)
 // See also: log_warn (SDL_LogWarn)
 //
-/*
-TODO:
-extern SDL_DECLSPEC void SDLCALL SDL_LogCritical(int category, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
-*/
+// TODO: log_critical(category int, const_fmt &char, ...) {}
 
-/*
-TODO:
-extern SDL_DECLSPEC void SDLCALL SDL_LogMessage(int category,                                             SDL_LogPriority priority,                                             SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(3);
-*/
+// TODO: extern SDL_DECLSPEC void SDLCALL SDL_LogMessage(int category, SDL_LogPriority priority, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(3);
 
-// /* TODO: */ logs a message with the specified category and priority.
+// log_message logs a message with the specified category and priority.
 //
 // `category` category the category of the message.
 // `priority` priority the priority of the message.
@@ -466,17 +415,12 @@ extern SDL_DECLSPEC void SDLCALL SDL_LogMessage(int category,                   
 // See also: log_verbose (SDL_LogVerbose)
 // See also: log_warn (SDL_LogWarn)
 //
-/*
-TODO:
-extern SDL_DECLSPEC void SDLCALL SDL_LogMessage(int category,                                             SDL_LogPriority priority,                                             SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(3);
-*/
+// TODO: log_message(category int, priority LogPriority, const_fmt &char, ...)
 
-/*
-TODO:
-extern SDL_DECLSPEC void SDLCALL SDL_LogMessageV(int category,                                              SDL_LogPriority priority,                                              SDL_PRINTF_FORMAT_STRING const char *fmt, va_list ap) SDL_PRINTF_VARARG_FUNCV(3);
-*/
 
-// /* TODO: */ logs a message with the specified category and priority.
+// TODO: extern SDL_DECLSPEC void SDLCALL SDL_LogMessageV(int category, SDL_LogPriority priority, SDL_PRINTF_FORMAT_STRING const char *fmt, va_list ap) SDL_PRINTF_VARARG_FUNCV(3);
+
+// log_message_v logs a message with the specified category and priority.
 //
 // `category` category the category of the message.
 // `priority` priority the priority of the message.
@@ -497,10 +441,7 @@ extern SDL_DECLSPEC void SDLCALL SDL_LogMessageV(int category,                  
 // See also: log_verbose (SDL_LogVerbose)
 // See also: log_warn (SDL_LogWarn)
 //
-/*
-TODO:
-extern SDL_DECLSPEC void SDLCALL SDL_LogMessageV(int category,                                              SDL_LogPriority priority,                                              SDL_PRINTF_FORMAT_STRING const char *fmt, va_list ap) SDL_PRINTF_VARARG_FUNCV(3);
-*/
+// TODO: log_message_v(category int, priority LogPriority, const_fmt &char, ap C.va_list)
 
 // LogOutputFunction thes prototype for the log output callback function.
 //

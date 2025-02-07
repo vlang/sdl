@@ -100,7 +100,7 @@ pub fn create_mutex() &Mutex {
 }
 
 // C.SDL_LockMutex [official documentation](https://wiki.libsdl.org/SDL3/SDL_LockMutex)
-fn C.SDL_LockMutex() // TODO: HAS ... ARGS
+fn C.SDL_LockMutex(mutex &Mutex)
 
 // lock_mutex locks the mutex.
 //
@@ -122,17 +122,13 @@ fn C.SDL_LockMutex() // TODO: HAS ... ARGS
 //
 // See also: try_lock_mutex (SDL_TryLockMutex)
 // See also: unlock_mutex (SDL_UnlockMutex)
-pub fn lock_mutex() {
-	// TODO: HAS ... ARGS
-	C.SDL_LockMutex() // TODO: fixme HAS ARGS
+pub fn lock_mutex(mutex &Mutex) {
+	C.SDL_LockMutex(mutex)
 }
 
-/*
-TODO:
-extern SDL_DECLSPEC bool SDLCALL SDL_TryLockMutex(SDL_Mutex *mutex) SDL_TRY_ACQUIRE(0, mutex);
-*/
+fn C.SDL_TryLockMutex(mutex &Mutex) bool
 
-// /* TODO: */ trys to lock a mutex without blocking.
+// try_lock_mutex tries to lock a mutex without blocking.
 //
 // This works just like SDL_LockMutex(), but if the mutex is not available,
 // this function returns false immediately.
@@ -150,13 +146,12 @@ extern SDL_DECLSPEC bool SDLCALL SDL_TryLockMutex(SDL_Mutex *mutex) SDL_TRY_ACQU
 // See also: lock_mutex (SDL_LockMutex)
 // See also: unlock_mutex (SDL_UnlockMutex)
 //
-/*
-TODO:
-extern SDL_DECLSPEC bool SDLCALL SDL_TryLockMutex(SDL_Mutex *mutex) SDL_TRY_ACQUIRE(0, mutex);
-*/
+pub fn try_lock_mutex(mutex &Mutex) bool {
+	return C.SDL_TryLockMutex(mutex)
+}
 
 // C.SDL_UnlockMutex [official documentation](https://wiki.libsdl.org/SDL3/SDL_UnlockMutex)
-fn C.SDL_UnlockMutex() // TODO: HAS ... ARGS
+fn C.SDL_UnlockMutex(mutex &Mutex)
 
 // unlock_mutex unlocks the mutex.
 //
@@ -173,9 +168,8 @@ fn C.SDL_UnlockMutex() // TODO: HAS ... ARGS
 //
 // See also: lock_mutex (SDL_LockMutex)
 // See also: try_lock_mutex (SDL_TryLockMutex)
-pub fn unlock_mutex() {
-	// TODO: HAS ... ARGS
-	C.SDL_UnlockMutex() // TODO: fixme HAS ARGS
+pub fn unlock_mutex(mutex &Mutex) {
+	C.SDL_UnlockMutex(mutex)
 }
 
 // C.SDL_DestroyMutex [official documentation](https://wiki.libsdl.org/SDL3/SDL_DestroyMutex)
@@ -251,7 +245,7 @@ pub fn create_rw_lock() &RWLock {
 }
 
 // C.SDL_LockRWLockForReading [official documentation](https://wiki.libsdl.org/SDL3/SDL_LockRWLockForReading)
-fn C.SDL_LockRWLockForReading() // TODO: HAS ... ARGS
+fn C.SDL_LockRWLockForReading(rwlock &RWLock)
 
 // lock_rw_lock_for_reading locks the read/write lock for _read only_ operations.
 //
@@ -286,13 +280,12 @@ fn C.SDL_LockRWLockForReading() // TODO: HAS ... ARGS
 // See also: lock_rw_lock_for_writing (SDL_LockRWLockForWriting)
 // See also: try_lock_rw_lock_for_reading (SDL_TryLockRWLockForReading)
 // See also: unlock_rw_lock (SDL_UnlockRWLock)
-pub fn lock_rw_lock_for_reading() {
-	// TODO: HAS ... ARGS
-	C.SDL_LockRWLockForReading() // TODO: fixme HAS ARGS
+pub fn lock_rw_lock_for_reading(rwlock &RWLock) {
+	C.SDL_LockRWLockForReading(rwlock)
 }
 
 // C.SDL_LockRWLockForWriting [official documentation](https://wiki.libsdl.org/SDL3/SDL_LockRWLockForWriting)
-fn C.SDL_LockRWLockForWriting() // TODO: HAS ... ARGS
+fn C.SDL_LockRWLockForWriting(rwlock &RWLock)
 
 // lock_rw_lock_for_writing locks the read/write lock for _write_ operations.
 //
@@ -321,17 +314,14 @@ fn C.SDL_LockRWLockForWriting() // TODO: HAS ... ARGS
 // See also: lock_rw_lock_for_reading (SDL_LockRWLockForReading)
 // See also: try_lock_rw_lock_for_writing (SDL_TryLockRWLockForWriting)
 // See also: unlock_rw_lock (SDL_UnlockRWLock)
-pub fn lock_rw_lock_for_writing() {
-	// TODO: HAS ... ARGS
-	C.SDL_LockRWLockForWriting() // TODO: fixme HAS ARGS
+pub fn lock_rw_lock_for_writing(rwlock &RWLock) {
+	C.SDL_LockRWLockForWriting(rwlock)
 }
 
-/*
-TODO:
-extern SDL_DECLSPEC bool SDLCALL SDL_TryLockRWLockForReading(SDL_RWLock *rwlock) SDL_TRY_ACQUIRE_SHARED(0, rwlock);
-*/
+// C.SDL_TryLockRWLockForReading [official documentation](https://wiki.libsdl.org/SDL3/SDL_TryLockRWLockForReading)
+fn C.SDL_TryLockRWLockForReading(rwlock &RWLock) bool
 
-// /* TODO: */ trys to lock a read/write lock _for reading_ without blocking.
+// try_lock_rw_lock_for_reading tries to lock a read/write lock _for reading_ without blocking.
 //
 // This works just like SDL_LockRWLockForReading(), but if the rwlock is not
 // available, then this function returns false immediately.
@@ -353,17 +343,14 @@ extern SDL_DECLSPEC bool SDLCALL SDL_TryLockRWLockForReading(SDL_RWLock *rwlock)
 // See also: try_lock_rw_lock_for_writing (SDL_TryLockRWLockForWriting)
 // See also: unlock_rw_lock (SDL_UnlockRWLock)
 //
-/*
-TODO:
-extern SDL_DECLSPEC bool SDLCALL SDL_TryLockRWLockForReading(SDL_RWLock *rwlock) SDL_TRY_ACQUIRE_SHARED(0, rwlock);
-*/
+pub fn try_lock_rw_lock_for_reading(rwlock &RWLock) bool {
+  return C.SDL_TryLockRWLockForReading(rwlock)
+}
 
-/*
-TODO:
-extern SDL_DECLSPEC bool SDLCALL SDL_TryLockRWLockForWriting(SDL_RWLock *rwlock) SDL_TRY_ACQUIRE(0, rwlock);
-*/
+// C.SDL_TryLockRWLockForWriting [official documentation](https://wiki.libsdl.org/SDL3/SDL_TryLockRWLockForWriting)
+fn C.SDL_TryLockRWLockForWriting(rwlock &RWLock) bool
 
-// /* TODO: */ trys to lock a read/write lock _for writing_ without blocking.
+// try_lock_rw_lock_for_writing tries to lock a read/write lock _for writing_ without blocking.
 //
 // This works just like SDL_LockRWLockForWriting(), but if the rwlock is not
 // available, then this function returns false immediately.
@@ -390,13 +377,12 @@ extern SDL_DECLSPEC bool SDLCALL SDL_TryLockRWLockForWriting(SDL_RWLock *rwlock)
 // See also: try_lock_rw_lock_for_reading (SDL_TryLockRWLockForReading)
 // See also: unlock_rw_lock (SDL_UnlockRWLock)
 //
-/*
-TODO:
-extern SDL_DECLSPEC bool SDLCALL SDL_TryLockRWLockForWriting(SDL_RWLock *rwlock) SDL_TRY_ACQUIRE(0, rwlock);
-*/
+pub fn try_lock_rw_lock_for_writing(rwlock &RWLock) bool {
+ return C.SDL_TryLockRWLockForWriting(rwlock)
+}
 
 // C.SDL_UnlockRWLock [official documentation](https://wiki.libsdl.org/SDL3/SDL_UnlockRWLock)
-fn C.SDL_UnlockRWLock() // TODO: HAS ... ARGS
+fn C.SDL_UnlockRWLock(rwlock &RWLock) 
 
 // unlock_rw_lock unlocks the read/write lock.
 //
@@ -419,9 +405,8 @@ fn C.SDL_UnlockRWLock() // TODO: HAS ... ARGS
 // See also: lock_rw_lock_for_writing (SDL_LockRWLockForWriting)
 // See also: try_lock_rw_lock_for_reading (SDL_TryLockRWLockForReading)
 // See also: try_lock_rw_lock_for_writing (SDL_TryLockRWLockForWriting)
-pub fn unlock_rw_lock() {
-	// TODO: HAS ... ARGS
-	C.SDL_UnlockRWLock() // TODO: fixme HAS ARGS
+pub fn unlock_rw_lock(rwlock &RWLock) {
+	C.SDL_UnlockRWLock(rwlock)
 }
 
 // C.SDL_DestroyRWLock [official documentation](https://wiki.libsdl.org/SDL3/SDL_DestroyRWLock)
