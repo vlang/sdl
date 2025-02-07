@@ -397,7 +397,7 @@ pub fn detach_thread(thread_ &Thread) {
 }
 
 // C.SDL_GetTLS [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetTLS)
-fn C.SDL_GetTLS(id TLSID) voidptr
+fn C.SDL_GetTLS(id &TLSID) voidptr
 
 // get_tls gets the current thread's value associated with a thread local storage ID.
 //
@@ -410,7 +410,7 @@ fn C.SDL_GetTLS(id TLSID) voidptr
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: set_tls (SDL_SetTLS)
-pub fn get_tls(id TLSID) voidptr {
+pub fn get_tls(id &TLSID) voidptr {
 	return C.SDL_GetTLS(id)
 }
 
@@ -428,7 +428,7 @@ pub fn get_tls(id TLSID) voidptr {
 pub type TLSDestructorCallback = fn (value voidptr)
 
 // C.SDL_SetTLS [official documentation](https://wiki.libsdl.org/SDL3/SDL_SetTLS)
-fn C.SDL_SetTLS(id TLSID, const_value voidptr, destructor TLSDestructorCallback) bool
+fn C.SDL_SetTLS(id &TLSID, const_value voidptr, destructor TLSDestructorCallback) bool
 
 // set_tls sets the current thread's value associated with a thread local storage ID.
 //
@@ -454,7 +454,7 @@ fn C.SDL_SetTLS(id TLSID, const_value voidptr, destructor TLSDestructorCallback)
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: get_tls (SDL_GetTLS)
-pub fn set_tls(id TLSID, const_value voidptr, destructor TLSDestructorCallback) bool {
+pub fn set_tls(id &TLSID, const_value voidptr, destructor TLSDestructorCallback) bool {
 	return C.SDL_SetTLS(id, const_value, destructor)
 }
 
