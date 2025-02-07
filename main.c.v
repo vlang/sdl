@@ -43,7 +43,7 @@ module sdl
 // explanation.
 //
 // NOTE: This macro is used by the headers since SDL 3.2.0.
-pub const main_handled = C.SDL_MAIN_HANDLED // 1
+// pub const main_handled = C.SDL_MAIN_HANDLED // 1
 
 // Inform SDL to use the main callbacks instead of main.
 //
@@ -63,7 +63,7 @@ pub const main_handled = C.SDL_MAIN_HANDLED // 1
 // See also: SDL_AppEvent
 // See also: SDL_AppIterate
 // See also: SDL_AppQuit
-pub const main_use_callbacks = C.SDL_MAIN_USE_CALLBACKS // 1
+// pub const main_use_callbacks = C.SDL_MAIN_USE_CALLBACKS // 1
 
 // You can (optionally!) define SDL_MAIN_USE_CALLBACKS before including
 // SDL_main.h, and then your application will _not_ have a standard
