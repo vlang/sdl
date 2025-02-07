@@ -11,4 +11,4 @@ module sdl
 // compiler command line, or generated right into the header itself by the
 // build system.
 
-pub const revision = C.SDL_REVISION // Example: 'release-3.2.0-0-g535d80bad (' SDL_VENDOR_INFO ')'
+// pub const revision = C.SDL_REVISION // Example: 'release-3.2.0-0-g535d80bad (' SDL_VENDOR_INFO ')'
