@@ -107,7 +107,7 @@ pub const __bool_true_false_are_defined = C.__bool_true_false_are_defined // 1
 //
 // SDL's own source code cannot be built with a compiler that has this
 // defined, for various technical reasons.
-pub const nolonglong = C.SDL_NOLONGLONG // 1
+// pub const nolonglong = C.SDL_NOLONGLONG // 1
 
 pub const size_max = C.SDL_SIZE_MAX
 
