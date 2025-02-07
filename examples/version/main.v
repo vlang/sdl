@@ -4,5 +4,5 @@ module main
 import sdl
 
 fn main() {
-	println(sdl.version_string())
+	println(sdl.compiled_version_string())
 }
