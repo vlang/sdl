@@ -26,10 +26,11 @@ pub const lil_endian = C.SDL_LIL_ENDIAN
 pub const big_endian = C.SDL_BIG_ENDIAN
 pub const byteorder = C.SDL_BYTEORDER
 
-fn C.SDL_Swap16(x u16) u16
-pub fn swap16(x u16) u16 {
-	return C.SDL_Swap16(x)
-}
+// TODO: swap16 commented to workaround error: `/usr/local/include/SDL3/SDL_endian.h:255: error: unknown constraint 'Q'`.
+// fn C.SDL_Swap16(x u16) u16
+// pub fn swap16(x u16) u16 {
+// 	return C.SDL_Swap16(x)
+// }
 
 fn C.SDL_Swap32(x u32) u32
 pub fn swap32(x u32) u32 {
