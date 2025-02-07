@@ -114,7 +114,8 @@ fn C.SDL_VERSION() int
 //
 // See also: get_version (SDL_GetVersion)
 pub fn version() int {
-	return C.SDL_VERSION()
+	// return C.SDL_VERSION()
+	return versionnum(major_version, minor_version, micro_version)
 }
 
 // C.SDL_VERSION_ATLEAST [official documentation](https://wiki.libsdl.org/SDL3/SDL_VERSION_ATLEAST)
