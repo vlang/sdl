@@ -8,11 +8,6 @@ module sdl
 //
 
 @[typedef]
-pub struct C.tagMSG {}
-
-pub type TagMSG = C.tagMSG
-
-@[typedef]
 pub struct C.MSG {}
 
 pub type MSG = C.MSG
@@ -97,59 +92,63 @@ pub fn get_dxgi_output_info(display_id DisplayID, adapter_index &int, output_ind
 	return C.SDL_GetDXGIOutputInfo(display_id, adapter_index, output_index)
 }
 
-@[typedef]
-pub struct C.XTaskQueueHandle {}
+// $if xbox_gdk {
+/*
+  @[typedef]
+  pub struct C.XTaskQueueHandle {}
 
-pub type XTaskQueueHandle = C.XTaskQueueHandle
+  pub type XTaskQueueHandle = C.XTaskQueueHandle
 
-@[typedef]
-pub struct C.XUserHandle {}
+  @[typedef]
+  pub struct C.XUserHandle {}
 
-pub type XUserHandle = C.XUserHandle
+  pub type XUserHandle = C.XUserHandle
 
-@[typedef]
-pub struct C.XTaskQueueObject {}
+  @[typedef]
+  pub struct C.XTaskQueueObject {}
 
-pub type XTaskQueueObject = C.XTaskQueueObject
+  pub type XTaskQueueObject = C.XTaskQueueObject
 
-@[typedef]
-pub struct C.XUser {}
+  @[typedef]
+  pub struct C.XUser {}
 
-pub type XUser = C.XUser
+  pub type XUser = C.XUser
 
-// C.SDL_GetGDKTaskQueue [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGDKTaskQueue)
-fn C.SDL_GetGDKTaskQueue(out_task_queue &XTaskQueueHandle) bool
+  // C.SDL_GetGDKTaskQueue [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGDKTaskQueue)
+  fn C.SDL_GetGDKTaskQueue(out_task_queue &XTaskQueueHandle) bool
 
-// get_gdk_task_queue gets a reference to the global async task queue handle for GDK,
-// initializing if needed.
-//
-// Once you are done with the task queue, you should call
-// XTaskQueueCloseHandle to reduce the reference count to avoid a resource
-// leak.
-//
-// `out_task_queue` outTaskQueue a pointer to be filled in with task queue handle.
-// returns true on success or false on failure; call SDL_GetError() for more
-//          information.
-//
-// NOTE: This function is available since SDL 3.2.0.
-pub fn get_gdk_task_queue(out_task_queue &XTaskQueueHandle) bool {
-	return C.SDL_GetGDKTaskQueue(out_task_queue)
-}
+  // get_gdk_task_queue gets a reference to the global async task queue handle for GDK,
+  // initializing if needed.
+  //
+  // Once you are done with the task queue, you should call
+  // XTaskQueueCloseHandle to reduce the reference count to avoid a resource
+  // leak.
+  //
+  // `out_task_queue` outTaskQueue a pointer to be filled in with task queue handle.
+  // returns true on success or false on failure; call SDL_GetError() for more
+  //          information.
+  //
+  // NOTE: This function is available since SDL 3.2.0.
+  pub fn get_gdk_task_queue(out_task_queue &XTaskQueueHandle) bool {
+    return C.SDL_GetGDKTaskQueue(out_task_queue)
+  }
 
-// C.SDL_GetGDKDefaultUser [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGDKDefaultUser)
-fn C.SDL_GetGDKDefaultUser(out_user_handle &XUserHandle) bool
+  // C.SDL_GetGDKDefaultUser [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGDKDefaultUser)
+  fn C.SDL_GetGDKDefaultUser(out_user_handle &XUserHandle) bool
 
-// get_gdk_default_user gets a reference to the default user handle for GDK.
-//
-// This is effectively a synchronous version of XUserAddAsync, which always
-// prefers the default user and allows a sign-in UI.
-//
-// `out_user_handle` outUserHandle a pointer to be filled in with the default user
-//                      handle.
-// returns true if success or false on failure; call SDL_GetError() for more
-//          information.
-//
-// NOTE: This function is available since SDL 3.2.0.
-pub fn get_gdk_default_user(out_user_handle &XUserHandle) bool {
-	return C.SDL_GetGDKDefaultUser(out_user_handle)
-}
+  // get_gdk_default_user gets a reference to the default user handle for GDK.
+  //
+  // This is effectively a synchronous version of XUserAddAsync, which always
+  // prefers the default user and allows a sign-in UI.
+  //
+  // `out_user_handle` outUserHandle a pointer to be filled in with the default user
+  //                      handle.
+  // returns true if success or false on failure; call SDL_GetError() for more
+  //          information.
+  //
+  // NOTE: This function is available since SDL 3.2.0.
+  pub fn get_gdk_default_user(out_user_handle &XUserHandle) bool {
+    return C.SDL_GetGDKDefaultUser(out_user_handle)
+  }
+*/
+// }
