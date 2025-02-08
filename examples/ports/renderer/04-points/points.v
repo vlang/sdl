@@ -32,7 +32,7 @@ mut:
 }
 
 const window_width = 640
-const window_height = 640
+const window_height = 480
 
 const num_points = 500
 const min_pixels_per_second = 30 // move at least this many pixels per second.
@@ -58,8 +58,8 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 		return .failure
 	}
 
-	if !sdl.create_window_and_renderer('examples/renderer/points'.str, 640, 480, sdl.WindowFlags(0),
-		&app.window, &app.renderer) {
+	if !sdl.create_window_and_renderer('examples/renderer/points'.str, window_width, window_height,
+		sdl.WindowFlags(0), &app.window, &app.renderer) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		eprintln('Could not create window/renderer: ${error_msg}')
 		return .failure
