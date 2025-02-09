@@ -171,55 +171,55 @@ pub type Window = C.SDL_Window
 
 // WindowFlags are defined here
 
-pub const window_fullscreen = C.SDL_WINDOW_FULLSCREEN // SDL_UINT64_C(0x0000000000000001)
+pub const window_fullscreen = u64(C.SDL_WINDOW_FULLSCREEN) // SDL_UINT64_C(0x0000000000000001)
 
-pub const window_opengl = C.SDL_WINDOW_OPENGL // SDL_UINT64_C(0x0000000000000002)
+pub const window_opengl = u64(C.SDL_WINDOW_OPENGL) // SDL_UINT64_C(0x0000000000000002)
 
-pub const window_occluded = C.SDL_WINDOW_OCCLUDED // SDL_UINT64_C(0x0000000000000004)
+pub const window_occluded = u64(C.SDL_WINDOW_OCCLUDED) // SDL_UINT64_C(0x0000000000000004)
 
-pub const window_hidden = C.SDL_WINDOW_HIDDEN // SDL_UINT64_C(0x0000000000000008)
+pub const window_hidden = u64(C.SDL_WINDOW_HIDDEN) // SDL_UINT64_C(0x0000000000000008)
 
-pub const window_borderless = C.SDL_WINDOW_BORDERLESS // SDL_UINT64_C(0x0000000000000010)
+pub const window_borderless = u64(C.SDL_WINDOW_BORDERLESS) // SDL_UINT64_C(0x0000000000000010)
 
-pub const window_resizable = C.SDL_WINDOW_RESIZABLE // SDL_UINT64_C(0x0000000000000020)
+pub const window_resizable = u64(C.SDL_WINDOW_RESIZABLE) // SDL_UINT64_C(0x0000000000000020)
 
-pub const window_minimized = C.SDL_WINDOW_MINIMIZED // SDL_UINT64_C(0x0000000000000040)
+pub const window_minimized = u64(C.SDL_WINDOW_MINIMIZED) // SDL_UINT64_C(0x0000000000000040)
 
-pub const window_maximized = C.SDL_WINDOW_MAXIMIZED // SDL_UINT64_C(0x0000000000000080)
+pub const window_maximized = u64(C.SDL_WINDOW_MAXIMIZED) // SDL_UINT64_C(0x0000000000000080)
 
-pub const window_mouse_grabbed = C.SDL_WINDOW_MOUSE_GRABBED // SDL_UINT64_C(0x0000000000000100)
+pub const window_mouse_grabbed = u64(C.SDL_WINDOW_MOUSE_GRABBED) // SDL_UINT64_C(0x0000000000000100)
 
-pub const window_input_focus = C.SDL_WINDOW_INPUT_FOCUS // SDL_UINT64_C(0x0000000000000200)
+pub const window_input_focus = u64(C.SDL_WINDOW_INPUT_FOCUS) // SDL_UINT64_C(0x0000000000000200)
 
-pub const window_mouse_focus = C.SDL_WINDOW_MOUSE_FOCUS // SDL_UINT64_C(0x0000000000000400)
+pub const window_mouse_focus = u64(C.SDL_WINDOW_MOUSE_FOCUS) // SDL_UINT64_C(0x0000000000000400)
 
-pub const window_external = C.SDL_WINDOW_EXTERNAL // SDL_UINT64_C(0x0000000000000800)
+pub const window_external = u64(C.SDL_WINDOW_EXTERNAL) // SDL_UINT64_C(0x0000000000000800)
 
-pub const window_modal = C.SDL_WINDOW_MODAL // SDL_UINT64_C(0x0000000000001000)
+pub const window_modal = u64(C.SDL_WINDOW_MODAL) // SDL_UINT64_C(0x0000000000001000)
 
-pub const window_high_pixel_density = C.SDL_WINDOW_HIGH_PIXEL_DENSITY // SDL_UINT64_C(0x0000000000002000)
+pub const window_high_pixel_density = u64(C.SDL_WINDOW_HIGH_PIXEL_DENSITY) // SDL_UINT64_C(0x0000000000002000)
 
-pub const window_mouse_capture = C.SDL_WINDOW_MOUSE_CAPTURE // SDL_UINT64_C(0x0000000000004000)
+pub const window_mouse_capture = u64(C.SDL_WINDOW_MOUSE_CAPTURE) // SDL_UINT64_C(0x0000000000004000)
 
-pub const window_mouse_relative_mode = C.SDL_WINDOW_MOUSE_RELATIVE_MODE // SDL_UINT64_C(0x0000000000008000)
+pub const window_mouse_relative_mode = u64(C.SDL_WINDOW_MOUSE_RELATIVE_MODE) // SDL_UINT64_C(0x0000000000008000)
 
-pub const window_always_on_top = C.SDL_WINDOW_ALWAYS_ON_TOP // SDL_UINT64_C(0x0000000000010000)
+pub const window_always_on_top = u64(C.SDL_WINDOW_ALWAYS_ON_TOP) // SDL_UINT64_C(0x0000000000010000)
 
-pub const window_utility = C.SDL_WINDOW_UTILITY // SDL_UINT64_C(0x0000000000020000)
+pub const window_utility = u64(C.SDL_WINDOW_UTILITY) // SDL_UINT64_C(0x0000000000020000)
 
-pub const window_tooltip = C.SDL_WINDOW_TOOLTIP // SDL_UINT64_C(0x0000000000040000)
+pub const window_tooltip = u64(C.SDL_WINDOW_TOOLTIP) // SDL_UINT64_C(0x0000000000040000)
 
-pub const window_popup_menu = C.SDL_WINDOW_POPUP_MENU // SDL_UINT64_C(0x0000000000080000)
+pub const window_popup_menu = u64(C.SDL_WINDOW_POPUP_MENU) // SDL_UINT64_C(0x0000000000080000)
 
-pub const window_keyboard_grabbed = C.SDL_WINDOW_KEYBOARD_GRABBED // SDL_UINT64_C(0x0000000000100000)
+pub const window_keyboard_grabbed = u64(C.SDL_WINDOW_KEYBOARD_GRABBED) // SDL_UINT64_C(0x0000000000100000)
 
-pub const window_vulkan = C.SDL_WINDOW_VULKAN // SDL_UINT64_C(0x0000000010000000)
+pub const window_vulkan = u64(C.SDL_WINDOW_VULKAN) // SDL_UINT64_C(0x0000000010000000)
 
-pub const window_metal = C.SDL_WINDOW_METAL // SDL_UINT64_C(0x0000000020000000)
+pub const window_metal = u64(C.SDL_WINDOW_METAL) // SDL_UINT64_C(0x0000000020000000)
 
-pub const window_transparent = C.SDL_WINDOW_TRANSPARENT // SDL_UINT64_C(0x0000000040000000)
+pub const window_transparent = u64(C.SDL_WINDOW_TRANSPARENT) // SDL_UINT64_C(0x0000000040000000)
 
-pub const window_not_focusable = C.SDL_WINDOW_NOT_FOCUSABLE // SDL_UINT64_C(0x0000000080000000)
+pub const window_not_focusable = u64(C.SDL_WINDOW_NOT_FOCUSABLE) // SDL_UINT64_C(0x0000000080000000)
 
 pub const windowpos_undefined_mask = C.SDL_WINDOWPOS_UNDEFINED_MASK // 0x1FFF0000u
 
