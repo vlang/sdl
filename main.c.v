@@ -336,9 +336,9 @@ pub fn run_app(argc int, argv &&char, main_function MainFunc, reserved voidptr) 
 }
 
 // C.SDL_EnterAppMainCallbacks [official documentation](https://wiki.libsdl.org/SDL3/SDL_EnterAppMainCallbacks)
-fn C.SDL_EnterAppMainCallbacks(argc int, argv voidptr, appinit AppInitFunc, appiter AppIterateFunc, appevent AppEventFunc, appquit AppQuitFunc) int
+// fn C.SDL_EnterAppMainCallbacks(argc int, argv voidptr, appinit AppInitFunc, appiter AppIterateFunc, appevent AppEventFunc, appquit AppQuitFunc) int
 
-// enter_app_main_callbacks ans entry point for SDL's use in SDL_MAIN_USE_CALLBACKS.
+// enter_app_main_callbacks an entry point for SDL's use in SDL_MAIN_USE_CALLBACKS.
 //
 // Generally, you should not call this function directly. This only exists to
 // hand off work into SDL as soon as possible, where it has a lot more control
@@ -361,6 +361,6 @@ fn C.SDL_EnterAppMainCallbacks(argc int, argv voidptr, appinit AppInitFunc, appi
 //               function call in SDL_main.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn enter_app_main_callbacks(argc int, argv &&char, appinit AppInitFunc, appiter AppIterateFunc, appevent AppEventFunc, appquit AppQuitFunc) int {
-	return C.SDL_EnterAppMainCallbacks(argc, argv, appinit, appiter, appevent, appquit)
-}
+// pub fn enter_app_main_callbacks(argc int, argv &&char, appinit AppInitFunc, appiter AppIterateFunc, appevent AppEventFunc, appquit AppQuitFunc) int {
+// 	return C.SDL_EnterAppMainCallbacks(argc, argv, appinit, appiter, appevent, appquit)
+// }
