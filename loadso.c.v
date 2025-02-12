@@ -6,15 +6,31 @@ module sdl
 //
 // SDL_loadso.h
 //
+
+// System-dependent library loading routines.
+//
+// Some things to keep in mind:
+//
+// - These functions only work on C function names. Other languages may have
+//   name mangling and intrinsic language support that varies from compiler to
+//   compiler.
+// - Make sure you declare your function pointers with the same calling
+//   convention as the actual library function. Your code will crash
+//   mysteriously if you do not do this.
+// - Avoid namespace collisions. If you load a symbol from the library, it is
+//   not defined whether or not it goes into the global symbol namespace for
+//   the application. If it does and it conflicts with symbols in your code or
+//   other shared libraries, you will not get the results you expect. :)
+
 fn C.SDL_LoadObject(sofile &char) voidptr
 
 // load_object dynamicallys load a shared object.
 //
-// `sofile` a system-dependent name of the object file
+// `sofile` a system-dependent name of the object file.
 // returns an opaque pointer to the object handle or NULL if there was an
 //          error; call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_LoadFunction
 // See also: SDL_UnloadObject
@@ -38,12 +54,12 @@ fn C.SDL_LoadFunction(handle voidptr, const_name &char) voidptr
 //
 // If the requested function doesn't exist, NULL is returned.
 //
-// `handle` a valid shared object handle returned by SDL_LoadObject()
-// `name` the name of the function to look up
+// `handle` a valid shared object handle returned by SDL_LoadObject().
+// `name` the name of the function to look up.
 // returns a pointer to the function or NULL if there was an error; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_LoadObject
 // See also: SDL_UnloadObject
@@ -55,9 +71,9 @@ fn C.SDL_UnloadObject(handle voidptr)
 
 // unload_object unloads a shared object from memory.
 //
-// `handle` a valid shared object handle returned by SDL_LoadObject()
+// `handle` a valid shared object handle returned by SDL_LoadObject().
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_LoadFunction
 // See also: SDL_LoadObject

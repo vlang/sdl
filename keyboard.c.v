@@ -9,12 +9,12 @@ module sdl
 
 // The SDL keysym structure, used in key events.
 //
-// NOTE  If you are looking for translated character input, see the ::SDL_TEXTINPUT event.
+// NOTE:  If you are looking for translated character input, see the SDL_TEXTINPUT event.
 @[typedef]
 pub struct C.SDL_Keysym {
 pub:
-	scancode Scancode // C.SDL_Scancode // SDL physical key code - see ::SDL_Scancode for details
-	sym      Keycode  // C.SDL_Keycode // SDL virtual key code - see ::SDL_Keycode for details
+	scancode Scancode // C.SDL_Scancode // SDL physical key code - see SDL_Scancode for details
+	sym      Keycode  // C.SDL_Keycode // SDL virtual key code - see SDL_Keycode for details
 	mod      u16      // current key modifiers
 	unused   u32      //
 }
@@ -28,7 +28,7 @@ fn C.SDL_GetKeyboardFocus() &C.SDL_Window
 //
 // returns the window with keyboard focus.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 pub fn get_keyboard_focus() &Window {
 	return C.SDL_GetKeyboardFocus()
 }
@@ -55,10 +55,10 @@ fn C.SDL_GetKeyboardState(numkeys &int) &u8
 // Note: This function doesn't take into account whether shift has been
 // pressed or not.
 //
-// `numkeys` if non-NULL, receives the length of the returned array
+// `numkeys` if non-NULL, receives the length of the returned array.
 // returns a pointer to an array of key states.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_PumpEvents
 // See also: SDL_ResetKeyboard
@@ -72,7 +72,7 @@ fn C.SDL_ResetKeyboard()
 //
 // This function will generate key up events for all pressed keys.
 //
-// NOTE This function is available since SDL 2.24.0.
+// NOTE: This function is available since SDL 2.24.0.
 //
 // See also: SDL_GetKeyboardState
 pub fn reset_keyboard() {
@@ -86,7 +86,7 @@ fn C.SDL_GetModState() Keymod
 // returns an OR'd combination of the modifier keys for the keyboard. See
 //          SDL_Keymod for details.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetKeyboardState
 // See also: SDL_SetModState
@@ -106,9 +106,9 @@ fn C.SDL_SetModState(modstate C.SDL_Keymod)
 // This does not change the keyboard state, only the key modifier flags that
 // SDL reports.
 //
-// `modstate` the desired SDL_Keymod for the keyboard
+// `modstate` the desired SDL_Keymod for the keyboard.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetModState
 pub fn set_mod_state(modstate Keymod) {
@@ -125,7 +125,7 @@ fn C.SDL_GetKeyFromScancode(scancode C.SDL_Scancode) Keycode
 // `scancode` the desired SDL_Scancode to query
 // returns the SDL_Keycode that corresponds to the given SDL_Scancode.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetKeyName
 // See also: SDL_GetScancodeFromKey
@@ -140,10 +140,10 @@ fn C.SDL_GetScancodeFromKey(key C.SDL_Keycode) Scancode
 //
 // See SDL_Scancode for details.
 //
-// `key` the desired SDL_Keycode to query
+// `key` the desired SDL_Keycode to query.
 // returns the SDL_Scancode that corresponds to the given SDL_Keycode.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetKeyFromScancode
 // See also: SDL_GetScancodeName
@@ -166,11 +166,11 @@ fn C.SDL_GetScancodeName(scancode C.SDL_Scancode) &char
 // unsuitable for creating a stable cross-platform two-way mapping between
 // strings and scancodes.
 //
-// `scancode` the desired SDL_Scancode to query
+// `scancode` the desired SDL_Scancode to query.
 // returns a pointer to the name for the scancode. If the scancode doesn't
 //          have a name this function returns an empty string ("").
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetScancodeFromKey
 // See also: SDL_GetScancodeFromName
@@ -182,11 +182,11 @@ fn C.SDL_GetScancodeFromName(name &char) Scancode
 
 // get_scancode_from_name gets a scancode from a human-readable name.
 //
-// `name` the human-readable scancode name
+// `name` the human-readable scancode name.
 // returns the SDL_Scancode, or `SDL_SCANCODE_UNKNOWN` if the name wasn't
 //          recognized; call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetKeyFromName
 // See also: SDL_GetScancodeFromKey
@@ -201,13 +201,13 @@ fn C.SDL_GetKeyName(key C.SDL_Keycode) &char
 //
 // See SDL_Scancode and SDL_Keycode for details.
 //
-// `key` the desired SDL_Keycode to query
+// `key` the desired SDL_Keycode to query.
 // returns a pointer to a UTF-8 string that stays valid at least until the
 //          next call to this function. If you need it around any longer, you
 //          must copy it. If the key doesn't have a name, this function
 //          returns an empty string ("").
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetKeyFromName
 // See also: SDL_GetKeyFromScancode
@@ -220,11 +220,11 @@ fn C.SDL_GetKeyFromName(name &char) Keycode
 
 // get_key_from_name gets a key code from a human-readable name.
 //
-// `name` the human-readable key name
+// `name` the human-readable key name.
 // returns key code, or `SDLK_UNKNOWN` if the name wasn't recognized; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetKeyFromScancode
 // See also: SDL_GetKeyName
@@ -244,7 +244,11 @@ fn C.SDL_StartTextInput()
 //
 // On some platforms using this function activates the screen keyboard.
 //
-// NOTE This function is available since SDL 2.0.0.
+// On desktop platforms, SDL_StartTextInput() is implicitly called on SDL
+// window creation which will cause events SDL_TextInputEvent and
+// SDL_TextEditingEvent to begin emitting.
+//
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetTextInputRect
 // See also: SDL_StopTextInput
@@ -258,7 +262,7 @@ fn C.SDL_IsTextInputActive() bool
 //
 // returns SDL_TRUE if text input events are enabled else SDL_FALSE.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_StartTextInput
 pub fn is_text_input_active() bool {
@@ -269,7 +273,7 @@ fn C.SDL_StopTextInput()
 
 // stop_text_input stops receiving any text input events.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_StartTextInput
 pub fn stop_text_input() {
@@ -280,7 +284,7 @@ fn C.SDL_ClearComposition()
 
 // clear_composition dismiss the composition window/IME without disabling the subsystem.
 //
-// NOTE This function is available since SDL 2.0.22.
+// NOTE: This function is available since SDL 2.0.22.
 //
 // See also: SDL_StartTextInput
 // See also: SDL_StopTextInput
@@ -292,16 +296,17 @@ fn C.SDL_IsTextInputShown() bool
 
 // is_text_input_shown returns if an IME Composite or Candidate window is currently shown.
 //
-// NOTE This function is available since SDL 2.0.22.
+// NOTE: This function is available since SDL 2.0.22.
 pub fn is_text_input_shown() bool {
 	return C.SDL_IsTextInputShown()
 }
 
 fn C.SDL_SetTextInputRect(rect &C.SDL_Rect)
 
-// set_text_input_rect sets the rectangle used to type Unicode text inputs. Native input methods
-// will place a window with word suggestions near it, without covering the
-// text being inputted.
+// set_text_input_rect sets the rectangle used to type Unicode text inputs.
+//
+// Native input methods will place a window with word suggestions near it,
+// without covering the text being inputted.
 //
 // To start text input in a given location, this function is intended to be
 // called before SDL_StartTextInput, although some platforms support moving
@@ -312,9 +317,9 @@ fn C.SDL_SetTextInputRect(rect &C.SDL_Rect)
 // any feedback.
 //
 // `rect` the SDL_Rect structure representing the rectangle to receive
-//             text (ignored if NULL)
+//             text (ignored if NULL).
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_StartTextInput
 pub fn set_text_input_rect(const_rect &Rect) {
@@ -328,7 +333,7 @@ fn C.SDL_HasScreenKeyboardSupport() bool
 // returns SDL_TRUE if the platform has some screen keyboard support or
 //          SDL_FALSE if not.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_StartTextInput
 // See also: SDL_IsScreenKeyboardShown
@@ -340,10 +345,10 @@ fn C.SDL_IsScreenKeyboardShown(window &C.SDL_Window) bool
 
 // is_screen_keyboard_shown checks whether the screen keyboard is shown for given window.
 //
-// `window` the window for which screen keyboard should be queried
+// `window` the window for which screen keyboard should be queried.
 // returns SDL_TRUE if screen keyboard is shown or SDL_FALSE if not.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_HasScreenKeyboardSupport
 pub fn is_screen_keyboard_shown(window &Window) bool {

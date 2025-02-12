@@ -7,8 +7,10 @@ module sdl
 // SDL_mutex.h
 //
 
-// mutex_timeout. Synchronization functions which can time out return this value
-// if they time out.
+// mutex_timeout.
+//
+// Synchronization functions which can time out return this value if they time
+// out.
 pub const mutex_timeout = C.SDL_MUTEX_TIMEDOUT // 1
 
 // mutex_maxwait is the timeout value which corresponds to never time out.
@@ -36,7 +38,7 @@ fn C.SDL_CreateMutex() &C.SDL_mutex
 // returns the initialized and unlocked mutex or NULL on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_DestroyMutex
 // See also: SDL_LockMutex
@@ -58,10 +60,10 @@ fn C.SDL_LockMutex(mutex &C.SDL_mutex) int
 // unlock it the same number of times before it is actually made available for
 // other threads in the system (this is known as a "recursive mutex").
 //
-// `mutex` the mutex to lock
+// `mutex` the mutex to lock.
 // returns 0, or -1 on error.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 pub fn lock_mutex(mutex &Mutex) int {
 	return C.SDL_LockMutex(mutex)
 }
@@ -76,11 +78,11 @@ fn C.SDL_TryLockMutex(mutex &C.SDL_mutex) int
 // This technique is useful if you need exclusive access to a resource but
 // don't want to wait for it, and will return to it to try again later.
 //
-// `mutex` the mutex to try to lock
+// `mutex` the mutex to try to lock.
 // returns 0, `SDL_MUTEX_TIMEDOUT`, or -1 on error; call SDL_GetError() for
 //          more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateMutex
 // See also: SDL_DestroyMutex
@@ -106,7 +108,7 @@ fn C.SDL_UnlockMutex(mutex &C.SDL_mutex) int
 // `mutex` the mutex to unlock.
 // returns 0, or -1 on error.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 pub fn unlock_mutex(mutex &Mutex) int {
 	return C.SDL_UnlockMutex(mutex)
 }
@@ -121,9 +123,9 @@ fn C.SDL_DestroyMutex(mutex &C.SDL_mutex)
 // to destroy a locked mutex, and may result in undefined behavior depending
 // on the platform.
 //
-// `mutex` the mutex to destroy
+// `mutex` the mutex to destroy.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateMutex
 // See also: SDL_LockMutex
@@ -151,11 +153,11 @@ fn C.SDL_CreateSemaphore(initial_value u32) &C.SDL_sem
 // is 0. Each post operation will atomically increment the semaphore value and
 // wake waiting threads and allow them to retry the wait operation.
 //
-// `initial_value` the starting value of the semaphore
+// `initial_value` the starting value of the semaphore.
 // returns a new semaphore or NULL on failure; call SDL_GetError() for more
 //          information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_DestroySemaphore
 // See also: SDL_SemPost
@@ -174,9 +176,9 @@ fn C.SDL_DestroySemaphore(sem &C.SDL_sem)
 // It is not safe to destroy a semaphore if there are threads currently
 // waiting on it.
 //
-// `sem` the semaphore to destroy
+// `sem` the semaphore to destroy.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateSemaphore
 // See also: SDL_SemPost
@@ -200,11 +202,11 @@ fn C.SDL_SemWait(sem &C.SDL_sem) int
 // This function is the equivalent of calling SDL_SemWaitTimeout() with a time
 // length of `SDL_MUTEX_MAXWAIT`.
 //
-// `sem` the semaphore wait on
+// `sem` the semaphore wait on.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateSemaphore
 // See also: SDL_DestroySemaphore
@@ -226,12 +228,12 @@ fn C.SDL_SemTryWait(sem &C.SDL_sem) int
 // the semaphore doesn't have a positive value, the function immediately
 // returns SDL_MUTEX_TIMEDOUT.
 //
-// `sem` the semaphore to wait on
+// `sem` the semaphore to wait on.
 // returns 0 if the wait succeeds, `SDL_MUTEX_TIMEDOUT` if the wait would
 //          block, or a negative error code on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateSemaphore
 // See also: SDL_DestroySemaphore
@@ -252,13 +254,13 @@ fn C.SDL_SemWaitTimeout(sem &C.SDL_sem, timeout u32) int
 // signal or error, or the specified time has elapsed. If the call is
 // successful it will atomically decrement the semaphore value.
 //
-// `sem` the semaphore to wait on
-// `timeout` the length of the timeout, in milliseconds
+// `sem` the semaphore to wait on.
+// `timeout` the length of the timeout, in milliseconds.
 // returns 0 if the wait succeeds, `SDL_MUTEX_TIMEDOUT` if the wait does not
 //          succeed in the allotted time, or a negative error code on failure;
 //          call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateSemaphore
 // See also: SDL_DestroySemaphore
@@ -274,11 +276,11 @@ fn C.SDL_SemPost(sem &C.SDL_sem) int
 
 // sem_post atomically increments a semaphore's value and wake waiting threads.
 //
-// `sem` the semaphore to increment
+// `sem` the semaphore to increment.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateSemaphore
 // See also: SDL_DestroySemaphore
@@ -294,10 +296,10 @@ fn C.SDL_SemValue(sem &C.SDL_sem) u32
 
 // sem_value gets the current value of a semaphore.
 //
-// `sem` the semaphore to query
+// `sem` the semaphore to query.
 // returns the current value of the semaphore.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateSemaphore
 pub fn sem_value(sem &Sem) u32 {
@@ -319,7 +321,7 @@ fn C.SDL_CreateCond() &C.SDL_cond
 // returns a new condition variable or NULL on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CondBroadcast
 // See also: SDL_CondSignal
@@ -334,9 +336,9 @@ fn C.SDL_DestroyCond(cond &C.SDL_cond)
 
 // destroy_cond destroys a condition variable.
 //
-// `cond` the condition variable to destroy
+// `cond` the condition variable to destroy.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CondBroadcast
 // See also: SDL_CondSignal
@@ -351,11 +353,11 @@ fn C.SDL_CondSignal(cond &C.SDL_cond) int
 
 // cond_signal restarts one of the threads that are waiting on the condition variable.
 //
-// `cond` the condition variable to signal
+// `cond` the condition variable to signal.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CondBroadcast
 // See also: SDL_CondWait
@@ -370,11 +372,11 @@ fn C.SDL_CondBroadcast(cond &C.SDL_cond) int
 
 // cond_broadcast restarts all threads that are waiting on the condition variable.
 //
-// `cond` the condition variable to signal
+// `cond` the condition variable to signal.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CondSignal
 // See also: SDL_CondWait
@@ -399,12 +401,12 @@ fn C.SDL_CondWait(cond &C.SDL_cond, mutex &C.SDL_mutex) int
 // This function is the equivalent of calling SDL_CondWaitTimeout() with a
 // time length of `SDL_MUTEX_MAXWAIT`.
 //
-// `cond` the condition variable to wait on
-// `mutex` the mutex used to coordinate thread access
+// `cond` the condition variable to wait on.
+// `mutex` the mutex used to coordinate thread access.
 // returns 0 when it is signaled or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CondBroadcast
 // See also: SDL_CondSignal
@@ -427,15 +429,15 @@ fn C.SDL_CondWaitTimeout(cond &C.SDL_cond, mutex &C.SDL_mutex, ms u32) int
 //
 // The mutex must be locked before calling this function.
 //
-// `cond` the condition variable to wait on
-// `mutex` the mutex used to coordinate thread access
+// `cond` the condition variable to wait on.
+// `mutex` the mutex used to coordinate thread access.
 // `ms` the maximum time to wait, in milliseconds, or `SDL_MUTEX_MAXWAIT`
-//           to wait indefinitely
+//           to wait indefinitely.
 // returns 0 if the condition variable is signaled, `SDL_MUTEX_TIMEDOUT` if
 //          the condition is not signaled in the allotted time, or a negative
 //          error code on failure; call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CondBroadcast
 // See also: SDL_CondSignal

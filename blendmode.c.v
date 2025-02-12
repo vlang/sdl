@@ -18,7 +18,8 @@ pub enum BlendMode {
 	invalid = C.SDL_BLENDMODE_INVALID // 0x7FFFFFFF
 }
 
-// BlendOperation is the blend operation used when combining source and destination pixel components
+// BlendOperation is the blend operation used when combining source and destination pixel
+// components
 // BlendOperation is C.SDL_BlendOperation
 pub enum BlendOperation {
 	add          = C.SDL_BLENDOPERATION_ADD          // 0x1, dst + src: supported by all renderers
@@ -116,22 +117,22 @@ fn C.SDL_ComposeCustomBlendMode(src_color_factor C.SDL_BlendFactor, dst_color_fa
 // case.
 //
 // `srcColorFactor` the SDL_BlendFactor applied to the red, green, and
-//                  blue components of the source pixels
+//                  blue components of the source pixels.
 // `dstColorFactor` the SDL_BlendFactor applied to the red, green, and
-//                  blue components of the destination pixels
+//                  blue components of the destination pixels.
 // `colorOperation` the SDL_BlendOperation used to combine the red,
 //                  green, and blue components of the source and
-//                  destination pixels
+//                  destination pixels.
 // `srcAlphaFactor` the SDL_BlendFactor applied to the alpha component of
-//                  the source pixels
+//                  the source pixels.
 // `dstAlphaFactor` the SDL_BlendFactor applied to the alpha component of
-//                  the destination pixels
+//                  the destination pixels.
 // `alphaOperation` the SDL_BlendOperation used to combine the alpha
-//                  component of the source and destination pixels
+//                  component of the source and destination pixels.
 // returns an SDL_BlendMode that represents the chosen factors and
 //         operations.
 //
-// NOTE This function is available since SDL 2.0.6.
+// NOTE: This function is available since SDL 2.0.6.
 //
 // See also: SDL_SetRenderDrawBlendMode
 // See also: SDL_GetRenderDrawBlendMode

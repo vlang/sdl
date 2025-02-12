@@ -7,6 +7,12 @@ module sdl
 // SDL_cpuinfo.h
 //
 
+// CPU feature detection for SDL.
+//
+// These functions are largely concerned with reporting if the system has
+// access to various SIMD instruction sets, but also has other important info
+// to share, such as number of logical CPU cores.
+
 fn C.SDL_GetCPUCount() int
 
 // get_cpu_count gets the number of CPU cores available.
@@ -15,7 +21,7 @@ fn C.SDL_GetCPUCount() int
 //         technologies such as hyperthreading, the number of logical cores
 //         may be more than the number of physical cores.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 pub fn get_cpu_count() int {
 	return C.SDL_GetCPUCount()
 }
@@ -29,7 +35,7 @@ fn C.SDL_GetCPUCacheLineSize() int
 //
 // returns the L1 cache line size of the CPU, in bytes.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 pub fn get_cpu_cache_line_size() int {
 	return C.SDL_GetCPUCacheLineSize()
 }
@@ -42,7 +48,7 @@ fn C.SDL_HasRDTSC() bool
 //
 // returns SDL_TRUE if the CPU has the RDTSC instruction or SDL_FALSE if not.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_Has3DNow
 // See also: SDL_HasAltiVec
@@ -67,7 +73,7 @@ fn C.SDL_HasAltiVec() bool
 //
 // returns SDL_TRUE if the CPU has AltiVec features or SDL_FALSE if not.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_Has3DNow
 // See also: SDL_HasAVX
@@ -91,7 +97,7 @@ fn C.SDL_HasMMX() bool
 //
 // returns SDL_TRUE if the CPU has MMX features or SDL_FALSE if not.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_Has3DNow
 // See also: SDL_HasAltiVec
@@ -115,7 +121,7 @@ fn C.SDL_Has3DNow() bool
 //
 // returns SDL_TRUE if the CPU has 3DNow! features or SDL_FALSE if not.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_HasAltiVec
 // See also: SDL_HasAVX
@@ -139,7 +145,7 @@ fn C.SDL_HasSSE() bool
 //
 // returns SDL_TRUE if the CPU has SSE features or SDL_FALSE if not.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_Has3DNow
 // See also: SDL_HasAltiVec
@@ -163,7 +169,7 @@ fn C.SDL_HasSSE2() bool
 //
 // returns SDL_TRUE if the CPU has SSE2 features or SDL_FALSE if not.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_Has3DNow
 // See also: SDL_HasAltiVec
@@ -187,7 +193,7 @@ fn C.SDL_HasSSE3() bool
 //
 // returns SDL_TRUE if the CPU has SSE3 features or SDL_FALSE if not.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_Has3DNow
 // See also: SDL_HasAltiVec
@@ -211,7 +217,7 @@ fn C.SDL_HasSSE41() bool
 //
 // returns SDL_TRUE if the CPU has SSE4.1 features or SDL_FALSE if not.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_Has3DNow
 // See also: SDL_HasAltiVec
@@ -235,7 +241,7 @@ fn C.SDL_HasSSE42() bool
 //
 // returns SDL_TRUE if the CPU has SSE4.2 features or SDL_FALSE if not.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_Has3DNow
 // See also: SDL_HasAltiVec
@@ -259,7 +265,7 @@ fn C.SDL_HasAVX() bool
 //
 // returns SDL_TRUE if the CPU has AVX features or SDL_FALSE if not.
 //
-// NOTE This function is available since SDL 2.0.2.
+// NOTE: This function is available since SDL 2.0.2.
 //
 // See also: SDL_Has3DNow
 // See also: SDL_HasAltiVec
@@ -283,7 +289,7 @@ fn C.SDL_HasAVX2() bool
 //
 // returns SDL_TRUE if the CPU has AVX2 features or SDL_FALSE if not.
 //
-// NOTE This function is available since SDL 2.0.4.
+// NOTE: This function is available since SDL 2.0.4.
 //
 // See also: SDL_Has3DNow
 // See also: SDL_HasAltiVec
@@ -307,7 +313,7 @@ fn C.SDL_HasAVX512F() bool
 //
 // returns SDL_TRUE if the CPU has AVX-512F features or SDL_FALSE if not.
 //
-// NOTE This function is available since SDL 2.0.9.
+// NOTE: This function is available since SDL 2.0.9.
 //
 // See also: SDL_HasAVX
 pub fn has_avx512f() bool {
@@ -324,7 +330,7 @@ fn C.SDL_HasARMSIMD() bool
 //
 // returns SDL_TRUE if the CPU has ARM SIMD features or SDL_FALSE if not.
 //
-// NOTE This function is available since SDL 2.0.12.
+// NOTE: This function is available since SDL 2.0.12.
 //
 // See also: SDL_HasNEON
 pub fn has_arm_simd() bool {
@@ -337,7 +343,7 @@ fn C.SDL_HasNEON() bool
 //
 // This always returns false on CPUs that aren't using ARM instruction sets.
 //
-// NOTE This function is available since SDL 2.0.6.
+// NOTE: This function is available since SDL 2.0.6.
 //
 // returns SDL_TRUE if the CPU has ARM NEON features or SDL_FALSE if not.
 pub fn has_neon() bool {
@@ -354,7 +360,7 @@ fn C.SDL_HasLSX() bool
 // returns SDL_TRUE if the CPU has LOONGARCH LSX features or SDL_FALSE if
 //          not.
 //
-// NOTE This function is available since SDL 2.24.0.
+// NOTE: This function is available since SDL 2.24.0.
 pub fn has_lsx() bool {
 	return C.SDL_HasLSX()
 }
@@ -369,7 +375,7 @@ fn C.SDL_HasLASX() bool
 // returns SDL_TRUE if the CPU has LOONGARCH LASX features or SDL_FALSE if
 //          not.
 //
-// NOTE This function is available since SDL 2.24.0.
+// NOTE: This function is available since SDL 2.24.0.
 pub fn has_lasx() bool {
 	return C.SDL_HasLASX()
 }
@@ -380,7 +386,7 @@ fn C.SDL_GetSystemRAM() int
 //
 // returns the amount of RAM configured in the system in MiB.
 //
-// NOTE This function is available since SDL 2.0.1.
+// NOTE: This function is available since SDL 2.0.1.
 pub fn get_system_ram() int {
 	return C.SDL_GetSystemRAM()
 }
@@ -401,7 +407,7 @@ fn C.SDL_SIMDGetAlignment() usize
 // returns the alignment in bytes needed for available, known SIMD
 //         instructions.
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 pub fn simd_get_alignment() usize {
 	return C.SDL_SIMDGetAlignment()
 }
@@ -438,7 +444,7 @@ fn C.SDL_SIMDAlloc(len usize) voidptr
 //       allocated block might be larger due to padding, etc.
 // returns a pointer to the newly-allocated block, NULL if out of memory.
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 //
 // See also: SDL_SIMDGetAlignment
 // See also: SDL_SIMDRealloc
@@ -464,7 +470,7 @@ fn C.SDL_SIMDRealloc(mem voidptr, len usize) voidptr
 //       memory.
 // returns a pointer to the newly-reallocated block, NULL if out of memory.
 //
-// NOTE This function is available since SDL 2.0.14.
+// NOTE: This function is available since SDL 2.0.14.
 //
 // See also: SDL_SIMDGetAlignment
 // See also: SDL_SIMDAlloc
@@ -491,7 +497,7 @@ fn C.SDL_SIMDFree(ptr voidptr)
 // `ptr` The pointer, returned from SDL_SIMDAlloc or SDL_SIMDRealloc, to
 //       deallocate. NULL is a legal no-op.
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 //
 // See also: SDL_SIMDAlloc
 // See also: SDL_SIMDRealloc

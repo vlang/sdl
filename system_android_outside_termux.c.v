@@ -21,7 +21,7 @@ fn C.SDL_AndroidGetJNIEnv() voidptr
 // returns a pointer to Java native interface object (JNIEnv) to which the
 //          current thread is attached, or 0 on error.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_AndroidGetActivity
 pub fn android_get_jni_env() voidptr {
@@ -45,7 +45,7 @@ fn C.SDL_AndroidGetActivity() voidptr
 // returns the jobject representing the instance of the Activity class of the
 //          Android application, or NULL on error.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_AndroidGetJNIEnv
 pub fn android_get_activity() voidptr {
@@ -81,7 +81,7 @@ fn C.SDL_GetAndroidSDKVersion() int
 //
 // returns the Android API level.
 //
-// NOTE This function is available since SDL 2.0.12.
+// NOTE: This function is available since SDL 2.0.12.
 pub fn get_android_sdk_version() int {
 	return C.SDL_GetAndroidSDKVersion()
 }
@@ -92,7 +92,7 @@ fn C.SDL_IsAndroidTV() bool
 //
 // returns SDL_TRUE if this is Android TV, SDL_FALSE otherwise.
 //
-// NOTE This function is available since SDL 2.0.8.
+// NOTE: This function is available since SDL 2.0.8.
 pub fn is_android_tv() bool {
 	return C.SDL_IsAndroidTV()
 }
@@ -103,7 +103,7 @@ fn C.SDL_IsChromebook() bool
 //
 // returns SDL_TRUE if this is a Chromebook, SDL_FALSE otherwise.
 //
-// NOTE This function is available since SDL 2.0.9.
+// NOTE: This function is available since SDL 2.0.9.
 pub fn is_chromebook() bool {
 	return C.SDL_IsChromebook()
 }
@@ -114,7 +114,7 @@ fn C.SDL_IsDeXMode() bool
 //
 // returns SDL_TRUE if this is a DeX docking station, SDL_FALSE otherwise.
 //
-// NOTE This function is available since SDL 2.0.9.
+// NOTE: This function is available since SDL 2.0.9.
 pub fn is_dex_mode() bool {
 	return C.SDL_IsDeXMode()
 }
@@ -123,7 +123,7 @@ fn C.SDL_AndroidBackButton()
 
 // android_back_button triggers the Android system back button behavior.
 //
-// NOTE This function is available since SDL 2.0.9.
+// NOTE: This function is available since SDL 2.0.9.
 pub fn android_back_button() {
 	C.SDL_AndroidBackButton()
 }
@@ -147,7 +147,7 @@ fn C.SDL_AndroidGetInternalStoragePath() &char
 // returns the path used for internal storage or NULL on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_AndroidGetExternalStorageState
 pub fn android_get_internal_storage_path() &char {
@@ -166,7 +166,7 @@ fn C.SDL_AndroidGetExternalStorageState() int
 // returns the current state of external storage on success or 0 on failure;
 //          call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_AndroidGetExternalStoragePath
 pub fn android_get_external_storage_state() int {
@@ -186,7 +186,7 @@ fn C.SDL_AndroidGetExternalStoragePath() &char
 // returns the path used for external storage for this application on success
 //          or NULL on failure; call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_AndroidGetExternalStorageState
 pub fn android_get_external_storage_path() &char {
@@ -202,7 +202,7 @@ fn C.SDL_AndroidRequestPermission(permission &char) bool
 // `permission` The permission to request.
 // returns SDL_TRUE if the permission was granted, SDL_FALSE otherwise.
 //
-// NOTE This function is available since SDL 2.0.14.
+// NOTE: This function is available since SDL 2.0.14.
 pub fn android_request_permission(permission &char) bool {
 	return C.SDL_AndroidRequestPermission(permission)
 }
@@ -222,14 +222,14 @@ fn C.SDL_AndroidShowToast(const_message &char, duration int, gravity int, xoffse
 //
 // https://developer.android.com/reference/android/view/Gravity
 //
-// `message` text message to be shown
-// `duration` 0=short, 1=long
+// `message` text message to be shown.
+// `duration` 0=short, 1=long.
 // `gravity` where the notification should appear on the screen.
-// `xoffset` set this parameter only when gravity >=0
-// `yoffset` set this parameter only when gravity >=0
+// `xoffset` set this parameter only when gravity >=0.
+// `yoffset` set this parameter only when gravity >=0.
 // returns 0 if success, -1 if any error occurs.
 //
-// NOTE This function is available since SDL 2.0.16.
+// NOTE: This function is available since SDL 2.0.16.
 pub fn android_show_toast(const_message &char, duration int, gravity int, xoffset int, yoffset int) int {
 	return C.SDL_AndroidShowToast(const_message, duration, gravity, xoffset, yoffset)
 }
@@ -240,10 +240,10 @@ fn C.SDL_AndroidSendMessage(command u32, param int) int
 //
 // Override "boolean onUnhandledMessage(Message msg)" to handle the message.
 //
-// `command` user command that must be greater or equal to 0x8000
-// `param` user parameter
+// `command` user command that must be greater or equal to 0x8000.
+// `param` user parameter.
 //
-// NOTE This function is available since SDL 2.0.22.
+// NOTE: This function is available since SDL 2.0.22.
 pub fn android_send_message(command u32, param int) int {
 	return C.SDL_AndroidSendMessage(command, param)
 }

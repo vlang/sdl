@@ -37,15 +37,15 @@ fn C.SDL_iPhoneSetAnimationCallback(window &C.SDL_Window, interval int, callback
 // This functions is also accessible using the macro
 // SDL_iOSSetAnimationCallback() since SDL 2.0.4.
 //
-// `window` the window for which the animation callback should be set
+// `window` the window for which the animation callback should be set.
 // `interval` the number of frames after which **callback** will be
-//                 called
+//                 called.
 // `callback` the function to call for every frame.
 // `callbackParam` a pointer that is passed to `callback`.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_iPhoneSetEventPump
 pub fn iphone_set_animation_callback(window &Window, interval int, callback IOSAnimationCallback, callback_param voidptr) int {
@@ -66,9 +66,9 @@ fn C.SDL_iPhoneSetEventPump(enabled bool)
 // This functions is also accessible using the macro SDL_iOSSetEventPump()
 // since SDL 2.0.4.
 //
-// `enabled` SDL_TRUE to enable the event pump, SDL_FALSE to disable it
+// `enabled` SDL_TRUE to enable the event pump, SDL_FALSE to disable it.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_iPhoneSetAnimationCallback
 pub fn iphone_set_event_pump(enabled bool) {

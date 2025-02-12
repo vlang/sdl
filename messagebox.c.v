@@ -7,8 +7,10 @@ module sdl
 // SDL_messagebox.h
 //
 
+// MessageBox flags.
+//
+// If supported will display warning icon, etc.
 // MessageBoxFlags is C.SDL_MessageBoxFlags
-// MessageBox flags. If supported will display warning icon, etc.
 pub enum MessageBoxFlags {
 	error                 = C.SDL_MESSAGEBOX_ERROR                 // 0x00000010, error dialog
 	warning               = C.SDL_MESSAGEBOX_WARNING               // 0x00000020, warning dialog
@@ -28,7 +30,7 @@ pub enum MessageBoxButtonFlags {
 @[typedef]
 pub struct C.SDL_MessageBoxButtonData {
 pub:
-	flags    u32   // ::SDL_MessageBoxButtonFlags
+	flags    u32   // SDL_MessageBoxButtonFlags
 	buttonid int   // User defined button id (value returned via SDL_ShowMessageBox)
 	text     &char // The UTF-8 button text
 }
@@ -69,13 +71,13 @@ pub type MessageBoxColorScheme = C.SDL_MessageBoxColorScheme
 @[typedef]
 pub struct C.SDL_MessageBoxData {
 pub:
-	flags       u32     // ::SDL_MessageBoxFlags
+	flags       u32     // SDL_MessageBoxFlags
 	window      &Window // Parent window, can be NULL
 	title       &char   // UTF-8 title
 	message     &char   // UTF-8 message text
 	numbuttons  int
 	buttons     &MessageBoxButtonData  // C.SDL_MessageBoxButtonData
-	colorScheme &MessageBoxColorScheme // C.SDL_MessageBoxColorScheme, ::SDL_MessageBoxColorScheme, can be NULL to use system settings
+	colorScheme &MessageBoxColorScheme // C.SDL_MessageBoxColorScheme, SDL_MessageBoxColorScheme, can be NULL to use system settings
 }
 
 pub type MessageBoxData = C.SDL_MessageBoxData
@@ -105,12 +107,13 @@ fn C.SDL_ShowMessageBox(messageboxdata &C.SDL_MessageBoxData, buttonid &int) int
 // to stderr if you can.
 //
 // `messageboxdata` the SDL_MessageBoxData structure with title, text and
-//                       other options
-// `buttonid` the pointer to which user id of hit button should be copied
+//                       other options.
+// `buttonid` the pointer to which user id of hit button should be
+//                 copied.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_ShowSimpleMessageBox
 pub fn show_message_box(messageboxdata &MessageBoxData, buttonid &int) int {
@@ -147,14 +150,14 @@ fn C.SDL_ShowSimpleMessageBox(flags u32, const_title &char, const_message &char,
 // concern, check the return value from this function and fall back to writing
 // to stderr if you can.
 //
-// `flags` an SDL_MessageBoxFlags value
-// `title` UTF-8 title text
-// `message` UTF-8 message text
-// `window` the parent window, or NULL for no parent
+// `flags` an SDL_MessageBoxFlags value.
+// `title` UTF-8 title text.
+// `message` UTF-8 message text.
+// `window` the parent window, or NULL for no parent.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_ShowMessageBox
 pub fn show_simple_message_box(flags u32, const_title &char, const_message &char, window &Window) int {

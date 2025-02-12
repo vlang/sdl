@@ -116,7 +116,7 @@ fn C.SDL_GetOriginalMemoryFunctions(malloc_func &C.SDL_malloc_func, calloc_func 
 
 // get_original_memory_functions gets the original set of SDL memory functions
 //
-// NOTE This function is available since SDL 2.24.0.
+// NOTE: This function is available since SDL 2.24.0.
 pub fn get_original_memory_functions(malloc_func &C.SDL_malloc_func, calloc_func &C.SDL_calloc_func, realloc_func &C.SDL_realloc_func, free_func &C.SDL_free_func){
 	 C.SDL_GetOriginalMemoryFunctions(malloc_func, calloc_func, realloc_func, free_func)
 }
@@ -125,7 +125,7 @@ fn C.SDL_GetMemoryFunctions(malloc_func &C.SDL_malloc_func, calloc_func &C.SDL_c
 
 // get_memory_functions gets the current set of SDL memory functions
 //
-// NOTE This function is available since SDL 2.0.7.
+// NOTE: This function is available since SDL 2.0.7.
 pub fn get_memory_functions(malloc_func &MallocFunc, calloc_func &CallocFunc, realloc_func &ReallocFunc, free_func &FreeFunc){
 	 C.SDL_GetMemoryFunctions(malloc_func, calloc_func, realloc_func, free_func)
 }
@@ -134,12 +134,12 @@ fn C.SDL_SetMemoryFunctions(malloc_func C.SDL_malloc_func, calloc_func C.SDL_cal
 
 // set_memory_functions replaces SDL's memory allocation functions with a custom set
 //
-// NOTE If you are replacing SDL's memory functions, you should call
+// NOTE: If you are replacing SDL's memory functions, you should call
 //      SDL_GetNumAllocations() and be very careful if it returns non-zero.
 //      That means that your free function will be called with memory
 //      allocated by the previous memory allocation functions.
 //
-// NOTE This function is available since SDL 2.0.7.
+// NOTE: This function is available since SDL 2.0.7.
 pub fn set_memory_functions(malloc_func MallocFunc, calloc_func CallocFunc, realloc_func ReallocFunc, free_func FreeFunc) int{
 	return C.SDL_SetMemoryFunctions(malloc_func, calloc_func, realloc_func, free_func)
 }
@@ -149,7 +149,7 @@ fn C.SDL_GetNumAllocations() int
 
 // get_num_allocations gets the number of outstanding (unfreed) allocations
 //
-// NOTE This function is available since SDL 2.0.7.
+// NOTE: This function is available since SDL 2.0.7.
 pub fn get_num_allocations() int {
 	return C.SDL_GetNumAllocations()
 }
@@ -563,7 +563,7 @@ fn C.SDL_acos(x f64) f64
 // `x` floating point value, in radians.
 // returns arc cosine of `x`.
 //
-// NOTE This function is available since SDL 2.0.2.
+// NOTE: This function is available since SDL 2.0.2.
 pub fn acos(x f64) f64 {
 	return C.SDL_acos(x)
 }
@@ -810,7 +810,7 @@ fn C.SDL_iconv_string(const_tocode &char, const_fromcode &char, const_inbuf &cha
 // iconv_string converts a buffer or string between encodings in one pass,
 // returning a string that must be freed with SDL_free() or NULL on error.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 pub fn iconv_string(const_tocode &char, const_fromcode &char, const_inbuf &char, inbytesleft usize) &char {
 	return C.SDL_iconv_string(const_tocode, const_fromcode, const_inbuf, inbytesleft)
 }
@@ -825,7 +825,7 @@ fn C.SDL_size_mul_overflow(a usize, b usize, ret &usize) int
 // If a * b would overflow, return -1. Otherwise store a * b via ret
 // and return 0.
 //
-// NOTE This function is available since SDL 2.24.0.
+// NOTE: This function is available since SDL 2.24.0.
 pub fn size_mul_overflow(a usize, b usize, ret &usize) int {
 	return C.SDL_size_mul_overflow(a, b, ret)
 }
@@ -835,7 +835,7 @@ fn C.SDL_size_add_overflow(a usize, b usize, ret &usize) int
 // If a + b would overflow, return -1. Otherwise store a + b via ret
 // and return 0.
 //
-// NOTE This function is available since SDL 2.24.0.
+// NOTE: This function is available since SDL 2.24.0.
 pub fn size_add_overflow(a usize, b usize, ret &usize) int {
 	return C.SDL_size_add_overflow(a, b, ret)
 }

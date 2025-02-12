@@ -107,11 +107,11 @@ fn C.SDL_HasIntersection(const_a &C.SDL_Rect, const_b &C.SDL_Rect) bool
 //
 // If either pointer is NULL the function will return SDL_FALSE.
 //
-// `A` an SDL_Rect structure representing the first rectangle
-// `B` an SDL_Rect structure representing the second rectangle
+// `A` an SDL_Rect structure representing the first rectangle.
+// `B` an SDL_Rect structure representing the second rectangle.
 // returns SDL_TRUE if there is an intersection, SDL_FALSE otherwise.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_IntersectRect
 @[inline]
@@ -125,13 +125,13 @@ fn C.SDL_IntersectRect(const_a &C.SDL_Rect, const_b &C.SDL_Rect, result &C.SDL_R
 //
 // If `result` is NULL then this function will return SDL_FALSE.
 //
-// `A` an SDL_Rect structure representing the first rectangle
-// `B` an SDL_Rect structure representing the second rectangle
+// `A` an SDL_Rect structure representing the first rectangle.
+// `B` an SDL_Rect structure representing the second rectangle.
 // `result` an SDL_Rect structure filled in with the intersection of
-//               rectangles `A` and `B`
+//               rectangles `A` and `B`.
 // returns SDL_TRUE if there is an intersection, SDL_FALSE otherwise.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_HasIntersection
 pub fn intersect_rect(const_a &Rect, const_b &Rect, result &Rect) bool {
@@ -142,12 +142,12 @@ fn C.SDL_UnionRect(const_a &C.SDL_Rect, const_b &C.SDL_Rect, result &C.SDL_Rect)
 
 // union_rect calculates the union of two rectangles.
 //
-// `A` an SDL_Rect structure representing the first rectangle
-// `B` an SDL_Rect structure representing the second rectangle
+// `A` an SDL_Rect structure representing the first rectangle.
+// `B` an SDL_Rect structure representing the second rectangle.
 // `result` an SDL_Rect structure filled in with the union of rectangles
-//               `A` and `B`
+//               `A` and `B`.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 pub fn union_rect(const_a &Rect, const_b &Rect, result &Rect) {
 	C.SDL_UnionRect(const_a, const_b, result)
 }
@@ -160,15 +160,15 @@ fn C.SDL_EnclosePoints(const_points &C.SDL_Point, count int, const_clip &C.SDL_R
 // considered.
 //
 // `points` an array of SDL_Point structures representing points to be
-//               enclosed
-// `count` the number of structures in the `points` array
-// `clip` an SDL_Rect used for clipping or NULL to enclose all points
+//               enclosed.
+// `count` the number of structures in the `points` array.
+// `clip` an SDL_Rect used for clipping or NULL to enclose all points.
 // `result` an SDL_Rect structure filled in with the minimal enclosing
-//               rectangle
+//               rectangle.
 // returns SDL_TRUE if any points were enclosed or SDL_FALSE if all the
 //          points were outside of the clipping rectangle.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 pub fn enclose_points(const_points &Point, count int, const_clip &Rect, result &Rect) bool {
 	return C.SDL_EnclosePoints(const_points, count, const_clip, result)
 }
@@ -183,14 +183,14 @@ fn C.SDL_IntersectRectAndLine(rect &C.SDL_Rect, x1 &int, y1 &int, x2 &int, y2 &i
 // both ends will be clipped to the boundary of the rectangle and the new
 // coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.
 //
-// `rect` an SDL_Rect structure representing the rectangle to intersect
-// `X1` a pointer to the starting X-coordinate of the line
-// `Y1` a pointer to the starting Y-coordinate of the line
-// `X2` a pointer to the ending X-coordinate of the line
-// `Y2` a pointer to the ending Y-coordinate of the line
+// `rect` an SDL_Rect structure representing the rectangle to intersect.
+// `X1` a pointer to the starting X-coordinate of the line.
+// `Y1` a pointer to the starting Y-coordinate of the line.
+// `X2` a pointer to the ending X-coordinate of the line.
+// `Y2` a pointer to the ending Y-coordinate of the line.
 // returns SDL_TRUE if there is an intersection, SDL_FALSE otherwise.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 pub fn intersect_rect_and_line(rect &Rect, x1 &int, y1 &int, x2 &int, y2 &int) bool {
 	return C.SDL_IntersectRectAndLine(rect, x1, y1, x2, y2)
 }
@@ -215,7 +215,7 @@ fn C.SDL_FRectEqualsEpsilon(const_a &C.SDL_FRect, const_b &C.SDL_FRect, const_ep
 
 // frect_equals_epsilon returns true if the two rectangles are equal, within some given epsilon.
 //
-// NOTE This function is available since SDL 2.0.22.
+// NOTE: This function is available since SDL 2.0.22.
 pub fn frect_equals_epsilon(const_a &FRect, const_b &FRect, const_epsilon f32) bool {
 	return C.SDL_FRectEqualsEpsilon(const_a, const_b, const_epsilon)
 }
@@ -224,7 +224,7 @@ fn C.SDL_FRectEquals(const_a &C.SDL_FRect, const_b &C.SDL_FRect) bool
 
 // frect_equals returns true if the two rectangles are equal, using a default epsilon.
 //
-// NOTE This function is available since SDL 2.0.22.
+// NOTE: This function is available since SDL 2.0.22.
 pub fn frect_equals(const_a &FRect, const_b &FRect) bool {
 	return C.SDL_FRectEquals(const_a, const_b)
 }
@@ -235,11 +235,11 @@ fn C.SDL_HasIntersectionF(const_a &C.SDL_FRect, const_b &C.SDL_FRect) bool
 //
 // If either pointer is NULL the function will return SDL_FALSE.
 //
-// `A` an SDL_FRect structure representing the first rectangle
-// `B` an SDL_FRect structure representing the second rectangle
+// `A` an SDL_FRect structure representing the first rectangle.
+// `B` an SDL_FRect structure representing the second rectangle.
 // returns SDL_TRUE if there is an intersection, SDL_FALSE otherwise.
 //
-// NOTE This function is available since SDL 2.0.22.
+// NOTE: This function is available since SDL 2.0.22.
 //
 // See also: SDL_IntersectRect
 pub fn has_intersection_f(const_a &FRect, const_b &FRect) bool {
@@ -252,13 +252,13 @@ fn C.SDL_IntersectFRect(const_a &C.SDL_FRect, const_b &C.SDL_FRect, result &C.SD
 //
 // If `result` is NULL then this function will return SDL_FALSE.
 //
-// `A` an SDL_FRect structure representing the first rectangle
-// `B` an SDL_FRect structure representing the second rectangle
+// `A` an SDL_FRect structure representing the first rectangle.
+// `B` an SDL_FRect structure representing the second rectangle.
 // `result` an SDL_FRect structure filled in with the intersection of
 //               rectangles `A` and `B`
 // returns SDL_TRUE if there is an intersection, SDL_FALSE otherwise.
 //
-// NOTE This function is available since SDL 2.0.22.
+// NOTE: This function is available since SDL 2.0.22.
 //
 // See also: SDL_HasIntersectionF
 pub fn intersect_frect(const_a &FRect, const_b &FRect, result &FRect) bool {
@@ -269,12 +269,12 @@ fn C.SDL_UnionFRect(const_a &C.SDL_FRect, const_b &C.SDL_FRect, result &C.SDL_FR
 
 // union_frect calculates the union of two rectangles with float precision.
 //
-// `A` an SDL_FRect structure representing the first rectangle
-// `B` an SDL_FRect structure representing the second rectangle
+// `A` an SDL_FRect structure representing the first rectangle.
+// `B` an SDL_FRect structure representing the second rectangle.
 // `result` an SDL_FRect structure filled in with the union of rectangles
 //               `A` and `B`
 //
-// NOTE This function is available since SDL 2.0.22.
+// NOTE: This function is available since SDL 2.0.22.
 pub fn union_frect(const_a &FRect, const_b &FRect, result &FRect) {
 	C.SDL_UnionFRect(const_a, const_b, result)
 }
@@ -288,15 +288,15 @@ fn C.SDL_EncloseFPoints(const_points &C.SDL_FPoint, count int, const_clip &C.SDL
 // considered.
 //
 // `points` an array of SDL_FPoint structures representing points to be
-//               enclosed
-// `count` the number of structures in the `points` array
-// `clip` an SDL_FRect used for clipping or NULL to enclose all points
+//               enclosed.
+// `count` the number of structures in the `points` array.
+// `clip` an SDL_FRect used for clipping or NULL to enclose all points.
 // `result` an SDL_FRect structure filled in with the minimal enclosing
-//               rectangle
+//               rectangle.
 // returns SDL_TRUE if any points were enclosed or SDL_FALSE if all the
 //          points were outside of the clipping rectangle.
 //
-// NOTE This function is available since SDL 2.0.22.
+// NOTE: This function is available since SDL 2.0.22.
 pub fn enclose_f_points(const_points &FPoint, count int, const_clip &FRect, result &FRect) bool {
 	return C.SDL_EncloseFPoints(const_points, count, const_clip, result)
 }
@@ -312,14 +312,14 @@ fn C.SDL_IntersectFRectAndLine(const_rect &C.SDL_FRect, x1 &f32, y1 &f32, x2 &f3
 // both ends will be clipped to the boundary of the rectangle and the new
 // coordinates saved in `X1`, `Y1`, `X2`, and/or `Y2` as necessary.
 //
-// `rect` an SDL_FRect structure representing the rectangle to intersect
-// `X1` a pointer to the starting X-coordinate of the line
-// `Y1` a pointer to the starting Y-coordinate of the line
-// `X2` a pointer to the ending X-coordinate of the line
-// `Y2` a pointer to the ending Y-coordinate of the line
+// `rect` an SDL_FRect structure representing the rectangle to intersect.
+// `X1` a pointer to the starting X-coordinate of the line.
+// `Y1` a pointer to the starting Y-coordinate of the line.
+// `X2` a pointer to the ending X-coordinate of the line.
+// `Y2` a pointer to the ending Y-coordinate of the line.
 // returns SDL_TRUE if there is an intersection, SDL_FALSE otherwise.
 //
-// NOTE This function is available since SDL 2.0.22.
+// NOTE: This function is available since SDL 2.0.22.
 pub fn intersect_frect_and_line(const_rect &FRect, x1 &f32, y1 &f32, x2 &f32, y2 &f32) bool {
 	return C.SDL_IntersectFRectAndLine(const_rect, x1, y1, x2, y2)
 }

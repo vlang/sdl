@@ -10,8 +10,8 @@ module sdl
 // Scancode is the SDL keyboard scancode representation.
 //
 // Values of this type are used to represent keyboard keys, among other places
-// in the SDL_Keysym::scancode key.keysym.scancode field of the
-// SDL_Event structure.
+// in the SDL_Keysym::scancode key.keysym.scancode field of the SDL_Event
+// structure.
 //
 // The values in this enumeration are based on the USB usage page standard:
 // https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf

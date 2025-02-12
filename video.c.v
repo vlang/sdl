@@ -9,13 +9,13 @@ module sdl
 
 // DisplayMode is the structure that defines a display mode
 //
-// See also: SDL_GetNumDisplayModes()
-// See also: SDL_GetDisplayMode()
-// See also: SDL_GetDesktopDisplayMode()
-// See also: SDL_GetCurrentDisplayMode()
-// See also: SDL_GetClosestDisplayMode()
-// See also: SDL_SetWindowDisplayMode()
-// See also: SDL_GetWindowDisplayMode()
+// See also: SDL_GetNumDisplayModes
+// See also: SDL_GetDisplayMode
+// See also: SDL_GetDesktopDisplayMode
+// See also: SDL_GetCurrentDisplayMode
+// See also: SDL_GetClosestDisplayMode
+// See also: SDL_SetWindowDisplayMode
+// See also: SDL_GetWindowDisplayMode
 @[typedef]
 pub struct C.SDL_DisplayMode {
 pub:
@@ -30,35 +30,35 @@ pub type DisplayMode = C.SDL_DisplayMode
 
 // Window is the type used to identify a window
 //
-// See also: SDL_CreateWindow()
-// See also: SDL_CreateWindowFrom()
-// See also: SDL_DestroyWindow()
-// See also: SDL_FlashWindow()
-// See also: SDL_GetWindowData()
-// See also: SDL_GetWindowFlags()
-// See also: SDL_GetWindowGrab()
-// See also: SDL_GetWindowKeyboardGrab()
-// See also: SDL_GetWindowMouseGrab()
-// See also: SDL_GetWindowPosition()
-// See also: SDL_GetWindowSize()
-// See also: SDL_GetWindowTitle()
-// See also: SDL_HideWindow()
-// See also: SDL_MaximizeWindow()
-// See also: SDL_MinimizeWindow()
-// See also: SDL_RaiseWindow()
-// See also: SDL_RestoreWindow()
-// See also: SDL_SetWindowData()
-// See also: SDL_SetWindowFullscreen()
-// See also: SDL_SetWindowGrab()
-// See also: SDL_SetWindowKeyboardGrab()
-// See also: SDL_SetWindowMouseGrab()
-// See also: SDL_SetWindowIcon()
-// See also: SDL_SetWindowPosition()
-// See also: SDL_SetWindowSize()
-// See also: SDL_SetWindowBordered()
-// See also: SDL_SetWindowResizable()
-// See also: SDL_SetWindowTitle()
-// See also: SDL_ShowWindow()
+// See also: SDL_CreateWindow
+// See also: SDL_CreateWindowFrom
+// See also: SDL_DestroyWindow
+// See also: SDL_FlashWindow
+// See also: SDL_GetWindowData
+// See also: SDL_GetWindowFlags
+// See also: SDL_GetWindowGrab
+// See also: SDL_GetWindowKeyboardGrab
+// See also: SDL_GetWindowMouseGrab
+// See also: SDL_GetWindowPosition
+// See also: SDL_GetWindowSize
+// See also: SDL_GetWindowTitle
+// See also: SDL_HideWindow
+// See also: SDL_MaximizeWindow
+// See also: SDL_MinimizeWindow
+// See also: SDL_RaiseWindow
+// See also: SDL_RestoreWindow
+// See also: SDL_SetWindowData
+// See also: SDL_SetWindowFullscreen
+// See also: SDL_SetWindowGrab
+// See also: SDL_SetWindowKeyboardGrab
+// See also: SDL_SetWindowMouseGrab
+// See also: SDL_SetWindowIcon
+// See also: SDL_SetWindowPosition
+// See also: SDL_SetWindowSize
+// See also: SDL_SetWindowBordered
+// See also: SDL_SetWindowResizable
+// See also: SDL_SetWindowTitle
+// See also: SDL_ShowWindow
 //
 @[noinit; typedef]
 pub struct C.SDL_Window {
@@ -188,33 +188,63 @@ pub enum FlashOperation {
 pub type GLContext = voidptr
 
 // GLattr is OpenGL configuration attributes
+//
+// While you can set most OpenGL attributes normally, the attributes listed
+// above must be known before SDL creates the window that will be used with
+// the OpenGL context. These attributes are set and read with
+// SDL_GL_SetAttribute and SDL_GL_GetAttribute.
+//
+// In some cases, these attributes are minimum requests; the GL does not
+// promise to give you exactly what you asked for. It's possible to ask for a
+// 16-bit depth buffer and get a 24-bit one instead, for example, or to ask
+// for no stencil buffer and still have one available. Context creation should
+// fail if the GL can't provide your requested attributes at a minimum, but
+// you should check to see exactly what you got.
+//
+//
+// [Multisample anti-aliasing](http://en.wikipedia.org/wiki/Multisample_anti-aliasing)
+// is a type of full screen anti-aliasing. Multipsampling defaults to off but
+// can be turned on by setting SDL_GL_MULTISAMPLEBUFFERS to 1 and
+// SDL_GL_MULTISAMPLESAMPLES to a value greater than 0. Typical values are 2
+// and 4.
+//
+// SDL_GL_CONTEXT_PROFILE_MASK determines the type of context created, while
+// both SDL_GL_CONTEXT_MAJOR_VERSION and SDL_GL_CONTEXT_MINOR_VERSION
+// determine which version. All three attributes must be set prior to creating
+// the first window, and in general you can't change the value of
+// SDL_GL_CONTEXT_PROFILE_MASK without first destroying all windows created
+// with the previous setting.
+//
+// SDL_GL_CONTEXT_RELEASE_BEHAVIOR can be set to
+// SDL_GL_CONTEXT_RELEASE_BEHAVIOR_NONE or
+// SDL_GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH.
 // GLattr is C.SDL_GLattr
 pub enum GLattr {
-	red_size                   = C.SDL_GL_RED_SIZE
-	green_size                 = C.SDL_GL_GREEN_SIZE
-	blue_size                  = C.SDL_GL_BLUE_SIZE
-	alpha_size                 = C.SDL_GL_ALPHA_SIZE
-	buffer_size                = C.SDL_GL_BUFFER_SIZE
-	doublebuffer               = C.SDL_GL_DOUBLEBUFFER
-	depth_size                 = C.SDL_GL_DEPTH_SIZE
-	stencil_size               = C.SDL_GL_STENCIL_SIZE
-	accum_red_size             = C.SDL_GL_ACCUM_RED_SIZE
-	accum_green_size           = C.SDL_GL_ACCUM_GREEN_SIZE
-	accum_blue_size            = C.SDL_GL_ACCUM_BLUE_SIZE
-	accum_alpha_size           = C.SDL_GL_ACCUM_ALPHA_SIZE
-	stereo                     = C.SDL_GL_STEREO
-	multisamplebuffers         = C.SDL_GL_MULTISAMPLEBUFFERS
-	multisamplesamples         = C.SDL_GL_MULTISAMPLESAMPLES
-	accelerated_visual         = C.SDL_GL_ACCELERATED_VISUAL
-	retained_backing           = C.SDL_GL_RETAINED_BACKING
-	context_major_version      = C.SDL_GL_CONTEXT_MAJOR_VERSION
-	context_minor_version      = C.SDL_GL_CONTEXT_MINOR_VERSION
-	context_egl                = C.SDL_GL_CONTEXT_EGL
-	context_flags              = C.SDL_GL_CONTEXT_FLAGS
-	context_profile_mask       = C.SDL_GL_CONTEXT_PROFILE_MASK
-	share_with_current_context = C.SDL_GL_SHARE_WITH_CURRENT_CONTEXT
-	framebuffer_srgb_capable   = C.SDL_GL_FRAMEBUFFER_SRGB_CAPABLE
-	context_release_behavior   = C.SDL_GL_CONTEXT_RELEASE_BEHAVIOR
+	red_size                   = C.SDL_GL_RED_SIZE                   // the minimum number of bits for the red channel of the color buffer; defaults to 3.
+	green_size                 = C.SDL_GL_GREEN_SIZE                 // the minimum number of bits for the green channel of the color buffer; defaults to 3.
+	blue_size                  = C.SDL_GL_BLUE_SIZE                  // the minimum number of bits for the blue channel of the color buffer; defaults to 2.
+	alpha_size                 = C.SDL_GL_ALPHA_SIZE                 // the minimum number of bits for the alpha channel of the color buffer; defaults to 0.
+	buffer_size                = C.SDL_GL_BUFFER_SIZE                // the minimum number of bits for frame buffer size; defaults to 0.
+	doublebuffer               = C.SDL_GL_DOUBLEBUFFER               // whether the output is single or double buffered; defaults to double buffering on.
+	depth_size                 = C.SDL_GL_DEPTH_SIZE                 // the minimum number of bits in the depth buffer; defaults to 16.
+	stencil_size               = C.SDL_GL_STENCIL_SIZE               // the minimum number of bits in the stencil buffer; defaults to 0.
+	accum_red_size             = C.SDL_GL_ACCUM_RED_SIZE             // the minimum number of bits for the red channel of the accumulation buffer; defaults to 0.
+	accum_green_size           = C.SDL_GL_ACCUM_GREEN_SIZE           // the minimum number of bits for the green channel of the accumulation buffer; defaults to 0.
+	accum_blue_size            = C.SDL_GL_ACCUM_BLUE_SIZE            // the minimum number of bits for the blue channel of the accumulation buffer; defaults to 0.
+	accum_alpha_size           = C.SDL_GL_ACCUM_ALPHA_SIZE           // the minimum number of bits for the alpha channel of the accumulation buffer; defaults to 0.
+	stereo                     = C.SDL_GL_STEREO                     // whether the output is stereo 3D; defaults to off.
+	multisamplebuffers         = C.SDL_GL_MULTISAMPLEBUFFERS         // the number of buffers used for multisample anti-aliasing; defaults to 0.
+	multisamplesamples         = C.SDL_GL_MULTISAMPLESAMPLES         // the number of samples used around the current pixel used for multisample anti-aliasing.
+	accelerated_visual         = C.SDL_GL_ACCELERATED_VISUAL         // set to 1 to require hardware acceleration, set to 0 to force software rendering; defaults to allow either.
+	retained_backing           = C.SDL_GL_RETAINED_BACKING           // not used (deprecated).
+	context_major_version      = C.SDL_GL_CONTEXT_MAJOR_VERSION      // OpenGL context major version.
+	context_minor_version      = C.SDL_GL_CONTEXT_MINOR_VERSION      // OpenGL context minor version.
+	context_egl                = C.SDL_GL_CONTEXT_EGL                // deprecated: set SDL_GL_CONTEXT_PROFILE_MASK to SDL_GL_CONTEXT_PROFILE_ES to enable instead.
+	context_flags              = C.SDL_GL_CONTEXT_FLAGS              // some combination of 0 or more of elements of the SDL_GLcontextFlag enumeration; defaults to 0.
+	context_profile_mask       = C.SDL_GL_CONTEXT_PROFILE_MASK       // type of GL context (Core, Compatibility, ES). See SDL_GLprofile; default value depends on platform.
+	share_with_current_context = C.SDL_GL_SHARE_WITH_CURRENT_CONTEXT // OpenGL context sharing; defaults to 0.
+	framebuffer_srgb_capable   = C.SDL_GL_FRAMEBUFFER_SRGB_CAPABLE   // requests sRGB capable visual; defaults to 0. (>= SDL 2.0.1)
+	context_release_behavior   = C.SDL_GL_CONTEXT_RELEASE_BEHAVIOR   // sets context the release behavior; defaults to 1. (>= SDL 2.0.4)
 	context_reset_notification = C.SDL_GL_CONTEXT_RESET_NOTIFICATION
 	context_no_error           = C.SDL_GL_CONTEXT_NO_ERROR
 	floatbuffers               = C.SDL_GL_FLOATBUFFERS
@@ -270,9 +300,9 @@ pub enum HitTestResult {
 
 // Callback used for hit-testing.
 //
-// `win` the SDL_Window where hit-testing was set on
-// `area` an SDL_Point which should be hit-tested
-// `data` what was passed as `callback_data` to SDL_SetWindowHitTest()
+// `win` the SDL_Window where hit-testing was set on.
+// `area` an SDL_Point which should be hit-tested.
+// `data` what was passed as `callback_data` to SDL_SetWindowHitTest().
 // returns an SDL_HitTestResult value.
 //
 // See also: SDL_SetWindowHitTest
@@ -287,7 +317,7 @@ fn C.SDL_GetNumVideoDrivers() int
 // returns a number >= 1 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetVideoDriver
 pub fn get_num_video_drivers() int {
@@ -304,7 +334,7 @@ fn C.SDL_GetVideoDriver(index int) &char
 // `index` the index of a video driver
 // returns the name of the video driver with the given **index**.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetNumVideoDrivers
 pub fn get_video_driver(index int) &char {
@@ -330,11 +360,11 @@ fn C.SDL_VideoInit(driver_name &char) int
 // specific `driver_name`.
 //
 // `driver_name` the name of a video driver to initialize, or NULL for
-//                    the default driver
+//                    the default driver.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetNumVideoDrivers
 // See also: SDL_GetVideoDriver
@@ -350,7 +380,7 @@ fn C.SDL_VideoQuit()
 //
 // This function closes all windows, and restores the original video mode.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_VideoInit
 pub fn video_quit() {
@@ -364,7 +394,7 @@ fn C.SDL_GetCurrentVideoDriver() &char
 // returns the name of the current video driver or NULL if no driver has been
 //          initialized.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetNumVideoDrivers
 // See also: SDL_GetVideoDriver
@@ -379,7 +409,7 @@ fn C.SDL_GetNumVideoDisplays() int
 // returns a number >= 1 or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetDisplayBounds
 pub fn get_num_video_displays() int {
@@ -391,11 +421,11 @@ fn C.SDL_GetDisplayName(display_index int) &char
 // get_display_name gets the name of a display in UTF-8 encoding.
 //
 // `displayIndex` the index of display from which the name should be
-//                     queried
+//                     queried.
 // returns the name of a display or NULL for an invalid display index or
 //          failure; call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetNumVideoDisplays
 pub fn get_display_name(display_index int) &char {
@@ -408,12 +438,12 @@ fn C.SDL_GetDisplayBounds(display_index int, rect &C.SDL_Rect) int
 //
 // The primary display (`displayIndex` zero) is always located at 0,0.
 //
-// `displayIndex` the index of the display to query
-// `rect` the SDL_Rect structure filled in with the display bounds
+// `displayIndex` the index of the display to query.
+// `rect` the SDL_Rect structure filled in with the display bounds.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetNumVideoDisplays
 pub fn get_display_bounds(display_index int, rect &Rect) int {
@@ -440,12 +470,12 @@ fn C.SDL_GetDisplayUsableBounds(display_index int, rect &C.SDL_Rect) int
 // range.
 //
 // `displayIndex` the index of the display to query the usable bounds
-//                     from
-// `rect` the SDL_Rect structure filled in with the display bounds
+//                     from.
+// `rect` the SDL_Rect structure filled in with the display bounds.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.5.
+// NOTE: This function is available since SDL 2.0.5.
 //
 // See also: SDL_GetDisplayBounds
 // See also: SDL_GetNumVideoDisplays
@@ -473,17 +503,17 @@ fn C.SDL_GetDisplayDPI(display_index int, ddpi &f32, hdpi &f32, vdpi &f32) int
 // more consistent, reliable, and clear.
 //
 // `displayIndex` the index of the display from which DPI information
-//                     should be queried
+//                     should be queried.
 // `ddpi` a pointer filled in with the diagonal DPI of the display; may
-//             be NULL
+//             be NULL.
 // `hdpi` a pointer filled in with the horizontal DPI of the display; may
-//             be NULL
+//             be NULL.
 // `vdpi` a pointer filled in with the vertical DPI of the display; may
-//             be NULL
+//             be NULL.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.4.
+// NOTE: This function is available since SDL 2.0.4.
 //
 // See also: SDL_GetNumVideoDisplays
 pub fn get_display_dpi(display_index int, ddpi &f32, hdpi &f32, vdpi &f32) int {
@@ -494,11 +524,11 @@ fn C.SDL_GetDisplayOrientation(display_index int) DisplayOrientation
 
 // get_display_orientation gets the orientation of a display.
 //
-// `displayIndex` the index of the display to query
+// `displayIndex` the index of the display to query.
 // returns The SDL_DisplayOrientation enum value of the display, or
 //          `SDL_ORIENTATION_UNKNOWN` if it isn't available.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetNumVideoDisplays
 pub fn get_display_orientation(display_index int) DisplayOrientation {
@@ -512,11 +542,11 @@ fn C.SDL_GetNumDisplayModes(display_index int) int
 // The `displayIndex` needs to be in the range from 0 to
 // SDL_GetNumVideoDisplays() - 1.
 //
-// `displayIndex` the index of the display to query
+// `displayIndex` the index of the display to query.
 // returns a number >= 1 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetDisplayMode
 // See also: SDL_GetNumVideoDisplays
@@ -536,14 +566,14 @@ fn C.SDL_GetDisplayMode(display_index int, mode_index int, mode &C.SDL_DisplayMo
 // - packed pixel layout -> largest to smallest
 // - refresh rate -> highest to lowest
 //
-// `displayIndex` the index of the display to query
-// `modeIndex` the index of the display mode to query
+// `displayIndex` the index of the display to query.
+// `modeIndex` the index of the display mode to query.
 // `mode` an SDL_DisplayMode structure filled in with the mode at
-//             `modeIndex`
+//             `modeIndex`.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetNumDisplayModes
 pub fn get_display_mode(display_index int, mode_index int, mode &DisplayMode) int {
@@ -559,13 +589,13 @@ fn C.SDL_GetDesktopDisplayMode(display_index int, mode &C.SDL_DisplayMode) int
 // function will return the previous native display mode, and not the current
 // display mode.
 //
-// `displayIndex` the index of the display to query
+// `displayIndex` the index of the display to query.
 // `mode` an SDL_DisplayMode structure filled in with the current display
-//             mode
+//             mode.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetCurrentDisplayMode
 // See also: SDL_GetDisplayMode
@@ -583,13 +613,13 @@ fn C.SDL_GetCurrentDisplayMode(display_index int, mode &C.SDL_DisplayMode) int
 // function will return the current display mode, and not the previous native
 // display mode.
 //
-// `displayIndex` the index of the display to query
+// `displayIndex` the index of the display to query.
 // `mode` an SDL_DisplayMode structure filled in with the current display
-//             mode
+//             mode.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetDesktopDisplayMode
 // See also: SDL_GetDisplayMode
@@ -610,15 +640,15 @@ fn C.SDL_GetClosestDisplayMode(display_index int, const_mode &C.SDL_DisplayMode,
 // and finally checking the refresh rate. If all the available modes are too
 // small, then NULL is returned.
 //
-// `displayIndex` the index of the display to query
+// `displayIndex` the index of the display to query.
 // `mode` an SDL_DisplayMode structure containing the desired display
-//             mode
+//             mode.
 // `closest` an SDL_DisplayMode structure filled in with the closest
-//                match of the available display modes
+//                match of the available display modes.
 // returns the passed in value `closest` or NULL if no matching video mode
 //          was available; call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetDisplayMode
 // See also: SDL_GetNumDisplayModes
@@ -630,11 +660,11 @@ fn C.SDL_GetPointDisplayIndex(const_point &C.SDL_Point) int
 
 // get_point_display_index gets the index of the display containing a point
 //
-// `point` the point to query
+// `point` the point to query.
 // returns the index of the display containing the point or a negative error
 //          code on failure; call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.24.0.
+// NOTE: This function is available since SDL 2.24.0.
 //
 // See also: SDL_GetDisplayBounds
 // See also: SDL_GetNumVideoDisplays
@@ -646,12 +676,12 @@ fn C.SDL_GetRectDisplayIndex(const_rect &C.SDL_Rect) int
 
 // get_rect_display_index gets the index of the display primarily containing a rect
 //
-// `rect` the rect to query
+// `rect` the rect to query.
 // returns the index of the display entirely containing the rect or closest
 //          to the center of the rect on success or a negative error code on
 //          failure; call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.24.0.
+// NOTE: This function is available since SDL 2.24.0.
 //
 // See also: SDL_GetDisplayBounds
 // See also: SDL_GetNumVideoDisplays
@@ -663,12 +693,12 @@ fn C.SDL_GetWindowDisplayIndex(window &C.SDL_Window) int
 
 // get_window_display_index gets the index of the display associated with a window.
 //
-// `window` the window to query
+// `window` the window to query.
 // returns the index of the display containing the center of the window on
 //          success or a negative error code on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetDisplayBounds
 // See also: SDL_GetNumVideoDisplays
@@ -684,14 +714,14 @@ fn C.SDL_SetWindowDisplayMode(window &C.SDL_Window, const_mode &C.SDL_DisplayMod
 // change the window size when the window is not fullscreen, use
 // SDL_SetWindowSize().
 //
-// `window` the window to affect
+// `window` the window to affect.
 // `mode` the SDL_DisplayMode structure representing the mode to use, or
 //             NULL to use the window's dimensions and the desktop's format
-//             and refresh rate
+//             and refresh rate.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetWindowDisplayMode
 // See also: SDL_SetWindowFullscreen
@@ -703,13 +733,13 @@ fn C.SDL_GetWindowDisplayMode(window &C.SDL_Window, mode &C.SDL_DisplayMode) int
 
 // get_window_display_mode queries the display mode to use when a window is visible at fullscreen.
 //
-// `window` the window to query
+// `window` the window to query.
 // `mode` an SDL_DisplayMode structure filled in with the fullscreen
-//             display mode
+//             display mode.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetWindowDisplayMode
 // See also: SDL_SetWindowFullscreen
@@ -723,12 +753,12 @@ fn C.SDL_GetWindowICCProfile(window &C.SDL_Window, size &usize) voidptr
 //
 // Data returned should be freed with SDL_free.
 //
-// `window` the window to query
-// `size` the size of the ICC profile
+// `window` the window to query.
+// `size` the size of the ICC profile.
 // returns the raw ICC profile data on success or NULL on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 pub fn get_window_icc_profile(window &Window, size &usize) voidptr {
 	return C.SDL_GetWindowICCProfile(window, size)
 }
@@ -737,12 +767,12 @@ fn C.SDL_GetWindowPixelFormat(window &C.SDL_Window) u32
 
 // get_window_pixel_format gets the pixel format associated with the window.
 //
-// `window` the window to query
+// `window` the window to query.
 // returns the pixel format of the window on success or
 //          SDL_PIXELFORMAT_UNKNOWN on failure; call SDL_GetError() for more
 //          information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 pub fn get_window_pixel_format(window &Window) u32 {
 	return C.SDL_GetWindowPixelFormat(window)
 }
@@ -803,18 +833,18 @@ fn C.SDL_CreateWindow(title &char, x int, y int, w int, h int, flags u32) &C.SDL
 // loader or link to a dynamic library version. This limitation may be removed
 // in a future version of SDL.
 //
-// `title` the title of the window, in UTF-8 encoding
+// `title` the title of the window, in UTF-8 encoding.
 // `x` the x position of the window, `SDL_WINDOWPOS_CENTERED`, or
-//          `SDL_WINDOWPOS_UNDEFINED`
+//          `SDL_WINDOWPOS_UNDEFINED`.
 // `y` the y position of the window, `SDL_WINDOWPOS_CENTERED`, or
-//          `SDL_WINDOWPOS_UNDEFINED`
-// `w` the width of the window, in screen coordinates
-// `h` the height of the window, in screen coordinates
-// `flags` 0, or one or more SDL_WindowFlags OR'd together
+//          `SDL_WINDOWPOS_UNDEFINED`.
+// `w` the width of the window, in screen coordinates.
+// `h` the height of the window, in screen coordinates.
+// `flags` 0, or one or more SDL_WindowFlags OR'd together.
 // returns the window that was created or NULL on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateWindowFrom
 // See also: SDL_DestroyWindow
@@ -831,11 +861,11 @@ fn C.SDL_CreateWindowFrom(data voidptr) &C.SDL_Window
 // before using SDL_CreateWindowFrom().
 //
 // `data` a pointer to driver-dependent window creation data, typically
-//             your native window cast to a void*
+//             your native window cast to a void*.
 // returns the window that was created or NULL on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateWindow
 // See also: SDL_DestroyWindow
@@ -850,11 +880,11 @@ fn C.SDL_GetWindowID(window &C.SDL_Window) u32
 // The numeric ID is what SDL_WindowEvent references, and is necessary to map
 // these events to specific SDL_Window objects.
 //
-// `window` the window to query
+// `window` the window to query.
 // returns the ID of the window on success or 0 on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetWindowFromID
 pub fn get_window_id(window &Window) u32 {
@@ -868,11 +898,11 @@ fn C.SDL_GetWindowFromID(id u32) &C.SDL_Window
 // The numeric ID is what SDL_WindowEvent references, and is necessary to map
 // these events to specific SDL_Window objects.
 //
-// `id` the ID of the window
+// `id` the ID of the window.
 // returns the window associated with `id` or NULL if it doesn't exist; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetWindowID
 pub fn get_window_from_id(id u32) &Window {
@@ -883,10 +913,10 @@ fn C.SDL_GetWindowFlags(window &C.SDL_Window) u32
 
 // get_window_flags gets the window flags.
 //
-// `window` the window to query
+// `window` the window to query.
 // returns a mask of the SDL_WindowFlags associated with `window`
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateWindow
 // See also: SDL_HideWindow
@@ -905,10 +935,10 @@ fn C.SDL_SetWindowTitle(window &C.SDL_Window, const_title &char)
 //
 // This string is expected to be in UTF-8 encoding.
 //
-// `window` the window to change
+// `window` the window to change.
 // `title` the desired window title in UTF-8 format
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetWindowTitle
 pub fn set_window_title(window &Window, const_title &char) {
@@ -919,11 +949,11 @@ fn C.SDL_GetWindowTitle(window &C.SDL_Window) &char
 
 // get_window_title gets the title of a window.
 //
-// `window` the window to query
+// `window` the window to query.
 // returns the title of the window in UTF-8 format or "" if there is no
 //          title.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetWindowTitle
 pub fn get_window_title(window &Window) &char {
@@ -934,10 +964,10 @@ fn C.SDL_SetWindowIcon(window &C.SDL_Window, icon &C.SDL_Surface)
 
 // set_window_icon sets the icon for a window.
 //
-// `window` the window to change
+// `window` the window to change.
 // `icon` an SDL_Surface structure containing the icon for the window
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 pub fn set_window_icon(window &Window, icon &Surface) {
 	C.SDL_SetWindowIcon(window, icon)
 }
@@ -948,12 +978,12 @@ fn C.SDL_SetWindowData(window &C.SDL_Window, const_name &char, userdata voidptr)
 //
 // `name` is case-sensitive.
 //
-// `window` the window to associate with the pointer
-// `name` the name of the pointer
-// `userdata` the associated pointer
+// `window` the window to associate with the pointer.
+// `name` the name of the pointer.
+// `userdata` the associated pointer.
 // returns the previous value associated with `name`.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetWindowData
 pub fn set_window_data(window &Window, const_name &char, userdata voidptr) voidptr {
@@ -964,11 +994,11 @@ fn C.SDL_GetWindowData(window &C.SDL_Window, const_name &char) voidptr
 
 // get_window_data retrieves the data pointer associated with a window.
 //
-// `window` the window to query
-// `name` the name of the pointer
+// `window` the window to query.
+// `name` the name of the pointer.
 // returns the value associated with `name`.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetWindowData
 pub fn get_window_data(window &Window, const_name &char) voidptr {
@@ -981,13 +1011,13 @@ fn C.SDL_SetWindowPosition(window &C.SDL_Window, x int, y int)
 //
 // The window coordinate origin is the upper left of the display.
 //
-// `window` the window to reposition
+// `window` the window to reposition.
 // `x` the x coordinate of the window in screen coordinates, or
-//          `SDL_WINDOWPOS_CENTERED` or `SDL_WINDOWPOS_UNDEFINED`
+//          `SDL_WINDOWPOS_CENTERED` or `SDL_WINDOWPOS_UNDEFINED`.
 // `y` the y coordinate of the window in screen coordinates, or
-//          `SDL_WINDOWPOS_CENTERED` or `SDL_WINDOWPOS_UNDEFINED`
+//          `SDL_WINDOWPOS_CENTERED` or `SDL_WINDOWPOS_UNDEFINED`.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetWindowPosition
 pub fn set_window_position(window &Window, x int, y int) {
@@ -1001,13 +1031,13 @@ fn C.SDL_GetWindowPosition(window &C.SDL_Window, x &int, y &int)
 // If you do not need the value for one of the positions a NULL may be passed
 // in the `x` or `y` parameter.
 //
-// `window` the window to query
+// `window` the window to query.
 // `x` a pointer filled in with the x position of the window, in screen
-//          coordinates, may be NULL
+//          coordinates, may be NULL.
 // `y` a pointer filled in with the y position of the window, in screen
-//          coordinates, may be NULL
+//          coordinates, may be NULL.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetWindowPosition
 pub fn get_window_position(window &Window, x &int, y &int) {
@@ -1026,13 +1056,13 @@ fn C.SDL_SetWindowSize(window &C.SDL_Window, w int, h int)
 // Fullscreen windows automatically match the size of the display mode, and
 // you should use SDL_SetWindowDisplayMode() to change their size.
 //
-// `window` the window to change
+// `window` the window to change.
 // `w` the width of the window in pixels, in screen coordinates, must be
-//          > 0
+//          > 0.
 // `h` the height of the window in pixels, in screen coordinates, must be
-//          > 0
+//          > 0.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetWindowSize
 // See also: SDL_SetWindowDisplayMode
@@ -1055,11 +1085,11 @@ fn C.SDL_GetWindowSize(window &C.SDL_Window, w &int, h &int)
 //
 // `window` the window to query the width and height from
 // `w` a pointer filled in with the width of the window, in screen
-//          coordinates, may be NULL
+//          coordinates, may be NULL.
 // `h` a pointer filled in with the height of the window, in screen
-//          coordinates, may be NULL
+//          coordinates, may be NULL.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GL_GetDrawableSize
 // See also: SDL_Vulkan_GetDrawableSize
@@ -1085,19 +1115,19 @@ fn C.SDL_GetWindowBordersSize(window &C.SDL_Window, top &int, left &int, bottom 
 // This function also returns -1 if getting the information is not supported.
 //
 // `window` the window to query the size values of the border
-//               (decorations) from
+//               (decorations) from.
 // `top` pointer to variable for storing the size of the top border; NULL
-//            is permitted
+//            is permitted.
 // `left` pointer to variable for storing the size of the left border;
-//             NULL is permitted
+//             NULL is permitted.
 // `bottom` pointer to variable for storing the size of the bottom
-//               border; NULL is permitted
+//               border; NULL is permitted.
 // `right` pointer to variable for storing the size of the right border;
-//              NULL is permitted
+//              NULL is permitted.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.5.
+// NOTE: This function is available since SDL 2.0.5.
 //
 // See also: SDL_GetWindowSize
 pub fn get_window_borders_size(window &Window, top &int, left &int, bottom &int, right &int) int {
@@ -1113,12 +1143,12 @@ fn C.SDL_GetWindowSizeInPixels(window &C.SDL_Window, w &int, h &int)
 // platform with high-DPI support (Apple calls this "Retina"), and not
 // disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.
 //
-// `window` the window from which the drawable size should be queried
-// `w` a pointer to variable for storing the width in pixels, may be NULL
+// `window` the window from which the drawable size should be queried.
+// `w` a pointer to variable for storing the width in pixels, may be NULL.
 // `h` a pointer to variable for storing the height in pixels, may be
-//          NULL
+//          NULL.
 //
-// NOTE This function is available since SDL 2.26.0.
+// NOTE: This function is available since SDL 2.26.0.
 //
 // See also: SDL_CreateWindow
 // See also: SDL_GetWindowSize
@@ -1130,11 +1160,11 @@ fn C.SDL_SetWindowMinimumSize(window &C.SDL_Window, min_w int, min_h int)
 
 // set_window_minimum_size sets the minimum size of a window's client area.
 //
-// `window` the window to change
-// `min_w` the minimum width of the window in pixels
-// `min_h` the minimum height of the window in pixels
+// `window` the window to change.
+// `min_w` the minimum width of the window in pixels.
+// `min_h` the minimum height of the window in pixels.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetWindowMinimumSize
 // See also: SDL_SetWindowMaximumSize
@@ -1146,13 +1176,13 @@ fn C.SDL_GetWindowMinimumSize(window &C.SDL_Window, w &int, h &int)
 
 // get_window_minimum_size gets the minimum size of a window's client area.
 //
-// `window` the window to query
+// `window` the window to query.
 // `w` a pointer filled in with the minimum width of the window, may be
-//          NULL
+//          NULL.
 // `h` a pointer filled in with the minimum height of the window, may be
-//          NULL
+//          NULL.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetWindowMaximumSize
 // See also: SDL_SetWindowMinimumSize
@@ -1164,11 +1194,11 @@ fn C.SDL_SetWindowMaximumSize(window &C.SDL_Window, max_w int, max_h int)
 
 // set_window_maximum_size sets the maximum size of a window's client area.
 //
-// `window` the window to change
-// `max_w` the maximum width of the window in pixels
-// `max_h` the maximum height of the window in pixels
+// `window` the window to change.
+// `max_w` the maximum width of the window in pixels.
+// `max_h` the maximum height of the window in pixels.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetWindowMaximumSize
 // See also: SDL_SetWindowMinimumSize
@@ -1180,13 +1210,13 @@ fn C.SDL_GetWindowMaximumSize(window &C.SDL_Window, w &int, h &int)
 
 // get_window_maximum_size gets the maximum size of a window's client area.
 //
-// `window` the window to query
+// `window` the window to query.
 // `w` a pointer filled in with the maximum width of the window, may be
-//          NULL
+//          NULL.
 // `h` a pointer filled in with the maximum height of the window, may be
-//          NULL
+//          NULL.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetWindowMinimumSize
 // See also: SDL_SetWindowMaximumSize
@@ -1204,10 +1234,10 @@ fn C.SDL_SetWindowBordered(window &C.SDL_Window, bordered bool)
 //
 // You can't change the border state of a fullscreen window.
 //
-// `window` the window of which to change the border state
-// `bordered` SDL_FALSE to remove border, SDL_TRUE to add border
+// `window` the window of which to change the border state.
+// `bordered` SDL_FALSE to remove border, SDL_TRUE to add border.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetWindowFlags
 pub fn set_window_bordered(window &Window, bordered bool) {
@@ -1224,10 +1254,10 @@ fn C.SDL_SetWindowResizable(window &C.SDL_Window, resizable bool)
 //
 // You can't change the resizable state of a fullscreen window.
 //
-// `window` the window of which to change the resizable state
-// `resizable` SDL_TRUE to allow resizing, SDL_FALSE to disallow
+// `window` the window of which to change the resizable state.
+// `resizable` SDL_TRUE to allow resizing, SDL_FALSE to disallow.
 //
-// NOTE This function is available since SDL 2.0.5.
+// NOTE: This function is available since SDL 2.0.5.
 //
 // See also: SDL_GetWindowFlags
 pub fn set_window_resizable(window &Window, resizable bool) {
@@ -1241,11 +1271,11 @@ fn C.SDL_SetWindowAlwaysOnTop(window &C.SDL_Window, on_top bool)
 // This will add or remove the window's `SDL_WINDOW_ALWAYS_ON_TOP` flag. This
 // will bring the window to the front and keep the window above the rest.
 //
-// `window` The window of which to change the always on top state
+// `window` The window of which to change the always on top state.
 // `on_top` SDL_TRUE to set the window always on top, SDL_FALSE to
-//               disable
+//               disable.
 //
-// NOTE This function is available since SDL 2.0.16.
+// NOTE: This function is available since SDL 2.0.16.
 //
 // See also: SDL_GetWindowFlags
 pub fn set_window_always_on_top(window &C.SDL_Window, on_top bool) {
@@ -1256,9 +1286,9 @@ fn C.SDL_ShowWindow(window &C.SDL_Window)
 
 // show_window shows a window.
 //
-// `window` the window to show
+// `window` the window to show.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_HideWindow
 // See also: SDL_RaiseWindow
@@ -1270,9 +1300,9 @@ fn C.SDL_HideWindow(window &C.SDL_Window)
 
 // hide_window hides a window.
 //
-// `window` the window to hide
+// `window` the window to hide.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_ShowWindow
 pub fn hide_window(window &Window) {
@@ -1283,7 +1313,7 @@ fn C.SDL_RaiseWindow(window &C.SDL_Window)
 
 // raise_window raises a window above other windows and set the input focus.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // `window` the window to raise
 pub fn raise_window(window &Window) {
@@ -1294,9 +1324,9 @@ fn C.SDL_MaximizeWindow(window &C.SDL_Window)
 
 // maximize_window makes a window as large as possible.
 //
-// `window` the window to maximize
+// `window` the window to maximize.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_MinimizeWindow
 // See also: SDL_RestoreWindow
@@ -1308,9 +1338,9 @@ fn C.SDL_MinimizeWindow(window &C.SDL_Window)
 
 // minimize_window minimizes a window to an iconic representation.
 //
-// `window` the window to minimize
+// `window` the window to minimize.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_MaximizeWindow
 // See also: SDL_RestoreWindow
@@ -1322,9 +1352,9 @@ fn C.SDL_RestoreWindow(window &C.SDL_Window)
 
 // restore_window restores the size and position of a minimized or maximized window.
 //
-// `window` the window to restore
+// `window` the window to restore.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_MaximizeWindow
 // See also: SDL_MinimizeWindow
@@ -1340,12 +1370,12 @@ fn C.SDL_SetWindowFullscreen(window &C.SDL_Window, flags u32) int
 // videomode change; `SDL_WINDOW_FULLSCREEN_DESKTOP` for "fake" fullscreen
 // that takes the size of the desktop; and 0 for windowed mode.
 //
-// `window` the window to change
-// `flags` `SDL_WINDOW_FULLSCREEN`, `SDL_WINDOW_FULLSCREEN_DESKTOP` or 0
+// `window` the window to change.
+// `flags` `SDL_WINDOW_FULLSCREEN`, `SDL_WINDOW_FULLSCREEN_DESKTOP` or 0.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetWindowDisplayMode
 // See also: SDL_SetWindowDisplayMode
@@ -1360,7 +1390,7 @@ fn C.SDL_HasWindowSurface(window &C.SDL_Window) bool
 // returns SDL_TRUE if there is a surface associated with the window, or
 //         SDL_FALSE otherwise.
 //
-// NOTE This function is available since SDL 2.28.0.
+// NOTE: This function is available since SDL 2.28.0.
 //
 // See also: SDL_GetWindowSurface
 pub fn has_window_surface(window &Window) bool {
@@ -1378,15 +1408,19 @@ fn C.SDL_GetWindowSurface(window &C.SDL_Window) &C.SDL_Surface
 // This surface will be invalidated if the window is resized. After resizing a
 // window this function must be called again to return a valid surface.
 //
+// Note that on some platforms the pixels pointer of the surface may be
+// modified after each call to SDL_UpdateWindowSurface(), so that the platform
+// code can implement efficient double or triple buffering.
+//
 // You may not combine this with 3D or the rendering API on this window.
 //
 // This function is affected by `SDL_HINT_FRAMEBUFFER_ACCELERATION`.
 //
-// `window` the window to query
+// `window` the window to query.
 // returns the surface associated with the window, or NULL on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_DestroyWindowSurface
 // See also: SDL_HasWindowSurface
@@ -1405,11 +1439,11 @@ fn C.SDL_UpdateWindowSurface(window &C.SDL_Window) int
 //
 // This function is equivalent to the SDL 1.2 API SDL_Flip().
 //
-// `window` the window to update
+// `window` the window to update.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetWindowSurface
 // See also: SDL_UpdateWindowSurfaceRects
@@ -1431,14 +1465,14 @@ fn C.SDL_UpdateWindowSurfaceRects(window &C.SDL_Window, const_rects &C.SDL_Rect,
 // update more of the screen (or all of the screen!), depending on what
 // method SDL uses to send pixels to the system.
 //
-// `window` the window to update
+// `window` the window to update.
 // `rects` an array of SDL_Rect structures representing areas of the
-//              surface to copy, in pixels
-// `numrects` the number of rectangles
+//              surface to copy, in pixels.
+// `numrects` the number of rectangles.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetWindowSurface
 // See also: SDL_UpdateWindowSurface
@@ -1450,11 +1484,11 @@ fn C.SDL_DestroyWindowSurface(window &C.SDL_Window) int
 
 // destroy_window_surface destroys the surface associated with the window.
 //
-// `window` the window to update
+// `window` the window to update.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.28.0.
+// NOTE: This function is available since SDL 2.28.0.
 //
 // See also: SDL_GetWindowSurface
 // See also: SDL_HasWindowSurface
@@ -1473,10 +1507,10 @@ fn C.SDL_SetWindowGrab(window &C.SDL_Window, grabbed bool)
 // If the caller enables a grab while another window is currently grabbed, the
 // other window loses its grab in favor of the caller's window.
 //
-// `window` the window for which the input grab mode should be set
-// `grabbed` SDL_TRUE to grab input or SDL_FALSE to release input
+// `window` the window for which the input grab mode should be set.
+// `grabbed` SDL_TRUE to grab input or SDL_FALSE to release input.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetGrabbedWindow
 // See also: SDL_GetWindowGrab
@@ -1507,7 +1541,7 @@ fn C.SDL_SetWindowKeyboardGrab(window &C.SDL_Window, grabbed bool)
 // `window` The window for which the keyboard grab mode should be set.
 // `grabbed` This is SDL_TRUE to grab keyboard, and SDL_FALSE to release.
 //
-// NOTE This function is available since SDL 2.0.16.
+// NOTE: This function is available since SDL 2.0.16.
 //
 // See also: SDL_GetWindowKeyboardGrab
 // See also: SDL_SetWindowMouseGrab
@@ -1525,7 +1559,7 @@ fn C.SDL_SetWindowMouseGrab(window &C.SDL_Window, grabbed bool)
 // `window` The window for which the mouse grab mode should be set.
 // `grabbed` This is SDL_TRUE to grab mouse, and SDL_FALSE to release.
 //
-// NOTE This function is available since SDL 2.0.16.
+// NOTE: This function is available since SDL 2.0.16.
 //
 // See also: SDL_GetWindowMouseGrab
 // See also: SDL_SetWindowKeyboardGrab
@@ -1538,10 +1572,10 @@ fn C.SDL_GetWindowGrab(window &C.SDL_Window) bool
 
 // get_window_grab gets a window's input grab mode.
 //
-// `window` the window to query
+// `window` the window to query.
 // returns SDL_TRUE if input is grabbed, SDL_FALSE otherwise.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetWindowGrab
 pub fn get_window_grab(window &Window) bool {
@@ -1552,10 +1586,10 @@ fn C.SDL_GetWindowKeyboardGrab(window &C.SDL_Window) bool
 
 // get_window_keyboard_grab gets a window's keyboard grab mode.
 //
-// `window` the window to query
+// `window` the window to query.
 // returns SDL_TRUE if keyboard is grabbed, and SDL_FALSE otherwise.
 //
-// NOTE This function is available since SDL 2.0.16.
+// NOTE: This function is available since SDL 2.0.16.
 //
 // See also: SDL_SetWindowKeyboardGrab
 // See also: SDL_GetWindowGrab
@@ -1567,10 +1601,10 @@ fn C.SDL_GetWindowMouseGrab(window &C.SDL_Window) bool
 
 // get_window_mouse_grab gets a window's mouse grab mode.
 //
-// `window` the window to query
+// `window` the window to query.
 // returns SDL_TRUE if mouse is grabbed, and SDL_FALSE otherwise.
 //
-// NOTE This function is available since SDL 2.0.16.
+// NOTE: This function is available since SDL 2.0.16.
 //
 // See also: SDL_SetWindowKeyboardGrab
 // See also: SDL_GetWindowGrab
@@ -1584,7 +1618,7 @@ fn C.SDL_GetGrabbedWindow() &C.SDL_Window
 //
 // returns the window if input is grabbed or NULL otherwise.
 //
-// NOTE This function is available since SDL 2.0.4.
+// NOTE: This function is available since SDL 2.0.4.
 //
 // See also: SDL_GetWindowGrab
 // See also: SDL_SetWindowGrab
@@ -1605,7 +1639,7 @@ fn C.SDL_SetWindowMouseRect(window &C.SDL_Window, const_rect &C.SDL_Rect) int
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 //
 // See also: SDL_GetWindowMouseRect
 // See also: SDL_SetWindowMouseGrab
@@ -1617,11 +1651,11 @@ fn C.SDL_GetWindowMouseRect(window &C.SDL_Window) &C.SDL_Rect
 
 // get_window_mouse_rect gets the mouse confinement rectangle of a window.
 //
-// `window` The window to query
+// `window` The window to query.
 // returns A pointer to the mouse confinement rectangle of a window, or NULL
 //          if there isn't one.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 //
 // See also: SDL_SetWindowMouseRect
 pub fn get_window_mouse_rect(window &Window) &Rect {
@@ -1644,13 +1678,13 @@ fn C.SDL_SetWindowBrightness(window &C.SDL_Window, brightness f32) int
 // something similar.
 //
 // `window` the window used to select the display whose brightness will
-//               be changed
+//               be changed.
 // `brightness` the brightness (gamma multiplier) value to set where 0.0
-//                   is completely dark and 1.0 is normal brightness
+//                   is completely dark and 1.0 is normal brightness.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetWindowBrightness
 // See also: SDL_SetWindowGammaRamp
@@ -1668,11 +1702,11 @@ fn C.SDL_GetWindowBrightness(window &C.SDL_Window) f32
 // this display can be retrieved using SDL_GetWindowDisplayIndex().)
 //
 // `window` the window used to select the display whose brightness will
-//               be queried
+//               be queried.
 // returns the brightness for the display where 0.0 is completely dark and
 //          1.0 is normal brightness.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetWindowBrightness
 pub fn get_window_brightness(window &Window) f32 {
@@ -1688,12 +1722,12 @@ fn C.SDL_SetWindowOpacity(window &C.SDL_Window, opacity f32) int
 //
 // This function also returns -1 if setting the opacity isn't supported.
 //
-// `window` the window which will be made transparent or opaque
-// `opacity` the opacity value (0.0f - transparent, 1.0f - opaque)
+// `window` the window which will be made transparent or opaque.
+// `opacity` the opacity value (0.0f - transparent, 1.0f - opaque).
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.5.
+// NOTE: This function is available since SDL 2.0.5.
 //
 // See also: SDL_GetWindowOpacity
 pub fn set_window_opacity(window &Window, opacity f32) int {
@@ -1711,12 +1745,12 @@ fn C.SDL_GetWindowOpacity(window &C.SDL_Window, out_opacity &f32) int
 //
 // This function also returns -1 if an invalid window was provided.
 //
-// `window` the window to get the current opacity value from
-// `out_opacity` the float filled in (0.0f - transparent, 1.0f - opaque)
+// `window` the window to get the current opacity value from.
+// `out_opacity` the float filled in (0.0f - transparent, 1.0f - opaque).
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.5.
+// NOTE: This function is available since SDL 2.0.5.
 //
 // See also: SDL_SetWindowOpacity
 pub fn get_window_opacity(window &Window, out_opacity &f32) int {
@@ -1727,12 +1761,12 @@ fn C.SDL_SetWindowModalFor(modal_window &C.SDL_Window, parent_window &C.SDL_Wind
 
 // set_window_modal_for sets the window as a modal for another window.
 //
-// `modal_window` the window that should be set modal
-// `parent_window` the parent window for the modal window
+// `modal_window` the window that should be set modal.
+// `parent_window` the parent window for the modal window.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.5.
+// NOTE: This function is available since SDL 2.0.5.
 pub fn set_window_modal_for(modal_window &Window, parent_window &Window) int {
 	return C.SDL_SetWindowModalFor(modal_window, parent_window)
 }
@@ -1745,11 +1779,11 @@ fn C.SDL_SetWindowInputFocus(window &C.SDL_Window) int
 // this with caution, as you might give focus to a window that is completely
 // obscured by other windows.
 //
-// `window` the window that should get the input focus
+// `window` the window that should get the input focus.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.5.
+// NOTE: This function is available since SDL 2.0.5.
 //
 // See also: SDL_RaiseWindow
 pub fn set_window_input_focus(window &Window) int {
@@ -1773,17 +1807,17 @@ fn C.SDL_SetWindowGammaRamp(window &C.SDL_Window, const_red &u16, const_green &u
 // ramp set will not follow the window if it is moved to another display.
 //
 // `window` the window used to select the display whose gamma ramp will
-//               be changed
+//               be changed.
 // `red` a 256 element array of 16-bit quantities representing the
-//            translation table for the red channel, or NULL
+//            translation table for the red channel, or NULL.
 // `green` a 256 element array of 16-bit quantities representing the
-//              translation table for the green channel, or NULL
+//              translation table for the green channel, or NULL.
 // `blue` a 256 element array of 16-bit quantities representing the
-//             translation table for the blue channel, or NULL
+//             translation table for the blue channel, or NULL.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetWindowGammaRamp
 pub fn set_window_gamma_ramp(window &Window, const_red &u16, const_green &u16, const_blue &u16) int {
@@ -1800,17 +1834,17 @@ fn C.SDL_GetWindowGammaRamp(window &C.SDL_Window, red &u16, green &u16, blue &u1
 // this display can be retrieved using SDL_GetWindowDisplayIndex().)
 //
 // `window` the window used to select the display whose gamma ramp will
-//               be queried
+//               be queried.
 // `red` a 256 element array of 16-bit quantities filled in with the
-//            translation table for the red channel, or NULL
+//            translation table for the red channel, or NULL.
 // `green` a 256 element array of 16-bit quantities filled in with the
-//              translation table for the green channel, or NULL
+//              translation table for the green channel, or NULL.
 // `blue` a 256 element array of 16-bit quantities filled in with the
-//             translation table for the blue channel, or NULL
+//             translation table for the blue channel, or NULL.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetWindowGammaRamp
 pub fn get_window_gamma_ramp(window &Window, red &u16, green &u16, blue &u16) int {
@@ -1850,13 +1884,13 @@ fn C.SDL_SetWindowHitTest(window &C.SDL_Window, callback C.SDL_HitTest, callback
 // can fire at any time, you should try to keep your callback efficient,
 // devoid of allocations, etc.
 //
-// `window` the window to set hit-testing on
-// `callback` the function to call when doing a hit-test
-// `callback_data` an app-defined void pointer passed to **callback**
+// `window` the window to set hit-testing on.
+// `callback` the function to call when doing a hit-test.
+// `callback_data` an app-defined void pointer passed to **callback**.
 // returns 0 on success or -1 on error (including unsupported); call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.4.
+// NOTE: This function is available since SDL 2.0.4.
 pub fn set_window_hit_test(window &Window, callback HitTest, callback_data voidptr) int {
 	return C.SDL_SetWindowHitTest(window, C.SDL_HitTest(callback), callback_data)
 }
@@ -1865,12 +1899,12 @@ fn C.SDL_FlashWindow(window &C.SDL_Window, operation C.SDL_FlashOperation) int
 
 // flash_window requests a window to demand attention from the user.
 //
-// `window` the window to be flashed
-// `operation` the flash operation
+// `window` the window to be flashed.
+// `operation` the flash operation.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.16.
+// NOTE: This function is available since SDL 2.0.16.
 pub fn flash_window(window &Window, operation FlashOperation) int {
 	return C.SDL_FlashWindow(window, C.SDL_FlashOperation(operation))
 }
@@ -1882,9 +1916,9 @@ fn C.SDL_DestroyWindow(window &C.SDL_Window)
 // If `window` is NULL, this function will return immediately after setting
 // the SDL error message to "Invalid window". See SDL_GetError().
 //
-// `window` the window to destroy
+// `window` the window to destroy.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateWindow
 // See also: SDL_CreateWindowFrom
@@ -1904,7 +1938,7 @@ fn C.SDL_IsScreenSaverEnabled() bool
 // returns SDL_TRUE if the screensaver is enabled, SDL_FALSE if it is
 //          disabled.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_DisableScreenSaver
 // See also: SDL_EnableScreenSaver
@@ -1916,7 +1950,7 @@ fn C.SDL_EnableScreenSaver()
 
 // enable_screen_saver allows the screen to be blanked by a screen saver.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_DisableScreenSaver
 // See also: SDL_IsScreenSaverEnabled
@@ -1934,7 +1968,7 @@ fn C.SDL_DisableScreenSaver()
 // The screensaver is disabled by default since SDL 2.0.2. Before SDL 2.0.2
 // the screensaver was enabled by default.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_EnableScreenSaver
 // See also: SDL_IsScreenSaverEnabled
@@ -1958,11 +1992,11 @@ fn C.SDL_GL_LoadLibrary(path &char) int
 // program from the dynamic library using SDL_GL_GetProcAddress().
 //
 // `path` the platform dependent OpenGL library name, or NULL to open the
-//             default OpenGL library
+//             default OpenGL library.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GL_GetProcAddress
 // See also: SDL_GL_UnloadLibrary
@@ -2012,11 +2046,11 @@ fn C.SDL_GL_GetProcAddress(proc &char) voidptr
 //   code. This will ensure the proper calling convention is followed on
 //   platforms where this matters (Win32) thereby avoiding stack corruption.
 //
-// `proc` the name of an OpenGL function
+// `proc` the name of an OpenGL function.
 // returns a pointer to the named OpenGL function. The returned pointer
 //          should be cast to the appropriate function signature.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GL_ExtensionSupported
 // See also: SDL_GL_LoadLibrary
@@ -2029,7 +2063,7 @@ fn C.SDL_GL_UnloadLibrary()
 
 // gl_unload_library unloads the OpenGL library previously loaded by SDL_GL_LoadLibrary().
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GL_LoadLibrary
 pub fn gl_unload_library() {
@@ -2051,10 +2085,10 @@ fn C.SDL_GL_ExtensionSupported(extension &char) bool
 // context and save that information somewhere instead of calling the function
 // every time you need to know.
 //
-// `extension` the name of the extension to check
+// `extension` the name of the extension to check.
 // returns SDL_TRUE if the extension is supported, SDL_FALSE otherwise.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 pub fn gl_extension_supported(extension &char) bool {
 	return C.SDL_GL_ExtensionSupported(extension)
 }
@@ -2063,7 +2097,7 @@ fn C.SDL_GL_ResetAttributes()
 
 // gl_reset_attributes resets all previously set OpenGL context attributes to their default values.
 //
-// NOTE This function is available since SDL 2.0.2.
+// NOTE: This function is available since SDL 2.0.2.
 //
 // See also: SDL_GL_GetAttribute
 // See also: SDL_GL_SetAttribute
@@ -2080,12 +2114,12 @@ fn C.SDL_GL_SetAttribute(attr C.SDL_GLattr, value int) int
 // SDL_GL_GetAttribute() to check the values after creating the OpenGL
 // context, since the values obtained can differ from the requested ones.
 //
-// `attr` an SDL_GLattr enum value specifying the OpenGL attribute to set
-// `value` the desired value for the attribute
+// `attr` an SDL_GLattr enum value specifying the OpenGL attribute to set.
+// `value` the desired value for the attribute.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GL_GetAttribute
 // See also: SDL_GL_ResetAttributes
@@ -2097,12 +2131,12 @@ fn C.SDL_GL_GetAttribute(attr C.SDL_GLattr, value &int) int
 
 // gl_get_attribute gets the actual value for an attribute from the current context.
 //
-// `attr` an SDL_GLattr enum value specifying the OpenGL attribute to get
-// `value` a pointer filled in with the current value of `attr`
+// `attr` an SDL_GLattr enum value specifying the OpenGL attribute to get.
+// `value` a pointer filled in with the current value of `attr`.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GL_ResetAttributes
 // See also: SDL_GL_SetAttribute
@@ -2122,11 +2156,11 @@ fn C.SDL_GL_CreateContext(window &C.SDL_Window) GLContext
 //
 // SDL_GLContext is an alias for `void *`. It's opaque to the application.
 //
-// `window` the window to associate with the context
+// `window` the window to associate with the context.
 // returns the OpenGL context associated with `window` or NULL on error; call
 //          SDL_GetError() for more details.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GL_DeleteContext
 // See also: SDL_GL_MakeCurrent
@@ -2140,12 +2174,12 @@ fn C.SDL_GL_MakeCurrent(window &C.SDL_Window, context C.SDL_GLContext) int
 //
 // The context must have been created with a compatible window.
 //
-// `window` the window to associate with the context
-// `context` the OpenGL context to associate with the window
+// `window` the window to associate with the context.
+// `context` the OpenGL context to associate with the window.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GL_CreateContext
 pub fn gl_make_current(window &Window, context GLContext) int {
@@ -2159,7 +2193,7 @@ fn C.SDL_GL_GetCurrentWindow() &C.SDL_Window
 // returns the currently active OpenGL window on success or NULL on failure;
 //          call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 pub fn gl_get_current_window() &Window {
 	return C.SDL_GL_GetCurrentWindow()
 }
@@ -2171,7 +2205,7 @@ fn C.SDL_GL_GetCurrentContext() GLContext
 // returns the currently active OpenGL context or NULL on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GL_MakeCurrent
 pub fn gl_get_current_context() GLContext {
@@ -2189,12 +2223,12 @@ fn C.SDL_GL_GetDrawableSize(window &C.SDL_Window, w &int, h &int)
 // platform with high-DPI support (Apple calls this "Retina"), and not
 // disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.
 //
-// `window` the window from which the drawable size should be queried
-// `w` a pointer to variable for storing the width in pixels, may be NULL
+// `window` the window from which the drawable size should be queried.
+// `w` a pointer to variable for storing the width in pixels, may be NULL.
 // `h` a pointer to variable for storing the height in pixels, may be
-//          NULL
+//          NULL.
 //
-// NOTE This function is available since SDL 2.0.1.
+// NOTE: This function is available since SDL 2.0.1.
 //
 // See also: SDL_CreateWindow
 // See also: SDL_GetWindowSize
@@ -2222,11 +2256,11 @@ fn C.SDL_GL_SetSwapInterval(interval int) int
 // https://www.khronos.org/opengl/wiki/Swap_Interval#Adaptive_Vsync
 //
 // `interval` 0 for immediate updates, 1 for updates synchronized with
-//                 the vertical retrace, -1 for adaptive vsync
+//                 the vertical retrace, -1 for adaptive vsync.
 // returns 0 on success or -1 if setting the swap interval is not supported;
 //          call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GL_GetSwapInterval
 pub fn gl_set_swap_interval(interval int) int {
@@ -2245,7 +2279,7 @@ fn C.SDL_GL_GetSwapInterval() int
 //          swaps happen immediately instead of waiting for the next retrace;
 //          call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GL_SetSwapInterval
 pub fn gl_get_swap_interval() int {
@@ -2263,9 +2297,9 @@ fn C.SDL_GL_SwapWindow(window &C.SDL_Window)
 // glBindFramebuffer(), this is the default and you won't have to do anything
 // extra.
 //
-// `window` the window to change
+// `window` the window to change.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 pub fn gl_swap_window(window &Window) {
 	C.SDL_GL_SwapWindow(window)
 }
@@ -2274,9 +2308,9 @@ fn C.SDL_GL_DeleteContext(context C.SDL_GLContext)
 
 // gl_delete_context deletes an OpenGL context.
 //
-// `context` the OpenGL context to be deleted
+// `context` the OpenGL context to be deleted.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GL_CreateContext
 pub fn gl_delete_context(context GLContext) {

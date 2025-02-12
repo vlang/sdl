@@ -25,12 +25,16 @@ pub type TLSID = u32
 
 // ThreadPriority is the SDL thread priority.
 //
-// SDL will make system changes as necessary in order to apply the thread priority.
-// Code which attempts to control thread state related to priority should be aware
-// that calling SDL_SetThreadPriority may alter such state.
-// SDL_HINT_THREAD_PRIORITY_POLICY can be used to control aspects of this behavior.
+// SDL will make system changes as necessary in order to apply the thread
+// priority. Code which attempts to control thread state related to priority
+// should be aware that calling SDL_SetThreadPriority may alter such state.
+// SDL_HINT_THREAD_PRIORITY_POLICY can be used to control aspects of this
+// behavior.
 //
-// NOTE On many systems you require special privileges to set high or time critical priority.
+// On many systems you require special privileges to set high or time critical
+// priority.
+//
+// NOTE: On many systems you require special privileges to set high or time critical priority.
 //
 // ThreadPriority is C.SDL_ThreadPriority
 pub enum ThreadPriority {
@@ -42,7 +46,7 @@ pub enum ThreadPriority {
 
 // The function passed to SDL_CreateThread().
 //
-// `data` what was passed as `data` to SDL_CreateThread()
+// `data` what was passed as `data` to SDL_CreateThread().
 // returns a value that can be reported through SDL_WaitThread().
 //
 // `typedef int (SDLCALL * SDL_ThreadFunction) (void *data);`
@@ -82,14 +86,14 @@ fn C.SDL_CreateThread(func ThreadFunction, const_name &char, data voidptr) &C.SD
 ```
 */
 //
-// `fn` the SDL_ThreadFunction function to call in the new thread
-// `name` the name of the thread
-// `data` a pointer that is passed to `fn`
+// `fn` the SDL_ThreadFunction function to call in the new thread.
+// `name` the name of the thread.
+// `data` a pointer that is passed to `fn`.
 // returns an opaque pointer to the new thread object on success, NULL if the
 //          new thread could not be created; call SDL_GetError() for more
 //          information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateThreadWithStackSize
 // See also: SDL_WaitThread
@@ -129,15 +133,15 @@ fn C.SDL_CreateThreadWithStackSize(func ThreadFunction, const_name &char, const_
 // function, but for backwards compatibility, this is currently a separate
 // function.
 //
-// `fn` the SDL_ThreadFunction function to call in the new thread
-// `name` the name of the thread
+// `fn` the SDL_ThreadFunction function to call in the new thread.
+// `name` the name of the thread.
 // `stacksize` the size, in bytes, to allocate for the new thread stack.
-// `data` a pointer that is passed to `fn`
+// `data` a pointer that is passed to `fn`.
 // returns an opaque pointer to the new thread object on success, NULL if the
 //          new thread could not be created; call SDL_GetError() for more
 //          information.
 //
-// NOTE This function is available since SDL 2.0.9.
+// NOTE: This function is available since SDL 2.0.9.
 //
 // See also: SDL_WaitThread
 pub fn create_thread_with_stack_size(func ThreadFunction, const_name &char, const_stacksize usize, data voidptr) &Thread {
@@ -156,11 +160,11 @@ fn C.SDL_GetThreadName(pthread &C.SDL_Thread) &char
 // This is internal memory, not to be freed by the caller, and remains valid
 // until the specified thread is cleaned up by SDL_WaitThread().
 //
-// `pthread` the thread to query
+// `pthread` the thread to query.
 // returns a pointer to a UTF-8 string that names the specified thread, or
 //          NULL if it doesn't have a name.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateThread
 pub fn get_thread_name(pthread &Thread) &char {
@@ -180,7 +184,7 @@ fn C.SDL_ThreadID() ThreadID
 //
 // returns the ID of the current thread.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetThreadID
 pub fn thread_id() ThreadID {
@@ -195,11 +199,11 @@ fn C.SDL_GetThreadID(thrd &C.SDL_Thread) ThreadID
 // If SDL is running on a platform that does not support threads the return
 // value will always be zero.
 //
-// `thread` the thread to query
+// `thread` the thread to query.
 // returns the ID of the specified thread, or the ID of the current thread if
 //          `thread` is NULL.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_ThreadID
 pub fn get_thread_id(thrd &Thread) ThreadID {
@@ -214,11 +218,11 @@ fn C.SDL_SetThreadPriority(priority C.SDL_ThreadPriority) int
 // promote the thread to a higher priority) at all, and some require you to be
 // an administrator account. Be prepared for this to fail.
 //
-// `priority` the SDL_ThreadPriority to set
+// `priority` the SDL_ThreadPriority to set.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 pub fn set_thread_priority(priority ThreadPriority) int {
 	return C.SDL_SetThreadPriority(C.SDL_ThreadPriority(priority))
 }
@@ -247,12 +251,12 @@ fn C.SDL_WaitThread(thrd &C.SDL_Thread, status &int)
 // afterward.
 //
 // `thread` the SDL_Thread pointer that was returned from the
-//               SDL_CreateThread() call that started this thread
+//               SDL_CreateThread() call that started this thread.
 // `status` pointer to an integer that will receive the value returned
 //               from the thread function by its 'return', or NULL to not
 //               receive such value back.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateThread
 // See also: SDL_DetachThread
@@ -288,9 +292,9 @@ fn C.SDL_DetachThread(thrd &C.SDL_Thread)
 // It is safe to pass NULL to this function; it is a no-op.
 //
 // `thread` the SDL_Thread pointer that was returned from the
-//               SDL_CreateThread() call that started this thread
+//               SDL_CreateThread() call that started this thread.
 //
-// NOTE This function is available since SDL 2.0.2.
+// NOTE: This function is available since SDL 2.0.2.
 //
 // See also: SDL_CreateThread
 // See also: SDL_WaitThread
@@ -307,7 +311,7 @@ fn C.SDL_TLSCreate() TLSID
 //
 // returns the newly created thread local storage identifier or 0 on error.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_TLSGet
 // See also: SDL_TLSSet
@@ -319,11 +323,11 @@ fn C.SDL_TLSGet(id C.SDL_TLSID) voidptr
 
 // tls_get gets the current thread's value associated with a thread local storage ID.
 //
-// `id` the thread local storage ID
+// `id` the thread local storage ID.
 // returns the value associated with the ID for the current thread or NULL if
 //          no value has been set; call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_TLSCreate
 // See also: SDL_TLSSet
@@ -331,7 +335,10 @@ pub fn tls_get(id TLSID) voidptr {
 	return C.SDL_TLSGet(C.SDL_TLSID(id))
 }
 
-fn C.SDL_TLSSet(id C.SDL_TLSID, const_value voidptr, destructor fn (voidptr)) int
+// typedef void (SDLCALL *SDL_TLSDestructorCallback)(void*);
+pub type TLSDestructorCallback = fn (voidptr)
+
+fn C.SDL_TLSSet(id C.SDL_TLSID, const_value voidptr, destructor TLSDestructorCallback) int
 
 // tls_set sets the current thread's value associated with a thread local storage ID.
 //
@@ -345,18 +352,18 @@ fn C.SDL_TLSSet(id C.SDL_TLSID, const_value voidptr, destructor fn (voidptr)) in
 //
 // where its parameter `value` is what was passed as `value` to SDL_TLSSet().
 //
-// `id` the thread local storage ID
-// `value` the value to associate with the ID for the current thread
+// `id` the thread local storage ID.
+// `value` the value to associate with the ID for the current thread.
 // `destructor` a function called when the thread exits, to free the
-//                   value
+//                   value.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_TLSCreate
 // See also: SDL_TLSGet
-pub fn tls_set(id TLSID, const_value voidptr, destructor fn (voidptr)) int {
+pub fn tls_set(id TLSID, const_value voidptr, destructor TLSDestructorCallback) int {
 	return C.SDL_TLSSet(C.SDL_TLSID(id), const_value, destructor)
 }
 
@@ -364,7 +371,7 @@ fn C.SDL_TLSCleanup()
 
 // tls_cleanup cleanups all TLS data for this thread.
 //
-// NOTE This function is available since SDL 2.0.16.
+// NOTE: This function is available since SDL 2.0.16.
 pub fn tls_cleanup() {
 	C.SDL_TLSCleanup()
 }

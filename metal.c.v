@@ -9,7 +9,7 @@ module sdl
 
 // A handle to a CAMetalLayer-backed NSView (macOS) or UIView (iOS/tvOS).
 //
-// NOTE This can be cast directly to an NSView or UIView.
+// NOTE: This can be cast directly to an NSView or UIView.
 //
 // `typedef void *SDL_MetalView;`
 // C.SDL_MetalView
@@ -27,7 +27,7 @@ fn C.SDL_Metal_CreateView(window &C.SDL_Window) MetalView
 // The returned handle can be casted directly to a NSView or UIView. To access
 // the backing CAMetalLayer, call SDL_Metal_GetLayer().
 //
-// NOTE This function is available since SDL 2.0.12.
+// NOTE: This function is available since SDL 2.0.12.
 //
 // See also: SDL_Metal_DestroyView
 // See also: SDL_Metal_GetLayer
@@ -42,7 +42,7 @@ fn C.SDL_Metal_DestroyView(view C.SDL_MetalView)
 // This should be called before SDL_DestroyWindow, if SDL_Metal_CreateView was
 // called after SDL_CreateWindow.
 //
-// NOTE This function is available since SDL 2.0.12.
+// NOTE: This function is available since SDL 2.0.12.
 //
 // See also: SDL_Metal_CreateView
 pub fn metal_destroy_view(view MetalView) {
@@ -53,7 +53,7 @@ fn C.SDL_Metal_GetLayer(view C.SDL_MetalView) voidptr
 
 // metal_get_layer gets a pointer to the backing CAMetalLayer for the given view.
 //
-// NOTE This function is available since SDL 2.0.14.
+// NOTE: This function is available since SDL 2.0.14.
 //
 // See also: SDL_MetalCreateView
 pub fn metal_get_layer(view MetalView) voidptr {
@@ -65,11 +65,11 @@ fn C.SDL_Metal_GetDrawableSize(window &C.SDL_Window, w &int, h &int)
 // metal_get_drawable_size gets the size of a window's underlying drawable in pixels (for use with
 // setting viewport, scissor & etc).
 //
-// `window` SDL_Window from which the drawable size should be queried
-// `w` Pointer to variable for storing the width in pixels, may be NULL
-// `h` Pointer to variable for storing the height in pixels, may be NULL
+// `window` SDL_Window from which the drawable size should be queried.
+// `w` Pointer to variable for storing the width in pixels, may be NULL.
+// `h` Pointer to variable for storing the height in pixels, may be NULL.
 //
-// NOTE This function is available since SDL 2.0.14.
+// NOTE: This function is available since SDL 2.0.14.
 //
 // See also: SDL_GetWindowSize
 // See also: SDL_CreateWindow

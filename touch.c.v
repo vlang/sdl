@@ -51,7 +51,7 @@ fn C.SDL_GetNumTouchDevices() int
 //
 // returns the number of registered touch devices.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetTouchDevice
 pub fn get_num_touch_devices() int {
@@ -64,11 +64,11 @@ fn C.SDL_GetTouchDevice(index int) TouchID
 
 // get_touch_device gets the touch ID with the given index.
 //
-// `index` the touch device index
+// `index` the touch device index.
 // returns the touch ID with the given index on success or 0 if the index is
 //          invalid; call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetNumTouchDevices
 pub fn get_touch_device(index int) TouchID {
@@ -80,7 +80,7 @@ fn C.SDL_GetTouchName(index int) &char
 // get_touch_name gets the touch device name as reported from the driver or NULL if the index
 // is invalid.
 //
-// NOTE This function is available since SDL 2.0.22.
+// NOTE: This function is available since SDL 2.0.22.
 pub fn get_touch_name(index int) &char {
 	return C.SDL_GetTouchName(index)
 }
@@ -89,7 +89,7 @@ fn C.SDL_GetTouchDeviceType(touch_id TouchID) TouchDeviceType
 
 // get_touch_device_type gets the type of the given touch device.
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 pub fn get_touch_device_type(touch_id TouchID) TouchDeviceType {
 	return unsafe { TouchDeviceType(int(C.SDL_GetTouchDeviceType(touch_id))) }
 }
@@ -98,11 +98,11 @@ fn C.SDL_GetNumTouchFingers(touch_id TouchID) int
 
 // get_num_touch_fingers gets the number of active fingers for a given touch device.
 //
-// `touchID` the ID of a touch device
+// `touchID` the ID of a touch device.
 // returns the number of active fingers for a given touch device on success
 //          or 0 on failure; call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetTouchFinger
 pub fn get_num_touch_fingers(touch_id TouchID) int {
@@ -115,12 +115,12 @@ fn C.SDL_GetTouchFinger(touch_id TouchID, index int) &C.SDL_Finger
 //
 // The returned resource is owned by SDL and should not be deallocated.
 //
-// `touchID` the ID of the requested touch device
-// `index` the index of the requested finger
+// `touchID` the ID of the requested touch device.
+// `index` the index of the requested finger.
 // returns a pointer to the SDL_Finger object or NULL if no object at the
 //          given ID and index could be found.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RecordGesture
 pub fn get_touch_finger(touch_id TouchID, index int) &Finger {

@@ -9,7 +9,7 @@ module sdl
 
 pub const major_version = C.SDL_MAJOR_VERSION // 2
 
-pub const minor_version = C.SDL_MINOR_VERSION // 30
+pub const minor_version = C.SDL_MINOR_VERSION // 32
 
 pub const patchlevel = C.SDL_PATCHLEVEL // 0
 
@@ -41,12 +41,11 @@ fn C.SDL_VERSION(ver &C.SDL_version)
 
 // SDL_VERSION is a macro to determine SDL version program was compiled against.
 //
-// This macro fills in a SDL_version structure with the version of the
-// library you compiled against. This is determined by what header the
-// compiler uses. Note that if you dynamically linked the library, you might
-// have a slightly newer or older version at runtime. That version can be
-// determined with SDL_GetVersion(), which, unlike SDL_VERSION(),
-// is not a macro.
+// This macro fills in a SDL_version structure with the version of the library
+// you compiled against. This is determined by what header the compiler uses.
+// Note that if you dynamically linked the library, you might have a slightly
+// newer or older version at runtime. That version can be determined with
+// SDL_GetVersion(), which, unlike SDL_VERSION(), is not a macro.
 //
 // `x` A pointer to a SDL_version struct to initialize.
 //
@@ -59,23 +58,24 @@ pub fn version(mut ver Version) {
 // This macro turns the version numbers into a numeric value:
 /*
 ```
-    (1,2,3) -> (1203)
+  (1,2,3) -> (1203)
 ```
 */
 //
 // This assumes that there will never be more than 100 patchlevels.
 //
-// In versions higher than 2.9.0, the minor version overflows into
-// the thousands digit: for example, 2.23.0 is encoded as 4300,
-// and 2.255.99 would be encoded as 25799.
+// In versions higher than 2.9.0, the minor version overflows into the
+// thousands digit: for example, 2.23.0 is encoded as 4300, and 2.255.99 would
+// be encoded as 25799.
+//
 // This macro will not be available in SDL 3.x.
 pub fn C.SDL_VERSIONNUM(x int, y int, z int) int
 
 // SDL_COMPILEDVERSION is the version number macro for the current SDL version.
 //
-// In versions higher than 2.9.0, the minor version overflows into
-// the thousands digit: for example, 2.23.0 is encoded as 4300.
-// This macro will not be available in SDL 3.x.
+// In versions higher than 2.9.0, the minor version overflows into the
+// thousands digit: for example, 2.23.0 is encoded as 4300. This macro will
+// not be available in SDL 3.x.
 //
 // Deprecated, use SDL_VERSION_ATLEAST or SDL_VERSION instead.
 pub fn C.SDL_COMPILEDVERSION() int
@@ -106,9 +106,9 @@ printf("But we linked against SDL version %d.%d.%d.\n", linked.major, linked.min
 //
 // This function may be called safely at any time, even before SDL_Init().
 //
-// `ver` the SDL_version structure that contains the version information
+// `ver` the SDL_version structure that contains the version information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_VERSION
 // Seealso: SDL_GetRevision
@@ -140,7 +140,7 @@ fn C.SDL_GetRevision() &char
 // returns an arbitrary string, uniquely identifying the exact revision of
 //          the SDL library in use.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetVersion
 pub fn get_revision() &char {
@@ -165,7 +165,7 @@ fn C.SDL_GetRevisionNumber() int
 //
 // returns zero, always, in modern SDL releases.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also SDL_GetRevision
 @[deprecated: 'Use SDL_GetRevision() instead; if SDL was carefully built, it will return a git hash.']

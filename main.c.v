@@ -21,7 +21,7 @@ fn C.SDL_SetMainReady()
 // will not be changed it is necessary to define SDL_MAIN_HANDLED before
 // including SDL.h.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_Init
 pub fn set_main_ready() {
@@ -38,7 +38,7 @@ pub fn set_main_ready() {
 // returns 0 on success or -1 on failure; call SDL_GetError() to retrieve
 //          more information on the failure.
 //
-// NOTE This function is available since SDL 2.0.3.
+// NOTE: This function is available since SDL 2.0.3.
 // pub fn win_rt_run_app(main_func MainFunc, reserved voidptr) int{
 //	return C.SDL_WinRTRunApp(main_func, reserved)
 //}

@@ -57,7 +57,7 @@ fn C.SDL_GetPreferredLocales() &C.SDL_Locale
 // returns array of locales, terminated with a locale with a NULL language
 //         field. Will return NULL on error.
 //
-// NOTE This function is available since SDL 2.0.14.
+// NOTE: This function is available since SDL 2.0.14.
 pub fn get_preferred_locales() &Locale {
 	return C.SDL_GetPreferredLocales()
 }

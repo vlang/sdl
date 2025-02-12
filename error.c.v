@@ -42,7 +42,7 @@ fn C.SDL_GetError() &char
 //         return values of SDL function calls to determine when to
 //         appropriately call SDL_GetError().
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_ClearError
 // See also: SDL_SetError
@@ -58,11 +58,11 @@ fn C.SDL_GetErrorMsg(errstr &char, maxlen int) &char
 // otherwise operates exactly the same as SDL_GetError().
 //
 // `errstr` A buffer to fill with the last error message that was set for
-//          the current thread
-// `maxlen` The size of the buffer pointed to by the errstr parameter
+//          the current thread.
+// `maxlen` The size of the buffer pointed to by the errstr parameter.
 // returns the pointer passed in as the `errstr` parameter.
 //
-// NOTE This function is available since SDL 2.0.14.
+// NOTE: This function is available since SDL 2.0.14.
 //
 // See also: SDL_GetError
 pub fn get_error_msg(errstr &char, maxlen int) &char {
@@ -73,7 +73,7 @@ fn C.SDL_ClearError()
 
 // clear_error clears any previous error message for this thread.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetError
 // See also: SDL_SetError

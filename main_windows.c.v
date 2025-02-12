@@ -29,7 +29,7 @@ fn C.SDL_RegisterApp(name &char, style u32, h_inst voidptr) int
 //              will use `GetModuleHandle(NULL)` instead.
 // returns 0 on success, -1 on error. SDL_GetError() may have details.
 //
-// NOTE This function is available since SDL 2.0.2.
+// NOTE: This function is available since SDL 2.0.2.
 pub fn register_app(name &char, style u32, h_inst voidptr) int {
 	return C.SDL_RegisterApp(name, style, h_inst)
 }
@@ -48,7 +48,7 @@ fn C.SDL_UnregisterApp()
 // deregistered when the registration counter in SDL_RegisterApp decrements to
 // zero through calls to this function.
 //
-// NOTE This function is available since SDL 2.0.2.
+// NOTE: This function is available since SDL 2.0.2.
 pub fn unregister_app() {
 	C.SDL_UnregisterApp()
 }
@@ -64,7 +64,7 @@ $if gdk ? {
 	// returns 0 on success or -1 on failure; call SDL_GetError() to retrieve
 	//         more information on the failure.
 	//
-	// NOTE This function is available since SDL 2.24.0.
+	// NOTE: This function is available since SDL 2.24.0.
 	gdk_run_app(main_function C.SDL_main_func, reserved voidptr) int {
 		return C.SDL_GDKRunApp(main_function, reserved)
 	}

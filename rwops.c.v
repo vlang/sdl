@@ -31,12 +31,12 @@ fn C.SDL_RWsize(context &C.SDL_RWops) i64
 //
 // Prior to SDL 2.0.10, this function was a macro.
 //
-// `context` the SDL_RWops to get the size of the data stream from
+// `context` the SDL_RWops to get the size of the data stream from.
 // returns the size of the data stream in the SDL_RWops on success, -1 if
 //          unknown or a negative error code on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 pub fn rw_size(context &RWops) i64 {
 	return C.SDL_RWsize(context)
 }
@@ -60,13 +60,13 @@ fn C.SDL_RWseek(context &C.SDL_RWops, offset i64, whence int) i64
 //
 // Prior to SDL 2.0.10, this function was a macro.
 //
-// `context` a pointer to an SDL_RWops structure
+// `context` a pointer to an SDL_RWops structure.
 // `offset` an offset in bytes, relative to **whence** location; can be
-//               negative
-// `whence` any of `RW_SEEK_SET`, `RW_SEEK_CUR`, `RW_SEEK_END`
+//               negative.
+// `whence` any of `RW_SEEK_SET`, `RW_SEEK_CUR`, `RW_SEEK_END`.
 // returns the final offset in the data stream after the seek or -1 on error.
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 //
 // See also: SDL_RWclose
 // See also: SDL_RWFromConstMem
@@ -91,11 +91,11 @@ fn C.SDL_RWtell(context &C.SDL_RWops) i64
 // Prior to SDL 2.0.10, this function was a macro.
 //
 // `context` a SDL_RWops data stream object from which to get the current
-//                offset
+//                offset.
 // returns the current offset in the stream, or -1 if the information can not
 //          be determined.
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 //
 // See also: SDL_RWclose
 // See also: SDL_RWFromConstMem
@@ -123,14 +123,14 @@ fn C.SDL_RWread(context &C.SDL_RWops, ptr voidptr, size usize, maxnum usize) usi
 //
 // Prior to SDL 2.0.10, this function was a macro.
 //
-// `context` a pointer to an SDL_RWops structure
-// `ptr` a pointer to a buffer to read data into
-// `size` the size of each object to read, in bytes
-// `maxnum` the maximum number of objects to be read
+// `context` a pointer to an SDL_RWops structure.
+// `ptr` a pointer to a buffer to read data into.
+// `size` the size of each object to read, in bytes.
+// `maxnum` the maximum number of objects to be read.
 // returns the number of objects read, or 0 at error or end of file; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 //
 // See also: SDL_RWclose
 // See also: SDL_RWFromConstMem
@@ -157,14 +157,14 @@ fn C.SDL_RWwrite(context &C.SDL_RWops, ptr voidptr, size usize, num usize) usize
 //
 // Prior to SDL 2.0.10, this function was a macro.
 //
-// `context` a pointer to an SDL_RWops structure
-// `ptr` a pointer to a buffer containing data to write
-// `size` the size of an object to write, in bytes
-// `num` the number of objects to write
+// `context` a pointer to an SDL_RWops structure.
+// `ptr` a pointer to a buffer containing data to write.
+// `size` the size of an object to write, in bytes.
+// `num` the number of objects to write.
 // returns the number of objects written, which will be less than **num** on
 //          error; call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 //
 // See also: SDL_RWclose
 // See also: SDL_RWFromConstMem
@@ -191,11 +191,11 @@ fn C.SDL_RWclose(context &C.SDL_RWops) int
 //
 // Prior to SDL 2.0.10, this function was a macro.
 //
-// `context` SDL_RWops structure to close
+// `context` SDL_RWops structure to close.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 //
 // See also: SDL_RWFromConstMem
 // See also: SDL_RWFromFile
@@ -330,13 +330,13 @@ fn C.SDL_RWFromFile(const_file &char, const_mode &char) &C.SDL_RWops
 //
 // Closing the SDL_RWops will close the file handle SDL is holding internally.
 //
-// `file` a UTF-8 string representing the filename to open
+// `file` a UTF-8 string representing the filename to open.
 // `mode` an ASCII string representing the mode to be used for opening
 //             the file.
 // returns a pointer to the SDL_RWops structure that is created, or NULL on
 //          failure; call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RWclose
 // See also: SDL_RWFromConstMem
@@ -403,13 +403,13 @@ fn C.SDL_RWFromFP(fp voidptr, autoclose bool) &C.SDL_RWops
 //
 // Closing the SDL_RWops will close the file handle SDL is holding internally.
 //
-// `file` a UTF-8 string representing the filename to open
+// `file` a UTF-8 string representing the filename to open.
 // `mode` an ASCII string representing the mode to be used for opening
 //             the file.
 // returns a pointer to the SDL_RWops structure that is created, or NULL on
 //          failure; call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RWclose
 // See also: SDL_RWFromConstMem
@@ -438,12 +438,12 @@ fn C.SDL_RWFromMem(mem voidptr, size int) &C.SDL_RWops
 // If you need to make sure the RWops never writes to the memory buffer, you
 // should use SDL_RWFromConstMem() with a read-only buffer of memory instead.
 //
-// `mem` a pointer to a buffer to feed an SDL_RWops stream
-// `size` the buffer size, in bytes
+// `mem` a pointer to a buffer to feed an SDL_RWops stream.
+// `size` the buffer size, in bytes.
 // returns a pointer to a new SDL_RWops structure, or NULL if it fails; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RWclose
 // See also: SDL_RWFromConstMem
@@ -475,12 +475,12 @@ fn C.SDL_RWFromConstMem(mem voidptr, size int) &C.SDL_RWops
 // If you need to write to a memory buffer, you should use SDL_RWFromMem()
 // with a writable buffer of memory instead.
 //
-// `mem` a pointer to a read-only buffer to feed an SDL_RWops stream
-// `size` the buffer size, in bytes
+// `mem` a pointer to a read-only buffer to feed an SDL_RWops stream.
+// `size` the buffer size, in bytes.
 // returns a pointer to a new SDL_RWops structure, or NULL if it fails; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RWclose
 // See also: SDL_RWFromConstMem
@@ -514,7 +514,7 @@ fn C.SDL_AllocRW() &C.SDL_RWops
 // returns a pointer to the allocated memory on success, or NULL on failure;
 //          call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_FreeRW
 pub fn alloc_rw() &RWops {
@@ -538,9 +538,9 @@ fn C.SDL_FreeRW(area &C.SDL_RWops)
 // creation of the SDL_RWops is not freed by SDL_FreeRW(); the programmer must
 // be responsible for managing that memory in their **close** method.
 //
-// `area` the SDL_RWops structure to be freed
+// `area` the SDL_RWops structure to be freed.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_AllocRW
 pub fn free_rw(area &RWops) {
@@ -557,12 +557,12 @@ fn C.SDL_LoadFile_RW(src &C.SDL_RWops, datasize &usize, freesrc int) voidptr
 //
 // The data should be freed with SDL_free().
 //
-// `src` the SDL_RWops to read all available data from
-// `datasize` if not NULL, will store the number of bytes read
-// `freesrc` if non-zero, calls SDL_RWclose() on `src` before returning
+// `src` the SDL_RWops to read all available data from.
+// `datasize` if not NULL, will store the number of bytes read.
+// `freesrc` if non-zero, calls SDL_RWclose() on `src` before returning.
 // returns the data, or NULL if there was an error.
 //
-// NOTE This function is available since SDL 2.0.6.
+// NOTE: This function is available since SDL 2.0.6.
 pub fn load_file_rw(src &RWops, datasize &usize, freesrc int) voidptr {
 	return C.SDL_LoadFile_RW(src, datasize, freesrc)
 }
@@ -580,11 +580,11 @@ fn C.SDL_LoadFile(file &char, datasize &usize) voidptr
 // Prior to SDL 2.0.10, this function was a macro wrapping around
 // SDL_LoadFile_RW.
 //
-// `file` the path to read all available data from
-// `datasize` if not NULL, will store the number of bytes read
+// `file` the path to read all available data from.
+// `datasize` if not NULL, will store the number of bytes read.
 // returns the data, or NULL if there was an error.
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 pub fn load_file(file &char, datasize &usize) voidptr {
 	return C.SDL_LoadFile(file, datasize)
 }
@@ -596,11 +596,11 @@ fn C.SDL_ReadU8(src &C.SDL_RWops) u8
 
 // read_u8 reads a byte from an SDL_RWops.
 //
-// `src` the SDL_RWops to read from
+// `src` the SDL_RWops to read from.
 // returns the read byte on success or 0 on failure; call SDL_GetError() for
 //          more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_WriteU8
 pub fn read_u8(src &RWops) u8 {
@@ -615,10 +615,10 @@ fn C.SDL_ReadLE16(src &C.SDL_RWops) u16
 // SDL byteswaps the data only if necessary, so the data returned will be in
 // the native byte order.
 //
-// `src` the stream from which to read data
+// `src` the stream from which to read data.
 // returns 16 bits of data in the native byte order of the platform.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_ReadBE16
 pub fn read_le16(src &RWops) u16 {
@@ -633,10 +633,10 @@ fn C.SDL_ReadBE16(src &C.SDL_RWops) u16
 // SDL byteswaps the data only if necessary, so the data returned will be in
 // the native byte order.
 //
-// `src` the stream from which to read data
+// `src` the stream from which to read data.
 // returns 16 bits of data in the native byte order of the platform.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_ReadLE16
 pub fn read_be16(src &RWops) u16 {
@@ -651,10 +651,10 @@ fn C.SDL_ReadLE32(src &C.SDL_RWops) u32
 // SDL byteswaps the data only if necessary, so the data returned will be in
 // the native byte order.
 //
-// `src` the stream from which to read data
+// `src` the stream from which to read data.
 // returns 32 bits of data in the native byte order of the platform.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_ReadBE32
 pub fn read_le32(src &RWops) u32 {
@@ -669,10 +669,10 @@ fn C.SDL_ReadBE32(src &C.SDL_RWops) u32
 // SDL byteswaps the data only if necessary, so the data returned will be in
 // the native byte order.
 //
-// `src` the stream from which to read data
+// `src` the stream from which to read data.
 // returns 32 bits of data in the native byte order of the platform.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_ReadLE32
 pub fn read_be32(src &RWops) u32 {
@@ -687,10 +687,10 @@ fn C.SDL_ReadLE64(src &C.SDL_RWops) u64
 // SDL byteswaps the data only if necessary, so the data returned will be in
 // the native byte order.
 //
-// `src` the stream from which to read data
+// `src` the stream from which to read data.
 // returns 64 bits of data in the native byte order of the platform.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_ReadBE64
 pub fn read_le64(src &RWops) u64 {
@@ -705,10 +705,10 @@ fn C.SDL_ReadBE64(src &C.SDL_RWops) u64
 // SDL byteswaps the data only if necessary, so the data returned will be in
 // the native byte order.
 //
-// `src` the stream from which to read data
+// `src` the stream from which to read data.
 // returns 64 bits of data in the native byte order of the platform.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_ReadLE64
 pub fn read_be64(src &RWops) u64 {
@@ -722,12 +722,12 @@ fn C.SDL_WriteU8(dst &C.SDL_RWops, value u8) usize
 
 // write_u8 writes a byte to an SDL_RWops.
 //
-// `dst` the SDL_RWops to write to
-// `value` the byte value to write
+// `dst` the SDL_RWops to write to.
+// `value` the byte value to write.
 // returns 1 on success or 0 on failure; call SDL_GetError() for more
 //          information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_ReadU8
 pub fn write_u8(dst &RWops, value u8) usize {
@@ -743,11 +743,11 @@ fn C.SDL_WriteLE16(dst &C.SDL_RWops, value u16) usize
 // specifies native format, and the data written will be in little-endian
 // format.
 //
-// `dst` the stream to which data will be written
-// `value` the data to be written, in native format
+// `dst` the stream to which data will be written.
+// `value` the data to be written, in native format.
 // returns 1 on successful write, 0 on error.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_WriteBE16
 pub fn write_le16(dst &RWops, value u16) usize {
@@ -762,11 +762,11 @@ fn C.SDL_WriteBE16(dst &C.SDL_RWops, value u16) usize
 // SDL byteswaps the data only if necessary, so the application always
 // specifies native format, and the data written will be in big-endian format.
 //
-// `dst` the stream to which data will be written
-// `value` the data to be written, in native format
+// `dst` the stream to which data will be written.
+// `value` the data to be written, in native format.
 // returns 1 on successful write, 0 on error.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_WriteLE16
 pub fn write_be16(dst &RWops, value u16) usize {
@@ -782,11 +782,11 @@ fn C.SDL_WriteLE32(dst &C.SDL_RWops, value u32) usize
 // specifies native format, and the data written will be in little-endian
 // format.
 //
-// `dst` the stream to which data will be written
-// `value` the data to be written, in native format
+// `dst` the stream to which data will be written.
+// `value` the data to be written, in native format.
 // returns 1 on successful write, 0 on error.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_WriteBE32
 pub fn write_le32(dst &RWops, value u32) usize {
@@ -801,11 +801,11 @@ fn C.SDL_WriteBE32(dst &C.SDL_RWops, value u32) usize
 // SDL byteswaps the data only if necessary, so the application always
 // specifies native format, and the data written will be in big-endian format.
 //
-// `dst` the stream to which data will be written
-// `value` the data to be written, in native format
+// `dst` the stream to which data will be written.
+// `value` the data to be written, in native format.
 // returns 1 on successful write, 0 on error.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_WriteLE32
 pub fn write_be32(dst &RWops, value u32) usize {
@@ -821,11 +821,11 @@ fn C.SDL_WriteLE64(dst &C.SDL_RWops, value u64) usize
 // specifies native format, and the data written will be in little-endian
 // format.
 //
-// `dst` the stream to which data will be written
-// `value` the data to be written, in native format
+// `dst` the stream to which data will be written.
+// `value` the data to be written, in native format.
 // returns 1 on successful write, 0 on error.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_WriteBE64
 pub fn write_le64(dst &RWops, value u64) usize {
@@ -840,11 +840,11 @@ fn C.SDL_WriteBE64(dst &C.SDL_RWops, value u64) usize
 // SDL byteswaps the data only if necessary, so the application always
 // specifies native format, and the data written will be in big-endian format.
 //
-// `dst` the stream to which data will be written
-// `value` the data to be written, in native format
+// `dst` the stream to which data will be written.
+// `value` the data to be written, in native format.
 // returns 1 on successful write, 0 on error.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_WriteLE64
 pub fn write_be64(dst &RWops, value u64) usize {

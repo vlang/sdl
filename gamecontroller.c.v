@@ -8,7 +8,7 @@ module sdl
 //
 
 // In order to use these functions, SDL_Init() must have been called
-// with the ::SDL_INIT_GAMECONTROLLER flag.  This causes SDL to scan the system
+// with the SDL_INIT_GAMECONTROLLER flag.  This causes SDL to scan the system
 // for game controllers, and load appropriate drivers.
 //
 // If you would like to receive controller updates while the application
@@ -114,6 +114,10 @@ fn C.SDL_GameControllerAddMappingsFromRW(rw &C.SDL_RWops, freerw int) int
 // If a new mapping is loaded for an already known controller GUID, the later
 // version will overwrite the one currently loaded.
 //
+// If this function is called before SDL_Init, SDL will generate an
+// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged
+// in at the time that SDL_Init is called.
+//
 // Mappings not belonging to the current platform or with no platform field
 // specified will be ignored (i.e. mappings for Linux will be ignored in
 // Windows, etc).
@@ -122,23 +126,25 @@ fn C.SDL_GameControllerAddMappingsFromRW(rw &C.SDL_RWops, freerw int) int
 // processing it, so take this into consideration if you are in a memory
 // constrained environment.
 //
-// `rw` the data stream for the mappings to be added
-// `freerw` non-zero to close the stream after being read
+// `rw` the data stream for the mappings to be added.
+// `freerw` non-zero to close the stream after being read.
 // returns the number of mappings added or -1 on error; call SDL_GetError()
 //          for more information.
 //
-// NOTE This function is available since SDL 2.0.2.
+// NOTE: This function is available since SDL 2.0.2.
 //
 // See also: SDL_GameControllerAddMapping
 // See also: SDL_GameControllerAddMappingsFromFile
 // See also: SDL_GameControllerMappingForGUID
+// See also: SDL_CONTROLLERDEVICEADDED
 pub fn game_controller_add_mappings_from_rw(rw &RWops, freerw int) int {
 	return C.SDL_GameControllerAddMappingsFromRW(rw, freerw)
 }
 
 fn C.SDL_GameControllerAddMappingsFromFile(file &char) int
 
-// game_controller_add_mappings_from_file loads a set of mappings from a file, filtered by the current SDL_GetPlatform()
+// game_controller_add_mappings_from_file loads a set of mappings from a file, filtered by the current
+// SDL_GetPlatform()
 //
 // Convenience macro.
 pub fn game_controller_add_mappings_from_file(file &char) int {
@@ -166,14 +172,19 @@ fn C.SDL_GameControllerAddMapping(mapping_string &char) int
 ```
 */
 //
+// If this function is called before SDL_Init, SDL will generate an
+// SDL_CONTROLLERDEVICEADDED event for matching controllers that are plugged
+// in at the time that SDL_Init is called.
+//
 // `mappingString` the mapping string
 // returns 1 if a new mapping is added, 0 if an existing mapping is updated,
 //          -1 on error; call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GameControllerMapping
 // See also: SDL_GameControllerMappingForGUID
+// See also: SDL_CONTROLLERDEVICEADDED
 pub fn game_controller_add_mapping(mapping_string &char) int {
 	return C.SDL_GameControllerAddMapping(mapping_string)
 }
@@ -184,7 +195,7 @@ fn C.SDL_GameControllerNumMappings() int
 //
 // returns the number of mappings
 //
-// NOTE This function is available since SDL 2.0.6.
+// NOTE: This function is available since SDL 2.0.6.
 pub fn game_controller_num_mappings() int {
 	return C.SDL_GameControllerNumMappings()
 }
@@ -196,7 +207,7 @@ fn C.SDL_GameControllerMappingForIndex(mapping_index int) &char
 // returns the mapping string. Must be freed with SDL_free(). Returns NULL if
 //         the index is out of range.
 //
-// NOTE This function is available since SDL 2.0.6.
+// NOTE: This function is available since SDL 2.0.6.
 pub fn game_controller_mapping_for_index(mapping_index int) &char {
 	return C.SDL_GameControllerMappingForIndex(mapping_index)
 }
@@ -207,11 +218,11 @@ fn C.SDL_GameControllerMappingForGUID(guid C.SDL_JoystickGUID) &char
 //
 // The returned string must be freed with SDL_free().
 //
-// `guid` a structure containing the GUID for which a mapping is desired
+// `guid` a structure containing the GUID for which a mapping is desired.
 // returns a mapping string or NULL on error; call SDL_GetError() for more
 //          information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_JoystickGetDeviceGUID
 // See also: SDL_JoystickGetGUID
@@ -228,11 +239,11 @@ fn C.SDL_GameControllerMapping(gamecontroller &C.SDL_GameController) &char
 // Details about mappings are discussed with SDL_GameControllerAddMapping().
 //
 // `gamecontroller` the game controller you want to get the current
-//                       mapping for
+//                       mapping for.
 // returns a string that has the controller's mapping or NULL if no mapping
 //          is available; call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GameControllerAddMapping
 // See also: SDL_GameControllerMappingForGUID
@@ -248,11 +259,11 @@ fn C.SDL_IsGameController(joystick_index int) bool
 // SDL_JoystickOpen().
 //
 // `joystick_index` the device_index of a device, up to
-//                       SDL_NumJoysticks()
+//                       SDL_NumJoysticks().
 // returns SDL_TRUE if the given joystick is supported by the game controller
 //          interface, SDL_FALSE if it isn't or it's an invalid index.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GameControllerNameForIndex
 // See also: SDL_GameControllerOpen
@@ -270,11 +281,11 @@ fn C.SDL_GameControllerNameForIndex(joystick_index int) &char
 // SDL_JoystickOpen().
 //
 // `joystick_index` the device_index of a device, from zero to
-//                       SDL_NumJoysticks()-1
+//                       SDL_NumJoysticks()-1.
 // returns the implementation-dependent name for the game controller, or NULL
 //          if there is no name or the index is invalid.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GameControllerName
 // See also: SDL_GameControllerOpen
@@ -293,11 +304,11 @@ fn C.SDL_GameControllerPathForIndex(joystick_index int) &char
 // SDL_JoystickOpen().
 //
 // `joystick_index` the device_index of a device, from zero to
-//                       SDL_NumJoysticks()-1
+//                       SDL_NumJoysticks()-1.
 // returns the implementation-dependent path for the game controller, or NULL
 //          if there is no path or the index is invalid.
 //
-// NOTE This function is available since SDL 2.24.0.
+// NOTE: This function is available since SDL 2.24.0.
 //
 // See also: SDL_GameControllerPath
 pub fn game_controller_path_for_index(joystick_index int) &char {
@@ -311,10 +322,10 @@ fn C.SDL_GameControllerTypeForIndex(joystick_index int) GameControllerType
 // This can be called before any controllers are opened.
 //
 // `joystick_index` the device_index of a device, from zero to
-//                       SDL_NumJoysticks()-1
+//                       SDL_NumJoysticks()-1.
 // returns the controller type.
 //
-// NOTE This function is available since SDL 2.0.12.
+// NOTE: This function is available since SDL 2.0.12.
 pub fn game_controller_type_for_index(joystick_index int) GameControllerType {
 	return unsafe { GameControllerType(int(C.SDL_GameControllerTypeForIndex(joystick_index))) }
 }
@@ -326,11 +337,11 @@ fn C.SDL_GameControllerMappingForDeviceIndex(joystick_index int) &char
 // This can be called before any controllers are opened.
 //
 // `joystick_index` the device_index of a device, from zero to
-//                       SDL_NumJoysticks()-1
+//                       SDL_NumJoysticks()-1.
 // returns the mapping string. Must be freed with SDL_free(). Returns NULL if
 //          no mapping is available.
 //
-// NOTE This function is available since SDL 2.0.9.
+// NOTE: This function is available since SDL 2.0.9.
 pub fn game_controller_mapping_for_device_index(joystick_index int) &char {
 	return C.SDL_GameControllerMappingForDeviceIndex(joystick_index)
 }
@@ -348,11 +359,11 @@ fn C.SDL_GameControllerOpen(joystick_index int) &C.SDL_GameController
 // be used there instead.
 //
 // `joystick_index` the device_index of a device, up to
-//                       SDL_NumJoysticks()
+//                       SDL_NumJoysticks().
 // returns a gamecontroller identifier or NULL if an error occurred; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GameControllerClose
 // See also: SDL_GameControllerNameForIndex
@@ -365,11 +376,11 @@ fn C.SDL_GameControllerFromInstanceID(joyid JoystickID) &C.SDL_GameController
 
 // game_controller_from_instance_id gets the SDL_GameController associated with an instance id.
 //
-// `joyid` the instance id to get the SDL_GameController for
+// `joyid` the instance id to get the SDL_GameController for.
 // returns an SDL_GameController on success or NULL on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.4.
+// NOTE: This function is available since SDL 2.0.4.
 pub fn game_controller_from_instance_id(joyid JoystickID) &GameController {
 	return C.SDL_GameControllerFromInstanceID(joyid)
 }
@@ -385,7 +396,7 @@ fn C.SDL_GameControllerFromPlayerIndex(player_index int) &C.SDL_GameController
 //                     instance id!
 // returns the SDL_GameController associated with a player index.
 //
-// NOTE This function is available since SDL 2.0.12.
+// NOTE: This function is available since SDL 2.0.12.
 //
 // See also: SDL_GameControllerGetPlayerIndex
 // See also: SDL_GameControllerSetPlayerIndex
@@ -401,11 +412,11 @@ fn C.SDL_GameControllerName(gamecontroller &GameController) &char
 // it takes a controller identifier instead of the (unstable) device index.
 //
 // `gamecontroller` a game controller identifier previously returned by
-//                       SDL_GameControllerOpen()
+//                       SDL_GameControllerOpen().
 // returns the implementation dependent name for the game controller, or NULL
 //          if there is no name or the identifier passed is invalid.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GameControllerNameForIndex
 // See also: SDL_GameControllerOpen
@@ -421,11 +432,11 @@ fn C.SDL_GameControllerPath(gamecontroller &C.SDL_GameController) &char
 // it takes a controller identifier instead of the (unstable) device index.
 //
 // `gamecontroller` a game controller identifier previously returned by
-//                       SDL_GameControllerOpen()
+//                       SDL_GameControllerOpen().
 // returns the implementation dependent path for the game controller, or NULL
 //          if there is no path or the identifier passed is invalid.
 //
-// NOTE This function is available since SDL 2.24.0.
+// NOTE: This function is available since SDL 2.24.0.
 //
 // See also: SDL_GameControllerPathForIndex
 pub fn game_controller_path(gamecontroller &GameController) &char {
@@ -442,7 +453,7 @@ fn C.SDL_GameControllerGetType(gamecontroller &C.SDL_GameController) GameControl
 // `gamecontroller` the game controller object to query.
 // returns the controller type.
 //
-// NOTE This function is available since SDL 2.0.12.
+// NOTE: This function is available since SDL 2.0.12.
 pub fn game_controller_get_type(gamecontroller &GameController) GameControllerType {
 	return unsafe { GameControllerType(int(C.SDL_GameControllerGetType(gamecontroller))) }
 }
@@ -456,7 +467,7 @@ fn C.SDL_GameControllerGetPlayerIndex(gamecontroller &C.SDL_GameController) int
 // `gamecontroller` the game controller object to query.
 // returns the player index for controller, or -1 if it's not available.
 //
-// NOTE This function is available since SDL 2.0.9.
+// NOTE: This function is available since SDL 2.0.9.
 pub fn game_controller_get_player_index(gamecontroller &GameController) int {
 	return C.SDL_GameControllerGetPlayerIndex(gamecontroller)
 }
@@ -469,7 +480,7 @@ fn C.SDL_GameControllerSetPlayerIndex(gamecontroller &C.SDL_GameController, play
 // `player_index` Player index to assign to this controller, or -1 to
 //                clear the player index and turn off player LEDs.
 //
-// NOTE This function is available since SDL 2.0.12.
+// NOTE: This function is available since SDL 2.0.12.
 pub fn game_controller_set_player_index(gamecontroller &GameController, player_index int) {
 	C.SDL_GameControllerSetPlayerIndex(gamecontroller, player_index)
 }
@@ -483,7 +494,7 @@ fn C.SDL_GameControllerGetVendor(gamecontroller &C.SDL_GameController) u16
 // `gamecontroller` the game controller object to query.
 // returns the USB vendor ID, or zero if unavailable.
 //
-// NOTE This function is available since SDL 2.0.6.
+// NOTE: This function is available since SDL 2.0.6.
 pub fn game_controller_get_vendor(gamecontroller &GameController) u16 {
 	return C.SDL_GameControllerGetVendor(gamecontroller)
 }
@@ -497,7 +508,7 @@ fn C.SDL_GameControllerGetProduct(gamecontroller &C.SDL_GameController) u16
 // `gamecontroller` the game controller object to query.
 // returns the USB product ID, or zero if unavailable.
 //
-// NOTE This function is available since SDL 2.0.6.
+// NOTE: This function is available since SDL 2.0.6.
 pub fn game_controller_get_product(gamecontroller &GameController) u16 {
 	return C.SDL_GameControllerGetProduct(gamecontroller)
 }
@@ -511,7 +522,7 @@ fn C.SDL_GameControllerGetProductVersion(gamecontroller &C.SDL_GameController) u
 // `gamecontroller` the game controller object to query.
 // returns the USB product version, or zero if unavailable.
 //
-// NOTE This function is available since SDL 2.0.6.
+// NOTE: This function is available since SDL 2.0.6.
 pub fn game_controller_get_product_version(gamecontroller &GameController) u16 {
 	return C.SDL_GameControllerGetProductVersion(gamecontroller)
 }
@@ -525,7 +536,7 @@ fn C.SDL_GameControllerGetFirmwareVersion(gamecontroller &C.SDL_GameController) 
 // `gamecontroller` the game controller object to query.
 // returns the controller firmware version, or zero if unavailable.
 //
-// NOTE This function is available since SDL 2.24.0.
+// NOTE: This function is available since SDL 2.24.0.
 pub fn game_controller_get_firmware_version(gamecontroller &GameController) u16 {
 	return C.SDL_GameControllerGetFirmwareVersion(gamecontroller)
 }
@@ -540,7 +551,7 @@ fn C.SDL_GameControllerGetSerial(gamecontroller &C.SDL_GameController) &char
 // `gamecontroller` the game controller object to query.
 // returns the serial number, or NULL if unavailable.
 //
-// NOTE This function is available since SDL 2.0.14.
+// NOTE: This function is available since SDL 2.0.14.
 pub fn game_controller_get_serial(gamecontroller &GameController) &char {
 	return C.SDL_GameControllerGetSerial(gamecontroller)
 }
@@ -549,13 +560,13 @@ fn C.SDL_GameControllerGetSteamHandle(gamecontroller &GameController) u64
 
 // Get the Steam Input handle of an opened controller, if available.
 //
-// Returns an InputHandle_t for the controller that can be used with Steam Input API:
-// https://partner.steamgames.com/doc/api/ISteamInput
+// Returns an InputHandle_t for the controller that can be used with Steam
+// Input API: https://partner.steamgames.com/doc/api/ISteamInput
 //
 // `gamecontroller` the game controller object to query.
 // returns the gamepad handle, or 0 if unavailable.
 //
-// NOTE This function is available since SDL 2.30.0.
+// NOTE: This function is available since SDL 2.30.0.
 pub fn game_controller_get_steam_handle(gamecontroller &GameController) u64 {
 	return C.SDL_GameControllerGetSteamHandle(gamecontroller)
 }
@@ -565,11 +576,11 @@ fn C.SDL_GameControllerGetAttached(gamecontroller &C.SDL_GameController) bool
 // game_controller_get_attached checks if a controller has been opened and is currently connected.
 //
 // `gamecontroller` a game controller identifier previously returned by
-//                       SDL_GameControllerOpen()
+//                       SDL_GameControllerOpen().
 // returns SDL_TRUE if the controller has been opened and is currently
 //          connected, or SDL_FALSE if not.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GameControllerClose
 // See also: SDL_GameControllerOpen
@@ -592,10 +603,10 @@ fn C.SDL_GameControllerGetJoystick(gamecontroller &C.SDL_GameController) &C.SDL_
 // cause SDL to crash.
 //
 // `gamecontroller` the game controller object that you want to get a
-//                       joystick from
+//                       joystick from.
 // returns a SDL_Joystick object; call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 pub fn game_controller_get_joystick(gamecontroller &GameController) &Joystick {
 	return C.SDL_GameControllerGetJoystick(gamecontroller)
 }
@@ -611,11 +622,11 @@ fn C.SDL_GameControllerEventState(state int) int
 // Any number can be passed to SDL_GameControllerEventState(), but only -1, 0,
 // and 1 will have any effect. Other numbers will just be returned.
 //
-// `state` can be one of `SDL_QUERY`, `SDL_IGNORE`, or `SDL_ENABLE`
+// `state` can be one of `SDL_QUERY`, `SDL_IGNORE`, or `SDL_ENABLE`.
 // returns the same value passed to the function, with exception to -1
 //          (SDL_QUERY), which will return the current state.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_JoystickEventState
 pub fn game_controller_event_state(state int) int {
@@ -630,20 +641,22 @@ fn C.SDL_GameControllerUpdate()
 // enabled. Under such circumstances, it will not be necessary to call this
 // function.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 pub fn game_controller_update() {
 	C.SDL_GameControllerUpdate()
 }
 
 // GameControllerAxis is the list of axes available from a controller
 //
-// Thumbstick axis values range from SDL_JOYSTICK_AXIS_MIN to SDL_JOYSTICK_AXIS_MAX,
-// and are centered within ~8000 of zero, though advanced UI will allow users to set
-// or autodetect the dead zone, which varies between controllers.
+// Thumbstick axis values range from SDL_JOYSTICK_AXIS_MIN to
+// SDL_JOYSTICK_AXIS_MAX, and are centered within ~8000 of zero, though
+// advanced UI will allow users to set or autodetect the dead zone, which
+// varies between controllers.
 //
-// Trigger axis values range from 0 (released) to SDL_JOYSTICK_AXIS_MAX
-// (fully pressed) when reported by SDL_GameControllerGetAxis(). Note that this is not the
-// same range that will be reported by the lower-level SDL_GetJoystickAxis().
+// Trigger axis values range from 0 (released) to SDL_JOYSTICK_AXIS_MAX (fully
+// pressed) when reported by SDL_GameControllerGetAxis(). Note that this is
+// not the same range that will be reported by the lower-level
+// SDL_GetJoystickAxis().
 //
 // GameControllerAxis is C.SDL_GameControllerAxis
 pub enum GameControllerAxis {
@@ -670,11 +683,11 @@ fn C.SDL_GameControllerGetAxisFromString(const_str &char) GameControllerAxis
 // `SDL_CONTROLLER_AXIS_TRIGGERRIGHT` and `SDL_CONTROLLER_AXIS_TRIGGERLEFT`,
 // respectively.
 //
-// `str` string representing a SDL_GameController axis
+// `str` string representing a SDL_GameController axis.
 // returns the SDL_GameControllerAxis enum corresponding to the input string,
 //          or `SDL_CONTROLLER_AXIS_INVALID` if no match was found.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GameControllerGetStringForAxis
 pub fn game_controller_get_axis_from_string(const_str &char) GameControllerAxis {
@@ -687,12 +700,12 @@ fn C.SDL_GameControllerGetStringForAxis(axis C.SDL_GameControllerAxis) &char
 //
 // The caller should not SDL_free() the returned string.
 //
-// `axis` an enum value for a given SDL_GameControllerAxis
+// `axis` an enum value for a given SDL_GameControllerAxis.
 // returns a string for the given axis, or NULL if an invalid axis is
 //          specified. The string returned is of the format used by
 //          SDL_GameController mapping strings.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GameControllerGetAxisFromString
 pub fn game_controller_get_string_for_axis(axis GameControllerAxis) &char {
@@ -703,13 +716,13 @@ fn C.SDL_GameControllerGetBindForAxis(gamecontroller &C.SDL_GameController, axis
 
 // game_controller_get_bind_for_axis gets the SDL joystick layer binding for a controller axis mapping.
 //
-// `gamecontroller` a game controller
-// `axis` an axis enum value (one of the SDL_GameControllerAxis values)
+// `gamecontroller` a game controller.
+// `axis` an axis enum value (one of the SDL_GameControllerAxis values).
 // returns a SDL_GameControllerButtonBind describing the bind. On failure
 //          (like the given Controller axis doesn't exist on the device), its
 //          `.bindType` will be `SDL_CONTROLLER_BINDTYPE_NONE`.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GameControllerGetBindForButton
 pub fn game_controller_get_bind_for_axis(gamecontroller &GameController, axis GameControllerAxis) GameControllerButtonBind {
@@ -723,11 +736,11 @@ fn C.SDL_GameControllerHasAxis(gamecontroller &C.SDL_GameController, axis C.SDL_
 // This merely reports whether the controller's mapping defined this axis, as
 // that is all the information SDL has about the physical device.
 //
-// `gamecontroller` a game controller
-// `axis` an axis enum value (an SDL_GameControllerAxis value)
+// `gamecontroller` a game controller.
+// `axis` an axis enum value (an SDL_GameControllerAxis value).
 // returns SDL_TRUE if the controller has this axis, SDL_FALSE otherwise.
 //
-// NOTE This function is available since SDL 2.0.14.
+// NOTE: This function is available since SDL 2.0.14.
 pub fn game_controller_has_axis(gamecontroller &GameController, axis GameControllerAxis) bool {
 	return C.SDL_GameControllerHasAxis(gamecontroller, C.SDL_GameControllerAxis(axis))
 }
@@ -738,20 +751,19 @@ fn C.SDL_GameControllerGetAxis(gamecontroller &C.SDL_GameController, axis C.SDL_
 //
 // The axis indices start at index 0.
 //
-// For thumbsticks, the state is a value ranging from -32768 (up/left)
-// to 32767 (down/right).
+// For thumbsticks, the state is a value ranging from -32768 (up/left) to
+// 32767 (down/right).
 //
-// Triggers range from 0 when released to 32767 when fully pressed, and
-// never return a negative value. Note that this differs from the value
-// reported by the lower-level SDL_GetJoystickAxis(), which normally uses
-// the full range.
+// Triggers range from 0 when released to 32767 when fully pressed, and never
+// return a negative value. Note that this differs from the value reported by
+// the lower-level SDL_JoystickGetAxis(), which normally uses the full range.
 //
-// `gamecontroller` a game controller
-// `axis` an axis index (one of the SDL_GameControllerAxis values)
+// `gamecontroller` a game controller.
+// `axis` an axis index (one of the SDL_GameControllerAxis values).
 // returns axis state (including 0) on success or 0 (also) on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GameControllerGetButton
 pub fn game_controller_get_axis(gamecontroller &GameController, axis GameControllerAxis) i16 {
@@ -795,11 +807,11 @@ fn C.SDL_GameControllerGetButtonFromString(const_str &char) GameControllerButton
 // SDL_GameController mapping. You do not normally need to call this function
 // unless you are parsing SDL_GameController mappings in your own code.
 //
-// `str` string representing a SDL_GameController axis
+// `str` string representing a SDL_GameController axis.
 // returns the SDL_GameControllerButton enum corresponding to the input
 //          string, or `SDL_CONTROLLER_AXIS_INVALID` if no match was found.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 pub fn game_controller_get_button_from_string(const_str &char) GameControllerButton {
 	return GameControllerButton(C.SDL_GameControllerGetButtonFromString(const_str))
 }
@@ -810,12 +822,12 @@ fn C.SDL_GameControllerGetStringForButton(button C.SDL_GameControllerButton) &ch
 //
 // The caller should not SDL_free() the returned string.
 //
-// `button` an enum value for a given SDL_GameControllerButton
+// `button` an enum value for a given SDL_GameControllerButton.
 // returns a string for the given button, or NULL if an invalid button is
 //          specified. The string returned is of the format used by
 //          SDL_GameController mapping strings.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GameControllerGetButtonFromString
 pub fn game_controller_get_string_for_button(button GameControllerButton) &char {
@@ -826,13 +838,13 @@ fn C.SDL_GameControllerGetBindForButton(gamecontroller &C.SDL_GameController, bu
 
 // game_controller_get_bind_for_button gets the SDL joystick layer binding for a controller button mapping.
 //
-// `gamecontroller` a game controller
-// `button` an button enum value (an SDL_GameControllerButton value)
+// `gamecontroller` a game controller.
+// `button` an button enum value (an SDL_GameControllerButton value).
 // returns a SDL_GameControllerButtonBind describing the bind. On failure
 //          (like the given Controller button doesn't exist on the device),
 //          its `.bindType` will be `SDL_CONTROLLER_BINDTYPE_NONE`.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GameControllerGetBindForAxis
 pub fn game_controller_get_bind_for_button(gamecontroller &GameController, button GameControllerButton) GameControllerButtonBind {
@@ -846,11 +858,11 @@ fn C.SDL_GameControllerHasButton(gamecontroller &C.SDL_GameController, button C.
 // This merely reports whether the controller's mapping defined this button,
 // as that is all the information SDL has about the physical device.
 //
-// `gamecontroller` a game controller
-// `button` a button enum value (an SDL_GameControllerButton value)
+// `gamecontroller` a game controller.
+// `button` a button enum value (an SDL_GameControllerButton value).
 // returns SDL_TRUE if the controller has this button, SDL_FALSE otherwise.
 //
-// NOTE This function is available since SDL 2.0.14.
+// NOTE: This function is available since SDL 2.0.14.
 pub fn game_controller_has_button(gamecontroller &GameController, button GameControllerButton) bool {
 	return C.SDL_GameControllerHasButton(gamecontroller, C.SDL_GameControllerButton(button))
 }
@@ -859,12 +871,12 @@ fn C.SDL_GameControllerGetButton(gamecontroller &C.SDL_GameController, button C.
 
 // game_controller_get_button gets the current state of a button on a game controller.
 //
-// `gamecontroller` a game controller
-// `button` a button index (one of the SDL_GameControllerButton values)
+// `gamecontroller` a game controller.
+// `button` a button index (one of the SDL_GameControllerButton values).
 // returns 1 for pressed state or 0 for not pressed state or error; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GameControllerGetAxis
 pub fn game_controller_get_button(gamecontroller &GameController, button GameControllerButton) u8 {
@@ -875,7 +887,7 @@ fn C.SDL_GameControllerGetNumTouchpads(gamecontroller &C.SDL_GameController) int
 
 // game_controller_get_num_touchpads gets the number of touchpads on a game controller.
 //
-// NOTE This function is available since SDL 2.0.14.
+// NOTE: This function is available since SDL 2.0.14.
 pub fn game_controller_get_num_touchpads(gamecontroller &GameController) int {
 	return C.SDL_GameControllerGetNumTouchpads(gamecontroller)
 }
@@ -885,7 +897,7 @@ fn C.SDL_GameControllerGetNumTouchpadFingers(gamecontroller &C.SDL_GameControlle
 // game_controller_get_num_touchpad_fingers gets the number of supported simultaneous fingers on a touchpad on a game
 // controller.
 //
-// NOTE This function is available since SDL 2.0.14.
+// NOTE: This function is available since SDL 2.0.14.
 pub fn game_controller_get_num_touchpad_fingers(gamecontroller &GameController, touchpad int) int {
 	return C.SDL_GameControllerGetNumTouchpadFingers(gamecontroller, touchpad)
 }
@@ -894,7 +906,7 @@ fn C.SDL_GameControllerGetTouchpadFinger(gamecontroller &GameController, touchpa
 
 // game_controller_get_touchpad_finger gets the current state of a finger on a touchpad on a game controller.
 //
-// NOTE This function is available since SDL 2.0.14.
+// NOTE: This function is available since SDL 2.0.14.
 pub fn game_controller_get_touchpad_finger(gamecontroller &GameController, touchpad int, finger int, state &u8, x &f32, y &f32, pressure &f32) int {
 	return C.SDL_GameControllerGetTouchpadFinger(gamecontroller, touchpad, finger, state,
 		x, y, pressure)
@@ -904,11 +916,11 @@ fn C.SDL_GameControllerHasSensor(gamecontroller &C.SDL_GameController, @type C.S
 
 // game_controller_has_sensor returns whether a game controller has a particular sensor.
 //
-// `gamecontroller` The controller to query
-// `type` The type of sensor to query
+// `gamecontroller` The controller to query.
+// `type` The type of sensor to query.
 // returns SDL_TRUE if the sensor exists, SDL_FALSE otherwise.
 //
-// NOTE This function is available since SDL 2.0.14.
+// NOTE: This function is available since SDL 2.0.14.
 pub fn game_controller_has_sensor(gamecontroller &GameController, @type SensorType) bool {
 	return C.SDL_GameControllerHasSensor(gamecontroller, C.SDL_SensorType(@type))
 }
@@ -917,12 +929,12 @@ fn C.SDL_GameControllerSetSensorEnabled(gamecontroller &C.SDL_GameController, @t
 
 // game_controller_set_sensor_enabled sets whether data reporting for a game controller sensor is enabled.
 //
-// `gamecontroller` The controller to update
-// `type` The type of sensor to enable/disable
+// `gamecontroller` The controller to update.
+// `type` The type of sensor to enable/disable.
 // `enabled` Whether data reporting should be enabled
 // returns 0 or -1 if an error occurred.
 //
-// NOTE This function is available since SDL 2.0.14.
+// NOTE: This function is available since SDL 2.0.14.
 pub fn game_controller_set_sensor_enabled(gamecontroller &GameController, @type SensorType, enabled bool) int {
 	return C.SDL_GameControllerSetSensorEnabled(gamecontroller, C.SDL_SensorType(@type),
 		enabled)
@@ -932,8 +944,8 @@ fn C.SDL_GameControllerIsSensorEnabled(gamecontroller &C.SDL_GameController, @ty
 
 // game_controller_is_sensor_enabled query whether sensor data reporting is enabled for a game controller.
 //
-// `gamecontroller` The controller to query
-// `type` The type of sensor to query
+// `gamecontroller` The controller to query.
+// `type` The type of sensor to query.
 // returns SDL_TRUE if the sensor is enabled, SDL_FALSE otherwise.
 pub fn game_controller_is_sensor_enabled(gamecontroller &GameController, @type SensorType) bool {
 	return C.SDL_GameControllerIsSensorEnabled(gamecontroller, C.SDL_SensorType(@type))
@@ -944,11 +956,11 @@ fn C.SDL_GameControllerGetSensorDataRate(gamecontroller &C.SDL_GameController, @
 // game_controller_get_sensor_data_rate gets the data rate (number of events per second) of a game controller
 // sensor.
 //
-// `gamecontroller` The controller to query
-// `type` The type of sensor to query
+// `gamecontroller` The controller to query.
+// `type` The type of sensor to query.
 // returns the data rate, or 0.0f if the data rate is not available.
 //
-// NOTE This function is available since SDL 2.0.16.
+// NOTE: This function is available since SDL 2.0.16.
 pub fn game_controller_get_sensor_data_rate(gamecontroller &GameController, @type SensorType) f32 {
 	return C.SDL_GameControllerGetSensorDataRate(gamecontroller, C.SDL_SensorType(@type))
 }
@@ -960,13 +972,13 @@ fn C.SDL_GameControllerGetSensorData(gamecontroller &C.SDL_GameController, @type
 // The number of values and interpretation of the data is sensor dependent.
 // See SDL_sensor.h for the details for each type of sensor.
 //
-// `gamecontroller` The controller to query
-// `type` The type of sensor to query
+// `gamecontroller` The controller to query.
+// `type` The type of sensor to query.
 // `data` A pointer filled with the current sensor state
-// `num_values` The number of values to write to data
+// `num_values` The number of values to write to data.
 // returns 0 or -1 if an error occurred.
 //
-// NOTE This function is available since SDL 2.0.14.
+// NOTE: This function is available since SDL 2.0.14.
 pub fn game_controller_get_sensor_data(gamecontroller &GameController, @type SensorType, data &f32, num_values int) int {
 	return C.SDL_GameControllerGetSensorData(gamecontroller, C.SDL_SensorType(@type),
 		data, num_values)
@@ -980,15 +992,15 @@ fn C.SDL_GameControllerGetSensorDataWithTimestamp(gamecontroller &C.SDL_GameCont
 // The number of values and interpretation of the data is sensor dependent.
 // See SDL_sensor.h for the details for each type of sensor.
 //
-// `gamecontroller` The controller to query
-// `type` The type of sensor to query
-// `timestamp` A pointer filled with the timestamp in microseconds of the
+// `gamecontroller` The controller to query.
+// `type` The type of sensor to query.
+// `timestamp` A pointer filled with the timestamp in microseconds of the.
 //                  current sensor reading if available, or 0 if not
-// `data` A pointer filled with the current sensor state
-// `num_values` The number of values to write to data
+// `data` A pointer filled with the current sensor state.
+// `num_values` The number of values to write to data.
 // returns 0 or -1 if an error occurred.
 //
-// NOTE This function is available since SDL 2.26.0.
+// NOTE: This function is available since SDL 2.26.0.
 pub fn game_controller_get_sensor_data_with_timestamp(gamecontroller &GameController, @type SensorType, timestamp &u64, data &f32, num_values int) int {
 	return C.SDL_GameControllerGetSensorDataWithTimestamp(gamecontroller, C.SDL_SensorType(@type),
 		timestamp, data, num_values)
@@ -1001,15 +1013,15 @@ fn C.SDL_GameControllerRumble(gamecontroller &C.SDL_GameController, low_frequenc
 // Each call to this function cancels any previous rumble effect, and calling
 // it with 0 intensity stops any rumbling.
 //
-// `gamecontroller` The controller to vibrate
+// `gamecontroller` The controller to vibrate.
 // `low_frequency_rumble` The intensity of the low frequency (left)
-//                             rumble motor, from 0 to 0xFFFF
+//                             rumble motor, from 0 to 0xFFFF.
 // `high_frequency_rumble` The intensity of the high frequency (right)
-//                              rumble motor, from 0 to 0xFFFF
-// `duration_ms` The duration of the rumble effect, in milliseconds
+//                              rumble motor, from 0 to 0xFFFF.
+// `duration_ms` The duration of the rumble effect, in milliseconds.
 // returns 0, or -1 if rumble isn't supported on this controller
 //
-// NOTE This function is available since SDL 2.0.9.
+// NOTE: This function is available since SDL 2.0.9.
 //
 // See also: SDL_GameControllerHasRumble
 pub fn game_controller_rumble(gamecontroller &GameController, low_frequency_rumble u16, high_frequency_rumble u16, duration_ms u32) int {
@@ -1029,15 +1041,15 @@ fn C.SDL_GameControllerRumbleTriggers(gamecontroller &C.SDL_GameController, left
 // want the (more common) whole-controller rumble, use
 // SDL_GameControllerRumble() instead.
 //
-// `gamecontroller` The controller to vibrate
+// `gamecontroller` The controller to vibrate.
 // `left_rumble` The intensity of the left trigger rumble motor, from 0
-//                    to 0xFFFF
+//                    to 0xFFFF.
 // `right_rumble` The intensity of the right trigger rumble motor, from 0
-//                     to 0xFFFF
-// `duration_ms` The duration of the rumble effect, in milliseconds
+//                     to 0xFFFF.
+// `duration_ms` The duration of the rumble effect, in milliseconds.
 // returns 0, or -1 if trigger rumble isn't supported on this controller
 //
-// NOTE This function is available since SDL 2.0.14.
+// NOTE: This function is available since SDL 2.0.14.
 //
 // See also: SDL_GameControllerHasRumbleTriggers
 pub fn game_controller_rumble_triggers(gamecontroller &GameController, left_rumble u16, right_rumble u16, duration_ms u32) int {
@@ -1049,11 +1061,11 @@ fn C.SDL_GameControllerHasLED(gamecontroller &C.SDL_GameController) bool
 
 // game_controller_has_led queries whether a game controller has an LED.
 //
-// `gamecontroller` The controller to query
+// `gamecontroller` The controller to query.
 // returns SDL_TRUE, or SDL_FALSE if this controller does not have a
 //          modifiable LED
 //
-// NOTE This function is available since SDL 2.0.14.
+// NOTE: This function is available since SDL 2.0.14.
 pub fn game_controller_has_led(gamecontroller &GameController) bool {
 	return C.SDL_GameControllerHasLED(gamecontroller)
 }
@@ -1062,11 +1074,11 @@ fn C.SDL_GameControllerHasRumble(gamecontroller &C.SDL_GameController) bool
 
 // game_controller_has_rumble querys whether a game controller has rumble support.
 //
-// `gamecontroller` The controller to query
+// `gamecontroller` The controller to query.
 // returns SDL_TRUE, or SDL_FALSE if this controller does not have rumble
 //          support
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 //
 // See also: SDL_GameControllerRumble
 pub fn game_controller_has_rumble(gamecontroller &C.SDL_GameController) bool {
@@ -1077,11 +1089,11 @@ fn C.SDL_GameControllerHasRumbleTriggers(gamecontroller &C.SDL_GameController) b
 
 // game_controller_has_rumble_triggers querys whether a game controller has rumble support on triggers.
 //
-// `gamecontroller` The controller to query
+// `gamecontroller` The controller to query.
 // returns SDL_TRUE, or SDL_FALSE if this controller does not have trigger
 //          rumble support
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 //
 // See also: SDL_GameControllerRumbleTriggers
 pub fn game_controller_has_rumble_triggers(gamecontroller &C.SDL_GameController) bool {
@@ -1092,13 +1104,13 @@ fn C.SDL_GameControllerSetLED(gamecontroller &C.SDL_GameController, red u8, gree
 
 // game_controller_set_led updates a game controller's LED color.
 //
-// `gamecontroller` The controller to update
-// `red` The intensity of the red LED
-// `green` The intensity of the green LED
-// `blue` The intensity of the blue LED
-// returns 0, or -1 if this controller does not have a modifiable LED
+// `gamecontroller` The controller to update.
+// `red` The intensity of the red LED.
+// `green` The intensity of the green LED.
+// `blue` The intensity of the blue LED.
+// returns 0, or -1 if this controller does not have a modifiable LED.
 //
-// NOTE This function is available since SDL 2.0.14.
+// NOTE: This function is available since SDL 2.0.14.
 pub fn game_controller_set_led(gamecontroller &GameController, red u8, green u8, blue u8) int {
 	return C.SDL_GameControllerSetLED(gamecontroller, red, green, blue)
 }
@@ -1107,13 +1119,13 @@ fn C.SDL_GameControllerSendEffect(gamecontroller &C.SDL_GameController, const_da
 
 // game_controller_send_effect sends a controller specific effect packet
 //
-// `gamecontroller` The controller to affect
-// `data` The data to send to the controller
-// `size` The size of the data to send to the controller
+// `gamecontroller` The controller to affect.
+// `data` The data to send to the controller.
+// `size` The size of the data to send to the controller.
 // returns 0, or -1 if this controller or driver doesn't support effect
 //          packets
 //
-// NOTE This function is available since SDL 2.0.16.
+// NOTE: This function is available since SDL 2.0.16.
 pub fn game_controller_send_effect(gamecontroller &GameController, const_data voidptr, size int) int {
 	return C.SDL_GameControllerSendEffect(gamecontroller, const_data, size)
 }
@@ -1123,9 +1135,9 @@ fn C.SDL_GameControllerClose(gamecontroller &C.SDL_GameController)
 // game_controller_close closes a game controller previously opened with SDL_GameControllerOpen().
 //
 // `gamecontroller` a game controller identifier previously returned by
-//                       SDL_GameControllerOpen()
+//                       SDL_GameControllerOpen().
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GameControllerOpen
 pub fn game_controller_close(gamecontroller &GameController) {
@@ -1137,11 +1149,11 @@ fn C.SDL_GameControllerGetAppleSFSymbolsNameForButton(gamecontroller &GameContro
 // game_controller_get_apple_sf_symbols_name_for_button returns the sfSymbolsName for a given button on a game controller on Apple
 // platforms.
 //
-// `gamecontroller` the controller to query
-// `button` a button on the game controller
+// `gamecontroller` the controller to query.
+// `button` a button on the game controller.
 // returns the sfSymbolsName or NULL if the name can't be found
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 //
 // See also: SDL_GameControllerGetAppleSFSymbolsNameForAxis
 pub fn game_controller_get_apple_sf_symbols_name_for_button(gamecontroller &GameController, button GameControllerButton) &char {
@@ -1153,11 +1165,11 @@ fn C.SDL_GameControllerGetAppleSFSymbolsNameForAxis(gamecontroller &GameControll
 // game_controller_get_apple_sf_symbols_name_for_axis returns the sfSymbolsName for a given axis on a game controller on Apple
 // platforms.
 //
-// `gamecontroller` the controller to query
-// `axis` an axis on the game controller
+// `gamecontroller` the controller to query.
+// `axis` an axis on the game controller.
 // returns the sfSymbolsName or NULL if the name can't be found
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 //
 // See also: SDL_GameControllerGetAppleSFSymbolsNameForButton
 pub fn game_controller_get_apple_sf_symbols_name_for_axis(gamecontroller &GameController, axis GameControllerAxis) &char {

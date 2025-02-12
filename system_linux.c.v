@@ -19,7 +19,7 @@ fn C.SDL_LinuxSetThreadPriority(thread_id i64, priority int) int
 // `priority` The new, Unix-specific, priority value.
 // returns 0 on success, or -1 on error.
 //
-// NOTE This function is available since SDL 2.0.9.
+// NOTE: This function is available since SDL 2.0.9.
 pub fn linux_set_thread_priority(thread_id i64, priority int) int {
 	return C.SDL_LinuxSetThreadPriority(thread_id, priority)
 }
@@ -36,7 +36,7 @@ fn C.SDL_LinuxSetThreadPriorityAndPolicy(thread_id i64, sdl_priority int, sched_
 //                    SCHED_OTHER, etc...)
 // returns 0 on success, or -1 on error.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 pub fn linux_set_thread_priority_and_policy(thread_id i64, sdl_priority int, sched_policy int) int {
 	return C.SDL_LinuxSetThreadPriorityAndPolicy(thread_id, sdl_priority, sched_policy)
 }

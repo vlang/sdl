@@ -46,7 +46,7 @@ fn C.SDL_GetBasePath() &char
 //         doesn't implement this functionality, call SDL_GetError() for more
 //         information.
 //
-// NOTE This function is available since SDL 2.0.1.
+// NOTE: This function is available since SDL 2.0.1.
 //
 // See also: SDL_GetPrefPath
 pub fn get_base_path() &char {
@@ -99,13 +99,13 @@ fn C.SDL_GetPrefPath(const_org &char, const_app &char) &char
 // The pointer returned is owned by the caller. Please call SDL_free() on the
 // pointer when done with it.
 //
-// `org` the name of your organization
-// `app` the name of your application
+// `org` the name of your organization.
+// `app` the name of your application.
 // returns a UTF-8 string of the user directory in platform-dependent
 //          notation. NULL if there's a problem (creating directory failed,
 //          etc.).
 //
-// NOTE This function is available since SDL 2.0.1.
+// NOTE: This function is available since SDL 2.0.1.
 //
 // See also: SDL_GetBasePath
 pub fn get_pref_path(const_org &char, const_app &char) &char {

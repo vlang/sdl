@@ -44,7 +44,7 @@ fn C.SDL_IsTablet() bool
 //
 // returns SDL_TRUE if the device is a tablet, SDL_FALSE otherwise.
 //
-// NOTE This function is available since SDL 2.0.9.
+// NOTE: This function is available since SDL 2.0.9.
 pub fn is_tablet() bool {
 	return C.SDL_IsTablet()
 }

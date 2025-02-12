@@ -35,7 +35,7 @@ fn C.SDL_OpenURL(url &char) int
 // returns 0 on success, or -1 on error; call SDL_GetError() for more
 //          information.
 //
-// NOTE This function is available since SDL 2.0.14.
+// NOTE: This function is available since SDL 2.0.14.
 pub fn open_url(url &char) int {
 	return C.SDL_OpenURL(url)
 }

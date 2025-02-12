@@ -37,7 +37,7 @@ fn C.SDL_GetTicks() u32
 // returns an unsigned 32-bit value representing the number of milliseconds
 //          since the SDL library initialized.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_TICKS_PASSED
 pub fn get_ticks() u32 {
@@ -65,7 +65,7 @@ fn C.SDL_GetTicks64() u64
 // returns an unsigned 64-bit value representing the number of milliseconds
 //          since the SDL library initialized.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 pub fn get_ticks64() u64 {
 	return C.SDL_GetTicks64()
 }
@@ -79,8 +79,8 @@ fn C.SDL_TICKS_PASSED(a u32, b u32) bool
 // days, but should _not_ be used with SDL_GetTicks64(), which does not have
 // that problem.
 //
-// For example, with SDL_GetTicks(), if you want to wait 100 ms, you could
-// do this:
+// For example, with SDL_GetTicks(), if you want to wait 100 ms, you could do
+// this:
 //
 /*
 ```c
@@ -91,9 +91,9 @@ fn C.SDL_TICKS_PASSED(a u32, b u32) bool
 ```
 */
 //
-// Note that this does not handle tick differences greater
-// than 2^31 so take care when using the above kind of code
-// with large timeout delays (tens of days).
+// Note that this does not handle tick differences greater than 2^31 so take
+// care when using the above kind of code with large timeout delays (tens of
+// days).
 pub fn ticks_passed(a u32, b u32) bool {
 	return C.SDL_TICKS_PASSED(a, b)
 }
@@ -110,7 +110,7 @@ fn C.SDL_GetPerformanceCounter() u64
 //
 // returns the current counter value.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetPerformanceFrequency
 pub fn get_performance_counter() u64 {
@@ -123,7 +123,7 @@ fn C.SDL_GetPerformanceFrequency() u64
 //
 // returns a platform-specific count per second.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetPerformanceCounter
 pub fn get_performance_frequency() u64 {
@@ -138,9 +138,9 @@ fn C.SDL_Delay(ms u32)
 // waits at least the specified time, but possibly longer due to OS
 // scheduling.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
-// `ms` the number of milliseconds to delay
+// `ms` the number of milliseconds to delay.
 pub fn delay(ms u32) {
 	C.SDL_Delay(ms)
 }
@@ -167,14 +167,14 @@ fn C.SDL_AddTimer(interval u32, callback C.SDL_TimerCallback, param voidptr) Tim
 // time with SDL_GetTicks() or SDL_GetPerformanceCounter() in case your
 // callback needs to adjust for variances.
 //
-// `interval` the timer delay, in milliseconds, passed to `callback`
+// `interval` the timer delay, in milliseconds, passed to `callback`.
 // `callback` the SDL_TimerCallback function to call when the specified
-//                 `interval` elapses
-// `param` a pointer that is passed to `callback`
+//                 `interval` elapses.
+// `param` a pointer that is passed to `callback`.
 // returns a timer ID or 0 if an error occurs; call SDL_GetError() for more
 //          information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RemoveTimer
 pub fn add_timer(interval u32, callback TimerCallback, param voidptr) TimerID {
@@ -185,11 +185,11 @@ fn C.SDL_RemoveTimer(id C.SDL_TimerID) bool
 
 // remove_timer removes a timer created with SDL_AddTimer().
 //
-// `id` the ID of the timer to remove
+// `id` the ID of the timer to remove.
 // returns SDL_TRUE if the timer is removed or SDL_FALSE if the timer wasn't
 //          found.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_AddTimer
 pub fn remove_timer(id TimerID) bool {

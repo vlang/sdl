@@ -11,11 +11,11 @@ fn C.SDL_SetClipboardText(text &char) int
 
 // set_clipboard_text puts UTF-8 text into the clipboard.
 //
-// `text` the text to store in the clipboard
+// `text` the text to store in the clipboard.
 // returns 0 on success or a negative error code on failure; call
 //         SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetClipboardText
 // See also: SDL_HasClipboardText
@@ -35,7 +35,7 @@ fn C.SDL_GetClipboardText() &char
 //         on the returned pointer when done with it (even if there was an
 //         error).
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_HasClipboardText
 // See also: SDL_SetClipboardText
@@ -49,7 +49,7 @@ fn C.SDL_HasClipboardText() bool
 //
 // returns SDL_TRUE if the clipboard has text, or SDL_FALSE if it does not.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetClipboardText
 // See also: SDL_SetClipboardText
@@ -61,11 +61,11 @@ fn C.SDL_SetPrimarySelectionText(const_text &char) int
 
 // set_primary_selection_text puts UTF-8 text into the primary selection.
 //
-// `text` the text to store in the primary selection
+// `text` the text to store in the primary selection.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.26.0.
+// NOTE: This function is available since SDL 2.26.0.
 //
 // See also: SDL_GetPrimarySelectionText
 // See also: SDL_HasPrimarySelectionText
@@ -86,7 +86,7 @@ fn C.SDL_GetPrimarySelectionText() &char
 //          call SDL_free() on the returned pointer when done with it (even if
 //          there was an error).
 //
-// NOTE This function is available since SDL 2.26.0.
+// NOTE: This function is available since SDL 2.26.0.
 //
 // See also: SDL_HasPrimarySelectionText
 // See also: SDL_SetPrimarySelectionText
@@ -102,7 +102,7 @@ fn C.SDL_HasPrimarySelectionText() bool
 // returns SDL_TRUE if the primary selection has text, or SDL_FALSE if it
 //          does not.
 //
-// NOTE This function is available since SDL 2.26.0.
+// NOTE: This function is available since SDL 2.26.0.
 //
 // See also: SDL_GetPrimarySelectionText
 // See also: SDL_SetPrimarySelectionText

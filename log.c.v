@@ -3,6 +3,18 @@
 // that can be found in the LICENSE file.
 module sdl
 
+// Simple log messages with categories and priorities.
+//
+// By default logs are quiet, but if you're debugging SDL you might want:
+//
+// SDL_LogSetAllPriority(SDL_LOG_PRIORITY_WARN);
+//
+// Here's where the messages go on different platforms:
+//
+// - Windows: debug output stream
+// - Android: log output
+// - Others: standard error output (stderr)
+
 // The maximum size of a log message prior to SDL 2.0.24
 //
 // As of 2.0.24 there is no limit to the length of SDL log messages.
@@ -15,10 +27,9 @@ pub type LogOutputFunction = fn (userdata voidptr, category int, priority LogPri
 
 // LogCategory is the predefined log categories
 //
-// By default the application category is enabled at the INFO level,
-// the assert category is enabled at the WARN level, test is enabled
-// at the VERBOSE level and all other categories are enabled at the
-// ERROR level.
+// By default the application category is enabled at the INFO level, the
+// assert category is enabled at the WARN level, test is enabled at the
+// VERBOSE level and all other categories are enabled at the ERROR level.
 //
 // LogCategory is C.SDL_LogCategory
 pub enum LogCategory {
@@ -68,9 +79,9 @@ fn C.SDL_LogSetAllPriority(priority C.SDL_LogPriority)
 
 // log_set_all_priority sets the priority of all log categories.
 //
-// `priority` the SDL_LogPriority to assign
+// `priority` the SDL_LogPriority to assign.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_LogSetPriority
 pub fn log_set_all_priority(priority LogPriority) {
@@ -81,10 +92,10 @@ fn C.SDL_LogSetPriority(category int, priority C.SDL_LogPriority)
 
 // log_set_priority sets the priority of a particular log category.
 //
-// `category` the category to assign a priority to
-// `priority` the SDL_LogPriority to assign
+// `category` the category to assign a priority to.
+// `priority` the SDL_LogPriority to assign.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_LogGetPriority
 // See also: SDL_LogSetAllPriority
@@ -96,10 +107,10 @@ fn C.SDL_LogGetPriority(category int) LogPriority
 
 // log_get_priority gets the priority of a particular log category.
 //
-// `category` the category to query
+// `category` the category to query.
 // returns the SDL_LogPriority for the requested category
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_LogSetPriority
 pub fn log_get_priority(category int) LogPriority {
@@ -112,7 +123,7 @@ fn C.SDL_LogResetPriorities()
 //
 // This is called by SDL_Quit().
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_LogSetAllPriority
 // See also: SDL_LogSetPriority
@@ -134,12 +145,12 @@ fn C.SDL_LogMessageV(category int, priority C.SDL_LogPriority, const_fmt &char, 
 
 // log_message_v logs a message with the specified category and priority.
 //
-// `category` the category of the message
-// `priority` the priority of the message
-// `fmt` a printf() style message format string
-// `ap` a variable argument list
+// `category` the category of the message.
+// `priority` the priority of the message.
+// `fmt` a printf() style message format string.
+// `ap` a variable argument list.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_Log
 // See also: SDL_LogCritical
@@ -158,14 +169,14 @@ fn C.SDL_LogGetOutputFunction(callback &LogOutputFunction, userdata voidptr)
 // log_get_output_function gets the current log output function.
 //
 // `callback` an SDL_LogOutputFunction filled in with the current log
-//                 callback
+//                 callback.
 // `userdata` a pointer filled in with the pointer that is passed to
-//                 `callback`
+//                 `callback`.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_LogSetOutputFunction
-// NOTE `userdata` is `**`
+// NOTE: `userdata` is `**`
 pub fn log_get_output_function(callback &LogOutputFunction, userdata voidptr) {
 	C.SDL_LogGetOutputFunction(callback, userdata)
 }
@@ -174,10 +185,10 @@ fn C.SDL_LogSetOutputFunction(callback LogOutputFunction, userdata voidptr)
 
 // log_set_output_function replaces the default log output function with one of your own.
 //
-// `callback` an SDL_LogOutputFunction to call instead of the default
-// `userdata` a pointer that is passed to `callback`
+// `callback` an SDL_LogOutputFunction to call instead of the default.
+// `userdata` a pointer that is passed to `callback`.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_LogGetOutputFunction
 pub fn log_set_output_function(callback LogOutputFunction, userdata voidptr) {

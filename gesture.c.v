@@ -18,10 +18,10 @@ fn C.SDL_RecordGesture(touch_id C.SDL_TouchID) int
 // If the parameter `touchId` is -1 (i.e., all devices), this function will
 // always return 1, regardless of whether there actually are any devices.
 //
-// `touchId` the touch device id, or -1 for all touch devices
+// `touchId` the touch device id, or -1 for all touch devices.
 // returns 1 on success or 0 if the specified device could not be found.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetTouchDevice
 pub fn record_gesture(touch_id TouchID) int {
@@ -32,11 +32,11 @@ fn C.SDL_SaveAllDollarTemplates(dst &C.SDL_RWops) int
 
 // save_all_dollar_templates saves all currently loaded Dollar Gesture templates.
 //
-// `dst` a SDL_RWops to save to
+// `dst` a SDL_RWops to save to.
 // returns the number of saved templates on success or 0 on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_LoadDollarTemplates
 // See also: SDL_SaveDollarTemplate
@@ -48,12 +48,12 @@ fn C.SDL_SaveDollarTemplate(gesture_id C.SDL_GestureID, dst &C.SDL_RWops) int
 
 // save_dollar_template saves a currently loaded Dollar Gesture template.
 //
-// `gestureId` a gesture id
-// `dst` a SDL_RWops to save to
+// `gestureId` a gesture id.
+// `dst` a SDL_RWops to save to.
 // returns 1 on success or 0 on failure; call SDL_GetError() for more
 //          information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_LoadDollarTemplates
 // See also: SDL_SaveAllDollarTemplates
@@ -65,12 +65,12 @@ fn C.SDL_LoadDollarTemplates(touch_id C.SDL_TouchID, src &C.SDL_RWops) int
 
 // load_dollar_templates loads Dollar Gesture templates from a file.
 //
-// `touchId` a touch id
-// `src` a SDL_RWops to load from
+// `touchId` a touch id.
+// `src` a SDL_RWops to load from.
 // returns the number of loaded templates on success or a negative error code
 //          (or 0) on failure; call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_SaveAllDollarTemplates
 // See also: SDL_SaveDollarTemplate

@@ -7,6 +7,30 @@ module sdl
 // SDL_hidapi.h
 //
 
+// This is an adaptation of the original HIDAPI interface by Alan Ott, and
+// includes source code licensed under the following license:
+//
+/*
+```
+HIDAPI - Multi-Platform library for
+communication with HID devices.
+
+Copyright 2009, Alan Ott, Signal 11 Software.
+All Rights Reserved.
+
+This software may be used by anyone for any reason so
+long as the copyright notice in the source files
+remains intact.
+```
+*/
+// (Note that this license is the same as item three of SDL's zlib license, so
+// it adds no new requirements on the user.)
+//
+// If you would like a version of SDL without this code, you can build SDL
+// with SDL_HIDAPI_DISABLED defined to 1. You might want to do this for
+// example on iOS or tvOS to avoid a dependency on the CoreBluetooth
+// framework.
+
 @[typedef]
 pub struct C.SDL_hid_device {
 }
@@ -24,14 +48,14 @@ pub struct C.SDL_hid_device_info {
 	// Device Product ID
 	product_id u16
 	// Serial Number
-	serial_number &u16 // NOTE wchar_t* in C
+	serial_number &u16 // NOTE: wchar_t* in C
 	// Device Release Number in binary-coded decimal,
 	// also known as Device Version Number
 	release_number u16
 	// Manufacturer String
-	manufacturer_string &u16 // NOTE wchar_t* in C
+	manufacturer_string &u16 // NOTE: wchar_t* in C
 	// Product string
-	product_string &u16 // NOTE wchar_t* in C
+	product_string &u16 // NOTE: wchar_t* in C
 	// Usage Page for this Device/Interface
 	// (Windows/Mac only).
 	usage_page u16
@@ -72,7 +96,7 @@ fn C.SDL_hid_init() int
 //
 // returns 0 on success and -1 on error.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 //
 // See also: SDL_hid_exit
 pub fn hid_init() int {
@@ -88,7 +112,7 @@ fn C.SDL_hid_exit() int
 //
 // returns 0 on success and -1 on error.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 //
 // See also: SDL_hid_init
 pub fn hid_exit() int {
@@ -111,7 +135,7 @@ fn C.SDL_hid_device_change_count() u32
 // returns a change counter that is incremented with each potential device
 //          change, or 0 if device change detection isn't available.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 //
 // See also: SDL_hid_enumerate
 pub fn hid_device_change_count() u32 {
@@ -135,7 +159,7 @@ fn C.SDL_hid_enumerate(vendor_id u16, product_id u16) &C.SDL_hid_device_info
 //          in the case of failure. Free this linked list by calling
 //          SDL_hid_free_enumeration().
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 //
 // See also: SDL_hid_device_change_count
 pub fn hid_enumerate(vendor_id u16, product_id u16) &HidDeviceInfo {
@@ -151,7 +175,7 @@ fn C.SDL_hid_free_enumeration(devs &C.SDL_hid_device_info)
 // `devs` Pointer to a list of struct_device returned from
 //             SDL_hid_enumerate().
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 pub fn hid_free_enumeration(devs &HidDeviceInfo) {
 	C.SDL_hid_free_enumeration(devs)
 }
@@ -171,9 +195,9 @@ fn C.SDL_hid_open(vendor_id u16, product_id u16, const_serial_number &C.wchar_t)
 // returns a pointer to a SDL_hid_device object on success or NULL on
 //          failure.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 //
-// NOTE const_serial_number is &C.wchar_t in C
+// NOTE: const_serial_number is &C.wchar_t in C
 // Use 'V string'.to_wide() to pass a V string as the `const_serial_number` argument
 pub fn hid_open(vendor_id u16, product_id u16, const_serial_number &u16) &HidDevice {
 	return C.SDL_hid_open(vendor_id, product_id, &C.wchar_t(voidptr(const_serial_number)))
@@ -186,11 +210,11 @@ fn C.SDL_hid_open_path(const_path &char, b_exclusive int) &C.SDL_hid_device
 // The path name be determined by calling SDL_hid_enumerate(), or a
 // platform-specific path name can be used (eg: /dev/hidraw0 on Linux).
 //
-// `path` The path name of the device to open
+// `path` The path name of the device to open.
 // returns a pointer to a SDL_hid_device object on success or NULL on
 //          failure.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 pub fn hid_open_path(const_path &char, b_exclusive int) &HidDevice {
 	return C.SDL_hid_open_path(const_path, b_exclusive)
 }
@@ -218,7 +242,7 @@ fn C.SDL_hid_write(dev &C.SDL_hid_device, const_data &u8, length usize) int
 // `length` The length in bytes of the data to send.
 // returns the actual number of bytes written and -1 on error.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 pub fn hid_write(dev &HidDevice, const_data &u8, length usize) int {
 	return C.SDL_hid_write(dev, const_data, length)
 }
@@ -241,7 +265,7 @@ fn C.SDL_hid_read_timeout(dev &C.SDL_hid_device, data &u8, length usize, millise
 //          available to be read within the timeout period, this function
 //          returns 0.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 pub fn hid_read_timeout(dev &HidDevice, data &u8, length usize, milliseconds int) int {
 	return C.SDL_hid_read_timeout(dev, data, length, milliseconds)
 }
@@ -263,7 +287,7 @@ fn C.SDL_hid_read(dev &C.SDL_hid_device, data &u8, length usize) int
 //          available to be read and the handle is in non-blocking mode, this
 //          function returns 0.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 pub fn hid_read(dev &HidDevice, data &u8, length usize) int {
 	return C.SDL_hid_read(dev, data, length)
 }
@@ -283,7 +307,7 @@ fn C.SDL_hid_set_nonblocking(dev &C.SDL_hid_device, nonblock int) int
 //                 nonblocking - 0 to disable nonblocking.
 // returns 0 on success and -1 on error.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 pub fn hid_set_nonblocking(dev &HidDevice, nonblock int) int {
 	return C.SDL_hid_set_nonblocking(dev, nonblock)
 }
@@ -309,7 +333,7 @@ fn C.SDL_hid_send_feature_report(dev &C.SDL_hid_device, const_data &u8, length u
 //               number.
 // returns the actual number of bytes written and -1 on error.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 pub fn hid_send_feature_report(dev &HidDevice, const_data &u8, length usize) int {
 	return C.SDL_hid_send_feature_report(dev, const_data, length)
 }
@@ -333,7 +357,7 @@ fn C.SDL_hid_get_feature_report(dev &C.SDL_hid_device, data &u8, length usize) i
 // returns the number of bytes read plus one for the report ID (which is
 //          still in the first byte), or -1 on error.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 pub fn hid_get_feature_report(dev &HidDevice, data &u8, length usize) int {
 	return C.SDL_hid_get_feature_report(dev, data, length)
 }
@@ -344,7 +368,7 @@ fn C.SDL_hid_close(dev &C.SDL_hid_device)
 //
 // `dev` A device handle returned from SDL_hid_open().
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 pub fn hid_close(dev &HidDevice) {
 	C.SDL_hid_close(dev)
 }
@@ -358,7 +382,7 @@ fn C.SDL_hid_get_manufacturer_string(dev &C.SDL_hid_device, string_ &C.wchar_t, 
 // `maxlen` The length of the buffer in multiples of wchar_t.
 // returns 0 on success and -1 on error.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 pub fn hid_get_manufacturer_string(dev &HidDevice, string_ &u16, maxlen usize) int {
 	return C.SDL_hid_get_manufacturer_string(dev, &C.wchar_t(voidptr(string_)), maxlen)
 }
@@ -372,7 +396,7 @@ fn C.SDL_hid_get_product_string(dev &C.SDL_hid_device, string_ &C.wchar_t, maxle
 // `maxlen` The length of the buffer in multiples of wchar_t.
 // returns 0 on success and -1 on error.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 pub fn hid_get_product_string(dev &HidDevice, string_ &u16, maxlen usize) int {
 	return C.SDL_hid_get_product_string(dev, &C.wchar_t(voidptr(string_)), maxlen)
 }
@@ -386,7 +410,7 @@ fn C.SDL_hid_get_serial_number_string(dev &C.SDL_hid_device, string_ &C.wchar_t,
 // `maxlen` The length of the buffer in multiples of wchar_t.
 // returns 0 on success and -1 on error.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 pub fn hid_get_serial_number_string(dev &HidDevice, string_ &u16, maxlen usize) int {
 	return C.SDL_hid_get_serial_number_string(dev, &C.wchar_t(voidptr(string_)), maxlen)
 }
@@ -401,7 +425,7 @@ fn C.SDL_hid_get_indexed_string(dev &C.SDL_hid_device, string_index int, string_
 // `maxlen` The length of the buffer in multiples of wchar_t.
 // returns 0 on success and -1 on error.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 pub fn hid_get_indexed_string(dev &C.SDL_hid_device, string_index int, string_ &u16, maxlen usize) int {
 	return C.SDL_hid_get_indexed_string(dev, string_index, &C.wchar_t(voidptr(string_)),
 		maxlen)
@@ -411,9 +435,9 @@ fn C.SDL_hid_ble_scan(active bool)
 
 // hid_ble_scan starts or stop a BLE scan on iOS and tvOS to pair Steam Controllers
 //
-// `active` SDL_TRUE to start the scan, SDL_FALSE to stop the scan
+// `active` SDL_TRUE to start the scan, SDL_FALSE to stop the scan.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 pub fn hid_ble_scan(active bool) {
 	C.SDL_hid_ble_scan(active)
 }

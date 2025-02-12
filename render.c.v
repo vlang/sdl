@@ -6,25 +6,27 @@ module sdl
 //
 // SDL_render.h
 //
-// The API supports the following features:
-//     * single pixel points
-//     * single pixel lines
-//     * filled rectangles
-//     * texture images
+
+// This API supports the following features:
+//
+// - single pixel points
+// - single pixel lines
+// - filled rectangles
+// - texture images
 //
 // The primitives may be drawn in opaque, blended, or additive modes.
 //
-// The texture images may be drawn in opaque, blended, or additive modes.
-// They can have an additional color tint or alpha modulation applied to
-// them, and may also be stretched with linear interpolation.
+// The texture images may be drawn in opaque, blended, or additive modes. They
+// can have an additional color tint or alpha modulation applied to them, and
+// may also be stretched with linear interpolation.
 //
-// The API is designed to accelerate simple 2D operations. You may
-// want more functionality such as polygons and particle effects and
-// in that case you should use SDL's OpenGL/Direct3D support or one
-// of the many good 3D engines.
+// This API is designed to accelerate simple 2D operations. You may want more
+// functionality such as polygons and particle effects and in that case you
+// should use SDL's OpenGL/Direct3D support or one of the many good 3D
+// engines.
 //
-// These functions must be called from the main thread.
-// See this bug for details: https://github.com/libsdl-org/SDL/issues/986
+// These functions must be called from the main thread. See this bug for
+// details: https://github.com/libsdl-org/SDL/issues/986
 
 // RendererFlags is C.SDL_RendererFlags
 pub enum RendererFlags {
@@ -38,7 +40,7 @@ pub enum RendererFlags {
 pub struct C.SDL_RendererInfo {
 pub:
 	name                &char   // The name of the renderer
-	flags               u32     // Supported ::SDL_RendererFlags
+	flags               u32     // Supported SDL_RendererFlags
 	num_texture_formats u32     // The number of available texture formats
 	texture_formats     [16]u32 // The available texture formats
 	max_texture_width   int     // The maximum texture width
@@ -112,7 +114,7 @@ fn C.SDL_GetNumRenderDrivers() int
 // returns a number >= 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateRenderer
 // See also: SDL_GetRenderDriverInfo
@@ -124,13 +126,13 @@ fn C.SDL_GetRenderDriverInfo(index int, info &C.SDL_RendererInfo) int
 
 // get_render_driver_info gets info about a specific 2D rendering driver for the current display.
 //
-// `index` the index of the driver to query information about
+// `index` the index of the driver to query information about.
 // `info` an SDL_RendererInfo structure to be filled with information on
-//             the rendering driver
+//             the rendering driver.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateRenderer
 // See also: SDL_GetNumRenderDrivers
@@ -142,16 +144,16 @@ fn C.SDL_CreateWindowAndRenderer(width int, height int, window_flags u32, window
 
 // create_window_and_renderer creates a window and default renderer.
 //
-// `width` the width of the window
-// `height` the height of the window
+// `width` the width of the window.
+// `height` the height of the window.
 // `window_flags` the flags used to create the window (see
-//                     SDL_CreateWindow())
-// `window` a pointer filled with the window, or NULL on error
-// `renderer` a pointer filled with the renderer, or NULL on error
+//                     SDL_CreateWindow()).
+// `window` a pointer filled with the window, or NULL on error.
+// `renderer` a pointer filled with the renderer, or NULL on error.
 // returns 0 on success, or -1 on error; call SDL_GetError() for more
 //          information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateRenderer
 // See also: SDL_CreateWindow
@@ -163,14 +165,14 @@ fn C.SDL_CreateRenderer(window &C.SDL_Window, index int, flags u32) &C.SDL_Rende
 
 // create_renderer creates a 2D rendering context for a window.
 //
-// `window` the window where rendering is displayed
+// `window` the window where rendering is displayed.
 // `index` the index of the rendering driver to initialize, or -1 to
-//              initialize the first one supporting the requested flags
-// `flags` 0, or one or more SDL_RendererFlags OR'd together
+//              initialize the first one supporting the requested flags.
+// `flags` 0, or one or more SDL_RendererFlags OR'd together.
 // returns a valid rendering context or NULL if there was an error; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateSoftwareRenderer
 // See also: SDL_DestroyRenderer
@@ -190,11 +192,11 @@ fn C.SDL_CreateSoftwareRenderer(surface &C.SDL_Surface) &C.SDL_Renderer
 // SDL_Window as the final destination and not an SDL_Surface.
 //
 // `surface` the SDL_Surface structure representing the surface where
-//                rendering is done
+//                rendering is done.
 // returns a valid rendering context or NULL if there was an error; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateRenderer
 // See also: SDL_CreateWindowRenderer
@@ -207,11 +209,11 @@ fn C.SDL_GetRenderer(window &C.SDL_Window) &C.SDL_Renderer
 
 // get_renderer gets the renderer associated with a window.
 //
-// `window` the window to query
+// `window` the window to query.
 // returns the rendering context on success or NULL on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateRenderer
 pub fn get_renderer(window &Window) &Renderer {
@@ -222,11 +224,11 @@ fn C.SDL_RenderGetWindow(renderer &C.SDL_Renderer) &C.SDL_Window
 
 // render_get_window gets the window associated with a renderer.
 //
-// `renderer` the renderer to query
+// `renderer` the renderer to query.
 // returns the window on success or NULL on failure; call SDL_GetError() for
 //          more information.
 //
-// NOTE This function is available since SDL 2.0.22.
+// NOTE: This function is available since SDL 2.0.22.
 pub fn render_get_window(renderer &Renderer) &Window {
 	return C.SDL_RenderGetWindow(renderer)
 }
@@ -235,13 +237,13 @@ fn C.SDL_GetRendererInfo(renderer &C.SDL_Renderer, info &C.SDL_RendererInfo) int
 
 // get_renderer_info gets information about a rendering context.
 //
-// `renderer` the rendering context
+// `renderer` the rendering context.
 // `info` an SDL_RendererInfo structure filled with information about the
-//             current renderer
+//             current renderer.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateRenderer
 pub fn get_renderer_info(renderer &Renderer, info &RendererInfo) int {
@@ -256,13 +258,13 @@ fn C.SDL_GetRendererOutputSize(renderer &C.SDL_Renderer, w &int, h &int) int
 // has more pixels than the window that contains it, so use this instead of
 // SDL_GetWindowSize() to decide how much drawing area you have.
 //
-// `renderer` the rendering context
-// `w` an int filled with the width
-// `h` an int filled with the height
+// `renderer` the rendering context.
+// `w` an int filled with the width.
+// `h` an int filled with the height.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetRenderer
 pub fn get_renderer_output_size(renderer &Renderer, w &int, h &int) int {
@@ -276,16 +278,16 @@ fn C.SDL_CreateTexture(renderer &C.SDL_Renderer, format u32, access int, w int, 
 // You can set the texture scaling method by setting
 // `SDL_HINT_RENDER_SCALE_QUALITY` before creating the texture.
 //
-// `renderer` the rendering context
-// `format` one of the enumerated values in SDL_PixelFormatEnum
-// `access` one of the enumerated values in SDL_TextureAccess
-// `w` the width of the texture in pixels
-// `h` the height of the texture in pixels
+// `renderer` the rendering context.
+// `format` one of the enumerated values in SDL_PixelFormatEnum.
+// `access` one of the enumerated values in SDL_TextureAccess.
+// `w` the width of the texture in pixels.
+// `h` the height of the texture in pixels.
 // returns a pointer to the created texture or NULL if no rendering context
 //          was active, the format was unsupported, or the width or height
 //          were out of range; call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateTextureFromSurface
 // See also: SDL_DestroyTexture
@@ -308,13 +310,13 @@ fn C.SDL_CreateTextureFromSurface(renderer &C.SDL_Renderer, surface &C.SDL_Surfa
 // format of the surface. Use SDL_QueryTexture() to query the pixel format of
 // the texture.
 //
-// `renderer` the rendering context
+// `renderer` the rendering context.
 // `surface` the SDL_Surface structure containing pixel data used to fill
-//                the texture
+//                the texture.
 // returns the created texture or NULL on failure; call SDL_GetError() for
 //          more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateTexture
 // See also: SDL_DestroyTexture
@@ -327,7 +329,7 @@ fn C.SDL_QueryTexture(texture &C.SDL_Texture, format &u32, access &int, w &int, 
 
 // query_texture querys the attributes of a texture.
 //
-// `texture` the texture to query
+// `texture` the texture to query.
 // `format` a pointer filled in with the raw format of the texture; the
 //               actual format may differ, but pixel transfers will use this
 //               format (one of the SDL_PixelFormatEnum values). This argument
@@ -342,7 +344,7 @@ fn C.SDL_QueryTexture(texture &C.SDL_Texture, format &u32, access &int, w &int, 
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateTexture
 pub fn query_texture(texture &Texture, format &u32, access &int, w &int, h &int) int {
@@ -362,14 +364,14 @@ fn C.SDL_SetTextureColorMod(texture &C.SDL_Texture, r u8, g u8, b u8) int
 // Color modulation is not always supported by the renderer; it will return -1
 // if color modulation is not supported.
 //
-// `texture` the texture to update
-// `r` the red color value multiplied into copy operations
-// `g` the green color value multiplied into copy operations
-// `b` the blue color value multiplied into copy operations
+// `texture` the texture to update.
+// `r` the red color value multiplied into copy operations.
+// `g` the green color value multiplied into copy operations.
+// `b` the blue color value multiplied into copy operations.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetTextureColorMod
 // See also: SDL_SetTextureAlphaMod
@@ -381,14 +383,14 @@ fn C.SDL_GetTextureColorMod(texture &C.SDL_Texture, r &u8, g &u8, b &u8) int
 
 // get_texture_color_mod gets the additional color value multiplied into render copy operations.
 //
-// `texture` the texture to query
-// `r` a pointer filled in with the current red color value
-// `g` a pointer filled in with the current green color value
-// `b` a pointer filled in with the current blue color value
+// `texture` the texture to query.
+// `r` a pointer filled in with the current red color value.
+// `g` a pointer filled in with the current green color value.
+// `b` a pointer filled in with the current blue color value.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetTextureAlphaMod
 // See also: SDL_SetTextureColorMod
@@ -408,12 +410,12 @@ fn C.SDL_SetTextureAlphaMod(texture &C.SDL_Texture, alpha u8) int
 // Alpha modulation is not always supported by the renderer; it will return -1
 // if alpha modulation is not supported.
 //
-// `texture` the texture to update
-// `alpha` the source alpha value multiplied into copy operations
+// `texture` the texture to update.
+// `alpha` the source alpha value multiplied into copy operations.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetTextureAlphaMod
 // See also: SDL_SetTextureColorMod
@@ -425,12 +427,12 @@ fn C.SDL_GetTextureAlphaMod(texture &C.SDL_Texture, alpha &u8) int
 
 // get_texture_alpha_mod gets the additional alpha value multiplied into render copy operations.
 //
-// `texture` the texture to query
-// `alpha` a pointer filled in with the current alpha value
+// `texture` the texture to query.
+// `alpha` a pointer filled in with the current alpha value.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetTextureColorMod
 // See also: SDL_SetTextureAlphaMod
@@ -445,12 +447,12 @@ fn C.SDL_SetTextureBlendMode(texture &C.SDL_Texture, blend_mode C.SDL_BlendMode)
 // If the blend mode is not supported, the closest supported mode is chosen
 // and this function returns -1.
 //
-// `texture` the texture to update
-// `blendMode` the SDL_BlendMode to use for texture blending
+// `texture` the texture to update.
+// `blendMode` the SDL_BlendMode to use for texture blending.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetTextureBlendMode
 // See also: SDL_RenderCopy
@@ -462,12 +464,12 @@ fn C.SDL_GetTextureBlendMode(texture &C.SDL_Texture, blend_mode &C.SDL_BlendMode
 
 // get_texture_blend_mode gets the blend mode used for texture copy operations.
 //
-// `texture` the texture to query
-// `blendMode` a pointer filled in with the current SDL_BlendMode
+// `texture` the texture to query.
+// `blendMode` a pointer filled in with the current SDL_BlendMode.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetTextureBlendMode
 pub fn get_texture_blend_mode(texture &Texture, blend_mode &BlendMode) int {
@@ -484,7 +486,7 @@ fn C.SDL_SetTextureScaleMode(texture &C.SDL_Texture, scale_mode C.SDL_ScaleMode)
 // `scaleMode` the SDL_ScaleMode to use for texture scaling.
 // returns 0 on success, or -1 if the texture is not valid.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetTextureScaleMode
 pub fn set_texture_scale_mode(texture &Texture, scale_mode ScaleMode) int {
@@ -499,7 +501,7 @@ fn C.SDL_GetTextureScaleMode(texture &C.SDL_Texture, scale_mode &C.SDL_ScaleMode
 // `scaleMode` a pointer filled in with the current scale mode.
 // returns 0 on success, or -1 if the texture is not valid.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetTextureScaleMode
 pub fn get_texture_scale_mode(texture &Texture, scale_mode &ScaleMode) int {
@@ -514,7 +516,7 @@ fn C.SDL_SetTextureUserData(texture &C.SDL_Texture, userdata voidptr) int
 // `userdata` the pointer to associate with the texture.
 // returns 0 on success, or -1 if the texture is not valid.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 //
 // See also: SDL_GetTextureUserData
 pub fn set_texture_user_data(texture &Texture, userdata voidptr) int {
@@ -529,7 +531,7 @@ fn C.SDL_GetTextureUserData(texture &Texture) voidptr
 // returns the pointer associated with the texture, or NULL if the texture is
 //         not valid.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 //
 // See also: SDL_SetTextureUserData
 pub fn get_texture_user_data(texture &C.SDL_Texture) voidptr {
@@ -551,16 +553,16 @@ fn C.SDL_UpdateTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, const_pix
 // While this function will work with streaming textures, for optimization
 // reasons you may not get the pixels back if you lock the texture afterward.
 //
-// `texture` the texture to update
+// `texture` the texture to update.
 // `rect` an SDL_Rect structure representing the area to update, or NULL
-//             to update the entire texture
-// `pixels` the raw pixel data in the format of the texture
+//             to update the entire texture.
+// `pixels` the raw pixel data in the format of the texture.
 // `pitch` the number of bytes in a row of pixel data, including padding
-//              between lines
+//              between lines.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateTexture
 // See also: SDL_LockTexture
@@ -578,22 +580,22 @@ fn C.SDL_UpdateYUVTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, const_
 // block of Y and U/V planes in the proper order, but this function is
 // available if your pixel data is not contiguous.
 //
-// `texture` the texture to update
+// `texture` the texture to update.
 // `rect` a pointer to the rectangle of pixels to update, or NULL to
-//             update the entire texture
-// `Yplane` the raw pixel data for the Y plane
+//             update the entire texture.
+// `Yplane` the raw pixel data for the Y plane.
 // `Ypitch` the number of bytes between rows of pixel data for the Y
-//               plane
-// `Uplane` the raw pixel data for the U plane
+//               plane.
+// `Uplane` the raw pixel data for the U plane.
 // `Upitch` the number of bytes between rows of pixel data for the U
-//               plane
-// `Vplane` the raw pixel data for the V plane
+//               plane.
+// `Vplane` the raw pixel data for the V plane.
 // `Vpitch` the number of bytes between rows of pixel data for the V
-//               plane
+//               plane.
 // returns 0 on success or -1 if the texture is not valid; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.1.
+// NOTE: This function is available since SDL 2.0.1.
 //
 // See also: SDL_UpdateTexture
 pub fn update_yuv_texture(texture &Texture, const_rect &Rect, const_yplane &u8, ypitch int, const_uplane &u8, upitch int, const_vplane &u8, vpitch int) int {
@@ -609,7 +611,7 @@ fn C.SDL_UpdateNVTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, const_y
 // block of NV12/21 planes in the proper order, but this function is available
 // if your pixel data is not contiguous.
 //
-// `texture` the texture to update
+// `texture` the texture to update.
 // `rect` a pointer to the rectangle of pixels to update, or NULL to
 //             update the entire texture.
 // `Yplane` the raw pixel data for the Y plane.
@@ -620,7 +622,7 @@ fn C.SDL_UpdateNVTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, const_y
 //                plane.
 // returns 0 on success, or -1 if the texture is not valid.
 //
-// NOTE This function is available since SDL 2.0.16.
+// NOTE: This function is available since SDL 2.0.16.
 pub fn update_nv_texture(texture &C.SDL_Texture, const_rect &Rect, const_yplane &u8, ypitch int, const_u_vplane &u8, u_vpitch int) int {
 	return C.SDL_UpdateNVTexture(texture, const_rect, const_yplane, ypitch, const_u_vplane,
 		u_vpitch)
@@ -639,18 +641,18 @@ fn C.SDL_LockTexture(texture &C.SDL_Texture, const_rect &C.SDL_Rect, pixels &voi
 // changes.
 //
 // `texture` the texture to lock for access, which was created with
-//                `SDL_TEXTUREACCESS_STREAMING`
+//                `SDL_TEXTUREACCESS_STREAMING`.
 // `rect` an SDL_Rect structure representing the area to lock for access;
-//             NULL to lock the entire texture
+//             NULL to lock the entire texture.
 // `pixels` this is filled in with a pointer to the locked pixels,
-//               appropriately offset by the locked area
+//               appropriately offset by the locked area.
 // `pitch` this is filled in with the pitch of the locked pixels; the
-//              pitch is the length of one row in bytes
+//              pitch is the length of one row in bytes.
 // returns 0 on success or a negative error code if the texture is not valid
 //          or was not created with `SDL_TEXTUREACCESS_STREAMING`; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_UnlockTexture
 pub fn lock_texture(texture &Texture, const_rect &Rect, pixels &voidptr, pitch &int) int {
@@ -677,15 +679,15 @@ fn C.SDL_LockTextureToSurface(texture &C.SDL_Texture, const_rect &C.SDL_Rect, su
 // or SDL_DestroyTexture(). The caller should not free it.
 //
 // `texture` the texture to lock for access, which was created with
-//                `SDL_TEXTUREACCESS_STREAMING`
+//                `SDL_TEXTUREACCESS_STREAMING`.
 // `rect` a pointer to the rectangle to lock for access. If the rect is
-//             NULL, the entire texture will be locked
+//             NULL, the entire texture will be locked.
 // `surface` this is filled in with an SDL surface representing the
-//                locked area
+//                locked area.
 // returns 0 on success, or -1 if the texture is not valid or was not created
 //          with `SDL_TEXTUREACCESS_STREAMING`
 //
-// NOTE This function is available since SDL 2.0.12.
+// NOTE: This function is available since SDL 2.0.12.
 //
 // See also: SDL_LockTexture
 // See also: SDL_UnlockTexture
@@ -705,9 +707,9 @@ fn C.SDL_UnlockTexture(texture &C.SDL_Texture)
 // Which is to say: locking and immediately unlocking a texture can result in
 // corrupted textures, depending on the renderer in use.
 //
-// `texture` a texture locked by SDL_LockTexture()
+// `texture` a texture locked by SDL_LockTexture().
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_LockTexture
 pub fn unlock_texture(texture &Texture) {
@@ -718,10 +720,10 @@ fn C.SDL_RenderTargetSupported(renderer &C.SDL_Renderer) bool
 
 // render_target_supported determines whether a renderer supports the use of render targets.
 //
-// `renderer` the renderer that will be checked
+// `renderer` the renderer that will be checked.
 // returns SDL_TRUE if supported or SDL_FALSE if not.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetRenderTarget
 pub fn render_target_supported(renderer &Renderer) bool {
@@ -740,14 +742,14 @@ fn C.SDL_SetRenderTarget(renderer &C.SDL_Renderer, texture &C.SDL_Texture) int
 // To stop rendering to a texture and render to the window again, call this
 // function with a NULL `texture`.
 //
-// `renderer` the rendering context
+// `renderer` the rendering context.
 // `texture` the targeted texture, which must be created with the
 //                `SDL_TEXTUREACCESS_TARGET` flag, or NULL to render to the
 //                window instead of a texture.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetRenderTarget
 pub fn set_render_target(renderer &Renderer, texture &Texture) int {
@@ -761,10 +763,10 @@ fn C.SDL_GetRenderTarget(renderer &C.SDL_Renderer) &C.SDL_Texture
 // The default render target is the window for which the renderer was created,
 // and is reported a NULL here.
 //
-// `renderer` the rendering context
+// `renderer` the rendering context.
 // returns the current render target or NULL for the default render target.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetRenderTarget
 pub fn get_render_target(renderer &Renderer) &Texture {
@@ -788,13 +790,13 @@ fn C.SDL_RenderSetLogicalSize(renderer &C.SDL_Renderer, w int, h int) int
 // If this function results in scaling or subpixel drawing by the rendering
 // backend, it will be handled using the appropriate quality hints.
 //
-// `renderer` the renderer for which resolution should be set
-// `w` the width of the logical resolution
-// `h` the height of the logical resolution
+// `renderer` the renderer for which resolution should be set.
+// `w` the width of the logical resolution.
+// `h` the height of the logical resolution.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RenderGetLogicalSize
 pub fn render_set_logical_size(renderer &Renderer, w int, h int) int {
@@ -812,11 +814,11 @@ fn C.SDL_RenderGetLogicalSize(renderer &C.SDL_Renderer, w &int, h &int)
 //
 // When using a target texture: Never return 0 for `w` and `h` at first. Then
 // it returns the logical width and height that are set.//
-// `renderer` a rendering context
-// `w` an int to be filled with the width
-// `h` an int to be filled with the height
+// `renderer` a rendering context.
+// `w` an int to be filled with the width.
+// `h` an int to be filled with the height.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RenderSetLogicalSize
 pub fn render_get_logical_size(renderer &Renderer, w &int, h &int) {
@@ -831,12 +833,12 @@ fn C.SDL_RenderSetIntegerScale(renderer &C.SDL_Renderer, enable bool) int
 // when a resolution is between two multiples of a logical size, the viewport
 // size is rounded down to the lower multiple.
 //
-// `renderer` the renderer for which integer scaling should be set
-// `enable` enable or disable the integer scaling for rendering
+// `renderer` the renderer for which integer scaling should be set.
+// `enable` enable or disable the integer scaling for rendering.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.5.
+// NOTE: This function is available since SDL 2.0.5.
 //
 // See also: SDL_RenderGetIntegerScale
 // See also: SDL_RenderSetLogicalSize
@@ -848,11 +850,11 @@ fn C.SDL_RenderGetIntegerScale(renderer &C.SDL_Renderer) bool
 
 // render_get_integer_scale gets whether integer scales are forced for resolution-independent rendering.
 //
-// `renderer` the renderer from which integer scaling should be queried
+// `renderer` the renderer from which integer scaling should be queried.
 // returns SDL_TRUE if integer scales are forced or SDL_FALSE if not and on
 //          failure; call SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.5.
+// NOTE: This function is available since SDL 2.0.5.
 //
 // See also: SDL_RenderSetIntegerScale
 pub fn render_get_integer_scale(renderer &Renderer) bool {
@@ -866,13 +868,13 @@ fn C.SDL_RenderSetViewport(renderer &C.SDL_Renderer, const_rect &C.SDL_Rect) int
 // When the window is resized, the viewport is reset to fill the entire new
 // window size.
 //
-// `renderer` the rendering context
+// `renderer` the rendering context.
 // `rect` the SDL_Rect structure representing the drawing area, or NULL
-//             to set the viewport to the entire target
+//             to set the viewport to the entire target.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RenderGetViewport
 pub fn render_set_viewport(renderer &Renderer, const_rect &Rect) int {
@@ -883,10 +885,10 @@ fn C.SDL_RenderGetViewport(renderer &C.SDL_Renderer, rect &C.SDL_Rect)
 
 // render_get_viewport gets the drawing area for the current target.
 //
-// `renderer` the rendering context
-// `rect` an SDL_Rect structure filled in with the current drawing area
+// `renderer` the rendering context.
+// `rect` an SDL_Rect structure filled in with the current drawing area.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RenderSetViewport
 pub fn render_get_viewport(renderer &Renderer, rect &Rect) {
@@ -898,13 +900,13 @@ fn C.SDL_RenderSetClipRect(renderer &C.SDL_Renderer, const_rect &C.SDL_Rect) int
 // render_set_clip_rect sets the clip rectangle for rendering on the specified target.
 //
 // `renderer` the rendering context for which clip rectangle should be
-//                 set
+//                 set.
 // `rect` an SDL_Rect structure representing the clip area, relative to
-//             the viewport, or NULL to disable clipping
+//             the viewport, or NULL to disable clipping.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RenderGetClipRect
 // See also: SDL_RenderIsClipEnabled
@@ -917,11 +919,11 @@ fn C.SDL_RenderGetClipRect(renderer &Renderer, rect &C.SDL_Rect)
 // render_get_clip_rect gets the clip rectangle for the current target.
 //
 // `renderer` the rendering context from which clip rectangle should be
-//                 queried
+//                 queried.
 // `rect` an SDL_Rect structure filled in with the current clipping area
-//             or an empty rectangle if clipping is disabled
+//             or an empty rectangle if clipping is disabled.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RenderIsClipEnabled
 // See also: SDL_RenderSetClipRect
@@ -933,11 +935,11 @@ fn C.SDL_RenderIsClipEnabled(renderer &C.SDL_Renderer) bool
 
 // render_is_clip_enabled gets whether clipping is enabled on the given renderer.
 //
-// `renderer` the renderer from which clip state should be queried
+// `renderer` the renderer from which clip state should be queried.
 // returns SDL_TRUE if clipping is enabled or SDL_FALSE if not; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.4.
+// NOTE: This function is available since SDL 2.0.4.
 //
 // See also: SDL_RenderGetClipRect
 // See also: SDL_RenderSetClipRect
@@ -957,13 +959,13 @@ fn C.SDL_RenderSetScale(renderer &C.SDL_Renderer, scale_x f32, scale_y f32) int
 // will be handled using the appropriate quality hints. For best results use
 // integer scaling factors.
 //
-// `renderer` a rendering context
-// `scaleX` the horizontal scaling factor
-// `scaleY` the vertical scaling factor
+// `renderer` a rendering context.
+// `scaleX` the horizontal scaling factor.
+// `scaleY` the vertical scaling factor.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RenderGetScale
 // See also: SDL_RenderSetLogicalSize
@@ -975,11 +977,11 @@ fn C.SDL_RenderGetScale(renderer &C.SDL_Renderer, scale_x &f32, scale_y &f32)
 
 // render_get_scale gets the drawing scale for the current target.
 //
-// `renderer` the renderer from which drawing scale should be queried
-// `scaleX` a pointer filled in with the horizontal scaling factor
-// `scaleY` a pointer filled in with the vertical scaling factor
+// `renderer` the renderer from which drawing scale should be queried.
+// `scaleX` a pointer filled in with the horizontal scaling factor.
+// `scaleY` a pointer filled in with the vertical scaling factor.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RenderSetScale
 pub fn render_get_scale(renderer &Renderer, scale_x &f32, scale_y &f32) {
@@ -995,13 +997,13 @@ fn C.SDL_RenderWindowToLogical(renderer &C.SDL_Renderer, window_x int, window_y 
 // and logical renderer size set
 //
 // `renderer` the renderer from which the logical coordinates should be
-//                 calculated
-// `windowX` the real X coordinate in the window
-// `windowY` the real Y coordinate in the window
-// `logicalX` the pointer filled with the logical x coordinate
-// `logicalY` the pointer filled with the logical y coordinate
+//                 calculated.
+// `windowX` the real X coordinate in the window.
+// `windowY` the real Y coordinate in the window.
+// `logicalX` the pointer filled with the logical x coordinate.
+// `logicalY` the pointer filled with the logical y coordinate.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 //
 // See also: SDL_RenderGetScale
 // See also: SDL_RenderSetScale
@@ -1020,13 +1022,13 @@ fn C.SDL_RenderLogicalToWindow(renderer &C.SDL_Renderer, logical_x f32, logical_
 // and logical renderer size set
 //
 // `renderer` the renderer from which the window coordinates should be
-//                 calculated
-// `logicalX` the logical x coordinate
-// `logicalY` the logical y coordinate
-// `windowX` the pointer filled with the real X coordinate in the window
-// `windowY` the pointer filled with the real Y coordinate in the window
+//                 calculated.
+// `logicalX` the logical x coordinate.
+// `logicalY` the logical y coordinate.
+// `windowX` the pointer filled with the real X coordinate in the window.
+// `windowY` the pointer filled with the real Y coordinate in the window.
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 //
 // See also: SDL_RenderGetScale
 // See also: SDL_RenderSetScale
@@ -1043,17 +1045,17 @@ fn C.SDL_SetRenderDrawColor(renderer &C.SDL_Renderer, r u8, g u8, b u8, a u8) in
 // Set the color for drawing or filling rectangles, lines, and points, and for
 // SDL_RenderClear().
 //
-// `renderer` the rendering context
-// `r` the red value used to draw on the rendering target
-// `g` the green value used to draw on the rendering target
-// `b` the blue value used to draw on the rendering target
+// `renderer` the rendering context.
+// `r` the red value used to draw on the rendering target.
+// `g` the green value used to draw on the rendering target.
+// `b` the blue value used to draw on the rendering target.
 // `a` the alpha value used to draw on the rendering target; usually
 //          `SDL_ALPHA_OPAQUE` (255). Use SDL_SetRenderDrawBlendMode to
-//          specify how the alpha channel is used
+//          specify how the alpha channel is used.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetRenderDrawColor
 // See also: SDL_RenderClear
@@ -1073,19 +1075,19 @@ fn C.SDL_GetRenderDrawColor(renderer &C.SDL_Renderer, r &u8, g &u8, b &u8, a &u8
 
 // get_render_draw_color gets the color used for drawing operations (Rect, Line and Clear).
 //
-// `renderer` the rendering context
+// `renderer` the rendering context.
 // `r` a pointer filled in with the red value used to draw on the
-//          rendering target
+//          rendering target.
 // `g` a pointer filled in with the green value used to draw on the
-//          rendering target
+//          rendering target.
 // `b` a pointer filled in with the blue value used to draw on the
-//          rendering target
+//          rendering target.
 // `a` a pointer filled in with the alpha value used to draw on the
-//          rendering target; usually `SDL_ALPHA_OPAQUE` (255)
+//          rendering target; usually `SDL_ALPHA_OPAQUE` (255).
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetRenderDrawColor
 pub fn get_render_draw_color(renderer &Renderer, r &u8, g &u8, b &u8, a &u8) int {
@@ -1098,12 +1100,12 @@ fn C.SDL_SetRenderDrawBlendMode(renderer &C.SDL_Renderer, blend_mode C.SDL_Blend
 //
 // If the blend mode is not supported, the closest supported mode is chosen.
 //
-// `renderer` the rendering context
-// `blendMode` the SDL_BlendMode to use for blending
+// `renderer` the rendering context.
+// `blendMode` the SDL_BlendMode to use for blending.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GetRenderDrawBlendMode
 // See also: SDL_RenderDrawLine
@@ -1122,12 +1124,12 @@ fn C.SDL_GetRenderDrawBlendMode(renderer &C.SDL_Renderer, blend_mode &C.SDL_Blen
 
 // get_render_draw_blend_mode gets the blend mode used for drawing operations.
 //
-// `renderer` the rendering context
-// `blendMode` a pointer filled in with the current SDL_BlendMode
+// `renderer` the rendering context.
+// `blendMode` a pointer filled in with the current SDL_BlendMode.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetRenderDrawBlendMode
 pub fn get_render_draw_blend_mode(renderer &Renderer, blend_mode &BlendMode) int {
@@ -1141,11 +1143,11 @@ fn C.SDL_RenderClear(renderer &C.SDL_Renderer) int
 // This function clears the entire rendering target, ignoring the viewport and
 // the clip rectangle.
 //
-// `renderer` the rendering context
+// `renderer` the rendering context.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_SetRenderDrawColor
 pub fn render_clear(renderer &Renderer) int {
@@ -1159,13 +1161,13 @@ fn C.SDL_RenderDrawPoint(renderer &C.SDL_Renderer, x int, y int) int
 // SDL_RenderDrawPoint() draws a single point. If you want to draw multiple,
 // use SDL_RenderDrawPoints() instead.
 //
-// `renderer` the rendering context
-// `x` the x coordinate of the point
-// `y` the y coordinate of the point
+// `renderer` the rendering context.
+// `x` the x coordinate of the point.
+// `y` the y coordinate of the point.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RenderDrawLine
 // See also: SDL_RenderDrawLines
@@ -1185,14 +1187,14 @@ fn C.SDL_RenderDrawPoints(renderer &C.SDL_Renderer, const_points &C.SDL_Point, c
 
 // render_draw_points draws multiple points on the current rendering target.
 //
-// `renderer` the rendering context
+// `renderer` the rendering context.
 // `points` an array of SDL_Point structures that represent the points to
-//               draw
-// `count` the number of points to draw
+//               draw.
+// `count` the number of points to draw.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RenderDrawLine
 // See also: SDL_RenderDrawLines
@@ -1215,15 +1217,15 @@ fn C.SDL_RenderDrawLine(renderer &C.SDL_Renderer, x1 int, y1 int, x2 int, y2 int
 // SDL_RenderDrawLine() draws the line to include both end points. If you want
 // to draw multiple, connecting lines use SDL_RenderDrawLines() instead.
 //
-// `renderer` the rendering context
-// `x1` the x coordinate of the start point
-// `y1` the y coordinate of the start point
-// `x2` the x coordinate of the end point
-// `y2` the y coordinate of the end point
+// `renderer` the rendering context.
+// `x1` the x coordinate of the start point.
+// `y1` the y coordinate of the start point.
+// `x2` the x coordinate of the end point.
+// `y2` the y coordinate of the end point.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RenderDrawLines
 // See also: SDL_RenderDrawPoint
@@ -1243,14 +1245,14 @@ fn C.SDL_RenderDrawLines(renderer &C.SDL_Renderer, const_points &C.SDL_Point, co
 
 // render_draw_lines draws a series of connected lines on the current rendering target.
 //
-// `renderer` the rendering context
+// `renderer` the rendering context.
 // `points` an array of SDL_Point structures representing points along
-//               the lines
-// `count` the number of points, drawing count-1 lines
+//               the lines.
+// `count` the number of points, drawing count-1 lines.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RenderDrawLine
 // See also: SDL_RenderDrawPoint
@@ -1270,13 +1272,13 @@ fn C.SDL_RenderDrawRect(renderer &C.SDL_Renderer, const_rect &C.SDL_Rect) int
 
 // render_draw_rect draws a rectangle on the current rendering target.
 //
-// `renderer` the rendering context
+// `renderer` the rendering context.
 // `rect` an SDL_Rect structure representing the rectangle to draw, or
-//             NULL to outline the entire rendering target
+//             NULL to outline the entire rendering target.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RenderDrawLine
 // See also: SDL_RenderDrawLines
@@ -1296,14 +1298,14 @@ fn C.SDL_RenderDrawRects(renderer &C.SDL_Renderer, const_rects &C.SDL_Rect, coun
 
 // render_draw_rects draws some number of rectangles on the current rendering target.
 //
-// `renderer` the rendering context
+// `renderer` the rendering context.
 // `rects` an array of SDL_Rect structures representing the rectangles to
-//              be drawn
-// `count` the number of rectangles
+//              be drawn.
+// `count` the number of rectangles.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RenderDrawLine
 // See also: SDL_RenderDrawLines
@@ -1327,13 +1329,13 @@ fn C.SDL_RenderFillRect(renderer &C.SDL_Renderer, const_rect &C.SDL_Rect) int
 // color's alpha value is ignored unless blending is enabled with the
 // appropriate call to SDL_SetRenderDrawBlendMode().
 //
-// `renderer` the rendering context
+// `renderer` the rendering context.
 // `rect` the SDL_Rect structure representing the rectangle to fill, or
-//             NULL for the entire rendering target
+//             NULL for the entire rendering target.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RenderDrawLine
 // See also: SDL_RenderDrawLines
@@ -1354,14 +1356,14 @@ fn C.SDL_RenderFillRects(renderer &C.SDL_Renderer, const_rects &C.SDL_Rect, coun
 // render_fill_rects fills some number of rectangles on the current rendering target with the
 // drawing color.
 //
-// `renderer` the rendering context
+// `renderer` the rendering context.
 // `rects` an array of SDL_Rect structures representing the rectangles to
-//              be filled
-// `count` the number of rectangles
+//              be filled.
+// `count` the number of rectangles.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RenderDrawLine
 // See also: SDL_RenderDrawLines
@@ -1388,16 +1390,16 @@ fn C.SDL_RenderCopy(renderer &C.SDL_Renderer, texture &C.SDL_Texture, const_srcr
 // The texture alpha is affected based on its alpha modulation set by
 // SDL_SetTextureAlphaMod().
 //
-// `renderer` the rendering context
-// `texture` the source texture
-// `srcrect` the source SDL_Rect structure or NULL for the entire texture
+// `renderer` the rendering context.
+// `texture` the source texture.
+// `srcrect` the source SDL_Rect structure or NULL for the entire texture.
 // `dstrect` the destination SDL_Rect structure or NULL for the entire
 //                rendering target; the texture will be stretched to fill the
-//                given rectangle
+//                given rectangle.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RenderCopyEx
 // See also: SDL_SetTextureAlphaMod
@@ -1425,22 +1427,22 @@ fn C.SDL_RenderCopyEx(renderer &C.SDL_Renderer, texture &C.SDL_Texture, const_sr
 // The texture alpha is affected based on its alpha modulation set by
 // SDL_SetTextureAlphaMod().
 //
-// `renderer` the rendering context
-// `texture` the source texture
-// `srcrect` the source SDL_Rect structure or NULL for the entire texture
+// `renderer` the rendering context.
+// `texture` the source texture.
+// `srcrect` the source SDL_Rect structure or NULL for the entire texture.
 // `dstrect` the destination SDL_Rect structure or NULL for the entire
-//                rendering target
+//                rendering target.
 // `angle` an angle in degrees that indicates the rotation that will be
-//              applied to dstrect, rotating it in a clockwise direction
+//              applied to dstrect, rotating it in a clockwise direction.
 // `center` a pointer to a point indicating the point around which
 //               dstrect will be rotated (if NULL, rotation will be done
-//               around `dstrect.w / 2`, `dstrect.h / 2`)
+//               around `dstrect.w / 2`, `dstrect.h / 2`).
 // `flip` a SDL_RendererFlip value stating which flipping actions should
-//             be performed on the texture
+//             be performed on the texture.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RenderCopy
 // See also: SDL_SetTextureAlphaMod
@@ -1460,7 +1462,7 @@ fn C.SDL_RenderDrawPointF(renderer &C.SDL_Renderer, x f32, y f32) int
 // `y` The y coordinate of the point.
 // returns 0 on success, or -1 on error
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 pub fn render_draw_point_f(renderer &Renderer, x f32, y f32) int {
 	return C.SDL_RenderDrawPointF(renderer, x, y)
 }
@@ -1470,11 +1472,11 @@ fn C.SDL_RenderDrawPointsF(renderer &C.SDL_Renderer, const_points &C.SDL_FPoint,
 // render_draw_points_f draws multiple points on the current rendering target at subpixel precision.
 //
 // `renderer` The renderer which should draw multiple points.
-// `points` The points to draw
-// `count` The number of points to draw
+// `points` The points to draw.
+// `count` The number of points to draw.
 // returns 0 on success, or -1 on error
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 pub fn render_draw_points_f(renderer &Renderer, const_points &FPoint, count int) int {
 	return C.SDL_RenderDrawPointsF(renderer, const_points, count)
 }
@@ -1490,7 +1492,7 @@ fn C.SDL_RenderDrawLineF(renderer &C.SDL_Renderer, x1 f32, y1 f32, x2 f32, y2 f3
 // `y2` The y coordinate of the end point.
 // returns 0 on success, or -1 on error
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 pub fn render_draw_line_f(renderer &Renderer, x1 f32, y1 f32, x2 f32, y2 f32) int {
 	return C.SDL_RenderDrawLineF(renderer, x1, y1, x2, y2)
 }
@@ -1501,11 +1503,11 @@ fn C.SDL_RenderDrawLinesF(renderer &C.SDL_Renderer, const_points &C.SDL_FPoint, 
 // subpixel precision.
 //
 // `renderer` The renderer which should draw multiple lines.
-// `points` The points along the lines
-// `count` The number of points, drawing count-1 lines
+// `points` The points along the lines.
+// `count` The number of points, drawing count-1 lines.
 // returns 0 on success, or -1 on error
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 pub fn render_draw_lines_f(renderer &Renderer, const_points &FPoint, count int) int {
 	return C.SDL_RenderDrawLinesF(renderer, const_points, count)
 }
@@ -1519,7 +1521,7 @@ fn C.SDL_RenderDrawRectF(renderer &C.SDL_Renderer, const_rect &C.SDL_FRect) int
 //             entire rendering target.
 // returns 0 on success, or -1 on error
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 pub fn render_draw_rect_f(renderer &Renderer, const_rect &FRect) int {
 	return C.SDL_RenderDrawRectF(renderer, const_rect)
 }
@@ -1534,7 +1536,7 @@ fn C.SDL_RenderDrawRectsF(renderer &C.SDL_Renderer, const_rects &C.SDL_FRect, co
 // `count` The number of rectangles.
 // returns 0 on success, or -1 on error
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 pub fn render_draw_rects_f(renderer &Renderer, const_rects &FRect, count int) int {
 	return C.SDL_RenderDrawRectsF(renderer, const_rects, count)
 }
@@ -1549,7 +1551,7 @@ fn C.SDL_RenderFillRectF(renderer &C.SDL_Renderer, const_rect &C.SDL_FRect) int
 //             rendering target.
 // returns 0 on success, or -1 on error
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 pub fn render_fill_rect_f(renderer &Renderer, const_rect &FRect) int {
 	return C.SDL_RenderFillRectF(renderer, const_rect)
 }
@@ -1564,7 +1566,7 @@ fn C.SDL_RenderFillRectsF(renderer &C.SDL_Renderer, const_rects &C.SDL_FRect, co
 // `count` The number of rectangles.
 // returns 0 on success, or -1 on error
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 pub fn render_fill_rects_f(renderer &Renderer, const_rects &FRect, count int) int {
 	return C.SDL_RenderFillRectsF(renderer, const_rects, count)
 }
@@ -1582,7 +1584,7 @@ fn C.SDL_RenderCopyF(renderer &C.SDL_Renderer, texture &C.SDL_Texture, const_src
 //                entire rendering target.
 // returns 0 on success, or -1 on error
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 pub fn render_copy_f(renderer &Renderer, texture &Texture, const_srcrect &Rect, const_dstrect &FRect) int {
 	return C.SDL_RenderCopyF(renderer, texture, const_srcrect, const_dstrect)
 }
@@ -1607,7 +1609,7 @@ fn C.SDL_RenderCopyExF(renderer &C.SDL_Renderer, texture &C.SDL_Texture, const_s
 //             be performed on the texture
 // returns 0 on success, or -1 on error
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 pub fn render_copy_ex_f(renderer &Renderer, texture &Texture, const_srcrect &Rect, const_dstrect &FRect, const_angle f64, const_center &FPoint, const_flip RendererFlip) int {
 	return C.SDL_RenderCopyExF(renderer, texture, const_srcrect, const_dstrect, const_angle,
 		const_center, C.SDL_RendererFlip(int(const_flip)))
@@ -1629,7 +1631,7 @@ fn C.SDL_RenderGeometry(renderer &C.SDL_Renderer, texture &C.SDL_Texture, const_
 // `num_indices` Number of indices.
 // returns 0 on success, or -1 if the operation is not supported
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 //
 // See also: SDL_RenderGeometryRaw
 // See also: SDL_Vertex
@@ -1646,20 +1648,20 @@ fn C.SDL_RenderGeometryRaw(renderer &C.SDL_Renderer, texture &C.SDL_Texture, con
 //
 // `renderer` The rendering context.
 // `texture` (optional) The SDL texture to use.
-// `xy` Vertex positions
-// `xy_stride` Byte size to move from one element to the next element
-// `color` Vertex colors (as SDL_Color)
-// `color_stride` Byte size to move from one element to the next element
-// `uv` Vertex normalized texture coordinates
-// `uv_stride` Byte size to move from one element to the next element
+// `xy` Vertex positions.
+// `xy_stride` Byte size to move from one element to the next element.
+// `color` Vertex colors (as SDL_Color).
+// `color_stride` Byte size to move from one element to the next element.
+// `uv` Vertex normalized texture coordinates.
+// `uv_stride` Byte size to move from one element to the next element.
 // `num_vertices` Number of vertices.
 // `indices` (optional) An array of indices into the 'vertices' arrays,
 //                if NULL all vertices will be rendered in sequential order.
 // `num_indices` Number of indices.
-// `size_indices` Index size: 1 (byte), 2 (short), 4 (int)
+// `size_indices` Index size: 1 (byte), 2 (short), 4 (int).
 // returns 0 on success, or -1 if the operation is not supported
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 //
 // See also: SDL_RenderGeometry
 // See also: SDL_Vertex
@@ -1683,17 +1685,17 @@ fn C.SDL_RenderReadPixels(renderer &C.SDL_Renderer, const_rect &C.SDL_Rect, form
 // but it might contain additional padding (for example, 24bit RGB Windows
 // Bitmap data pads all rows to multiples of 4 bytes).
 //
-// `renderer` the rendering context
+// `renderer` the rendering context.
 // `rect` an SDL_Rect structure representing the area to read, or NULL
-//             for the entire render target
+//             for the entire render target.
 // `format` an SDL_PixelFormatEnum value of the desired format of the
-//               pixel data, or 0 to use the format of the rendering target
-// `pixels` a pointer to the pixel data to copy into
-// `pitch` the pitch of the `pixels` parameter
+//               pixel data, or 0 to use the format of the rendering target.
+// `pixels` a pointer to the pixel data to copy into.
+// `pitch` the pitch of the `pixels` parameter.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 pub fn render_read_pixels(renderer &Renderer, const_rect &Rect, format u32, pixels voidptr, pitch int) int {
 	return C.SDL_RenderReadPixels(renderer, const_rect, format, pixels, pitch)
 }
@@ -1718,14 +1720,14 @@ fn C.SDL_RenderPresent(renderer &C.SDL_Renderer)
 // starting each new frame's drawing, even if you plan to overwrite every
 // pixel.
 //
-// `renderer` the rendering context
+// `renderer` the rendering context.
 //
-// NOTE (thread safety) You may only call this function on the main thread. If this
+// NOTE: (thread safety) You may only call this function on the main thread. If this
 //                      happens to work on a background thread on any given platform
 //                      or backend, it's purely by luck and you should not rely on it
 //                      to work next time.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_RenderClear
 // See also: SDL_RenderDrawLine
@@ -1749,9 +1751,9 @@ fn C.SDL_DestroyTexture(texture &C.SDL_Texture)
 // Passing NULL or an otherwise invalid texture will set the SDL error message
 // to "Invalid texture".
 //
-// `texture` the texture to destroy
+// `texture` the texture to destroy.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateTexture
 // See also: SDL_CreateTextureFromSurface
@@ -1766,9 +1768,9 @@ fn C.SDL_DestroyRenderer(renderer &C.SDL_Renderer)
 // If `renderer` is NULL, this function will return immediately after setting
 // the SDL error message to "Invalid renderer". See SDL_GetError().
 //
-// `renderer` the rendering context
+// `renderer` the rendering context.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_CreateRenderer
 pub fn destroy_renderer(renderer &Renderer) {
@@ -1799,11 +1801,11 @@ fn C.SDL_RenderFlush(renderer &C.SDL_Renderer) int
 // and earlier, as earlier versions did not queue rendering commands at all,
 // instead flushing them to the OS immediately.
 //
-// `renderer` the rendering context
+// `renderer` the rendering context.
 // returns 0 on success or a negative error code on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.10.
+// NOTE: This function is available since SDL 2.0.10.
 pub fn render_flush(renderer &Renderer) int {
 	return C.SDL_RenderFlush(renderer)
 }
@@ -1831,15 +1833,15 @@ fn C.SDL_GL_BindTexture(texture &C.SDL_Texture, texw &f32, texh &f32) int
 // re-order the color channels in the shaders phase, so the uploaded texture
 // may have swapped color channels.
 //
-// `texture` the texture to bind to the current OpenGL/ES/ES2 context
+// `texture` the texture to bind to the current OpenGL/ES/ES2 context.
 // `texw` a pointer to a float value which will be filled with the
-//             texture width or NULL if you don't need that value
+//             texture width or NULL if you don't need that value.
 // `texh` a pointer to a float value which will be filled with the
-//             texture height or NULL if you don't need that value
+//             texture height or NULL if you don't need that value.
 // returns 0 on success, or -1 if the operation is not supported; call
 //          SDL_GetError() for more information.
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GL_MakeCurrent
 // See also: SDL_GL_UnbindTexture
@@ -1853,10 +1855,10 @@ fn C.SDL_GL_UnbindTexture(texture &C.SDL_Texture) int
 //
 // See SDL_GL_BindTexture() for examples on how to use these functions
 //
-// `texture` the texture to unbind from the current OpenGL/ES/ES2 context
+// `texture` the texture to unbind from the current OpenGL/ES/ES2 context.
 // returns 0 on success, or -1 if the operation is not supported
 //
-// NOTE This function is available since SDL 2.0.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: SDL_GL_BindTexture
 // See also: SDL_GL_MakeCurrent
@@ -1871,11 +1873,11 @@ fn C.SDL_RenderGetMetalLayer(renderer &C.SDL_Renderer) voidptr
 // This function returns `void *`, so SDL doesn't have to include Metal's
 // headers, but it can be safely cast to a `CAMetalLayer *`.
 //
-// `renderer` The renderer to query
+// `renderer` The renderer to query.
 // returns a `CAMetalLayer *` on success, or NULL if the renderer isn't a
 //          Metal renderer
 //
-// NOTE This function is available since SDL 2.0.8.
+// NOTE: This function is available since SDL 2.0.8.
 //
 // See also: SDL_RenderGetMetalCommandEncoder
 pub fn render_get_metal_layer(renderer &Renderer) voidptr {
@@ -1894,11 +1896,11 @@ fn C.SDL_RenderGetMetalCommandEncoder(renderer &C.SDL_Renderer) voidptr
 // hidden/minimized/offscreen. This doesn't apply to command encoders for
 // render targets, just the window's backbuffer. Check your return values!
 //
-// `renderer` The renderer to query
+// `renderer` The renderer to query.
 // returns an `id<MTLRenderCommandEncoder>` on success, or NULL if the
 //          renderer isn't a Metal renderer or there was an error.
 //
-// NOTE This function is available since SDL 2.0.8.
+// NOTE: This function is available since SDL 2.0.8.
 //
 // See also: SDL_RenderGetMetalLayer
 pub fn render_get_metal_command_encoder(renderer &Renderer) voidptr {
@@ -1909,11 +1911,11 @@ fn C.SDL_RenderSetVSync(renderer &C.SDL_Renderer, vsync int) int
 
 // render_set_v_sync toggles VSync of the given renderer.
 //
-// `renderer` The renderer to toggle
-// `vsync` 1 for on, 0 for off. All other values are reserved
+// `renderer` The renderer to toggle.
+// `vsync` 1 for on, 0 for off. All other values are reserved.
 // returns a 0 int on success, or non-zero on failure
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 @[deprecated: 'use render_set_vsync instead']
 @[deprecated_after: '2024-07-04']
 pub fn render_set_v_sync(renderer &Renderer, vsync int) int {
@@ -1922,11 +1924,11 @@ pub fn render_set_v_sync(renderer &Renderer, vsync int) int {
 
 // render_set_vsync toggles VSync of the given renderer.
 //
-// `renderer` The renderer to toggle
-// `vsync` 1 for on, 0 for off. All other values are reserved
+// `renderer` The renderer to toggle.
+// `vsync` 1 for on, 0 for off. All other values are reserved.
 // returns a 0 int on success, or non-zero on failure
 //
-// NOTE This function is available since SDL 2.0.18.
+// NOTE: This function is available since SDL 2.0.18.
 pub fn render_set_vsync(renderer &Renderer, vsync int) int {
 	return C.SDL_RenderSetVSync(renderer, vsync)
 }
