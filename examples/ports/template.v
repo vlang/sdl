@@ -26,7 +26,7 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 	unsafe {
 		*appstate = app
 	}
-	sdl.set_app_metadata('Example V + SDL3 No Main'.str, '1.0'.str, 'com.example.template'.str)
+	sdl.set_app_metadata('Example V + SDL3 Template'.str, '1.0'.str, 'com.example.template'.str)
 	if !sdl.init(sdl.init_video) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		eprintln('Could not initialize SDL: ${error_msg}')
@@ -59,7 +59,7 @@ pub fn app_event(appstate voidptr, event &sdl.Event) sdl.AppResult {
 @[export: 'v_sdl_app_iterate']
 pub fn app_iterate(appstate voidptr) sdl.AppResult {
 	mut app := unsafe { &SDLApp(appstate) } // Retreive the state struct we initialized in `app_init`.
-	sdl.set_render_draw_color_float(app.renderer, 1.0, 0.0, 0.0, sdl.alpha_opaque)
+	sdl.set_render_draw_color_float(app.renderer, 0.5, 0.5, 1.0, sdl.alpha_opaque)
 	sdl.render_clear(app.renderer)
 	sdl.render_present(app.renderer)
 	return .continue
