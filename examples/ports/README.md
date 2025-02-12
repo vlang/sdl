@@ -15,13 +15,14 @@ Other examples may only have the original C source *comments*.
 
 Comments are preserved for educational purposes and to aid port navigation.
 
-# Why/how the examples/ports work without a `fn main() {}` in V
+## Why/how the examples/ports work without a `fn main() {}` in V
 
 The examples in this directory (and likely more SDL3 based V apps)
 has `module no_main` and no `fn main() {}` definition, but can still compile and run.
 
-This is only possible if the programmer builds with the flags `-d sdl_callbacks`.
-The programmer also need to implement 4 special functions and `@[export]` them with special names:
+This is only possible if the program is built using the flag `-d sdl_callbacks`.
+For SDL3's setup specifically, the programmer also need to implement 4 special
+functions and `@[export]` them with special names:
 
 ```v
 // Omitted fn main() {}, instead:
@@ -41,13 +42,13 @@ pub fn app_iterate(appstate voidptr) sdl.AppResult {}
 pub fn app_quit(appstate voidptr, result sdl.AppResult) {}
 ```
 
-The reason this magic works is because of `module no_main` and [a C shim](https://github.com/vlang/sdl/blob/3.2.0/c/sdl_main_use_callbacks_shim.h)
+The reason this magic works is because of `module no_main` in combination with [a C shim](https://github.com/vlang/sdl/blob/3.2.0/c/sdl_main_use_callbacks_shim.h)
 that makes it possible to use SDL3's implementation of the *main-loop control inversion* scheme
 (aka. callbacks for program initialization, main loop, events (blocking code) and quit/cleanup).
 More and more platforms promote and make use of this scheme, whether people like it or not.
 
-The example `v-sdl-no-main` is a commented example that try to explain how the code
-needs to be structured for `SDL_MAIN_USE_CALLBACKS` to work in V.
+The example `examples/ports/template..` is a commented example that illustrate how the code
+needs to be written for `SDL_MAIN_USE_CALLBACKS` to work in V.
 
 SDL3 has chosen to support the *main-loop control inversion* and make it
 a first-class citizen in SDL3. The official SDL3 examples, written in C,
