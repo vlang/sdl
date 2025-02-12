@@ -132,7 +132,8 @@ fn C.SDL_GetError() &char
 // See also: clear_error (SDL_ClearError)
 // See also: set_error (SDL_SetError)
 pub fn get_error() &char {
-	return C.SDL_GetError()
+	return voidptr(C.SDL_GetError())
+	// NOTE: voidptr is to silence a gcc warning: `warning: return discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]`
 }
 
 // C.SDL_ClearError [official documentation](https://wiki.libsdl.org/SDL3/SDL_ClearError)
