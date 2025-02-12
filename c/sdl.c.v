@@ -16,7 +16,6 @@ $if !windows {
 	}
 } $else {
 	$if tinyc {
-		// #define _STDINT_H_
 		#flag -L @VMODROOT/thirdparty
 	}
 }
@@ -30,12 +29,10 @@ $if x64 {
 #flag windows -I @VMODROOT/thirdparty/SDL3-3.2.0/include
 #flag windows -lSDL3
 
-#include <SDL3/SDL.h>
-
-$if sdl_use_main_callbacks ? {
-	// TODO: @[use_once]
-	#define SDL_MAIN_USE_CALLBACKS 1
-}
-
-@[use_once]
-#include <SDL3/SDL_main.h>
+// NOTE::
+// See the files:
+// ./implement_d_sdl_callbacks.c.v
+// ./implement_notd_sdl_callbacks.c.v
+// ./sdl_main_use_callbacks_shim.h
+// ./../examples/ports/README.md
+// ... for V's support of SDL3's *main-loop control inversion*.

@@ -1,10 +1,14 @@
 // Copyright(C) 2025 Lars Pontoppidan. All rights reserved.
 // Use of this source code is governed by an MIT license
 // that can be found in the LICENSE file.
-module main
+module no_main
 
+// NOTE: compile this example with `-d sdl_callbacks`.
+// See also: `examples/ports/v-sdl-no-main` for a simple example demonstrating how
+// the examples can run via callbacks instead of a `fn main() {}`.
 import sdl
-import os
+
+#postinclude "@VMODROOT/c/sdl_main_use_callbacks_shim.h"
 
 // Ported from clear.c https://examples.libsdl.org/SDL3/renderer/01-clear/
 //
@@ -23,15 +27,9 @@ struct SDLApp {
 	renderer &sdl.Renderer = unsafe { nil }
 }
 
-fn main() {
-	args := os.args
-	sdl.enter_app_main_callbacks(args.len, unsafe { args.data }, app_init, app_iterate,
-		app_event, app_quit)
-}
-
 // This function runs once at startup.
 // SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[])
-//@[export: 'SDL_AppInit']
+@[export: 'v_sdl_app_init']
 pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 	// Allocate / instantiate the state struct on the heap
 	mut app := &SDLApp{}
@@ -66,7 +64,7 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 
 // This function runs when a new event (mouse input, keypresses, etc) occurs.
 // SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event)
-//@[export: 'SDL_AppEvent']
+@[export: 'v_sdl_app_event']
 pub fn app_event(appstate voidptr, event &sdl.Event) sdl.AppResult {
 	//     if (event->type == SDL_EVENT_QUIT) {
 	//         return SDL_APP_SUCCESS;  /* end the program, reporting success to the OS. */
@@ -83,7 +81,7 @@ pub fn app_event(appstate voidptr, event &sdl.Event) sdl.AppResult {
 
 // This function runs once per frame, and is the heart of the program.
 // SDL_AppResult SDL_AppIterate(void *appstate)
-//@[export: 'SDL_AppIterate']
+@[export: 'v_sdl_app_iterate']
 pub fn app_iterate(appstate voidptr) sdl.AppResult {
 	mut app := unsafe { &SDLApp(appstate) } // Retreive the state struct we initialized in `app_init`.
 
@@ -111,7 +109,7 @@ pub fn app_iterate(appstate voidptr) sdl.AppResult {
 
 // This function runs once at shutdown.
 // void SDL_AppQuit(void *appstate, SDL_AppResult result)
-//@[export: 'SDL_AppQuit']
+@[export: 'v_sdl_app_quit']
 pub fn app_quit(appstate voidptr, result sdl.AppResult) {
 	//     /* SDL will clean up the window/renderer for us. */
 }
