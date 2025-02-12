@@ -72,7 +72,7 @@ To use SDL3's *main-loop control inversion* / callback setup via
 `SDL_MAIN_USE_CALLBACKS`. You will need to `@[export]` 4 specially named
 functions and compile the code with `-d sdl_callbacks`.
 
-The examples in `examples/ports/*` all require the build flags
+The examples in `examples/ports/*` all require the build flag
 `-d sdl_callbacks` to function as intended without a main function.
 
 The examples *outside* the `ports` folder can be run normally.
