@@ -146,3 +146,31 @@ v run sdl\examples\basic_window\main.v
 SDL3 can be built from source on all supported platforms
 (some easier that others). See [SDL3's documentation for more info
 on building and installing from source](https://github.com/libsdl-org/SDL/blob/main/docs/README-cmake.md)
+
+## Running
+
+Various examples of running some of the included examples.
+
+### All host platforms
+```bash
+v run ~/.vmodules/sdl/examples/basic_window/
+v run ~/.vmodules/sdl/examples/versions/
+v -d sdl_callbacks run ~/.vmodules/sdl/examples/ports/template.v
+```
+
+### Browser (requires emscripten SDK)
+
+Install emscripten SDK and follow [SDL3's emscripten build instructions](https://wiki.libsdl.org/SDL3/README/emscripten).
+
+Install your special SDL3 build from the `build` directory with:
+```bash
+cd /path/to/build/directory
+make install # should install to something like $HOME/.cache/emscripten/sysroot/...
+```
+
+```bash
+export PKG_CONFIG_PATH_DEFAULTS=$HOME/.cache/emscripten/sysroot/lib/pkgconfig/
+mkdir /tmp/sdl_wasm
+v -os wasm32_emscripten -gc none -d sdl_callbacks -o /tmp/sdl_wasm/example.html ~/.vmodules/sdl/examples/ports/renderer/05-rectangles/
+emrun /tmp/sdl_wasm/example.html
+```
