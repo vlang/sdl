@@ -26,7 +26,7 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 	unsafe {
 		*appstate = app
 	}
-	sdl.set_app_metadata('Example V + SDL3 No Main'.str, '1.0'.str, 'com.example.v-sdl-no-main'.str)
+	sdl.set_app_metadata('Example V + SDL3 No Main'.str, '1.0'.str, 'com.example.template'.str)
 	if !sdl.init(sdl.init_video) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		eprintln('Could not initialize SDL: ${error_msg}')

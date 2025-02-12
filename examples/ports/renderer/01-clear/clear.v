@@ -4,7 +4,7 @@
 module no_main
 
 // NOTE: compile this example with `-d sdl_callbacks`.
-// See also: `examples/ports/v-sdl-no-main` for a simple example demonstrating how
+// See also: `examples/ports/template.v` for a simple example demonstrating how
 // the examples can run via callbacks instead of a `fn main() {}`.
 import sdl
 
