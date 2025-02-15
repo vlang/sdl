@@ -159,7 +159,7 @@ v -d sdl_callbacks run ~/.vmodules/sdl/examples/ports/template.v
 # See `examples/ports/README.md` for more info on `SDL_MAIN_USE_CALLBACKS`.
 ```
 
-### Browser (requires emscripten SDK)
+### Browser (via emscripten SDK)
 
 Install emscripten SDK and follow [SDL3's emscripten build instructions](https://wiki.libsdl.org/SDL3/README/emscripten).
 
