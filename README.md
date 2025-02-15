@@ -151,20 +151,21 @@ on building and installing from source](https://github.com/libsdl-org/SDL/blob/m
 
 Various examples of running some of the included examples.
 
-### All host platforms
+### All *host* platforms
 ```bash
 v run ~/.vmodules/sdl/examples/basic_window/
 v run ~/.vmodules/sdl/examples/versions/
 v -d sdl_callbacks run ~/.vmodules/sdl/examples/ports/template.v
+# See `examples/ports/README.md` for more info on `SDL_MAIN_USE_CALLBACKS`.
 ```
 
 ### Browser (requires emscripten SDK)
 
 Install emscripten SDK and follow [SDL3's emscripten build instructions](https://wiki.libsdl.org/SDL3/README/emscripten).
 
-Install your special SDL3 build from the `build` directory with:
+Install the SDL3 emscripten build from the `build` directory with:
 ```bash
-cd /path/to/build/directory
+cd /path/to/SDL3/emscripten/build
 make install # should install to something like $HOME/.cache/emscripten/sysroot/...
 ```
 
@@ -173,4 +174,16 @@ export PKG_CONFIG_PATH_DEFAULTS=$HOME/.cache/emscripten/sysroot/lib/pkgconfig/
 mkdir /tmp/sdl_wasm
 v -os wasm32_emscripten -gc none -d sdl_callbacks -o /tmp/sdl_wasm/example.html ~/.vmodules/sdl/examples/ports/renderer/05-rectangles/
 emrun /tmp/sdl_wasm/example.html
+```
+
+### Android
+
+The recommended way is to build via [`vab`](https://github.com/vlang/vab) and the *extra command* [`vab-sdl`](https://github.com/larpon/vab-sdl).
+See [https://github.com/vlang/vab/blob/master/docs/docs.md#extending-vab](https://github.com/vlang/vab/blob/master/docs/docs.md#extending-vab)
+for more information.
+
+Example of building an `.apk` for `arm64-v8a`:
+
+```bash
+vab sdl --assets ~/.vmodules/sdl/examples/assets/ --flag "-d sdl_callbacks" --archs "arm64-v8a" ~/.vmodules/sdl/examples/ports/renderer/06-textures/
 ```
