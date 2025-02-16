@@ -39,14 +39,14 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 
 	if !sdl.init(sdl.init_video) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
-		eprintln('Could not initialize SDL: ${error_msg}')
+		eprintln("Couldn't initialize SDL: ${error_msg}")
 		return .failure
 	}
 
 	if !sdl.create_window_and_renderer('examples/renderer/rectangles'.str, window_width,
 		window_height, sdl.WindowFlags(0), &app.window, &app.renderer) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
-		eprintln('Could not create window/renderer: ${error_msg}')
+		eprintln("Couldn't create window/renderer: ${error_msg}")
 		return .failure
 	}
 

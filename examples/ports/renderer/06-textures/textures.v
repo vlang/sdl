@@ -57,14 +57,14 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 
 	if !sdl.init(sdl.init_video) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
-		eprintln('Could not initialize SDL: ${error_msg}')
+		eprintln("Couldn't initialize SDL: ${error_msg}")
 		return .failure
 	}
 
 	if !sdl.create_window_and_renderer('examples/renderer/textures'.str, window_width,
 		window_height, sdl.WindowFlags(0), &app.window, &app.renderer) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
-		eprintln('Could not create window/renderer: ${error_msg}')
+		eprintln("Couldn't create window/renderer: ${error_msg}")
 		return .failure
 	}
 
@@ -74,12 +74,11 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 
 	// SDL_Surface is pixel data the CPU can access. SDL_Texture is pixel data the GPU can access.
 	// Load a .bmp into a surface, move it to a texture from there.
-
 	bmp_path := get_asset_path(os.join_path('images', 'sample.bmp'))
 	surface := sdl.load_bmp(bmp_path.str)
 	if surface == sdl.null {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
-		eprintln('Couldn\'t load bitmap: ${error_msg}')
+		eprintln("Couldn't load bitmap: ${error_msg}")
 		return .failure
 	}
 
@@ -89,7 +88,7 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 	app.texture = sdl.create_texture_from_surface(app.renderer, surface)
 	if app.texture == sdl.null {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
-		eprintln('Couldn\'t create static texture: ${error_msg}')
+		eprintln("Couldn't create static texture: ${error_msg}")
 		return .failure
 	}
 
@@ -116,7 +115,6 @@ pub fn app_iterate(appstate voidptr) sdl.AppResult {
 	mut app := unsafe { &SDLApp(appstate) }
 
 	mut dst_rect := sdl.FRect{}
-
 	now := sdl.get_ticks()
 
 	// we'll have some textures move around over a few seconds.
