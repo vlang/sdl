@@ -1,8 +1,9 @@
 # sdl
 
-`sdl` is a SDL3 V module and a wrapper around [libSDL3](https://www.libsdl.org/).
+`sdl` is a SDL V module and a wrapper around [libSDL](https://www.libsdl.org/).
+Both SDL2 and SDL3 versions are supported through dedicated [branches](https://github.com/vlang/sdl/branches).
 
-The module strives to support 100% of the SDL3 API.
+The module strives to support 100% of the SDL API.
 
 So, among many other things, you can:
 - Open windows and accelerated rendering contexts
