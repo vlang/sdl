@@ -75,12 +75,7 @@ pub fn app_iterate(appstate voidptr) sdl.AppResult {
 	now := sdl.get_ticks()
 
 	// we'll have the rectangles grow and shrink over a few seconds.
-	direction := if (now % 2000) >= 1000 {
-		f32(1.0)
-	} else {
-		f32(-1.0)
-	}
-
+	direction := if (now % 2000) >= 1000 { f32(1.0) } else { f32(-1.0) }
 	scale := f32((int(now % 1000) - 500) / f32(500.0)) * direction
 
 	// as you can see from this, rendering draws over whatever was drawn before it.
