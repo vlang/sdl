@@ -11,7 +11,12 @@ So, among many other things, you can:
 - Handle input events from keyboards, touches, mice, gamepads and joysticks
 - Play audio, sound effects and music
 
-# Install
+## Project Navigation
+
+You are currently reading the instructions for **SDL2**.
+For SDL3 instructions, see the `README.md` in any of the `3.x.x` [branches](https://github.com/vlang/sdl/branches).
+
+## Install
 
 To use `vlang/sdl` you need SDL2 libraries installed and the corresponding
 `vlang/sdl` *branch* checked out that *matches the SDL2 version installed* on the target system.
@@ -53,7 +58,9 @@ Then follow the steps in the [Windows](#windows) section below.
 
 You can see what `sdl` releases are available in the [GitHub repository](https://github.com/vlang/sdl/branches) via branches.
 
-### Version notes
+## Notes
+
+### Versions
 
 SDL2 `v2.0.8` is currently the lowest version of SDL2 supported.
 SDL2 is backwards compatible - so anything written against `v2.0.8` can be compiled and run
@@ -65,7 +72,7 @@ Which makes it possible to use the SDL2 API through the SDL3 libraries.
 You can tell `sdl` to use this compatibility layer on systems that support `pkgconfig` by
 passing the compile time flag `-d sdl_compat` when building your `sdl`/SDL2 based V application.
 
-## Notes on garbage collection and memory issues
+### Notes on garbage collection and memory issues
 
 Currently, with some setups, SDL2 is known to trigger crashes when used in conjunction
 with V's default garbage collector. Because of this you have to explicitly **opt-in**
