@@ -118,7 +118,7 @@ pub fn app_iterate(appstate voidptr) sdl.AppResult {
 	}
 
 	// as you can see from this, rendering draws over whatever was drawn before it.
-	sdl.set_render_draw_color(app.renderer, 0, 0, 0, sdl.alpha_opaque) // grey, full alpha
+	sdl.set_render_draw_color(app.renderer, 66, 66, 66, sdl.alpha_opaque) // grey, full alpha
 	sdl.render_clear(app.renderer) // start with a blank canvas.
 
 	// Just draw the static texture a few times. You can think of it like a
