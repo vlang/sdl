@@ -217,7 +217,7 @@ pub enum Scancode {
 	execute    = C.SDL_SCANCODE_EXECUTE    // 116,
 	help       = C.SDL_SCANCODE_HELP       // 117, AL Integrated Help Center
 	menu       = C.SDL_SCANCODE_MENU       // 118, Menu (show menu)
-	@select    = C.SDL_SCANCODE_SELECT     // 119,
+	select     = C.SDL_SCANCODE_SELECT     // 119,
 	stop       = C.SDL_SCANCODE_STOP       // 120, AC Stop
 	again      = C.SDL_SCANCODE_AGAIN      // 121, AC Redo/Repeat
 	undo       = C.SDL_SCANCODE_UNDO       // 122, AC Undo
