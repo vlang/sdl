@@ -11,6 +11,11 @@ So, among many other things, you can:
 - Handle input events from keyboards, touches, mice, gamepads and joysticks
 - Play audio, sound effects and music
 
+## Project Navigation
+
+You are currently reading the instructions for **SDL3**.
+For SDL2 instructions, see the `README.md` in any of the `2.x.x` [branches](https://github.com/vlang/sdl/branches).
+
 ## Install
 
 To use `vlang/sdl` you need SDL3 libraries installed and the corresponding
