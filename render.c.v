@@ -48,7 +48,7 @@ pub type Vertex = C.SDL_Vertex
 
 // TextureAccess is C.SDL_TextureAccess
 pub enum TextureAccess {
-	@static   = C.SDL_TEXTUREACCESS_STATIC    // `@static` Changes rarely, not lockable
+	static    = C.SDL_TEXTUREACCESS_STATIC    // `static` Changes rarely, not lockable
 	streaming = C.SDL_TEXTUREACCESS_STREAMING // `streaming` Changes frequently, lockable
 	target    = C.SDL_TEXTUREACCESS_TARGET    // `target` Texture can be used as a render target
 }
