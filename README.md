@@ -13,8 +13,8 @@ So, among many other things, you can:
 
 ## Project Navigation
 
-You are currently reading the instructions for **SDL3**.
-For SDL2 instructions, see the `README.md` in any of the `2.x.x` [branches](https://github.com/vlang/sdl/branches).
+You are currently reading the instructions for **SDL2**.
+For SDL3 instructions, see the `README.md` in any of the `3.x.x` [branches](https://github.com/vlang/sdl/branches).
 
 ## Install
 
