@@ -45,7 +45,7 @@ pub fn is_tv() bool {
 
 // Sandbox is C.SDL_Sandbox
 pub enum Sandbox {
-	@none             = C.SDL_SANDBOX_NONE // 0,
+	none              = C.SDL_SANDBOX_NONE // 0,
 	unknown_container = C.SDL_SANDBOX_UNKNOWN_CONTAINER
 	flatpak           = C.SDL_SANDBOX_FLATPAK
 	snap              = C.SDL_SANDBOX_SNAP

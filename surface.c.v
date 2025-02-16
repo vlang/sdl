@@ -46,7 +46,7 @@ pub enum ScaleMode {
 
 // FlipMode is C.SDL_FlipMode
 pub enum FlipMode {
-	@none      = C.SDL_FLIP_NONE       // `@none` Do not flip
+	none       = C.SDL_FLIP_NONE       // `none` Do not flip
 	horizontal = C.SDL_FLIP_HORIZONTAL // `horizontal` flip horizontally
 	vertical   = C.SDL_FLIP_VERTICAL   // `vertical` flip vertically
 }

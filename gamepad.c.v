@@ -137,7 +137,7 @@ pub enum GamepadAxis {
 
 // GamepadBindingType is C.SDL_GamepadBindingType
 pub enum GamepadBindingType {
-	@none  = C.SDL_GAMEPAD_BINDTYPE_NONE // 0,
+	none   = C.SDL_GAMEPAD_BINDTYPE_NONE // 0,
 	button = C.SDL_GAMEPAD_BINDTYPE_BUTTON
 	axis   = C.SDL_GAMEPAD_BINDTYPE_AXIS
 	hat    = C.SDL_GAMEPAD_BINDTYPE_HAT

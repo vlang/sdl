@@ -404,7 +404,7 @@ pub enum TextInputType {
 
 // Capitalization is C.SDL_Capitalization
 pub enum Capitalization {
-	@none     = C.SDL_CAPITALIZE_NONE      // `@none` No auto-capitalization will be done
+	none      = C.SDL_CAPITALIZE_NONE      // `none` No auto-capitalization will be done
 	sentences = C.SDL_CAPITALIZE_SENTENCES // `sentences` The first letter of sentences will be capitalized
 	words     = C.SDL_CAPITALIZE_WORDS     // `words` The first letter of words will be capitalized
 	letters   = C.SDL_CAPITALIZE_LETTERS   // `letters` All letters will be capitalized

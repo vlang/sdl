@@ -181,7 +181,7 @@ pub fn get_user_folder(folder Folder) &char {
 
 // PathType is C.SDL_PathType
 pub enum PathType {
-	@none     = C.SDL_PATHTYPE_NONE      // `@none` path does not exist
+	none      = C.SDL_PATHTYPE_NONE      // `none` path does not exist
 	file      = C.SDL_PATHTYPE_FILE      // `file` a normal file
 	directory = C.SDL_PATHTYPE_DIRECTORY // `directory` a directory
 	other     = C.SDL_PATHTYPE_OTHER     // `other` something completely different like a device node (not a symlink, those are always followed)

@@ -718,7 +718,7 @@ pub enum GPUFillMode {
 
 // GPUCullMode is C.SDL_GPUCullMode
 pub enum GPUCullMode {
-	@none = C.SDL_GPU_CULLMODE_NONE  // `@none` No triangles are culled.
+	none  = C.SDL_GPU_CULLMODE_NONE  // `none` No triangles are culled.
 	front = C.SDL_GPU_CULLMODE_FRONT // `front` Front-facing triangles are culled.
 	back  = C.SDL_GPU_CULLMODE_BACK  // `back` Back-facing triangles are culled.
 }

@@ -99,38 +99,38 @@ pub enum PixelType {
 
 // BitmapOrder is C.SDL_BitmapOrder
 pub enum BitmapOrder {
-	@none = C.SDL_BITMAPORDER_NONE
+	none  = C.SDL_BITMAPORDER_NONE
 	_4321 = C.SDL_BITMAPORDER_4321
 	_1234 = C.SDL_BITMAPORDER_1234
 }
 
 // PackedOrder is C.SDL_PackedOrder
 pub enum PackedOrder {
-	@none = C.SDL_PACKEDORDER_NONE
-	xrgb  = C.SDL_PACKEDORDER_XRGB
-	rgbx  = C.SDL_PACKEDORDER_RGBX
-	argb  = C.SDL_PACKEDORDER_ARGB
-	rgba  = C.SDL_PACKEDORDER_RGBA
-	xbgr  = C.SDL_PACKEDORDER_XBGR
-	bgrx  = C.SDL_PACKEDORDER_BGRX
-	abgr  = C.SDL_PACKEDORDER_ABGR
-	bgra  = C.SDL_PACKEDORDER_BGRA
+	none = C.SDL_PACKEDORDER_NONE
+	xrgb = C.SDL_PACKEDORDER_XRGB
+	rgbx = C.SDL_PACKEDORDER_RGBX
+	argb = C.SDL_PACKEDORDER_ARGB
+	rgba = C.SDL_PACKEDORDER_RGBA
+	xbgr = C.SDL_PACKEDORDER_XBGR
+	bgrx = C.SDL_PACKEDORDER_BGRX
+	abgr = C.SDL_PACKEDORDER_ABGR
+	bgra = C.SDL_PACKEDORDER_BGRA
 }
 
 // ArrayOrder is C.SDL_ArrayOrder
 pub enum ArrayOrder {
-	@none = C.SDL_ARRAYORDER_NONE
-	rgb   = C.SDL_ARRAYORDER_RGB
-	rgba  = C.SDL_ARRAYORDER_RGBA
-	argb  = C.SDL_ARRAYORDER_ARGB
-	bgr   = C.SDL_ARRAYORDER_BGR
-	bgra  = C.SDL_ARRAYORDER_BGRA
-	abgr  = C.SDL_ARRAYORDER_ABGR
+	none = C.SDL_ARRAYORDER_NONE
+	rgb  = C.SDL_ARRAYORDER_RGB
+	rgba = C.SDL_ARRAYORDER_RGBA
+	argb = C.SDL_ARRAYORDER_ARGB
+	bgr  = C.SDL_ARRAYORDER_BGR
+	bgra = C.SDL_ARRAYORDER_BGRA
+	abgr = C.SDL_ARRAYORDER_ABGR
 }
 
 // PackedLayout is C.SDL_PackedLayout
 pub enum PackedLayout {
-	@none    = C.SDL_PACKEDLAYOUT_NONE
+	none     = C.SDL_PACKEDLAYOUT_NONE
 	_332     = C.SDL_PACKEDLAYOUT_332
 	_4444    = C.SDL_PACKEDLAYOUT_4444
 	_1555    = C.SDL_PACKEDLAYOUT_1555
@@ -376,7 +376,7 @@ pub enum MatrixCoefficients {
 
 // ChromaLocation is C.SDL_ChromaLocation
 pub enum ChromaLocation {
-	@none   = C.SDL_CHROMA_LOCATION_NONE    // 0, RGB, no chroma sampling
+	none    = C.SDL_CHROMA_LOCATION_NONE    // 0, RGB, no chroma sampling
 	left    = C.SDL_CHROMA_LOCATION_LEFT    // 1, In MPEG-2, MPEG-4, and AVC, Cb and Cr are taken on midpoint of the left-edge of the 2x2 square. In other words, they have the same horizontal location as the top-left pixel, but is shifted one-half pixel down vertically.
 	center  = C.SDL_CHROMA_LOCATION_CENTER  // 2, In JPEG/JFIF, H.261, and MPEG-1, Cb and Cr are taken at the center of the 2x2 square. In other words, they are offset one-half pixel to the right and one-half pixel down compared to the top-left pixel.
 	topleft = C.SDL_CHROMA_LOCATION_TOPLEFT // 3, In HEVC for BT.2020 and BT.2100 content (in particular on Blu-rays), Cb and Cr are sampled at the same location as the group's top-left Y pixel ("co-sited", "co-located").
