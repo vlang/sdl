@@ -11,6 +11,7 @@ import sdl
 
 #postinclude "@VMODROOT/c/sdl_main_use_callbacks_shim.h"
 
+// SDLApp is dedicated to hold the complete state of the application.
 struct SDLApp {
 	window   &sdl.Window   = unsafe { nil }
 	renderer &sdl.Renderer = unsafe { nil }
