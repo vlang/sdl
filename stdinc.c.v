@@ -3257,7 +3257,7 @@ pub const invalid_unicode_codepoint = C.SDL_INVALID_UNICODE_CODEPOINT // 0xFFFD
 // C.SDL_StepUTF8 [official documentation](https://wiki.libsdl.org/SDL3/SDL_StepUTF8)
 fn C.SDL_StepUTF8(const_pstr &&char, pslen &usize) u32
 
-// step_ut_f8 decodes a UTF-8 string, one Unicode codepoint at a time.
+// step_utf8 decodes a UTF-8 string, one Unicode codepoint at a time.
 //
 // This will return the first Unicode codepoint in the UTF-8 encoded string in
 // `*pstr`, and then advance `*pstr` past any consumed bytes before returning.
@@ -3298,14 +3298,14 @@ fn C.SDL_StepUTF8(const_pstr &&char, pslen &usize) u32
 // NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn step_ut_f8(const_pstr &&char, pslen &usize) u32 {
+pub fn step_utf8(const_pstr &&char, pslen &usize) u32 {
 	return C.SDL_StepUTF8(const_pstr, pslen)
 }
 
 // C.SDL_StepBackUTF8 [official documentation](https://wiki.libsdl.org/SDL3/SDL_StepBackUTF8)
 fn C.SDL_StepBackUTF8(const_start &char, const_pstr &&char) u32
 
-// step_back_ut_f8 decodes a UTF-8 string in reverse, one Unicode codepoint at a time.
+// step_back_utf8 decodes a UTF-8 string in reverse, one Unicode codepoint at a time.
 //
 // This will go to the start of the previous Unicode codepoint in the string,
 // move `*pstr` to that location and return that codepoint.
@@ -3332,14 +3332,14 @@ fn C.SDL_StepBackUTF8(const_start &char, const_pstr &&char) u32
 // NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn step_back_ut_f8(const_start &char, const_pstr &&char) u32 {
+pub fn step_back_utf8(const_start &char, const_pstr &&char) u32 {
 	return C.SDL_StepBackUTF8(const_start, const_pstr)
 }
 
 // C.SDL_UCS4ToUTF8 [official documentation](https://wiki.libsdl.org/SDL3/SDL_UCS4ToUTF8)
 fn C.SDL_UCS4ToUTF8(codepoint u32, dst &char) &char
 
-// uc_s4_to_ut_f8 converts a single Unicode codepoint to UTF-8.
+// uc_s4_to_utf8 converts a single Unicode codepoint to UTF-8.
 //
 // The buffer pointed to by `dst` must be at least 4 bytes long, as this
 // function may generate between 1 and 4 bytes of output.
@@ -3364,8 +3364,8 @@ fn C.SDL_UCS4ToUTF8(codepoint u32, dst &char) &char
 // NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn uc_s4_to_ut_f8(codepoint u32, dst &char) &char {
-	return &char(C.SDL_UCS4ToUTF8(codepoint, dst))
+pub fn uc_s4_to_utf8(codepoint u32, dst &char) &char {
+  return &char(C.SDL_UCS4ToUTF8(codepoint, dst))
 }
 
 // C.SDL_sscanf [official documentation](https://wiki.libsdl.org/SDL3/SDL_sscanf)
