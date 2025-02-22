@@ -3,7 +3,6 @@
 // that can be found in the LICENSE file.
 module no_main
 
-// NOTE: compile this example with `-d sdl_callbacks`.
 // See also: `examples/ports/template.v` for a simple commented example demonstrating how
 // to run via callbacks instead of a `fn main() {}`.
 // See also: `examples/ports/README.md` for more information.
