@@ -747,7 +747,7 @@ pub fn set_surface_blend_mode(surface &Surface, blend_mode BlendMode) bool {
 }
 
 // C.SDL_GetSurfaceBlendMode [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetSurfaceBlendMode)
-fn C.SDL_GetSurfaceBlendMode(surface &Surface, blend_mode BlendMode) bool
+fn C.SDL_GetSurfaceBlendMode(surface &Surface, blend_mode &BlendMode) bool
 
 // get_surface_blend_mode gets the blend mode used for blit operations.
 //
@@ -759,7 +759,7 @@ fn C.SDL_GetSurfaceBlendMode(surface &Surface, blend_mode BlendMode) bool
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: set_surface_blend_mode (SDL_SetSurfaceBlendMode)
-pub fn get_surface_blend_mode(surface &Surface, blend_mode BlendMode) bool {
+pub fn get_surface_blend_mode(surface &Surface, blend_mode &BlendMode) bool {
 	return C.SDL_GetSurfaceBlendMode(surface, blend_mode)
 }
 

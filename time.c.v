@@ -69,7 +69,7 @@ pub fn get_date_time_locale_preferences(date_format &DateFormat, time_format &Ti
 }
 
 // C.SDL_GetCurrentTime [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetCurrentTime)
-fn C.SDL_GetCurrentTime(ticks Time) bool
+fn C.SDL_GetCurrentTime(ticks &Time) bool
 
 // get_current_time gets the current value of the system realtime clock in nanoseconds since
 // Jan 1, 1970 in Universal Coordinated Time (UTC).
@@ -79,7 +79,7 @@ fn C.SDL_GetCurrentTime(ticks Time) bool
 //          information.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn get_current_time(ticks Time) bool {
+pub fn get_current_time(ticks &Time) bool {
 	return C.SDL_GetCurrentTime(ticks)
 }
 

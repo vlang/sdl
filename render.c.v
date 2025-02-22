@@ -1160,7 +1160,7 @@ pub fn set_texture_blend_mode(texture &Texture, blend_mode BlendMode) bool {
 }
 
 // C.SDL_GetTextureBlendMode [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetTextureBlendMode)
-fn C.SDL_GetTextureBlendMode(texture &Texture, blend_mode BlendMode) bool
+fn C.SDL_GetTextureBlendMode(texture &Texture, blend_mode &BlendMode) bool
 
 // get_texture_blend_mode gets the blend mode used for texture copy operations.
 //
@@ -1174,7 +1174,7 @@ fn C.SDL_GetTextureBlendMode(texture &Texture, blend_mode BlendMode) bool
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: set_texture_blend_mode (SDL_SetTextureBlendMode)
-pub fn get_texture_blend_mode(texture &Texture, blend_mode BlendMode) bool {
+pub fn get_texture_blend_mode(texture &Texture, blend_mode &BlendMode) bool {
 	return C.SDL_GetTextureBlendMode(texture, blend_mode)
 }
 
@@ -2045,7 +2045,7 @@ pub fn set_render_draw_blend_mode(renderer &Renderer, blend_mode BlendMode) bool
 }
 
 // C.SDL_GetRenderDrawBlendMode [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetRenderDrawBlendMode)
-fn C.SDL_GetRenderDrawBlendMode(renderer &Renderer, blend_mode BlendMode) bool
+fn C.SDL_GetRenderDrawBlendMode(renderer &Renderer, blend_mode &BlendMode) bool
 
 // get_render_draw_blend_mode gets the blend mode used for drawing operations.
 //
@@ -2059,7 +2059,7 @@ fn C.SDL_GetRenderDrawBlendMode(renderer &Renderer, blend_mode BlendMode) bool
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: set_render_draw_blend_mode (SDL_SetRenderDrawBlendMode)
-pub fn get_render_draw_blend_mode(renderer &Renderer, blend_mode BlendMode) bool {
+pub fn get_render_draw_blend_mode(renderer &Renderer, blend_mode &BlendMode) bool {
 	return C.SDL_GetRenderDrawBlendMode(renderer, blend_mode)
 }
 

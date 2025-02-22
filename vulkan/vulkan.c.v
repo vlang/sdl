@@ -182,7 +182,7 @@ pub fn vulkan_get_instance_extensions(count &u32) &&char {
 }
 
 // C.SDL_Vulkan_CreateSurface [official documentation](https://wiki.libsdl.org/SDL3/SDL_Vulkan_CreateSurface)
-fn C.SDL_Vulkan_CreateSurface(window &Window, instance VkInstance, const_allocator VkAllocationCallbacks, surface &VkSurfaceKHR) bool
+fn C.SDL_Vulkan_CreateSurface(window &Window, instance VkInstance, const_allocator &VkAllocationCallbacks, surface &VkSurfaceKHR) bool
 
 // vulkan_create_surface creates a Vulkan rendering surface for a window.
 //
@@ -206,12 +206,12 @@ fn C.SDL_Vulkan_CreateSurface(window &Window, instance VkInstance, const_allocat
 //
 // See also: vulkan_get_instance_extensions (SDL_Vulkan_GetInstanceExtensions)
 // See also: vulkan_destroy_surface (SDL_Vulkan_DestroySurface)
-pub fn vulkan_create_surface(window &Window, instance VkInstance, const_allocator VkAllocationCallbacks, surface &VkSurfaceKHR) bool {
+pub fn vulkan_create_surface(window &Window, instance VkInstance, const_allocator &VkAllocationCallbacks, surface &VkSurfaceKHR) bool {
 	return C.SDL_Vulkan_CreateSurface(window, instance, const_allocator, surface)
 }
 
 // C.SDL_Vulkan_DestroySurface [official documentation](https://wiki.libsdl.org/SDL3/SDL_Vulkan_DestroySurface)
-fn C.SDL_Vulkan_DestroySurface(instance VkInstance, surface VkSurfaceKHR, const_allocator VkAllocationCallbacks)
+fn C.SDL_Vulkan_DestroySurface(instance VkInstance, surface VkSurfaceKHR, const_allocator &VkAllocationCallbacks)
 
 // vulkan_destroy_surface destroys the Vulkan rendering surface of a window.
 //
@@ -234,7 +234,7 @@ fn C.SDL_Vulkan_DestroySurface(instance VkInstance, surface VkSurfaceKHR, const_
 //
 // See also: vulkan_get_instance_extensions (SDL_Vulkan_GetInstanceExtensions)
 // See also: vulkan_create_surface (SDL_Vulkan_CreateSurface)
-pub fn vulkan_destroy_surface(instance VkInstance, surface VkSurfaceKHR, const_allocator VkAllocationCallbacks) {
+pub fn vulkan_destroy_surface(instance VkInstance, surface VkSurfaceKHR, const_allocator &VkAllocationCallbacks) {
 	C.SDL_Vulkan_DestroySurface(instance, surface, const_allocator)
 }
 

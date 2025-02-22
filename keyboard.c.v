@@ -222,7 +222,7 @@ pub fn get_key_from_scancode(scancode Scancode, modstate Keymod, key_event bool)
 }
 
 // C.SDL_GetScancodeFromKey [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetScancodeFromKey)
-fn C.SDL_GetScancodeFromKey(key Keycode, modstate Keymod) Scancode
+fn C.SDL_GetScancodeFromKey(key Keycode, modstate &Keymod) Scancode
 
 // get_scancode_from_key gets the scancode corresponding to the given key code according to the
 // current keyboard layout.
@@ -241,7 +241,7 @@ fn C.SDL_GetScancodeFromKey(key Keycode, modstate Keymod) Scancode
 //
 // See also: get_key_from_scancode (SDL_GetKeyFromScancode)
 // See also: get_scancode_name (SDL_GetScancodeName)
-pub fn get_scancode_from_key(key Keycode, modstate Keymod) Scancode {
+pub fn get_scancode_from_key(key Keycode, modstate &Keymod) Scancode {
 	return C.SDL_GetScancodeFromKey(key, modstate)
 }
 

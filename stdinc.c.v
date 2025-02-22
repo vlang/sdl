@@ -1911,7 +1911,7 @@ fn C.SDL_wcslcpy(dst &WCharT, const_src &WCharT, maxlen usize) usize
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: wcslcat (SDL_wcslcat)
-pub fn wcslcpy(dst WCharT, const_src &WCharT, maxlen usize) usize {
+pub fn wcslcpy(dst &WCharT, const_src &WCharT, maxlen usize) usize {
 	return C.SDL_wcslcpy(dst, const_src, maxlen)
 }
 
@@ -1944,7 +1944,7 @@ fn C.SDL_wcslcat(dst &WCharT, const_src &WCharT, maxlen usize) usize
 //
 // See also: wcslcpy (SDL_wcslcpy)
 //
-pub fn wcslcat(dst WCharT, const_src &WCharT, maxlen usize) usize {
+pub fn wcslcat(dst &WCharT, const_src &WCharT, maxlen usize) usize {
 	return C.SDL_wcslcat(dst, const_src, maxlen)
 }
 
