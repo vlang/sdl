@@ -3,13 +3,19 @@
 // that can be found in the LICENSE file.
 module no_main
 
-// NOTE: compile this example with `-d sdl_callbacks`.
-// We use `module no_main` and do not define `fn main() {}` in any of the ported
-// examples since they use the SDL3 `SDL_App*` callback scheme implemented as a shim in C.
+// We use `module no_main` and do not define `fn main() {}` in any of the ported examples.
+// Instead, we do register our callback functions in the module's init function.
+// The sdl.callbacks module, uses the SDL3 `SDL_App*` callback scheme.
 // Read more about the setup and reasons for this in `examples/ports/README.md`.
 import sdl
+import sdl.callbacks
 
-#postinclude "@VMODROOT/c/sdl_main_use_callbacks_shim.h"
+fn init() {
+	callbacks.on_init(app_init)
+	callbacks.on_quit(app_quit)
+	callbacks.on_event(app_event)
+	callbacks.on_iterate(app_iterate)
+}
 
 // SDLApp is dedicated to hold the complete state of the application.
 struct SDLApp {
@@ -18,8 +24,6 @@ struct SDLApp {
 }
 
 // app_init runs once at startup.
-// NOTE: the exported name has significance since it is called from C so it should not be changed.
-@[export: 'v_sdl_app_init']
 pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 	// Allocate / instantiate the state struct on the heap
 	mut app := &SDLApp{}
@@ -43,8 +47,6 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 }
 
 // app_event runs when a new event (mouse input, keypresses, etc) occurs.
-// NOTE: the exported name has significance since it is called from C so it should not be changed.
-@[export: 'v_sdl_app_event']
 pub fn app_event(appstate voidptr, event &sdl.Event) sdl.AppResult {
 	match event.type {
 		.quit {
@@ -56,8 +58,6 @@ pub fn app_event(appstate voidptr, event &sdl.Event) sdl.AppResult {
 }
 
 // app_iterate runs once per frame, and is the heart of the program.
-// NOTE: the exported name has significance since it is called from C so it should not be changed.
-@[export: 'v_sdl_app_iterate']
 pub fn app_iterate(appstate voidptr) sdl.AppResult {
 	mut app := unsafe { &SDLApp(appstate) } // Retreive the state struct we initialized in `app_init`.
 	sdl.set_render_draw_color_float(app.renderer, 0.5, 0.5, 1.0, sdl.alpha_opaque)
@@ -67,8 +67,6 @@ pub fn app_iterate(appstate voidptr) sdl.AppResult {
 }
 
 // app_quit runs once at shutdown.
-// NOTE: the exported name has significance since it is called from C so it should not be changed.
-@[export: 'v_sdl_app_quit']
 pub fn app_quit(appstate voidptr, result sdl.AppResult) {
 	// SDL will clean up the window/renderer for us.
 }

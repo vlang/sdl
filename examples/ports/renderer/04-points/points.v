@@ -3,13 +3,16 @@
 // that can be found in the LICENSE file.
 module no_main
 
-// NOTE: compile this example with `-d sdl_callbacks`.
 // See also: `examples/ports/template.v` for a simple commented example demonstrating how
 // to run via callbacks instead of a `fn main() {}`.
 // See also: `examples/ports/README.md` for more information.
 import sdl
+import sdl.callbacks
 
-#postinclude "@VMODROOT/c/sdl_main_use_callbacks_shim.h"
+fn init() {
+	callbacks.on_init(app_init)
+	callbacks.on_iterate(app_iterate)
+}
 
 // Ported from points.c https://examples.libsdl.org/SDL3/renderer/04-points/
 
@@ -44,7 +47,6 @@ const min_pixels_per_second = 30 // move at least this many pixels per second.
 const max_pixels_per_second = 60 // move this many pixels per second at most.
 
 // This function runs once at startup.
-@[export: 'v_sdl_app_init']
 pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 	mut app := &SDLApp{}
 	unsafe {
@@ -78,20 +80,7 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 	return .continue // carry on with the program!
 }
 
-// This function runs when a new event (mouse input, keypresses, etc) occurs.
-@[export: 'v_sdl_app_event']
-pub fn app_event(appstate voidptr, event &sdl.Event) sdl.AppResult {
-	match event.type {
-		.quit {
-			return .success // end the program, reporting success to the OS.
-		}
-		else {}
-	}
-	return .continue // carry on with the program!
-}
-
 // This function runs once per frame, and is the heart of the program.
-@[export: 'v_sdl_app_iterate']
 pub fn app_iterate(appstate voidptr) sdl.AppResult {
 	mut app := unsafe { &SDLApp(appstate) }
 
@@ -132,10 +121,4 @@ pub fn app_iterate(appstate voidptr) sdl.AppResult {
 	sdl.render_present(app.renderer) // put it all on the screen!
 
 	return .continue // carry on with the program!
-}
-
-// This function runs once at shutdown.
-@[export: 'v_sdl_app_quit']
-pub fn app_quit(appstate voidptr, result sdl.AppResult) {
-	// SDL will clean up the window/renderer for us.
 }

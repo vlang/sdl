@@ -1,3 +1,7 @@
+/*** this file is not used anymore; it is here just for backwards compatibility ***/
+/*** TODO: change this pragma from message to a `#pragma GCC error` ***/
+#pragma message "Using sdl_main_use_callbacks_shim.h is not needed anymore; use `import sdl.callbacks` instead"
+
 #if defined(SDL_MAIN_USE_CALLBACKS)
 
 // This is a C shim to make it possible to use SDL3's implementation
