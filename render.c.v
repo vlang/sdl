@@ -123,7 +123,7 @@ fn C.SDL_GetRenderDriver(index int) &char
 //
 // See also: get_num_render_drivers (SDL_GetNumRenderDrivers)
 pub fn get_render_driver(index int) &char {
-	return C.SDL_GetRenderDriver(index)
+	return &char(C.SDL_GetRenderDriver(index))
 }
 
 // C.SDL_CreateWindowAndRenderer [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreateWindowAndRenderer)
@@ -340,7 +340,7 @@ fn C.SDL_GetRendererName(renderer &Renderer) &char
 // See also: create_renderer (SDL_CreateRenderer)
 // See also: create_renderer_with_properties (SDL_CreateRendererWithProperties)
 pub fn get_renderer_name(renderer &Renderer) &char {
-	return C.SDL_GetRendererName(renderer)
+	return &char(C.SDL_GetRendererName(renderer))
 }
 
 // C.SDL_GetRendererProperties [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetRendererProperties)

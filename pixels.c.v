@@ -492,7 +492,7 @@ fn C.SDL_GetPixelFormatName(format PixelFormat) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_pixel_format_name(format PixelFormat) &char {
-	return C.SDL_GetPixelFormatName(format)
+	return &char(C.SDL_GetPixelFormatName(format))
 }
 
 // C.SDL_GetMasksForPixelFormat [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetMasksForPixelFormat)

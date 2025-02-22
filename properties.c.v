@@ -405,7 +405,7 @@ fn C.SDL_GetStringProperty(props PropertiesID, const_name &char, const_default_v
 // See also: has_property (SDL_HasProperty)
 // See also: set_string_property (SDL_SetStringProperty)
 pub fn get_string_property(props PropertiesID, const_name &char, const_default_value &char) &char {
-	return C.SDL_GetStringProperty(props, const_name, const_default_value)
+	return &char(C.SDL_GetStringProperty(props, const_name, const_default_value))
 }
 
 // C.SDL_GetNumberProperty [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetNumberProperty)

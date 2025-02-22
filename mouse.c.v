@@ -182,7 +182,7 @@ fn C.SDL_GetMouseNameForID(instance_id MouseID) &char
 //
 // See also: get_mice (SDL_GetMice)
 pub fn get_mouse_name_for_id(instance_id MouseID) &char {
-	return C.SDL_GetMouseNameForID(instance_id)
+	return &char(C.SDL_GetMouseNameForID(instance_id))
 }
 
 // C.SDL_GetMouseFocus [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetMouseFocus)

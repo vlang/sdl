@@ -457,7 +457,7 @@ fn C.SDL_GetGamepadNameForID(instance_id JoystickID) &char
 // See also: get_gamepad_name (SDL_GetGamepadName)
 // See also: get_gamepads (SDL_GetGamepads)
 pub fn get_gamepad_name_for_id(instance_id JoystickID) &char {
-	return C.SDL_GetGamepadNameForID(instance_id)
+	return &char(C.SDL_GetGamepadNameForID(instance_id))
 }
 
 // C.SDL_GetGamepadPathForID [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGamepadPathForID)
@@ -476,7 +476,7 @@ fn C.SDL_GetGamepadPathForID(instance_id JoystickID) &char
 // See also: get_gamepad_path (SDL_GetGamepadPath)
 // See also: get_gamepads (SDL_GetGamepads)
 pub fn get_gamepad_path_for_id(instance_id JoystickID) &char {
-	return C.SDL_GetGamepadPathForID(instance_id)
+	return &char(C.SDL_GetGamepadPathForID(instance_id))
 }
 
 // C.SDL_GetGamepadPlayerIndexForID [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGamepadPlayerIndexForID)
@@ -630,7 +630,7 @@ fn C.SDL_GetGamepadMappingForID(instance_id JoystickID) &char
 // See also: get_gamepads (SDL_GetGamepads)
 // See also: get_gamepad_mapping (SDL_GetGamepadMapping)
 pub fn get_gamepad_mapping_for_id(instance_id JoystickID) &char {
-	return C.SDL_GetGamepadMappingForID(instance_id)
+	return &char(C.SDL_GetGamepadMappingForID(instance_id))
 }
 
 // C.SDL_OpenGamepad [official documentation](https://wiki.libsdl.org/SDL3/SDL_OpenGamepad)
@@ -750,7 +750,7 @@ fn C.SDL_GetGamepadName(gamepad &Gamepad) &char
 //
 // See also: get_gamepad_name_for_id (SDL_GetGamepadNameForID)
 pub fn get_gamepad_name(gamepad &Gamepad) &char {
-	return C.SDL_GetGamepadName(gamepad)
+	return &char(C.SDL_GetGamepadName(gamepad))
 }
 
 // C.SDL_GetGamepadPath [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGamepadPath)
@@ -767,7 +767,7 @@ fn C.SDL_GetGamepadPath(gamepad &Gamepad) &char
 //
 // See also: get_gamepad_path_for_id (SDL_GetGamepadPathForID)
 pub fn get_gamepad_path(gamepad &Gamepad) &char {
-	return C.SDL_GetGamepadPath(gamepad)
+	return &char(C.SDL_GetGamepadPath(gamepad))
 }
 
 // C.SDL_GetGamepadType [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGamepadType)
@@ -915,7 +915,7 @@ fn C.SDL_GetGamepadSerial(gamepad &Gamepad) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_gamepad_serial(gamepad &Gamepad) &char {
-	return C.SDL_GetGamepadSerial(gamepad)
+	return &char(C.SDL_GetGamepadSerial(gamepad))
 }
 
 // C.SDL_GetGamepadSteamHandle [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGamepadSteamHandle)
@@ -1111,7 +1111,7 @@ fn C.SDL_GetGamepadStringForType(typ GamepadType) &char
 //
 // See also: get_gamepad_type_from_string (SDL_GetGamepadTypeFromString)
 pub fn get_gamepad_string_for_type(typ GamepadType) &char {
-	return C.SDL_GetGamepadStringForType(typ)
+	return &char(C.SDL_GetGamepadStringForType(typ))
 }
 
 // C.SDL_GetGamepadAxisFromString [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGamepadAxisFromString)
@@ -1153,7 +1153,7 @@ fn C.SDL_GetGamepadStringForAxis(axis GamepadAxis) &char
 //
 // See also: get_gamepad_axis_from_string (SDL_GetGamepadAxisFromString)
 pub fn get_gamepad_string_for_axis(axis GamepadAxis) &char {
-	return C.SDL_GetGamepadStringForAxis(axis)
+	return &char(C.SDL_GetGamepadStringForAxis(axis))
 }
 
 // C.SDL_GamepadHasAxis [official documentation](https://wiki.libsdl.org/SDL3/SDL_GamepadHasAxis)
@@ -1238,7 +1238,7 @@ fn C.SDL_GetGamepadStringForButton(button GamepadButton) &char
 //
 // See also: get_gamepad_button_from_string (SDL_GetGamepadButtonFromString)
 pub fn get_gamepad_string_for_button(button GamepadButton) &char {
-	return C.SDL_GetGamepadStringForButton(button)
+	return &char(C.SDL_GetGamepadStringForButton(button))
 }
 
 // C.SDL_GamepadHasButton [official documentation](https://wiki.libsdl.org/SDL3/SDL_GamepadHasButton)
@@ -1578,7 +1578,7 @@ fn C.SDL_GetGamepadAppleSFSymbolsNameForButton(gamepad &Gamepad, button GamepadB
 //
 // See also: get_gamepad_apple_sf_symbols_name_for_axis (SDL_GetGamepadAppleSFSymbolsNameForAxis)
 pub fn get_gamepad_apple_sf_symbols_name_for_button(gamepad &Gamepad, button GamepadButton) &char {
-	return C.SDL_GetGamepadAppleSFSymbolsNameForButton(gamepad, button)
+	return &char(C.SDL_GetGamepadAppleSFSymbolsNameForButton(gamepad, button))
 }
 
 // C.SDL_GetGamepadAppleSFSymbolsNameForAxis [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGamepadAppleSFSymbolsNameForAxis)
@@ -1594,5 +1594,5 @@ fn C.SDL_GetGamepadAppleSFSymbolsNameForAxis(gamepad &Gamepad, axis GamepadAxis)
 //
 // See also: get_gamepad_apple_sf_symbols_name_for_button (SDL_GetGamepadAppleSFSymbolsNameForButton)
 pub fn get_gamepad_apple_sf_symbols_name_for_axis(gamepad &Gamepad, axis GamepadAxis) &char {
-	return C.SDL_GetGamepadAppleSFSymbolsNameForAxis(gamepad, axis)
+	return &char(C.SDL_GetGamepadAppleSFSymbolsNameForAxis(gamepad, axis))
 }

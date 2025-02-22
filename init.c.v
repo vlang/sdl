@@ -474,5 +474,5 @@ fn C.SDL_GetAppMetadataProperty(const_name &char) &char
 // See also: set_app_metadata (SDL_SetAppMetadata)
 // See also: set_app_metadata_property (SDL_SetAppMetadataProperty)
 pub fn get_app_metadata_property(const_name &char) &char {
-	return C.SDL_GetAppMetadataProperty(const_name)
+	return &char(C.SDL_GetAppMetadataProperty(const_name))
 }

@@ -83,7 +83,7 @@ fn C.SDL_GetKeyboardNameForID(instance_id KeyboardID) &char
 //
 // See also: get_keyboards (SDL_GetKeyboards)
 pub fn get_keyboard_name_for_id(instance_id KeyboardID) &char {
-	return C.SDL_GetKeyboardNameForID(instance_id)
+	return &char(C.SDL_GetKeyboardNameForID(instance_id))
 }
 
 // C.SDL_GetKeyboardFocus [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetKeyboardFocus)
@@ -133,7 +133,7 @@ fn C.SDL_GetKeyboardState(numkeys &int) &bool
 // See also: pump_events (SDL_PumpEvents)
 // See also: reset_keyboard (SDL_ResetKeyboard)
 pub fn get_keyboard_state(numkeys &int) &bool {
-	return C.SDL_GetKeyboardState(numkeys)
+	return &bool(C.SDL_GetKeyboardState(numkeys))
 }
 
 // C.SDL_ResetKeyboard [official documentation](https://wiki.libsdl.org/SDL3/SDL_ResetKeyboard)
@@ -292,7 +292,7 @@ fn C.SDL_GetScancodeName(scancode Scancode) &char
 // See also: get_scancode_from_name (SDL_GetScancodeFromName)
 // See also: set_scancode_name (SDL_SetScancodeName)
 pub fn get_scancode_name(scancode Scancode) &char {
-	return C.SDL_GetScancodeName(scancode)
+	return &char(C.SDL_GetScancodeName(scancode))
 }
 
 // C.SDL_GetScancodeFromName [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetScancodeFromName)
@@ -335,7 +335,7 @@ fn C.SDL_GetKeyName(key Keycode) &char
 // See also: get_key_from_scancode (SDL_GetKeyFromScancode)
 // See also: get_scancode_from_key (SDL_GetScancodeFromKey)
 pub fn get_key_name(key Keycode) &char {
-	return C.SDL_GetKeyName(key)
+	return &char(C.SDL_GetKeyName(key))
 }
 
 // C.SDL_GetKeyFromName [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetKeyFromName)

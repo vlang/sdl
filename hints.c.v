@@ -3868,7 +3868,7 @@ fn C.SDL_GetHint(const_name &char) &char
 // See also: set_hint (SDL_SetHint)
 // See also: set_hint_with_priority (SDL_SetHintWithPriority)
 pub fn get_hint(const_name &char) &char {
-	return C.SDL_GetHint(const_name)
+	return &char(C.SDL_GetHint(const_name))
 }
 
 // C.SDL_GetHintBoolean [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetHintBoolean)

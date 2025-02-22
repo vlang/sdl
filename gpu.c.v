@@ -1468,7 +1468,7 @@ fn C.SDL_GetGPUDriver(index int) &char
 //
 // See also: get_num_gpu_drivers (SDL_GetNumGPUDrivers)
 pub fn get_gpu_driver(index int) &char {
-	return C.SDL_GetGPUDriver(index)
+	return &char(C.SDL_GetGPUDriver(index))
 }
 
 // C.SDL_GetGPUDeviceDriver [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGPUDeviceDriver)
@@ -1481,7 +1481,7 @@ fn C.SDL_GetGPUDeviceDriver(device &GPUDevice) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_gpu_device_driver(device &GPUDevice) &char {
-	return C.SDL_GetGPUDeviceDriver(device)
+	return &char(C.SDL_GetGPUDeviceDriver(device))
 }
 
 // C.SDL_GetGPUShaderFormats [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGPUShaderFormats)
