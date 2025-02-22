@@ -61,8 +61,8 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 		return .failure
 	}
 
-	if !sdl.create_window_and_renderer(c'examples/renderer/textures', window_width,
-		window_height, sdl.WindowFlags(0), &app.window, &app.renderer) {
+	if !sdl.create_window_and_renderer(c'examples/renderer/textures', window_width, window_height,
+		sdl.WindowFlags(0), &app.window, &app.renderer) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		eprintln("Couldn't create window/renderer: ${error_msg}")
 		return .failure
