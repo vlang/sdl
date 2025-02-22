@@ -7,3 +7,5 @@ thirdparty/
 
 windows_install_dependencies
 setup
+examples/sdl_opengl_and_sokol/example_shader.h
+examples/ports/template

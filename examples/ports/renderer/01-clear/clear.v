@@ -39,7 +39,7 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 		*appstate = app
 	}
 	//     SDL_SetAppMetadata("Example Renderer Clear", "1.0", "com.example.renderer-clear");
-	sdl.set_app_metadata('Example Renderer Clear'.str, '1.0'.str, 'com.example.renderer-clear'.str)
+	sdl.set_app_metadata(c'Example Renderer Clear', c'1.0', c'com.example.renderer-clear')
 	//     if (!SDL_Init(SDL_INIT_VIDEO)) {
 	//         SDL_Log("Couldn't initialize SDL: %s", SDL_GetError());
 	//         return SDL_APP_FAILURE;
@@ -53,7 +53,7 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 	//         SDL_Log("Couldn't create window/renderer: %s", SDL_GetError());
 	//         return SDL_APP_FAILURE;
 	//     }
-	if !sdl.create_window_and_renderer('examples/renderer/clear'.str, 640, 480, sdl.WindowFlags(0),
+	if !sdl.create_window_and_renderer(c'examples/renderer/clear', 640, 480, sdl.WindowFlags(0),
 		&app.window, &app.renderer) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		eprintln("Couldn't create window/renderer: ${error_msg}")

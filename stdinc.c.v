@@ -165,43 +165,43 @@ pub const size_max = C.SDL_SIZE_MAX
 
 // TODO: Non-numerical: #define SDL_UINT64_C(c)  c ## ULL
 
-pub const max_sint8 = C.SDL_MAX_SINT8 // ((Sint8)0x7F)
+pub const max_sint8 = i8(C.SDL_MAX_SINT8) // ((Sint8)0x7F)
 
-pub const min_sint8 = C.SDL_MIN_SINT8 // ((Sint8)(~0x7F))
+pub const min_sint8 = i8(C.SDL_MIN_SINT8) // ((Sint8)(~0x7F))
 
-pub const max_uint8 = C.SDL_MAX_UINT8 // ((Uint8)0xFF)
+pub const max_uint8 = u8(C.SDL_MAX_UINT8) // ((Uint8)0xFF)
 
-pub const min_uint8 = C.SDL_MIN_UINT8 // ((Uint8)0x00)
+pub const min_uint8 = u8(C.SDL_MIN_UINT8) // ((Uint8)0x00)
 
-pub const max_sint16 = C.SDL_MAX_SINT16 // ((Sint16)0x7FFF)
+pub const max_sint16 = i16(C.SDL_MAX_SINT16) // ((Sint16)0x7FFF)
 
-pub const min_sint16 = C.SDL_MIN_SINT16 // ((Sint16)(~0x7FFF))
+pub const min_sint16 = i16(C.SDL_MIN_SINT16) // ((Sint16)(~0x7FFF))
 
-pub const max_uint16 = C.SDL_MAX_UINT16 // ((Uint16)0xFFFF)
+pub const max_uint16 = u16(C.SDL_MAX_UINT16) // ((Uint16)0xFFFF)
 
-pub const min_uint16 = C.SDL_MIN_UINT16 // ((Uint16)0x0000)
+pub const min_uint16 = u16(C.SDL_MIN_UINT16) // ((Uint16)0x0000)
 
-pub const max_sint32 = C.SDL_MAX_SINT32 // ((Sint32)0x7FFFFFFF)
+pub const max_sint32 = i32(C.SDL_MAX_SINT32) // ((Sint32)0x7FFFFFFF)
 
-pub const min_sint32 = C.SDL_MIN_SINT32 // ((Sint32)(~0x7FFFFFFF))
+pub const min_sint32 = i32(C.SDL_MIN_SINT32) // ((Sint32)(~0x7FFFFFFF))
 
-pub const max_uint32 = C.SDL_MAX_UINT32 // ((Uint32)0xFFFFFFFFu)
+pub const max_uint32 = u32(C.SDL_MAX_UINT32) // ((Uint32)0xFFFFFFFFu)
 
-pub const min_uint32 = C.SDL_MIN_UINT32 // ((Uint32)0x00000000)
+pub const min_uint32 = u32(C.SDL_MIN_UINT32) // ((Uint32)0x00000000)
 
-pub const max_sint64 = C.SDL_MAX_SINT64 // SDL_SINT64_C(0x7FFFFFFFFFFFFFFF)
+pub const max_sint64 = i64(C.SDL_MAX_SINT64) // SDL_SINT64_C(0x7FFFFFFFFFFFFFFF)
 
-pub const min_sint64 = C.SDL_MIN_SINT64 // ~SDL_SINT64_C(0x7FFFFFFFFFFFFFFF)
+pub const min_sint64 = i64(C.SDL_MIN_SINT64) // ~SDL_SINT64_C(0x7FFFFFFFFFFFFFFF)
 
-pub const max_uint64 = C.SDL_MAX_UINT64 // SDL_UINT64_C(0xFFFFFFFFFFFFFFFF)
+pub const max_uint64 = u64(C.SDL_MAX_UINT64) // SDL_UINT64_C(0xFFFFFFFFFFFFFFFF)
 
-pub const min_uint64 = C.SDL_MIN_UINT64 // SDL_UINT64_C(0x0000000000000000)
+pub const min_uint64 = u64(C.SDL_MIN_UINT64) // SDL_UINT64_C(0x0000000000000000)
 
-pub const max_time = C.SDL_MAX_TIME // SDL_MAX_SINT64
+pub const max_time = i64(C.SDL_MAX_TIME) // SDL_MAX_SINT64
 
-pub const min_time = C.SDL_MIN_TIME // SDL_MIN_SINT64
+pub const min_time = i64(C.SDL_MIN_TIME) // SDL_MIN_SINT64
 
-pub const flt_epsilon = C.SDL_FLT_EPSILON // 1.1920928955078125e-07F
+pub const flt_epsilon = f32(C.SDL_FLT_EPSILON) // 1.1920928955078125e-07F
 
 // A printf-formatting string for an Sint64 value.
 //
@@ -212,7 +212,7 @@ pub const flt_epsilon = C.SDL_FLT_EPSILON // 1.1920928955078125e-07F
 // ```
 //
 // NOTE: This macro is available since SDL 3.2.0.
-pub const pris64 = C.SDL_PRIs64 // 'lld'
+pub const pris64 = &char(C.SDL_PRIs64) // 'lld'
 
 // A printf-formatting string for a Uint64 value.
 //
@@ -223,7 +223,7 @@ pub const pris64 = C.SDL_PRIs64 // 'lld'
 // ```
 //
 // NOTE: This macro is available since SDL 3.2.0.
-pub const priu64 = C.SDL_PRIu64 // 'llu'
+pub const priu64 = &char(C.SDL_PRIu64) // 'llu'
 
 // A printf-formatting string for a Uint64 value as lower-case hexadecimal.
 //
@@ -234,7 +234,7 @@ pub const priu64 = C.SDL_PRIu64 // 'llu'
 // ```
 //
 // NOTE: This macro is available since SDL 3.2.0.
-pub const prix64 = C.SDL_PRIx64 // 'llx'
+pub const prix64 = &char(C.SDL_PRIx64) // 'llx'
 
 // A printf-formatting string for a Uint64 value as upper-case hexadecimal.
 //
@@ -245,7 +245,7 @@ pub const prix64 = C.SDL_PRIx64 // 'llx'
 // ```
 //
 // NOTE: This macro is available since SDL 3.2.0.
-pub const prix64x = C.SDL_PRIX64 // 'llX'
+pub const prix64x = &char(C.SDL_PRIX64) // 'llX'
 
 // A printf-formatting string for an Sint32 value.
 //
@@ -256,7 +256,7 @@ pub const prix64x = C.SDL_PRIX64 // 'llX'
 // ```
 //
 // NOTE: This macro is available since SDL 3.2.0.
-pub const pris32 = C.SDL_PRIs32 // 'd'
+pub const pris32 = &char(C.SDL_PRIs32) // 'd'
 
 // A printf-formatting string for a Uint32 value.
 //
@@ -267,7 +267,7 @@ pub const pris32 = C.SDL_PRIs32 // 'd'
 // ```
 //
 // NOTE: This macro is available since SDL 3.2.0.
-pub const priu32 = C.SDL_PRIu32 // 'u'
+pub const priu32 = &char(C.SDL_PRIu32) // 'u'
 
 // A printf-formatting string for a Uint32 value as lower-case hexadecimal.
 //
@@ -278,7 +278,7 @@ pub const priu32 = C.SDL_PRIu32 // 'u'
 // ```
 //
 // NOTE: This macro is available since SDL 3.2.0.
-pub const prix32 = C.SDL_PRIx32 // 'x'
+pub const prix32 = &char(C.SDL_PRIx32) // 'x'
 
 // A printf-formatting string for a Uint32 value as upper-case hexadecimal.
 //
@@ -289,7 +289,7 @@ pub const prix32 = C.SDL_PRIx32 // 'x'
 // ```
 //
 // NOTE: This macro is available since SDL 3.2.0.
-pub const prix32x = C.SDL_PRIX32 // 'X'
+pub const prix32x = &char(C.SDL_PRIX32) // 'X'
 
 // A printf-formatting string prefix for a `long long` value.
 //
@@ -303,7 +303,7 @@ pub const prix32x = C.SDL_PRIX32 // 'X'
 // ```
 //
 // NOTE: This macro is available since SDL 3.2.0.
-pub const prill_prefix = C.SDL_PRILL_PREFIX // 'll'
+pub const prill_prefix = &char(C.SDL_PRILL_PREFIX) // 'll'
 
 // A printf-formatting string for a `long long` value.
 //
@@ -314,7 +314,7 @@ pub const prill_prefix = C.SDL_PRILL_PREFIX // 'll'
 // ```
 //
 // NOTE: This macro is available since SDL 3.2.0.
-pub const prilld = C.SDL_PRILLd // SDL_PRILL_PREFIX 'd'
+pub const prilld = &char(C.SDL_PRILLd) // SDL_PRILL_PREFIX 'd'
 
 // A printf-formatting string for a `unsigned long long` value.
 //
@@ -325,7 +325,7 @@ pub const prilld = C.SDL_PRILLd // SDL_PRILL_PREFIX 'd'
 // ```
 //
 // NOTE: This macro is available since SDL 3.2.0.
-pub const prillu = C.SDL_PRILLu // SDL_PRILL_PREFIX 'u'
+pub const prillu = &char(C.SDL_PRILLu) // SDL_PRILL_PREFIX 'u'
 
 // A printf-formatting string for an `unsigned long long` value as lower-case
 // hexadecimal.
@@ -337,7 +337,7 @@ pub const prillu = C.SDL_PRILLu // SDL_PRILL_PREFIX 'u'
 // ```
 //
 // NOTE: This macro is available since SDL 3.2.0.
-pub const prillx = C.SDL_PRILLx // SDL_PRILL_PREFIX 'x'
+pub const prillx = &char(C.SDL_PRILLx) // SDL_PRILL_PREFIX 'x'
 
 // A printf-formatting string for an `unsigned long long` value as upper-case
 // hexadecimal.
@@ -349,7 +349,7 @@ pub const prillx = C.SDL_PRILLx // SDL_PRILL_PREFIX 'x'
 // ```
 //
 // NOTE: This macro is available since SDL 3.2.0.
-pub const prillxx = C.SDL_PRILLX // SDL_PRILL_PREFIX 'X'
+pub const prillxx = &char(C.SDL_PRILLX) // SDL_PRILL_PREFIX 'X'
 
 // TODO: Function: #define SDL_IN_BYTECAP(x) _In_bytecount_(x)
 
@@ -3779,9 +3779,9 @@ pub fn rand_bits_r(state &u64) u32 {
 	return C.SDL_rand_bits_r(state)
 }
 
-pub const pi_d = C.SDL_PI_D // 3.141592653589793238462643383279502884
+pub const pi_d = f64(C.SDL_PI_D) // 3.141592653589793238462643383279502884
 
-pub const pi_f = C.SDL_PI_F // 3.141592653589793238462643383279502884F
+pub const pi_f = f64(C.SDL_PI_F) // 3.141592653589793238462643383279502884F
 
 // C.SDL_acos [official documentation](https://wiki.libsdl.org/SDL3/SDL_acos)
 fn C.SDL_acos(x f64) f64

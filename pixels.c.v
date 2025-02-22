@@ -560,7 +560,7 @@ fn C.SDL_GetPixelFormatDetails(format PixelFormat) &PixelFormatDetails
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_pixel_format_details(format PixelFormat) &PixelFormatDetails {
-	return C.SDL_GetPixelFormatDetails(format)
+	return voidptr(C.SDL_GetPixelFormatDetails(format))
 }
 
 // C.SDL_CreatePalette [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreatePalette)

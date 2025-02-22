@@ -79,4 +79,3 @@ jobs:
           VER="$(v run sdl/examples/version)"
           echo "${SDL3_VERSION} == $VER ?"
           test "${SDL3_VERSION}" = "$VER" || exit 1
-
