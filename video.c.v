@@ -394,7 +394,7 @@ fn C.SDL_GetVideoDriver(index int) &char
 //
 // See also: get_num_video_drivers (SDL_GetNumVideoDrivers)
 pub fn get_video_driver(index int) &char {
-	return C.SDL_GetVideoDriver(index)
+	return &char(C.SDL_GetVideoDriver(index))
 }
 
 // C.SDL_GetCurrentVideoDriver [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetCurrentVideoDriver)
@@ -416,7 +416,7 @@ fn C.SDL_GetCurrentVideoDriver() &char
 // See also: get_num_video_drivers (SDL_GetNumVideoDrivers)
 // See also: get_video_driver (SDL_GetVideoDriver)
 pub fn get_current_video_driver() &char {
-	return C.SDL_GetCurrentVideoDriver()
+	return &char(C.SDL_GetCurrentVideoDriver())
 }
 
 // C.SDL_GetSystemTheme [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetSystemTheme)
@@ -518,7 +518,7 @@ fn C.SDL_GetDisplayName(display_id DisplayID) &char
 //
 // See also: get_displays (SDL_GetDisplays)
 pub fn get_display_name(display_id DisplayID) &char {
-	return C.SDL_GetDisplayName(display_id)
+	return &char(C.SDL_GetDisplayName(display_id))
 }
 
 // C.SDL_GetDisplayBounds [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetDisplayBounds)
@@ -1632,7 +1632,7 @@ fn C.SDL_GetWindowTitle(window &Window) &char
 //
 // See also: set_window_title (SDL_SetWindowTitle)
 pub fn get_window_title(window &Window) &char {
-	return C.SDL_GetWindowTitle(window)
+	return &char(C.SDL_GetWindowTitle(window))
 }
 
 // C.SDL_SetWindowIcon [official documentation](https://wiki.libsdl.org/SDL3/SDL_SetWindowIcon)

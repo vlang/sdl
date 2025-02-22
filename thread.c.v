@@ -241,7 +241,7 @@ fn C.SDL_GetThreadName(thread_ &Thread) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_thread_name(thread_ &Thread) &char {
-	return C.SDL_GetThreadName(thread_)
+	return &char(C.SDL_GetThreadName(thread_))
 }
 
 // C.SDL_GetCurrentThreadID [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetCurrentThreadID)

@@ -72,7 +72,7 @@ fn C.SDL_GetSensorNameForID(instance_id SensorID) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_sensor_name_for_id(instance_id SensorID) &char {
-	return C.SDL_GetSensorNameForID(instance_id)
+	return &char(C.SDL_GetSensorNameForID(instance_id))
 }
 
 // C.SDL_GetSensorTypeForID [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetSensorTypeForID)
@@ -160,7 +160,7 @@ fn C.SDL_GetSensorName(sensor &Sensor) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_sensor_name(sensor &Sensor) &char {
-	return C.SDL_GetSensorName(sensor)
+	return &char(C.SDL_GetSensorName(sensor))
 }
 
 // C.SDL_GetSensorType [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetSensorType)

@@ -28,5 +28,5 @@ fn C.SDL_GetPlatform() &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_platform() &char {
-	return C.SDL_GetPlatform()
+	return &char(C.SDL_GetPlatform())
 }

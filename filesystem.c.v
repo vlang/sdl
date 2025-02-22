@@ -74,7 +74,7 @@ fn C.SDL_GetBasePath() &char
 //
 // See also: get_pref_path (SDL_GetPrefPath)
 pub fn get_base_path() &char {
-	return C.SDL_GetBasePath()
+	return &char(C.SDL_GetBasePath())
 }
 
 // C.SDL_GetPrefPath [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetPrefPath)
@@ -132,7 +132,7 @@ fn C.SDL_GetPrefPath(const_org &char, const_app &char) &char
 //
 // See also: get_base_path (SDL_GetBasePath)
 pub fn get_pref_path(const_org &char, const_app &char) &char {
-	return C.SDL_GetPrefPath(const_org, const_app)
+	return &char(C.SDL_GetPrefPath(const_org, const_app))
 }
 
 // Folder is C.SDL_Folder
@@ -176,7 +176,7 @@ fn C.SDL_GetUserFolder(folder Folder) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_user_folder(folder Folder) &char {
-	return C.SDL_GetUserFolder(folder)
+	return &char(C.SDL_GetUserFolder(folder))
 }
 
 // PathType is C.SDL_PathType
@@ -438,5 +438,5 @@ fn C.SDL_GetCurrentDirectory() &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_current_directory() &char {
-	return C.SDL_GetCurrentDirectory()
+	return &char(C.SDL_GetCurrentDirectory())
 }

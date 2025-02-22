@@ -96,7 +96,7 @@ fn C.SDL_GetTouchDeviceName(touch_id TouchID) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_touch_device_name(touch_id TouchID) &char {
-	return C.SDL_GetTouchDeviceName(touch_id)
+	return &char(C.SDL_GetTouchDeviceName(touch_id))
 }
 
 // C.SDL_GetTouchDeviceType [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetTouchDeviceType)

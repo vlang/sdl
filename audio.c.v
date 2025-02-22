@@ -258,7 +258,7 @@ fn C.SDL_GetAudioDriver(index int) &char
 //
 // See also: get_num_audio_drivers (SDL_GetNumAudioDrivers)
 pub fn get_audio_driver(index int) &char {
-	return C.SDL_GetAudioDriver(index)
+	return &char(C.SDL_GetAudioDriver(index))
 }
 
 // C.SDL_GetCurrentAudioDriver [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetCurrentAudioDriver)
@@ -277,7 +277,7 @@ fn C.SDL_GetCurrentAudioDriver() &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_current_audio_driver() &char {
-	return C.SDL_GetCurrentAudioDriver()
+	return &char(C.SDL_GetCurrentAudioDriver())
 }
 
 // C.SDL_GetAudioPlaybackDevices [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetAudioPlaybackDevices)
@@ -360,7 +360,7 @@ fn C.SDL_GetAudioDeviceName(devid AudioDeviceID) &char
 // See also: get_audio_playback_devices (SDL_GetAudioPlaybackDevices)
 // See also: get_audio_recording_devices (SDL_GetAudioRecordingDevices)
 pub fn get_audio_device_name(devid AudioDeviceID) &char {
-	return C.SDL_GetAudioDeviceName(devid)
+	return &char(C.SDL_GetAudioDeviceName(devid))
 }
 
 // C.SDL_GetAudioDeviceFormat [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetAudioDeviceFormat)
@@ -766,7 +766,7 @@ fn C.SDL_BindAudioStreams(devid AudioDeviceID, const_streams &&C.SDL_AudioStream
 // See also: unbind_audio_stream (SDL_UnbindAudioStream)
 // See also: get_audio_stream_device (SDL_GetAudioStreamDevice)
 pub fn bind_audio_streams(devid AudioDeviceID, const_streams &&C.SDL_AudioStream, num_streams int) bool {
-	return C.SDL_BindAudioStreams(devid, const_streams, num_streams)
+	return C.SDL_BindAudioStreams(devid, voidptr(const_streams), num_streams)
 }
 
 // C.SDL_BindAudioStream [official documentation](https://wiki.libsdl.org/SDL3/SDL_BindAudioStream)
@@ -814,7 +814,7 @@ fn C.SDL_UnbindAudioStreams(const_streams &&C.SDL_AudioStream, num_streams int)
 //
 // See also: bind_audio_streams (SDL_BindAudioStreams)
 pub fn unbind_audio_streams(const_streams &&C.SDL_AudioStream, num_streams int) {
-	C.SDL_UnbindAudioStreams(const_streams, num_streams)
+	C.SDL_UnbindAudioStreams(voidptr(const_streams), num_streams)
 }
 
 // C.SDL_UnbindAudioStream [official documentation](https://wiki.libsdl.org/SDL3/SDL_UnbindAudioStream)
@@ -2082,7 +2082,7 @@ fn C.SDL_GetAudioFormatName(format AudioFormat) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_audio_format_name(format AudioFormat) &char {
-	return C.SDL_GetAudioFormatName(format)
+	return &char(C.SDL_GetAudioFormatName(format))
 }
 
 // C.SDL_GetSilenceValueForFormat [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetSilenceValueForFormat)

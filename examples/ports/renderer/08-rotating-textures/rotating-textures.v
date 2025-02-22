@@ -3,14 +3,18 @@
 // that can be found in the LICENSE file.
 module no_main
 
-// NOTE: compile this example with `-d sdl_callbacks`.
 // See also: `examples/ports/template.v` for a simple commented example demonstrating how
 // to run via callbacks instead of a `fn main() {}`.
 // See also: `examples/ports/README.md` for more information.
-import sdl
 import os
+import sdl
+import sdl.callbacks
 
-#postinclude "@VMODROOT/c/sdl_main_use_callbacks_shim.h"
+fn init() {
+	callbacks.on_init(app_init)
+	callbacks.on_quit(app_quit)
+	callbacks.on_iterate(app_iterate)
+}
 
 #flag wasm32_emscripten --embed-file "@VMODROOT/examples/assets/images/sample.bmp@images/sample.bmp"
 
@@ -47,7 +51,6 @@ fn get_asset_path(path string) string {
 }
 
 // This function runs once at startup.
-@[export: 'v_sdl_app_init']
 pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 	mut app := &SDLApp{}
 	unsafe {
@@ -97,20 +100,7 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 	return .continue // carry on with the program!
 }
 
-// This function runs when a new event (mouse input, keypresses, etc) occurs.
-@[export: 'v_sdl_app_event']
-pub fn app_event(appstate voidptr, event &sdl.Event) sdl.AppResult {
-	match event.type {
-		.quit {
-			return .success // end the program, reporting success to the OS.
-		}
-		else {}
-	}
-	return .continue // carry on with the program!
-}
-
 // This function runs once per frame, and is the heart of the program.
-@[export: 'v_sdl_app_iterate']
 pub fn app_iterate(appstate voidptr) sdl.AppResult {
 	mut app := unsafe { &SDLApp(appstate) }
 
@@ -143,7 +133,6 @@ pub fn app_iterate(appstate voidptr) sdl.AppResult {
 }
 
 // This function runs once at shutdown.
-@[export: 'v_sdl_app_quit']
 pub fn app_quit(appstate voidptr, result sdl.AppResult) {
 	mut app := unsafe { &SDLApp(appstate) }
 	sdl.destroy_texture(app.texture)

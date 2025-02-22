@@ -901,7 +901,7 @@ fn C.SDL_GetEnvironmentVariable(env &Environment, const_name &char) &char
 // See also: set_environment_variable (SDL_SetEnvironmentVariable)
 // See also: unset_environment_variable (SDL_UnsetEnvironmentVariable)
 pub fn get_environment_variable(env &Environment, const_name &char) &char {
-	return C.SDL_GetEnvironmentVariable(env, const_name)
+	return &char(C.SDL_GetEnvironmentVariable(env, const_name))
 }
 
 // C.SDL_GetEnvironmentVariables [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetEnvironmentVariables)
@@ -1011,7 +1011,7 @@ fn C.SDL_getenv(const_name &char) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn getenv(const_name &char) &char {
-	return C.SDL_getenv(const_name)
+	return &char(C.SDL_getenv(const_name))
 }
 
 // C.SDL_getenv_unsafe [official documentation](https://wiki.libsdl.org/SDL3/SDL_getenv_unsafe)
@@ -1033,7 +1033,7 @@ fn C.SDL_getenv_unsafe(const_name &char) &char
 //
 // See also: getenv (SDL_getenv)
 pub fn getenv_unsafe(const_name &char) &char {
-	return C.SDL_getenv_unsafe(const_name)
+	return &char(C.SDL_getenv_unsafe(const_name))
 }
 
 // C.SDL_setenv_unsafe [official documentation](https://wiki.libsdl.org/SDL3/SDL_setenv_unsafe)
@@ -2349,7 +2349,7 @@ fn C.SDL_strdup(const_str &char) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn strdup(const_str &char) &char {
-	return C.SDL_strdup(const_str)
+	return &char(C.SDL_strdup(const_str))
 }
 
 // C.SDL_strndup [official documentation](https://wiki.libsdl.org/SDL3/SDL_strndup)
@@ -2377,7 +2377,7 @@ fn C.SDL_strndup(const_str &char, maxlen usize) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn strndup(const_str &char, maxlen usize) &char {
-	return C.SDL_strndup(const_str, maxlen)
+	return &char(C.SDL_strndup(const_str, maxlen))
 }
 
 // C.SDL_strrev [official documentation](https://wiki.libsdl.org/SDL3/SDL_strrev)
@@ -2401,7 +2401,7 @@ fn C.SDL_strrev(str &char) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn strrev(str &char) &char {
-	return C.SDL_strrev(str)
+	return &char(C.SDL_strrev(str))
 }
 
 // C.SDL_strupr [official documentation](https://wiki.libsdl.org/SDL3/SDL_strupr)
@@ -2425,7 +2425,7 @@ fn C.SDL_strupr(str &char) &char
 //
 // See also: strlwr (SDL_strlwr)
 pub fn strupr(str &char) &char {
-	return C.SDL_strupr(str)
+	return &char(C.SDL_strupr(str))
 }
 
 // C.SDL_strlwr [official documentation](https://wiki.libsdl.org/SDL3/SDL_strlwr)
@@ -2449,7 +2449,7 @@ fn C.SDL_strlwr(str &char) &char
 //
 // See also: strupr (SDL_strupr)
 pub fn strlwr(str &char) &char {
-	return C.SDL_strlwr(str)
+	return &char(C.SDL_strlwr(str))
 }
 
 // C.SDL_strchr [official documentation](https://wiki.libsdl.org/SDL3/SDL_strchr)
@@ -2472,7 +2472,7 @@ fn C.SDL_strchr(const_str &char, c int) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn strchr(const_str &char, c int) &char {
-	return C.SDL_strchr(const_str, c)
+	return &char(C.SDL_strchr(const_str, c))
 }
 
 // C.SDL_strrchr [official documentation](https://wiki.libsdl.org/SDL3/SDL_strrchr)
@@ -2494,7 +2494,7 @@ fn C.SDL_strrchr(const_str &char, c int) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn strrchr(const_str &char, c int) &char {
-	return C.SDL_strrchr(const_str, c)
+	return &char(C.SDL_strrchr(const_str, c))
 }
 
 // C.SDL_strstr [official documentation](https://wiki.libsdl.org/SDL3/SDL_strstr)
@@ -2517,7 +2517,7 @@ fn C.SDL_strstr(const_haystack &char, const_needle &char) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn strstr(const_haystack &char, const_needle &char) &char {
-	return C.SDL_strstr(const_haystack, const_needle)
+	return &char(C.SDL_strstr(const_haystack, const_needle))
 }
 
 // C.SDL_strnstr [official documentation](https://wiki.libsdl.org/SDL3/SDL_strnstr)
@@ -2543,7 +2543,7 @@ fn C.SDL_strnstr(const_haystack &char, const_needle &char, maxlen usize) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn strnstr(const_haystack &char, const_needle &char, maxlen usize) &char {
-	return C.SDL_strnstr(const_haystack, const_needle, maxlen)
+	return &char(C.SDL_strnstr(const_haystack, const_needle, maxlen))
 }
 
 // C.SDL_strcasestr [official documentation](https://wiki.libsdl.org/SDL3/SDL_strcasestr)
@@ -2574,7 +2574,7 @@ fn C.SDL_strcasestr(const_haystack &char, const_needle &char) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn strcasestr(const_haystack &char, const_needle &char) &char {
-	return C.SDL_strcasestr(const_haystack, const_needle)
+	return &char(C.SDL_strcasestr(const_haystack, const_needle))
 }
 
 // C.SDL_strtok_r [official documentation](https://wiki.libsdl.org/SDL3/SDL_strtok_r)
@@ -2606,7 +2606,7 @@ fn C.SDL_strtok_r(str &char, const_delim &char, saveptr &&char) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn strtok_r(str &char, const_delim &char, saveptr &&char) &char {
-	return C.SDL_strtok_r(str, const_delim, saveptr)
+	return &char(C.SDL_strtok_r(str, const_delim, saveptr))
 }
 
 // C.SDL_utf8strlen [official documentation](https://wiki.libsdl.org/SDL3/SDL_utf8strlen)
@@ -2704,7 +2704,7 @@ fn C.SDL_itoa(value int, str &char, radix int) &char
 // See also: ltoa (SDL_ltoa)
 // See also: lltoa (SDL_lltoa)
 pub fn itoa(value int, str &char, radix int) &char {
-	return C.SDL_itoa(value, str, radix)
+	return &char(C.SDL_itoa(value, str, radix))
 }
 
 // C.SDL_uitoa [official documentation](https://wiki.libsdl.org/SDL3/SDL_uitoa)
@@ -2735,7 +2735,7 @@ fn C.SDL_uitoa(value u32, str &char, radix int) &char
 // See also: ultoa (SDL_ultoa)
 // See also: ulltoa (SDL_ulltoa)
 pub fn uitoa(value u32, str &char, radix int) &char {
-	return C.SDL_uitoa(value, str, radix)
+	return &char(C.SDL_uitoa(value, str, radix))
 }
 
 // C.SDL_ltoa [official documentation](https://wiki.libsdl.org/SDL3/SDL_ltoa)
@@ -2766,7 +2766,7 @@ fn C.SDL_ltoa(value int, str &char, radix int) &char
 // See also: itoa (SDL_itoa)
 // See also: lltoa (SDL_lltoa)
 pub fn ltoa(value int, str &char, radix int) &char {
-	return C.SDL_ltoa(value, str, radix)
+	return &char(C.SDL_ltoa(value, str, radix))
 }
 
 // C.SDL_ultoa [official documentation](https://wiki.libsdl.org/SDL3/SDL_ultoa)
@@ -2797,7 +2797,7 @@ fn C.SDL_ultoa(value u32, str &char, radix int) &char
 // See also: uitoa (SDL_uitoa)
 // See also: ulltoa (SDL_ulltoa)
 pub fn ultoa(value u32, str &char, radix int) &char {
-	return C.SDL_ultoa(value, str, radix)
+	return &char(C.SDL_ultoa(value, str, radix))
 }
 
 // C.SDL_lltoa [official documentation](https://wiki.libsdl.org/SDL3/SDL_lltoa)
@@ -2828,7 +2828,7 @@ fn C.SDL_lltoa(value i64, str &char, radix int) &char
 // See also: itoa (SDL_itoa)
 // See also: ltoa (SDL_ltoa)
 pub fn lltoa(value i64, str &char, radix int) &char {
-	return C.SDL_lltoa(value, str, radix)
+	return &char(C.SDL_lltoa(value, str, radix))
 }
 
 // C.SDL_ulltoa [official documentation](https://wiki.libsdl.org/SDL3/SDL_ulltoa)
@@ -2859,7 +2859,7 @@ fn C.SDL_ulltoa(value u64, str &char, radix int) &char
 // See also: uitoa (SDL_uitoa)
 // See also: ultoa (SDL_ultoa)
 pub fn ulltoa(value u64, str &char, radix int) &char {
-	return C.SDL_ulltoa(value, str, radix)
+	return &char(C.SDL_ulltoa(value, str, radix))
 }
 
 // C.SDL_atoi [official documentation](https://wiki.libsdl.org/SDL3/SDL_atoi)
@@ -3238,7 +3238,7 @@ fn C.SDL_strpbrk(const_str &char, const_breakset &char) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn strpbrk(const_str &char, const_breakset &char) &char {
-	return C.SDL_strpbrk(const_str, const_breakset)
+	return &char(C.SDL_strpbrk(const_str, const_breakset))
 }
 
 // The Unicode REPLACEMENT CHARACTER codepoint.
@@ -3365,7 +3365,7 @@ fn C.SDL_UCS4ToUTF8(codepoint u32, dst &char) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn uc_s4_to_utf8(codepoint u32, dst &char) &char {
-	return C.SDL_UCS4ToUTF8(codepoint, dst)
+	return &char(C.SDL_UCS4ToUTF8(codepoint, dst))
 }
 
 // C.SDL_sscanf [official documentation](https://wiki.libsdl.org/SDL3/SDL_sscanf)
@@ -5363,7 +5363,7 @@ fn C.SDL_iconv_string(const_tocode &char, const_fromcode &char, const_inbuf &cha
 // See also: iconv_close (SDL_iconv_close)
 // See also: iconv (SDL_iconv)
 pub fn iconv_string(const_tocode &char, const_fromcode &char, const_inbuf &char, inbytesleft usize) &char {
-	return C.SDL_iconv_string(const_tocode, const_fromcode, const_inbuf, inbytesleft)
+	return &char(C.SDL_iconv_string(const_tocode, const_fromcode, const_inbuf, inbytesleft))
 }
 
 // Convert a UTF-8 string to the current locale's character encoding.

@@ -75,18 +75,31 @@ You can read more about this compatibility in regards to V in the
 ### Using SDL3 `SDL_App*` callbacks (and running *some* examples)
 
 To use SDL3's *main-loop control inversion* / callback setup via
-`SDL_MAIN_USE_CALLBACKS`. You will need to `@[export]` 4 specially named
-functions and compile the code with `-d sdl_callbacks`.
+`SDL_MAIN_USE_CALLBACKS`. You will need to `import sdl.callbacks`,
+then define:
+```v oksyntax
+fn init() {
+	callbacks.on_init(app_init)
+	callbacks.on_quit(app_quit)
+	callbacks.on_event(app_event)
+	callbacks.on_iterate(app_iterate)
+}
+```
 
-The examples in `examples/ports/*` all require the build flag
-`-d sdl_callbacks` to function as intended without a main function.
+Note that if the code for some of the callbacks is trivial, you do not have
+to register it, just skip the call to the corresponding `on_` function.
 
-The examples *outside* the `ports` folder can be run normally.
+The examples in `examples/ports/*` all function without a main
+function, using that scheme.
+
+The examples *outside* the `ports` folder, use the normal `fn main()
+{` mechanism, without having to register callbacks.
 
 Whether or not you want to use the "no main" approach for your own apps
 is up to you. V supports both ways for building SDL3 applications.
 
-Read more about the no main, callbacks and reasons in `examples/ports/README.md`(examples/ports/README.md).
+Read more about the no main, callbacks and reasons 
+in `examples/ports/README.md`(examples/ports/README.md).
 
 ### Notes on garbage collection and memory issues
 
@@ -161,7 +174,7 @@ Various examples of running some of the included examples.
 ```bash
 v run ~/.vmodules/sdl/examples/basic_window/
 v run ~/.vmodules/sdl/examples/versions/
-v -d sdl_callbacks run ~/.vmodules/sdl/examples/ports/template.v
+v run ~/.vmodules/sdl/examples/ports/template.v
 # See `examples/ports/README.md` for more info on `SDL_MAIN_USE_CALLBACKS`.
 ```
 
@@ -178,7 +191,7 @@ make install # should install to something like $HOME/.cache/emscripten/sysroot/
 ```bash
 export PKG_CONFIG_PATH_DEFAULTS=$HOME/.cache/emscripten/sysroot/lib/pkgconfig/
 mkdir /tmp/sdl_wasm
-v -os wasm32_emscripten -gc none -d sdl_callbacks -o /tmp/sdl_wasm/example.html ~/.vmodules/sdl/examples/ports/renderer/05-rectangles/
+v -os wasm32_emscripten -gc none -o /tmp/sdl_wasm/example.html ~/.vmodules/sdl/examples/ports/renderer/05-rectangles/
 emrun /tmp/sdl_wasm/example.html
 ```
 
@@ -191,5 +204,7 @@ for more information.
 Example of building an `.apk` for `arm64-v8a`:
 
 ```bash
-vab sdl --assets ~/.vmodules/sdl/examples/assets/ --flag "-d sdl_callbacks" --archs "arm64-v8a" ~/.vmodules/sdl/examples/ports/renderer/06-textures/
+vab sdl --assets ~/.vmodules/sdl/examples/assets/ \
+        --archs "arm64-v8a" \
+		~/.vmodules/sdl/examples/ports/renderer/06-textures/
 ```

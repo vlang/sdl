@@ -490,7 +490,7 @@ fn C.SDL_GetHapticNameForID(instance_id HapticID) &char
 // See also: get_haptic_name (SDL_GetHapticName)
 // See also: open_haptic (SDL_OpenHaptic)
 pub fn get_haptic_name_for_id(instance_id HapticID) &char {
-	return C.SDL_GetHapticNameForID(instance_id)
+	return &char(C.SDL_GetHapticNameForID(instance_id))
 }
 
 // C.SDL_OpenHaptic [official documentation](https://wiki.libsdl.org/SDL3/SDL_OpenHaptic)
@@ -563,7 +563,7 @@ fn C.SDL_GetHapticName(haptic &Haptic) &char
 //
 // See also: get_haptic_name_for_id (SDL_GetHapticNameForID)
 pub fn get_haptic_name(haptic &Haptic) &char {
-	return C.SDL_GetHapticName(haptic)
+	return &char(C.SDL_GetHapticName(haptic))
 }
 
 // C.SDL_IsMouseHaptic [official documentation](https://wiki.libsdl.org/SDL3/SDL_IsMouseHaptic)

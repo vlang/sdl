@@ -138,7 +138,7 @@ fn C.SDL_GetCameraDriver(index int) &char
 //
 // See also: get_num_camera_drivers (SDL_GetNumCameraDrivers)
 pub fn get_camera_driver(index int) &char {
-	return C.SDL_GetCameraDriver(index)
+	return &char(C.SDL_GetCameraDriver(index))
 }
 
 // C.SDL_GetCurrentCameraDriver [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetCurrentCameraDriver)
@@ -157,7 +157,7 @@ fn C.SDL_GetCurrentCameraDriver() &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_current_camera_driver() &char {
-	return C.SDL_GetCurrentCameraDriver()
+	return &char(C.SDL_GetCurrentCameraDriver())
 }
 
 // C.SDL_GetCameras [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetCameras)
@@ -237,7 +237,7 @@ fn C.SDL_GetCameraName(instance_id CameraID) &char
 //
 // See also: get_cameras (SDL_GetCameras)
 pub fn get_camera_name(instance_id CameraID) &char {
-	return C.SDL_GetCameraName(instance_id)
+	return &char(C.SDL_GetCameraName(instance_id))
 }
 
 // C.SDL_GetCameraPosition [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetCameraPosition)

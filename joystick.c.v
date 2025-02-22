@@ -163,7 +163,7 @@ fn C.SDL_GetJoystickNameForID(instance_id JoystickID) &char
 // See also: get_joystick_name (SDL_GetJoystickName)
 // See also: get_joysticks (SDL_GetJoysticks)
 pub fn get_joystick_name_for_id(instance_id JoystickID) &char {
-	return C.SDL_GetJoystickNameForID(instance_id)
+	return &char(C.SDL_GetJoystickNameForID(instance_id))
 }
 
 // C.SDL_GetJoystickPathForID [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetJoystickPathForID)
@@ -182,7 +182,7 @@ fn C.SDL_GetJoystickPathForID(instance_id JoystickID) &char
 // See also: get_joystick_path (SDL_GetJoystickPath)
 // See also: get_joysticks (SDL_GetJoysticks)
 pub fn get_joystick_path_for_id(instance_id JoystickID) &char {
-	return C.SDL_GetJoystickPathForID(instance_id)
+	return &char(C.SDL_GetJoystickPathForID(instance_id))
 }
 
 // C.SDL_GetJoystickPlayerIndexForID [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetJoystickPlayerIndexForID)
@@ -647,7 +647,7 @@ fn C.SDL_GetJoystickName(joystick &Joystick) &char
 //
 // See also: get_joystick_name_for_id (SDL_GetJoystickNameForID)
 pub fn get_joystick_name(joystick &Joystick) &char {
-	return C.SDL_GetJoystickName(joystick)
+	return &char(C.SDL_GetJoystickName(joystick))
 }
 
 // C.SDL_GetJoystickPath [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetJoystickPath)
@@ -663,7 +663,7 @@ fn C.SDL_GetJoystickPath(joystick &Joystick) &char
 //
 // See also: get_joystick_path_for_id (SDL_GetJoystickPathForID)
 pub fn get_joystick_path(joystick &Joystick) &char {
-	return C.SDL_GetJoystickPath(joystick)
+	return &char(C.SDL_GetJoystickPath(joystick))
 }
 
 // C.SDL_GetJoystickPlayerIndex [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetJoystickPlayerIndex)
@@ -802,7 +802,7 @@ fn C.SDL_GetJoystickSerial(joystick &Joystick) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_joystick_serial(joystick &Joystick) &char {
-	return C.SDL_GetJoystickSerial(joystick)
+	return &char(C.SDL_GetJoystickSerial(joystick))
 }
 
 // C.SDL_GetJoystickType [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetJoystickType)
