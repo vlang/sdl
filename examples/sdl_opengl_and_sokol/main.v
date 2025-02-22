@@ -88,7 +88,7 @@ fn main() {
 	sdl.gl_set_attribute(.stencil_size, 8)
 
 	mut window_flags := sdl.WindowFlags(sdl.window_opengl)
-	window := sdl.create_window('Hello SDL3 + Sokol (OpenGL)'.str, win_width, win_height,
+	window := sdl.create_window(c'Hello SDL3 + Sokol (OpenGL)', win_width, win_height,
 		window_flags)
 	if window == sdl.null {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }

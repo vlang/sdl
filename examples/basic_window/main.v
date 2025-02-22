@@ -12,8 +12,8 @@ fn main() {
 
 	sdl.init(sdl.init_video | sdl.init_events)
 
-	if !sdl.create_window_and_renderer('Hello SDL3'.str, 500, 300, sdl.WindowFlags(0),
-		&app.window, &app.renderer) {
+	if !sdl.create_window_and_renderer(c'Hello SDL3', 500, 300, sdl.WindowFlags(0), &app.window,
+		&app.renderer) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		panic('Could not create SDL window and renderer. SDL error:\n${error_msg}')
 	}
