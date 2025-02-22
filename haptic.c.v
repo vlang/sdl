@@ -456,7 +456,7 @@ pub mut:
 pub type HapticEffect = C.SDL_HapticEffect
 
 // C.SDL_GetHaptics [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetHaptics)
-fn C.SDL_GetHaptics(count &int) HapticID
+fn C.SDL_GetHaptics(count &int) &HapticID
 
 // get_haptics gets a list of currently connected haptic devices.
 //
@@ -469,7 +469,7 @@ fn C.SDL_GetHaptics(count &int) HapticID
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: open_haptic (SDL_OpenHaptic)
-pub fn get_haptics(count &int) HapticID {
+pub fn get_haptics(count &int) &HapticID {
 	return C.SDL_GetHaptics(count)
 }
 

@@ -45,7 +45,7 @@ pub enum SensorType {
 }
 
 // C.SDL_GetSensors [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetSensors)
-fn C.SDL_GetSensors(count &int) SensorID
+fn C.SDL_GetSensors(count &int) &SensorID
 
 // get_sensors gets a list of currently connected sensors.
 //
@@ -56,7 +56,7 @@ fn C.SDL_GetSensors(count &int) SensorID
 //          with SDL_free() when it is no longer needed.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn get_sensors(count &int) SensorID {
+pub fn get_sensors(count &int) &SensorID {
 	return C.SDL_GetSensors(count)
 }
 

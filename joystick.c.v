@@ -129,7 +129,7 @@ pub fn has_joystick() bool {
 }
 
 // C.SDL_GetJoysticks [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetJoysticks)
-fn C.SDL_GetJoysticks(count &int) JoystickID
+fn C.SDL_GetJoysticks(count &int) &JoystickID
 
 // get_joysticks gets a list of currently connected joysticks.
 //
@@ -143,7 +143,7 @@ fn C.SDL_GetJoysticks(count &int) JoystickID
 //
 // See also: has_joystick (SDL_HasJoystick)
 // See also: open_joystick (SDL_OpenJoystick)
-pub fn get_joysticks(count &int) JoystickID {
+pub fn get_joysticks(count &int) &JoystickID {
 	return C.SDL_GetJoysticks(count)
 }
 

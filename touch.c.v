@@ -66,7 +66,7 @@ pub const touch_mouseid = C.SDL_TOUCH_MOUSEID // ((SDL_MouseID)-1)
 pub const mouse_touchid = C.SDL_MOUSE_TOUCHID // ((SDL_TouchID)-1)
 
 // C.SDL_GetTouchDevices [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetTouchDevices)
-fn C.SDL_GetTouchDevices(count &int) TouchID
+fn C.SDL_GetTouchDevices(count &int) &TouchID
 
 // get_touch_devices gets a list of registered touch devices.
 //
@@ -81,7 +81,7 @@ fn C.SDL_GetTouchDevices(count &int) TouchID
 //          SDL_free() when it is no longer needed.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn get_touch_devices(count &int) TouchID {
+pub fn get_touch_devices(count &int) &TouchID {
 	return C.SDL_GetTouchDevices(count)
 }
 

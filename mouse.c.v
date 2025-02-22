@@ -140,7 +140,7 @@ pub fn has_mouse() bool {
 }
 
 // C.SDL_GetMice [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetMice)
-fn C.SDL_GetMice(count &int) MouseID
+fn C.SDL_GetMice(count &int) &MouseID
 
 // get_mice gets a list of currently connected mice.
 //
@@ -161,7 +161,7 @@ fn C.SDL_GetMice(count &int) MouseID
 //
 // See also: get_mouse_name_for_id (SDL_GetMouseNameForID)
 // See also: has_mouse (SDL_HasMouse)
-pub fn get_mice(count &int) MouseID {
+pub fn get_mice(count &int) &MouseID {
 	return C.SDL_GetMice(count)
 }
 

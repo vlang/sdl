@@ -281,7 +281,7 @@ pub fn get_current_audio_driver() &char {
 }
 
 // C.SDL_GetAudioPlaybackDevices [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetAudioPlaybackDevices)
-fn C.SDL_GetAudioPlaybackDevices(count &int) AudioDeviceID
+fn C.SDL_GetAudioPlaybackDevices(count &int) &AudioDeviceID
 
 // get_audio_playback_devices gets a list of currently-connected audio playback devices.
 //
@@ -308,12 +308,12 @@ fn C.SDL_GetAudioPlaybackDevices(count &int) AudioDeviceID
 //
 // See also: open_audio_device (SDL_OpenAudioDevice)
 // See also: get_audio_recording_devices (SDL_GetAudioRecordingDevices)
-pub fn get_audio_playback_devices(count &int) AudioDeviceID {
+pub fn get_audio_playback_devices(count &int) &AudioDeviceID {
 	return C.SDL_GetAudioPlaybackDevices(count)
 }
 
 // C.SDL_GetAudioRecordingDevices [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetAudioRecordingDevices)
-fn C.SDL_GetAudioRecordingDevices(count &int) AudioDeviceID
+fn C.SDL_GetAudioRecordingDevices(count &int) &AudioDeviceID
 
 // get_audio_recording_devices gets a list of currently-connected audio recording devices.
 //
@@ -340,7 +340,7 @@ fn C.SDL_GetAudioRecordingDevices(count &int) AudioDeviceID
 //
 // See also: open_audio_device (SDL_OpenAudioDevice)
 // See also: get_audio_playback_devices (SDL_GetAudioPlaybackDevices)
-pub fn get_audio_recording_devices(count &int) AudioDeviceID {
+pub fn get_audio_recording_devices(count &int) &AudioDeviceID {
 	return C.SDL_GetAudioRecordingDevices(count)
 }
 

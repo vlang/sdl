@@ -406,7 +406,7 @@ pub fn has_gamepad() bool {
 }
 
 // C.SDL_GetGamepads [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGamepads)
-fn C.SDL_GetGamepads(count &int) JoystickID
+fn C.SDL_GetGamepads(count &int) &JoystickID
 
 // get_gamepads gets a list of currently connected gamepads.
 //
@@ -420,7 +420,7 @@ fn C.SDL_GetGamepads(count &int) JoystickID
 //
 // See also: has_gamepad (SDL_HasGamepad)
 // See also: open_gamepad (SDL_OpenGamepad)
-pub fn get_gamepads(count &int) JoystickID {
+pub fn get_gamepads(count &int) &JoystickID {
 	return C.SDL_GetGamepads(count)
 }
 

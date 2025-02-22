@@ -41,7 +41,7 @@ pub fn has_keyboard() bool {
 }
 
 // C.SDL_GetKeyboards [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetKeyboards)
-fn C.SDL_GetKeyboards(count &int) KeyboardID
+fn C.SDL_GetKeyboards(count &int) &KeyboardID
 
 // get_keyboards gets a list of currently connected keyboards.
 //
@@ -62,7 +62,7 @@ fn C.SDL_GetKeyboards(count &int) KeyboardID
 //
 // See also: get_keyboard_name_for_id (SDL_GetKeyboardNameForID)
 // See also: has_keyboard (SDL_HasKeyboard)
-pub fn get_keyboards(count &int) KeyboardID {
+pub fn get_keyboards(count &int) &KeyboardID {
 	return C.SDL_GetKeyboards(count)
 }
 

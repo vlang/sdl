@@ -161,7 +161,7 @@ pub fn get_current_camera_driver() &char {
 }
 
 // C.SDL_GetCameras [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetCameras)
-fn C.SDL_GetCameras(count &int) CameraID
+fn C.SDL_GetCameras(count &int) &CameraID
 
 // get_cameras gets a list of currently connected camera devices.
 //
@@ -176,7 +176,7 @@ fn C.SDL_GetCameras(count &int) CameraID
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: open_camera (SDL_OpenCamera)
-pub fn get_cameras(count &int) CameraID {
+pub fn get_cameras(count &int) &CameraID {
 	return C.SDL_GetCameras(count)
 }
 
