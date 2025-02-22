@@ -465,15 +465,15 @@ pub fn start_text_input_with_properties(window &Window, props PropertiesID) bool
 	return C.SDL_StartTextInputWithProperties(window, props)
 }
 
-pub const prop_textinput_type_number = C.SDL_PROP_TEXTINPUT_TYPE_NUMBER // 'SDL.textinput.type'
+pub const prop_textinput_type_number = &char(C.SDL_PROP_TEXTINPUT_TYPE_NUMBER) // 'SDL.textinput.type'
 
-pub const prop_textinput_capitalization_number = C.SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER // 'SDL.textinput.capitalization'
+pub const prop_textinput_capitalization_number = &char(C.SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER) // 'SDL.textinput.capitalization'
 
-pub const prop_textinput_autocorrect_boolean = C.SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN // 'SDL.textinput.autocorrect'
+pub const prop_textinput_autocorrect_boolean = &char(C.SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN) // 'SDL.textinput.autocorrect'
 
-pub const prop_textinput_multiline_boolean = C.SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN // 'SDL.textinput.multiline'
+pub const prop_textinput_multiline_boolean = &char(C.SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN) // 'SDL.textinput.multiline'
 
-pub const prop_textinput_android_inputtype_number = C.SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER // 'SDL.textinput.android.inputtype'
+pub const prop_textinput_android_inputtype_number = &char(C.SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER) // 'SDL.textinput.android.inputtype'
 
 // C.SDL_TextInputActive [official documentation](https://wiki.libsdl.org/SDL3/SDL_TextInputActive)
 fn C.SDL_TextInputActive(window &Window) bool

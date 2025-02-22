@@ -280,18 +280,18 @@ pub fn show_file_dialog_with_properties(typ FileDialogType, callback DialogFileC
 	C.SDL_ShowFileDialogWithProperties(typ, callback, userdata, props)
 }
 
-pub const prop_file_dialog_filters_pointer = C.SDL_PROP_FILE_DIALOG_FILTERS_POINTER // 'SDL.filedialog.filters'
+pub const prop_file_dialog_filters_pointer = &char(C.SDL_PROP_FILE_DIALOG_FILTERS_POINTER) // 'SDL.filedialog.filters'
 
-pub const prop_file_dialog_nfilters_number = C.SDL_PROP_FILE_DIALOG_NFILTERS_NUMBER // 'SDL.filedialog.nfilters'
+pub const prop_file_dialog_nfilters_number = &char(C.SDL_PROP_FILE_DIALOG_NFILTERS_NUMBER) // 'SDL.filedialog.nfilters'
 
-pub const prop_file_dialog_window_pointer = C.SDL_PROP_FILE_DIALOG_WINDOW_POINTER // 'SDL.filedialog.window'
+pub const prop_file_dialog_window_pointer = &char(C.SDL_PROP_FILE_DIALOG_WINDOW_POINTER) // 'SDL.filedialog.window'
 
-pub const prop_file_dialog_location_string = C.SDL_PROP_FILE_DIALOG_LOCATION_STRING // 'SDL.filedialog.location'
+pub const prop_file_dialog_location_string = &char(C.SDL_PROP_FILE_DIALOG_LOCATION_STRING) // 'SDL.filedialog.location'
 
-pub const prop_file_dialog_many_boolean = C.SDL_PROP_FILE_DIALOG_MANY_BOOLEAN // 'SDL.filedialog.many'
+pub const prop_file_dialog_many_boolean = &char(C.SDL_PROP_FILE_DIALOG_MANY_BOOLEAN) // 'SDL.filedialog.many'
 
-pub const prop_file_dialog_title_string = C.SDL_PROP_FILE_DIALOG_TITLE_STRING // 'SDL.filedialog.title'
+pub const prop_file_dialog_title_string = &char(C.SDL_PROP_FILE_DIALOG_TITLE_STRING) // 'SDL.filedialog.title'
 
-pub const prop_file_dialog_accept_string = C.SDL_PROP_FILE_DIALOG_ACCEPT_STRING // 'SDL.filedialog.accept'
+pub const prop_file_dialog_accept_string = &char(C.SDL_PROP_FILE_DIALOG_ACCEPT_STRING) // 'SDL.filedialog.accept'
 
-pub const prop_file_dialog_cancel_string = C.SDL_PROP_FILE_DIALOG_CANCEL_STRING // 'SDL.filedialog.cancel'
+pub const prop_file_dialog_cancel_string = &char(C.SDL_PROP_FILE_DIALOG_CANCEL_STRING) // 'SDL.filedialog.cancel'

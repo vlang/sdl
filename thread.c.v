@@ -182,13 +182,13 @@ pub fn create_thread_with_properties(props PropertiesID) &Thread {
 	return C.SDL_CreateThreadWithProperties(props)
 }
 
-pub const prop_thread_create_entry_function_pointer = C.SDL_PROP_THREAD_CREATE_ENTRY_FUNCTION_POINTER // 'SDL.thread.create.entry_function'
+pub const prop_thread_create_entry_function_pointer = &char(C.SDL_PROP_THREAD_CREATE_ENTRY_FUNCTION_POINTER) // 'SDL.thread.create.entry_function'
 
-pub const prop_thread_create_name_string = C.SDL_PROP_THREAD_CREATE_NAME_STRING // 'SDL.thread.create.name'
+pub const prop_thread_create_name_string = &char(C.SDL_PROP_THREAD_CREATE_NAME_STRING) // 'SDL.thread.create.name'
 
-pub const prop_thread_create_userdata_pointer = C.SDL_PROP_THREAD_CREATE_USERDATA_POINTER // 'SDL.thread.create.userdata'
+pub const prop_thread_create_userdata_pointer = &char(C.SDL_PROP_THREAD_CREATE_USERDATA_POINTER) // 'SDL.thread.create.userdata'
 
-pub const prop_thread_create_stacksize_number = C.SDL_PROP_THREAD_CREATE_STACKSIZE_NUMBER // 'SDL.thread.create.stacksize'
+pub const prop_thread_create_stacksize_number = &char(C.SDL_PROP_THREAD_CREATE_STACKSIZE_NUMBER) // 'SDL.thread.create.stacksize'
 
 // C.SDL_CreateThreadRuntime [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreateThreadRuntime)
 fn C.SDL_CreateThreadRuntime(@fn ThreadFunction, const_name &char, data voidptr, pfn_begin_thread FunctionPointer, pfn_end_thread FunctionPointer) &Thread

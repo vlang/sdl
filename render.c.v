@@ -246,27 +246,27 @@ pub fn create_renderer_with_properties(props PropertiesID) &Renderer {
 	return C.SDL_CreateRendererWithProperties(props)
 }
 
-pub const prop_renderer_create_name_string = C.SDL_PROP_RENDERER_CREATE_NAME_STRING // 'SDL.renderer.create.name'
+pub const prop_renderer_create_name_string = &char(C.SDL_PROP_RENDERER_CREATE_NAME_STRING) // 'SDL.renderer.create.name'
 
-pub const prop_renderer_create_window_pointer = C.SDL_PROP_RENDERER_CREATE_WINDOW_POINTER // 'SDL.renderer.create.window'
+pub const prop_renderer_create_window_pointer = &char(C.SDL_PROP_RENDERER_CREATE_WINDOW_POINTER) // 'SDL.renderer.create.window'
 
-pub const prop_renderer_create_surface_pointer = C.SDL_PROP_RENDERER_CREATE_SURFACE_POINTER // 'SDL.renderer.create.surface'
+pub const prop_renderer_create_surface_pointer = &char(C.SDL_PROP_RENDERER_CREATE_SURFACE_POINTER) // 'SDL.renderer.create.surface'
 
-pub const prop_renderer_create_output_colorspace_number = C.SDL_PROP_RENDERER_CREATE_OUTPUT_COLORSPACE_NUMBER // 'SDL.renderer.create.output_colorspace'
+pub const prop_renderer_create_output_colorspace_number = &char(C.SDL_PROP_RENDERER_CREATE_OUTPUT_COLORSPACE_NUMBER) // 'SDL.renderer.create.output_colorspace'
 
-pub const prop_renderer_create_present_vsync_number = C.SDL_PROP_RENDERER_CREATE_PRESENT_VSYNC_NUMBER // 'SDL.renderer.create.present_vsync'
+pub const prop_renderer_create_present_vsync_number = &char(C.SDL_PROP_RENDERER_CREATE_PRESENT_VSYNC_NUMBER) // 'SDL.renderer.create.present_vsync'
 
-pub const prop_renderer_create_vulkan_instance_pointer = C.SDL_PROP_RENDERER_CREATE_VULKAN_INSTANCE_POINTER // 'SDL.renderer.create.vulkan.instance'
+pub const prop_renderer_create_vulkan_instance_pointer = &char(C.SDL_PROP_RENDERER_CREATE_VULKAN_INSTANCE_POINTER) // 'SDL.renderer.create.vulkan.instance'
 
-pub const prop_renderer_create_vulkan_surface_number = C.SDL_PROP_RENDERER_CREATE_VULKAN_SURFACE_NUMBER // 'SDL.renderer.create.vulkan.surface'
+pub const prop_renderer_create_vulkan_surface_number = &char(C.SDL_PROP_RENDERER_CREATE_VULKAN_SURFACE_NUMBER) // 'SDL.renderer.create.vulkan.surface'
 
-pub const prop_renderer_create_vulkan_physical_device_pointer = C.SDL_PROP_RENDERER_CREATE_VULKAN_PHYSICAL_DEVICE_POINTER // 'SDL.renderer.create.vulkan.physical_device'
+pub const prop_renderer_create_vulkan_physical_device_pointer = &char(C.SDL_PROP_RENDERER_CREATE_VULKAN_PHYSICAL_DEVICE_POINTER) // 'SDL.renderer.create.vulkan.physical_device'
 
-pub const prop_renderer_create_vulkan_device_pointer = C.SDL_PROP_RENDERER_CREATE_VULKAN_DEVICE_POINTER // 'SDL.renderer.create.vulkan.device'
+pub const prop_renderer_create_vulkan_device_pointer = &char(C.SDL_PROP_RENDERER_CREATE_VULKAN_DEVICE_POINTER) // 'SDL.renderer.create.vulkan.device'
 
-pub const prop_renderer_create_vulkan_graphics_queue_family_index_number = C.SDL_PROP_RENDERER_CREATE_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER // 'SDL.renderer.create.vulkan.graphics_queue_family_index'
+pub const prop_renderer_create_vulkan_graphics_queue_family_index_number = &char(C.SDL_PROP_RENDERER_CREATE_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER) // 'SDL.renderer.create.vulkan.graphics_queue_family_index'
 
-pub const prop_renderer_create_vulkan_present_queue_family_index_number = C.SDL_PROP_RENDERER_CREATE_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER // 'SDL.renderer.create.vulkan.present_queue_family_index'
+pub const prop_renderer_create_vulkan_present_queue_family_index_number = &char(C.SDL_PROP_RENDERER_CREATE_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER) // 'SDL.renderer.create.vulkan.present_queue_family_index'
 
 // C.SDL_CreateSoftwareRenderer [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreateSoftwareRenderer)
 fn C.SDL_CreateSoftwareRenderer(surface &Surface) &Renderer
@@ -432,53 +432,53 @@ pub fn get_renderer_properties(renderer &Renderer) PropertiesID {
 	return C.SDL_GetRendererProperties(renderer)
 }
 
-pub const prop_renderer_name_string = C.SDL_PROP_RENDERER_NAME_STRING // 'SDL.renderer.name'
+pub const prop_renderer_name_string = &char(C.SDL_PROP_RENDERER_NAME_STRING) // 'SDL.renderer.name'
 
-pub const prop_renderer_window_pointer = C.SDL_PROP_RENDERER_WINDOW_POINTER // 'SDL.renderer.window'
+pub const prop_renderer_window_pointer = &char(C.SDL_PROP_RENDERER_WINDOW_POINTER) // 'SDL.renderer.window'
 
-pub const prop_renderer_surface_pointer = C.SDL_PROP_RENDERER_SURFACE_POINTER // 'SDL.renderer.surface'
+pub const prop_renderer_surface_pointer = &char(C.SDL_PROP_RENDERER_SURFACE_POINTER) // 'SDL.renderer.surface'
 
-pub const prop_renderer_vsync_number = C.SDL_PROP_RENDERER_VSYNC_NUMBER // 'SDL.renderer.vsync'
+pub const prop_renderer_vsync_number = &char(C.SDL_PROP_RENDERER_VSYNC_NUMBER) // 'SDL.renderer.vsync'
 
-pub const prop_renderer_max_texture_size_number = C.SDL_PROP_RENDERER_MAX_TEXTURE_SIZE_NUMBER // 'SDL.renderer.max_texture_size'
+pub const prop_renderer_max_texture_size_number = &char(C.SDL_PROP_RENDERER_MAX_TEXTURE_SIZE_NUMBER) // 'SDL.renderer.max_texture_size'
 
-pub const prop_renderer_texture_formats_pointer = C.SDL_PROP_RENDERER_TEXTURE_FORMATS_POINTER // 'SDL.renderer.texture_formats'
+pub const prop_renderer_texture_formats_pointer = &char(C.SDL_PROP_RENDERER_TEXTURE_FORMATS_POINTER) // 'SDL.renderer.texture_formats'
 
-pub const prop_renderer_output_colorspace_number = C.SDL_PROP_RENDERER_OUTPUT_COLORSPACE_NUMBER // 'SDL.renderer.output_colorspace'
+pub const prop_renderer_output_colorspace_number = &char(C.SDL_PROP_RENDERER_OUTPUT_COLORSPACE_NUMBER) // 'SDL.renderer.output_colorspace'
 
-pub const prop_renderer_hdr_enabled_boolean = C.SDL_PROP_RENDERER_HDR_ENABLED_BOOLEAN // 'SDL.renderer.HDR_enabled'
+pub const prop_renderer_hdr_enabled_boolean = &char(C.SDL_PROP_RENDERER_HDR_ENABLED_BOOLEAN) // 'SDL.renderer.HDR_enabled'
 
-pub const prop_renderer_sdr_white_point_float = C.SDL_PROP_RENDERER_SDR_WHITE_POINT_FLOAT // 'SDL.renderer.SDR_white_point'
+pub const prop_renderer_sdr_white_point_float = &char(C.SDL_PROP_RENDERER_SDR_WHITE_POINT_FLOAT) // 'SDL.renderer.SDR_white_point'
 
-pub const prop_renderer_hdr_headroom_float = C.SDL_PROP_RENDERER_HDR_HEADROOM_FLOAT // 'SDL.renderer.HDR_headroom'
+pub const prop_renderer_hdr_headroom_float = &char(C.SDL_PROP_RENDERER_HDR_HEADROOM_FLOAT) // 'SDL.renderer.HDR_headroom'
 
-pub const prop_renderer_d3d9_device_pointer = C.SDL_PROP_RENDERER_D3D9_DEVICE_POINTER // 'SDL.renderer.d3d9.device'
+pub const prop_renderer_d3d9_device_pointer = &char(C.SDL_PROP_RENDERER_D3D9_DEVICE_POINTER) // 'SDL.renderer.d3d9.device'
 
-pub const prop_renderer_d3d11_device_pointer = C.SDL_PROP_RENDERER_D3D11_DEVICE_POINTER // 'SDL.renderer.d3d11.device'
+pub const prop_renderer_d3d11_device_pointer = &char(C.SDL_PROP_RENDERER_D3D11_DEVICE_POINTER) // 'SDL.renderer.d3d11.device'
 
-pub const prop_renderer_d3d11_swapchain_pointer = C.SDL_PROP_RENDERER_D3D11_SWAPCHAIN_POINTER // 'SDL.renderer.d3d11.swap_chain'
+pub const prop_renderer_d3d11_swapchain_pointer = &char(C.SDL_PROP_RENDERER_D3D11_SWAPCHAIN_POINTER) // 'SDL.renderer.d3d11.swap_chain'
 
-pub const prop_renderer_d3d12_device_pointer = C.SDL_PROP_RENDERER_D3D12_DEVICE_POINTER // 'SDL.renderer.d3d12.device'
+pub const prop_renderer_d3d12_device_pointer = &char(C.SDL_PROP_RENDERER_D3D12_DEVICE_POINTER) // 'SDL.renderer.d3d12.device'
 
-pub const prop_renderer_d3d12_swapchain_pointer = C.SDL_PROP_RENDERER_D3D12_SWAPCHAIN_POINTER // 'SDL.renderer.d3d12.swap_chain'
+pub const prop_renderer_d3d12_swapchain_pointer = &char(C.SDL_PROP_RENDERER_D3D12_SWAPCHAIN_POINTER) // 'SDL.renderer.d3d12.swap_chain'
 
-pub const prop_renderer_d3d12_command_queue_pointer = C.SDL_PROP_RENDERER_D3D12_COMMAND_QUEUE_POINTER // 'SDL.renderer.d3d12.command_queue'
+pub const prop_renderer_d3d12_command_queue_pointer = &char(C.SDL_PROP_RENDERER_D3D12_COMMAND_QUEUE_POINTER) // 'SDL.renderer.d3d12.command_queue'
 
-pub const prop_renderer_vulkan_instance_pointer = C.SDL_PROP_RENDERER_VULKAN_INSTANCE_POINTER // 'SDL.renderer.vulkan.instance'
+pub const prop_renderer_vulkan_instance_pointer = &char(C.SDL_PROP_RENDERER_VULKAN_INSTANCE_POINTER) // 'SDL.renderer.vulkan.instance'
 
-pub const prop_renderer_vulkan_surface_number = C.SDL_PROP_RENDERER_VULKAN_SURFACE_NUMBER // 'SDL.renderer.vulkan.surface'
+pub const prop_renderer_vulkan_surface_number = &char(C.SDL_PROP_RENDERER_VULKAN_SURFACE_NUMBER) // 'SDL.renderer.vulkan.surface'
 
-pub const prop_renderer_vulkan_physical_device_pointer = C.SDL_PROP_RENDERER_VULKAN_PHYSICAL_DEVICE_POINTER // 'SDL.renderer.vulkan.physical_device'
+pub const prop_renderer_vulkan_physical_device_pointer = &char(C.SDL_PROP_RENDERER_VULKAN_PHYSICAL_DEVICE_POINTER) // 'SDL.renderer.vulkan.physical_device'
 
-pub const prop_renderer_vulkan_device_pointer = C.SDL_PROP_RENDERER_VULKAN_DEVICE_POINTER // 'SDL.renderer.vulkan.device'
+pub const prop_renderer_vulkan_device_pointer = &char(C.SDL_PROP_RENDERER_VULKAN_DEVICE_POINTER) // 'SDL.renderer.vulkan.device'
 
-pub const prop_renderer_vulkan_graphics_queue_family_index_number = C.SDL_PROP_RENDERER_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER // 'SDL.renderer.vulkan.graphics_queue_family_index'
+pub const prop_renderer_vulkan_graphics_queue_family_index_number = &char(C.SDL_PROP_RENDERER_VULKAN_GRAPHICS_QUEUE_FAMILY_INDEX_NUMBER) // 'SDL.renderer.vulkan.graphics_queue_family_index'
 
-pub const prop_renderer_vulkan_present_queue_family_index_number = C.SDL_PROP_RENDERER_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER // 'SDL.renderer.vulkan.present_queue_family_index'
+pub const prop_renderer_vulkan_present_queue_family_index_number = &char(C.SDL_PROP_RENDERER_VULKAN_PRESENT_QUEUE_FAMILY_INDEX_NUMBER) // 'SDL.renderer.vulkan.present_queue_family_index'
 
-pub const prop_renderer_vulkan_swapchain_image_count_number = C.SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER // 'SDL.renderer.vulkan.swapchain_image_count'
+pub const prop_renderer_vulkan_swapchain_image_count_number = &char(C.SDL_PROP_RENDERER_VULKAN_SWAPCHAIN_IMAGE_COUNT_NUMBER) // 'SDL.renderer.vulkan.swapchain_image_count'
 
-pub const prop_renderer_gpu_device_pointer = C.SDL_PROP_RENDERER_GPU_DEVICE_POINTER // 'SDL.renderer.gpu.device'
+pub const prop_renderer_gpu_device_pointer = &char(C.SDL_PROP_RENDERER_GPU_DEVICE_POINTER) // 'SDL.renderer.gpu.device'
 
 // C.SDL_GetRenderOutputSize [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetRenderOutputSize)
 fn C.SDL_GetRenderOutputSize(renderer &Renderer, w &int, h &int) bool
@@ -702,51 +702,51 @@ pub fn create_texture_with_properties(renderer &Renderer, props PropertiesID) &T
 	return C.SDL_CreateTextureWithProperties(renderer, props)
 }
 
-pub const prop_texture_create_colorspace_number = C.SDL_PROP_TEXTURE_CREATE_COLORSPACE_NUMBER // 'SDL.texture.create.colorspace'
+pub const prop_texture_create_colorspace_number = &char(C.SDL_PROP_TEXTURE_CREATE_COLORSPACE_NUMBER) // 'SDL.texture.create.colorspace'
 
-pub const prop_texture_create_format_number = C.SDL_PROP_TEXTURE_CREATE_FORMAT_NUMBER // 'SDL.texture.create.format'
+pub const prop_texture_create_format_number = &char(C.SDL_PROP_TEXTURE_CREATE_FORMAT_NUMBER) // 'SDL.texture.create.format'
 
-pub const prop_texture_create_access_number = C.SDL_PROP_TEXTURE_CREATE_ACCESS_NUMBER // 'SDL.texture.create.access'
+pub const prop_texture_create_access_number = &char(C.SDL_PROP_TEXTURE_CREATE_ACCESS_NUMBER) // 'SDL.texture.create.access'
 
-pub const prop_texture_create_width_number = C.SDL_PROP_TEXTURE_CREATE_WIDTH_NUMBER // 'SDL.texture.create.width'
+pub const prop_texture_create_width_number = &char(C.SDL_PROP_TEXTURE_CREATE_WIDTH_NUMBER) // 'SDL.texture.create.width'
 
-pub const prop_texture_create_height_number = C.SDL_PROP_TEXTURE_CREATE_HEIGHT_NUMBER // 'SDL.texture.create.height'
+pub const prop_texture_create_height_number = &char(C.SDL_PROP_TEXTURE_CREATE_HEIGHT_NUMBER) // 'SDL.texture.create.height'
 
-pub const prop_texture_create_sdr_white_point_float = C.SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT // 'SDL.texture.create.SDR_white_point'
+pub const prop_texture_create_sdr_white_point_float = &char(C.SDL_PROP_TEXTURE_CREATE_SDR_WHITE_POINT_FLOAT) // 'SDL.texture.create.SDR_white_point'
 
-pub const prop_texture_create_hdr_headroom_float = C.SDL_PROP_TEXTURE_CREATE_HDR_HEADROOM_FLOAT // 'SDL.texture.create.HDR_headroom'
+pub const prop_texture_create_hdr_headroom_float = &char(C.SDL_PROP_TEXTURE_CREATE_HDR_HEADROOM_FLOAT) // 'SDL.texture.create.HDR_headroom'
 
-pub const prop_texture_create_d3d11_texture_pointer = C.SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_POINTER // 'SDL.texture.create.d3d11.texture'
+pub const prop_texture_create_d3d11_texture_pointer = &char(C.SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_POINTER) // 'SDL.texture.create.d3d11.texture'
 
-pub const prop_texture_create_d3d11_texture_u_pointer = C.SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_U_POINTER // 'SDL.texture.create.d3d11.texture_u'
+pub const prop_texture_create_d3d11_texture_u_pointer = &char(C.SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_U_POINTER) // 'SDL.texture.create.d3d11.texture_u'
 
-pub const prop_texture_create_d3d11_texture_v_pointer = C.SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_V_POINTER // 'SDL.texture.create.d3d11.texture_v'
+pub const prop_texture_create_d3d11_texture_v_pointer = &char(C.SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_V_POINTER) // 'SDL.texture.create.d3d11.texture_v'
 
-pub const prop_texture_create_d3d12_texture_pointer = C.SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_POINTER // 'SDL.texture.create.d3d12.texture'
+pub const prop_texture_create_d3d12_texture_pointer = &char(C.SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_POINTER) // 'SDL.texture.create.d3d12.texture'
 
-pub const prop_texture_create_d3d12_texture_u_pointer = C.SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_U_POINTER // 'SDL.texture.create.d3d12.texture_u'
+pub const prop_texture_create_d3d12_texture_u_pointer = &char(C.SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_U_POINTER) // 'SDL.texture.create.d3d12.texture_u'
 
-pub const prop_texture_create_d3d12_texture_v_pointer = C.SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_V_POINTER // 'SDL.texture.create.d3d12.texture_v'
+pub const prop_texture_create_d3d12_texture_v_pointer = &char(C.SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_V_POINTER) // 'SDL.texture.create.d3d12.texture_v'
 
-pub const prop_texture_create_metal_pixelbuffer_pointer = C.SDL_PROP_TEXTURE_CREATE_METAL_PIXELBUFFER_POINTER // 'SDL.texture.create.metal.pixelbuffer'
+pub const prop_texture_create_metal_pixelbuffer_pointer = &char(C.SDL_PROP_TEXTURE_CREATE_METAL_PIXELBUFFER_POINTER) // 'SDL.texture.create.metal.pixelbuffer'
 
-pub const prop_texture_create_opengl_texture_number = C.SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_NUMBER // 'SDL.texture.create.opengl.texture'
+pub const prop_texture_create_opengl_texture_number = &char(C.SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_NUMBER) // 'SDL.texture.create.opengl.texture'
 
-pub const prop_texture_create_opengl_texture_uv_number = C.SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_UV_NUMBER // 'SDL.texture.create.opengl.texture_uv'
+pub const prop_texture_create_opengl_texture_uv_number = &char(C.SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_UV_NUMBER) // 'SDL.texture.create.opengl.texture_uv'
 
-pub const prop_texture_create_opengl_texture_u_number = C.SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_U_NUMBER // 'SDL.texture.create.opengl.texture_u'
+pub const prop_texture_create_opengl_texture_u_number = &char(C.SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_U_NUMBER) // 'SDL.texture.create.opengl.texture_u'
 
-pub const prop_texture_create_opengl_texture_v_number = C.SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_V_NUMBER // 'SDL.texture.create.opengl.texture_v'
+pub const prop_texture_create_opengl_texture_v_number = &char(C.SDL_PROP_TEXTURE_CREATE_OPENGL_TEXTURE_V_NUMBER) // 'SDL.texture.create.opengl.texture_v'
 
-pub const prop_texture_create_opengles2_texture_number = C.SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER // 'SDL.texture.create.opengles2.texture'
+pub const prop_texture_create_opengles2_texture_number = &char(C.SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_NUMBER) // 'SDL.texture.create.opengles2.texture'
 
-pub const prop_texture_create_opengles2_texture_uv_number = C.SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_UV_NUMBER // 'SDL.texture.create.opengles2.texture_uv'
+pub const prop_texture_create_opengles2_texture_uv_number = &char(C.SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_UV_NUMBER) // 'SDL.texture.create.opengles2.texture_uv'
 
-pub const prop_texture_create_opengles2_texture_u_number = C.SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_U_NUMBER // 'SDL.texture.create.opengles2.texture_u'
+pub const prop_texture_create_opengles2_texture_u_number = &char(C.SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_U_NUMBER) // 'SDL.texture.create.opengles2.texture_u'
 
-pub const prop_texture_create_opengles2_texture_v_number = C.SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_V_NUMBER // 'SDL.texture.create.opengles2.texture_v'
+pub const prop_texture_create_opengles2_texture_v_number = &char(C.SDL_PROP_TEXTURE_CREATE_OPENGLES2_TEXTURE_V_NUMBER) // 'SDL.texture.create.opengles2.texture_v'
 
-pub const prop_texture_create_vulkan_texture_number = C.SDL_PROP_TEXTURE_CREATE_VULKAN_TEXTURE_NUMBER // 'SDL.texture.create.vulkan.texture'
+pub const prop_texture_create_vulkan_texture_number = &char(C.SDL_PROP_TEXTURE_CREATE_VULKAN_TEXTURE_NUMBER) // 'SDL.texture.create.vulkan.texture'
 
 // C.SDL_GetTextureProperties [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetTextureProperties)
 fn C.SDL_GetTextureProperties(texture &Texture) PropertiesID
@@ -839,57 +839,57 @@ pub fn get_texture_properties(texture &Texture) PropertiesID {
 	return C.SDL_GetTextureProperties(texture)
 }
 
-pub const prop_texture_colorspace_number = C.SDL_PROP_TEXTURE_COLORSPACE_NUMBER // 'SDL.texture.colorspace'
+pub const prop_texture_colorspace_number = &char(C.SDL_PROP_TEXTURE_COLORSPACE_NUMBER) // 'SDL.texture.colorspace'
 
-pub const prop_texture_format_number = C.SDL_PROP_TEXTURE_FORMAT_NUMBER // 'SDL.texture.format'
+pub const prop_texture_format_number = &char(C.SDL_PROP_TEXTURE_FORMAT_NUMBER) // 'SDL.texture.format'
 
-pub const prop_texture_access_number = C.SDL_PROP_TEXTURE_ACCESS_NUMBER // 'SDL.texture.access'
+pub const prop_texture_access_number = &char(C.SDL_PROP_TEXTURE_ACCESS_NUMBER) // 'SDL.texture.access'
 
-pub const prop_texture_width_number = C.SDL_PROP_TEXTURE_WIDTH_NUMBER // 'SDL.texture.width'
+pub const prop_texture_width_number = &char(C.SDL_PROP_TEXTURE_WIDTH_NUMBER) // 'SDL.texture.width'
 
-pub const prop_texture_height_number = C.SDL_PROP_TEXTURE_HEIGHT_NUMBER // 'SDL.texture.height'
+pub const prop_texture_height_number = &char(C.SDL_PROP_TEXTURE_HEIGHT_NUMBER) // 'SDL.texture.height'
 
-pub const prop_texture_sdr_white_point_float = C.SDL_PROP_TEXTURE_SDR_WHITE_POINT_FLOAT // 'SDL.texture.SDR_white_point'
+pub const prop_texture_sdr_white_point_float = &char(C.SDL_PROP_TEXTURE_SDR_WHITE_POINT_FLOAT) // 'SDL.texture.SDR_white_point'
 
-pub const prop_texture_hdr_headroom_float = C.SDL_PROP_TEXTURE_HDR_HEADROOM_FLOAT // 'SDL.texture.HDR_headroom'
+pub const prop_texture_hdr_headroom_float = &char(C.SDL_PROP_TEXTURE_HDR_HEADROOM_FLOAT) // 'SDL.texture.HDR_headroom'
 
-pub const prop_texture_d3d11_texture_pointer = C.SDL_PROP_TEXTURE_D3D11_TEXTURE_POINTER // 'SDL.texture.d3d11.texture'
+pub const prop_texture_d3d11_texture_pointer = &char(C.SDL_PROP_TEXTURE_D3D11_TEXTURE_POINTER) // 'SDL.texture.d3d11.texture'
 
-pub const prop_texture_d3d11_texture_u_pointer = C.SDL_PROP_TEXTURE_D3D11_TEXTURE_U_POINTER // 'SDL.texture.d3d11.texture_u'
+pub const prop_texture_d3d11_texture_u_pointer = &char(C.SDL_PROP_TEXTURE_D3D11_TEXTURE_U_POINTER) // 'SDL.texture.d3d11.texture_u'
 
-pub const prop_texture_d3d11_texture_v_pointer = C.SDL_PROP_TEXTURE_D3D11_TEXTURE_V_POINTER // 'SDL.texture.d3d11.texture_v'
+pub const prop_texture_d3d11_texture_v_pointer = &char(C.SDL_PROP_TEXTURE_D3D11_TEXTURE_V_POINTER) // 'SDL.texture.d3d11.texture_v'
 
-pub const prop_texture_d3d12_texture_pointer = C.SDL_PROP_TEXTURE_D3D12_TEXTURE_POINTER // 'SDL.texture.d3d12.texture'
+pub const prop_texture_d3d12_texture_pointer = &char(C.SDL_PROP_TEXTURE_D3D12_TEXTURE_POINTER) // 'SDL.texture.d3d12.texture'
 
-pub const prop_texture_d3d12_texture_u_pointer = C.SDL_PROP_TEXTURE_D3D12_TEXTURE_U_POINTER // 'SDL.texture.d3d12.texture_u'
+pub const prop_texture_d3d12_texture_u_pointer = &char(C.SDL_PROP_TEXTURE_D3D12_TEXTURE_U_POINTER) // 'SDL.texture.d3d12.texture_u'
 
-pub const prop_texture_d3d12_texture_v_pointer = C.SDL_PROP_TEXTURE_D3D12_TEXTURE_V_POINTER // 'SDL.texture.d3d12.texture_v'
+pub const prop_texture_d3d12_texture_v_pointer = &char(C.SDL_PROP_TEXTURE_D3D12_TEXTURE_V_POINTER) // 'SDL.texture.d3d12.texture_v'
 
-pub const prop_texture_opengl_texture_number = C.SDL_PROP_TEXTURE_OPENGL_TEXTURE_NUMBER // 'SDL.texture.opengl.texture'
+pub const prop_texture_opengl_texture_number = &char(C.SDL_PROP_TEXTURE_OPENGL_TEXTURE_NUMBER) // 'SDL.texture.opengl.texture'
 
-pub const prop_texture_opengl_texture_uv_number = C.SDL_PROP_TEXTURE_OPENGL_TEXTURE_UV_NUMBER // 'SDL.texture.opengl.texture_uv'
+pub const prop_texture_opengl_texture_uv_number = &char(C.SDL_PROP_TEXTURE_OPENGL_TEXTURE_UV_NUMBER) // 'SDL.texture.opengl.texture_uv'
 
-pub const prop_texture_opengl_texture_u_number = C.SDL_PROP_TEXTURE_OPENGL_TEXTURE_U_NUMBER // 'SDL.texture.opengl.texture_u'
+pub const prop_texture_opengl_texture_u_number = &char(C.SDL_PROP_TEXTURE_OPENGL_TEXTURE_U_NUMBER) // 'SDL.texture.opengl.texture_u'
 
-pub const prop_texture_opengl_texture_v_number = C.SDL_PROP_TEXTURE_OPENGL_TEXTURE_V_NUMBER // 'SDL.texture.opengl.texture_v'
+pub const prop_texture_opengl_texture_v_number = &char(C.SDL_PROP_TEXTURE_OPENGL_TEXTURE_V_NUMBER) // 'SDL.texture.opengl.texture_v'
 
-pub const prop_texture_opengl_texture_target_number = C.SDL_PROP_TEXTURE_OPENGL_TEXTURE_TARGET_NUMBER // 'SDL.texture.opengl.target'
+pub const prop_texture_opengl_texture_target_number = &char(C.SDL_PROP_TEXTURE_OPENGL_TEXTURE_TARGET_NUMBER) // 'SDL.texture.opengl.target'
 
-pub const prop_texture_opengl_tex_w_float = C.SDL_PROP_TEXTURE_OPENGL_TEX_W_FLOAT // 'SDL.texture.opengl.tex_w'
+pub const prop_texture_opengl_tex_w_float = &char(C.SDL_PROP_TEXTURE_OPENGL_TEX_W_FLOAT) // 'SDL.texture.opengl.tex_w'
 
-pub const prop_texture_opengl_tex_h_float = C.SDL_PROP_TEXTURE_OPENGL_TEX_H_FLOAT // 'SDL.texture.opengl.tex_h'
+pub const prop_texture_opengl_tex_h_float = &char(C.SDL_PROP_TEXTURE_OPENGL_TEX_H_FLOAT) // 'SDL.texture.opengl.tex_h'
 
-pub const prop_texture_opengles2_texture_number = C.SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_NUMBER // 'SDL.texture.opengles2.texture'
+pub const prop_texture_opengles2_texture_number = &char(C.SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_NUMBER) // 'SDL.texture.opengles2.texture'
 
-pub const prop_texture_opengles2_texture_uv_number = C.SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_UV_NUMBER // 'SDL.texture.opengles2.texture_uv'
+pub const prop_texture_opengles2_texture_uv_number = &char(C.SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_UV_NUMBER) // 'SDL.texture.opengles2.texture_uv'
 
-pub const prop_texture_opengles2_texture_u_number = C.SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_U_NUMBER // 'SDL.texture.opengles2.texture_u'
+pub const prop_texture_opengles2_texture_u_number = &char(C.SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_U_NUMBER) // 'SDL.texture.opengles2.texture_u'
 
-pub const prop_texture_opengles2_texture_v_number = C.SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_V_NUMBER // 'SDL.texture.opengles2.texture_v'
+pub const prop_texture_opengles2_texture_v_number = &char(C.SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_V_NUMBER) // 'SDL.texture.opengles2.texture_v'
 
-pub const prop_texture_opengles2_texture_target_number = C.SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_TARGET_NUMBER // 'SDL.texture.opengles2.target'
+pub const prop_texture_opengles2_texture_target_number = &char(C.SDL_PROP_TEXTURE_OPENGLES2_TEXTURE_TARGET_NUMBER) // 'SDL.texture.opengles2.target'
 
-pub const prop_texture_vulkan_texture_number = C.SDL_PROP_TEXTURE_VULKAN_TEXTURE_NUMBER // 'SDL.texture.vulkan.texture'
+pub const prop_texture_vulkan_texture_number = &char(C.SDL_PROP_TEXTURE_VULKAN_TEXTURE_NUMBER) // 'SDL.texture.vulkan.texture'
 
 // C.SDL_GetRendererFromTexture [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetRendererFromTexture)
 fn C.SDL_GetRendererFromTexture(texture &Texture) &Renderer

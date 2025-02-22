@@ -149,25 +149,25 @@ pub fn create_process_with_properties(props PropertiesID) &Process {
 	return C.SDL_CreateProcessWithProperties(props)
 }
 
-pub const prop_process_create_args_pointer = C.SDL_PROP_PROCESS_CREATE_ARGS_POINTER // 'SDL.process.create.args'
+pub const prop_process_create_args_pointer = &char(C.SDL_PROP_PROCESS_CREATE_ARGS_POINTER) // 'SDL.process.create.args'
 
-pub const prop_process_create_environment_pointer = C.SDL_PROP_PROCESS_CREATE_ENVIRONMENT_POINTER // 'SDL.process.create.environment'
+pub const prop_process_create_environment_pointer = &char(C.SDL_PROP_PROCESS_CREATE_ENVIRONMENT_POINTER) // 'SDL.process.create.environment'
 
-pub const prop_process_create_stdin_number = C.SDL_PROP_PROCESS_CREATE_STDIN_NUMBER // 'SDL.process.create.stdin_option'
+pub const prop_process_create_stdin_number = &char(C.SDL_PROP_PROCESS_CREATE_STDIN_NUMBER) // 'SDL.process.create.stdin_option'
 
-pub const prop_process_create_stdin_pointer = C.SDL_PROP_PROCESS_CREATE_STDIN_POINTER // 'SDL.process.create.stdin_source'
+pub const prop_process_create_stdin_pointer = &char(C.SDL_PROP_PROCESS_CREATE_STDIN_POINTER) // 'SDL.process.create.stdin_source'
 
-pub const prop_process_create_stdout_number = C.SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER // 'SDL.process.create.stdout_option'
+pub const prop_process_create_stdout_number = &char(C.SDL_PROP_PROCESS_CREATE_STDOUT_NUMBER) // 'SDL.process.create.stdout_option'
 
-pub const prop_process_create_stdout_pointer = C.SDL_PROP_PROCESS_CREATE_STDOUT_POINTER // 'SDL.process.create.stdout_source'
+pub const prop_process_create_stdout_pointer = &char(C.SDL_PROP_PROCESS_CREATE_STDOUT_POINTER) // 'SDL.process.create.stdout_source'
 
-pub const prop_process_create_stderr_number = C.SDL_PROP_PROCESS_CREATE_STDERR_NUMBER // 'SDL.process.create.stderr_option'
+pub const prop_process_create_stderr_number = &char(C.SDL_PROP_PROCESS_CREATE_STDERR_NUMBER) // 'SDL.process.create.stderr_option'
 
-pub const prop_process_create_stderr_pointer = C.SDL_PROP_PROCESS_CREATE_STDERR_POINTER // 'SDL.process.create.stderr_source'
+pub const prop_process_create_stderr_pointer = &char(C.SDL_PROP_PROCESS_CREATE_STDERR_POINTER) // 'SDL.process.create.stderr_source'
 
-pub const prop_process_create_stderr_to_stdout_boolean = C.SDL_PROP_PROCESS_CREATE_STDERR_TO_STDOUT_BOOLEAN // 'SDL.process.create.stderr_to_stdout'
+pub const prop_process_create_stderr_to_stdout_boolean = &char(C.SDL_PROP_PROCESS_CREATE_STDERR_TO_STDOUT_BOOLEAN) // 'SDL.process.create.stderr_to_stdout'
 
-pub const prop_process_create_background_boolean = C.SDL_PROP_PROCESS_CREATE_BACKGROUND_BOOLEAN // 'SDL.process.create.background'
+pub const prop_process_create_background_boolean = &char(C.SDL_PROP_PROCESS_CREATE_BACKGROUND_BOOLEAN) // 'SDL.process.create.background'
 
 // C.SDL_GetProcessProperties [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetProcessProperties)
 fn C.SDL_GetProcessProperties(process &Process) PropertiesID
@@ -203,15 +203,15 @@ pub fn get_process_properties(process &Process) PropertiesID {
 	return C.SDL_GetProcessProperties(process)
 }
 
-pub const prop_process_pid_number = C.SDL_PROP_PROCESS_PID_NUMBER // 'SDL.process.pid'
+pub const prop_process_pid_number = &char(C.SDL_PROP_PROCESS_PID_NUMBER) // 'SDL.process.pid'
 
-pub const prop_process_stdin_pointer = C.SDL_PROP_PROCESS_STDIN_POINTER // 'SDL.process.stdin'
+pub const prop_process_stdin_pointer = &char(C.SDL_PROP_PROCESS_STDIN_POINTER) // 'SDL.process.stdin'
 
-pub const prop_process_stdout_pointer = C.SDL_PROP_PROCESS_STDOUT_POINTER // 'SDL.process.stdout'
+pub const prop_process_stdout_pointer = &char(C.SDL_PROP_PROCESS_STDOUT_POINTER) // 'SDL.process.stdout'
 
-pub const prop_process_stderr_pointer = C.SDL_PROP_PROCESS_STDERR_POINTER // 'SDL.process.stderr'
+pub const prop_process_stderr_pointer = &char(C.SDL_PROP_PROCESS_STDERR_POINTER) // 'SDL.process.stderr'
 
-pub const prop_process_background_boolean = C.SDL_PROP_PROCESS_BACKGROUND_BOOLEAN // 'SDL.process.background'
+pub const prop_process_background_boolean = &char(C.SDL_PROP_PROCESS_BACKGROUND_BOOLEAN) // 'SDL.process.background'
 
 // C.SDL_ReadProcess [official documentation](https://wiki.libsdl.org/SDL3/SDL_ReadProcess)
 fn C.SDL_ReadProcess(process &Process, datasize &usize, exitcode &int) voidptr

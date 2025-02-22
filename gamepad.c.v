@@ -711,15 +711,15 @@ pub fn get_gamepad_properties(gamepad &Gamepad) PropertiesID {
 	return C.SDL_GetGamepadProperties(gamepad)
 }
 
-pub const prop_gamepad_cap_mono_led_boolean = C.SDL_PROP_GAMEPAD_CAP_MONO_LED_BOOLEAN // SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN
+pub const prop_gamepad_cap_mono_led_boolean = &char(C.SDL_PROP_GAMEPAD_CAP_MONO_LED_BOOLEAN) // SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN
 
-pub const prop_gamepad_cap_rgb_led_boolean = C.SDL_PROP_GAMEPAD_CAP_RGB_LED_BOOLEAN // SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN
+pub const prop_gamepad_cap_rgb_led_boolean = &char(C.SDL_PROP_GAMEPAD_CAP_RGB_LED_BOOLEAN) // SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN
 
-pub const prop_gamepad_cap_player_led_boolean = C.SDL_PROP_GAMEPAD_CAP_PLAYER_LED_BOOLEAN // SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN
+pub const prop_gamepad_cap_player_led_boolean = &char(C.SDL_PROP_GAMEPAD_CAP_PLAYER_LED_BOOLEAN) // SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN
 
-pub const prop_gamepad_cap_rumble_boolean = C.SDL_PROP_GAMEPAD_CAP_RUMBLE_BOOLEAN // SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN
+pub const prop_gamepad_cap_rumble_boolean = &char(C.SDL_PROP_GAMEPAD_CAP_RUMBLE_BOOLEAN) // SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN
 
-pub const prop_gamepad_cap_trigger_rumble_boolean = C.SDL_PROP_GAMEPAD_CAP_TRIGGER_RUMBLE_BOOLEAN // SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN
+pub const prop_gamepad_cap_trigger_rumble_boolean = &char(C.SDL_PROP_GAMEPAD_CAP_TRIGGER_RUMBLE_BOOLEAN) // SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN
 
 // C.SDL_GetGamepadID [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGamepadID)
 fn C.SDL_GetGamepadID(gamepad &Gamepad) JoystickID

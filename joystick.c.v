@@ -624,15 +624,15 @@ pub fn get_joystick_properties(joystick &Joystick) PropertiesID {
 	return C.SDL_GetJoystickProperties(joystick)
 }
 
-pub const prop_joystick_cap_mono_led_boolean = C.SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN // 'SDL.joystick.cap.mono_led'
+pub const prop_joystick_cap_mono_led_boolean = &char(C.SDL_PROP_JOYSTICK_CAP_MONO_LED_BOOLEAN) // 'SDL.joystick.cap.mono_led'
 
-pub const prop_joystick_cap_rgb_led_boolean = C.SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN // 'SDL.joystick.cap.rgb_led'
+pub const prop_joystick_cap_rgb_led_boolean = &char(C.SDL_PROP_JOYSTICK_CAP_RGB_LED_BOOLEAN) // 'SDL.joystick.cap.rgb_led'
 
-pub const prop_joystick_cap_player_led_boolean = C.SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN // 'SDL.joystick.cap.player_led'
+pub const prop_joystick_cap_player_led_boolean = &char(C.SDL_PROP_JOYSTICK_CAP_PLAYER_LED_BOOLEAN) // 'SDL.joystick.cap.player_led'
 
-pub const prop_joystick_cap_rumble_boolean = C.SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN // 'SDL.joystick.cap.rumble'
+pub const prop_joystick_cap_rumble_boolean = &char(C.SDL_PROP_JOYSTICK_CAP_RUMBLE_BOOLEAN) // 'SDL.joystick.cap.rumble'
 
-pub const prop_joystick_cap_trigger_rumble_boolean = C.SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN // 'SDL.joystick.cap.trigger_rumble'
+pub const prop_joystick_cap_trigger_rumble_boolean = &char(C.SDL_PROP_JOYSTICK_CAP_TRIGGER_RUMBLE_BOOLEAN) // 'SDL.joystick.cap.trigger_rumble'
 
 // C.SDL_GetJoystickName [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetJoystickName)
 fn C.SDL_GetJoystickName(joystick &Joystick) &char

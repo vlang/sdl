@@ -1401,25 +1401,25 @@ pub fn create_gpu_device_with_properties(props PropertiesID) &GPUDevice {
 	return C.SDL_CreateGPUDeviceWithProperties(props)
 }
 
-pub const prop_gpu_device_create_debugmode_boolean = C.SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOLEAN // 'SDL.gpu.device.create.debugmode'
+pub const prop_gpu_device_create_debugmode_boolean = &char(C.SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOLEAN) // 'SDL.gpu.device.create.debugmode'
 
-pub const prop_gpu_device_create_preferlowpower_boolean = C.SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOLEAN // 'SDL.gpu.device.create.preferlowpower'
+pub const prop_gpu_device_create_preferlowpower_boolean = &char(C.SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOLEAN) // 'SDL.gpu.device.create.preferlowpower'
 
-pub const prop_gpu_device_create_name_string = C.SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING // 'SDL.gpu.device.create.name'
+pub const prop_gpu_device_create_name_string = &char(C.SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING) // 'SDL.gpu.device.create.name'
 
-pub const prop_gpu_device_create_shaders_private_boolean = C.SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOLEAN // 'SDL.gpu.device.create.shaders.private'
+pub const prop_gpu_device_create_shaders_private_boolean = &char(C.SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOLEAN) // 'SDL.gpu.device.create.shaders.private'
 
-pub const prop_gpu_device_create_shaders_spirv_boolean = C.SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOLEAN // 'SDL.gpu.device.create.shaders.spirv'
+pub const prop_gpu_device_create_shaders_spirv_boolean = &char(C.SDL_PROP_GPU_DEVICE_CREATE_SHADERS_SPIRV_BOOLEAN) // 'SDL.gpu.device.create.shaders.spirv'
 
-pub const prop_gpu_device_create_shaders_dxbc_boolean = C.SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOLEAN // 'SDL.gpu.device.create.shaders.dxbc'
+pub const prop_gpu_device_create_shaders_dxbc_boolean = &char(C.SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXBC_BOOLEAN) // 'SDL.gpu.device.create.shaders.dxbc'
 
-pub const prop_gpu_device_create_shaders_dxil_boolean = C.SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOLEAN // 'SDL.gpu.device.create.shaders.dxil'
+pub const prop_gpu_device_create_shaders_dxil_boolean = &char(C.SDL_PROP_GPU_DEVICE_CREATE_SHADERS_DXIL_BOOLEAN) // 'SDL.gpu.device.create.shaders.dxil'
 
-pub const prop_gpu_device_create_shaders_msl_boolean = C.SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOLEAN // 'SDL.gpu.device.create.shaders.msl'
+pub const prop_gpu_device_create_shaders_msl_boolean = &char(C.SDL_PROP_GPU_DEVICE_CREATE_SHADERS_MSL_BOOLEAN) // 'SDL.gpu.device.create.shaders.msl'
 
-pub const prop_gpu_device_create_shaders_metallib_boolean = C.SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOLEAN // 'SDL.gpu.device.create.shaders.metallib'
+pub const prop_gpu_device_create_shaders_metallib_boolean = &char(C.SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOLEAN) // 'SDL.gpu.device.create.shaders.metallib'
 
-pub const prop_gpu_device_create_d3d12_semantic_name_string = C.SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING // 'SDL.gpu.device.create.d3d12.semantic'
+pub const prop_gpu_device_create_d3d12_semantic_name_string = &char(C.SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING) // 'SDL.gpu.device.create.d3d12.semantic'
 
 // C.SDL_DestroyGPUDevice [official documentation](https://wiki.libsdl.org/SDL3/SDL_DestroyGPUDevice)
 fn C.SDL_DestroyGPUDevice(device &GPUDevice)
@@ -1548,7 +1548,7 @@ pub fn create_gpu_compute_pipeline(device &GPUDevice, const_createinfo &GPUCompu
 	return C.SDL_CreateGPUComputePipeline(device, const_createinfo)
 }
 
-pub const prop_gpu_computepipeline_create_name_string = C.SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING // 'SDL.gpu.computepipeline.create.name'
+pub const prop_gpu_computepipeline_create_name_string = &char(C.SDL_PROP_GPU_COMPUTEPIPELINE_CREATE_NAME_STRING) // 'SDL.gpu.computepipeline.create.name'
 
 // C.SDL_CreateGPUGraphicsPipeline [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreateGPUGraphicsPipeline)
 fn C.SDL_CreateGPUGraphicsPipeline(device &GPUDevice, const_createinfo &GPUGraphicsPipelineCreateInfo) &GPUGraphicsPipeline
@@ -1576,7 +1576,7 @@ pub fn create_gpu_graphics_pipeline(device &GPUDevice, const_createinfo &GPUGrap
 	return C.SDL_CreateGPUGraphicsPipeline(device, const_createinfo)
 }
 
-pub const prop_gpu_graphicspipeline_create_name_string = C.SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING // 'SDL.gpu.graphicspipeline.create.name'
+pub const prop_gpu_graphicspipeline_create_name_string = &char(C.SDL_PROP_GPU_GRAPHICSPIPELINE_CREATE_NAME_STRING) // 'SDL.gpu.graphicspipeline.create.name'
 
 // C.SDL_CreateGPUSampler [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreateGPUSampler)
 fn C.SDL_CreateGPUSampler(device &GPUDevice, const_createinfo &GPUSamplerCreateInfo) &GPUSampler
@@ -1604,7 +1604,7 @@ pub fn create_gpu_sampler(device &GPUDevice, const_createinfo &GPUSamplerCreateI
 	return C.SDL_CreateGPUSampler(device, const_createinfo)
 }
 
-pub const prop_gpu_sampler_create_name_string = C.SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING // 'SDL.gpu.sampler.create.name'
+pub const prop_gpu_sampler_create_name_string = &char(C.SDL_PROP_GPU_SAMPLER_CREATE_NAME_STRING) // 'SDL.gpu.sampler.create.name'
 
 // C.SDL_CreateGPUShader [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreateGPUShader)
 fn C.SDL_CreateGPUShader(device &GPUDevice, const_createinfo &GPUShaderCreateInfo) &GPUShader
@@ -1684,7 +1684,7 @@ pub fn create_gpu_shader(device &GPUDevice, const_createinfo &GPUShaderCreateInf
 	return C.SDL_CreateGPUShader(device, const_createinfo)
 }
 
-pub const prop_gpu_shader_create_name_string = C.SDL_PROP_GPU_SHADER_CREATE_NAME_STRING // 'SDL.gpu.shader.create.name'
+pub const prop_gpu_shader_create_name_string = &char(C.SDL_PROP_GPU_SHADER_CREATE_NAME_STRING) // 'SDL.gpu.shader.create.name'
 
 // C.SDL_CreateGPUTexture [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreateGPUTexture)
 fn C.SDL_CreateGPUTexture(device &GPUDevice, const_createinfo &GPUTextureCreateInfo) &GPUTexture
@@ -1746,19 +1746,19 @@ pub fn create_gpu_texture(device &GPUDevice, const_createinfo &GPUTextureCreateI
 	return C.SDL_CreateGPUTexture(device, const_createinfo)
 }
 
-pub const prop_gpu_texture_create_d3d12_clear_r_float = C.SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT // 'SDL.gpu.texture.create.d3d12.clear.r'
+pub const prop_gpu_texture_create_d3d12_clear_r_float = &char(C.SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_R_FLOAT) // 'SDL.gpu.texture.create.d3d12.clear.r'
 
-pub const prop_gpu_texture_create_d3d12_clear_g_float = C.SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT // 'SDL.gpu.texture.create.d3d12.clear.g'
+pub const prop_gpu_texture_create_d3d12_clear_g_float = &char(C.SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_G_FLOAT) // 'SDL.gpu.texture.create.d3d12.clear.g'
 
-pub const prop_gpu_texture_create_d3d12_clear_b_float = C.SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT // 'SDL.gpu.texture.create.d3d12.clear.b'
+pub const prop_gpu_texture_create_d3d12_clear_b_float = &char(C.SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_B_FLOAT) // 'SDL.gpu.texture.create.d3d12.clear.b'
 
-pub const prop_gpu_texture_create_d3d12_clear_a_float = C.SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT // 'SDL.gpu.texture.create.d3d12.clear.a'
+pub const prop_gpu_texture_create_d3d12_clear_a_float = &char(C.SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_A_FLOAT) // 'SDL.gpu.texture.create.d3d12.clear.a'
 
-pub const prop_gpu_texture_create_d3d12_clear_depth_float = C.SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT // 'SDL.gpu.texture.create.d3d12.clear.depth'
+pub const prop_gpu_texture_create_d3d12_clear_depth_float = &char(C.SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT) // 'SDL.gpu.texture.create.d3d12.clear.depth'
 
-pub const prop_gpu_texture_create_d3d12_clear_stencil_uint8 = C.SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8 // 'SDL.gpu.texture.create.d3d12.clear.stencil'
+pub const prop_gpu_texture_create_d3d12_clear_stencil_uint8 = &char(C.SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8) // 'SDL.gpu.texture.create.d3d12.clear.stencil'
 
-pub const prop_gpu_texture_create_name_string = C.SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING // 'SDL.gpu.texture.create.name'
+pub const prop_gpu_texture_create_name_string = &char(C.SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING) // 'SDL.gpu.texture.create.name'
 
 // C.SDL_CreateGPUBuffer [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreateGPUBuffer)
 fn C.SDL_CreateGPUBuffer(device &GPUDevice, const_createinfo &GPUBufferCreateInfo) &GPUBuffer
@@ -1805,7 +1805,7 @@ pub fn create_gpu_buffer(device &GPUDevice, const_createinfo &GPUBufferCreateInf
 	return C.SDL_CreateGPUBuffer(device, const_createinfo)
 }
 
-pub const prop_gpu_buffer_create_name_string = C.SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING // 'SDL.gpu.buffer.create.name'
+pub const prop_gpu_buffer_create_name_string = &char(C.SDL_PROP_GPU_BUFFER_CREATE_NAME_STRING) // 'SDL.gpu.buffer.create.name'
 
 // C.SDL_CreateGPUTransferBuffer [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreateGPUTransferBuffer)
 fn C.SDL_CreateGPUTransferBuffer(device &GPUDevice, const_createinfo &GPUTransferBufferCreateInfo) &GPUTransferBuffer
@@ -1839,7 +1839,7 @@ pub fn create_gpu_transfer_buffer(device &GPUDevice, const_createinfo &GPUTransf
 	return C.SDL_CreateGPUTransferBuffer(device, const_createinfo)
 }
 
-pub const prop_gpu_transferbuffer_create_name_string = C.SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING // 'SDL.gpu.transferbuffer.create.name'
+pub const prop_gpu_transferbuffer_create_name_string = &char(C.SDL_PROP_GPU_TRANSFERBUFFER_CREATE_NAME_STRING) // 'SDL.gpu.transferbuffer.create.name'
 
 // C.SDL_SetGPUBufferName [official documentation](https://wiki.libsdl.org/SDL3/SDL_SetGPUBufferName)
 fn C.SDL_SetGPUBufferName(device &GPUDevice, buffer &GPUBuffer, const_text &char)

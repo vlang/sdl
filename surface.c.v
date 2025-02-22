@@ -191,11 +191,11 @@ pub fn get_surface_properties(surface &Surface) PropertiesID {
 	return C.SDL_GetSurfaceProperties(surface)
 }
 
-pub const prop_surface_sdr_white_point_float = C.SDL_PROP_SURFACE_SDR_WHITE_POINT_FLOAT // 'SDL.surface.SDR_white_point'
+pub const prop_surface_sdr_white_point_float = &char(C.SDL_PROP_SURFACE_SDR_WHITE_POINT_FLOAT) // 'SDL.surface.SDR_white_point'
 
-pub const prop_surface_hdr_headroom_float = C.SDL_PROP_SURFACE_HDR_HEADROOM_FLOAT // 'SDL.surface.HDR_headroom'
+pub const prop_surface_hdr_headroom_float = &char(C.SDL_PROP_SURFACE_HDR_HEADROOM_FLOAT) // 'SDL.surface.HDR_headroom'
 
-pub const prop_surface_tonemap_operator_string = C.SDL_PROP_SURFACE_TONEMAP_OPERATOR_STRING // 'SDL.surface.tonemap'
+pub const prop_surface_tonemap_operator_string = &char(C.SDL_PROP_SURFACE_TONEMAP_OPERATOR_STRING) // 'SDL.surface.tonemap'
 
 // C.SDL_SetSurfaceColorspace [official documentation](https://wiki.libsdl.org/SDL3/SDL_SetSurfaceColorspace)
 fn C.SDL_SetSurfaceColorspace(surface &Surface, colorspace Colorspace) bool

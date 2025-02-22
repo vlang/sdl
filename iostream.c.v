@@ -159,13 +159,13 @@ pub fn io_from_file(const_file &char, const_mode &char) &IOStream {
 	return C.SDL_IOFromFile(const_file, const_mode)
 }
 
-pub const prop_iostream_windows_handle_pointer = C.SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER // 'SDL.iostream.windows.handle'
+pub const prop_iostream_windows_handle_pointer = &char(C.SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER) // 'SDL.iostream.windows.handle'
 
-pub const prop_iostream_stdio_file_pointer = C.SDL_PROP_IOSTREAM_STDIO_FILE_POINTER // 'SDL.iostream.stdio.file'
+pub const prop_iostream_stdio_file_pointer = &char(C.SDL_PROP_IOSTREAM_STDIO_FILE_POINTER) // 'SDL.iostream.stdio.file'
 
-pub const prop_iostream_file_descriptor_number = C.SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER // 'SDL.iostream.file_descriptor'
+pub const prop_iostream_file_descriptor_number = &char(C.SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER) // 'SDL.iostream.file_descriptor'
 
-pub const prop_iostream_android_aasset_pointer = C.SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER // 'SDL.iostream.android.aasset'
+pub const prop_iostream_android_aasset_pointer = &char(C.SDL_PROP_IOSTREAM_ANDROID_AASSET_POINTER) // 'SDL.iostream.android.aasset'
 
 // C.SDL_IOFromMem [official documentation](https://wiki.libsdl.org/SDL3/SDL_IOFromMem)
 fn C.SDL_IOFromMem(mem voidptr, size usize) &IOStream
@@ -211,9 +211,9 @@ pub fn io_from_mem(mem voidptr, size usize) &IOStream {
 	return C.SDL_IOFromMem(mem, size)
 }
 
-pub const prop_iostream_memory_pointer = C.SDL_PROP_IOSTREAM_MEMORY_POINTER // 'SDL.iostream.memory.base'
+pub const prop_iostream_memory_pointer = &char(C.SDL_PROP_IOSTREAM_MEMORY_POINTER) // 'SDL.iostream.memory.base'
 
-pub const prop_iostream_memory_size_number = C.SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER // 'SDL.iostream.memory.size'
+pub const prop_iostream_memory_size_number = &char(C.SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER) // 'SDL.iostream.memory.size'
 
 // C.SDL_IOFromConstMem [official documentation](https://wiki.libsdl.org/SDL3/SDL_IOFromConstMem)
 fn C.SDL_IOFromConstMem(const_mem voidptr, size usize) &IOStream
@@ -292,9 +292,9 @@ pub fn io_from_dynamic_mem() &IOStream {
 	return C.SDL_IOFromDynamicMem()
 }
 
-pub const prop_iostream_dynamic_memory_pointer = C.SDL_PROP_IOSTREAM_DYNAMIC_MEMORY_POINTER // 'SDL.iostream.dynamic.memory'
+pub const prop_iostream_dynamic_memory_pointer = &char(C.SDL_PROP_IOSTREAM_DYNAMIC_MEMORY_POINTER) // 'SDL.iostream.dynamic.memory'
 
-pub const prop_iostream_dynamic_chunksize_number = C.SDL_PROP_IOSTREAM_DYNAMIC_CHUNKSIZE_NUMBER // 'SDL.iostream.dynamic.chunksize'
+pub const prop_iostream_dynamic_chunksize_number = &char(C.SDL_PROP_IOSTREAM_DYNAMIC_CHUNKSIZE_NUMBER) // 'SDL.iostream.dynamic.chunksize'
 
 // C.SDL_OpenIO [official documentation](https://wiki.libsdl.org/SDL3/SDL_OpenIO)
 fn C.SDL_OpenIO(const_iface &IOStreamInterface, userdata voidptr) &IOStream

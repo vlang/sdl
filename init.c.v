@@ -437,19 +437,19 @@ pub fn set_app_metadata_property(const_name &char, const_value &char) bool {
 	return C.SDL_SetAppMetadataProperty(const_name, const_value)
 }
 
-pub const prop_app_metadata_name_string = C.SDL_PROP_APP_METADATA_NAME_STRING // 'SDL.app.metadata.name'
+pub const prop_app_metadata_name_string = &char(C.SDL_PROP_APP_METADATA_NAME_STRING) // 'SDL.app.metadata.name'
 
-pub const prop_app_metadata_version_string = C.SDL_PROP_APP_METADATA_VERSION_STRING // 'SDL.app.metadata.version'
+pub const prop_app_metadata_version_string = &char(C.SDL_PROP_APP_METADATA_VERSION_STRING) // 'SDL.app.metadata.version'
 
-pub const prop_app_metadata_identifier_string = C.SDL_PROP_APP_METADATA_IDENTIFIER_STRING // 'SDL.app.metadata.identifier'
+pub const prop_app_metadata_identifier_string = &char(C.SDL_PROP_APP_METADATA_IDENTIFIER_STRING) // 'SDL.app.metadata.identifier'
 
-pub const prop_app_metadata_creator_string = C.SDL_PROP_APP_METADATA_CREATOR_STRING // 'SDL.app.metadata.creator'
+pub const prop_app_metadata_creator_string = &char(C.SDL_PROP_APP_METADATA_CREATOR_STRING) // 'SDL.app.metadata.creator'
 
-pub const prop_app_metadata_copyright_string = C.SDL_PROP_APP_METADATA_COPYRIGHT_STRING // 'SDL.app.metadata.copyright'
+pub const prop_app_metadata_copyright_string = &char(C.SDL_PROP_APP_METADATA_COPYRIGHT_STRING) // 'SDL.app.metadata.copyright'
 
-pub const prop_app_metadata_url_string = C.SDL_PROP_APP_METADATA_URL_STRING // 'SDL.app.metadata.url'
+pub const prop_app_metadata_url_string = &char(C.SDL_PROP_APP_METADATA_URL_STRING) // 'SDL.app.metadata.url'
 
-pub const prop_app_metadata_type_string = C.SDL_PROP_APP_METADATA_TYPE_STRING // 'SDL.app.metadata.type'
+pub const prop_app_metadata_type_string = &char(C.SDL_PROP_APP_METADATA_TYPE_STRING) // 'SDL.app.metadata.type'
 
 // C.SDL_GetAppMetadataProperty [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetAppMetadataProperty)
 fn C.SDL_GetAppMetadataProperty(const_name &char) &char

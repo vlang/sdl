@@ -121,7 +121,7 @@ pub type GLContextResetNotification = u32
 // uninitialized will either return the user provided value, if one was set
 // prior to initialization, or NULL. See docs/README-wayland.md for more
 // information.
-pub const prop_global_video_wayland_wl_display_pointer = C.SDL_PROP_GLOBAL_VIDEO_WAYLAND_WL_DISPLAY_POINTER // 'SDL.video.wayland.wl_display'
+pub const prop_global_video_wayland_wl_display_pointer = &char(C.SDL_PROP_GLOBAL_VIDEO_WAYLAND_WL_DISPLAY_POINTER) // 'SDL.video.wayland.wl_display'
 
 // SystemTheme is C.SDL_SystemTheme
 pub enum SystemTheme {
@@ -499,9 +499,9 @@ pub fn get_display_properties(display_id DisplayID) PropertiesID {
 	return C.SDL_GetDisplayProperties(display_id)
 }
 
-pub const prop_display_hdr_enabled_boolean = C.SDL_PROP_DISPLAY_HDR_ENABLED_BOOLEAN // 'SDL.display.HDR_enabled'
+pub const prop_display_hdr_enabled_boolean = &char(C.SDL_PROP_DISPLAY_HDR_ENABLED_BOOLEAN) // 'SDL.display.HDR_enabled'
 
-pub const prop_display_kmsdrm_panel_orientation_number = C.SDL_PROP_DISPLAY_KMSDRM_PANEL_ORIENTATION_NUMBER // 'SDL.display.KMSDRM.panel_orientation'
+pub const prop_display_kmsdrm_panel_orientation_number = &char(C.SDL_PROP_DISPLAY_KMSDRM_PANEL_ORIENTATION_NUMBER) // 'SDL.display.KMSDRM.panel_orientation'
 
 // C.SDL_GetDisplayName [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetDisplayName)
 fn C.SDL_GetDisplayName(display_id DisplayID) &char
@@ -1250,73 +1250,73 @@ pub fn create_window_with_properties(props PropertiesID) &Window {
 	return C.SDL_CreateWindowWithProperties(props)
 }
 
-pub const prop_window_create_always_on_top_boolean = C.SDL_PROP_WINDOW_CREATE_ALWAYS_ON_TOP_BOOLEAN // 'SDL.window.create.always_on_top'
+pub const prop_window_create_always_on_top_boolean = &char(C.SDL_PROP_WINDOW_CREATE_ALWAYS_ON_TOP_BOOLEAN) // 'SDL.window.create.always_on_top'
 
-pub const prop_window_create_borderless_boolean = C.SDL_PROP_WINDOW_CREATE_BORDERLESS_BOOLEAN // 'SDL.window.create.borderless'
+pub const prop_window_create_borderless_boolean = &char(C.SDL_PROP_WINDOW_CREATE_BORDERLESS_BOOLEAN) // 'SDL.window.create.borderless'
 
-pub const prop_window_create_focusable_boolean = C.SDL_PROP_WINDOW_CREATE_FOCUSABLE_BOOLEAN // 'SDL.window.create.focusable'
+pub const prop_window_create_focusable_boolean = &char(C.SDL_PROP_WINDOW_CREATE_FOCUSABLE_BOOLEAN) // 'SDL.window.create.focusable'
 
-pub const prop_window_create_external_graphics_context_boolean = C.SDL_PROP_WINDOW_CREATE_EXTERNAL_GRAPHICS_CONTEXT_BOOLEAN // 'SDL.window.create.external_graphics_context'
+pub const prop_window_create_external_graphics_context_boolean = &char(C.SDL_PROP_WINDOW_CREATE_EXTERNAL_GRAPHICS_CONTEXT_BOOLEAN) // 'SDL.window.create.external_graphics_context'
 
-pub const prop_window_create_flags_number = C.SDL_PROP_WINDOW_CREATE_FLAGS_NUMBER // 'SDL.window.create.flags'
+pub const prop_window_create_flags_number = &char(C.SDL_PROP_WINDOW_CREATE_FLAGS_NUMBER) // 'SDL.window.create.flags'
 
-pub const prop_window_create_fullscreen_boolean = C.SDL_PROP_WINDOW_CREATE_FULLSCREEN_BOOLEAN // 'SDL.window.create.fullscreen'
+pub const prop_window_create_fullscreen_boolean = &char(C.SDL_PROP_WINDOW_CREATE_FULLSCREEN_BOOLEAN) // 'SDL.window.create.fullscreen'
 
-pub const prop_window_create_height_number = C.SDL_PROP_WINDOW_CREATE_HEIGHT_NUMBER // 'SDL.window.create.height'
+pub const prop_window_create_height_number = &char(C.SDL_PROP_WINDOW_CREATE_HEIGHT_NUMBER) // 'SDL.window.create.height'
 
-pub const prop_window_create_hidden_boolean = C.SDL_PROP_WINDOW_CREATE_HIDDEN_BOOLEAN // 'SDL.window.create.hidden'
+pub const prop_window_create_hidden_boolean = &char(C.SDL_PROP_WINDOW_CREATE_HIDDEN_BOOLEAN) // 'SDL.window.create.hidden'
 
-pub const prop_window_create_high_pixel_density_boolean = C.SDL_PROP_WINDOW_CREATE_HIGH_PIXEL_DENSITY_BOOLEAN // 'SDL.window.create.high_pixel_density'
+pub const prop_window_create_high_pixel_density_boolean = &char(C.SDL_PROP_WINDOW_CREATE_HIGH_PIXEL_DENSITY_BOOLEAN) // 'SDL.window.create.high_pixel_density'
 
-pub const prop_window_create_maximized_boolean = C.SDL_PROP_WINDOW_CREATE_MAXIMIZED_BOOLEAN // 'SDL.window.create.maximized'
+pub const prop_window_create_maximized_boolean = &char(C.SDL_PROP_WINDOW_CREATE_MAXIMIZED_BOOLEAN) // 'SDL.window.create.maximized'
 
-pub const prop_window_create_menu_boolean = C.SDL_PROP_WINDOW_CREATE_MENU_BOOLEAN // 'SDL.window.create.menu'
+pub const prop_window_create_menu_boolean = &char(C.SDL_PROP_WINDOW_CREATE_MENU_BOOLEAN) // 'SDL.window.create.menu'
 
-pub const prop_window_create_metal_boolean = C.SDL_PROP_WINDOW_CREATE_METAL_BOOLEAN // 'SDL.window.create.metal'
+pub const prop_window_create_metal_boolean = &char(C.SDL_PROP_WINDOW_CREATE_METAL_BOOLEAN) // 'SDL.window.create.metal'
 
-pub const prop_window_create_minimized_boolean = C.SDL_PROP_WINDOW_CREATE_MINIMIZED_BOOLEAN // 'SDL.window.create.minimized'
+pub const prop_window_create_minimized_boolean = &char(C.SDL_PROP_WINDOW_CREATE_MINIMIZED_BOOLEAN) // 'SDL.window.create.minimized'
 
-pub const prop_window_create_modal_boolean = C.SDL_PROP_WINDOW_CREATE_MODAL_BOOLEAN // 'SDL.window.create.modal'
+pub const prop_window_create_modal_boolean = &char(C.SDL_PROP_WINDOW_CREATE_MODAL_BOOLEAN) // 'SDL.window.create.modal'
 
-pub const prop_window_create_mouse_grabbed_boolean = C.SDL_PROP_WINDOW_CREATE_MOUSE_GRABBED_BOOLEAN // 'SDL.window.create.mouse_grabbed'
+pub const prop_window_create_mouse_grabbed_boolean = &char(C.SDL_PROP_WINDOW_CREATE_MOUSE_GRABBED_BOOLEAN) // 'SDL.window.create.mouse_grabbed'
 
-pub const prop_window_create_opengl_boolean = C.SDL_PROP_WINDOW_CREATE_OPENGL_BOOLEAN // 'SDL.window.create.opengl'
+pub const prop_window_create_opengl_boolean = &char(C.SDL_PROP_WINDOW_CREATE_OPENGL_BOOLEAN) // 'SDL.window.create.opengl'
 
-pub const prop_window_create_parent_pointer = C.SDL_PROP_WINDOW_CREATE_PARENT_POINTER // 'SDL.window.create.parent'
+pub const prop_window_create_parent_pointer = &char(C.SDL_PROP_WINDOW_CREATE_PARENT_POINTER) // 'SDL.window.create.parent'
 
-pub const prop_window_create_resizable_boolean = C.SDL_PROP_WINDOW_CREATE_RESIZABLE_BOOLEAN // 'SDL.window.create.resizable'
+pub const prop_window_create_resizable_boolean = &char(C.SDL_PROP_WINDOW_CREATE_RESIZABLE_BOOLEAN) // 'SDL.window.create.resizable'
 
-pub const prop_window_create_title_string = C.SDL_PROP_WINDOW_CREATE_TITLE_STRING // 'SDL.window.create.title'
+pub const prop_window_create_title_string = &char(C.SDL_PROP_WINDOW_CREATE_TITLE_STRING) // 'SDL.window.create.title'
 
-pub const prop_window_create_transparent_boolean = C.SDL_PROP_WINDOW_CREATE_TRANSPARENT_BOOLEAN // 'SDL.window.create.transparent'
+pub const prop_window_create_transparent_boolean = &char(C.SDL_PROP_WINDOW_CREATE_TRANSPARENT_BOOLEAN) // 'SDL.window.create.transparent'
 
-pub const prop_window_create_tooltip_boolean = C.SDL_PROP_WINDOW_CREATE_TOOLTIP_BOOLEAN // 'SDL.window.create.tooltip'
+pub const prop_window_create_tooltip_boolean = &char(C.SDL_PROP_WINDOW_CREATE_TOOLTIP_BOOLEAN) // 'SDL.window.create.tooltip'
 
-pub const prop_window_create_utility_boolean = C.SDL_PROP_WINDOW_CREATE_UTILITY_BOOLEAN // 'SDL.window.create.utility'
+pub const prop_window_create_utility_boolean = &char(C.SDL_PROP_WINDOW_CREATE_UTILITY_BOOLEAN) // 'SDL.window.create.utility'
 
-pub const prop_window_create_vulkan_boolean = C.SDL_PROP_WINDOW_CREATE_VULKAN_BOOLEAN // 'SDL.window.create.vulkan'
+pub const prop_window_create_vulkan_boolean = &char(C.SDL_PROP_WINDOW_CREATE_VULKAN_BOOLEAN) // 'SDL.window.create.vulkan'
 
-pub const prop_window_create_width_number = C.SDL_PROP_WINDOW_CREATE_WIDTH_NUMBER // 'SDL.window.create.width'
+pub const prop_window_create_width_number = &char(C.SDL_PROP_WINDOW_CREATE_WIDTH_NUMBER) // 'SDL.window.create.width'
 
-pub const prop_window_create_x_number = C.SDL_PROP_WINDOW_CREATE_X_NUMBER // 'SDL.window.create.x'
+pub const prop_window_create_x_number = &char(C.SDL_PROP_WINDOW_CREATE_X_NUMBER) // 'SDL.window.create.x'
 
-pub const prop_window_create_y_number = C.SDL_PROP_WINDOW_CREATE_Y_NUMBER // 'SDL.window.create.y'
+pub const prop_window_create_y_number = &char(C.SDL_PROP_WINDOW_CREATE_Y_NUMBER) // 'SDL.window.create.y'
 
-pub const prop_window_create_cocoa_window_pointer = C.SDL_PROP_WINDOW_CREATE_COCOA_WINDOW_POINTER // 'SDL.window.create.cocoa.window'
+pub const prop_window_create_cocoa_window_pointer = &char(C.SDL_PROP_WINDOW_CREATE_COCOA_WINDOW_POINTER) // 'SDL.window.create.cocoa.window'
 
-pub const prop_window_create_cocoa_view_pointer = C.SDL_PROP_WINDOW_CREATE_COCOA_VIEW_POINTER // 'SDL.window.create.cocoa.view'
+pub const prop_window_create_cocoa_view_pointer = &char(C.SDL_PROP_WINDOW_CREATE_COCOA_VIEW_POINTER) // 'SDL.window.create.cocoa.view'
 
-pub const prop_window_create_wayland_surface_role_custom_boolean = C.SDL_PROP_WINDOW_CREATE_WAYLAND_SURFACE_ROLE_CUSTOM_BOOLEAN // 'SDL.window.create.wayland.surface_role_custom'
+pub const prop_window_create_wayland_surface_role_custom_boolean = &char(C.SDL_PROP_WINDOW_CREATE_WAYLAND_SURFACE_ROLE_CUSTOM_BOOLEAN) // 'SDL.window.create.wayland.surface_role_custom'
 
-pub const prop_window_create_wayland_create_egl_window_boolean = C.SDL_PROP_WINDOW_CREATE_WAYLAND_CREATE_EGL_WINDOW_BOOLEAN // 'SDL.window.create.wayland.create_egl_window'
+pub const prop_window_create_wayland_create_egl_window_boolean = &char(C.SDL_PROP_WINDOW_CREATE_WAYLAND_CREATE_EGL_WINDOW_BOOLEAN) // 'SDL.window.create.wayland.create_egl_window'
 
-pub const prop_window_create_wayland_wl_surface_pointer = C.SDL_PROP_WINDOW_CREATE_WAYLAND_WL_SURFACE_POINTER // 'SDL.window.create.wayland.wl_surface'
+pub const prop_window_create_wayland_wl_surface_pointer = &char(C.SDL_PROP_WINDOW_CREATE_WAYLAND_WL_SURFACE_POINTER) // 'SDL.window.create.wayland.wl_surface'
 
-pub const prop_window_create_win32_hwnd_pointer = C.SDL_PROP_WINDOW_CREATE_WIN32_HWND_POINTER // 'SDL.window.create.win32.hwnd'
+pub const prop_window_create_win32_hwnd_pointer = &char(C.SDL_PROP_WINDOW_CREATE_WIN32_HWND_POINTER) // 'SDL.window.create.win32.hwnd'
 
-pub const prop_window_create_win32_pixel_format_hwnd_pointer = C.SDL_PROP_WINDOW_CREATE_WIN32_PIXEL_FORMAT_HWND_POINTER // 'SDL.window.create.win32.pixel_format_hwnd'
+pub const prop_window_create_win32_pixel_format_hwnd_pointer = &char(C.SDL_PROP_WINDOW_CREATE_WIN32_PIXEL_FORMAT_HWND_POINTER) // 'SDL.window.create.win32.pixel_format_hwnd'
 
-pub const prop_window_create_x11_window_number = C.SDL_PROP_WINDOW_CREATE_X11_WINDOW_NUMBER // 'SDL.window.create.x11.window'
+pub const prop_window_create_x11_window_number = &char(C.SDL_PROP_WINDOW_CREATE_X11_WINDOW_NUMBER) // 'SDL.window.create.x11.window'
 
 // C.SDL_GetWindowID [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetWindowID)
 fn C.SDL_GetWindowID(window &Window) WindowID
@@ -1503,75 +1503,75 @@ pub fn get_window_properties(window &Window) PropertiesID {
 	return C.SDL_GetWindowProperties(window)
 }
 
-pub const prop_window_shape_pointer = C.SDL_PROP_WINDOW_SHAPE_POINTER // 'SDL.window.shape'
+pub const prop_window_shape_pointer = &char(C.SDL_PROP_WINDOW_SHAPE_POINTER) // 'SDL.window.shape'
 
-pub const prop_window_hdr_enabled_boolean = C.SDL_PROP_WINDOW_HDR_ENABLED_BOOLEAN // 'SDL.window.HDR_enabled'
+pub const prop_window_hdr_enabled_boolean = &char(C.SDL_PROP_WINDOW_HDR_ENABLED_BOOLEAN) // 'SDL.window.HDR_enabled'
 
-pub const prop_window_sdr_white_level_float = C.SDL_PROP_WINDOW_SDR_WHITE_LEVEL_FLOAT // 'SDL.window.SDR_white_level'
+pub const prop_window_sdr_white_level_float = &char(C.SDL_PROP_WINDOW_SDR_WHITE_LEVEL_FLOAT) // 'SDL.window.SDR_white_level'
 
-pub const prop_window_hdr_headroom_float = C.SDL_PROP_WINDOW_HDR_HEADROOM_FLOAT // 'SDL.window.HDR_headroom'
+pub const prop_window_hdr_headroom_float = &char(C.SDL_PROP_WINDOW_HDR_HEADROOM_FLOAT) // 'SDL.window.HDR_headroom'
 
-pub const prop_window_android_window_pointer = C.SDL_PROP_WINDOW_ANDROID_WINDOW_POINTER // 'SDL.window.android.window'
+pub const prop_window_android_window_pointer = &char(C.SDL_PROP_WINDOW_ANDROID_WINDOW_POINTER) // 'SDL.window.android.window'
 
-pub const prop_window_android_surface_pointer = C.SDL_PROP_WINDOW_ANDROID_SURFACE_POINTER // 'SDL.window.android.surface'
+pub const prop_window_android_surface_pointer = &char(C.SDL_PROP_WINDOW_ANDROID_SURFACE_POINTER) // 'SDL.window.android.surface'
 
-pub const prop_window_uikit_window_pointer = C.SDL_PROP_WINDOW_UIKIT_WINDOW_POINTER // 'SDL.window.uikit.window'
+pub const prop_window_uikit_window_pointer = &char(C.SDL_PROP_WINDOW_UIKIT_WINDOW_POINTER) // 'SDL.window.uikit.window'
 
-pub const prop_window_uikit_metal_view_tag_number = C.SDL_PROP_WINDOW_UIKIT_METAL_VIEW_TAG_NUMBER // 'SDL.window.uikit.metal_view_tag'
+pub const prop_window_uikit_metal_view_tag_number = &char(C.SDL_PROP_WINDOW_UIKIT_METAL_VIEW_TAG_NUMBER) // 'SDL.window.uikit.metal_view_tag'
 
-pub const prop_window_uikit_opengl_framebuffer_number = C.SDL_PROP_WINDOW_UIKIT_OPENGL_FRAMEBUFFER_NUMBER // 'SDL.window.uikit.opengl.framebuffer'
+pub const prop_window_uikit_opengl_framebuffer_number = &char(C.SDL_PROP_WINDOW_UIKIT_OPENGL_FRAMEBUFFER_NUMBER) // 'SDL.window.uikit.opengl.framebuffer'
 
-pub const prop_window_uikit_opengl_renderbuffer_number = C.SDL_PROP_WINDOW_UIKIT_OPENGL_RENDERBUFFER_NUMBER // 'SDL.window.uikit.opengl.renderbuffer'
+pub const prop_window_uikit_opengl_renderbuffer_number = &char(C.SDL_PROP_WINDOW_UIKIT_OPENGL_RENDERBUFFER_NUMBER) // 'SDL.window.uikit.opengl.renderbuffer'
 
-pub const prop_window_uikit_opengl_resolve_framebuffer_number = C.SDL_PROP_WINDOW_UIKIT_OPENGL_RESOLVE_FRAMEBUFFER_NUMBER // 'SDL.window.uikit.opengl.resolve_framebuffer'
+pub const prop_window_uikit_opengl_resolve_framebuffer_number = &char(C.SDL_PROP_WINDOW_UIKIT_OPENGL_RESOLVE_FRAMEBUFFER_NUMBER) // 'SDL.window.uikit.opengl.resolve_framebuffer'
 
-pub const prop_window_kmsdrm_device_index_number = C.SDL_PROP_WINDOW_KMSDRM_DEVICE_INDEX_NUMBER // 'SDL.window.kmsdrm.dev_index'
+pub const prop_window_kmsdrm_device_index_number = &char(C.SDL_PROP_WINDOW_KMSDRM_DEVICE_INDEX_NUMBER) // 'SDL.window.kmsdrm.dev_index'
 
-pub const prop_window_kmsdrm_drm_fd_number = C.SDL_PROP_WINDOW_KMSDRM_DRM_FD_NUMBER // 'SDL.window.kmsdrm.drm_fd'
+pub const prop_window_kmsdrm_drm_fd_number = &char(C.SDL_PROP_WINDOW_KMSDRM_DRM_FD_NUMBER) // 'SDL.window.kmsdrm.drm_fd'
 
-pub const prop_window_kmsdrm_gbm_device_pointer = C.SDL_PROP_WINDOW_KMSDRM_GBM_DEVICE_POINTER // 'SDL.window.kmsdrm.gbm_dev'
+pub const prop_window_kmsdrm_gbm_device_pointer = &char(C.SDL_PROP_WINDOW_KMSDRM_GBM_DEVICE_POINTER) // 'SDL.window.kmsdrm.gbm_dev'
 
-pub const prop_window_cocoa_window_pointer = C.SDL_PROP_WINDOW_COCOA_WINDOW_POINTER // 'SDL.window.cocoa.window'
+pub const prop_window_cocoa_window_pointer = &char(C.SDL_PROP_WINDOW_COCOA_WINDOW_POINTER) // 'SDL.window.cocoa.window'
 
-pub const prop_window_cocoa_metal_view_tag_number = C.SDL_PROP_WINDOW_COCOA_METAL_VIEW_TAG_NUMBER // 'SDL.window.cocoa.metal_view_tag'
+pub const prop_window_cocoa_metal_view_tag_number = &char(C.SDL_PROP_WINDOW_COCOA_METAL_VIEW_TAG_NUMBER) // 'SDL.window.cocoa.metal_view_tag'
 
-pub const prop_window_openvr_overlay_id = C.SDL_PROP_WINDOW_OPENVR_OVERLAY_ID // 'SDL.window.openvr.overlay_id'
+pub const prop_window_openvr_overlay_id = &char(C.SDL_PROP_WINDOW_OPENVR_OVERLAY_ID) // 'SDL.window.openvr.overlay_id'
 
-pub const prop_window_vivante_display_pointer = C.SDL_PROP_WINDOW_VIVANTE_DISPLAY_POINTER // 'SDL.window.vivante.display'
+pub const prop_window_vivante_display_pointer = &char(C.SDL_PROP_WINDOW_VIVANTE_DISPLAY_POINTER) // 'SDL.window.vivante.display'
 
-pub const prop_window_vivante_window_pointer = C.SDL_PROP_WINDOW_VIVANTE_WINDOW_POINTER // 'SDL.window.vivante.window'
+pub const prop_window_vivante_window_pointer = &char(C.SDL_PROP_WINDOW_VIVANTE_WINDOW_POINTER) // 'SDL.window.vivante.window'
 
-pub const prop_window_vivante_surface_pointer = C.SDL_PROP_WINDOW_VIVANTE_SURFACE_POINTER // 'SDL.window.vivante.surface'
+pub const prop_window_vivante_surface_pointer = &char(C.SDL_PROP_WINDOW_VIVANTE_SURFACE_POINTER) // 'SDL.window.vivante.surface'
 
-pub const prop_window_win32_hwnd_pointer = C.SDL_PROP_WINDOW_WIN32_HWND_POINTER // 'SDL.window.win32.hwnd'
+pub const prop_window_win32_hwnd_pointer = &char(C.SDL_PROP_WINDOW_WIN32_HWND_POINTER) // 'SDL.window.win32.hwnd'
 
-pub const prop_window_win32_hdc_pointer = C.SDL_PROP_WINDOW_WIN32_HDC_POINTER // 'SDL.window.win32.hdc'
+pub const prop_window_win32_hdc_pointer = &char(C.SDL_PROP_WINDOW_WIN32_HDC_POINTER) // 'SDL.window.win32.hdc'
 
-pub const prop_window_win32_instance_pointer = C.SDL_PROP_WINDOW_WIN32_INSTANCE_POINTER // 'SDL.window.win32.instance'
+pub const prop_window_win32_instance_pointer = &char(C.SDL_PROP_WINDOW_WIN32_INSTANCE_POINTER) // 'SDL.window.win32.instance'
 
-pub const prop_window_wayland_display_pointer = C.SDL_PROP_WINDOW_WAYLAND_DISPLAY_POINTER // 'SDL.window.wayland.display'
+pub const prop_window_wayland_display_pointer = &char(C.SDL_PROP_WINDOW_WAYLAND_DISPLAY_POINTER) // 'SDL.window.wayland.display'
 
-pub const prop_window_wayland_surface_pointer = C.SDL_PROP_WINDOW_WAYLAND_SURFACE_POINTER // 'SDL.window.wayland.surface'
+pub const prop_window_wayland_surface_pointer = &char(C.SDL_PROP_WINDOW_WAYLAND_SURFACE_POINTER) // 'SDL.window.wayland.surface'
 
-pub const prop_window_wayland_viewport_pointer = C.SDL_PROP_WINDOW_WAYLAND_VIEWPORT_POINTER // 'SDL.window.wayland.viewport'
+pub const prop_window_wayland_viewport_pointer = &char(C.SDL_PROP_WINDOW_WAYLAND_VIEWPORT_POINTER) // 'SDL.window.wayland.viewport'
 
-pub const prop_window_wayland_egl_window_pointer = C.SDL_PROP_WINDOW_WAYLAND_EGL_WINDOW_POINTER // 'SDL.window.wayland.egl_window'
+pub const prop_window_wayland_egl_window_pointer = &char(C.SDL_PROP_WINDOW_WAYLAND_EGL_WINDOW_POINTER) // 'SDL.window.wayland.egl_window'
 
-pub const prop_window_wayland_xdg_surface_pointer = C.SDL_PROP_WINDOW_WAYLAND_XDG_SURFACE_POINTER // 'SDL.window.wayland.xdg_surface'
+pub const prop_window_wayland_xdg_surface_pointer = &char(C.SDL_PROP_WINDOW_WAYLAND_XDG_SURFACE_POINTER) // 'SDL.window.wayland.xdg_surface'
 
-pub const prop_window_wayland_xdg_toplevel_pointer = C.SDL_PROP_WINDOW_WAYLAND_XDG_TOPLEVEL_POINTER // 'SDL.window.wayland.xdg_toplevel'
+pub const prop_window_wayland_xdg_toplevel_pointer = &char(C.SDL_PROP_WINDOW_WAYLAND_XDG_TOPLEVEL_POINTER) // 'SDL.window.wayland.xdg_toplevel'
 
-pub const prop_window_wayland_xdg_toplevel_export_handle_string = C.SDL_PROP_WINDOW_WAYLAND_XDG_TOPLEVEL_EXPORT_HANDLE_STRING // 'SDL.window.wayland.xdg_toplevel_export_handle'
+pub const prop_window_wayland_xdg_toplevel_export_handle_string = &char(C.SDL_PROP_WINDOW_WAYLAND_XDG_TOPLEVEL_EXPORT_HANDLE_STRING) // 'SDL.window.wayland.xdg_toplevel_export_handle'
 
-pub const prop_window_wayland_xdg_popup_pointer = C.SDL_PROP_WINDOW_WAYLAND_XDG_POPUP_POINTER // 'SDL.window.wayland.xdg_popup'
+pub const prop_window_wayland_xdg_popup_pointer = &char(C.SDL_PROP_WINDOW_WAYLAND_XDG_POPUP_POINTER) // 'SDL.window.wayland.xdg_popup'
 
-pub const prop_window_wayland_xdg_positioner_pointer = C.SDL_PROP_WINDOW_WAYLAND_XDG_POSITIONER_POINTER // 'SDL.window.wayland.xdg_positioner'
+pub const prop_window_wayland_xdg_positioner_pointer = &char(C.SDL_PROP_WINDOW_WAYLAND_XDG_POSITIONER_POINTER) // 'SDL.window.wayland.xdg_positioner'
 
-pub const prop_window_x11_display_pointer = C.SDL_PROP_WINDOW_X11_DISPLAY_POINTER // 'SDL.window.x11.display'
+pub const prop_window_x11_display_pointer = &char(C.SDL_PROP_WINDOW_X11_DISPLAY_POINTER) // 'SDL.window.x11.display'
 
-pub const prop_window_x11_screen_number = C.SDL_PROP_WINDOW_X11_SCREEN_NUMBER // 'SDL.window.x11.screen'
+pub const prop_window_x11_screen_number = &char(C.SDL_PROP_WINDOW_X11_SCREEN_NUMBER) // 'SDL.window.x11.screen'
 
-pub const prop_window_x11_window_number = C.SDL_PROP_WINDOW_X11_WINDOW_NUMBER // 'SDL.window.x11.window'
+pub const prop_window_x11_window_number = &char(C.SDL_PROP_WINDOW_X11_WINDOW_NUMBER) // 'SDL.window.x11.window'
 
 // C.SDL_GetWindowFlags [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetWindowFlags)
 fn C.SDL_GetWindowFlags(window &Window) WindowFlags
