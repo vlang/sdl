@@ -103,7 +103,7 @@ pub fn time_to_date_time(ticks Time, dt &DateTime, local_time bool) bool {
 }
 
 // C.SDL_DateTimeToTime [official documentation](https://wiki.libsdl.org/SDL3/SDL_DateTimeToTime)
-fn C.SDL_DateTimeToTime(const_dt &DateTime, ticks Time) bool
+fn C.SDL_DateTimeToTime(const_dt &DateTime, ticks &Time) bool
 
 // date_time_to_time converts a calendar time to an SDL_Time in nanoseconds since the epoch.
 //
@@ -116,7 +116,7 @@ fn C.SDL_DateTimeToTime(const_dt &DateTime, ticks Time) bool
 //          information.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn date_time_to_time(const_dt &DateTime, ticks Time) bool {
+pub fn date_time_to_time(const_dt &DateTime, ticks &Time) bool {
 	return C.SDL_DateTimeToTime(const_dt, ticks)
 }
 
