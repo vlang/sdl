@@ -3365,7 +3365,7 @@ fn C.SDL_UCS4ToUTF8(codepoint u32, dst &char) &char
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn uc_s4_to_utf8(codepoint u32, dst &char) &char {
-  return &char(C.SDL_UCS4ToUTF8(codepoint, dst))
+	return &char(C.SDL_UCS4ToUTF8(codepoint, dst))
 }
 
 // C.SDL_sscanf [official documentation](https://wiki.libsdl.org/SDL3/SDL_sscanf)
