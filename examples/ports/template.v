@@ -27,13 +27,13 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 	unsafe {
 		*appstate = app
 	}
-	sdl.set_app_metadata('Example V + SDL3 Template'.str, '1.0'.str, 'com.example.template'.str)
+	sdl.set_app_metadata(c'Example V + SDL3 Template', c'1.0', c'com.example.template')
 	if !sdl.init(sdl.init_video) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		eprintln("Couldn't initialize SDL: ${error_msg}")
 		return .failure
 	}
-	if !sdl.create_window_and_renderer('examples/renderer/clear'.str, 640, 480, sdl.WindowFlags(0),
+	if !sdl.create_window_and_renderer(c'examples/renderer/clear', 640, 480, sdl.WindowFlags(0),
 		&app.window, &app.renderer) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		eprintln("Couldn't create window/renderer: ${error_msg}")

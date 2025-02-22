@@ -53,7 +53,7 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 	unsafe {
 		*appstate = app
 	}
-	sdl.set_app_metadata('Example Renderer Textures'.str, '1.0'.str, 'com.example.renderer-textures'.str)
+	sdl.set_app_metadata(c'Example Renderer Textures', c'1.0', c'com.example.renderer-textures')
 
 	if !sdl.init(sdl.init_video) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
@@ -61,7 +61,7 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 		return .failure
 	}
 
-	if !sdl.create_window_and_renderer('examples/renderer/textures'.str, window_width,
+	if !sdl.create_window_and_renderer(c'examples/renderer/textures', window_width,
 		window_height, sdl.WindowFlags(0), &app.window, &app.renderer) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		eprintln("Couldn't create window/renderer: ${error_msg}")
@@ -75,7 +75,7 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 	// SDL_Surface is pixel data the CPU can access. SDL_Texture is pixel data the GPU can access.
 	// Load a .bmp into a surface, move it to a texture from there.
 	bmp_path := get_asset_path(os.join_path('images', 'sample.bmp'))
-	surface := sdl.load_bmp(bmp_path.str)
+	surface := sdl.load_bmp(&char(bmp_path.str))
 	if surface == sdl.null {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		eprintln("Couldn't load bitmap: ${error_msg}")

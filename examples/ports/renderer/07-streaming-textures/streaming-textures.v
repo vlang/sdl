@@ -38,7 +38,7 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 	unsafe {
 		*appstate = app
 	}
-	sdl.set_app_metadata('Example Renderer Streaming Textures'.str, '1.0'.str, 'com.example.renderer-streaming-textures'.str)
+	sdl.set_app_metadata(c'Example Renderer Streaming Textures', c'1.0', c'com.example.renderer-streaming-textures')
 
 	if !sdl.init(sdl.init_video) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
@@ -46,7 +46,7 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 		return .failure
 	}
 
-	if !sdl.create_window_and_renderer('examples/renderer/streaming-textures'.str, window_width,
+	if !sdl.create_window_and_renderer(c'examples/renderer/streaming-textures', window_width,
 		window_height, sdl.WindowFlags(0), &app.window, &app.renderer) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		eprintln("Couldn't create window/renderer: ${error_msg}")

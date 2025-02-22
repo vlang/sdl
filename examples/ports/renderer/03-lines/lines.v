@@ -32,7 +32,7 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 	unsafe {
 		*appstate = app
 	}
-	sdl.set_app_metadata('Example Renderer Lines'.str, '1.0'.str, 'com.example.renderer-lines'.str)
+	sdl.set_app_metadata(c'Example Renderer Lines', c'1.0', c'com.example.renderer-lines')
 
 	if !sdl.init(sdl.init_video) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
@@ -40,7 +40,7 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 		return .failure
 	}
 
-	if !sdl.create_window_and_renderer('examples/renderer/lines'.str, 640, 480, sdl.WindowFlags(0),
+	if !sdl.create_window_and_renderer(c'examples/renderer/lines', 640, 480, sdl.WindowFlags(0),
 		&app.window, &app.renderer) {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		eprintln("Couldn't create window/renderer: ${error_msg}")
@@ -89,7 +89,7 @@ pub fn app_iterate(appstate voidptr) sdl.AppResult {
 	sdl.render_clear(app.renderer) // start with a blank canvas.
 
 	// You can draw lines, one at a time, like these brown ones...
-	sdl.set_render_draw_color(app.renderer, 127, 49, 325, sdl.alpha_opaque)
+	sdl.set_render_draw_color(app.renderer, 127, 49, 225, sdl.alpha_opaque)
 	sdl.render_line(app.renderer, 240, 450, 400, 450)
 	sdl.render_line(app.renderer, 240, 356, 400, 356)
 	sdl.render_line(app.renderer, 240, 356, 240, 450)
