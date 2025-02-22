@@ -434,7 +434,7 @@ pub fn get_system_theme() SystemTheme {
 }
 
 // C.SDL_GetDisplays [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetDisplays)
-fn C.SDL_GetDisplays(count &int) DisplayID
+fn C.SDL_GetDisplays(count &int) &DisplayID
 
 // get_displays gets a list of currently connected displays.
 //
@@ -447,7 +447,7 @@ fn C.SDL_GetDisplays(count &int) DisplayID
 // NOTE: (thread safety) This function should only be called on the main thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn get_displays(count &int) DisplayID {
+pub fn get_displays(count &int) &DisplayID {
 	return C.SDL_GetDisplays(count)
 }
 
