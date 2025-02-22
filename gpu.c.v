@@ -3363,6 +3363,10 @@ pub fn calculate_gpu_texture_format_size(format GPUTextureFormat, width u32, hei
 	return C.SDL_CalculateGPUTextureFormatSize(format, width, height, depth_or_layer_count)
 }
 
+// $if XBox GDK
+
+/*
+
 // C.SDL_GDKSuspendGPU [official documentation](https://wiki.libsdl.org/SDL3/SDL_GDKSuspendGPU)
 fn C.SDL_GDKSuspendGPU(device &GPUDevice)
 
@@ -3398,3 +3402,7 @@ fn C.SDL_GDKResumeGPU(device &GPUDevice)
 pub fn gdk_resume_gpu(device &GPUDevice) {
 	C.SDL_GDKResumeGPU(device)
 }
+
+*/
+
+// /END $if XBox GDK
