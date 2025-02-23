@@ -33,7 +33,7 @@ module sdl
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_allow_alt_tab_while_grabbed = C.SDL_HINT_ALLOW_ALT_TAB_WHILE_GRABBED // 'SDL_ALLOW_ALT_TAB_WHILE_GRABBED'
+pub const hint_allow_alt_tab_while_grabbed = &char(C.SDL_HINT_ALLOW_ALT_TAB_WHILE_GRABBED) // 'SDL_ALLOW_ALT_TAB_WHILE_GRABBED'
 
 // A variable to control whether the SDL activity is allowed to be re-created.
 //
@@ -51,7 +51,7 @@ pub const hint_allow_alt_tab_while_grabbed = C.SDL_HINT_ALLOW_ALT_TAB_WHILE_GRAB
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_android_allow_recreate_activity = C.SDL_HINT_ANDROID_ALLOW_RECREATE_ACTIVITY // 'SDL_ANDROID_ALLOW_RECREATE_ACTIVITY'
+pub const hint_android_allow_recreate_activity = &char(C.SDL_HINT_ANDROID_ALLOW_RECREATE_ACTIVITY) // 'SDL_ANDROID_ALLOW_RECREATE_ACTIVITY'
 
 // A variable to control whether the event loop will block itself when the app
 // is paused.
@@ -64,7 +64,7 @@ pub const hint_android_allow_recreate_activity = C.SDL_HINT_ANDROID_ALLOW_RECREA
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_android_block_on_pause = C.SDL_HINT_ANDROID_BLOCK_ON_PAUSE // 'SDL_ANDROID_BLOCK_ON_PAUSE'
+pub const hint_android_block_on_pause = &char(C.SDL_HINT_ANDROID_BLOCK_ON_PAUSE) // 'SDL_ANDROID_BLOCK_ON_PAUSE'
 
 // A variable to control whether low latency audio should be enabled.
 //
@@ -79,7 +79,7 @@ pub const hint_android_block_on_pause = C.SDL_HINT_ANDROID_BLOCK_ON_PAUSE // 'SD
 // This hint should be set before SDL audio is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_android_low_latency_audio = C.SDL_HINT_ANDROID_LOW_LATENCY_AUDIO // 'SDL_ANDROID_LOW_LATENCY_AUDIO'
+pub const hint_android_low_latency_audio = &char(C.SDL_HINT_ANDROID_LOW_LATENCY_AUDIO) // 'SDL_ANDROID_LOW_LATENCY_AUDIO'
 
 // A variable to control whether we trap the Android back button to handle it
 // manually.
@@ -100,7 +100,7 @@ pub const hint_android_low_latency_audio = C.SDL_HINT_ANDROID_LOW_LATENCY_AUDIO 
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_android_trap_back_button = C.SDL_HINT_ANDROID_TRAP_BACK_BUTTON // 'SDL_ANDROID_TRAP_BACK_BUTTON'
+pub const hint_android_trap_back_button = &char(C.SDL_HINT_ANDROID_TRAP_BACK_BUTTON) // 'SDL_ANDROID_TRAP_BACK_BUTTON'
 
 // A variable setting the app ID string.
 //
@@ -114,7 +114,7 @@ pub const hint_android_trap_back_button = C.SDL_HINT_ANDROID_TRAP_BACK_BUTTON //
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_app_id = C.SDL_HINT_APP_ID // 'SDL_APP_ID'
+pub const hint_app_id = &char(C.SDL_HINT_APP_ID) // 'SDL_APP_ID'
 
 // A variable setting the application name.
 //
@@ -130,7 +130,7 @@ pub const hint_app_id = C.SDL_HINT_APP_ID // 'SDL_APP_ID'
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_app_name = C.SDL_HINT_APP_NAME // 'SDL_APP_NAME'
+pub const hint_app_name = &char(C.SDL_HINT_APP_NAME) // 'SDL_APP_NAME'
 
 // A variable controlling whether controllers used with the Apple TV generate
 // UI events.
@@ -151,7 +151,7 @@ pub const hint_app_name = C.SDL_HINT_APP_NAME // 'SDL_APP_NAME'
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_apple_tv_controller_ui_events = C.SDL_HINT_APPLE_TV_CONTROLLER_UI_EVENTS // 'SDL_APPLE_TV_CONTROLLER_UI_EVENTS'
+pub const hint_apple_tv_controller_ui_events = &char(C.SDL_HINT_APPLE_TV_CONTROLLER_UI_EVENTS) // 'SDL_APPLE_TV_CONTROLLER_UI_EVENTS'
 
 // A variable controlling whether the Apple TV remote's joystick axes will
 // automatically match the rotation of the remote.
@@ -164,7 +164,7 @@ pub const hint_apple_tv_controller_ui_events = C.SDL_HINT_APPLE_TV_CONTROLLER_UI
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_apple_tv_remote_allow_rotation = C.SDL_HINT_APPLE_TV_REMOTE_ALLOW_ROTATION // 'SDL_APPLE_TV_REMOTE_ALLOW_ROTATION'
+pub const hint_apple_tv_remote_allow_rotation = &char(C.SDL_HINT_APPLE_TV_REMOTE_ALLOW_ROTATION) // 'SDL_APPLE_TV_REMOTE_ALLOW_ROTATION'
 
 // Specify the default ALSA audio device name.
 //
@@ -182,7 +182,7 @@ pub const hint_apple_tv_remote_allow_rotation = C.SDL_HINT_APPLE_TV_REMOTE_ALLOW
 //
 // See also: SDL_HINT_AUDIO_ALSA_DEFAULT_PLAYBACK_DEVICE
 // See also: SDL_HINT_AUDIO_ALSA_DEFAULT_RECORDING_DEVICE
-pub const hint_audio_alsa_default_device = C.SDL_HINT_AUDIO_ALSA_DEFAULT_DEVICE // 'SDL_AUDIO_ALSA_DEFAULT_DEVICE'
+pub const hint_audio_alsa_default_device = &char(C.SDL_HINT_AUDIO_ALSA_DEFAULT_DEVICE) // 'SDL_AUDIO_ALSA_DEFAULT_DEVICE'
 
 // Specify the default ALSA audio playback device name.
 //
@@ -198,7 +198,7 @@ pub const hint_audio_alsa_default_device = C.SDL_HINT_AUDIO_ALSA_DEFAULT_DEVICE 
 //
 // See also: SDL_HINT_AUDIO_ALSA_DEFAULT_RECORDING_DEVICE
 // See also: SDL_HINT_AUDIO_ALSA_DEFAULT_DEVICE
-pub const hint_audio_alsa_default_playback_device = C.SDL_HINT_AUDIO_ALSA_DEFAULT_PLAYBACK_DEVICE // 'SDL_AUDIO_ALSA_DEFAULT_PLAYBACK_DEVICE'
+pub const hint_audio_alsa_default_playback_device = &char(C.SDL_HINT_AUDIO_ALSA_DEFAULT_PLAYBACK_DEVICE) // 'SDL_AUDIO_ALSA_DEFAULT_PLAYBACK_DEVICE'
 
 // Specify the default ALSA audio recording device name.
 //
@@ -214,7 +214,7 @@ pub const hint_audio_alsa_default_playback_device = C.SDL_HINT_AUDIO_ALSA_DEFAUL
 //
 // See also: SDL_HINT_AUDIO_ALSA_DEFAULT_PLAYBACK_DEVICE
 // See also: SDL_HINT_AUDIO_ALSA_DEFAULT_DEVICE
-pub const hint_audio_alsa_default_recording_device = C.SDL_HINT_AUDIO_ALSA_DEFAULT_RECORDING_DEVICE // 'SDL_AUDIO_ALSA_DEFAULT_RECORDING_DEVICE'
+pub const hint_audio_alsa_default_recording_device = &char(C.SDL_HINT_AUDIO_ALSA_DEFAULT_RECORDING_DEVICE) // 'SDL_AUDIO_ALSA_DEFAULT_RECORDING_DEVICE'
 
 // A variable controlling the audio category on iOS and macOS.
 //
@@ -230,7 +230,7 @@ pub const hint_audio_alsa_default_recording_device = C.SDL_HINT_AUDIO_ALSA_DEFAU
 // This hint should be set before an audio device is opened.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_audio_category = C.SDL_HINT_AUDIO_CATEGORY // 'SDL_AUDIO_CATEGORY'
+pub const hint_audio_category = &char(C.SDL_HINT_AUDIO_CATEGORY) // 'SDL_AUDIO_CATEGORY'
 
 // A variable controlling the default audio channel count.
 //
@@ -241,7 +241,7 @@ pub const hint_audio_category = C.SDL_HINT_AUDIO_CATEGORY // 'SDL_AUDIO_CATEGORY
 // This hint should be set before an audio device is opened.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_audio_channels = C.SDL_HINT_AUDIO_CHANNELS // 'SDL_AUDIO_CHANNELS'
+pub const hint_audio_channels = &char(C.SDL_HINT_AUDIO_CHANNELS) // 'SDL_AUDIO_CHANNELS'
 
 // Specify an application icon name for an audio device.
 //
@@ -262,7 +262,7 @@ pub const hint_audio_channels = C.SDL_HINT_AUDIO_CHANNELS // 'SDL_AUDIO_CHANNELS
 // This hint should be set before an audio device is opened.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_audio_device_app_icon_name = C.SDL_HINT_AUDIO_DEVICE_APP_ICON_NAME // 'SDL_AUDIO_DEVICE_APP_ICON_NAME'
+pub const hint_audio_device_app_icon_name = &char(C.SDL_HINT_AUDIO_DEVICE_APP_ICON_NAME) // 'SDL_AUDIO_DEVICE_APP_ICON_NAME'
 
 // A variable controlling device buffer size.
 //
@@ -282,7 +282,7 @@ pub const hint_audio_device_app_icon_name = C.SDL_HINT_AUDIO_DEVICE_APP_ICON_NAM
 // This hint should be set before an audio device is opened.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_audio_device_sample_frames = C.SDL_HINT_AUDIO_DEVICE_SAMPLE_FRAMES // 'SDL_AUDIO_DEVICE_SAMPLE_FRAMES'
+pub const hint_audio_device_sample_frames = &char(C.SDL_HINT_AUDIO_DEVICE_SAMPLE_FRAMES) // 'SDL_AUDIO_DEVICE_SAMPLE_FRAMES'
 
 // Specify an audio stream name for an audio device.
 //
@@ -307,7 +307,7 @@ pub const hint_audio_device_sample_frames = C.SDL_HINT_AUDIO_DEVICE_SAMPLE_FRAME
 // This hint should be set before an audio device is opened.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_audio_device_stream_name = C.SDL_HINT_AUDIO_DEVICE_STREAM_NAME // 'SDL_AUDIO_DEVICE_STREAM_NAME'
+pub const hint_audio_device_stream_name = &char(C.SDL_HINT_AUDIO_DEVICE_STREAM_NAME) // 'SDL_AUDIO_DEVICE_STREAM_NAME'
 
 // Specify an application role for an audio device.
 //
@@ -331,7 +331,7 @@ pub const hint_audio_device_stream_name = C.SDL_HINT_AUDIO_DEVICE_STREAM_NAME //
 // This hint should be set before an audio device is opened.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_audio_device_stream_role = C.SDL_HINT_AUDIO_DEVICE_STREAM_ROLE // 'SDL_AUDIO_DEVICE_STREAM_ROLE'
+pub const hint_audio_device_stream_role = &char(C.SDL_HINT_AUDIO_DEVICE_STREAM_ROLE) // 'SDL_AUDIO_DEVICE_STREAM_ROLE'
 
 // Specify the input file when recording audio using the disk audio driver.
 //
@@ -340,7 +340,7 @@ pub const hint_audio_device_stream_role = C.SDL_HINT_AUDIO_DEVICE_STREAM_ROLE //
 // This hint should be set before an audio device is opened.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_audio_disk_input_file = C.SDL_HINT_AUDIO_DISK_INPUT_FILE // 'SDL_AUDIO_DISK_INPUT_FILE'
+pub const hint_audio_disk_input_file = &char(C.SDL_HINT_AUDIO_DISK_INPUT_FILE) // 'SDL_AUDIO_DISK_INPUT_FILE'
 
 // Specify the output file when playing audio using the disk audio driver.
 //
@@ -349,7 +349,7 @@ pub const hint_audio_disk_input_file = C.SDL_HINT_AUDIO_DISK_INPUT_FILE // 'SDL_
 // This hint should be set before an audio device is opened.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_audio_disk_output_file = C.SDL_HINT_AUDIO_DISK_OUTPUT_FILE // 'SDL_AUDIO_DISK_OUTPUT_FILE'
+pub const hint_audio_disk_output_file = &char(C.SDL_HINT_AUDIO_DISK_OUTPUT_FILE) // 'SDL_AUDIO_DISK_OUTPUT_FILE'
 
 // A variable controlling the audio rate when using the disk audio driver.
 //
@@ -360,7 +360,7 @@ pub const hint_audio_disk_output_file = C.SDL_HINT_AUDIO_DISK_OUTPUT_FILE // 'SD
 // This hint should be set before an audio device is opened.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_audio_disk_timescale = C.SDL_HINT_AUDIO_DISK_TIMESCALE // 'SDL_AUDIO_DISK_TIMESCALE'
+pub const hint_audio_disk_timescale = &char(C.SDL_HINT_AUDIO_DISK_TIMESCALE) // 'SDL_AUDIO_DISK_TIMESCALE'
 
 // A variable that specifies an audio backend to use.
 //
@@ -372,7 +372,7 @@ pub const hint_audio_disk_timescale = C.SDL_HINT_AUDIO_DISK_TIMESCALE // 'SDL_AU
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_audio_driver = C.SDL_HINT_AUDIO_DRIVER // 'SDL_AUDIO_DRIVER'
+pub const hint_audio_driver = &char(C.SDL_HINT_AUDIO_DRIVER) // 'SDL_AUDIO_DRIVER'
 
 // A variable controlling the audio rate when using the dummy audio driver.
 //
@@ -383,7 +383,7 @@ pub const hint_audio_driver = C.SDL_HINT_AUDIO_DRIVER // 'SDL_AUDIO_DRIVER'
 // This hint should be set before an audio device is opened.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_audio_dummy_timescale = C.SDL_HINT_AUDIO_DUMMY_TIMESCALE // 'SDL_AUDIO_DUMMY_TIMESCALE'
+pub const hint_audio_dummy_timescale = &char(C.SDL_HINT_AUDIO_DUMMY_TIMESCALE) // 'SDL_AUDIO_DUMMY_TIMESCALE'
 
 // A variable controlling the default audio format.
 //
@@ -408,7 +408,7 @@ pub const hint_audio_dummy_timescale = C.SDL_HINT_AUDIO_DUMMY_TIMESCALE // 'SDL_
 // This hint should be set before an audio device is opened.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_audio_format = C.SDL_HINT_AUDIO_FORMAT // 'SDL_AUDIO_FORMAT'
+pub const hint_audio_format = &char(C.SDL_HINT_AUDIO_FORMAT) // 'SDL_AUDIO_FORMAT'
 
 // A variable controlling the default audio frequency.
 //
@@ -419,7 +419,7 @@ pub const hint_audio_format = C.SDL_HINT_AUDIO_FORMAT // 'SDL_AUDIO_FORMAT'
 // This hint should be set before an audio device is opened.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_audio_frequency = C.SDL_HINT_AUDIO_FREQUENCY // 'SDL_AUDIO_FREQUENCY'
+pub const hint_audio_frequency = &char(C.SDL_HINT_AUDIO_FREQUENCY) // 'SDL_AUDIO_FREQUENCY'
 
 // A variable that causes SDL to not ignore audio "monitors".
 //
@@ -440,7 +440,7 @@ pub const hint_audio_frequency = C.SDL_HINT_AUDIO_FREQUENCY // 'SDL_AUDIO_FREQUE
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_audio_include_monitors = C.SDL_HINT_AUDIO_INCLUDE_MONITORS // 'SDL_AUDIO_INCLUDE_MONITORS'
+pub const hint_audio_include_monitors = &char(C.SDL_HINT_AUDIO_INCLUDE_MONITORS) // 'SDL_AUDIO_INCLUDE_MONITORS'
 
 // A variable controlling whether SDL updates joystick state when getting
 // input events.
@@ -453,7 +453,7 @@ pub const hint_audio_include_monitors = C.SDL_HINT_AUDIO_INCLUDE_MONITORS // 'SD
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_auto_update_joysticks = C.SDL_HINT_AUTO_UPDATE_JOYSTICKS // 'SDL_AUTO_UPDATE_JOYSTICKS'
+pub const hint_auto_update_joysticks = &char(C.SDL_HINT_AUTO_UPDATE_JOYSTICKS) // 'SDL_AUTO_UPDATE_JOYSTICKS'
 
 // A variable controlling whether SDL updates sensor state when getting input
 // events.
@@ -466,7 +466,7 @@ pub const hint_auto_update_joysticks = C.SDL_HINT_AUTO_UPDATE_JOYSTICKS // 'SDL_
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_auto_update_sensors = C.SDL_HINT_AUTO_UPDATE_SENSORS // 'SDL_AUTO_UPDATE_SENSORS'
+pub const hint_auto_update_sensors = &char(C.SDL_HINT_AUTO_UPDATE_SENSORS) // 'SDL_AUTO_UPDATE_SENSORS'
 
 // Prevent SDL from using version 4 of the bitmap header when saving BMPs.
 //
@@ -487,7 +487,7 @@ pub const hint_auto_update_sensors = C.SDL_HINT_AUTO_UPDATE_SENSORS // 'SDL_AUTO
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_bmp_save_legacy_format = C.SDL_HINT_BMP_SAVE_LEGACY_FORMAT // 'SDL_BMP_SAVE_LEGACY_FORMAT'
+pub const hint_bmp_save_legacy_format = &char(C.SDL_HINT_BMP_SAVE_LEGACY_FORMAT) // 'SDL_BMP_SAVE_LEGACY_FORMAT'
 
 // A variable that decides what camera backend to use.
 //
@@ -501,7 +501,7 @@ pub const hint_bmp_save_legacy_format = C.SDL_HINT_BMP_SAVE_LEGACY_FORMAT // 'SD
 // SDL_Init() is called to be useful.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_camera_driver = C.SDL_HINT_CAMERA_DRIVER // 'SDL_CAMERA_DRIVER'
+pub const hint_camera_driver = &char(C.SDL_HINT_CAMERA_DRIVER) // 'SDL_CAMERA_DRIVER'
 
 // A variable that limits what CPU features are available.
 //
@@ -532,7 +532,7 @@ pub const hint_camera_driver = C.SDL_HINT_CAMERA_DRIVER // 'SDL_CAMERA_DRIVER'
 // The items can be prefixed by '+'/'-' to add/remove features.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_cpu_feature_mask = C.SDL_HINT_CPU_FEATURE_MASK // 'SDL_CPU_FEATURE_MASK'
+pub const hint_cpu_feature_mask = &char(C.SDL_HINT_CPU_FEATURE_MASK) // 'SDL_CPU_FEATURE_MASK'
 
 // A variable controlling whether DirectInput should be used for controllers.
 //
@@ -544,7 +544,7 @@ pub const hint_cpu_feature_mask = C.SDL_HINT_CPU_FEATURE_MASK // 'SDL_CPU_FEATUR
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_directinput = C.SDL_HINT_JOYSTICK_DIRECTINPUT // 'SDL_JOYSTICK_DIRECTINPUT'
+pub const hint_joystick_directinput = &char(C.SDL_HINT_JOYSTICK_DIRECTINPUT) // 'SDL_JOYSTICK_DIRECTINPUT'
 
 // A variable that specifies a dialog backend to use.
 //
@@ -571,7 +571,7 @@ pub const hint_joystick_directinput = C.SDL_HINT_JOYSTICK_DIRECTINPUT // 'SDL_JO
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_file_dialog_driver = C.SDL_HINT_FILE_DIALOG_DRIVER // 'SDL_FILE_DIALOG_DRIVER'
+pub const hint_file_dialog_driver = &char(C.SDL_HINT_FILE_DIALOG_DRIVER) // 'SDL_FILE_DIALOG_DRIVER'
 
 // Override for SDL_GetDisplayUsableBounds().
 //
@@ -587,7 +587,7 @@ pub const hint_file_dialog_driver = C.SDL_HINT_FILE_DIALOG_DRIVER // 'SDL_FILE_D
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_display_usable_bounds = C.SDL_HINT_DISPLAY_USABLE_BOUNDS // 'SDL_DISPLAY_USABLE_BOUNDS'
+pub const hint_display_usable_bounds = &char(C.SDL_HINT_DISPLAY_USABLE_BOUNDS) // 'SDL_DISPLAY_USABLE_BOUNDS'
 
 // Disable giving back control to the browser automatically when running with
 // asyncify.
@@ -606,7 +606,7 @@ pub const hint_display_usable_bounds = C.SDL_HINT_DISPLAY_USABLE_BOUNDS // 'SDL_
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_emscripten_asyncify = C.SDL_HINT_EMSCRIPTEN_ASYNCIFY // 'SDL_EMSCRIPTEN_ASYNCIFY'
+pub const hint_emscripten_asyncify = &char(C.SDL_HINT_EMSCRIPTEN_ASYNCIFY) // 'SDL_EMSCRIPTEN_ASYNCIFY'
 
 // Specify the CSS selector used for the "default" window/canvas.
 //
@@ -617,7 +617,7 @@ pub const hint_emscripten_asyncify = C.SDL_HINT_EMSCRIPTEN_ASYNCIFY // 'SDL_EMSC
 // This hint should be set before creating a window.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_emscripten_canvas_selector = C.SDL_HINT_EMSCRIPTEN_CANVAS_SELECTOR // 'SDL_EMSCRIPTEN_CANVAS_SELECTOR'
+pub const hint_emscripten_canvas_selector = &char(C.SDL_HINT_EMSCRIPTEN_CANVAS_SELECTOR) // 'SDL_EMSCRIPTEN_CANVAS_SELECTOR'
 
 // Override the binding element for keyboard inputs for Emscripten builds.
 //
@@ -636,7 +636,7 @@ pub const hint_emscripten_canvas_selector = C.SDL_HINT_EMSCRIPTEN_CANVAS_SELECTO
 // This hint should be set before creating a window.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_emscripten_keyboard_element = C.SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT // 'SDL_EMSCRIPTEN_KEYBOARD_ELEMENT'
+pub const hint_emscripten_keyboard_element = &char(C.SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT) // 'SDL_EMSCRIPTEN_KEYBOARD_ELEMENT'
 
 // A variable that controls whether the on-screen keyboard should be shown
 // when text input is active.
@@ -651,7 +651,7 @@ pub const hint_emscripten_keyboard_element = C.SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEM
 // This hint must be set before SDL_StartTextInput() is called
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_enable_screen_keyboard = C.SDL_HINT_ENABLE_SCREEN_KEYBOARD // 'SDL_ENABLE_SCREEN_KEYBOARD'
+pub const hint_enable_screen_keyboard = &char(C.SDL_HINT_ENABLE_SCREEN_KEYBOARD) // 'SDL_ENABLE_SCREEN_KEYBOARD'
 
 // A variable containing a list of evdev devices to use if udev is not
 // available.
@@ -666,7 +666,7 @@ pub const hint_enable_screen_keyboard = C.SDL_HINT_ENABLE_SCREEN_KEYBOARD // 'SD
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_evdev_devices = C.SDL_HINT_EVDEV_DEVICES // 'SDL_EVDEV_DEVICES'
+pub const hint_evdev_devices = &char(C.SDL_HINT_EVDEV_DEVICES) // 'SDL_EVDEV_DEVICES'
 
 // A variable controlling verbosity of the logging of SDL events pushed onto
 // the internal queue.
@@ -688,7 +688,7 @@ pub const hint_evdev_devices = C.SDL_HINT_EVDEV_DEVICES // 'SDL_EVDEV_DEVICES'
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_event_logging = C.SDL_HINT_EVENT_LOGGING // 'SDL_EVENT_LOGGING'
+pub const hint_event_logging = &char(C.SDL_HINT_EVENT_LOGGING) // 'SDL_EVENT_LOGGING'
 
 // A variable controlling whether raising the window should be done more
 // forcefully.
@@ -706,7 +706,7 @@ pub const hint_event_logging = C.SDL_HINT_EVENT_LOGGING // 'SDL_EVENT_LOGGING'
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_force_raisewindow = C.SDL_HINT_FORCE_RAISEWINDOW // 'SDL_FORCE_RAISEWINDOW'
+pub const hint_force_raisewindow = &char(C.SDL_HINT_FORCE_RAISEWINDOW) // 'SDL_FORCE_RAISEWINDOW'
 
 // A variable controlling how 3D acceleration is used to accelerate the SDL
 // screen surface.
@@ -725,7 +725,7 @@ pub const hint_force_raisewindow = C.SDL_HINT_FORCE_RAISEWINDOW // 'SDL_FORCE_RA
 // This hint should be set before calling SDL_GetWindowSurface()
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_framebuffer_acceleration = C.SDL_HINT_FRAMEBUFFER_ACCELERATION // 'SDL_FRAMEBUFFER_ACCELERATION'
+pub const hint_framebuffer_acceleration = &char(C.SDL_HINT_FRAMEBUFFER_ACCELERATION) // 'SDL_FRAMEBUFFER_ACCELERATION'
 
 // A variable that lets you manually hint extra gamecontroller db entries.
 //
@@ -738,7 +738,7 @@ pub const hint_framebuffer_acceleration = C.SDL_HINT_FRAMEBUFFER_ACCELERATION //
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_gamecontrollerconfig = C.SDL_HINT_GAMECONTROLLERCONFIG // 'SDL_GAMECONTROLLERCONFIG'
+pub const hint_gamecontrollerconfig = &char(C.SDL_HINT_GAMECONTROLLERCONFIG) // 'SDL_GAMECONTROLLERCONFIG'
 
 // A variable that lets you provide a file with extra gamecontroller db
 // entries.
@@ -752,7 +752,7 @@ pub const hint_gamecontrollerconfig = C.SDL_HINT_GAMECONTROLLERCONFIG // 'SDL_GA
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_gamecontrollerconfig_file = C.SDL_HINT_GAMECONTROLLERCONFIG_FILE // 'SDL_GAMECONTROLLERCONFIG_FILE'
+pub const hint_gamecontrollerconfig_file = &char(C.SDL_HINT_GAMECONTROLLERCONFIG_FILE) // 'SDL_GAMECONTROLLERCONFIG_FILE'
 
 // A variable that overrides the automatic controller type detection.
 //
@@ -774,7 +774,7 @@ pub const hint_gamecontrollerconfig_file = C.SDL_HINT_GAMECONTROLLERCONFIG_FILE 
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_gamecontrollertype = C.SDL_HINT_GAMECONTROLLERTYPE // 'SDL_GAMECONTROLLERTYPE'
+pub const hint_gamecontrollertype = &char(C.SDL_HINT_GAMECONTROLLERTYPE) // 'SDL_GAMECONTROLLERTYPE'
 
 // A variable containing a list of devices to skip when scanning for game
 // controllers.
@@ -790,7 +790,7 @@ pub const hint_gamecontrollertype = C.SDL_HINT_GAMECONTROLLERTYPE // 'SDL_GAMECO
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_gamecontroller_ignore_devices = C.SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES // 'SDL_GAMECONTROLLER_IGNORE_DEVICES'
+pub const hint_gamecontroller_ignore_devices = &char(C.SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES) // 'SDL_GAMECONTROLLER_IGNORE_DEVICES'
 
 // If set, all devices will be skipped when scanning for game controllers
 // except for the ones listed in this variable.
@@ -806,7 +806,7 @@ pub const hint_gamecontroller_ignore_devices = C.SDL_HINT_GAMECONTROLLER_IGNORE_
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_gamecontroller_ignore_devices_except = C.SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT // 'SDL_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT'
+pub const hint_gamecontroller_ignore_devices_except = &char(C.SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT) // 'SDL_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT'
 
 // A variable that controls whether the device's built-in accelerometer and
 // gyro should be used as sensors for gamepads.
@@ -827,7 +827,7 @@ pub const hint_gamecontroller_ignore_devices_except = C.SDL_HINT_GAMECONTROLLER_
 // This hint should be set before a gamepad is opened.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_gamecontroller_sensor_fusion = C.SDL_HINT_GAMECONTROLLER_SENSOR_FUSION // 'SDL_GAMECONTROLLER_SENSOR_FUSION'
+pub const hint_gamecontroller_sensor_fusion = &char(C.SDL_HINT_GAMECONTROLLER_SENSOR_FUSION) // 'SDL_GAMECONTROLLER_SENSOR_FUSION'
 
 // This variable sets the default text of the TextInput window on GDK
 // platforms.
@@ -837,7 +837,7 @@ pub const hint_gamecontroller_sensor_fusion = C.SDL_HINT_GAMECONTROLLER_SENSOR_F
 // This hint should be set before calling SDL_StartTextInput()
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_gdk_textinput_default_text = C.SDL_HINT_GDK_TEXTINPUT_DEFAULT_TEXT // 'SDL_GDK_TEXTINPUT_DEFAULT_TEXT'
+pub const hint_gdk_textinput_default_text = &char(C.SDL_HINT_GDK_TEXTINPUT_DEFAULT_TEXT) // 'SDL_GDK_TEXTINPUT_DEFAULT_TEXT'
 
 // This variable sets the description of the TextInput window on GDK
 // platforms.
@@ -847,7 +847,7 @@ pub const hint_gdk_textinput_default_text = C.SDL_HINT_GDK_TEXTINPUT_DEFAULT_TEX
 // This hint should be set before calling SDL_StartTextInput()
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_gdk_textinput_description = C.SDL_HINT_GDK_TEXTINPUT_DESCRIPTION // 'SDL_GDK_TEXTINPUT_DESCRIPTION'
+pub const hint_gdk_textinput_description = &char(C.SDL_HINT_GDK_TEXTINPUT_DESCRIPTION) // 'SDL_GDK_TEXTINPUT_DESCRIPTION'
 
 // This variable sets the maximum input length of the TextInput window on GDK
 // platforms.
@@ -860,7 +860,7 @@ pub const hint_gdk_textinput_description = C.SDL_HINT_GDK_TEXTINPUT_DESCRIPTION 
 // This hint should be set before calling SDL_StartTextInput()
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_gdk_textinput_max_length = C.SDL_HINT_GDK_TEXTINPUT_MAX_LENGTH // 'SDL_GDK_TEXTINPUT_MAX_LENGTH'
+pub const hint_gdk_textinput_max_length = &char(C.SDL_HINT_GDK_TEXTINPUT_MAX_LENGTH) // 'SDL_GDK_TEXTINPUT_MAX_LENGTH'
 
 // This variable sets the input scope of the TextInput window on GDK
 // platforms.
@@ -874,7 +874,7 @@ pub const hint_gdk_textinput_max_length = C.SDL_HINT_GDK_TEXTINPUT_MAX_LENGTH //
 // This hint should be set before calling SDL_StartTextInput()
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_gdk_textinput_scope = C.SDL_HINT_GDK_TEXTINPUT_SCOPE // 'SDL_GDK_TEXTINPUT_SCOPE'
+pub const hint_gdk_textinput_scope = &char(C.SDL_HINT_GDK_TEXTINPUT_SCOPE) // 'SDL_GDK_TEXTINPUT_SCOPE'
 
 // This variable sets the title of the TextInput window on GDK platforms.
 //
@@ -883,7 +883,7 @@ pub const hint_gdk_textinput_scope = C.SDL_HINT_GDK_TEXTINPUT_SCOPE // 'SDL_GDK_
 // This hint should be set before calling SDL_StartTextInput()
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_gdk_textinput_title = C.SDL_HINT_GDK_TEXTINPUT_TITLE // 'SDL_GDK_TEXTINPUT_TITLE'
+pub const hint_gdk_textinput_title = &char(C.SDL_HINT_GDK_TEXTINPUT_TITLE) // 'SDL_GDK_TEXTINPUT_TITLE'
 
 // A variable to control whether HIDAPI uses libusb for device access.
 //
@@ -899,7 +899,7 @@ pub const hint_gdk_textinput_title = C.SDL_HINT_GDK_TEXTINPUT_TITLE // 'SDL_GDK_
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_hidapi_libusb = C.SDL_HINT_HIDAPI_LIBUSB // 'SDL_HIDAPI_LIBUSB'
+pub const hint_hidapi_libusb = &char(C.SDL_HINT_HIDAPI_LIBUSB) // 'SDL_HIDAPI_LIBUSB'
 
 // A variable to control whether HIDAPI uses libusb only for whitelisted
 // devices.
@@ -915,7 +915,7 @@ pub const hint_hidapi_libusb = C.SDL_HINT_HIDAPI_LIBUSB // 'SDL_HIDAPI_LIBUSB'
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_hidapi_libusb_whitelist = C.SDL_HINT_HIDAPI_LIBUSB_WHITELIST // 'SDL_HIDAPI_LIBUSB_WHITELIST'
+pub const hint_hidapi_libusb_whitelist = &char(C.SDL_HINT_HIDAPI_LIBUSB_WHITELIST) // 'SDL_HIDAPI_LIBUSB_WHITELIST'
 
 // A variable to control whether HIDAPI uses udev for device detection.
 //
@@ -927,7 +927,7 @@ pub const hint_hidapi_libusb_whitelist = C.SDL_HINT_HIDAPI_LIBUSB_WHITELIST // '
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_hidapi_udev = C.SDL_HINT_HIDAPI_UDEV // 'SDL_HIDAPI_UDEV'
+pub const hint_hidapi_udev = &char(C.SDL_HINT_HIDAPI_UDEV) // 'SDL_HIDAPI_UDEV'
 
 // A variable that specifies a GPU backend to use.
 //
@@ -939,7 +939,7 @@ pub const hint_hidapi_udev = C.SDL_HINT_HIDAPI_UDEV // 'SDL_HIDAPI_UDEV'
 // This hint should be set before any GPU functions are called.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_gpu_driver = C.SDL_HINT_GPU_DRIVER // 'SDL_GPU_DRIVER'
+pub const hint_gpu_driver = &char(C.SDL_HINT_GPU_DRIVER) // 'SDL_GPU_DRIVER'
 
 // A variable to control whether SDL_hid_enumerate() enumerates all HID
 // devices or only controllers.
@@ -956,7 +956,7 @@ pub const hint_gpu_driver = C.SDL_HINT_GPU_DRIVER // 'SDL_GPU_DRIVER'
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_hidapi_enumerate_only_controllers = C.SDL_HINT_HIDAPI_ENUMERATE_ONLY_CONTROLLERS // 'SDL_HIDAPI_ENUMERATE_ONLY_CONTROLLERS'
+pub const hint_hidapi_enumerate_only_controllers = &char(C.SDL_HINT_HIDAPI_ENUMERATE_ONLY_CONTROLLERS) // 'SDL_HIDAPI_ENUMERATE_ONLY_CONTROLLERS'
 
 // A variable containing a list of devices to ignore in SDL_hid_enumerate().
 //
@@ -971,7 +971,7 @@ pub const hint_hidapi_enumerate_only_controllers = C.SDL_HINT_HIDAPI_ENUMERATE_O
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_hidapi_ignore_devices = C.SDL_HINT_HIDAPI_IGNORE_DEVICES // 'SDL_HIDAPI_IGNORE_DEVICES'
+pub const hint_hidapi_ignore_devices = &char(C.SDL_HINT_HIDAPI_IGNORE_DEVICES) // 'SDL_HIDAPI_IGNORE_DEVICES'
 
 // A variable describing what IME UI elements the application can display.
 //
@@ -992,7 +992,7 @@ pub const hint_hidapi_ignore_devices = C.SDL_HINT_HIDAPI_IGNORE_DEVICES // 'SDL_
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_ime_implemented_ui = C.SDL_HINT_IME_IMPLEMENTED_UI // 'SDL_IME_IMPLEMENTED_UI'
+pub const hint_ime_implemented_ui = &char(C.SDL_HINT_IME_IMPLEMENTED_UI) // 'SDL_IME_IMPLEMENTED_UI'
 
 // A variable controlling whether the home indicator bar on iPhone X should be
 // hidden.
@@ -1009,7 +1009,7 @@ pub const hint_ime_implemented_ui = C.SDL_HINT_IME_IMPLEMENTED_UI // 'SDL_IME_IM
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_ios_hide_home_indicator = C.SDL_HINT_IOS_HIDE_HOME_INDICATOR // 'SDL_IOS_HIDE_HOME_INDICATOR'
+pub const hint_ios_hide_home_indicator = &char(C.SDL_HINT_IOS_HIDE_HOME_INDICATOR) // 'SDL_IOS_HIDE_HOME_INDICATOR'
 
 // A variable that lets you enable joystick (and gamecontroller) events even
 // when your app is in the background.
@@ -1024,7 +1024,7 @@ pub const hint_ios_hide_home_indicator = C.SDL_HINT_IOS_HIDE_HOME_INDICATOR // '
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_allow_background_events = C.SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS // 'SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS'
+pub const hint_joystick_allow_background_events = &char(C.SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS) // 'SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS'
 
 // A variable containing a list of arcade stick style controllers.
 //
@@ -1039,7 +1039,7 @@ pub const hint_joystick_allow_background_events = C.SDL_HINT_JOYSTICK_ALLOW_BACK
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_arcadestick_devices = C.SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES // 'SDL_JOYSTICK_ARCADESTICK_DEVICES'
+pub const hint_joystick_arcadestick_devices = &char(C.SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES) // 'SDL_JOYSTICK_ARCADESTICK_DEVICES'
 
 // A variable containing a list of devices that are not arcade stick style
 // controllers.
@@ -1058,7 +1058,7 @@ pub const hint_joystick_arcadestick_devices = C.SDL_HINT_JOYSTICK_ARCADESTICK_DE
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_arcadestick_devices_excluded = C.SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED // 'SDL_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED'
+pub const hint_joystick_arcadestick_devices_excluded = &char(C.SDL_HINT_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED) // 'SDL_JOYSTICK_ARCADESTICK_DEVICES_EXCLUDED'
 
 // A variable containing a list of devices that should not be considered
 // joysticks.
@@ -1074,7 +1074,7 @@ pub const hint_joystick_arcadestick_devices_excluded = C.SDL_HINT_JOYSTICK_ARCAD
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_blacklist_devices = C.SDL_HINT_JOYSTICK_BLACKLIST_DEVICES // 'SDL_JOYSTICK_BLACKLIST_DEVICES'
+pub const hint_joystick_blacklist_devices = &char(C.SDL_HINT_JOYSTICK_BLACKLIST_DEVICES) // 'SDL_JOYSTICK_BLACKLIST_DEVICES'
 
 // A variable containing a list of devices that should be considered
 // joysticks.
@@ -1093,7 +1093,7 @@ pub const hint_joystick_blacklist_devices = C.SDL_HINT_JOYSTICK_BLACKLIST_DEVICE
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_blacklist_devices_excluded = C.SDL_HINT_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED // 'SDL_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED'
+pub const hint_joystick_blacklist_devices_excluded = &char(C.SDL_HINT_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED) // 'SDL_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED'
 
 // A variable containing a comma separated list of devices to open as
 // joysticks.
@@ -1101,7 +1101,7 @@ pub const hint_joystick_blacklist_devices_excluded = C.SDL_HINT_JOYSTICK_BLACKLI
 // This variable is currently only used by the Linux joystick driver.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_device = C.SDL_HINT_JOYSTICK_DEVICE // 'SDL_JOYSTICK_DEVICE'
+pub const hint_joystick_device = &char(C.SDL_HINT_JOYSTICK_DEVICE) // 'SDL_JOYSTICK_DEVICE'
 
 // A variable controlling whether enhanced reports should be used for
 // controllers when using the HIDAPI driver.
@@ -1124,7 +1124,7 @@ pub const hint_joystick_device = C.SDL_HINT_JOYSTICK_DEVICE // 'SDL_JOYSTICK_DEV
 // This hint can be enabled anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_enhanced_reports = C.SDL_HINT_JOYSTICK_ENHANCED_REPORTS // 'SDL_JOYSTICK_ENHANCED_REPORTS'
+pub const hint_joystick_enhanced_reports = &char(C.SDL_HINT_JOYSTICK_ENHANCED_REPORTS) // 'SDL_JOYSTICK_ENHANCED_REPORTS'
 
 // A variable containing a list of flightstick style controllers.
 //
@@ -1139,7 +1139,7 @@ pub const hint_joystick_enhanced_reports = C.SDL_HINT_JOYSTICK_ENHANCED_REPORTS 
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_flightstick_devices = C.SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES // 'SDL_JOYSTICK_FLIGHTSTICK_DEVICES'
+pub const hint_joystick_flightstick_devices = &char(C.SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES) // 'SDL_JOYSTICK_FLIGHTSTICK_DEVICES'
 
 // A variable containing a list of devices that are not flightstick style
 // controllers.
@@ -1158,7 +1158,7 @@ pub const hint_joystick_flightstick_devices = C.SDL_HINT_JOYSTICK_FLIGHTSTICK_DE
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_flightstick_devices_excluded = C.SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED // 'SDL_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED'
+pub const hint_joystick_flightstick_devices_excluded = &char(C.SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED) // 'SDL_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED'
 
 // A variable controlling whether GameInput should be used for controller
 // handling on Windows.
@@ -1173,7 +1173,7 @@ pub const hint_joystick_flightstick_devices_excluded = C.SDL_HINT_JOYSTICK_FLIGH
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_gameinput = C.SDL_HINT_JOYSTICK_GAMEINPUT // 'SDL_JOYSTICK_GAMEINPUT'
+pub const hint_joystick_gameinput = &char(C.SDL_HINT_JOYSTICK_GAMEINPUT) // 'SDL_JOYSTICK_GAMEINPUT'
 
 // A variable containing a list of devices known to have a GameCube form
 // factor.
@@ -1189,7 +1189,7 @@ pub const hint_joystick_gameinput = C.SDL_HINT_JOYSTICK_GAMEINPUT // 'SDL_JOYSTI
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_gamecube_devices = C.SDL_HINT_JOYSTICK_GAMECUBE_DEVICES // 'SDL_JOYSTICK_GAMECUBE_DEVICES'
+pub const hint_joystick_gamecube_devices = &char(C.SDL_HINT_JOYSTICK_GAMECUBE_DEVICES) // 'SDL_JOYSTICK_GAMECUBE_DEVICES'
 
 // A variable containing a list of devices known not to have a GameCube form
 // factor.
@@ -1208,7 +1208,7 @@ pub const hint_joystick_gamecube_devices = C.SDL_HINT_JOYSTICK_GAMECUBE_DEVICES 
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_gamecube_devices_excluded = C.SDL_HINT_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED // 'SDL_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED'
+pub const hint_joystick_gamecube_devices_excluded = &char(C.SDL_HINT_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED) // 'SDL_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED'
 
 // A variable controlling whether the HIDAPI joystick drivers should be used.
 //
@@ -1223,7 +1223,7 @@ pub const hint_joystick_gamecube_devices_excluded = C.SDL_HINT_JOYSTICK_GAMECUBE
 // This hint should be set before initializing joysticks and gamepads.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi = C.SDL_HINT_JOYSTICK_HIDAPI // 'SDL_JOYSTICK_HIDAPI'
+pub const hint_joystick_hidapi = &char(C.SDL_HINT_JOYSTICK_HIDAPI) // 'SDL_JOYSTICK_HIDAPI'
 
 // A variable controlling whether Nintendo Switch Joy-Con controllers will be
 // combined into a single Pro-like controller when using the HIDAPI driver.
@@ -1238,7 +1238,7 @@ pub const hint_joystick_hidapi = C.SDL_HINT_JOYSTICK_HIDAPI // 'SDL_JOYSTICK_HID
 // This hint should be set before initializing joysticks and gamepads.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_combine_joy_cons = C.SDL_HINT_JOYSTICK_HIDAPI_COMBINE_JOY_CONS // 'SDL_JOYSTICK_HIDAPI_COMBINE_JOY_CONS'
+pub const hint_joystick_hidapi_combine_joy_cons = &char(C.SDL_HINT_JOYSTICK_HIDAPI_COMBINE_JOY_CONS) // 'SDL_JOYSTICK_HIDAPI_COMBINE_JOY_CONS'
 
 // A variable controlling whether the HIDAPI driver for Nintendo GameCube
 // controllers should be used.
@@ -1253,7 +1253,7 @@ pub const hint_joystick_hidapi_combine_joy_cons = C.SDL_HINT_JOYSTICK_HIDAPI_COM
 // This hint should be set before initializing joysticks and gamepads.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_gamecube = C.SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE // 'SDL_JOYSTICK_HIDAPI_GAMECUBE'
+pub const hint_joystick_hidapi_gamecube = &char(C.SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE) // 'SDL_JOYSTICK_HIDAPI_GAMECUBE'
 
 // A variable controlling whether rumble is used to implement the GameCube
 // controller's 3 rumble modes, Stop(0), Rumble(1), and StopHard(2).
@@ -1272,7 +1272,7 @@ pub const hint_joystick_hidapi_gamecube = C.SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE //
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_gamecube_rumble_brake = C.SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE_RUMBLE_BRAKE // 'SDL_JOYSTICK_HIDAPI_GAMECUBE_RUMBLE_BRAKE'
+pub const hint_joystick_hidapi_gamecube_rumble_brake = &char(C.SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE_RUMBLE_BRAKE) // 'SDL_JOYSTICK_HIDAPI_GAMECUBE_RUMBLE_BRAKE'
 
 // A variable controlling whether the HIDAPI driver for Nintendo Switch
 // Joy-Cons should be used.
@@ -1287,7 +1287,7 @@ pub const hint_joystick_hidapi_gamecube_rumble_brake = C.SDL_HINT_JOYSTICK_HIDAP
 // This hint should be set before initializing joysticks and gamepads.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_joy_cons = C.SDL_HINT_JOYSTICK_HIDAPI_JOY_CONS // 'SDL_JOYSTICK_HIDAPI_JOY_CONS'
+pub const hint_joystick_hidapi_joy_cons = &char(C.SDL_HINT_JOYSTICK_HIDAPI_JOY_CONS) // 'SDL_JOYSTICK_HIDAPI_JOY_CONS'
 
 // A variable controlling whether the Home button LED should be turned on when
 // a Nintendo Switch Joy-Con controller is opened.
@@ -1304,7 +1304,7 @@ pub const hint_joystick_hidapi_joy_cons = C.SDL_HINT_JOYSTICK_HIDAPI_JOY_CONS //
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_joycon_home_led = C.SDL_HINT_JOYSTICK_HIDAPI_JOYCON_HOME_LED // 'SDL_JOYSTICK_HIDAPI_JOYCON_HOME_LED'
+pub const hint_joystick_hidapi_joycon_home_led = &char(C.SDL_HINT_JOYSTICK_HIDAPI_JOYCON_HOME_LED) // 'SDL_JOYSTICK_HIDAPI_JOYCON_HOME_LED'
 
 // A variable controlling whether the HIDAPI driver for Amazon Luna
 // controllers connected via Bluetooth should be used.
@@ -1319,7 +1319,7 @@ pub const hint_joystick_hidapi_joycon_home_led = C.SDL_HINT_JOYSTICK_HIDAPI_JOYC
 // This hint should be set before initializing joysticks and gamepads.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_luna = C.SDL_HINT_JOYSTICK_HIDAPI_LUNA // 'SDL_JOYSTICK_HIDAPI_LUNA'
+pub const hint_joystick_hidapi_luna = &char(C.SDL_HINT_JOYSTICK_HIDAPI_LUNA) // 'SDL_JOYSTICK_HIDAPI_LUNA'
 
 // A variable controlling whether the HIDAPI driver for Nintendo Online
 // classic controllers should be used.
@@ -1334,7 +1334,7 @@ pub const hint_joystick_hidapi_luna = C.SDL_HINT_JOYSTICK_HIDAPI_LUNA // 'SDL_JO
 // This hint should be set before initializing joysticks and gamepads.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_nintendo_classic = C.SDL_HINT_JOYSTICK_HIDAPI_NINTENDO_CLASSIC // 'SDL_JOYSTICK_HIDAPI_NINTENDO_CLASSIC'
+pub const hint_joystick_hidapi_nintendo_classic = &char(C.SDL_HINT_JOYSTICK_HIDAPI_NINTENDO_CLASSIC) // 'SDL_JOYSTICK_HIDAPI_NINTENDO_CLASSIC'
 
 // A variable controlling whether the HIDAPI driver for PS3 controllers should
 // be used.
@@ -1354,7 +1354,7 @@ pub const hint_joystick_hidapi_nintendo_classic = C.SDL_HINT_JOYSTICK_HIDAPI_NIN
 // This hint should be set before initializing joysticks and gamepads.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_ps3 = C.SDL_HINT_JOYSTICK_HIDAPI_PS3 // 'SDL_JOYSTICK_HIDAPI_PS3'
+pub const hint_joystick_hidapi_ps3 = &char(C.SDL_HINT_JOYSTICK_HIDAPI_PS3) // 'SDL_JOYSTICK_HIDAPI_PS3'
 
 // A variable controlling whether the Sony driver (sixaxis.sys) for PS3
 // controllers (Sixaxis/DualShock 3) should be used.
@@ -1369,7 +1369,7 @@ pub const hint_joystick_hidapi_ps3 = C.SDL_HINT_JOYSTICK_HIDAPI_PS3 // 'SDL_JOYS
 // This hint should be set before initializing joysticks and gamepads.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_ps3_sixaxis_driver = C.SDL_HINT_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER // 'SDL_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER'
+pub const hint_joystick_hidapi_ps3_sixaxis_driver = &char(C.SDL_HINT_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER) // 'SDL_JOYSTICK_HIDAPI_PS3_SIXAXIS_DRIVER'
 
 // A variable controlling whether the HIDAPI driver for PS4 controllers should
 // be used.
@@ -1384,7 +1384,7 @@ pub const hint_joystick_hidapi_ps3_sixaxis_driver = C.SDL_HINT_JOYSTICK_HIDAPI_P
 // This hint should be set before initializing joysticks and gamepads.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_ps4 = C.SDL_HINT_JOYSTICK_HIDAPI_PS4 // 'SDL_JOYSTICK_HIDAPI_PS4'
+pub const hint_joystick_hidapi_ps4 = &char(C.SDL_HINT_JOYSTICK_HIDAPI_PS4) // 'SDL_JOYSTICK_HIDAPI_PS4'
 
 // A variable controlling the update rate of the PS4 controller over Bluetooth
 // when using the HIDAPI driver.
@@ -1397,7 +1397,7 @@ pub const hint_joystick_hidapi_ps4 = C.SDL_HINT_JOYSTICK_HIDAPI_PS4 // 'SDL_JOYS
 // reports are enabled.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_ps4_report_interval = C.SDL_HINT_JOYSTICK_HIDAPI_PS4_REPORT_INTERVAL // 'SDL_JOYSTICK_HIDAPI_PS4_REPORT_INTERVAL'
+pub const hint_joystick_hidapi_ps4_report_interval = &char(C.SDL_HINT_JOYSTICK_HIDAPI_PS4_REPORT_INTERVAL) // 'SDL_JOYSTICK_HIDAPI_PS4_REPORT_INTERVAL'
 
 // A variable controlling whether the HIDAPI driver for PS5 controllers should
 // be used.
@@ -1412,7 +1412,7 @@ pub const hint_joystick_hidapi_ps4_report_interval = C.SDL_HINT_JOYSTICK_HIDAPI_
 // This hint should be set before initializing joysticks and gamepads.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_ps5 = C.SDL_HINT_JOYSTICK_HIDAPI_PS5 // 'SDL_JOYSTICK_HIDAPI_PS5'
+pub const hint_joystick_hidapi_ps5 = &char(C.SDL_HINT_JOYSTICK_HIDAPI_PS5) // 'SDL_JOYSTICK_HIDAPI_PS5'
 
 // A variable controlling whether the player LEDs should be lit to indicate
 // which player is associated with a PS5 controller.
@@ -1423,7 +1423,7 @@ pub const hint_joystick_hidapi_ps5 = C.SDL_HINT_JOYSTICK_HIDAPI_PS5 // 'SDL_JOYS
 // - "1": player LEDs are enabled. (default)
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_ps5_player_led = C.SDL_HINT_JOYSTICK_HIDAPI_PS5_PLAYER_LED // 'SDL_JOYSTICK_HIDAPI_PS5_PLAYER_LED'
+pub const hint_joystick_hidapi_ps5_player_led = &char(C.SDL_HINT_JOYSTICK_HIDAPI_PS5_PLAYER_LED) // 'SDL_JOYSTICK_HIDAPI_PS5_PLAYER_LED'
 
 // A variable controlling whether the HIDAPI driver for NVIDIA SHIELD
 // controllers should be used.
@@ -1438,7 +1438,7 @@ pub const hint_joystick_hidapi_ps5_player_led = C.SDL_HINT_JOYSTICK_HIDAPI_PS5_P
 // This hint should be set before initializing joysticks and gamepads.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_shield = C.SDL_HINT_JOYSTICK_HIDAPI_SHIELD // 'SDL_JOYSTICK_HIDAPI_SHIELD'
+pub const hint_joystick_hidapi_shield = &char(C.SDL_HINT_JOYSTICK_HIDAPI_SHIELD) // 'SDL_JOYSTICK_HIDAPI_SHIELD'
 
 // A variable controlling whether the HIDAPI driver for Google Stadia
 // controllers should be used.
@@ -1451,7 +1451,7 @@ pub const hint_joystick_hidapi_shield = C.SDL_HINT_JOYSTICK_HIDAPI_SHIELD // 'SD
 // The default is the value of SDL_HINT_JOYSTICK_HIDAPI.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_stadia = C.SDL_HINT_JOYSTICK_HIDAPI_STADIA // 'SDL_JOYSTICK_HIDAPI_STADIA'
+pub const hint_joystick_hidapi_stadia = &char(C.SDL_HINT_JOYSTICK_HIDAPI_STADIA) // 'SDL_JOYSTICK_HIDAPI_STADIA'
 
 // A variable controlling whether the HIDAPI driver for Bluetooth Steam
 // Controllers should be used.
@@ -1466,7 +1466,7 @@ pub const hint_joystick_hidapi_stadia = C.SDL_HINT_JOYSTICK_HIDAPI_STADIA // 'SD
 // This hint should be set before initializing joysticks and gamepads.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_steam = C.SDL_HINT_JOYSTICK_HIDAPI_STEAM // 'SDL_JOYSTICK_HIDAPI_STEAM'
+pub const hint_joystick_hidapi_steam = &char(C.SDL_HINT_JOYSTICK_HIDAPI_STEAM) // 'SDL_JOYSTICK_HIDAPI_STEAM'
 
 // A variable controlling whether the Steam button LED should be turned on
 // when a Steam controller is opened.
@@ -1483,7 +1483,7 @@ pub const hint_joystick_hidapi_steam = C.SDL_HINT_JOYSTICK_HIDAPI_STEAM // 'SDL_
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_steam_home_led = C.SDL_HINT_JOYSTICK_HIDAPI_STEAM_HOME_LED // 'SDL_JOYSTICK_HIDAPI_STEAM_HOME_LED'
+pub const hint_joystick_hidapi_steam_home_led = &char(C.SDL_HINT_JOYSTICK_HIDAPI_STEAM_HOME_LED) // 'SDL_JOYSTICK_HIDAPI_STEAM_HOME_LED'
 
 // A variable controlling whether the HIDAPI driver for the Steam Deck builtin
 // controller should be used.
@@ -1498,7 +1498,7 @@ pub const hint_joystick_hidapi_steam_home_led = C.SDL_HINT_JOYSTICK_HIDAPI_STEAM
 // This hint should be set before initializing joysticks and gamepads.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_steamdeck = C.SDL_HINT_JOYSTICK_HIDAPI_STEAMDECK // 'SDL_JOYSTICK_HIDAPI_STEAMDECK'
+pub const hint_joystick_hidapi_steamdeck = &char(C.SDL_HINT_JOYSTICK_HIDAPI_STEAMDECK) // 'SDL_JOYSTICK_HIDAPI_STEAMDECK'
 
 // A variable controlling whether the HIDAPI driver for HORI licensed Steam
 // controllers should be used.
@@ -1507,7 +1507,7 @@ pub const hint_joystick_hidapi_steamdeck = C.SDL_HINT_JOYSTICK_HIDAPI_STEAMDECK 
 // not used "1" - HIDAPI driver is used
 //
 // The default is the value of SDL_HINT_JOYSTICK_HIDAPI
-pub const hint_joystick_hidapi_steam_hori = C.SDL_HINT_JOYSTICK_HIDAPI_STEAM_HORI // 'SDL_JOYSTICK_HIDAPI_STEAM_HORI'
+pub const hint_joystick_hidapi_steam_hori = &char(C.SDL_HINT_JOYSTICK_HIDAPI_STEAM_HORI) // 'SDL_JOYSTICK_HIDAPI_STEAM_HORI'
 
 // A variable controlling whether the HIDAPI driver for Nintendo Switch
 // controllers should be used.
@@ -1522,7 +1522,7 @@ pub const hint_joystick_hidapi_steam_hori = C.SDL_HINT_JOYSTICK_HIDAPI_STEAM_HOR
 // This hint should be set before initializing joysticks and gamepads.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_switch = C.SDL_HINT_JOYSTICK_HIDAPI_SWITCH // 'SDL_JOYSTICK_HIDAPI_SWITCH'
+pub const hint_joystick_hidapi_switch = &char(C.SDL_HINT_JOYSTICK_HIDAPI_SWITCH) // 'SDL_JOYSTICK_HIDAPI_SWITCH'
 
 // A variable controlling whether the Home button LED should be turned on when
 // a Nintendo Switch Pro controller is opened.
@@ -1539,7 +1539,7 @@ pub const hint_joystick_hidapi_switch = C.SDL_HINT_JOYSTICK_HIDAPI_SWITCH // 'SD
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_switch_home_led = C.SDL_HINT_JOYSTICK_HIDAPI_SWITCH_HOME_LED // 'SDL_JOYSTICK_HIDAPI_SWITCH_HOME_LED'
+pub const hint_joystick_hidapi_switch_home_led = &char(C.SDL_HINT_JOYSTICK_HIDAPI_SWITCH_HOME_LED) // 'SDL_JOYSTICK_HIDAPI_SWITCH_HOME_LED'
 
 // A variable controlling whether the player LEDs should be lit to indicate
 // which player is associated with a Nintendo Switch controller.
@@ -1552,7 +1552,7 @@ pub const hint_joystick_hidapi_switch_home_led = C.SDL_HINT_JOYSTICK_HIDAPI_SWIT
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_switch_player_led = C.SDL_HINT_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED // 'SDL_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED'
+pub const hint_joystick_hidapi_switch_player_led = &char(C.SDL_HINT_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED) // 'SDL_JOYSTICK_HIDAPI_SWITCH_PLAYER_LED'
 
 // A variable controlling whether Nintendo Switch Joy-Con controllers will be
 // in vertical mode when using the HIDAPI driver.
@@ -1566,7 +1566,7 @@ pub const hint_joystick_hidapi_switch_player_led = C.SDL_HINT_JOYSTICK_HIDAPI_SW
 // This hint should be set before opening a Joy-Con controller.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_vertical_joy_cons = C.SDL_HINT_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS // 'SDL_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS'
+pub const hint_joystick_hidapi_vertical_joy_cons = &char(C.SDL_HINT_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS) // 'SDL_JOYSTICK_HIDAPI_VERTICAL_JOY_CONS'
 
 // A variable controlling whether the HIDAPI driver for Nintendo Wii and Wii U
 // controllers should be used.
@@ -1582,7 +1582,7 @@ pub const hint_joystick_hidapi_vertical_joy_cons = C.SDL_HINT_JOYSTICK_HIDAPI_VE
 // This hint should be set before initializing joysticks and gamepads.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_wii = C.SDL_HINT_JOYSTICK_HIDAPI_WII // 'SDL_JOYSTICK_HIDAPI_WII'
+pub const hint_joystick_hidapi_wii = &char(C.SDL_HINT_JOYSTICK_HIDAPI_WII) // 'SDL_JOYSTICK_HIDAPI_WII'
 
 // A variable controlling whether the player LEDs should be lit to indicate
 // which player is associated with a Wii controller.
@@ -1595,7 +1595,7 @@ pub const hint_joystick_hidapi_wii = C.SDL_HINT_JOYSTICK_HIDAPI_WII // 'SDL_JOYS
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_wii_player_led = C.SDL_HINT_JOYSTICK_HIDAPI_WII_PLAYER_LED // 'SDL_JOYSTICK_HIDAPI_WII_PLAYER_LED'
+pub const hint_joystick_hidapi_wii_player_led = &char(C.SDL_HINT_JOYSTICK_HIDAPI_WII_PLAYER_LED) // 'SDL_JOYSTICK_HIDAPI_WII_PLAYER_LED'
 
 // A variable controlling whether the HIDAPI driver for XBox controllers
 // should be used.
@@ -1611,7 +1611,7 @@ pub const hint_joystick_hidapi_wii_player_led = C.SDL_HINT_JOYSTICK_HIDAPI_WII_P
 // This hint should be set before initializing joysticks and gamepads.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_xbox = C.SDL_HINT_JOYSTICK_HIDAPI_XBOX // 'SDL_JOYSTICK_HIDAPI_XBOX'
+pub const hint_joystick_hidapi_xbox = &char(C.SDL_HINT_JOYSTICK_HIDAPI_XBOX) // 'SDL_JOYSTICK_HIDAPI_XBOX'
 
 // A variable controlling whether the HIDAPI driver for XBox 360 controllers
 // should be used.
@@ -1626,7 +1626,7 @@ pub const hint_joystick_hidapi_xbox = C.SDL_HINT_JOYSTICK_HIDAPI_XBOX // 'SDL_JO
 // This hint should be set before initializing joysticks and gamepads.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_xbox_360 = C.SDL_HINT_JOYSTICK_HIDAPI_XBOX_360 // 'SDL_JOYSTICK_HIDAPI_XBOX_360'
+pub const hint_joystick_hidapi_xbox_360 = &char(C.SDL_HINT_JOYSTICK_HIDAPI_XBOX_360) // 'SDL_JOYSTICK_HIDAPI_XBOX_360'
 
 // A variable controlling whether the player LEDs should be lit to indicate
 // which player is associated with an Xbox 360 controller.
@@ -1639,7 +1639,7 @@ pub const hint_joystick_hidapi_xbox_360 = C.SDL_HINT_JOYSTICK_HIDAPI_XBOX_360 //
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_xbox_360_player_led = C.SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED // 'SDL_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED'
+pub const hint_joystick_hidapi_xbox_360_player_led = &char(C.SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED) // 'SDL_JOYSTICK_HIDAPI_XBOX_360_PLAYER_LED'
 
 // A variable controlling whether the HIDAPI driver for XBox 360 wireless
 // controllers should be used.
@@ -1654,7 +1654,7 @@ pub const hint_joystick_hidapi_xbox_360_player_led = C.SDL_HINT_JOYSTICK_HIDAPI_
 // This hint should be set before initializing joysticks and gamepads.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_xbox_360_wireless = C.SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_WIRELESS // 'SDL_JOYSTICK_HIDAPI_XBOX_360_WIRELESS'
+pub const hint_joystick_hidapi_xbox_360_wireless = &char(C.SDL_HINT_JOYSTICK_HIDAPI_XBOX_360_WIRELESS) // 'SDL_JOYSTICK_HIDAPI_XBOX_360_WIRELESS'
 
 // A variable controlling whether the HIDAPI driver for XBox One controllers
 // should be used.
@@ -1669,7 +1669,7 @@ pub const hint_joystick_hidapi_xbox_360_wireless = C.SDL_HINT_JOYSTICK_HIDAPI_XB
 // This hint should be set before initializing joysticks and gamepads.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_xbox_one = C.SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE // 'SDL_JOYSTICK_HIDAPI_XBOX_ONE'
+pub const hint_joystick_hidapi_xbox_one = &char(C.SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE) // 'SDL_JOYSTICK_HIDAPI_XBOX_ONE'
 
 // A variable controlling whether the Home button LED should be turned on when
 // an Xbox One controller is opened.
@@ -1686,7 +1686,7 @@ pub const hint_joystick_hidapi_xbox_one = C.SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE //
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_hidapi_xbox_one_home_led = C.SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED // 'SDL_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED'
+pub const hint_joystick_hidapi_xbox_one_home_led = &char(C.SDL_HINT_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED) // 'SDL_JOYSTICK_HIDAPI_XBOX_ONE_HOME_LED'
 
 // A variable controlling whether IOKit should be used for controller
 // handling.
@@ -1699,7 +1699,7 @@ pub const hint_joystick_hidapi_xbox_one_home_led = C.SDL_HINT_JOYSTICK_HIDAPI_XB
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_iokit = C.SDL_HINT_JOYSTICK_IOKIT // 'SDL_JOYSTICK_IOKIT'
+pub const hint_joystick_iokit = &char(C.SDL_HINT_JOYSTICK_IOKIT) // 'SDL_JOYSTICK_IOKIT'
 
 // A variable controlling whether to use the classic /dev/input/js* joystick
 // interface or the newer /dev/input/event* joystick interface on Linux.
@@ -1712,7 +1712,7 @@ pub const hint_joystick_iokit = C.SDL_HINT_JOYSTICK_IOKIT // 'SDL_JOYSTICK_IOKIT
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_linux_classic = C.SDL_HINT_JOYSTICK_LINUX_CLASSIC // 'SDL_JOYSTICK_LINUX_CLASSIC'
+pub const hint_joystick_linux_classic = &char(C.SDL_HINT_JOYSTICK_LINUX_CLASSIC) // 'SDL_JOYSTICK_LINUX_CLASSIC'
 
 // A variable controlling whether joysticks on Linux adhere to their
 // HID-defined deadzones or return unfiltered values.
@@ -1725,7 +1725,7 @@ pub const hint_joystick_linux_classic = C.SDL_HINT_JOYSTICK_LINUX_CLASSIC // 'SD
 // This hint should be set before a controller is opened.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_linux_deadzones = C.SDL_HINT_JOYSTICK_LINUX_DEADZONES // 'SDL_JOYSTICK_LINUX_DEADZONES'
+pub const hint_joystick_linux_deadzones = &char(C.SDL_HINT_JOYSTICK_LINUX_DEADZONES) // 'SDL_JOYSTICK_LINUX_DEADZONES'
 
 // A variable controlling whether joysticks on Linux will always treat 'hat'
 // axis inputs (ABS_HAT0X - ABS_HAT3Y) as 8-way digital hats without checking
@@ -1741,7 +1741,7 @@ pub const hint_joystick_linux_deadzones = C.SDL_HINT_JOYSTICK_LINUX_DEADZONES //
 // This hint should be set before a controller is opened.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_linux_digital_hats = C.SDL_HINT_JOYSTICK_LINUX_DIGITAL_HATS // 'SDL_JOYSTICK_LINUX_DIGITAL_HATS'
+pub const hint_joystick_linux_digital_hats = &char(C.SDL_HINT_JOYSTICK_LINUX_DIGITAL_HATS) // 'SDL_JOYSTICK_LINUX_DIGITAL_HATS'
 
 // A variable controlling whether digital hats on Linux will apply deadzones
 // to their underlying input axes or use unfiltered values.
@@ -1755,7 +1755,7 @@ pub const hint_joystick_linux_digital_hats = C.SDL_HINT_JOYSTICK_LINUX_DIGITAL_H
 // This hint should be set before a controller is opened.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_linux_hat_deadzones = C.SDL_HINT_JOYSTICK_LINUX_HAT_DEADZONES // 'SDL_JOYSTICK_LINUX_HAT_DEADZONES'
+pub const hint_joystick_linux_hat_deadzones = &char(C.SDL_HINT_JOYSTICK_LINUX_HAT_DEADZONES) // 'SDL_JOYSTICK_LINUX_HAT_DEADZONES'
 
 // A variable controlling whether GCController should be used for controller
 // handling.
@@ -1768,7 +1768,7 @@ pub const hint_joystick_linux_hat_deadzones = C.SDL_HINT_JOYSTICK_LINUX_HAT_DEAD
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_mfi = C.SDL_HINT_JOYSTICK_MFI // 'SDL_JOYSTICK_MFI'
+pub const hint_joystick_mfi = &char(C.SDL_HINT_JOYSTICK_MFI) // 'SDL_JOYSTICK_MFI'
 
 // A variable controlling whether the RAWINPUT joystick drivers should be used
 // for better handling XInput-capable devices.
@@ -1781,7 +1781,7 @@ pub const hint_joystick_mfi = C.SDL_HINT_JOYSTICK_MFI // 'SDL_JOYSTICK_MFI'
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_rawinput = C.SDL_HINT_JOYSTICK_RAWINPUT // 'SDL_JOYSTICK_RAWINPUT'
+pub const hint_joystick_rawinput = &char(C.SDL_HINT_JOYSTICK_RAWINPUT) // 'SDL_JOYSTICK_RAWINPUT'
 
 // A variable controlling whether the RAWINPUT driver should pull correlated
 // data from XInput.
@@ -1796,7 +1796,7 @@ pub const hint_joystick_rawinput = C.SDL_HINT_JOYSTICK_RAWINPUT // 'SDL_JOYSTICK
 // This hint should be set before a gamepad is opened.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_rawinput_correlate_xinput = C.SDL_HINT_JOYSTICK_RAWINPUT_CORRELATE_XINPUT // 'SDL_JOYSTICK_RAWINPUT_CORRELATE_XINPUT'
+pub const hint_joystick_rawinput_correlate_xinput = &char(C.SDL_HINT_JOYSTICK_RAWINPUT_CORRELATE_XINPUT) // 'SDL_JOYSTICK_RAWINPUT_CORRELATE_XINPUT'
 
 // A variable controlling whether the ROG Chakram mice should show up as
 // joysticks.
@@ -1809,7 +1809,7 @@ pub const hint_joystick_rawinput_correlate_xinput = C.SDL_HINT_JOYSTICK_RAWINPUT
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_rog_chakram = C.SDL_HINT_JOYSTICK_ROG_CHAKRAM // 'SDL_JOYSTICK_ROG_CHAKRAM'
+pub const hint_joystick_rog_chakram = &char(C.SDL_HINT_JOYSTICK_ROG_CHAKRAM) // 'SDL_JOYSTICK_ROG_CHAKRAM'
 
 // A variable controlling whether a separate thread should be used for
 // handling joystick detection and raw input messages on Windows.
@@ -1822,7 +1822,7 @@ pub const hint_joystick_rog_chakram = C.SDL_HINT_JOYSTICK_ROG_CHAKRAM // 'SDL_JO
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_thread = C.SDL_HINT_JOYSTICK_THREAD // 'SDL_JOYSTICK_THREAD'
+pub const hint_joystick_thread = &char(C.SDL_HINT_JOYSTICK_THREAD) // 'SDL_JOYSTICK_THREAD'
 
 // A variable containing a list of throttle style controllers.
 //
@@ -1837,7 +1837,7 @@ pub const hint_joystick_thread = C.SDL_HINT_JOYSTICK_THREAD // 'SDL_JOYSTICK_THR
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_throttle_devices = C.SDL_HINT_JOYSTICK_THROTTLE_DEVICES // 'SDL_JOYSTICK_THROTTLE_DEVICES'
+pub const hint_joystick_throttle_devices = &char(C.SDL_HINT_JOYSTICK_THROTTLE_DEVICES) // 'SDL_JOYSTICK_THROTTLE_DEVICES'
 
 // A variable containing a list of devices that are not throttle style
 // controllers.
@@ -1856,7 +1856,7 @@ pub const hint_joystick_throttle_devices = C.SDL_HINT_JOYSTICK_THROTTLE_DEVICES 
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_throttle_devices_excluded = C.SDL_HINT_JOYSTICK_THROTTLE_DEVICES_EXCLUDED // 'SDL_JOYSTICK_THROTTLE_DEVICES_EXCLUDED'
+pub const hint_joystick_throttle_devices_excluded = &char(C.SDL_HINT_JOYSTICK_THROTTLE_DEVICES_EXCLUDED) // 'SDL_JOYSTICK_THROTTLE_DEVICES_EXCLUDED'
 
 // A variable controlling whether Windows.Gaming.Input should be used for
 // controller handling.
@@ -1869,7 +1869,7 @@ pub const hint_joystick_throttle_devices_excluded = C.SDL_HINT_JOYSTICK_THROTTLE
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_wgi = C.SDL_HINT_JOYSTICK_WGI // 'SDL_JOYSTICK_WGI'
+pub const hint_joystick_wgi = &char(C.SDL_HINT_JOYSTICK_WGI) // 'SDL_JOYSTICK_WGI'
 
 // A variable containing a list of wheel style controllers.
 //
@@ -1884,7 +1884,7 @@ pub const hint_joystick_wgi = C.SDL_HINT_JOYSTICK_WGI // 'SDL_JOYSTICK_WGI'
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_wheel_devices = C.SDL_HINT_JOYSTICK_WHEEL_DEVICES // 'SDL_JOYSTICK_WHEEL_DEVICES'
+pub const hint_joystick_wheel_devices = &char(C.SDL_HINT_JOYSTICK_WHEEL_DEVICES) // 'SDL_JOYSTICK_WHEEL_DEVICES'
 
 // A variable containing a list of devices that are not wheel style
 // controllers.
@@ -1903,7 +1903,7 @@ pub const hint_joystick_wheel_devices = C.SDL_HINT_JOYSTICK_WHEEL_DEVICES // 'SD
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_wheel_devices_excluded = C.SDL_HINT_JOYSTICK_WHEEL_DEVICES_EXCLUDED // 'SDL_JOYSTICK_WHEEL_DEVICES_EXCLUDED'
+pub const hint_joystick_wheel_devices_excluded = &char(C.SDL_HINT_JOYSTICK_WHEEL_DEVICES_EXCLUDED) // 'SDL_JOYSTICK_WHEEL_DEVICES_EXCLUDED'
 
 // A variable containing a list of devices known to have all axes centered at
 // zero.
@@ -1919,7 +1919,7 @@ pub const hint_joystick_wheel_devices_excluded = C.SDL_HINT_JOYSTICK_WHEEL_DEVIC
 // This hint should be set before a controller is opened.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_joystick_zero_centered_devices = C.SDL_HINT_JOYSTICK_ZERO_CENTERED_DEVICES // 'SDL_JOYSTICK_ZERO_CENTERED_DEVICES'
+pub const hint_joystick_zero_centered_devices = &char(C.SDL_HINT_JOYSTICK_ZERO_CENTERED_DEVICES) // 'SDL_JOYSTICK_ZERO_CENTERED_DEVICES'
 
 // A variable that controls keycode representation in keyboard events.
 //
@@ -1951,7 +1951,7 @@ pub const hint_joystick_zero_centered_devices = C.SDL_HINT_JOYSTICK_ZERO_CENTERE
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_keycode_options = C.SDL_HINT_KEYCODE_OPTIONS // 'SDL_KEYCODE_OPTIONS'
+pub const hint_keycode_options = &char(C.SDL_HINT_KEYCODE_OPTIONS) // 'SDL_KEYCODE_OPTIONS'
 
 // A variable that controls what KMSDRM device to use.
 //
@@ -1963,7 +1963,7 @@ pub const hint_keycode_options = C.SDL_HINT_KEYCODE_OPTIONS // 'SDL_KEYCODE_OPTI
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_kmsdrm_device_index = C.SDL_HINT_KMSDRM_DEVICE_INDEX // 'SDL_KMSDRM_DEVICE_INDEX'
+pub const hint_kmsdrm_device_index = &char(C.SDL_HINT_KMSDRM_DEVICE_INDEX) // 'SDL_KMSDRM_DEVICE_INDEX'
 
 // A variable that controls whether SDL requires DRM master access in order to
 // initialize the KMSDRM video backend.
@@ -1989,7 +1989,7 @@ pub const hint_kmsdrm_device_index = C.SDL_HINT_KMSDRM_DEVICE_INDEX // 'SDL_KMSD
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_kmsdrm_require_drm_master = C.SDL_HINT_KMSDRM_REQUIRE_DRM_MASTER // 'SDL_KMSDRM_REQUIRE_DRM_MASTER'
+pub const hint_kmsdrm_require_drm_master = &char(C.SDL_HINT_KMSDRM_REQUIRE_DRM_MASTER) // 'SDL_KMSDRM_REQUIRE_DRM_MASTER'
 
 // A variable controlling the default SDL log levels.
 //
@@ -2013,7 +2013,7 @@ pub const hint_kmsdrm_require_drm_master = C.SDL_HINT_KMSDRM_REQUIRE_DRM_MASTER 
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_logging = C.SDL_HINT_LOGGING // 'SDL_LOGGING'
+pub const hint_logging = &char(C.SDL_HINT_LOGGING) // 'SDL_LOGGING'
 
 // A variable controlling whether to force the application to become the
 // foreground process when launched on macOS.
@@ -2027,7 +2027,7 @@ pub const hint_logging = C.SDL_HINT_LOGGING // 'SDL_LOGGING'
 // This hint needs to be set before SDL_Init().
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_mac_background_app = C.SDL_HINT_MAC_BACKGROUND_APP // 'SDL_MAC_BACKGROUND_APP'
+pub const hint_mac_background_app = &char(C.SDL_HINT_MAC_BACKGROUND_APP) // 'SDL_MAC_BACKGROUND_APP'
 
 // A variable that determines whether Ctrl+Click should generate a right-click
 // event on macOS.
@@ -2041,7 +2041,7 @@ pub const hint_mac_background_app = C.SDL_HINT_MAC_BACKGROUND_APP // 'SDL_MAC_BA
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_mac_ctrl_click_emulate_right_click = C.SDL_HINT_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK // 'SDL_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK'
+pub const hint_mac_ctrl_click_emulate_right_click = &char(C.SDL_HINT_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK) // 'SDL_MAC_CTRL_CLICK_EMULATE_RIGHT_CLICK'
 
 // A variable controlling whether dispatching OpenGL context updates should
 // block the dispatching thread until the main thread finishes processing on
@@ -2062,7 +2062,7 @@ pub const hint_mac_ctrl_click_emulate_right_click = C.SDL_HINT_MAC_CTRL_CLICK_EM
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_mac_opengl_async_dispatch = C.SDL_HINT_MAC_OPENGL_ASYNC_DISPATCH // 'SDL_MAC_OPENGL_ASYNC_DISPATCH'
+pub const hint_mac_opengl_async_dispatch = &char(C.SDL_HINT_MAC_OPENGL_ASYNC_DISPATCH) // 'SDL_MAC_OPENGL_ASYNC_DISPATCH'
 
 // A variable controlling whether the Option (⌥) key on macOS should be
 // remapped to act as the Alt key.
@@ -2085,7 +2085,7 @@ pub const hint_mac_opengl_async_dispatch = C.SDL_HINT_MAC_OPENGL_ASYNC_DISPATCH 
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_mac_option_as_alt = C.SDL_HINT_MAC_OPTION_AS_ALT // 'SDL_MAC_OPTION_AS_ALT'
+pub const hint_mac_option_as_alt = &char(C.SDL_HINT_MAC_OPTION_AS_ALT) // 'SDL_MAC_OPTION_AS_ALT'
 
 // A variable controlling whether SDL_EVENT_MOUSE_WHEEL event values will have
 // momentum on macOS.
@@ -2098,7 +2098,7 @@ pub const hint_mac_option_as_alt = C.SDL_HINT_MAC_OPTION_AS_ALT // 'SDL_MAC_OPTI
 // This hint needs to be set before SDL_Init().
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_mac_scroll_momentum = C.SDL_HINT_MAC_SCROLL_MOMENTUM // 'SDL_MAC_SCROLL_MOMENTUM'
+pub const hint_mac_scroll_momentum = &char(C.SDL_HINT_MAC_SCROLL_MOMENTUM) // 'SDL_MAC_SCROLL_MOMENTUM'
 
 // Request SDL_AppIterate() be called at a specific rate.
 //
@@ -2122,7 +2122,7 @@ pub const hint_mac_scroll_momentum = C.SDL_HINT_MAC_SCROLL_MOMENTUM // 'SDL_MAC_
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_main_callback_rate = C.SDL_HINT_MAIN_CALLBACK_RATE // 'SDL_MAIN_CALLBACK_RATE'
+pub const hint_main_callback_rate = &char(C.SDL_HINT_MAIN_CALLBACK_RATE) // 'SDL_MAIN_CALLBACK_RATE'
 
 // A variable controlling whether the mouse is captured while mouse buttons
 // are pressed.
@@ -2139,21 +2139,21 @@ pub const hint_main_callback_rate = C.SDL_HINT_MAIN_CALLBACK_RATE // 'SDL_MAIN_C
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_mouse_auto_capture = C.SDL_HINT_MOUSE_AUTO_CAPTURE // 'SDL_MOUSE_AUTO_CAPTURE'
+pub const hint_mouse_auto_capture = &char(C.SDL_HINT_MOUSE_AUTO_CAPTURE) // 'SDL_MOUSE_AUTO_CAPTURE'
 
 // A variable setting the double click radius, in pixels.
 //
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_mouse_double_click_radius = C.SDL_HINT_MOUSE_DOUBLE_CLICK_RADIUS // 'SDL_MOUSE_DOUBLE_CLICK_RADIUS'
+pub const hint_mouse_double_click_radius = &char(C.SDL_HINT_MOUSE_DOUBLE_CLICK_RADIUS) // 'SDL_MOUSE_DOUBLE_CLICK_RADIUS'
 
 // A variable setting the double click time, in milliseconds.
 //
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_mouse_double_click_time = C.SDL_HINT_MOUSE_DOUBLE_CLICK_TIME // 'SDL_MOUSE_DOUBLE_CLICK_TIME'
+pub const hint_mouse_double_click_time = &char(C.SDL_HINT_MOUSE_DOUBLE_CLICK_TIME) // 'SDL_MOUSE_DOUBLE_CLICK_TIME'
 
 // A variable setting which system cursor to use as the default cursor.
 //
@@ -2163,7 +2163,7 @@ pub const hint_mouse_double_click_time = C.SDL_HINT_MOUSE_DOUBLE_CLICK_TIME // '
 // This hint needs to be set before SDL_Init().
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_mouse_default_system_cursor = C.SDL_HINT_MOUSE_DEFAULT_SYSTEM_CURSOR // 'SDL_MOUSE_DEFAULT_SYSTEM_CURSOR'
+pub const hint_mouse_default_system_cursor = &char(C.SDL_HINT_MOUSE_DEFAULT_SYSTEM_CURSOR) // 'SDL_MOUSE_DEFAULT_SYSTEM_CURSOR'
 
 // A variable controlling whether warping a hidden mouse cursor will activate
 // relative mouse mode.
@@ -2193,7 +2193,7 @@ pub const hint_mouse_default_system_cursor = C.SDL_HINT_MOUSE_DEFAULT_SYSTEM_CUR
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_mouse_emulate_warp_with_relative = C.SDL_HINT_MOUSE_EMULATE_WARP_WITH_RELATIVE // 'SDL_MOUSE_EMULATE_WARP_WITH_RELATIVE'
+pub const hint_mouse_emulate_warp_with_relative = &char(C.SDL_HINT_MOUSE_EMULATE_WARP_WITH_RELATIVE) // 'SDL_MOUSE_EMULATE_WARP_WITH_RELATIVE'
 
 // Allow mouse click events when clicking to focus an SDL window.
 //
@@ -2205,7 +2205,7 @@ pub const hint_mouse_emulate_warp_with_relative = C.SDL_HINT_MOUSE_EMULATE_WARP_
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_mouse_focus_clickthrough = C.SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH // 'SDL_MOUSE_FOCUS_CLICKTHROUGH'
+pub const hint_mouse_focus_clickthrough = &char(C.SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH) // 'SDL_MOUSE_FOCUS_CLICKTHROUGH'
 
 // A variable setting the speed scale for mouse motion, in floating point,
 // when the mouse is not in relative mode.
@@ -2213,7 +2213,7 @@ pub const hint_mouse_focus_clickthrough = C.SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH //
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_mouse_normal_speed_scale = C.SDL_HINT_MOUSE_NORMAL_SPEED_SCALE // 'SDL_MOUSE_NORMAL_SPEED_SCALE'
+pub const hint_mouse_normal_speed_scale = &char(C.SDL_HINT_MOUSE_NORMAL_SPEED_SCALE) // 'SDL_MOUSE_NORMAL_SPEED_SCALE'
 
 // A variable controlling whether relative mouse mode constrains the mouse to
 // the center of the window.
@@ -2232,7 +2232,7 @@ pub const hint_mouse_normal_speed_scale = C.SDL_HINT_MOUSE_NORMAL_SPEED_SCALE //
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_mouse_relative_mode_center = C.SDL_HINT_MOUSE_RELATIVE_MODE_CENTER // 'SDL_MOUSE_RELATIVE_MODE_CENTER'
+pub const hint_mouse_relative_mode_center = &char(C.SDL_HINT_MOUSE_RELATIVE_MODE_CENTER) // 'SDL_MOUSE_RELATIVE_MODE_CENTER'
 
 // A variable setting the scale for mouse motion, in floating point, when the
 // mouse is in relative mode.
@@ -2240,7 +2240,7 @@ pub const hint_mouse_relative_mode_center = C.SDL_HINT_MOUSE_RELATIVE_MODE_CENTE
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_mouse_relative_speed_scale = C.SDL_HINT_MOUSE_RELATIVE_SPEED_SCALE // 'SDL_MOUSE_RELATIVE_SPEED_SCALE'
+pub const hint_mouse_relative_speed_scale = &char(C.SDL_HINT_MOUSE_RELATIVE_SPEED_SCALE) // 'SDL_MOUSE_RELATIVE_SPEED_SCALE'
 
 // A variable controlling whether the system mouse acceleration curve is used
 // for relative mouse motion.
@@ -2257,7 +2257,7 @@ pub const hint_mouse_relative_speed_scale = C.SDL_HINT_MOUSE_RELATIVE_SPEED_SCAL
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_mouse_relative_system_scale = C.SDL_HINT_MOUSE_RELATIVE_SYSTEM_SCALE // 'SDL_MOUSE_RELATIVE_SYSTEM_SCALE'
+pub const hint_mouse_relative_system_scale = &char(C.SDL_HINT_MOUSE_RELATIVE_SYSTEM_SCALE) // 'SDL_MOUSE_RELATIVE_SYSTEM_SCALE'
 
 // A variable controlling whether a motion event should be generated for mouse
 // warping in relative mode.
@@ -2274,7 +2274,7 @@ pub const hint_mouse_relative_system_scale = C.SDL_HINT_MOUSE_RELATIVE_SYSTEM_SC
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_mouse_relative_warp_motion = C.SDL_HINT_MOUSE_RELATIVE_WARP_MOTION // 'SDL_MOUSE_RELATIVE_WARP_MOTION'
+pub const hint_mouse_relative_warp_motion = &char(C.SDL_HINT_MOUSE_RELATIVE_WARP_MOTION) // 'SDL_MOUSE_RELATIVE_WARP_MOTION'
 
 // A variable controlling whether the hardware cursor stays visible when
 // relative mode is active.
@@ -2291,7 +2291,7 @@ pub const hint_mouse_relative_warp_motion = C.SDL_HINT_MOUSE_RELATIVE_WARP_MOTIO
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_mouse_relative_cursor_visible = C.SDL_HINT_MOUSE_RELATIVE_CURSOR_VISIBLE // 'SDL_MOUSE_RELATIVE_CURSOR_VISIBLE'
+pub const hint_mouse_relative_cursor_visible = &char(C.SDL_HINT_MOUSE_RELATIVE_CURSOR_VISIBLE) // 'SDL_MOUSE_RELATIVE_CURSOR_VISIBLE'
 
 // A variable controlling whether mouse events should generate synthetic touch
 // events.
@@ -2306,7 +2306,7 @@ pub const hint_mouse_relative_cursor_visible = C.SDL_HINT_MOUSE_RELATIVE_CURSOR_
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_mouse_touch_events = C.SDL_HINT_MOUSE_TOUCH_EVENTS // 'SDL_MOUSE_TOUCH_EVENTS'
+pub const hint_mouse_touch_events = &char(C.SDL_HINT_MOUSE_TOUCH_EVENTS) // 'SDL_MOUSE_TOUCH_EVENTS'
 
 // A variable controlling whether the keyboard should be muted on the console.
 //
@@ -2322,7 +2322,7 @@ pub const hint_mouse_touch_events = C.SDL_HINT_MOUSE_TOUCH_EVENTS // 'SDL_MOUSE_
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_mute_console_keyboard = C.SDL_HINT_MUTE_CONSOLE_KEYBOARD // 'SDL_MUTE_CONSOLE_KEYBOARD'
+pub const hint_mute_console_keyboard = &char(C.SDL_HINT_MUTE_CONSOLE_KEYBOARD) // 'SDL_MUTE_CONSOLE_KEYBOARD'
 
 // Tell SDL not to catch the SIGINT or SIGTERM signals on POSIX platforms.
 //
@@ -2335,7 +2335,7 @@ pub const hint_mute_console_keyboard = C.SDL_HINT_MUTE_CONSOLE_KEYBOARD // 'SDL_
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_no_signal_handlers = C.SDL_HINT_NO_SIGNAL_HANDLERS // 'SDL_NO_SIGNAL_HANDLERS'
+pub const hint_no_signal_handlers = &char(C.SDL_HINT_NO_SIGNAL_HANDLERS) // 'SDL_NO_SIGNAL_HANDLERS'
 
 // Specify the OpenGL library to load.
 //
@@ -2344,7 +2344,7 @@ pub const hint_no_signal_handlers = C.SDL_HINT_NO_SIGNAL_HANDLERS // 'SDL_NO_SIG
 // default.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_opengl_library = C.SDL_HINT_OPENGL_LIBRARY // 'SDL_OPENGL_LIBRARY'
+pub const hint_opengl_library = &char(C.SDL_HINT_OPENGL_LIBRARY) // 'SDL_OPENGL_LIBRARY'
 
 // Specify the EGL library to load.
 //
@@ -2354,7 +2354,7 @@ pub const hint_opengl_library = C.SDL_HINT_OPENGL_LIBRARY // 'SDL_OPENGL_LIBRARY
 // default.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_egl_library = C.SDL_HINT_EGL_LIBRARY // 'SDL_EGL_LIBRARY'
+pub const hint_egl_library = &char(C.SDL_HINT_EGL_LIBRARY) // 'SDL_EGL_LIBRARY'
 
 // A variable controlling what driver to use for OpenGL ES contexts.
 //
@@ -2386,7 +2386,7 @@ pub const hint_egl_library = C.SDL_HINT_EGL_LIBRARY // 'SDL_EGL_LIBRARY'
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_opengl_es_driver = C.SDL_HINT_OPENGL_ES_DRIVER // 'SDL_OPENGL_ES_DRIVER'
+pub const hint_opengl_es_driver = &char(C.SDL_HINT_OPENGL_ES_DRIVER) // 'SDL_OPENGL_ES_DRIVER'
 
 // Mechanism to specify openvr_api library location
 //
@@ -2396,7 +2396,7 @@ pub const hint_opengl_es_driver = C.SDL_HINT_OPENGL_ES_DRIVER // 'SDL_OPENGL_ES_
 // to a .dll on Windows or .so on Linux.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_openvr_library = C.SDL_HINT_OPENVR_LIBRARY // 'SDL_OPENVR_LIBRARY'
+pub const hint_openvr_library = &char(C.SDL_HINT_OPENVR_LIBRARY) // 'SDL_OPENVR_LIBRARY'
 
 // A variable controlling which orientations are allowed on iOS/Android.
 //
@@ -2413,7 +2413,7 @@ pub const hint_openvr_library = C.SDL_HINT_OPENVR_LIBRARY // 'SDL_OPENVR_LIBRARY
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_orientations = C.SDL_HINT_ORIENTATIONS // 'SDL_ORIENTATIONS'
+pub const hint_orientations = &char(C.SDL_HINT_ORIENTATIONS) // 'SDL_ORIENTATIONS'
 
 // A variable controlling the use of a sentinel event when polling the event
 // queue.
@@ -2431,7 +2431,7 @@ pub const hint_orientations = C.SDL_HINT_ORIENTATIONS // 'SDL_ORIENTATIONS'
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_poll_sentinel = C.SDL_HINT_POLL_SENTINEL // 'SDL_POLL_SENTINEL'
+pub const hint_poll_sentinel = &char(C.SDL_HINT_POLL_SENTINEL) // 'SDL_POLL_SENTINEL'
 
 // Override for SDL_GetPreferredLocales().
 //
@@ -2447,7 +2447,7 @@ pub const hint_poll_sentinel = C.SDL_HINT_POLL_SENTINEL // 'SDL_POLL_SENTINEL'
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_preferred_locales = C.SDL_HINT_PREFERRED_LOCALES // 'SDL_PREFERRED_LOCALES'
+pub const hint_preferred_locales = &char(C.SDL_HINT_PREFERRED_LOCALES) // 'SDL_PREFERRED_LOCALES'
 
 // A variable that decides whether to send SDL_EVENT_QUIT when closing the
 // last window.
@@ -2468,7 +2468,7 @@ pub const hint_preferred_locales = C.SDL_HINT_PREFERRED_LOCALES // 'SDL_PREFERRE
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_quit_on_last_window_close = C.SDL_HINT_QUIT_ON_LAST_WINDOW_CLOSE // 'SDL_QUIT_ON_LAST_WINDOW_CLOSE'
+pub const hint_quit_on_last_window_close = &char(C.SDL_HINT_QUIT_ON_LAST_WINDOW_CLOSE) // 'SDL_QUIT_ON_LAST_WINDOW_CLOSE'
 
 // A variable controlling whether the Direct3D device is initialized for
 // thread-safe operations.
@@ -2481,7 +2481,7 @@ pub const hint_quit_on_last_window_close = C.SDL_HINT_QUIT_ON_LAST_WINDOW_CLOSE 
 // This hint should be set before creating a renderer.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_render_direct3d_threadsafe = C.SDL_HINT_RENDER_DIRECT3D_THREADSAFE // 'SDL_RENDER_DIRECT3D_THREADSAFE'
+pub const hint_render_direct3d_threadsafe = &char(C.SDL_HINT_RENDER_DIRECT3D_THREADSAFE) // 'SDL_RENDER_DIRECT3D_THREADSAFE'
 
 // A variable controlling whether to enable Direct3D 11+'s Debug Layer.
 //
@@ -2495,7 +2495,7 @@ pub const hint_render_direct3d_threadsafe = C.SDL_HINT_RENDER_DIRECT3D_THREADSAF
 // This hint should be set before creating a renderer.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_render_direct3d11_debug = C.SDL_HINT_RENDER_DIRECT3D11_DEBUG // 'SDL_RENDER_DIRECT3D11_DEBUG'
+pub const hint_render_direct3d11_debug = &char(C.SDL_HINT_RENDER_DIRECT3D11_DEBUG) // 'SDL_RENDER_DIRECT3D11_DEBUG'
 
 // A variable controlling whether to enable Vulkan Validation Layers.
 //
@@ -2507,7 +2507,7 @@ pub const hint_render_direct3d11_debug = C.SDL_HINT_RENDER_DIRECT3D11_DEBUG // '
 // By default, SDL does not use Vulkan Validation Layers.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_render_vulkan_debug = C.SDL_HINT_RENDER_VULKAN_DEBUG // 'SDL_RENDER_VULKAN_DEBUG'
+pub const hint_render_vulkan_debug = &char(C.SDL_HINT_RENDER_VULKAN_DEBUG) // 'SDL_RENDER_VULKAN_DEBUG'
 
 // A variable controlling whether to create the GPU device in debug mode.
 //
@@ -2519,7 +2519,7 @@ pub const hint_render_vulkan_debug = C.SDL_HINT_RENDER_VULKAN_DEBUG // 'SDL_REND
 // This hint should be set before creating a renderer.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_render_gpu_debug = C.SDL_HINT_RENDER_GPU_DEBUG // 'SDL_RENDER_GPU_DEBUG'
+pub const hint_render_gpu_debug = &char(C.SDL_HINT_RENDER_GPU_DEBUG) // 'SDL_RENDER_GPU_DEBUG'
 
 // A variable controlling whether to prefer a low-power GPU on multi-GPU
 // systems.
@@ -2532,7 +2532,7 @@ pub const hint_render_gpu_debug = C.SDL_HINT_RENDER_GPU_DEBUG // 'SDL_RENDER_GPU
 // This hint should be set before creating a renderer.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_render_gpu_low_power = C.SDL_HINT_RENDER_GPU_LOW_POWER // 'SDL_RENDER_GPU_LOW_POWER'
+pub const hint_render_gpu_low_power = &char(C.SDL_HINT_RENDER_GPU_LOW_POWER) // 'SDL_RENDER_GPU_LOW_POWER'
 
 // A variable specifying which render driver to use.
 //
@@ -2563,7 +2563,7 @@ pub const hint_render_gpu_low_power = C.SDL_HINT_RENDER_GPU_LOW_POWER // 'SDL_RE
 // This hint should be set before creating a renderer.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_render_driver = C.SDL_HINT_RENDER_DRIVER // 'SDL_RENDER_DRIVER'
+pub const hint_render_driver = &char(C.SDL_HINT_RENDER_DRIVER) // 'SDL_RENDER_DRIVER'
 
 // A variable controlling how the 2D render API renders lines.
 //
@@ -2579,7 +2579,7 @@ pub const hint_render_driver = C.SDL_HINT_RENDER_DRIVER // 'SDL_RENDER_DRIVER'
 // This hint should be set before creating a renderer.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_render_line_method = C.SDL_HINT_RENDER_LINE_METHOD // 'SDL_RENDER_LINE_METHOD'
+pub const hint_render_line_method = &char(C.SDL_HINT_RENDER_LINE_METHOD) // 'SDL_RENDER_LINE_METHOD'
 
 // A variable controlling whether the Metal render driver select low power
 // device over default one.
@@ -2592,7 +2592,7 @@ pub const hint_render_line_method = C.SDL_HINT_RENDER_LINE_METHOD // 'SDL_RENDER
 // This hint should be set before creating a renderer.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_render_metal_prefer_low_power_device = C.SDL_HINT_RENDER_METAL_PREFER_LOW_POWER_DEVICE // 'SDL_RENDER_METAL_PREFER_LOW_POWER_DEVICE'
+pub const hint_render_metal_prefer_low_power_device = &char(C.SDL_HINT_RENDER_METAL_PREFER_LOW_POWER_DEVICE) // 'SDL_RENDER_METAL_PREFER_LOW_POWER_DEVICE'
 
 // A variable controlling whether updates to the SDL screen surface should be
 // synchronized with the vertical refresh, to avoid tearing.
@@ -2607,7 +2607,7 @@ pub const hint_render_metal_prefer_low_power_device = C.SDL_HINT_RENDER_METAL_PR
 // This hint should be set before creating a renderer.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_render_vsync = C.SDL_HINT_RENDER_VSYNC // 'SDL_RENDER_VSYNC'
+pub const hint_render_vsync = &char(C.SDL_HINT_RENDER_VSYNC) // 'SDL_RENDER_VSYNC'
 
 // A variable to control whether the return key on the soft keyboard should
 // hide the soft keyboard on Android and iOS.
@@ -2622,7 +2622,7 @@ pub const hint_render_vsync = C.SDL_HINT_RENDER_VSYNC // 'SDL_RENDER_VSYNC'
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_return_key_hides_ime = C.SDL_HINT_RETURN_KEY_HIDES_IME // 'SDL_RETURN_KEY_HIDES_IME'
+pub const hint_return_key_hides_ime = &char(C.SDL_HINT_RETURN_KEY_HIDES_IME) // 'SDL_RETURN_KEY_HIDES_IME'
 
 // A variable containing a list of ROG gamepad capable mice.
 //
@@ -2639,7 +2639,7 @@ pub const hint_return_key_hides_ime = C.SDL_HINT_RETURN_KEY_HIDES_IME // 'SDL_RE
 // NOTE: This hint is available since SDL 3.2.0.
 //
 // See also: SDL_HINT_ROG_GAMEPAD_MICE_EXCLUDED
-pub const hint_rog_gamepad_mice = C.SDL_HINT_ROG_GAMEPAD_MICE // 'SDL_ROG_GAMEPAD_MICE'
+pub const hint_rog_gamepad_mice = &char(C.SDL_HINT_ROG_GAMEPAD_MICE) // 'SDL_ROG_GAMEPAD_MICE'
 
 // A variable containing a list of devices that are not ROG gamepad capable
 // mice.
@@ -2657,7 +2657,7 @@ pub const hint_rog_gamepad_mice = C.SDL_HINT_ROG_GAMEPAD_MICE // 'SDL_ROG_GAMEPA
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_rog_gamepad_mice_excluded = C.SDL_HINT_ROG_GAMEPAD_MICE_EXCLUDED // 'SDL_ROG_GAMEPAD_MICE_EXCLUDED'
+pub const hint_rog_gamepad_mice_excluded = &char(C.SDL_HINT_ROG_GAMEPAD_MICE_EXCLUDED) // 'SDL_ROG_GAMEPAD_MICE_EXCLUDED'
 
 // A variable controlling which Dispmanx layer to use on a Raspberry PI.
 //
@@ -2667,7 +2667,7 @@ pub const hint_rog_gamepad_mice_excluded = C.SDL_HINT_ROG_GAMEPAD_MICE_EXCLUDED 
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_rpi_video_layer = C.SDL_HINT_RPI_VIDEO_LAYER // 'SDL_RPI_VIDEO_LAYER'
+pub const hint_rpi_video_layer = &char(C.SDL_HINT_RPI_VIDEO_LAYER) // 'SDL_RPI_VIDEO_LAYER'
 
 // Specify an "activity name" for screensaver inhibition.
 //
@@ -2687,7 +2687,7 @@ pub const hint_rpi_video_layer = C.SDL_HINT_RPI_VIDEO_LAYER // 'SDL_RPI_VIDEO_LA
 // This hint should be set before calling SDL_DisableScreenSaver()
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_screensaver_inhibit_activity_name = C.SDL_HINT_SCREENSAVER_INHIBIT_ACTIVITY_NAME // 'SDL_SCREENSAVER_INHIBIT_ACTIVITY_NAME'
+pub const hint_screensaver_inhibit_activity_name = &char(C.SDL_HINT_SCREENSAVER_INHIBIT_ACTIVITY_NAME) // 'SDL_SCREENSAVER_INHIBIT_ACTIVITY_NAME'
 
 // A variable controlling whether SDL calls dbus_shutdown() on quit.
 //
@@ -2704,7 +2704,7 @@ pub const hint_screensaver_inhibit_activity_name = C.SDL_HINT_SCREENSAVER_INHIBI
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_shutdown_dbus_on_quit = C.SDL_HINT_SHUTDOWN_DBUS_ON_QUIT // 'SDL_SHUTDOWN_DBUS_ON_QUIT'
+pub const hint_shutdown_dbus_on_quit = &char(C.SDL_HINT_SHUTDOWN_DBUS_ON_QUIT) // 'SDL_SHUTDOWN_DBUS_ON_QUIT'
 
 // A variable that specifies a backend to use for title storage.
 //
@@ -2716,7 +2716,7 @@ pub const hint_shutdown_dbus_on_quit = C.SDL_HINT_SHUTDOWN_DBUS_ON_QUIT // 'SDL_
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_storage_title_driver = C.SDL_HINT_STORAGE_TITLE_DRIVER // 'SDL_STORAGE_TITLE_DRIVER'
+pub const hint_storage_title_driver = &char(C.SDL_HINT_STORAGE_TITLE_DRIVER) // 'SDL_STORAGE_TITLE_DRIVER'
 
 // A variable that specifies a backend to use for user storage.
 //
@@ -2728,7 +2728,7 @@ pub const hint_storage_title_driver = C.SDL_HINT_STORAGE_TITLE_DRIVER // 'SDL_ST
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_storage_user_driver = C.SDL_HINT_STORAGE_USER_DRIVER // 'SDL_STORAGE_USER_DRIVER'
+pub const hint_storage_user_driver = &char(C.SDL_HINT_STORAGE_USER_DRIVER) // 'SDL_STORAGE_USER_DRIVER'
 
 // Specifies whether SDL_THREAD_PRIORITY_TIME_CRITICAL should be treated as
 // realtime.
@@ -2755,7 +2755,7 @@ pub const hint_storage_user_driver = C.SDL_HINT_STORAGE_USER_DRIVER // 'SDL_STOR
 // This hint should be set before calling SDL_SetCurrentThreadPriority()
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_thread_force_realtime_time_critical = C.SDL_HINT_THREAD_FORCE_REALTIME_TIME_CRITICAL // 'SDL_THREAD_FORCE_REALTIME_TIME_CRITICAL'
+pub const hint_thread_force_realtime_time_critical = &char(C.SDL_HINT_THREAD_FORCE_REALTIME_TIME_CRITICAL) // 'SDL_THREAD_FORCE_REALTIME_TIME_CRITICAL'
 
 // A string specifying additional information to use with
 // SDL_SetCurrentThreadPriority.
@@ -2776,7 +2776,7 @@ pub const hint_thread_force_realtime_time_critical = C.SDL_HINT_THREAD_FORCE_REA
 // This hint should be set before calling SDL_SetCurrentThreadPriority()
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_thread_priority_policy = C.SDL_HINT_THREAD_PRIORITY_POLICY // 'SDL_THREAD_PRIORITY_POLICY'
+pub const hint_thread_priority_policy = &char(C.SDL_HINT_THREAD_PRIORITY_POLICY) // 'SDL_THREAD_PRIORITY_POLICY'
 
 // A variable that controls the timer resolution, in milliseconds.
 //
@@ -2794,7 +2794,7 @@ pub const hint_thread_priority_policy = C.SDL_HINT_THREAD_PRIORITY_POLICY // 'SD
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_timer_resolution = C.SDL_HINT_TIMER_RESOLUTION // 'SDL_TIMER_RESOLUTION'
+pub const hint_timer_resolution = &char(C.SDL_HINT_TIMER_RESOLUTION) // 'SDL_TIMER_RESOLUTION'
 
 // A variable controlling whether touch events should generate synthetic mouse
 // events.
@@ -2807,7 +2807,7 @@ pub const hint_timer_resolution = C.SDL_HINT_TIMER_RESOLUTION // 'SDL_TIMER_RESO
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_touch_mouse_events = C.SDL_HINT_TOUCH_MOUSE_EVENTS // 'SDL_TOUCH_MOUSE_EVENTS'
+pub const hint_touch_mouse_events = &char(C.SDL_HINT_TOUCH_MOUSE_EVENTS) // 'SDL_TOUCH_MOUSE_EVENTS'
 
 // A variable controlling whether trackpads should be treated as touch
 // devices.
@@ -2826,7 +2826,7 @@ pub const hint_touch_mouse_events = C.SDL_HINT_TOUCH_MOUSE_EVENTS // 'SDL_TOUCH_
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_trackpad_is_touch_only = C.SDL_HINT_TRACKPAD_IS_TOUCH_ONLY // 'SDL_TRACKPAD_IS_TOUCH_ONLY'
+pub const hint_trackpad_is_touch_only = &char(C.SDL_HINT_TRACKPAD_IS_TOUCH_ONLY) // 'SDL_TRACKPAD_IS_TOUCH_ONLY'
 
 // A variable controlling whether the Android / tvOS remotes should be listed
 // as joystick devices, instead of sending keyboard events.
@@ -2839,7 +2839,7 @@ pub const hint_trackpad_is_touch_only = C.SDL_HINT_TRACKPAD_IS_TOUCH_ONLY // 'SD
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_tv_remote_as_joystick = C.SDL_HINT_TV_REMOTE_AS_JOYSTICK // 'SDL_TV_REMOTE_AS_JOYSTICK'
+pub const hint_tv_remote_as_joystick = &char(C.SDL_HINT_TV_REMOTE_AS_JOYSTICK) // 'SDL_TV_REMOTE_AS_JOYSTICK'
 
 // A variable controlling whether the screensaver is enabled.
 //
@@ -2851,7 +2851,7 @@ pub const hint_tv_remote_as_joystick = C.SDL_HINT_TV_REMOTE_AS_JOYSTICK // 'SDL_
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_allow_screensaver = C.SDL_HINT_VIDEO_ALLOW_SCREENSAVER // 'SDL_VIDEO_ALLOW_SCREENSAVER'
+pub const hint_video_allow_screensaver = &char(C.SDL_HINT_VIDEO_ALLOW_SCREENSAVER) // 'SDL_VIDEO_ALLOW_SCREENSAVER'
 
 // A comma separated list containing the names of the displays that SDL should
 // sort to the front of the display list.
@@ -2874,7 +2874,7 @@ pub const hint_video_allow_screensaver = C.SDL_HINT_VIDEO_ALLOW_SCREENSAVER // '
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_display_priority = C.SDL_HINT_VIDEO_DISPLAY_PRIORITY // 'SDL_VIDEO_DISPLAY_PRIORITY'
+pub const hint_video_display_priority = &char(C.SDL_HINT_VIDEO_DISPLAY_PRIORITY) // 'SDL_VIDEO_DISPLAY_PRIORITY'
 
 // Tell the video driver that we only want a double buffer.
 //
@@ -2895,7 +2895,7 @@ pub const hint_video_display_priority = C.SDL_HINT_VIDEO_DISPLAY_PRIORITY // 'SD
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_double_buffer = C.SDL_HINT_VIDEO_DOUBLE_BUFFER // 'SDL_VIDEO_DOUBLE_BUFFER'
+pub const hint_video_double_buffer = &char(C.SDL_HINT_VIDEO_DOUBLE_BUFFER) // 'SDL_VIDEO_DOUBLE_BUFFER'
 
 // A variable that specifies a video backend to use.
 //
@@ -2911,7 +2911,7 @@ pub const hint_video_double_buffer = C.SDL_HINT_VIDEO_DOUBLE_BUFFER // 'SDL_VIDE
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_driver = C.SDL_HINT_VIDEO_DRIVER // 'SDL_VIDEO_DRIVER'
+pub const hint_video_driver = &char(C.SDL_HINT_VIDEO_DRIVER) // 'SDL_VIDEO_DRIVER'
 
 // A variable controlling whether the dummy video driver saves output frames.
 //
@@ -2922,7 +2922,7 @@ pub const hint_video_driver = C.SDL_HINT_VIDEO_DRIVER // 'SDL_VIDEO_DRIVER'
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_dummy_save_frames = C.SDL_HINT_VIDEO_DUMMY_SAVE_FRAMES // 'SDL_VIDEO_DUMMY_SAVE_FRAMES'
+pub const hint_video_dummy_save_frames = &char(C.SDL_HINT_VIDEO_DUMMY_SAVE_FRAMES) // 'SDL_VIDEO_DUMMY_SAVE_FRAMES'
 
 // If eglGetPlatformDisplay fails, fall back to calling eglGetDisplay.
 //
@@ -2934,7 +2934,7 @@ pub const hint_video_dummy_save_frames = C.SDL_HINT_VIDEO_DUMMY_SAVE_FRAMES // '
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_egl_allow_getdisplay_fallback = C.SDL_HINT_VIDEO_EGL_ALLOW_GETDISPLAY_FALLBACK // 'SDL_VIDEO_EGL_ALLOW_GETDISPLAY_FALLBACK'
+pub const hint_video_egl_allow_getdisplay_fallback = &char(C.SDL_HINT_VIDEO_EGL_ALLOW_GETDISPLAY_FALLBACK) // 'SDL_VIDEO_EGL_ALLOW_GETDISPLAY_FALLBACK'
 
 // A variable controlling whether the OpenGL context should be created with
 // EGL.
@@ -2948,7 +2948,7 @@ pub const hint_video_egl_allow_getdisplay_fallback = C.SDL_HINT_VIDEO_EGL_ALLOW_
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_force_egl = C.SDL_HINT_VIDEO_FORCE_EGL // 'SDL_VIDEO_FORCE_EGL'
+pub const hint_video_force_egl = &char(C.SDL_HINT_VIDEO_FORCE_EGL) // 'SDL_VIDEO_FORCE_EGL'
 
 // A variable that specifies the policy for fullscreen Spaces on macOS.
 //
@@ -2964,7 +2964,7 @@ pub const hint_video_force_egl = C.SDL_HINT_VIDEO_FORCE_EGL // 'SDL_VIDEO_FORCE_
 // This hint should be set before creating a window.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_mac_fullscreen_spaces = C.SDL_HINT_VIDEO_MAC_FULLSCREEN_SPACES // 'SDL_VIDEO_MAC_FULLSCREEN_SPACES'
+pub const hint_video_mac_fullscreen_spaces = &char(C.SDL_HINT_VIDEO_MAC_FULLSCREEN_SPACES) // 'SDL_VIDEO_MAC_FULLSCREEN_SPACES'
 
 // A variable that specifies the menu visibility when a window is fullscreen
 // in Spaces on macOS.
@@ -2983,7 +2983,7 @@ pub const hint_video_mac_fullscreen_spaces = C.SDL_HINT_VIDEO_MAC_FULLSCREEN_SPA
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_mac_fullscreen_menu_visibility = C.SDL_HINT_VIDEO_MAC_FULLSCREEN_MENU_VISIBILITY // 'SDL_VIDEO_MAC_FULLSCREEN_MENU_VISIBILITY'
+pub const hint_video_mac_fullscreen_menu_visibility = &char(C.SDL_HINT_VIDEO_MAC_FULLSCREEN_MENU_VISIBILITY) // 'SDL_VIDEO_MAC_FULLSCREEN_MENU_VISIBILITY'
 
 // A variable controlling whether fullscreen windows are minimized when they
 // lose focus.
@@ -2997,7 +2997,7 @@ pub const hint_video_mac_fullscreen_menu_visibility = C.SDL_HINT_VIDEO_MAC_FULLS
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_minimize_on_focus_loss = C.SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS // 'SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS'
+pub const hint_video_minimize_on_focus_loss = &char(C.SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS) // 'SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS'
 
 // A variable controlling whether the offscreen video driver saves output
 // frames.
@@ -3012,7 +3012,7 @@ pub const hint_video_minimize_on_focus_loss = C.SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_offscreen_save_frames = C.SDL_HINT_VIDEO_OFFSCREEN_SAVE_FRAMES // 'SDL_VIDEO_OFFSCREEN_SAVE_FRAMES'
+pub const hint_video_offscreen_save_frames = &char(C.SDL_HINT_VIDEO_OFFSCREEN_SAVE_FRAMES) // 'SDL_VIDEO_OFFSCREEN_SAVE_FRAMES'
 
 // A variable controlling whether all window operations will block until
 // complete.
@@ -3036,7 +3036,7 @@ pub const hint_video_offscreen_save_frames = C.SDL_HINT_VIDEO_OFFSCREEN_SAVE_FRA
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_sync_window_operations = C.SDL_HINT_VIDEO_SYNC_WINDOW_OPERATIONS // 'SDL_VIDEO_SYNC_WINDOW_OPERATIONS'
+pub const hint_video_sync_window_operations = &char(C.SDL_HINT_VIDEO_SYNC_WINDOW_OPERATIONS) // 'SDL_VIDEO_SYNC_WINDOW_OPERATIONS'
 
 // A variable controlling whether the libdecor Wayland backend is allowed to
 // be used.
@@ -3052,7 +3052,7 @@ pub const hint_video_sync_window_operations = C.SDL_HINT_VIDEO_SYNC_WINDOW_OPERA
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_wayland_allow_libdecor = C.SDL_HINT_VIDEO_WAYLAND_ALLOW_LIBDECOR // 'SDL_VIDEO_WAYLAND_ALLOW_LIBDECOR'
+pub const hint_video_wayland_allow_libdecor = &char(C.SDL_HINT_VIDEO_WAYLAND_ALLOW_LIBDECOR) // 'SDL_VIDEO_WAYLAND_ALLOW_LIBDECOR'
 
 // A variable controlling whether video mode emulation is enabled under
 // Wayland.
@@ -3070,7 +3070,7 @@ pub const hint_video_wayland_allow_libdecor = C.SDL_HINT_VIDEO_WAYLAND_ALLOW_LIB
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_wayland_mode_emulation = C.SDL_HINT_VIDEO_WAYLAND_MODE_EMULATION // 'SDL_VIDEO_WAYLAND_MODE_EMULATION'
+pub const hint_video_wayland_mode_emulation = &char(C.SDL_HINT_VIDEO_WAYLAND_MODE_EMULATION) // 'SDL_VIDEO_WAYLAND_MODE_EMULATION'
 
 // A variable controlling how modes with a non-native aspect ratio are
 // displayed under Wayland.
@@ -3090,7 +3090,7 @@ pub const hint_video_wayland_mode_emulation = C.SDL_HINT_VIDEO_WAYLAND_MODE_EMUL
 // This hint should be set before creating a window.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_wayland_mode_scaling = C.SDL_HINT_VIDEO_WAYLAND_MODE_SCALING // 'SDL_VIDEO_WAYLAND_MODE_SCALING'
+pub const hint_video_wayland_mode_scaling = &char(C.SDL_HINT_VIDEO_WAYLAND_MODE_SCALING) // 'SDL_VIDEO_WAYLAND_MODE_SCALING'
 
 // A variable controlling whether the libdecor Wayland backend is preferred
 // over native decorations.
@@ -3108,7 +3108,7 @@ pub const hint_video_wayland_mode_scaling = C.SDL_HINT_VIDEO_WAYLAND_MODE_SCALIN
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_wayland_prefer_libdecor = C.SDL_HINT_VIDEO_WAYLAND_PREFER_LIBDECOR // 'SDL_VIDEO_WAYLAND_PREFER_LIBDECOR'
+pub const hint_video_wayland_prefer_libdecor = &char(C.SDL_HINT_VIDEO_WAYLAND_PREFER_LIBDECOR) // 'SDL_VIDEO_WAYLAND_PREFER_LIBDECOR'
 
 // A variable forcing non-DPI-aware Wayland windows to output at 1:1 scaling.
 //
@@ -3145,7 +3145,7 @@ pub const hint_video_wayland_prefer_libdecor = C.SDL_HINT_VIDEO_WAYLAND_PREFER_L
 // This hint should be set before creating a window.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_wayland_scale_to_display = C.SDL_HINT_VIDEO_WAYLAND_SCALE_TO_DISPLAY // 'SDL_VIDEO_WAYLAND_SCALE_TO_DISPLAY'
+pub const hint_video_wayland_scale_to_display = &char(C.SDL_HINT_VIDEO_WAYLAND_SCALE_TO_DISPLAY) // 'SDL_VIDEO_WAYLAND_SCALE_TO_DISPLAY'
 
 // A variable specifying which shader compiler to preload when using the
 // Chrome ANGLE binaries.
@@ -3165,7 +3165,7 @@ pub const hint_video_wayland_scale_to_display = C.SDL_HINT_VIDEO_WAYLAND_SCALE_T
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_win_d3dcompiler = C.SDL_HINT_VIDEO_WIN_D3DCOMPILER // 'SDL_VIDEO_WIN_D3DCOMPILER'
+pub const hint_video_win_d3dcompiler = &char(C.SDL_HINT_VIDEO_WIN_D3DCOMPILER) // 'SDL_VIDEO_WIN_D3DCOMPILER'
 
 // A variable controlling whether the X11 _NET_WM_BYPASS_COMPOSITOR hint
 // should be used.
@@ -3178,7 +3178,7 @@ pub const hint_video_win_d3dcompiler = C.SDL_HINT_VIDEO_WIN_D3DCOMPILER // 'SDL_
 // This hint should be set before creating a window.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_x11_net_wm_bypass_compositor = C.SDL_HINT_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR // 'SDL_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR'
+pub const hint_video_x11_net_wm_bypass_compositor = &char(C.SDL_HINT_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR) // 'SDL_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR'
 
 // A variable controlling whether the X11 _NET_WM_PING protocol should be
 // supported.
@@ -3195,7 +3195,7 @@ pub const hint_video_x11_net_wm_bypass_compositor = C.SDL_HINT_VIDEO_X11_NET_WM_
 // This hint should be set before creating a window.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_x11_net_wm_ping = C.SDL_HINT_VIDEO_X11_NET_WM_PING // 'SDL_VIDEO_X11_NET_WM_PING'
+pub const hint_video_x11_net_wm_ping = &char(C.SDL_HINT_VIDEO_X11_NET_WM_PING) // 'SDL_VIDEO_X11_NET_WM_PING'
 
 // A variable controlling whether SDL uses DirectColor visuals.
 //
@@ -3207,7 +3207,7 @@ pub const hint_video_x11_net_wm_ping = C.SDL_HINT_VIDEO_X11_NET_WM_PING // 'SDL_
 // This hint should be set before initializing the video subsystem.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_x11_nodirectcolor = C.SDL_HINT_VIDEO_X11_NODIRECTCOLOR // 'SDL_VIDEO_X11_NODIRECTCOLOR'
+pub const hint_video_x11_nodirectcolor = &char(C.SDL_HINT_VIDEO_X11_NODIRECTCOLOR) // 'SDL_VIDEO_X11_NODIRECTCOLOR'
 
 // A variable forcing the content scaling factor for X11 displays.
 //
@@ -3216,21 +3216,21 @@ pub const hint_video_x11_nodirectcolor = C.SDL_HINT_VIDEO_X11_NODIRECTCOLOR // '
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_x11_scaling_factor = C.SDL_HINT_VIDEO_X11_SCALING_FACTOR // 'SDL_VIDEO_X11_SCALING_FACTOR'
+pub const hint_video_x11_scaling_factor = &char(C.SDL_HINT_VIDEO_X11_SCALING_FACTOR) // 'SDL_VIDEO_X11_SCALING_FACTOR'
 
 // A variable forcing the visual ID used for X11 display modes.
 //
 // This hint should be set before initializing the video subsystem.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_x11_visualid = C.SDL_HINT_VIDEO_X11_VISUALID // 'SDL_VIDEO_X11_VISUALID'
+pub const hint_video_x11_visualid = &char(C.SDL_HINT_VIDEO_X11_VISUALID) // 'SDL_VIDEO_X11_VISUALID'
 
 // A variable forcing the visual ID chosen for new X11 windows.
 //
 // This hint should be set before creating a window.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_x11_window_visualid = C.SDL_HINT_VIDEO_X11_WINDOW_VISUALID // 'SDL_VIDEO_X11_WINDOW_VISUALID'
+pub const hint_video_x11_window_visualid = &char(C.SDL_HINT_VIDEO_X11_WINDOW_VISUALID) // 'SDL_VIDEO_X11_WINDOW_VISUALID'
 
 // A variable controlling whether the X11 XRandR extension should be used.
 //
@@ -3242,7 +3242,7 @@ pub const hint_video_x11_window_visualid = C.SDL_HINT_VIDEO_X11_WINDOW_VISUALID 
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_video_x11_xrandr = C.SDL_HINT_VIDEO_X11_XRANDR // 'SDL_VIDEO_X11_XRANDR'
+pub const hint_video_x11_xrandr = &char(C.SDL_HINT_VIDEO_X11_XRANDR) // 'SDL_VIDEO_X11_XRANDR'
 
 // A variable controlling whether touch should be enabled on the back panel of
 // the PlayStation Vita.
@@ -3255,7 +3255,7 @@ pub const hint_video_x11_xrandr = C.SDL_HINT_VIDEO_X11_XRANDR // 'SDL_VIDEO_X11_
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_vita_enable_back_touch = C.SDL_HINT_VITA_ENABLE_BACK_TOUCH // 'SDL_VITA_ENABLE_BACK_TOUCH'
+pub const hint_vita_enable_back_touch = &char(C.SDL_HINT_VITA_ENABLE_BACK_TOUCH) // 'SDL_VITA_ENABLE_BACK_TOUCH'
 
 // A variable controlling whether touch should be enabled on the front panel
 // of the PlayStation Vita.
@@ -3268,7 +3268,7 @@ pub const hint_vita_enable_back_touch = C.SDL_HINT_VITA_ENABLE_BACK_TOUCH // 'SD
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_vita_enable_front_touch = C.SDL_HINT_VITA_ENABLE_FRONT_TOUCH // 'SDL_VITA_ENABLE_FRONT_TOUCH'
+pub const hint_vita_enable_front_touch = &char(C.SDL_HINT_VITA_ENABLE_FRONT_TOUCH) // 'SDL_VITA_ENABLE_FRONT_TOUCH'
 
 // A variable controlling the module path on the PlayStation Vita.
 //
@@ -3277,7 +3277,7 @@ pub const hint_vita_enable_front_touch = C.SDL_HINT_VITA_ENABLE_FRONT_TOUCH // '
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_vita_module_path = C.SDL_HINT_VITA_MODULE_PATH // 'SDL_VITA_MODULE_PATH'
+pub const hint_vita_module_path = &char(C.SDL_HINT_VITA_MODULE_PATH) // 'SDL_VITA_MODULE_PATH'
 
 // A variable controlling whether to perform PVR initialization on the
 // PlayStation Vita.
@@ -3288,7 +3288,7 @@ pub const hint_vita_module_path = C.SDL_HINT_VITA_MODULE_PATH // 'SDL_VITA_MODUL
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_vita_pvr_init = C.SDL_HINT_VITA_PVR_INIT // 'SDL_VITA_PVR_INIT'
+pub const hint_vita_pvr_init = &char(C.SDL_HINT_VITA_PVR_INIT) // 'SDL_VITA_PVR_INIT'
 
 // A variable overriding the resolution reported on the PlayStation Vita.
 //
@@ -3301,7 +3301,7 @@ pub const hint_vita_pvr_init = C.SDL_HINT_VITA_PVR_INIT // 'SDL_VITA_PVR_INIT'
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_vita_resolution = C.SDL_HINT_VITA_RESOLUTION // 'SDL_VITA_RESOLUTION'
+pub const hint_vita_resolution = &char(C.SDL_HINT_VITA_RESOLUTION) // 'SDL_VITA_RESOLUTION'
 
 // A variable controlling whether OpenGL should be used instead of OpenGL ES
 // on the PlayStation Vita.
@@ -3314,7 +3314,7 @@ pub const hint_vita_resolution = C.SDL_HINT_VITA_RESOLUTION // 'SDL_VITA_RESOLUT
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_vita_pvr_opengl = C.SDL_HINT_VITA_PVR_OPENGL // 'SDL_VITA_PVR_OPENGL'
+pub const hint_vita_pvr_opengl = &char(C.SDL_HINT_VITA_PVR_OPENGL) // 'SDL_VITA_PVR_OPENGL'
 
 // A variable controlling which touchpad should generate synthetic mouse
 // events.
@@ -3328,7 +3328,7 @@ pub const hint_vita_pvr_opengl = C.SDL_HINT_VITA_PVR_OPENGL // 'SDL_VITA_PVR_OPE
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_vita_touch_mouse_device = C.SDL_HINT_VITA_TOUCH_MOUSE_DEVICE // 'SDL_VITA_TOUCH_MOUSE_DEVICE'
+pub const hint_vita_touch_mouse_device = &char(C.SDL_HINT_VITA_TOUCH_MOUSE_DEVICE) // 'SDL_VITA_TOUCH_MOUSE_DEVICE'
 
 // A variable overriding the display index used in SDL_Vulkan_CreateSurface()
 //
@@ -3337,7 +3337,7 @@ pub const hint_vita_touch_mouse_device = C.SDL_HINT_VITA_TOUCH_MOUSE_DEVICE // '
 // This hint should be set before calling SDL_Vulkan_CreateSurface()
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_vulkan_display = C.SDL_HINT_VULKAN_DISPLAY // 'SDL_VULKAN_DISPLAY'
+pub const hint_vulkan_display = &char(C.SDL_HINT_VULKAN_DISPLAY) // 'SDL_VULKAN_DISPLAY'
 
 // Specify the Vulkan library to load.
 //
@@ -3345,7 +3345,7 @@ pub const hint_vulkan_display = C.SDL_HINT_VULKAN_DISPLAY // 'SDL_VULKAN_DISPLAY
 // SDL_Vulkan_LoadLibrary().
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_vulkan_library = C.SDL_HINT_VULKAN_LIBRARY // 'SDL_VULKAN_LIBRARY'
+pub const hint_vulkan_library = &char(C.SDL_HINT_VULKAN_LIBRARY) // 'SDL_VULKAN_LIBRARY'
 
 // A variable controlling how the fact chunk affects the loading of a WAVE
 // file.
@@ -3375,7 +3375,7 @@ pub const hint_vulkan_library = C.SDL_HINT_VULKAN_LIBRARY // 'SDL_VULKAN_LIBRARY
 // This hint should be set before calling SDL_LoadWAV() or SDL_LoadWAV_IO()
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_wave_fact_chunk = C.SDL_HINT_WAVE_FACT_CHUNK // 'SDL_WAVE_FACT_CHUNK'
+pub const hint_wave_fact_chunk = &char(C.SDL_HINT_WAVE_FACT_CHUNK) // 'SDL_WAVE_FACT_CHUNK'
 
 // A variable controlling the maximum number of chunks in a WAVE file.
 //
@@ -3385,7 +3385,7 @@ pub const hint_wave_fact_chunk = C.SDL_HINT_WAVE_FACT_CHUNK // 'SDL_WAVE_FACT_CH
 // This hint should be set before calling SDL_LoadWAV() or SDL_LoadWAV_IO()
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_wave_chunk_limit = C.SDL_HINT_WAVE_CHUNK_LIMIT // 'SDL_WAVE_CHUNK_LIMIT'
+pub const hint_wave_chunk_limit = &char(C.SDL_HINT_WAVE_CHUNK_LIMIT) // 'SDL_WAVE_CHUNK_LIMIT'
 
 // A variable controlling how the size of the RIFF chunk affects the loading
 // of a WAVE file.
@@ -3411,7 +3411,7 @@ pub const hint_wave_chunk_limit = C.SDL_HINT_WAVE_CHUNK_LIMIT // 'SDL_WAVE_CHUNK
 // This hint should be set before calling SDL_LoadWAV() or SDL_LoadWAV_IO()
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_wave_riff_chunk_size = C.SDL_HINT_WAVE_RIFF_CHUNK_SIZE // 'SDL_WAVE_RIFF_CHUNK_SIZE'
+pub const hint_wave_riff_chunk_size = &char(C.SDL_HINT_WAVE_RIFF_CHUNK_SIZE) // 'SDL_WAVE_RIFF_CHUNK_SIZE'
 
 // A variable controlling how a truncated WAVE file is handled.
 //
@@ -3429,7 +3429,7 @@ pub const hint_wave_riff_chunk_size = C.SDL_HINT_WAVE_RIFF_CHUNK_SIZE // 'SDL_WA
 // This hint should be set before calling SDL_LoadWAV() or SDL_LoadWAV_IO()
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_wave_truncation = C.SDL_HINT_WAVE_TRUNCATION // 'SDL_WAVE_TRUNCATION'
+pub const hint_wave_truncation = &char(C.SDL_HINT_WAVE_TRUNCATION) // 'SDL_WAVE_TRUNCATION'
 
 // A variable controlling whether the window is activated when the
 // SDL_RaiseWindow function is called.
@@ -3444,7 +3444,7 @@ pub const hint_wave_truncation = C.SDL_HINT_WAVE_TRUNCATION // 'SDL_WAVE_TRUNCAT
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_window_activate_when_raised = C.SDL_HINT_WINDOW_ACTIVATE_WHEN_RAISED // 'SDL_WINDOW_ACTIVATE_WHEN_RAISED'
+pub const hint_window_activate_when_raised = &char(C.SDL_HINT_WINDOW_ACTIVATE_WHEN_RAISED) // 'SDL_WINDOW_ACTIVATE_WHEN_RAISED'
 
 // A variable controlling whether the window is activated when the
 // SDL_ShowWindow function is called.
@@ -3459,7 +3459,7 @@ pub const hint_window_activate_when_raised = C.SDL_HINT_WINDOW_ACTIVATE_WHEN_RAI
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_window_activate_when_shown = C.SDL_HINT_WINDOW_ACTIVATE_WHEN_SHOWN // 'SDL_WINDOW_ACTIVATE_WHEN_SHOWN'
+pub const hint_window_activate_when_shown = &char(C.SDL_HINT_WINDOW_ACTIVATE_WHEN_SHOWN) // 'SDL_WINDOW_ACTIVATE_WHEN_SHOWN'
 
 // If set to "0" then never set the top-most flag on an SDL Window even if the
 // application requests it.
@@ -3475,7 +3475,7 @@ pub const hint_window_activate_when_shown = C.SDL_HINT_WINDOW_ACTIVATE_WHEN_SHOW
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_window_allow_topmost = C.SDL_HINT_WINDOW_ALLOW_TOPMOST // 'SDL_WINDOW_ALLOW_TOPMOST'
+pub const hint_window_allow_topmost = &char(C.SDL_HINT_WINDOW_ALLOW_TOPMOST) // 'SDL_WINDOW_ALLOW_TOPMOST'
 
 // A variable controlling whether the window frame and title bar are
 // interactive when the cursor is hidden.
@@ -3489,7 +3489,7 @@ pub const hint_window_allow_topmost = C.SDL_HINT_WINDOW_ALLOW_TOPMOST // 'SDL_WI
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_window_frame_usable_while_cursor_hidden = C.SDL_HINT_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN // 'SDL_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN'
+pub const hint_window_frame_usable_while_cursor_hidden = &char(C.SDL_HINT_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN) // 'SDL_WINDOW_FRAME_USABLE_WHILE_CURSOR_HIDDEN'
 
 // A variable controlling whether SDL generates window-close events for Alt+F4
 // on Windows.
@@ -3503,7 +3503,7 @@ pub const hint_window_frame_usable_while_cursor_hidden = C.SDL_HINT_WINDOW_FRAME
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_windows_close_on_alt_f4 = C.SDL_HINT_WINDOWS_CLOSE_ON_ALT_F4 // 'SDL_WINDOWS_CLOSE_ON_ALT_F4'
+pub const hint_windows_close_on_alt_f4 = &char(C.SDL_HINT_WINDOWS_CLOSE_ON_ALT_F4) // 'SDL_WINDOWS_CLOSE_ON_ALT_F4'
 
 // A variable controlling whether menus can be opened with their keyboard
 // shortcut (Alt+mnemonic).
@@ -3530,7 +3530,7 @@ pub const hint_windows_close_on_alt_f4 = C.SDL_HINT_WINDOWS_CLOSE_ON_ALT_F4 // '
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_windows_enable_menu_mnemonics = C.SDL_HINT_WINDOWS_ENABLE_MENU_MNEMONICS // 'SDL_WINDOWS_ENABLE_MENU_MNEMONICS'
+pub const hint_windows_enable_menu_mnemonics = &char(C.SDL_HINT_WINDOWS_ENABLE_MENU_MNEMONICS) // 'SDL_WINDOWS_ENABLE_MENU_MNEMONICS'
 
 // A variable controlling whether the windows message loop is processed by
 // SDL.
@@ -3543,7 +3543,7 @@ pub const hint_windows_enable_menu_mnemonics = C.SDL_HINT_WINDOWS_ENABLE_MENU_MN
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_windows_enable_messageloop = C.SDL_HINT_WINDOWS_ENABLE_MESSAGELOOP // 'SDL_WINDOWS_ENABLE_MESSAGELOOP'
+pub const hint_windows_enable_messageloop = &char(C.SDL_HINT_WINDOWS_ENABLE_MESSAGELOOP) // 'SDL_WINDOWS_ENABLE_MESSAGELOOP'
 
 // A variable controlling whether GameInput is used for raw keyboard and mouse
 // on Windows.
@@ -3557,7 +3557,7 @@ pub const hint_windows_enable_messageloop = C.SDL_HINT_WINDOWS_ENABLE_MESSAGELOO
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_windows_gameinput = C.SDL_HINT_WINDOWS_GAMEINPUT // 'SDL_WINDOWS_GAMEINPUT'
+pub const hint_windows_gameinput = &char(C.SDL_HINT_WINDOWS_GAMEINPUT) // 'SDL_WINDOWS_GAMEINPUT'
 
 // A variable controlling whether raw keyboard events are used on Windows.
 //
@@ -3569,7 +3569,7 @@ pub const hint_windows_gameinput = C.SDL_HINT_WINDOWS_GAMEINPUT // 'SDL_WINDOWS_
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_windows_raw_keyboard = C.SDL_HINT_WINDOWS_RAW_KEYBOARD // 'SDL_WINDOWS_RAW_KEYBOARD'
+pub const hint_windows_raw_keyboard = &char(C.SDL_HINT_WINDOWS_RAW_KEYBOARD) // 'SDL_WINDOWS_RAW_KEYBOARD'
 
 // A variable controlling whether SDL uses Kernel Semaphores on Windows.
 //
@@ -3588,7 +3588,7 @@ pub const hint_windows_raw_keyboard = C.SDL_HINT_WINDOWS_RAW_KEYBOARD // 'SDL_WI
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_windows_force_semaphore_kernel = C.SDL_HINT_WINDOWS_FORCE_SEMAPHORE_KERNEL // 'SDL_WINDOWS_FORCE_SEMAPHORE_KERNEL'
+pub const hint_windows_force_semaphore_kernel = &char(C.SDL_HINT_WINDOWS_FORCE_SEMAPHORE_KERNEL) // 'SDL_WINDOWS_FORCE_SEMAPHORE_KERNEL'
 
 // A variable to specify custom icon resource id from RC file on Windows
 // platform.
@@ -3596,7 +3596,7 @@ pub const hint_windows_force_semaphore_kernel = C.SDL_HINT_WINDOWS_FORCE_SEMAPHO
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_windows_intresource_icon = C.SDL_HINT_WINDOWS_INTRESOURCE_ICON // 'SDL_WINDOWS_INTRESOURCE_ICON'
+pub const hint_windows_intresource_icon = &char(C.SDL_HINT_WINDOWS_INTRESOURCE_ICON) // 'SDL_WINDOWS_INTRESOURCE_ICON'
 
 // A variable to specify custom icon resource id from RC file on Windows
 // platform.
@@ -3604,7 +3604,7 @@ pub const hint_windows_intresource_icon = C.SDL_HINT_WINDOWS_INTRESOURCE_ICON //
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_windows_intresource_icon_small = C.SDL_HINT_WINDOWS_INTRESOURCE_ICON_SMALL // 'SDL_WINDOWS_INTRESOURCE_ICON_SMALL'
+pub const hint_windows_intresource_icon_small = &char(C.SDL_HINT_WINDOWS_INTRESOURCE_ICON_SMALL) // 'SDL_WINDOWS_INTRESOURCE_ICON_SMALL'
 
 // A variable controlling whether SDL uses the D3D9Ex API introduced in
 // Windows Vista, instead of normal D3D9.
@@ -3628,7 +3628,7 @@ pub const hint_windows_intresource_icon_small = C.SDL_HINT_WINDOWS_INTRESOURCE_I
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_windows_use_d3d9ex = C.SDL_HINT_WINDOWS_USE_D3D9EX // 'SDL_WINDOWS_USE_D3D9EX'
+pub const hint_windows_use_d3d9ex = &char(C.SDL_HINT_WINDOWS_USE_D3D9EX) // 'SDL_WINDOWS_USE_D3D9EX'
 
 // A variable controlling whether SDL will clear the window contents when the
 // WM_ERASEBKGND message is received.
@@ -3643,7 +3643,7 @@ pub const hint_windows_use_d3d9ex = C.SDL_HINT_WINDOWS_USE_D3D9EX // 'SDL_WINDOW
 // This hint should be set before creating a window.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_windows_erase_background_mode = C.SDL_HINT_WINDOWS_ERASE_BACKGROUND_MODE // 'SDL_WINDOWS_ERASE_BACKGROUND_MODE'
+pub const hint_windows_erase_background_mode = &char(C.SDL_HINT_WINDOWS_ERASE_BACKGROUND_MODE) // 'SDL_WINDOWS_ERASE_BACKGROUND_MODE'
 
 // A variable controlling whether X11 windows are marked as override-redirect.
 //
@@ -3662,7 +3662,7 @@ pub const hint_windows_erase_background_mode = C.SDL_HINT_WINDOWS_ERASE_BACKGROU
 // This hint should be set before creating a window.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_x11_force_override_redirect = C.SDL_HINT_X11_FORCE_OVERRIDE_REDIRECT // 'SDL_X11_FORCE_OVERRIDE_REDIRECT'
+pub const hint_x11_force_override_redirect = &char(C.SDL_HINT_X11_FORCE_OVERRIDE_REDIRECT) // 'SDL_X11_FORCE_OVERRIDE_REDIRECT'
 
 // A variable specifying the type of an X11 window.
 //
@@ -3677,7 +3677,7 @@ pub const hint_x11_force_override_redirect = C.SDL_HINT_X11_FORCE_OVERRIDE_REDIR
 // This hint should be set before creating a window.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_x11_window_type = C.SDL_HINT_X11_WINDOW_TYPE // 'SDL_X11_WINDOW_TYPE'
+pub const hint_x11_window_type = &char(C.SDL_HINT_X11_WINDOW_TYPE) // 'SDL_X11_WINDOW_TYPE'
 
 // Specify the XCB library to load for the X11 driver.
 //
@@ -3686,7 +3686,7 @@ pub const hint_x11_window_type = C.SDL_HINT_X11_WINDOW_TYPE // 'SDL_X11_WINDOW_T
 // This hint should be set before initializing the video subsystem.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_x11_xcb_library = C.SDL_HINT_X11_XCB_LIBRARY // 'SDL_X11_XCB_LIBRARY'
+pub const hint_x11_xcb_library = &char(C.SDL_HINT_X11_XCB_LIBRARY) // 'SDL_X11_XCB_LIBRARY'
 
 // A variable controlling whether XInput should be used for controller
 // handling.
@@ -3699,7 +3699,7 @@ pub const hint_x11_xcb_library = C.SDL_HINT_X11_XCB_LIBRARY // 'SDL_X11_XCB_LIBR
 // This hint should be set before SDL is initialized.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_xinput_enabled = C.SDL_HINT_XINPUT_ENABLED // 'SDL_XINPUT_ENABLED'
+pub const hint_xinput_enabled = &char(C.SDL_HINT_XINPUT_ENABLED) // 'SDL_XINPUT_ENABLED'
 
 // A variable controlling response to SDL_assert failures.
 //
@@ -3721,7 +3721,7 @@ pub const hint_xinput_enabled = C.SDL_HINT_XINPUT_ENABLED // 'SDL_XINPUT_ENABLED
 // changed at any time.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_assert = C.SDL_HINT_ASSERT // 'SDL_ASSERT'
+pub const hint_assert = &char(C.SDL_HINT_ASSERT) // 'SDL_ASSERT'
 
 // A variable controlling whether pen events should generate synthetic mouse
 // events.
@@ -3734,7 +3734,7 @@ pub const hint_assert = C.SDL_HINT_ASSERT // 'SDL_ASSERT'
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_pen_mouse_events = C.SDL_HINT_PEN_MOUSE_EVENTS // 'SDL_PEN_MOUSE_EVENTS'
+pub const hint_pen_mouse_events = &char(C.SDL_HINT_PEN_MOUSE_EVENTS) // 'SDL_PEN_MOUSE_EVENTS'
 
 // A variable controlling whether pen events should generate synthetic touch
 // events.
@@ -3747,7 +3747,7 @@ pub const hint_pen_mouse_events = C.SDL_HINT_PEN_MOUSE_EVENTS // 'SDL_PEN_MOUSE_
 // This hint can be set anytime.
 //
 // NOTE: This hint is available since SDL 3.2.0.
-pub const hint_pen_touch_events = C.SDL_HINT_PEN_TOUCH_EVENTS // 'SDL_PEN_TOUCH_EVENTS'
+pub const hint_pen_touch_events = &char(C.SDL_HINT_PEN_TOUCH_EVENTS) // 'SDL_PEN_TOUCH_EVENTS'
 
 // HintPriority is C.SDL_HintPriority
 pub enum HintPriority {
