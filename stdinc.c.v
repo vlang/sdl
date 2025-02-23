@@ -3,6 +3,8 @@
 // that can be found in the LICENSE file.
 module sdl
 
+import builtin.wchar
+
 //
 // SDL_stdinc.h
 //
@@ -1822,7 +1824,7 @@ pub fn memcmp(const_s1 voidptr, const_s2 voidptr, len usize) int {
 }
 
 // C.SDL_wcslen [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcslen)
-fn C.SDL_wcslen(const_wstr &WCharT) usize
+fn C.SDL_wcslen(const_wstr &wchar.Character) usize
 
 // wcslen this works exactly like wcslen() but doesn't require access to a C runtime.
 //
@@ -1847,12 +1849,12 @@ fn C.SDL_wcslen(const_wstr &WCharT) usize
 // See also: wcsnlen (SDL_wcsnlen)
 // See also: utf8strlen (SDL_utf8strlen)
 // See also: utf8strnlen (SDL_utf8strnlen)
-pub fn wcslen(const_wstr &WCharT) usize {
+pub fn wcslen(const_wstr &wchar.Character) usize {
 	return C.SDL_wcslen(const_wstr)
 }
 
 // C.SDL_wcsnlen [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcsnlen)
-fn C.SDL_wcsnlen(const_wstr &WCharT, maxlen usize) usize
+fn C.SDL_wcsnlen(const_wstr &wchar.Character, maxlen usize) usize
 
 // wcsnlen this works exactly like wcsnlen() but doesn't require access to a C
 // runtime.
@@ -1881,12 +1883,12 @@ fn C.SDL_wcsnlen(const_wstr &WCharT, maxlen usize) usize
 // See also: wcslen (SDL_wcslen)
 // See also: utf8strlen (SDL_utf8strlen)
 // See also: utf8strnlen (SDL_utf8strnlen)
-pub fn wcsnlen(const_wstr &WCharT, maxlen usize) usize {
+pub fn wcsnlen(const_wstr &wchar.Character, maxlen usize) usize {
 	return C.SDL_wcsnlen(const_wstr, maxlen)
 }
 
 // C.SDL_wcslcpy [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcslcpy)
-fn C.SDL_wcslcpy(dst &WCharT, const_src &WCharT, maxlen usize) usize
+fn C.SDL_wcslcpy(dst &wchar.Character, const_src &wchar.Character, maxlen usize) usize
 
 // wcslcpy copys a wide string.
 //
@@ -1911,12 +1913,12 @@ fn C.SDL_wcslcpy(dst &WCharT, const_src &WCharT, maxlen usize) usize
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: wcslcat (SDL_wcslcat)
-pub fn wcslcpy(dst &WCharT, const_src &WCharT, maxlen usize) usize {
+pub fn wcslcpy(dst &wchar.Character, const_src &wchar.Character, maxlen usize) usize {
 	return C.SDL_wcslcpy(dst, const_src, maxlen)
 }
 
 // C.SDL_wcslcat [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcslcat)
-fn C.SDL_wcslcat(dst &WCharT, const_src &WCharT, maxlen usize) usize
+fn C.SDL_wcslcat(dst &wchar.Character, const_src &wchar.Character, maxlen usize) usize
 
 // wcslcat concatenates wide strings.
 //
@@ -1944,12 +1946,12 @@ fn C.SDL_wcslcat(dst &WCharT, const_src &WCharT, maxlen usize) usize
 //
 // See also: wcslcpy (SDL_wcslcpy)
 //
-pub fn wcslcat(dst &WCharT, const_src &WCharT, maxlen usize) usize {
+pub fn wcslcat(dst &wchar.Character, const_src &wchar.Character, maxlen usize) usize {
 	return C.SDL_wcslcat(dst, const_src, maxlen)
 }
 
 // C.SDL_wcsdup [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcsdup)
-fn C.SDL_wcsdup(const_wstr &WCharT) &WCharT
+fn C.SDL_wcsdup(const_wstr &wchar.Character) &wchar.Character
 
 // wcsdup allocates a copy of a wide string.
 //
@@ -1965,12 +1967,12 @@ fn C.SDL_wcsdup(const_wstr &WCharT) &WCharT
 // NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn wcsdup(const_wstr &WCharT) &WCharT {
+pub fn wcsdup(const_wstr &wchar.Character) &wchar.Character {
 	return C.SDL_wcsdup(const_wstr)
 }
 
 // C.SDL_wcsstr [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcsstr)
-fn C.SDL_wcsstr(const_haystack &WCharT, const_needle &WCharT) &WCharT
+fn C.SDL_wcsstr(const_haystack &wchar.Character, const_needle &wchar.Character) &wchar.Character
 
 // wcsstr searchs a wide string for the first instance of a specific substring.
 //
@@ -1988,12 +1990,12 @@ fn C.SDL_wcsstr(const_haystack &WCharT, const_needle &WCharT) &WCharT
 // NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn wcsstr(const_haystack &WCharT, const_needle &WCharT) &WCharT {
+pub fn wcsstr(const_haystack &wchar.Character, const_needle &wchar.Character) &wchar.Character {
 	return C.SDL_wcsstr(const_haystack, const_needle)
 }
 
 // C.SDL_wcsnstr [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcsnstr)
-fn C.SDL_wcsnstr(const_haystack &WCharT, const_needle &WCharT, maxlen usize) &WCharT
+fn C.SDL_wcsnstr(const_haystack &wchar.Character, const_needle &wchar.Character, maxlen usize) &wchar.Character
 
 // wcsnstr searchs a wide string, up to n wide chars, for the first instance of a
 // specific substring.
@@ -2016,12 +2018,12 @@ fn C.SDL_wcsnstr(const_haystack &WCharT, const_needle &WCharT, maxlen usize) &WC
 // NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn wcsnstr(const_haystack &WCharT, const_needle &WCharT, maxlen usize) &WCharT {
+pub fn wcsnstr(const_haystack &wchar.Character, const_needle &wchar.Character, maxlen usize) &wchar.Character {
 	return C.SDL_wcsnstr(const_haystack, const_needle, maxlen)
 }
 
 // C.SDL_wcscmp [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcscmp)
-fn C.SDL_wcscmp(const_str1 &WCharT, const_str2 &WCharT) int
+fn C.SDL_wcscmp(const_str1 &wchar.Character, const_str2 &wchar.Character) int
 
 // wcscmp compares two null-terminated wide strings.
 //
@@ -2038,12 +2040,12 @@ fn C.SDL_wcscmp(const_str1 &WCharT, const_str2 &WCharT) int
 // NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn wcscmp(const_str1 &WCharT, const_str2 &WCharT) int {
+pub fn wcscmp(const_str1 &wchar.Character, const_str2 &wchar.Character) int {
 	return C.SDL_wcscmp(const_str1, const_str2)
 }
 
 // C.SDL_wcsncmp [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcsncmp)
-fn C.SDL_wcsncmp(const_str1 &WCharT, const_str2 &WCharT, maxlen usize) int
+fn C.SDL_wcsncmp(const_str1 &wchar.Character, const_str2 &wchar.Character, maxlen usize) int
 
 // wcsncmp compares two wide strings up to a number of wchar_t values.
 //
@@ -2072,12 +2074,12 @@ fn C.SDL_wcsncmp(const_str1 &WCharT, const_str2 &WCharT, maxlen usize) int
 // NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn wcsncmp(const_str1 &WCharT, const_str2 &WCharT, maxlen usize) int {
+pub fn wcsncmp(const_str1 &wchar.Character, const_str2 &wchar.Character, maxlen usize) int {
 	return C.SDL_wcsncmp(const_str1, const_str2, maxlen)
 }
 
 // C.SDL_wcscasecmp [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcscasecmp)
-fn C.SDL_wcscasecmp(const_str1 &WCharT, const_str2 &WCharT) int
+fn C.SDL_wcscasecmp(const_str1 &wchar.Character, const_str2 &wchar.Character) int
 
 // wcscasecmp compares two null-terminated wide strings, case-insensitively.
 //
@@ -2105,12 +2107,12 @@ fn C.SDL_wcscasecmp(const_str1 &WCharT, const_str2 &WCharT) int
 // NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn wcscasecmp(const_str1 &WCharT, const_str2 &WCharT) int {
+pub fn wcscasecmp(const_str1 &wchar.Character, const_str2 &wchar.Character) int {
 	return C.SDL_wcscasecmp(const_str1, const_str2)
 }
 
 // C.SDL_wcsncasecmp [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcsncasecmp)
-fn C.SDL_wcsncasecmp(const_str1 &WCharT, const_str2 &WCharT, maxlen usize) int
+fn C.SDL_wcsncasecmp(const_str1 &wchar.Character, const_str2 &wchar.Character, maxlen usize) int
 
 // wcsncasecmp compares two wide strings, case-insensitively, up to a number of wchar_t.
 //
@@ -2150,12 +2152,12 @@ fn C.SDL_wcsncasecmp(const_str1 &WCharT, const_str2 &WCharT, maxlen usize) int
 // NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn wcsncasecmp(const_str1 &WCharT, const_str2 &WCharT, maxlen usize) int {
+pub fn wcsncasecmp(const_str1 &wchar.Character, const_str2 &wchar.Character, maxlen usize) int {
 	return C.SDL_wcsncasecmp(const_str1, const_str2, maxlen)
 }
 
 // C.SDL_wcstol [official documentation](https://wiki.libsdl.org/SDL3/SDL_wcstol)
-fn C.SDL_wcstol(const_str &WCharT, endp &&WCharT, base int) int
+fn C.SDL_wcstol(const_str &wchar.Character, endp &&wchar.Character, base int) int
 
 // wcstol parses a `long` from a wide string.
 //
@@ -2180,7 +2182,7 @@ fn C.SDL_wcstol(const_str &WCharT, endp &&WCharT, base int) int
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: strtol (SDL_strtol)
-pub fn wcstol(const_str &WCharT, endp &&WCharT, base int) int {
+pub fn wcstol(const_str &wchar.Character, endp &&wchar.Character, base int) int {
 	return C.SDL_wcstol(const_str, endp, base)
 }
 
@@ -3476,7 +3478,7 @@ pub fn uc_s4_to_utf8(codepoint u32, dst &char) &char {
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
-// pub fn swprintf(text &WCharT, maxlen usize, const_fmt &WCharT, ...) int {}
+// pub fn swprintf(text &wchar.Character, maxlen usize, const_fmt &wchar.Character, ...) int {}
 
 // TODO: extern SDL_DECLSPEC int SDLCALL SDL_vsnprintf(SDL_OUT_Z_CAP(maxlen) char *text, size_t maxlen, SDL_PRINTF_FORMAT_STRING const char *fmt, va_list ap) SDL_PRINTF_VARARG_FUNCV(3);
 
@@ -3519,7 +3521,7 @@ pub fn uc_s4_to_utf8(codepoint u32, dst &char) &char {
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
-// pub fn vswprintf(text &WCharT, maxlen usize, const_fmt &WCharT, ap C.va_list) int {}
+// pub fn vswprintf(text &wchar.Character, maxlen usize, const_fmt &wchar.Character, ap C.va_list) int {}
 
 // TODO: extern SDL_DECLSPEC int SDLCALL SDL_asprintf(char **strp, SDL_PRINTF_FORMAT_STRING const char *fmt, ...) SDL_PRINTF_VARARG_FUNC(2);
 
