@@ -30,7 +30,7 @@ pub struct C.SDL_Sensor {
 
 pub type Sensor = C.SDL_Sensor
 
-pub const standard_gravity = C.SDL_STANDARD_GRAVITY // 9.80665f
+pub const standard_gravity = f32(C.SDL_STANDARD_GRAVITY) // 9.80665f
 
 // SensorType is C.SDL_SensorType
 pub enum SensorType {

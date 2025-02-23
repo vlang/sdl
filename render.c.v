@@ -34,7 +34,7 @@ module sdl
 // The name of the software renderer.
 //
 // NOTE: This macro is available since SDL 3.2.0.
-pub const software_renderer = C.SDL_SOFTWARE_RENDERER // 'software'
+pub const software_renderer = &char(C.SDL_SOFTWARE_RENDERER) // 'software'
 
 @[typedef]
 pub struct C.SDL_Vertex {
