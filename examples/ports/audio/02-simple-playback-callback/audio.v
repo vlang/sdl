@@ -51,12 +51,9 @@ pub fn app_init(appstate &&SDLApp, argc int, argv &&char) sdl.AppResult {
 	// Allocate / instantiate the state struct on the heap
 	// Hand it over to SDL so it can be retreived in the other App* callbacks
 	mut app := &SDLApp{}
-	defer {
-		unsafe {
-			*appstate = app
-		}
+	unsafe {
+		*appstate = app
 	}
-
 	sdl.set_app_metadata(c'Example Simple Audio Playback Callbacl', c'1.0', c'com.example.audio-simple-playback-callback')
 	if !sdl.init(sdl.init_video | sdl.init_audio) {
 		eprintln('Could not initialize SDL: ${sdl.get_error_v()}')
