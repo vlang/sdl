@@ -180,6 +180,13 @@ v run ~/.vmodules/sdl/examples/ports/template.v
 
 ### Browser (via emscripten SDK)
 
+> [!NOTE]  
+> If you do not have emscripten && SDL3 installed already, you can run
+> [install_latest_emsdk_and_sdl3.sh](install_latest_emsdk_and_sdl3.sh),
+> which will download both EMSDK and SDL3, in ~/code/emsdk and ~/code/SDL3-3.2.4/ ,
+> and then show you how to use them with V.
+> If you already do have EMSDK/emcc, or if you want to install them manually, read on.
+
 Install emscripten SDK and follow [SDL3's emscripten build instructions](https://wiki.libsdl.org/SDL3/README/emscripten).
 
 Install the SDL3 emscripten build from the `build` directory with:
