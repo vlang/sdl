@@ -22,21 +22,21 @@ module sdl
 // See also: compose_custom_blend_mode (SDL_ComposeCustomBlendMode)
 pub type BlendMode = u32
 
-pub const blendmode_none = C.SDL_BLENDMODE_NONE // 0x00000000u
+pub const blendmode_none = u32(C.SDL_BLENDMODE_NONE) // 0x00000000u, no blending: dstRGBA = srcRGBA
 
-pub const blendmode_blend = C.SDL_BLENDMODE_BLEND // 0x00000001u
+pub const blendmode_blend = u32(C.SDL_BLENDMODE_BLEND) // 0x00000001u, alpha blending: dstRGB = (srcRGB * srcA) + (dstRGB * (1-srcA)), dstA = srcA + (dstA * (1-srcA))
 
-pub const blendmode_blend_premultiplied = C.SDL_BLENDMODE_BLEND_PREMULTIPLIED // 0x00000010u
+pub const blendmode_blend_premultiplied = u32(C.SDL_BLENDMODE_BLEND_PREMULTIPLIED) // 0x00000010u, pre-multiplied alpha blending: dstRGBA = srcRGBA + (dstRGBA * (1-srcA))
 
-pub const blendmode_add = C.SDL_BLENDMODE_ADD // 0x00000002u
+pub const blendmode_add = u32(C.SDL_BLENDMODE_ADD) // 0x00000002u, additive blending: dstRGB = (srcRGB * srcA) + dstRGB, dstA = dstA
 
-pub const blendmode_add_premultiplied = C.SDL_BLENDMODE_ADD_PREMULTIPLIED // 0x00000020u
+pub const blendmode_add_premultiplied = u32(C.SDL_BLENDMODE_ADD_PREMULTIPLIED) // 0x00000020u, pre-multiplied additive blending: dstRGB = srcRGB + dstRGB, dstA = dstA
 
-pub const blendmode_mod = C.SDL_BLENDMODE_MOD // 0x00000004u
+pub const blendmode_mod = u32(C.SDL_BLENDMODE_MOD) // 0x00000004u, color modulate: dstRGB = srcRGB * dstRGB, dstA = dstA
 
-pub const blendmode_mul = C.SDL_BLENDMODE_MUL // 0x00000008u
+pub const blendmode_mul = u32(C.SDL_BLENDMODE_MUL) // 0x00000008u, color multiply: dstRGB = (srcRGB * dstRGB) + (dstRGB * (1-srcA)), dstA = dstA
 
-pub const blendmode_invalid = C.SDL_BLENDMODE_INVALID // 0x7FFFFFFFu
+pub const blendmode_invalid = u32(C.SDL_BLENDMODE_INVALID) // 0x7FFFFFFFu
 
 // BlendOperation is C.SDL_BlendOperation
 pub enum BlendOperation {
