@@ -72,7 +72,7 @@ pub fn app_init(appstate &&SDLApp, argc int, argv &&char) sdl.AppResult {
 	}
 	stream := sdl.open_audio_device_stream(sdl.audio_device_default_playback, &spec, feed_more,
 		app)
-	if stream == unsafe { C.NULL } {
+	if stream == sdl.null {
 		eprintln('Could not create audio stream: ${sdl.get_error_v()}')
 		return .failure
 	}
