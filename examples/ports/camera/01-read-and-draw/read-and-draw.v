@@ -34,6 +34,10 @@ mut:
 	renderer &sdl.Renderer = unsafe { nil }
 	camera   &sdl.Camera   = unsafe { nil }
 	texture  &sdl.Texture  = unsafe { nil }
+	//
+	iterations int
+	prev_now   f64
+	last_fps   string
 }
 
 // This function runs once at startup.
@@ -56,6 +60,7 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 		eprintln("Couldn't create window/renderer: ${error_msg}")
 		return .failure
 	}
+	sdl.set_render_v_sync(app.renderer, 1)
 
 	mut devcount := 0
 	devices := sdl.get_cameras(&devcount)
@@ -99,6 +104,8 @@ pub fn app_event(appstate voidptr, event &sdl.Event) sdl.AppResult {
 // This function runs once per frame, and is the heart of the program.
 pub fn app_iterate(appstate voidptr) sdl.AppResult {
 	mut app := unsafe { &SDLApp(appstate) }
+	app.iterations++
+	now := f64(sdl.get_ticks()) / 1000.0
 
 	timestamp_ns := u64(0)
 	frame := sdl.acquire_camera_frame(app.camera, &timestamp_ns)
@@ -124,6 +131,14 @@ pub fn app_iterate(appstate voidptr) sdl.AppResult {
 	if app.texture != sdl.null { // draw the latest camera frame, if available.
 		sdl.render_texture(app.renderer, app.texture, sdl.null, sdl.null)
 	}
+	if now - app.prev_now > 1.0 {
+		app.last_fps = 'FPS: ${app.iterations}/s, now: ${now:6.3f}s'
+		eprintln(app.last_fps)
+		app.prev_now = now
+		app.iterations = 0
+	}
+	sdl.set_render_draw_color(app.renderer, 0, 0, 0, sdl.alpha_opaque)
+	sdl.render_debug_text(app.renderer, 15, 15, app.last_fps.str)
 	sdl.render_present(app.renderer) // put it all on the screen!
 
 	return .continue // carry on with the program!

@@ -31,6 +31,10 @@ fn init() {
 struct SDLApp {
 	window   &sdl.Window   = unsafe { nil }
 	renderer &sdl.Renderer = unsafe { nil }
+mut:
+	iterations int
+	prev_now   f64
+	last_fps   string
 }
 
 // This function runs once at startup.
@@ -63,6 +67,7 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 		eprintln("Couldn't create window/renderer: ${error_msg}")
 		return .failure
 	}
+	sdl.set_render_v_sync(app.renderer, 1)
 	//     return SDL_APP_CONTINUE;  /* carry on with the program! */
 	return .continue
 }
@@ -93,6 +98,7 @@ pub fn app_event(appstate voidptr, event &sdl.Event) sdl.AppResult {
 // SDL_AppResult SDL_AppIterate(void *appstate)
 pub fn app_iterate(appstate voidptr) sdl.AppResult {
 	mut app := unsafe { &SDLApp(appstate) } // Retreive the state struct we initialized in `app_init`.
+	app.iterations++
 
 	//     const double now = ((double)SDL_GetTicks()) / 1000.0;  /* convert from milliseconds to seconds. */
 	now := f64(sdl.get_ticks()) / 1000.0
@@ -110,6 +116,15 @@ pub fn app_iterate(appstate voidptr) sdl.AppResult {
 	sdl.render_clear(app.renderer)
 	//     /* put the newly-cleared rendering on the screen. */
 	//     SDL_RenderPresent(renderer);
+
+	if now - app.prev_now > 1.0 {
+		app.last_fps = 'FPS: ${app.iterations}/s, now: ${now:6.3f}s'
+		eprintln(app.last_fps)
+		app.prev_now = now
+		app.iterations = 0
+	}
+	sdl.set_render_draw_color(app.renderer, 0, 0, 0, sdl.alpha_opaque)
+	sdl.render_debug_text(app.renderer, 15, 15, app.last_fps.str)
 	sdl.render_present(app.renderer)
 	//
 	//     return SDL_APP_CONTINUE;  /* carry on with the program! */
