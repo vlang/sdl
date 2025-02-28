@@ -17,6 +17,11 @@ fn main() {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		panic('Could not create SDL window and renderer. SDL error:\n${error_msg}')
 	}
+	// SDL does not enable vertical monitor refresh-rate sync per default. To keep CPU usage low we add it, if possible.
+	if !sdl.set_render_v_sync(app.renderer, 1) {
+		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
+		eprintln('notice: SDL could not enable vsync for the renderer:\n${error_msg}\nSee also docs for `set_render_v_sync`.')
+	}
 
 	mut should_close := false
 	for {

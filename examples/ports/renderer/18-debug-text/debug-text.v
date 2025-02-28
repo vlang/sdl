@@ -50,6 +50,12 @@ pub fn app_init(appstate &voidptr, argc int, argv &&char) sdl.AppResult {
 		eprintln("Couldn't create window/renderer: ${error_msg}")
 		return .failure
 	}
+	// SDL does not enable vertical monitor refresh-rate sync per default. To keep CPU usage low we add it, if possible.
+	// NOTE: this is not part of the original example.
+	if !sdl.set_render_v_sync(app.renderer, 1) {
+		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
+		eprintln('notice: SDL could not enable vsync for the renderer:\n${error_msg}\nSee also docs for `set_render_v_sync`.')
+	}
 
 	return .continue // carry on with the program!
 }

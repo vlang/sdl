@@ -54,7 +54,7 @@ pub fn app_init(appstate &&SDLApp, argc int, argv &&char) sdl.AppResult {
 	unsafe {
 		*appstate = app
 	}
-	sdl.set_app_metadata(c'Example Simple Audio Playback Callbacl', c'1.0', c'com.example.audio-simple-playback-callback')
+	sdl.set_app_metadata(c'Example Simple Audio Playback Callback', c'1.0', c'com.example.audio-simple-playback-callback')
 	if !sdl.init(sdl.init_video | sdl.init_audio) {
 		eprintln('Could not initialize SDL: ${sdl.get_error_v()}')
 		return .failure
@@ -65,6 +65,13 @@ pub fn app_init(appstate &&SDLApp, argc int, argv &&char) sdl.AppResult {
 		eprintln('Could not create window/renderer: ${sdl.get_error_v()}')
 		return .failure
 	}
+	// SDL does not enable vertical monitor refresh-rate sync per default. To keep CPU usage low we add it, if possible.
+	// NOTE: this is not part of the original example.
+	if !sdl.set_render_v_sync(app.renderer, 1) {
+		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
+		eprintln('notice: SDL could not enable vsync for the renderer:\n${error_msg}\nSee also docs for `set_render_v_sync`.')
+	}
+
 	spec := sdl.AudioSpec{
 		channels: 1
 		format:   ._f32_1
