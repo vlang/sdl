@@ -143,6 +143,10 @@ fn main() {
 		if should_close {
 			break
 		}
+		// To ease CPU usage on the main thread we sleep a little in the "hot" loop.
+		// In a useful application this should be removed in favor of enabling vsync
+		// on the application presenting renderer or by other means.
+		sdl.delay(250)
 	}
 
 	println('Files selected (after blocking, out of callback): ${app.selected_files}')
