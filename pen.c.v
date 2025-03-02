@@ -31,29 +31,42 @@ module sdl
 // NOTE: This datatype is available since SDL 3.2.0.
 pub type PenID = u32
 
+pub const pen_mouseid = u32(C.SDL_PEN_MOUSEID) // ((SDL_MouseID)-2)
+
+pub const pen_touchid = u32(C.SDL_PEN_TOUCHID) // ((SDL_TouchID)-2)
+
 // Pen input flags, as reported by various pen events' `pen_state` field.
 //
 // NOTE: This datatype is available since SDL 3.2.0.
 pub type PenInputFlags = u32
 
-pub const pen_mouseid = C.SDL_PEN_MOUSEID // ((SDL_MouseID)-2)
+pub const pen_input_down = u32(C.SDL_PEN_INPUT_DOWN) // (1u << 0)
 
-pub const pen_touchid = C.SDL_PEN_TOUCHID // ((SDL_TouchID)-2)
+pub const pen_input_button_1 = u32(C.SDL_PEN_INPUT_BUTTON_1) // (1u << 1)
 
-pub const pen_input_down = C.SDL_PEN_INPUT_DOWN // (1u << 0)
+pub const pen_input_button_2 = u32(C.SDL_PEN_INPUT_BUTTON_2) // (1u << 2)
 
-pub const pen_input_button_1 = C.SDL_PEN_INPUT_BUTTON_1 // (1u << 1)
+pub const pen_input_button_3 = u32(C.SDL_PEN_INPUT_BUTTON_3) // (1u << 3)
 
-pub const pen_input_button_2 = C.SDL_PEN_INPUT_BUTTON_2 // (1u << 2)
+pub const pen_input_button_4 = u32(C.SDL_PEN_INPUT_BUTTON_4) // (1u << 4)
 
-pub const pen_input_button_3 = C.SDL_PEN_INPUT_BUTTON_3 // (1u << 3)
+pub const pen_input_button_5 = u32(C.SDL_PEN_INPUT_BUTTON_5) // (1u << 5)
 
-pub const pen_input_button_4 = C.SDL_PEN_INPUT_BUTTON_4 // (1u << 4)
+pub const pen_input_eraser_tip = u32(C.SDL_PEN_INPUT_ERASER_TIP) // (1u << 30)
 
-pub const pen_input_button_5 = C.SDL_PEN_INPUT_BUTTON_5 // (1u << 5)
-
-pub const pen_input_eraser_tip = C.SDL_PEN_INPUT_ERASER_TIP // (1u << 30)
-
+// Pen axis indices.
+//
+// These are the valid values for the `axis` field in SDL_PenAxisEvent. All
+// axes are either normalised to 0..1 or report a (positive or negative) angle
+// in degrees, with 0.0 representing the centre. Not all pens/backends support
+// all axes: unsupported axes are always zero.
+//
+// To convert angles for tilt and rotation into vector representation, use
+// SDL_sinf on the XTILT, YTILT, or ROTATION component, for example:
+//
+// `SDL_sinf(xtilt * SDL_PI_F / 180.0)`.
+//
+// NOTE: This enum is available since SDL 3.2.0.
 // PenAxis is C.SDL_PenAxis
 pub enum PenAxis {
 	pressure            = C.SDL_PEN_AXIS_PRESSURE            // `pressure` Pen pressure.Unidirectional: 0 to 1.0
