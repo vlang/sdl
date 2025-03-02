@@ -172,14 +172,6 @@ pub fn memory_barrier_acquire_function() {
 
 // TODO: Function: #define SDL_MemoryBarrierAcquire() SDL_MemoryBarrierAcquireFunction()
 
-// TODO: pub const memorybarrierrelease() = __asm__ __volatile__ ('lwsync' : : : 'memory')
-
-// TODO: pub const memorybarrieracquire() = __asm__ __volatile__ ('lwsync' : : : 'memory')
-
-// TODO: pub const memorybarrierrelease() = __asm__ __volatile__ ('dmb ish' : : : 'memory')
-
-// TODO: pub const memorybarrieracquire() = __asm__ __volatile__ ('dmb ish' : : : 'memory')
-
 // KernelMemoryBarrierFunc informations from:
 //
 //   The Linux kernel provides a helper function which provides the right code for a memory barrier,
@@ -187,43 +179,40 @@ pub fn memory_barrier_acquire_function() {
 // [Official documentation](https://wiki.libsdl.org/SDL3/SDL_KernelMemoryBarrierFunc)
 pub type KernelMemoryBarrierFunc = fn ()
 
-// TODO: Function: #define SDL_MemoryBarrierRelease()  ((SDL_KernelMemoryBarrierFunc)0xffff0fa0)()
-
-// TODO: Function: #define SDL_MemoryBarrierAcquire()  ((SDL_KernelMemoryBarrierFunc)0xffff0fa0)()
-
-// TODO: pub const memorybarrierrelease() = __asm__ __volatile__ ('dmb ish' : : : 'memory')
-
-// TODO: pub const memorybarrieracquire() = __asm__ __volatile__ ('dmb ish' : : : 'memory')
-
 // TODO: Non-numerical: #define SDL_MEMORY_BARRIER_USES_FUNCTION
-
-// TODO: Function: #define SDL_MemoryBarrierRelease()   SDL_MemoryBarrierReleaseFunction()
-
-// TODO: Function: #define SDL_MemoryBarrierAcquire()   SDL_MemoryBarrierAcquireFunction()
-
-// The mcr instruction isn't available in thumb mode, use real functions
-// TODO: pub const memorybarrierrelease() = __asm__ __volatile__ ('mcr p15, 0, %0, c7, c10, 5' : : 'r'(0) : 'memory')
-
-// TODO: pub const memorybarrieracquire() = __asm__ __volatile__ ('mcr p15, 0, %0, c7, c10, 5' : : 'r'(0) : 'memory')
-
-// __thumb__
-// TODO: pub const memorybarrierrelease() = __asm__ __volatile__ ('' : : : 'memory')
-
-// TODO: pub const memorybarrieracquire() = __asm__ __volatile__ ('' : : : 'memory')
-
-// TODO: Function: #define SDL_MemoryBarrierRelease()  __machine_rel_barrier()
-
-// TODO: Function: #define SDL_MemoryBarrierAcquire()  __machine_acq_barrier()
-
-// TODO: Function: #define SDL_MemoryBarrierRelease()  SDL_CompilerBarrier()
-
-// TODO: Function: #define SDL_MemoryBarrierAcquire()  SDL_CompilerBarrier()
 
 // TODO: Non-numerical: #define SDL_CPUPauseInstruction() DoACPUPauseInACompilerAndArchitectureSpecificWay
 
 @[typedef]
-pub struct C.SDL_AtomicInt {}
+pub struct C.SDL_AtomicInt {
+	value int
+}
 
+// A type representing an atomic integer value.
+//
+// This can be used to manage a value that is synchronized across multiple
+// CPUs without a race condition; when an app sets a value with
+// SDL_SetAtomicInt all other threads, regardless of the CPU it is running on,
+// will see that value when retrieved with SDL_GetAtomicInt, regardless of CPU
+// caches, etc.
+//
+// This is also useful for atomic compare-and-swap operations: a thread can
+// change the value as long as its current value matches expectations. When
+// done in a loop, one can guarantee data consistency across threads without a
+// lock (but the usual warnings apply: if you don't know what you're doing, or
+// you don't do it carefully, you can confidently cause any number of
+// disasters with this, so in most cases, you _should_ use a mutex instead of
+// this!).
+//
+// This is a struct so people don't accidentally use numeric operations on it
+// directly. You have to use SDL atomic functions.
+//
+// NOTE: This struct is available since SDL 3.2.0.
+//
+// See also: compare_and_swap_atomic_int (SDL_CompareAndSwapAtomicInt)
+// See also: get_atomic_int (SDL_GetAtomicInt)
+// See also: set_atomic_int (SDL_SetAtomicInt)
+// See also: add_atomic_int (SDL_AddAtomicInt)
 pub type AtomicInt = C.SDL_AtomicInt
 
 // C.SDL_CompareAndSwapAtomicInt [official documentation](https://wiki.libsdl.org/SDL3/SDL_CompareAndSwapAtomicInt)
