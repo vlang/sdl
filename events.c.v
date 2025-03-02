@@ -70,7 +70,7 @@ pub enum EventType {
 	display_desktop_mode_changed  = C.SDL_EVENT_DISPLAY_DESKTOP_MODE_CHANGED  // `display_desktop_mode_changed` Display has changed desktop mode
 	display_current_mode_changed  = C.SDL_EVENT_DISPLAY_CURRENT_MODE_CHANGED  // `display_current_mode_changed` Display has changed current mode
 	display_content_scale_changed = C.SDL_EVENT_DISPLAY_CONTENT_SCALE_CHANGED // `display_content_scale_changed` Display has changed content scale
-	// TODO: these triggers C compile error: `error: duplicate case value`
+	// TODO: these trigger C compile errors: `error: duplicate case value`
 	// display_first                 = C.SDL_EVENT_DISPLAY_FIRST                 // SDL_EVENT_DISPLAY_ORIENTATION,
 	// display_last                  = C.SDL_EVENT_DISPLAY_LAST                  // SDL_EVENT_DISPLAY_CONTENT_SCALE_CHANGED,
 	window_shown                 = C.SDL_EVENT_WINDOW_SHOWN                 // 0x202, Window has been shown
@@ -101,7 +101,7 @@ pub enum EventType {
 	// associated with the window. Otherwise, the handle has already been destroyed and all resources
 	// associated with it are invalid
 	window_hdr_state_changed = C.SDL_EVENT_WINDOW_HDR_STATE_CHANGED // `window_hdr_state_changed` Window HDR properties have changed
-	// TODO: these triggers C compile error: `error: duplicate case value`
+	// TODO: these trigger C compile errors: `error: duplicate case value`
 	// window_first             = C.SDL_EVENT_WINDOW_FIRST             // SDL_EVENT_WINDOW_SHOWN,
 	// window_last              = C.SDL_EVENT_WINDOW_LAST              // SDL_EVENT_WINDOW_HDR_STATE_CHANGED,
 	key_down       = C.SDL_EVENT_KEY_DOWN       // 0x300, Key pressed
