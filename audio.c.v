@@ -1915,7 +1915,6 @@ fn C.SDL_LoadWAV_IO(src &IOStream, closeio bool, spec &AudioSpec, audio_buf &&u8
 // It is required that the data source supports seeking.
 //
 // Example:
-//
 // ```c
 // SDL_LoadWAV_IO(SDL_IOFromFile("sample.wav", "rb"), true, &spec, &buf, &len);
 // ```
