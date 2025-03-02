@@ -402,9 +402,14 @@ pub mut:
 	timestamp u64        // In nanoseconds, populated using SDL_GetTicksNS()
 	which     JoystickID // The joystick instance id
 	hat       u8         // The joystick hat index
-	value     u8         // The hat position value. * \sa SDL_HAT_LEFTUP SDL_HAT_UP SDL_HAT_RIGHTUP * \sa SDL_HAT_LEFT SDL_HAT_CENTERED SDL_HAT_RIGHT * \sa SDL_HAT_LEFTDOWN SDL_HAT_DOWN SDL_HAT_RIGHTDOWN * * Note that zero means the POV is centered.
-	padding1  u8
-	padding2  u8
+	value     u8         // The hat position value.
+	// See also: SDL_HAT_LEFTUP SDL_HAT_UP SDL_HAT_RIGHTUP
+	// See also: SDL_HAT_LEFT SDL_HAT_CENTERED SDL_HAT_RIGHT
+	// See also: SDL_HAT_LEFTDOWN SDL_HAT_DOWN SDL_HAT_RIGHTDOWN
+	//
+	// Note that zero means the POV is centered.
+	padding1 u8
+	padding2 u8
 }
 
 pub type JoyHatEvent = C.SDL_JoyHatEvent
