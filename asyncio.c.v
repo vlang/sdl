@@ -87,8 +87,19 @@ pub struct C.SDL_AsyncIO {
 	// NOTE: Opaque type
 }
 
+// The asynchronous I/O operation structure.
+//
+// This operates as an opaque handle. One can then request read or write
+// operations on it.
+//
+// NOTE: This struct is available since SDL 3.2.0.
+//
+// See also: SDL_AsyncIOFromFile
 pub type AsyncIO = C.SDL_AsyncIO
 
+// Types of asynchronous I/O tasks.
+//
+// NOTE: This enum is available since SDL 3.2.0.
 // AsyncIOTaskType is C.SDL_AsyncIOTaskType
 pub enum AsyncIOTaskType {
 	read  = C.SDL_ASYNCIO_TASK_READ  // `read` A read operation.
@@ -96,6 +107,9 @@ pub enum AsyncIOTaskType {
 	close = C.SDL_ASYNCIO_TASK_CLOSE // `close` A close operation.
 }
 
+// Possible outcomes of an asynchronous I/O task.
+//
+// NOTE: This enum is available since SDL 3.2.0.
 // AsyncIOResult is C.SDL_AsyncIOResult
 pub enum AsyncIOResult {
 	complete = C.SDL_ASYNCIO_COMPLETE // `complete` request was completed without error
@@ -116,6 +130,9 @@ pub mut:
 	userdata          voidptr         // pointer provided by the app when starting the task
 }
 
+// Information about a completed asynchronous I/O request.
+//
+// NOTE: This struct is available since SDL 3.2.0.
 pub type AsyncIOOutcome = C.SDL_AsyncIOOutcome
 
 @[noinit; typedef]
@@ -123,6 +140,19 @@ pub struct C.SDL_AsyncIOQueue {
 	// NOTE: Opaque type
 }
 
+// A queue of completed asynchronous I/O tasks.
+//
+// When starting an asynchronous operation, you specify a queue for the new
+// task. A queue can be asked later if any tasks in it have completed,
+// allowing an app to manage multiple pending tasks in one place, in whatever
+// order they complete.
+//
+// NOTE: This struct is available since SDL 3.2.0.
+//
+// See also: SDL_CreateAsyncIOQueue
+// See also: SDL_ReadAsyncIO
+// See also: SDL_WriteAsyncIO
+// See also: SDL_GetAsyncIOResult
 pub type AsyncIOQueue = C.SDL_AsyncIOQueue
 
 // C.SDL_AsyncIOFromFile [official documentation](https://wiki.libsdl.org/SDL3/SDL_AsyncIOFromFile)
