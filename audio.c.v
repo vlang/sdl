@@ -116,16 +116,49 @@ module sdl
 // NOTE: This datatype is available since SDL 3.2.0.
 pub type AudioDeviceID = u32
 
+// Mask of bits in an SDL_AudioFormat that contains the format bit size.
+//
+// Generally one should use SDL_AUDIO_BITSIZE instead of this macro directly.
+//
+// NOTE: This macro is available since SDL 3.2.0.
 pub const audio_mask_bitsize = C.SDL_AUDIO_MASK_BITSIZE // (0xFFu)
 
+// Mask of bits in an SDL_AudioFormat that contain the floating point flag.
+//
+// Generally one should use SDL_AUDIO_ISFLOAT instead of this macro directly.
+//
+// NOTE: This macro is available since SDL 3.2.0.
 pub const audio_mask_float = C.SDL_AUDIO_MASK_FLOAT // (1u<<8)
 
+// Mask of bits in an SDL_AudioFormat that contain the bigendian flag.
+//
+// Generally one should use SDL_AUDIO_ISBIGENDIAN or SDL_AUDIO_ISLITTLEENDIAN
+// instead of this macro directly.
+//
+// NOTE: This macro is available since SDL 3.2.0.
 pub const audio_mask_big_endian = C.SDL_AUDIO_MASK_BIG_ENDIAN // (1u<<12)
 
+// Mask of bits in an SDL_AudioFormat that contain the signed data flag.
+//
+// Generally one should use SDL_AUDIO_ISSIGNED instead of this macro directly.
+//
+// NOTE: This macro is available since SDL 3.2.0.
 pub const audio_mask_signed = C.SDL_AUDIO_MASK_SIGNED // (1u<<15)
 
 // TODO: Non-numerical: #define SDL_DEFINE_AUDIO_FORMAT(signed, bigendian, flt, size) \
 
+// Audio format.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
+// See also: SDL_AUDIO_BITSIZE
+// See also: SDL_AUDIO_BYTESIZE
+// See also: SDL_AUDIO_ISINT
+// See also: SDL_AUDIO_ISFLOAT
+// See also: SDL_AUDIO_ISBIGENDIAN
+// See also: SDL_AUDIO_ISLITTLEENDIAN
+// See also: SDL_AUDIO_ISSIGNED
+// See also: SDL_AUDIO_ISUNSIGNED
 // AudioFormat is C.SDL_AudioFormat
 pub enum AudioFormat {
 	unknown = C.SDL_AUDIO_UNKNOWN // 0x0000u, Unspecified audio format
@@ -146,49 +179,152 @@ pub enum AudioFormat {
 }
 
 fn C.SDL_AUDIO_BITSIZE(x int) int
+
+// Retrieve the size, in bits, from an SDL_AudioFormat.
+//
+// For example, `SDL_AUDIO_BITSIZE(SDL_AUDIO_S16)` returns 16.
+//
+// `x` an SDL_AudioFormat value.
+// returns data size in bits.
+//
+// NOTE: (thread safety) It is safe to call this macro from any thread.
+//
+// NOTE: This macro is available since SDL 3.2.0.
 pub fn audio_bitsize(x int) int {
 	return C.SDL_AUDIO_BITSIZE(x)
 }
 
 fn C.SDL_AUDIO_BYTESIZE(x int) int
+
+// Retrieve the size, in bytes, from an SDL_AudioFormat.
+//
+// For example, `SDL_AUDIO_BYTESIZE(SDL_AUDIO_S16)` returns 2.
+//
+// `x` an SDL_AudioFormat value.
+// returns data size in bytes.
+//
+// NOTE: (thread safety) It is safe to call this macro from any thread.
+//
+// NOTE: This macro is available since SDL 3.2.0.
 pub fn audio_bytesize(x int) int {
 	return C.SDL_AUDIO_BYTESIZE(x)
 }
 
 fn C.SDL_AUDIO_ISFLOAT(x int) bool
+
+// Determine if an SDL_AudioFormat represents floating point data.
+//
+// For example, `SDL_AUDIO_ISFLOAT(SDL_AUDIO_S16)` returns 0.
+//
+// `x` an SDL_AudioFormat value.
+// returns non-zero if format is floating point, zero otherwise.
+//
+// NOTE: (thread safety) It is safe to call this macro from any thread.
+//
+// NOTE: This macro is available since SDL 3.2.0.
 pub fn audio_isfloat(x int) bool {
 	return C.SDL_AUDIO_ISFLOAT(x)
 }
 
 fn C.SDL_AUDIO_ISBIGENDIAN(x int) bool
+
+// Determine if an SDL_AudioFormat represents bigendian data.
+//
+// For example, `SDL_AUDIO_ISBIGENDIAN(SDL_AUDIO_S16LE)` returns 0.
+//
+// `x` an SDL_AudioFormat value.
+// returns non-zero if format is bigendian, zero otherwise.
+//
+// NOTE: (thread safety) It is safe to call this macro from any thread.
+//
+// NOTE: This macro is available since SDL 3.2.0.
 pub fn audio_isbigendian(x int) bool {
 	return C.SDL_AUDIO_ISBIGENDIAN(x)
 }
 
 fn C.SDL_AUDIO_ISLITTLEENDIAN(x int) bool
+
+// Determine if an SDL_AudioFormat represents littleendian data.
+//
+// For example, `SDL_AUDIO_ISLITTLEENDIAN(SDL_AUDIO_S16BE)` returns 0.
+//
+// `x` an SDL_AudioFormat value.
+// returns non-zero if format is littleendian, zero otherwise.
+//
+// NOTE: (thread safety) It is safe to call this macro from any thread.
+//
+// NOTE: This macro is available since SDL 3.2.0.
 pub fn audio_islittleendian(x int) bool {
 	return C.SDL_AUDIO_ISLITTLEENDIAN(x)
 }
 
 fn C.SDL_AUDIO_ISSIGNED(x int) bool
+
+// Determine if an SDL_AudioFormat represents signed data.
+//
+// For example, `SDL_AUDIO_ISSIGNED(SDL_AUDIO_U8)` returns 0.
+//
+// `x` an SDL_AudioFormat value.
+// returns non-zero if format is signed, zero otherwise.
+//
+// NOTE: (thread safety) It is safe to call this macro from any thread.
+//
+// NOTE: This macro is available since SDL 3.2.0.
 pub fn audio_issigned(x int) bool {
 	return C.SDL_AUDIO_ISSIGNED(x)
 }
 
 fn C.SDL_AUDIO_ISINT(x int) bool
+
+// Determine if an SDL_AudioFormat represents integer data.
+//
+// For example, `SDL_AUDIO_ISINT(SDL_AUDIO_F32)` returns 0.
+//
+// `x` an SDL_AudioFormat value.
+// returns non-zero if format is integer, zero otherwise.
+//
+// NOTE: (thread safety) It is safe to call this macro from any thread.
+//
+// NOTE: This macro is available since SDL 3.2.0.
 pub fn audio_isint(x int) bool {
 	return C.SDL_AUDIO_ISINT(x)
 }
 
 fn C.SDL_AUDIO_ISUNSIGNED(x int) bool
+
+// Determine if an SDL_AudioFormat represents unsigned data.
+//
+// For example, `SDL_AUDIO_ISUNSIGNED(SDL_AUDIO_S16)` returns 0.
+//
+// `x` an SDL_AudioFormat value.
+// returns non-zero if format is unsigned, zero otherwise.
+//
+// NOTE: (thread safety) It is safe to call this macro from any thread.
+//
+// NOTE: This macro is available since SDL 3.2.0.
 pub fn audio_isunsigned(x int) bool {
 	return C.SDL_AUDIO_ISUNSIGNED(x)
 }
 
-pub const audio_device_default_playback = C.SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK // ((SDL_AudioDeviceID) 0xFFFFFFFFu)
+// A value used to request a default playback audio device.
+//
+// Several functions that require an SDL_AudioDeviceID will accept this value
+// to signify the app just wants the system to choose a default device instead
+// of the app providing a specific one.
+//
+// NOTE: This macro is available since SDL 3.2.0.
+pub const audio_device_default_playback = u32(C.SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK) // ((SDL_AudioDeviceID) 0xFFFFFFFFu)
 
-pub const audio_device_default_recording = C.SDL_AUDIO_DEVICE_DEFAULT_RECORDING // ((SDL_AudioDeviceID) 0xFFFFFFFEu)
+// A value used to request a default recording audio device.
+//
+// Several functions that require an SDL_AudioDeviceID will accept this value
+// to signify the app just wants the system to choose a default device instead
+// of the app providing a specific one.
+//
+// NOTE: This macro is available since SDL 3.2.0.
+pub const audio_device_default_recording = u32(C.SDL_AUDIO_DEVICE_DEFAULT_RECORDING) // ((SDL_AudioDeviceID) 0xFFFFFFFEu)
 
+// C.SDL_AudioSpec [official documentation](https://wiki.libsdl.org/SDL3/SDL_AudioSpec)
 @[typedef]
 pub struct C.SDL_AudioSpec {
 pub mut:
@@ -197,15 +333,59 @@ pub mut:
 	freq     int         // sample rate: sample frames per second
 }
 
+// Format specifier for audio data.
+//
+// NOTE: This struct is available since SDL 3.2.0.
+//
+// See also: audio_format SDL_AudioFormat
 pub type AudioSpec = C.SDL_AudioSpec
 
-// TODO: Function: #define SDL_AUDIO_FRAMESIZE(x) (SDL_AUDIO_BYTESIZE((x).format) * (x).channels)
+// C.SDL_AUDIO_FRAMESIZE [official documentation](https://wiki.libsdl.org/SDL3/SDL_AUDIO_FRAMESIZE)
+fn C.SDL_AUDIO_FRAMESIZE(x AudioSpec) int
 
+// Calculate the size of each audio frame (in bytes) from an SDL_AudioSpec.
+//
+// This reports on the size of an audio sample frame: stereo Sint16 data (2
+// channels of 2 bytes each) would be 4 bytes per frame, for example.
+//
+// `x` an SDL_AudioSpec to query.
+// returns the number of bytes used per sample frame.
+//
+// NOTE: (thread safety) It is safe to call this macro from any thread.
+//
+// NOTE: This macro is available since SDL 3.2.0.
+pub fn audio_framesize(x AudioSpec) int {
+	return C.SDL_AUDIO_FRAMESIZE(x)
+}
+
+// C.SDL_AudioStream [official documentation](https://wiki.libsdl.org/SDL3/SDL_AudioStream)
 @[noinit; typedef]
 pub struct C.SDL_AudioStream {
 	// NOTE: Opaque type
 }
 
+// The opaque handle that represents an audio stream.
+//
+// SDL_AudioStream is an audio conversion interface.
+//
+// - It can handle resampling data in chunks without generating artifacts,
+//   when it doesn't have the complete buffer available.
+// - It can handle incoming data in any variable size.
+// - It can handle input/output format changes on the fly.
+// - It can remap audio channels between inputs and outputs.
+// - You push data as you have it, and pull it when you need it
+// - It can also function as a basic audio data queue even if you just have
+//   sound that needs to pass from one place to another.
+// - You can hook callbacks up to them when more data is added or requested,
+//   to manage data on-the-fly.
+//
+// Audio streams are the core of the SDL3 audio interface. You create one or
+// more of them, bind them to an opened audio device, and feed data to them
+// (or for recording, consume data from them).
+//
+// NOTE: This struct is available since SDL 3.2.0.
+//
+// See also: SDL_CreateAudioStream
 pub type AudioStream = C.SDL_AudioStream
 
 // C.SDL_GetNumAudioDrivers [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetNumAudioDrivers)
