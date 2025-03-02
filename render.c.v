@@ -36,6 +36,9 @@ module sdl
 // NOTE: This macro is available since SDL 3.2.0.
 pub const software_renderer = &char(C.SDL_SOFTWARE_RENDERER) // 'software'
 
+// Vertex structure.
+//
+// NOTE: This struct is available since SDL 3.2.0.
 @[typedef]
 pub struct C.SDL_Vertex {
 pub mut:
@@ -46,6 +49,9 @@ pub mut:
 
 pub type Vertex = C.SDL_Vertex
 
+// The access pattern allowed for a texture.
+//
+// NOTE: This enum is available since SDL 3.2.0.
 // TextureAccess is C.SDL_TextureAccess
 pub enum TextureAccess {
 	static    = C.SDL_TEXTUREACCESS_STATIC    // `static` Changes rarely, not lockable
@@ -53,6 +59,9 @@ pub enum TextureAccess {
 	target    = C.SDL_TEXTUREACCESS_TARGET    // `target` Texture can be used as a render target
 }
 
+// How the logical size is mapped to the output.
+//
+// NOTE: This enum is available since SDL 3.2.0.
 // RendererLogicalPresentation is C.SDL_RendererLogicalPresentation
 pub enum RendererLogicalPresentation {
 	disabled      = C.SDL_LOGICAL_PRESENTATION_DISABLED      // `disabled` There is no logical size in effect
@@ -67,6 +76,9 @@ pub struct C.SDL_Renderer {
 	// NOTE: Opaque type
 }
 
+// A structure representing rendering state
+//
+// NOTE: This struct is available since SDL 3.2.0.
 pub type Renderer = C.SDL_Renderer
 
 @[noinit; typedef]
@@ -74,6 +86,14 @@ pub struct C.SDL_Texture {
 	// NOTE: Opaque type
 }
 
+// An efficient driver-specific representation of pixel data
+//
+// NOTE: This struct is available since SDL 3.2.0.
+//
+// See also: create_texture (SDL_CreateTexture)
+// See also: create_texture_from_surface (SDL_CreateTextureFromSurface)
+// See also: create_texture_with_properties (SDL_CreateTextureWithProperties)
+// See also: destroy_texture (SDL_DestroyTexture)
 pub type Texture = C.SDL_Texture
 
 // C.SDL_GetNumRenderDrivers [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetNumRenderDrivers)
