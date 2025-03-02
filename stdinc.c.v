@@ -1728,7 +1728,34 @@ pub fn memcpy(dst voidptr, const_src voidptr, len usize) voidptr {
 	return C.SDL_memcpy(dst, const_src, len)
 }
 
-// TODO: Non-numerical: #define SDL_copyp(dst, src) \
+// C.SDL_copyp [official documentation](https://wiki.libsdl.org/SDL3/SDL_copyp)
+fn C.SDL_copyp(dst voidptr, src voidptr)
+
+// A macro to copy memory between objects, with basic type checking.
+//
+// SDL_memcpy and SDL_memmove do not care where you copy memory to and from,
+// which can lead to bugs. This macro aims to avoid most of those bugs by
+// making sure that the source and destination are both pointers to objects
+// that are the same size. It does not check that the objects are the same
+// _type_, just that the copy will not overflow either object.
+//
+// The size check happens at compile time, and the compiler will throw an
+// error if the objects are different sizes.
+//
+// Generally this is intended to copy a single object, not an array.
+//
+// This macro looks like it double-evaluates its parameters, but the extras
+// them are in `sizeof` sections, which generate no code nor side-effects.
+//
+// `dst` a pointer to the destination object. Must not be NULL.
+// `src` a pointer to the source object. Must not be NULL.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
+// NOTE: This function is available since SDL 3.2.0.
+pub fn copyp(dst voidptr, src voidptr) {
+	C.SDL_copyp(dst, src)
+}
 
 // C.SDL_memmove [official documentation](https://wiki.libsdl.org/SDL3/SDL_memmove)
 fn C.SDL_memmove(dst voidptr, const_src voidptr, len usize) voidptr
