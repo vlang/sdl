@@ -1093,23 +1093,23 @@ pub fn get_joystick_hat(joystick &Joystick, hat int) u8 {
 	return C.SDL_GetJoystickHat(joystick, hat)
 }
 
-pub const hat_centered = C.SDL_HAT_CENTERED // 0x00u
+pub const hat_centered = u8(C.SDL_HAT_CENTERED) // 0x00u
 
-pub const hat_up = C.SDL_HAT_UP // 0x01u
+pub const hat_up = u8(C.SDL_HAT_UP) // 0x01u
 
-pub const hat_right = C.SDL_HAT_RIGHT // 0x02u
+pub const hat_right = u8(C.SDL_HAT_RIGHT) // 0x02u
 
-pub const hat_down = C.SDL_HAT_DOWN // 0x04u
+pub const hat_down = u8(C.SDL_HAT_DOWN) // 0x04u
 
-pub const hat_left = C.SDL_HAT_LEFT // 0x08u
+pub const hat_left = u8(C.SDL_HAT_LEFT) // 0x08u
 
-pub const hat_rightup = C.SDL_HAT_RIGHTUP // (SDL_HAT_RIGHT|SDL_HAT_UP)
+pub const hat_rightup = u8(C.SDL_HAT_RIGHTUP) // (SDL_HAT_RIGHT|SDL_HAT_UP)
 
-pub const hat_rightdown = C.SDL_HAT_RIGHTDOWN // (SDL_HAT_RIGHT|SDL_HAT_DOWN)
+pub const hat_rightdown = u8(C.SDL_HAT_RIGHTDOWN) // (SDL_HAT_RIGHT|SDL_HAT_DOWN)
 
-pub const hat_leftup = C.SDL_HAT_LEFTUP // (SDL_HAT_LEFT|SDL_HAT_UP)
+pub const hat_leftup = u8(C.SDL_HAT_LEFTUP) // (SDL_HAT_LEFT|SDL_HAT_UP)
 
-pub const hat_leftdown = C.SDL_HAT_LEFTDOWN // (SDL_HAT_LEFT|SDL_HAT_DOWN)
+pub const hat_leftdown = u8(C.SDL_HAT_LEFTDOWN) // (SDL_HAT_LEFT|SDL_HAT_DOWN)
 
 // C.SDL_GetJoystickButton [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetJoystickButton)
 fn C.SDL_GetJoystickButton(joystick &Joystick, button int) bool
