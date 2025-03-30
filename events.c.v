@@ -33,6 +33,12 @@ module sdl
 // can guarantee that these events have a type that isn't in use by other
 // parts of the system.
 
+// General keyboard/mouse/pen state definitions
+
+// The types of events that can be delivered.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
 // EventType is C.SDL_EventType
 pub enum EventType {
 	first       = C.SDL_EVENT_FIRST       // 0, Unused (do not remove)
@@ -70,9 +76,9 @@ pub enum EventType {
 	display_desktop_mode_changed  = C.SDL_EVENT_DISPLAY_DESKTOP_MODE_CHANGED  // `display_desktop_mode_changed` Display has changed desktop mode
 	display_current_mode_changed  = C.SDL_EVENT_DISPLAY_CURRENT_MODE_CHANGED  // `display_current_mode_changed` Display has changed current mode
 	display_content_scale_changed = C.SDL_EVENT_DISPLAY_CONTENT_SCALE_CHANGED // `display_content_scale_changed` Display has changed content scale
-	// TODO: these trigger C compile errors: `error: duplicate case value`
-	// display_first                 = C.SDL_EVENT_DISPLAY_FIRST                 // SDL_EVENT_DISPLAY_ORIENTATION,
-	// display_last                  = C.SDL_EVENT_DISPLAY_LAST                  // SDL_EVENT_DISPLAY_CONTENT_SCALE_CHANGED,
+	// TODO: `display_first`, `display_last` trigger C compile errors: `error: duplicate case value` even if `@[_allow_multiple_values]` is used.
+	// display_first                = C.SDL_EVENT_DISPLAY_FIRST                // SDL_EVENT_DISPLAY_ORIENTATION,
+	// display_last                 = C.SDL_EVENT_DISPLAY_LAST                 // SDL_EVENT_DISPLAY_CONTENT_SCALE_CHANGED,
 	window_shown                 = C.SDL_EVENT_WINDOW_SHOWN                 // 0x202, Window has been shown
 	window_hidden                = C.SDL_EVENT_WINDOW_HIDDEN                // `window_hidden` Window has been hidden
 	window_exposed               = C.SDL_EVENT_WINDOW_EXPOSED               // `window_exposed` Window has been exposed and should be redrawn, and can be redrawn directly from event watchers for this event
@@ -101,9 +107,9 @@ pub enum EventType {
 	// associated with the window. Otherwise, the handle has already been destroyed and all resources
 	// associated with it are invalid
 	window_hdr_state_changed = C.SDL_EVENT_WINDOW_HDR_STATE_CHANGED // `window_hdr_state_changed` Window HDR properties have changed
-	// TODO: these trigger C compile errors: `error: duplicate case value`
-	// window_first             = C.SDL_EVENT_WINDOW_FIRST             // SDL_EVENT_WINDOW_SHOWN,
-	// window_last              = C.SDL_EVENT_WINDOW_LAST              // SDL_EVENT_WINDOW_HDR_STATE_CHANGED,
+	// TODO: `window_first`, `window_last` trigger C compile errors: `error: duplicate case value` even if `@[_allow_multiple_values]` is used.
+	// window_first   = C.SDL_EVENT_WINDOW_FIRST   // SDL_EVENT_WINDOW_SHOWN,
+	// window_last    = C.SDL_EVENT_WINDOW_LAST    // SDL_EVENT_WINDOW_HDR_STATE_CHANGED,
 	key_down       = C.SDL_EVENT_KEY_DOWN       // 0x300, Key pressed
 	key_up         = C.SDL_EVENT_KEY_UP         // `key_up` Key released
 	text_editing   = C.SDL_EVENT_TEXT_EDITING   // `text_editing` Keyboard text editing (composition)
