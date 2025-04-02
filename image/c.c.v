@@ -8,7 +8,7 @@ $if !windows {
 		// This is especially useful when building/linking against a
 		// custom compiled version of the libs on *nix.
 		$if !sdl_no_compile_flags ? {
-			#flag -lSDL2_image
+			#flag -lSDL3_image
 		}
 	}
 }
