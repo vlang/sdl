@@ -15,7 +15,7 @@ $if !windows {
 		$if !sdl_no_compile_flags ? {
 			$if sdl_compat ? {
 				// Use SDL2 through SDL3 via the compatibility layer
-				#pkgconfig --cflags --libs sdl2_compat
+				#pkgconfig --cflags --libs sdl2-compat
 			} $else {
 				#pkgconfig --cflags --libs sdl2
 			}
