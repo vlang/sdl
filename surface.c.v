@@ -751,12 +751,12 @@ fn C.SDL_GetSurfaceBlendMode(surface &Surface, blend_mode &BlendMode) bool
 
 // get_surface_blend_mode gets the blend mode used for blit operations.
 //
-// `surface` surface the SDL_Surface structure to query.
-// `blend_mode` blendMode a pointer filled in with the current SDL_BlendMode.
+// `surface` the SDL_Surface structure to query.
+// `blend_mode` a pointer filled in with the current SDL_BlendMode.
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
-// NOTE: This function is available since SDL 3.2.0.
+// NOTE: This function is available since SDL 2.0.0.
 //
 // See also: set_surface_blend_mode (SDL_SetSurfaceBlendMode)
 pub fn get_surface_blend_mode(surface &Surface, blend_mode &BlendMode) bool {
