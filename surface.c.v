@@ -552,7 +552,7 @@ fn C.SDL_GetSurfaceBlendMode(surface &C.SDL_Surface, blend_mode &C.SDL_BlendMode
 //
 // See also: SDL_SetSurfaceBlendMode
 pub fn get_surface_blend_mode(surface &Surface, blend_mode &BlendMode) int {
-	return C.SDL_GetSurfaceBlendMode(surface, unsafe{&C.SDL_BlendMode(blend_mode)})
+	return C.SDL_GetSurfaceBlendMode(surface, unsafe { &C.SDL_BlendMode(blend_mode) })
 }
 
 fn C.SDL_SetClipRect(surface &C.SDL_Surface, const_rect &C.SDL_Rect) bool
