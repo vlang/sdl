@@ -27,6 +27,8 @@ for different OSes and systems.
 If you have SDL3 installed on your system you can simply do:
 ```bash
 v install sdl
+cd ~/.vmodules/sdl
+git checkout 3.2.0
 v ~/.vmodules/sdl/setup.vsh
 ```
 
@@ -61,6 +63,8 @@ You can see what `sdl` releases are available in the [GitHub repository](https:/
 ## Notes
 
 ### Versions
+
+V complier `v0.4.10` or higher is required.
 
 SDL3 `v3.2.0` is currently the lowest version of SDL3 supported.
 SDL3 is backwards compatible - so anything written against `v3.2.0` can be compiled and run
