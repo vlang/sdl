@@ -27,8 +27,6 @@ for different OSes and systems.
 If you have SDL3 installed on your system you can simply do:
 ```bash
 v install sdl
-cd ~/.vmodules/sdl
-git checkout 3.2.0
 v ~/.vmodules/sdl/setup.vsh
 ```
 
