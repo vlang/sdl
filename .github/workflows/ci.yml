@@ -84,7 +84,7 @@ jobs:
     runs-on: macos-13
     timeout-minutes: 60
     env:
-      SDL2_VERSION: 2.32.4
+      SDL2_VERSION: 2.32.6
       CFLAGS: -fpermissive -std=c99
     steps:
       - name: Checkout V
