@@ -48,12 +48,19 @@ git clone https://github.com/vlang/sdl.git ~/.vmodules/sdl
 cd ~/.vmodules/sdl
 git checkout 2.0.12
 ```
-and for Windows:
+... and for Windows in cmd.exe:
 ```bash
 git clone https://github.com/vlang/sdl.git %HOMEPATH%/.vmodules/sdl
 cd %HOMEPATH%/.vmodules/sdl
 git checkout 2.0.12
 ```
+... and for Windows in PowerShell (PS):
+```bash
+git clone https://github.com/vlang/sdl.git "$HOME/.vmodules/sdl"
+cd "$HOME/.vmodules/sdl"
+git checkout 2.0.12
+```
+
 Then follow the steps in the [Windows](#windows) section below.
 
 You can see what `sdl` releases are available in the [GitHub repository](https://github.com/vlang/sdl/branches) via branches.
@@ -147,10 +154,19 @@ brew reinstall --build-from-source --force sdl2 sdl2_gfx sdl2_image sdl2_mixer s
 
 ### Windows
 It is necessary to install the SDL2 development libraries for Windows.
-To do this, change to the root directory of the sdl module, like
-`cd %HOMEPATH%\.vmodules\sdl`
-and run
-`v run windows_install_dependencies.vsh`.
+
+To do this, run this in cmd.exe:
+```bash
+cd %HOMEPATH%\.vmodules\sdl
+v run windows_install_dependencies.vsh
+```
+
+In Powershell, instead of the above, run this:
+```bash
+cd "$HOME/.vmodules/sdl"
+v run windows_install_dependencies.vsh
+```
+
 This will create a directory called "thirdparty" which will be used to download and
 extract the required libraries. To successfully run a provided example or your own projects,
 the sdl dlls must be copied to the main application directory. e.g.:
