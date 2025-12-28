@@ -7,7 +7,7 @@ const is_terminal = os.is_atty(1) > 0
 const urls = [
 	'https://www.libsdl.org/release/SDL3-devel-3.2.0-VC.zip',
 	// 'https://www.libsdl.org/projects/SDL_ttf/release/SDL3_ttf-devel-2.0.15-VC.zip',
-	// 'https://www.libsdl.org/projects/SDL_image/release/SDL3_image-devel-2.0.5-VC.zip',
+	'https://www.libsdl.org/projects/SDL_image/release/SDL3_image-devel-3.2.0-VC.zip',
 	// 'https://www.libsdl.org/projects/SDL_mixer/release/SDL3_mixer-devel-2.0.4-VC.zip',
 ]
 
