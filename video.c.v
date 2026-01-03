@@ -47,16 +47,24 @@ pub type DisplayID = u32
 // NOTE: This datatype is available since SDL 3.2.0.
 pub type WindowID = u32
 
-// The flags on a window.
+// WindowFlags; the flags on a window.
 //
 // These cover a lot of true/false, or on/off, window state. Some of it is
 // immutable after being set through SDL_CreateWindow(), some of it can be
 // changed on existing windows by the app, and some of it might be altered by
 // the user or system outside of the app's control.
 //
+// When creating windows with `SDL_WINDOW_RESIZABLE`, SDL will constrain
+// resizable windows to the dimensions recommended by the compositor to fit it
+// within the usable desktop space, although some compositors will do this
+// automatically without intervention as well. Use `SDL_SetWindowResizable`
+// after creation instead if you wish to create a window with a specific size.
+//
 // NOTE: This datatype is available since SDL 3.2.0.
 //
 // See also: get_window_flags (SDL_GetWindowFlags)
+//
+// [Official documentation](https://wiki.libsdl.org/SDL3/SDL_WindowFlags)
 pub type WindowFlags = u64
 
 // Opaque type for an EGL display.
@@ -121,6 +129,8 @@ pub type GLContextResetNotification = u32
 // uninitialized will either return the user provided value, if one was set
 // prior to initialization, or NULL. See docs/README-wayland.md for more
 // information.
+//
+// NOTE: This macro is available since SDL 3.2.0.
 pub const prop_global_video_wayland_wl_display_pointer = &char(C.SDL_PROP_GLOBAL_VIDEO_WAYLAND_WL_DISPLAY_POINTER) // 'SDL.video.wayland.wl_display'
 
 // SystemTheme is C.SDL_SystemTheme
@@ -213,6 +223,8 @@ pub const window_popup_menu = u64(C.SDL_WINDOW_POPUP_MENU) // SDL_UINT64_C(0x000
 
 pub const window_keyboard_grabbed = u64(C.SDL_WINDOW_KEYBOARD_GRABBED) // SDL_UINT64_C(0x0000000000100000)
 
+pub const window_fill_document = u64(C.SDL_WINDOW_FILL_DOCUMENT) // SDL_UINT64_C(0x0000000000200000)
+
 pub const window_vulkan = u64(C.SDL_WINDOW_VULKAN) // SDL_UINT64_C(0x0000000010000000)
 
 pub const window_metal = u64(C.SDL_WINDOW_METAL) // SDL_UINT64_C(0x0000000020000000)
@@ -242,6 +254,22 @@ pub enum FlashOperation {
 	cancel        = C.SDL_FLASH_CANCEL        // `cancel` Cancel any window flash state
 	briefly       = C.SDL_FLASH_BRIEFLY       // `briefly` Flash the window briefly to get attention
 	until_focused = C.SDL_FLASH_UNTIL_FOCUSED // `until_focused` Flash the window until it gets focus
+}
+
+// ProgressState
+//
+// Window progress state
+//
+// NOTE: This enum is available since SDL 3.2.8.
+//
+// ProgressState is C.SDL_ProgressState
+pub enum ProgressState {
+	invalid       = C.SDL_PROGRESS_STATE_INVALID       // -1, *< An invalid progress state indicating an error; check SDL_GetError()
+	none          = C.SDL_PROGRESS_STATE_NONE          // `none` No progress bar is shown
+	indeterminate = C.SDL_PROGRESS_STATE_INDETERMINATE // `indeterminate` The progress bar is shown in a indeterminate state
+	normal        = C.SDL_PROGRESS_STATE_NORMAL        // `normal` The progress bar is shown in a normal state
+	paused        = C.SDL_PROGRESS_STATE_PAUSED        // `paused` The progress bar is shown in a paused state
+	error         = C.SDL_PROGRESS_STATE_ERROR         // `error` The progress bar is shown in a state indicating the application had an error
 }
 
 // EGLAttribArrayCallback egls platform attribute initialization callback.
@@ -324,7 +352,7 @@ pub enum GLAttr {
 	context_flags              = C.SDL_GL_CONTEXT_FLAGS              // `context_flags` some combination of 0 or more of elements of the SDL_GLContextFlag enumeration; defaults to 0.
 	context_profile_mask       = C.SDL_GL_CONTEXT_PROFILE_MASK       // `context_profile_mask` type of GL context (Core, Compatibility, ES). See SDL_GLProfile; default value depends on platform.
 	share_with_current_context = C.SDL_GL_SHARE_WITH_CURRENT_CONTEXT // `share_with_current_context` OpenGL context sharing; defaults to 0.
-	framebuffer_srgb_capable   = C.SDL_GL_FRAMEBUFFER_SRGB_CAPABLE   // `framebuffer_srgb_capable` requests sRGB capable visual; defaults to 0.
+	framebuffer_srgb_capable   = C.SDL_GL_FRAMEBUFFER_SRGB_CAPABLE   // `framebuffer_srgb_capable` requests sRGB-capable visual if 1. Defaults to -1 ("don't care"). This is a request; GL drivers might not comply!
 	context_release_behavior   = C.SDL_GL_CONTEXT_RELEASE_BEHAVIOR   // `context_release_behavior` sets context the release behavior. See SDL_GLContextReleaseFlag; defaults to FLUSH.
 	context_reset_notification = C.SDL_GL_CONTEXT_RESET_NOTIFICATION // `context_reset_notification` set context reset notification. See SDL_GLContextResetNotification; defaults to NO_NOTIFICATION.
 	context_no_error           = C.SDL_GL_CONTEXT_NO_ERROR
@@ -386,7 +414,8 @@ fn C.SDL_GetVideoDriver(index int) &char
 // to be proper names.
 //
 // `index` index the index of a video driver.
-// returns the name of the video driver with the given **index**.
+// returns the name of the video driver with the given **index**, or NULL if
+//          index is out of bounds.
 //
 // NOTE: (thread safety) This function should only be called on the main thread.
 //
@@ -488,6 +517,16 @@ fn C.SDL_GetDisplayProperties(display_id DisplayID) PropertiesID
 //   responsible for any coordinate transformations needed to conform to the
 //   requested display orientation.
 //
+// On Wayland:
+//
+// - `SDL_PROP_DISPLAY_WAYLAND_WL_OUTPUT_POINTER`: the wl_output associated
+//   with the display
+//
+// On Windows:
+//
+// - `SDL_PROP_DISPLAY_WINDOWS_HMONITOR_POINTER`: the monitor handle
+//   (HMONITOR) associated with the display
+//
 // `display_id` displayID the instance ID of the display to query.
 // returns a valid property ID on success or 0 on failure; call
 //          SDL_GetError() for more information.
@@ -502,6 +541,10 @@ pub fn get_display_properties(display_id DisplayID) PropertiesID {
 pub const prop_display_hdr_enabled_boolean = &char(C.SDL_PROP_DISPLAY_HDR_ENABLED_BOOLEAN) // 'SDL.display.HDR_enabled'
 
 pub const prop_display_kmsdrm_panel_orientation_number = &char(C.SDL_PROP_DISPLAY_KMSDRM_PANEL_ORIENTATION_NUMBER) // 'SDL.display.KMSDRM.panel_orientation'
+
+pub const prop_display_wayland_wl_output_pointer = &char(C.SDL_PROP_DISPLAY_WAYLAND_WL_OUTPUT_POINTER) // 'SDL.display.wayland.wl_output'
+
+pub const prop_display_windows_hmonitor_pointer = &char(C.SDL_PROP_DISPLAY_WINDOWS_HMONITOR_POINTER) // 'SDL.display.windows.hmonitor'
 
 // C.SDL_GetDisplayName [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetDisplayName)
 fn C.SDL_GetDisplayName(display_id DisplayID) &char
@@ -981,8 +1024,6 @@ fn C.SDL_CreateWindow(const_title &char, w int, h int, flags WindowFlags) &Windo
 //
 // - `SDL_WINDOW_FULLSCREEN`: fullscreen window at desktop resolution
 // - `SDL_WINDOW_OPENGL`: window usable with an OpenGL context
-// - `SDL_WINDOW_OCCLUDED`: window partially or completely obscured by another
-//   window
 // - `SDL_WINDOW_HIDDEN`: window is not visible
 // - `SDL_WINDOW_BORDERLESS`: no window decoration
 // - `SDL_WINDOW_RESIZABLE`: window can be resized
@@ -1010,7 +1051,8 @@ fn C.SDL_CreateWindow(const_title &char, w int, h int, flags WindowFlags) &Windo
 // - `SDL_WINDOW_TRANSPARENT`: window with transparent buffer
 // - `SDL_WINDOW_NOT_FOCUSABLE`: window should not be focusable
 //
-// The SDL_Window is implicitly shown if SDL_WINDOW_HIDDEN is not set.
+// The SDL_Window will be shown if SDL_WINDOW_HIDDEN is not set. If hidden at
+// creation time, SDL_ShowWindow() can be used to show it later.
 //
 // On Apple's macOS, you **must** set the NSHighResolutionCapable Info.plist
 // property to YES, otherwise you will not receive a High-DPI OpenGL canvas.
@@ -1066,6 +1108,10 @@ fn C.SDL_CreatePopupWindow(parent &Window, offset_x int, offset_y int, w int, h 
 
 // create_popup_window creates a child popup window of the specified parent window.
 //
+// The window size is a request and may be different than expected based on
+// the desktop layout and window manager policies. Your application should be
+// prepared to handle a window of any size.
+//
 // The flags parameter **must** contain at least one of the following:
 //
 // - `SDL_WINDOW_TOOLTIP`: The popup window is a tooltip and will not pass any
@@ -1097,6 +1143,16 @@ fn C.SDL_CreatePopupWindow(parent &Window, offset_x int, offset_y int, w int, h 
 //
 // Popup windows implicitly do not have a border/decorations and do not appear
 // on the taskbar/dock or in lists of windows such as alt-tab menus.
+//
+// By default, popup window positions will automatically be constrained to
+// keep the entire window within display bounds. This can be overridden with
+// the `SDL_PROP_WINDOW_CREATE_CONSTRAIN_POPUP_BOOLEAN` property.
+//
+// By default, popup menus will automatically grab keyboard focus from the
+// parent when shown. This behavior can be overridden by setting the
+// `SDL_WINDOW_NOT_FOCUSABLE` flag, setting the
+// `SDL_PROP_WINDOW_CREATE_FOCUSABLE_BOOLEAN` property to false, or toggling
+// it after creation via the `SDL_SetWindowFocusable()` function.
 //
 // If a parent window is hidden or destroyed, any child popup windows will be
 // recursively hidden or destroyed as well. Child popup windows not explicitly
@@ -1131,12 +1187,20 @@ fn C.SDL_CreateWindowWithProperties(props PropertiesID) &Window
 
 // create_window_with_properties creates a window with the specified properties.
 //
+// The window size is a request and may be different than expected based on
+// the desktop layout and window manager policies. Your application should be
+// prepared to handle a window of any size.
+//
 // These are the supported properties:
 //
 // - `SDL_PROP_WINDOW_CREATE_ALWAYS_ON_TOP_BOOLEAN`: true if the window should
 //   be always on top
 // - `SDL_PROP_WINDOW_CREATE_BORDERLESS_BOOLEAN`: true if the window has no
 //   window decoration
+// - `SDL_PROP_WINDOW_CREATE_CONSTRAIN_POPUP_BOOLEAN`: true if the "tooltip"
+//   and "menu" window types should be automatically constrained to be
+//   entirely within display bounds (default), false if no constraints on the
+//   position are desired.
 // - `SDL_PROP_WINDOW_CREATE_EXTERNAL_GRAPHICS_CONTEXT_BOOLEAN`: true if the
 //   window will be used with an externally managed graphics context.
 // - `SDL_PROP_WINDOW_CREATE_FOCUSABLE_BOOLEAN`: true if the window should
@@ -1193,12 +1257,18 @@ fn C.SDL_CreateWindowWithProperties(props PropertiesID) &Window
 // - `SDL_PROP_WINDOW_CREATE_COCOA_VIEW_POINTER`: the `(__unsafe_unretained)`
 //   NSView associated with the window, defaults to `[window contentView]`
 //
+// These are additional supported properties on iOS, tvOS, and visionOS:
+//
+// - `SDL_PROP_WINDOW_CREATE_WINDOWSCENE_POINTER`: the `(__unsafe_unretained)`
+//   UIWindowScene associated with the window, defaults to the active window
+//   scene.
+//
 // These are additional supported properties on Wayland:
 //
 // - `SDL_PROP_WINDOW_CREATE_WAYLAND_SURFACE_ROLE_CUSTOM_BOOLEAN` - true if
 //   the application wants to use the Wayland surface for a custom role and
 //   does not want it attached to an XDG toplevel window. See
-//   [README/wayland](README/wayland) for more information on using custom
+//   [README-wayland](README-wayland) for more information on using custom
 //   surfaces.
 // - `SDL_PROP_WINDOW_CREATE_WAYLAND_CREATE_EGL_WINDOW_BOOLEAN` - true if the
 //   application wants an associated `wl_egl_window` object to be created and
@@ -1206,7 +1276,7 @@ fn C.SDL_CreateWindowWithProperties(props PropertiesID) &Window
 //   property or `SDL_WINDOW_OPENGL` flag set.
 // - `SDL_PROP_WINDOW_CREATE_WAYLAND_WL_SURFACE_POINTER` - the wl_surface
 //   associated with the window, if you want to wrap an existing window. See
-//   [README/wayland](README/wayland) for more information.
+//   [README-wayland](README-wayland) for more information.
 //
 // These are additional supported properties on Windows:
 //
@@ -1222,8 +1292,22 @@ fn C.SDL_CreateWindowWithProperties(props PropertiesID) &Window
 //
 // The window is implicitly shown if the "hidden" property is not set.
 //
-// Windows with the "tooltip" and "menu" properties are popup windows and have
-// the behaviors and guidelines outlined in SDL_CreatePopupWindow().
+// These are additional supported properties with Emscripten:
+//
+// - `SDL_PROP_WINDOW_CREATE_EMSCRIPTEN_CANVAS_ID_STRING`: the id given to the
+//   canvas element. This should start with a '#' sign
+// - `SDL_PROP_WINDOW_CREATE_EMSCRIPTEN_KEYBOARD_ELEMENT_STRING`: override the
+//   binding element for keyboard inputs for this canvas. The variable can be
+//   one of:
+// - "#window": the javascript window object (default)
+// - "#document": the javascript document object
+// - "#screen": the javascript window.screen object
+// - "#canvas": the WebGL canvas element
+// - "#none": Don't bind anything at all
+// - any other string without a leading # sign applies to the element on the
+//   page with that ID. Windows with the "tooltip" and "menu" properties are
+//   popup windows and have the behaviors and guidelines outlined in
+//   SDL_CreatePopupWindow().
 //
 // If this window is being created to be used with an SDL_Renderer, you should
 // not add a graphics API specific property
@@ -1306,6 +1390,8 @@ pub const prop_window_create_cocoa_window_pointer = &char(C.SDL_PROP_WINDOW_CREA
 
 pub const prop_window_create_cocoa_view_pointer = &char(C.SDL_PROP_WINDOW_CREATE_COCOA_VIEW_POINTER) // 'SDL.window.create.cocoa.view'
 
+pub const prop_window_create_windowscene_pointer = &char(C.SDL_PROP_WINDOW_CREATE_WINDOWSCENE_POINTER) // 'SDL.window.create.uikit.windowscene'
+
 pub const prop_window_create_wayland_surface_role_custom_boolean = &char(C.SDL_PROP_WINDOW_CREATE_WAYLAND_SURFACE_ROLE_CUSTOM_BOOLEAN) // 'SDL.window.create.wayland.surface_role_custom'
 
 pub const prop_window_create_wayland_create_egl_window_boolean = &char(C.SDL_PROP_WINDOW_CREATE_WAYLAND_CREATE_EGL_WINDOW_BOOLEAN) // 'SDL.window.create.wayland.create_egl_window'
@@ -1317,6 +1403,10 @@ pub const prop_window_create_win32_hwnd_pointer = &char(C.SDL_PROP_WINDOW_CREATE
 pub const prop_window_create_win32_pixel_format_hwnd_pointer = &char(C.SDL_PROP_WINDOW_CREATE_WIN32_PIXEL_FORMAT_HWND_POINTER) // 'SDL.window.create.win32.pixel_format_hwnd'
 
 pub const prop_window_create_x11_window_number = &char(C.SDL_PROP_WINDOW_CREATE_X11_WINDOW_NUMBER) // 'SDL.window.create.x11.window'
+
+pub const prop_window_create_emscripten_canvas_id_string = &char(C.SDL_PROP_WINDOW_CREATE_EMSCRIPTEN_CANVAS_ID_STRING) // 'SDL.window.create.emscripten.canvas_id'
+
+pub const prop_window_create_emscripten_keyboard_element_string = &char(C.SDL_PROP_WINDOW_CREATE_EMSCRIPTEN_KEYBOARD_ELEMENT_STRING) // 'SDL.window.create.emscripten.keyboard_element'
 
 // C.SDL_GetWindowID [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetWindowID)
 fn C.SDL_GetWindowID(window &Window) WindowID
@@ -1439,8 +1529,8 @@ fn C.SDL_GetWindowProperties(window &Window) PropertiesID
 //
 // On OpenVR:
 //
-// - `SDL_PROP_WINDOW_OPENVR_OVERLAY_ID`: the OpenVR Overlay Handle ID for the
-//   associated overlay window.
+// - `SDL_PROP_WINDOW_OPENVR_OVERLAY_ID_NUMBER`: the OpenVR Overlay Handle ID
+//   for the associated overlay window.
 //
 // On Vivante:
 //
@@ -1492,6 +1582,13 @@ fn C.SDL_GetWindowProperties(window &Window) PropertiesID
 // - `SDL_PROP_WINDOW_X11_WINDOW_NUMBER`: the X11 Window associated with the
 //   window
 //
+// On Emscripten:
+//
+// - `SDL_PROP_WINDOW_EMSCRIPTEN_CANVAS_ID_STRING`: the id the canvas element
+//   will have
+// - `SDL_PROP_WINDOW_EMSCRIPTEN_KEYBOARD_ELEMENT_STRING`: the keyboard
+//   element that associates keyboard events to this window
+//
 // `window` window the window to query.
 // returns a valid property ID on success or 0 on failure; call
 //          SDL_GetError() for more information.
@@ -1535,7 +1632,7 @@ pub const prop_window_cocoa_window_pointer = &char(C.SDL_PROP_WINDOW_COCOA_WINDO
 
 pub const prop_window_cocoa_metal_view_tag_number = &char(C.SDL_PROP_WINDOW_COCOA_METAL_VIEW_TAG_NUMBER) // 'SDL.window.cocoa.metal_view_tag'
 
-pub const prop_window_openvr_overlay_id = &char(C.SDL_PROP_WINDOW_OPENVR_OVERLAY_ID) // 'SDL.window.openvr.overlay_id'
+pub const prop_window_openvr_overlay_id_number = &char(C.SDL_PROP_WINDOW_OPENVR_OVERLAY_ID_NUMBER) // 'SDL.window.openvr.overlay_id'
 
 pub const prop_window_vivante_display_pointer = &char(C.SDL_PROP_WINDOW_VIVANTE_DISPLAY_POINTER) // 'SDL.window.vivante.display'
 
@@ -1573,6 +1670,10 @@ pub const prop_window_x11_screen_number = &char(C.SDL_PROP_WINDOW_X11_SCREEN_NUM
 
 pub const prop_window_x11_window_number = &char(C.SDL_PROP_WINDOW_X11_WINDOW_NUMBER) // 'SDL.window.x11.window'
 
+pub const prop_window_emscripten_canvas_id_string = &char(C.SDL_PROP_WINDOW_EMSCRIPTEN_CANVAS_ID_STRING) // 'SDL.window.emscripten.canvas_id'
+
+pub const prop_window_emscripten_keyboard_element_string = &char(C.SDL_PROP_WINDOW_EMSCRIPTEN_KEYBOARD_ELEMENT_STRING) // 'SDL.window.emscripten.keyboard_element'
+
 // C.SDL_GetWindowFlags [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetWindowFlags)
 fn C.SDL_GetWindowFlags(window &Window) WindowFlags
 
@@ -1591,6 +1692,7 @@ fn C.SDL_GetWindowFlags(window &Window) WindowFlags
 // See also: minimize_window (SDL_MinimizeWindow)
 // See also: set_window_fullscreen (SDL_SetWindowFullscreen)
 // See also: set_window_mouse_grab (SDL_SetWindowMouseGrab)
+// See also: set_window_fill_document (SDL_SetWindowFillDocument)
 // See also: show_window (SDL_ShowWindow)
 pub fn get_window_flags(window &Window) WindowFlags {
 	return C.SDL_GetWindowFlags(window)
@@ -1640,15 +1742,16 @@ fn C.SDL_SetWindowIcon(window &Window, icon &Surface) bool
 
 // set_window_icon sets the icon for a window.
 //
-// If this function is passed a surface with alternate representations, the
-// surface will be interpreted as the content to be used for 100% display
-// scale, and the alternate representations will be used for high DPI
-// situations. For example, if the original surface is 32x32, then on a 2x
-// macOS display or 200% display scale on Windows, a 64x64 version of the
-// image will be used, if available. If a matching version of the image isn't
-// available, the closest larger size image will be downscaled to the
-// appropriate size and be used instead, if available. Otherwise, the closest
-// smaller image will be upscaled and be used instead.
+// If this function is passed a surface with alternate representations added
+// using SDL_AddSurfaceAlternateImage(), the surface will be interpreted as
+// the content to be used for 100% display scale, and the alternate
+// representations will be used for high DPI situations. For example, if the
+// original surface is 32x32, then on a 2x macOS display or 200% display scale
+// on Windows, a 64x64 version of the image will be used, if available. If a
+// matching version of the image isn't available, the closest larger size
+// image will be downscaled to the appropriate size and be used instead, if
+// available. Otherwise, the closest smaller image will be upscaled and be
+// used instead.
 //
 // `window` window the window to change.
 // `icon` icon an SDL_Surface structure containing the icon for the window.
@@ -1658,6 +1761,8 @@ fn C.SDL_SetWindowIcon(window &Window, icon &Surface) bool
 // NOTE: (thread safety) This function should only be called on the main thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
+//
+// See also: add_surface_alternate_image (SDL_AddSurfaceAlternateImage)
 pub fn set_window_icon(window &Window, icon &Surface) bool {
 	return C.SDL_SetWindowIcon(window, icon)
 }
@@ -1796,6 +1901,7 @@ fn C.SDL_GetWindowSize(window &Window, w &int, h &int) bool
 // See also: get_render_output_size (SDL_GetRenderOutputSize)
 // See also: get_window_size_in_pixels (SDL_GetWindowSizeInPixels)
 // See also: set_window_size (SDL_SetWindowSize)
+// See also: eventwindowresized (SDL_EVENT_WINDOW_RESIZED)
 pub fn get_window_size(window &Window, w &int, h &int) bool {
 	return C.SDL_GetWindowSize(window, w, h)
 }
@@ -1810,7 +1916,7 @@ fn C.SDL_GetWindowSafeArea(window &Window, rect &Rect) bool
 // notches, TV overscan, etc. This function provides the area of the window
 // which is safe to have interactable content. You should continue rendering
 // into the rest of the window, but it should not contain visually important
-// or interactible content.
+// or interactable content.
 //
 // `window` window the window to query.
 // `rect` rect a pointer filled in with the client area that is safe for
@@ -1872,7 +1978,7 @@ pub fn set_window_aspect_ratio(window &Window, min_aspect f32, max_aspect f32) b
 // C.SDL_GetWindowAspectRatio [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetWindowAspectRatio)
 fn C.SDL_GetWindowAspectRatio(window &Window, min_aspect &f32, max_aspect &f32) bool
 
-// get_window_aspect_ratio gets the size of a window's client area.
+// get_window_aspect_ratio gets the aspect ratio of a window's client area.
 //
 // `window` window the window to query the width and height from.
 // `min_aspect` min_aspect a pointer filled in with the minimum aspect ratio of the
@@ -2112,6 +2218,40 @@ fn C.SDL_SetWindowAlwaysOnTop(window &Window, on_top bool) bool
 // See also: get_window_flags (SDL_GetWindowFlags)
 pub fn set_window_always_on_top(window &Window, on_top bool) bool {
 	return C.SDL_SetWindowAlwaysOnTop(window, on_top)
+}
+
+// C.SDL_SetWindowFillDocument [official documentation](https://wiki.libsdl.org/SDL3/SDL_SetWindowFillDocument)
+fn C.SDL_SetWindowFillDocument(window &Window, fill bool) bool
+
+// set_window_fill_document sets the window to fill the current document space (Emscripten only).
+//
+// This will add or remove the window's `SDL_WINDOW_FILL_DOCUMENT` flag.
+//
+// Currently this flag only applies to the Emscripten target.
+//
+// When enabled, the canvas element fills the entire document. Resize events
+// will be generated as the browser window is resized, as that will adjust the
+// canvas size as well. The canvas will cover anything else on the page,
+// including any controls provided by Emscripten in its generated HTML file
+// (in fact, any elements on the page that aren't the canvas will be moved
+// into a hidden `div` element).
+//
+// Often times this is desirable for a browser-based game, but it means
+// several things that we expect of an SDL window on other platforms might not
+// work as expected, such as minimum window sizes and aspect ratios.
+//
+// `window` window the window of which to change the fill-document state.
+// `fill` fill true to set the window to fill the document, false to disable.
+// returns true on success or false on failure; call SDL_GetError() for more
+//          information.
+//
+// NOTE: (thread safety) This function should only be called on the main thread.
+//
+// NOTE: This function is available since SDL 3.4.0.
+//
+// See also: get_window_flags (SDL_GetWindowFlags)
+pub fn set_window_fill_document(window &Window, fill bool) bool {
+	return C.SDL_SetWindowFillDocument(window, fill)
 }
 
 // C.SDL_ShowWindow [official documentation](https://wiki.libsdl.org/SDL3/SDL_ShowWindow)
@@ -2578,7 +2718,6 @@ fn C.SDL_SetWindowMouseGrab(window &Window, grabbed bool) bool
 //
 // See also: get_window_mouse_rect (SDL_GetWindowMouseRect)
 // See also: set_window_mouse_rect (SDL_SetWindowMouseRect)
-// See also: set_window_mouse_grab (SDL_SetWindowMouseGrab)
 // See also: set_window_keyboard_grab (SDL_SetWindowKeyboardGrab)
 pub fn set_window_mouse_grab(window &Window, grabbed bool) bool {
 	return C.SDL_SetWindowMouseGrab(window, grabbed)
@@ -2954,6 +3093,74 @@ pub fn flash_window(window &Window, operation FlashOperation) bool {
 	return C.SDL_FlashWindow(window, operation)
 }
 
+// C.SDL_SetWindowProgressState [official documentation](https://wiki.libsdl.org/SDL3/SDL_SetWindowProgressState)
+fn C.SDL_SetWindowProgressState(window &Window, state ProgressState) bool
+
+// set_window_progress_state sets the state of the progress bar for the given window’s taskbar icon.
+//
+// `window` window the window whose progress state is to be modified.
+// `state` state the progress state. `SDL_PROGRESS_STATE_NONE` stops displaying
+//              the progress bar.
+// returns true on success or false on failure; call SDL_GetError() for more
+//          information.
+//
+// NOTE: (thread safety) This function should only be called on the main thread.
+//
+// NOTE: This function is available since SDL 3.4.0.
+pub fn set_window_progress_state(window &Window, state ProgressState) bool {
+	return C.SDL_SetWindowProgressState(window, state)
+}
+
+// C.SDL_GetWindowProgressState [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetWindowProgressState)
+fn C.SDL_GetWindowProgressState(window &Window) ProgressState
+
+// get_window_progress_state gets the state of the progress bar for the given window’s taskbar icon.
+//
+// `window` window the window to get the current progress state from.
+// returns the progress state, or `SDL_PROGRESS_STATE_INVALID` on failure;
+//          call SDL_GetError() for more information.
+//
+// NOTE: (thread safety) This function should only be called on the main thread.
+//
+// NOTE: This function is available since SDL 3.4.0.
+pub fn get_window_progress_state(window &Window) ProgressState {
+	return C.SDL_GetWindowProgressState(window)
+}
+
+// C.SDL_SetWindowProgressValue [official documentation](https://wiki.libsdl.org/SDL3/SDL_SetWindowProgressValue)
+fn C.SDL_SetWindowProgressValue(window &Window, value f32) bool
+
+// set_window_progress_value sets the value of the progress bar for the given window’s taskbar icon.
+//
+// `window` window the window whose progress value is to be modified.
+// `value` value the progress value in the range of [0.0f - 1.0f]. If the value
+//              is outside the valid range, it gets clamped.
+// returns true on success or false on failure; call SDL_GetError() for more
+//          information.
+//
+// NOTE: (thread safety) This function should only be called on the main thread.
+//
+// NOTE: This function is available since SDL 3.4.0.
+pub fn set_window_progress_value(window &Window, value f32) bool {
+	return C.SDL_SetWindowProgressValue(window, value)
+}
+
+// C.SDL_GetWindowProgressValue [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetWindowProgressValue)
+fn C.SDL_GetWindowProgressValue(window &Window) f32
+
+// get_window_progress_value gets the value of the progress bar for the given window’s taskbar icon.
+//
+// `window` window the window to get the current progress value from.
+// returns the progress value in the range of [0.0f - 1.0f], or -1.0f on
+//          failure; call SDL_GetError() for more information.
+//
+// NOTE: (thread safety) This function should only be called on the main thread.
+//
+// NOTE: This function is available since SDL 3.4.0.
+pub fn get_window_progress_value(window &Window) f32 {
+	return C.SDL_GetWindowProgressValue(window)
+}
+
 // C.SDL_DestroyWindow [official documentation](https://wiki.libsdl.org/SDL3/SDL_DestroyWindow)
 fn C.SDL_DestroyWindow(window &Window)
 
@@ -3214,8 +3421,7 @@ fn C.SDL_GL_SetAttribute(attr GLAttr, value int) bool
 // SDL_GL_GetAttribute() to check the values after creating the OpenGL
 // context, since the values obtained can differ from the requested ones.
 //
-// `attr` attr an SDL_GLAttr enum value specifying the OpenGL attribute to
-//             set.
+// `attr` attr an enum value specifying the OpenGL attribute to set.
 // `value` value the desired value for the attribute.
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
@@ -3224,6 +3430,7 @@ fn C.SDL_GL_SetAttribute(attr GLAttr, value int) bool
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
+// See also: gl_create_context (SDL_GL_CreateContext)
 // See also: gl_get_attribute (SDL_GL_GetAttribute)
 // See also: gl_reset_attributes (SDL_GL_ResetAttributes)
 pub fn gl_set_attribute(attr GLAttr, value int) bool {
@@ -3255,6 +3462,12 @@ pub fn gl_get_attribute(attr GLAttr, value &int) bool {
 fn C.SDL_GL_CreateContext(window &Window) GLContext
 
 // gl_create_context creates an OpenGL context for an OpenGL window, and make it current.
+//
+// The OpenGL context will be created with the current states set through
+// SDL_GL_SetAttribute().
+//
+// The SDL_Window specified must have been created with the SDL_WINDOW_OPENGL
+// flag, or context creation will fail.
 //
 // Windows users new to OpenGL should note that, for historical reasons, GL
 // functions added after OpenGL version 1.1 are not available by default.

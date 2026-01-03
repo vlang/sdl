@@ -97,6 +97,9 @@ fn C.SDL_CreateProcessWithProperties(props PropertiesID) &Process
 // - `SDL_PROP_PROCESS_CREATE_ENVIRONMENT_POINTER`: an SDL_Environment
 //   pointer. If this property is set, it will be the entire environment for
 //   the process, otherwise the current environment is used.
+// - `SDL_PROP_PROCESS_CREATE_WORKING_DIRECTORY_STRING`: a UTF-8 encoded
+//   string representing the working directory for the process, defaults to
+//   the current working directory.
 // - `SDL_PROP_PROCESS_CREATE_STDIN_NUMBER`: an SDL_ProcessIO value describing
 //   where standard input for the process comes from, defaults to
 //   `SDL_PROCESS_STDIO_NULL`.
@@ -123,6 +126,12 @@ fn C.SDL_CreateProcessWithProperties(props PropertiesID) &Process
 //   run in the background. In this case the default input and output is
 //   `SDL_PROCESS_STDIO_NULL` and the exitcode of the process is not
 //   available, and will always be 0.
+// - `SDL_PROP_PROCESS_CREATE_CMDLINE_STRING`: a string containing the program
+//   to run and any parameters. This string is passed directly to
+//   `CreateProcess` on Windows, and does nothing on other platforms. This
+//   property is only important if you want to start programs that does
+//   non-standard command-line processing, and in most cases using
+//   `SDL_PROP_PROCESS_CREATE_ARGS_POINTER` is sufficient.
 //
 // On POSIX platforms, wait() and waitpid(-1, ...) should not be called, and
 // SIGCHLD should not be ignored or handled because those would prevent SDL
@@ -153,6 +162,8 @@ pub const prop_process_create_args_pointer = &char(C.SDL_PROP_PROCESS_CREATE_ARG
 
 pub const prop_process_create_environment_pointer = &char(C.SDL_PROP_PROCESS_CREATE_ENVIRONMENT_POINTER) // 'SDL.process.create.environment'
 
+pub const prop_process_create_working_directory_string = &char(C.SDL_PROP_PROCESS_CREATE_WORKING_DIRECTORY_STRING) // 'SDL.process.create.working_directory'
+
 pub const prop_process_create_stdin_number = &char(C.SDL_PROP_PROCESS_CREATE_STDIN_NUMBER) // 'SDL.process.create.stdin_option'
 
 pub const prop_process_create_stdin_pointer = &char(C.SDL_PROP_PROCESS_CREATE_STDIN_POINTER) // 'SDL.process.create.stdin_source'
@@ -168,6 +179,8 @@ pub const prop_process_create_stderr_pointer = &char(C.SDL_PROP_PROCESS_CREATE_S
 pub const prop_process_create_stderr_to_stdout_boolean = &char(C.SDL_PROP_PROCESS_CREATE_STDERR_TO_STDOUT_BOOLEAN) // 'SDL.process.create.stderr_to_stdout'
 
 pub const prop_process_create_background_boolean = &char(C.SDL_PROP_PROCESS_CREATE_BACKGROUND_BOOLEAN) // 'SDL.process.create.background'
+
+pub const prop_process_create_cmdline_string = &char(C.SDL_PROP_PROCESS_CREATE_CMDLINE_STRING) // 'SDL.process.create.cmdline'
 
 // C.SDL_GetProcessProperties [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetProcessProperties)
 fn C.SDL_GetProcessProperties(process &Process) PropertiesID

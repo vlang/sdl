@@ -302,7 +302,7 @@ module sdl
 // NOTE: This datatype is available since SDL 3.2.0.
 //
 // See also: create_gpu_texture (SDL_CreateGPUTexture)
-pub type GpuTextureUsageFlags = u32
+pub type GPUTextureUsageFlags = u32
 
 // Specifies how a buffer is intended to be used by the client.
 //
@@ -315,23 +315,25 @@ pub type GpuTextureUsageFlags = u32
 // NOTE: This datatype is available since SDL 3.2.0.
 //
 // See also: create_gpu_buffer (SDL_CreateGPUBuffer)
-pub type GpuBufferUsageFlags = u32
+pub type GPUBufferUsageFlags = u32
 
-// Specifies the format of shader code.
+// GPUShaderFormat; specifies the format of shader code.
 //
 // Each format corresponds to a specific backend that accepts it.
 //
 // NOTE: This datatype is available since SDL 3.2.0.
 //
 // See also: create_gpu_shader (SDL_CreateGPUShader)
-pub type GpuShaderFormat = u32
+//
+// [Official documentation](https://wiki.libsdl.org/SDL3/SDL_GPUShaderFormat)
+pub type GPUShaderFormat = u32
 
 // Specifies which color components are written in a graphics pipeline.
 //
 // NOTE: This datatype is available since SDL 3.2.0.
 //
 // See also: create_gpu_graphics_pipeline (SDL_CreateGPUGraphicsPipeline)
-pub type GpuColorComponentFlags = u8
+pub type GPUColorComponentFlags = u8
 
 @[noinit; typedef]
 pub struct C.SDL_GPUDevice {
@@ -657,6 +659,14 @@ pub const gpu_shaderformat_msl = C.SDL_GPU_SHADERFORMAT_MSL // (1u << 4)
 
 pub const gpu_shaderformat_metallib = C.SDL_GPU_SHADERFORMAT_METALLIB // (1u << 5)
 
+// GPUVertexElementFormat
+//
+// Specifies the format of a vertex attribute.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
+// See also: SDL_CreateGPUGraphicsPipeline
+//
 // GPUVertexElementFormat is C.SDL_GPUVertexElementFormat
 pub enum GPUVertexElementFormat {
 	invalid = C.SDL_GPU_VERTEXELEMENTFORMAT_INVALID
@@ -704,18 +714,42 @@ pub enum GPUVertexElementFormat {
 	half4 = C.SDL_GPU_VERTEXELEMENTFORMAT_HALF4
 }
 
+// GPUVertexInputRate
+//
+// Specifies the rate at which vertex attributes are pulled from buffers.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
+// See also: SDL_CreateGPUGraphicsPipeline
+//
 // GPUVertexInputRate is C.SDL_GPUVertexInputRate
 pub enum GPUVertexInputRate {
 	vertex   = C.SDL_GPU_VERTEXINPUTRATE_VERTEX   // `vertex` Attribute addressing is a function of the vertex index.
 	instance = C.SDL_GPU_VERTEXINPUTRATE_INSTANCE // `instance` Attribute addressing is a function of the instance index.
 }
 
+// GPUFillMode
+//
+// Specifies the fill mode of the graphics pipeline.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
+// See also: SDL_CreateGPUGraphicsPipeline
+//
 // GPUFillMode is C.SDL_GPUFillMode
 pub enum GPUFillMode {
 	fill = C.SDL_GPU_FILLMODE_FILL // `fill` Polygons will be rendered via rasterization.
 	line = C.SDL_GPU_FILLMODE_LINE // `line` Polygon edges will be drawn as line segments.
 }
 
+// GPUCullMode
+//
+// Specifies the facing direction in which triangle faces will be culled.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
+// See also: SDL_CreateGPUGraphicsPipeline
+//
 // GPUCullMode is C.SDL_GPUCullMode
 pub enum GPUCullMode {
 	none  = C.SDL_GPU_CULLMODE_NONE  // `none` No triangles are culled.
@@ -723,12 +757,28 @@ pub enum GPUCullMode {
 	back  = C.SDL_GPU_CULLMODE_BACK  // `back` Back-facing triangles are culled.
 }
 
+// GPUFrontFace
+//
+// Specifies the vertex winding that will cause a triangle to be determined to
+// be front-facing.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
+// See also: SDL_CreateGPUGraphicsPipeline
+//
 // GPUFrontFace is C.SDL_GPUFrontFace
 pub enum GPUFrontFace {
 	counter_clockwise = C.SDL_GPU_FRONTFACE_COUNTER_CLOCKWISE // `counter_clockwise` A triangle with counter-clockwise vertex winding will be considered front-facing.
 	clockwise         = C.SDL_GPU_FRONTFACE_CLOCKWISE         // `clockwise` A triangle with clockwise vertex winding will be considered front-facing.
 }
 
+// GPUCompareOp
+// Specifies a comparison operator for depth, stencil and sampler operations.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
+// See also: SDL_CreateGPUGraphicsPipeline
+//
 // GPUCompareOp is C.SDL_GPUCompareOp
 pub enum GPUCompareOp {
 	invalid          = C.SDL_GPU_COMPAREOP_INVALID
@@ -742,6 +792,15 @@ pub enum GPUCompareOp {
 	always           = C.SDL_GPU_COMPAREOP_ALWAYS           // `always` The comparison always evaluates true.
 }
 
+// GPUStencilOp
+//
+// Specifies what happens to a stored stencil value if stencil tests fail or
+// pass.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
+// See also: SDL_CreateGPUGraphicsPipeline
+//
 // GPUStencilOp is C.SDL_GPUStencilOp
 pub enum GPUStencilOp {
 	invalid             = C.SDL_GPU_STENCILOP_INVALID
@@ -755,6 +814,18 @@ pub enum GPUStencilOp {
 	decrement_and_wrap  = C.SDL_GPU_STENCILOP_DECREMENT_AND_WRAP  // `decrement_and_wrap` Decrements the current value and wraps to the maximum value.
 }
 
+// GPUBlendOp
+//
+// Specifies the operator to be used when pixels in a render target are
+// blended with existing pixels in the texture.
+//
+// The source color is the value written by the fragment shader. The
+// destination color is the value currently existing in the texture.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
+// See also: SDL_CreateGPUGraphicsPipeline
+//
 // GPUBlendOp is C.SDL_GPUBlendOp
 pub enum GPUBlendOp {
 	invalid          = C.SDL_GPU_BLENDOP_INVALID
@@ -765,6 +836,18 @@ pub enum GPUBlendOp {
 	max              = C.SDL_GPU_BLENDOP_MAX              // `max` max(source, destination)
 }
 
+// GPUBlendFactor
+//
+// Specifies a blending factor to be used when pixels in a render target are
+// blended with existing pixels in the texture.
+//
+// The source color is the value written by the fragment shader. The
+// destination color is the value currently existing in the texture.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
+// See also: SDL_CreateGPUGraphicsPipeline
+//
 // GPUBlendFactor is C.SDL_GPUBlendFactor
 pub enum GPUBlendFactor {
 	invalid                  = C.SDL_GPU_BLENDFACTOR_INVALID
@@ -783,6 +866,13 @@ pub enum GPUBlendFactor {
 	src_alpha_saturate       = C.SDL_GPU_BLENDFACTOR_SRC_ALPHA_SATURATE       // `src_alpha_saturate` min(source alpha, 1 - destination alpha)
 }
 
+// GPUColorComponentFlags; specifies which color components are written in a graphics pipeline.
+//
+// NOTE: This datatype is available since SDL 3.2.0.
+//
+// See also: create_gpu_graphics_pipeline (SDL_CreateGPUGraphicsPipeline)
+//
+// [Official documentation](https://wiki.libsdl.org/SDL3/SDL_GPUColorComponentFlags)
 pub const gpu_colorcomponent_r = C.SDL_GPU_COLORCOMPONENT_R // (1u << 0)
 
 pub const gpu_colorcomponent_g = C.SDL_GPU_COLORCOMPONENT_G // (1u << 1)
@@ -791,18 +881,43 @@ pub const gpu_colorcomponent_b = C.SDL_GPU_COLORCOMPONENT_B // (1u << 2)
 
 pub const gpu_colorcomponent_a = C.SDL_GPU_COLORCOMPONENT_A // (1u << 3)
 
+// GPUFilter
+//
+// Specifies a filter operation used by a sampler.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
+// See also: SDL_CreateGPUSampler
+//
 // GPUFilter is C.SDL_GPUFilter
 pub enum GPUFilter {
 	nearest = C.SDL_GPU_FILTER_NEAREST // `nearest` Point filtering.
 	linear  = C.SDL_GPU_FILTER_LINEAR  // `linear` Linear filtering.
 }
 
+// GPUSamplerMipmapMode
+//
+// Specifies a mipmap mode used by a sampler.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
+// See also: SDL_CreateGPUSampler
+//
 // GPUSamplerMipmapMode is C.SDL_GPUSamplerMipmapMode
 pub enum GPUSamplerMipmapMode {
 	nearest = C.SDL_GPU_SAMPLERMIPMAPMODE_NEAREST // `nearest` Point filtering.
 	linear  = C.SDL_GPU_SAMPLERMIPMAPMODE_LINEAR  // `linear` Linear filtering.
 }
 
+// GPUSamplerAddressMode
+//
+// Specifies behavior of texture sampling when the coordinates exceed the 0-1
+// range.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
+// See also: SDL_CreateGPUSampler
+//
 // GPUSamplerAddressMode is C.SDL_GPUSamplerAddressMode
 pub enum GPUSamplerAddressMode {
 	repeat          = C.SDL_GPU_SAMPLERADDRESSMODE_REPEAT          // `repeat` Specifies that the coordinates will wrap around.
@@ -810,6 +925,32 @@ pub enum GPUSamplerAddressMode {
 	clamp_to_edge   = C.SDL_GPU_SAMPLERADDRESSMODE_CLAMP_TO_EDGE   // `clamp_to_edge` Specifies that the coordinates will clamp to the 0-1 range.
 }
 
+// GPUPresentMode
+//
+// Specifies the timing that will be used to present swapchain textures to the
+// OS.
+//
+// VSYNC mode will always be supported. IMMEDIATE and MAILBOX modes may not be
+// supported on certain systems.
+//
+// It is recommended to query SDL_WindowSupportsGPUPresentMode after claiming
+// the window if you wish to change the present mode to IMMEDIATE or MAILBOX.
+//
+// - VSYNC: Waits for vblank before presenting. No tearing is possible. If
+// there is a pending image to present, the new image is enqueued for
+// presentation. Disallows tearing at the cost of visual latency.
+// - IMMEDIATE: Immediately presents. Lowest latency option, but tearing may
+// occur.
+// - MAILBOX: Waits for vblank before presenting. No tearing is possible. If
+// there is a pending image to present, the pending image is replaced by the
+// new image. Similar to VSYNC, but with reduced visual latency.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
+// See also: SDL_SetGPUSwapchainParameters
+// See also: SDL_WindowSupportsGPUPresentMode
+// See also: SDL_WaitAndAcquireGPUSwapchainTexture
+//
 // GPUPresentMode is C.SDL_GPUPresentMode
 pub enum GPUPresentMode {
 	vsync     = C.SDL_GPU_PRESENTMODE_VSYNC
@@ -817,6 +958,33 @@ pub enum GPUPresentMode {
 	mailbox   = C.SDL_GPU_PRESENTMODE_MAILBOX
 }
 
+// GPUSwapchainComposition
+//
+// Specifies the texture format and colorspace of the swapchain textures.
+//
+// SDR will always be supported. Other compositions may not be supported on
+// certain systems.
+//
+// It is recommended to query SDL_WindowSupportsGPUSwapchainComposition after
+// claiming the window if you wish to change the swapchain composition from
+// SDR.
+//
+// - SDR: B8G8R8A8 or R8G8B8A8 swapchain. Pixel values are in sRGB encoding.
+// - SDR_LINEAR: B8G8R8A8_SRGB or R8G8B8A8_SRGB swapchain. Pixel values are
+// stored in memory in sRGB encoding but accessed in shaders in "linear
+// sRGB" encoding which is sRGB but with a linear transfer function.
+// - HDR_EXTENDED_LINEAR: R16G16B16A16_FLOAT swapchain. Pixel values are in
+// extended linear sRGB encoding and permits values outside of the [0, 1]
+// range.
+// - HDR10_ST2084: A2R10G10B10 or A2B10G10R10 swapchain. Pixel values are in
+// BT.2020 ST2084 (PQ) encoding.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
+// See also: SDL_SetGPUSwapchainParameters
+// See also: SDL_WindowSupportsGPUSwapchainComposition
+// See also: SDL_WaitAndAcquireGPUSwapchainTexture
+//
 // GPUSwapchainComposition is C.SDL_GPUSwapchainComposition
 pub enum GPUSwapchainComposition {
 	sdr                 = C.SDL_GPU_SWAPCHAINCOMPOSITION_SDR
@@ -836,6 +1004,13 @@ pub mut:
 	max_depth f32 // The maximum depth of the viewport.
 }
 
+// GPUViewport
+//
+// A structure specifying a viewport.
+//
+// NOTE: This struct is available since SDL 3.2.0.
+//
+// See also: SDL_SetGPUViewport
 pub type GPUViewport = C.SDL_GPUViewport
 
 @[typedef]
@@ -847,6 +1022,26 @@ pub mut:
 	rows_per_layer  u32 // The number of rows from one layer/depth-slice to the next.
 }
 
+// GPUTextureTransferInfo
+//
+// A structure specifying parameters related to transferring data to or from a
+// texture.
+//
+// If either of `pixels_per_row` or `rows_per_layer` is zero, then width and
+// height of passed SDL_GPUTextureRegion to SDL_UploadToGPUTexture or
+// SDL_DownloadFromGPUTexture are used as default values respectively and data
+// is considered to be tightly packed.
+//
+// **WARNING**: Direct3D 12 requires texture data row pitch to be 256 byte
+// aligned, and offsets to be aligned to 512 bytes. If they are not, SDL will
+// make a temporary copy of the data that is properly aligned, but this adds
+// overhead to the transfer process. Apps can avoid this by aligning their
+// data appropriately, or using a different GPU backend than Direct3D 12.
+//
+// NOTE: This struct is available since SDL 3.2.0.
+//
+// See also: SDL_UploadToGPUTexture
+// See also: SDL_DownloadFromGPUTexture
 pub type GPUTextureTransferInfo = C.SDL_GPUTextureTransferInfo
 
 @[typedef]
@@ -1029,13 +1224,24 @@ pub mut:
 	src_alpha_blendfactor   GPUBlendFactor         // The value to be multiplied by the source alpha.
 	dst_alpha_blendfactor   GPUBlendFactor         // The value to be multiplied by the destination alpha.
 	alpha_blend_op          GPUBlendOp             // The blend operation for the alpha component.
-	color_write_mask        GpuColorComponentFlags // A bitmask specifying which of the RGBA components are enabled for writing. Writes to all channels if enable_color_write_mask is false.
+	color_write_mask        GPUColorComponentFlags // A bitmask specifying which of the RGBA components are enabled for writing. Writes to all channels if enable_color_write_mask is false.
 	enable_blend            bool                   // Whether blending is enabled for the color target.
 	enable_color_write_mask bool                   // Whether the color write mask is enabled.
 	padding1                u8
 	padding2                u8
 }
 
+//
+// A structure specifying the blend state of a color target.
+//
+// NOTE: This struct is available since SDL 3.2.0.
+//
+// See also: SDL_GPUColorTargetDescription
+// See also: SDL_GPUBlendFactor
+// See also: SDL_GPUBlendOp
+// See also: SDL_GPUColorComponentFlags
+//
+// GPUColorTargetBlendState is C.SDL_GPUColorTargetBlendState
 pub type GPUColorTargetBlendState = C.SDL_GPUColorTargetBlendState
 
 @[typedef]
@@ -1044,7 +1250,7 @@ pub mut:
 	code_size            usize // The size in bytes of the code pointed to.
 	code                 &u8   = unsafe { nil } // A pointer to shader code.
 	entrypoint           &char = unsafe { nil } // A pointer to a null-terminated UTF-8 string specifying the entry point function name for the shader.
-	format               GpuShaderFormat // The format of the shader code.
+	format               GPUShaderFormat // The format of the shader code.
 	stage                GPUShaderStage  // The stage the shader program corresponds to.
 	num_samplers         u32             // The number of samplers defined in the shader.
 	num_storage_textures u32             // The number of storage textures defined in the shader.
@@ -1053,6 +1259,17 @@ pub mut:
 	props                PropertiesID    // A properties ID for extensions. Should be 0 if no extensions are needed.
 }
 
+// GPUShaderCreateInfo
+//
+// A structure specifying code and metadata for creating a shader object.
+//
+// NOTE: This struct is available since SDL 3.2.0.
+//
+// See also: SDL_CreateGPUShader
+// See also: SDL_GPUShaderFormat
+// See also: SDL_GPUShaderStage
+//
+// GPUShaderCreateInfo is C.SDL_GPUShaderCreateInfo
 pub type GPUShaderCreateInfo = C.SDL_GPUShaderCreateInfo
 
 @[typedef]
@@ -1060,7 +1277,7 @@ pub struct C.SDL_GPUTextureCreateInfo {
 pub mut:
 	type                 GPUTextureType       // The base dimensionality of the texture.
 	format               GPUTextureFormat     // The pixel format of the texture.
-	usage                GpuTextureUsageFlags // How the texture is intended to be used by the client.
+	usage                GPUTextureUsageFlags // How the texture is intended to be used by the client.
 	width                u32                  // The width of the texture.
 	height               u32                  // The height of the texture.
 	layer_count_or_depth u32                  // The layer count or depth of the texture. This value is treated as a layer count on 2D array textures, and as a depth value on 3D textures.
@@ -1074,7 +1291,7 @@ pub type GPUTextureCreateInfo = C.SDL_GPUTextureCreateInfo
 @[typedef]
 pub struct C.SDL_GPUBufferCreateInfo {
 pub mut:
-	usage GpuBufferUsageFlags // How the buffer is intended to be used by the client.
+	usage GPUBufferUsageFlags // How the buffer is intended to be used by the client.
 	size  u32                 // The size in bytes of the buffer.
 	props PropertiesID        // A properties ID for extensions. Should be 0 if no extensions are needed.
 }
@@ -1111,12 +1328,12 @@ pub type GPURasterizerState = C.SDL_GPURasterizerState
 @[typedef]
 pub struct C.SDL_GPUMultisampleState {
 pub mut:
-	sample_count GPUSampleCount // The number of samples to be used in rasterization.
-	sample_mask  u32            // Determines which samples get updated in the render targets. Treated as 0xFFFFFFFF if enable_mask is false.
-	enable_mask  bool           // Enables sample masking.
-	padding1     u8
-	padding2     u8
-	padding3     u8
+	sample_count             GPUSampleCount // The number of samples to be used in rasterization.
+	sample_mask              u32            // Determines which samples get updated in the render targets. Treated as 0xFFFFFFFF if enable_mask is false.
+	enable_mask              bool           // Enables sample masking.
+	enable_alpha_to_coverage bool           // true enables the alpha-to-coverage feature.
+	padding2                 u8
+	padding3                 u8
 }
 
 pub type GPUMultisampleState = C.SDL_GPUMultisampleState
@@ -1184,7 +1401,7 @@ pub mut:
 	code_size                      usize // The size in bytes of the compute shader code pointed to.
 	code                           &u8   = unsafe { nil } // A pointer to compute shader code.
 	entrypoint                     &char = unsafe { nil } // A pointer to a null-terminated UTF-8 string specifying the entry point function name for the shader.
-	format                         GpuShaderFormat // The format of the compute shader code.
+	format                         GPUShaderFormat // The format of the compute shader code.
 	num_samplers                   u32             // The number of samplers defined in the shader.
 	num_readonly_storage_textures  u32             // The number of readonly storage textures defined in the shader.
 	num_readonly_storage_buffers   u32             // The number of readonly storage buffers defined in the shader.
@@ -1230,8 +1447,8 @@ pub mut:
 	stencil_store_op GPUStoreOp // What is done with the stencil results of the render pass.
 	cycle            bool       // true cycles the texture if the texture is bound and any load ops are not LOAD
 	clear_stencil    u8         // The value to clear the stencil component to at the beginning of the render pass. Ignored if SDL_GPU_LOADOP_CLEAR is not used.
-	padding1         u8
-	padding2         u8
+	mip_level        u8         // The mip level to use as the depth stencil target.
+	layer            u8         // The layer index to use as the depth stencil target.
 }
 
 pub type GPUDepthStencilTargetInfo = C.SDL_GPUDepthStencilTargetInfo
@@ -1298,7 +1515,7 @@ pub mut:
 pub type GPUStorageTextureReadWriteBinding = C.SDL_GPUStorageTextureReadWriteBinding
 
 // C.SDL_GPUSupportsShaderFormats [official documentation](https://wiki.libsdl.org/SDL3/SDL_GPUSupportsShaderFormats)
-fn C.SDL_GPUSupportsShaderFormats(format_flags GpuShaderFormat, const_name &char) bool
+fn C.SDL_GPUSupportsShaderFormats(format_flags GPUShaderFormat, const_name &char) bool
 
 // gpu_supports_shader_formats checks for GPU runtime support.
 //
@@ -1311,7 +1528,7 @@ fn C.SDL_GPUSupportsShaderFormats(format_flags GpuShaderFormat, const_name &char
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: create_gpu_device (SDL_CreateGPUDevice)
-pub fn gpu_supports_shader_formats(format_flags GpuShaderFormat, const_name &char) bool {
+pub fn gpu_supports_shader_formats(format_flags GPUShaderFormat, const_name &char) bool {
 	return C.SDL_GPUSupportsShaderFormats(format_flags, const_name)
 }
 
@@ -1331,9 +1548,16 @@ pub fn gpu_supports_properties(props PropertiesID) bool {
 }
 
 // C.SDL_CreateGPUDevice [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreateGPUDevice)
-fn C.SDL_CreateGPUDevice(format_flags GpuShaderFormat, debug_mode bool, const_name &char) &GPUDevice
+fn C.SDL_CreateGPUDevice(format_flags GPUShaderFormat, debug_mode bool, const_name &char) &GPUDevice
 
 // create_gpu_device creates a GPU context.
+//
+// The GPU driver name can be one of the following:
+//
+// - "vulkan": [Vulkan](CategoryGPU#vulkan)
+// - "direct3d12": [D3D12](CategoryGPU#d3d12)
+// - "metal": [Metal](CategoryGPU#metal)
+// - NULL: let SDL pick the optimal driver
 //
 // `format_flags` format_flags a bitflag indicating which shader formats the app is
 //                     able to provide.
@@ -1345,11 +1569,12 @@ fn C.SDL_CreateGPUDevice(format_flags GpuShaderFormat, debug_mode bool, const_na
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
+// See also: create_gpu_device_with_properties (SDL_CreateGPUDeviceWithProperties)
 // See also: get_gpu_shader_formats (SDL_GetGPUShaderFormats)
 // See also: get_gpu_device_driver (SDL_GetGPUDeviceDriver)
 // See also: destroy_gpu_device (SDL_DestroyGPUDevice)
 // See also: gpu_supports_shader_formats (SDL_GPUSupportsShaderFormats)
-pub fn create_gpu_device(format_flags GpuShaderFormat, debug_mode bool, const_name &char) &GPUDevice {
+pub fn create_gpu_device(format_flags GPUShaderFormat, debug_mode bool, const_name &char) &GPUDevice {
 	return C.SDL_CreateGPUDevice(format_flags, debug_mode, const_name)
 }
 
@@ -1364,8 +1589,31 @@ fn C.SDL_CreateGPUDeviceWithProperties(props PropertiesID) &GPUDevice
 //   properties and validations, defaults to true.
 // - `SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOLEAN`: enable to prefer
 //   energy efficiency over maximum GPU performance, defaults to false.
+// - `SDL_PROP_GPU_DEVICE_CREATE_VERBOSE_BOOLEAN`: enable to automatically log
+//   useful debug information on device creation, defaults to true.
 // - `SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING`: the name of the GPU driver to
 //   use, if a specific one is desired.
+// - `SDL_PROP_GPU_DEVICE_CREATE_FEATURE_CLIP_DISTANCE_BOOLEAN`: Enable Vulkan
+//   device feature shaderClipDistance. If disabled, clip distances are not
+//   supported in shader code: gl_ClipDistance[] built-ins of GLSL,
+//   SV_ClipDistance0/1 semantics of HLSL and [[clip_distance]] attribute of
+//   Metal. Disabling optional features allows the application to run on some
+//   older Android devices. Defaults to true.
+// - `SDL_PROP_GPU_DEVICE_CREATE_FEATURE_DEPTH_CLAMPING_BOOLEAN`: Enable
+//   Vulkan device feature depthClamp. If disabled, there is no depth clamp
+//   support and enable_depth_clip in SDL_GPURasterizerState must always be
+//   set to true. Disabling optional features allows the application to run on
+//   some older Android devices. Defaults to true.
+// - `SDL_PROP_GPU_DEVICE_CREATE_FEATURE_INDIRECT_DRAW_FIRST_INSTANCE_BOOLEAN`:
+//   Enable Vulkan device feature drawIndirectFirstInstance. If disabled, the
+//   argument first_instance of SDL_GPUIndirectDrawCommand must be set to
+//   zero. Disabling optional features allows the application to run on some
+//   older Android devices. Defaults to true.
+// - `SDL_PROP_GPU_DEVICE_CREATE_FEATURE_ANISOTROPY_BOOLEAN`: Enable Vulkan
+//   device feature samplerAnisotropy. If disabled, enable_anisotropy of
+//   SDL_GPUSamplerCreateInfo must be set to false. Disabling optional
+//   features allows the application to run on some older Android devices.
+//   Defaults to true.
 //
 // These are the current shader format properties:
 //
@@ -1382,10 +1630,32 @@ fn C.SDL_CreateGPUDeviceWithProperties(props PropertiesID) &GPUDevice
 // - `SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOLEAN`: The app is able to
 //   provide Metal shader libraries if applicable.
 //
-// With the D3D12 renderer:
+// With the D3D12 backend:
 //
 // - `SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING`: the prefix to
 //   use for all vertex semantics, default is "TEXCOORD".
+// - `SDL_PROP_GPU_DEVICE_CREATE_D3D12_ALLOW_FEWER_RESOURCE_SLOTS_BOOLEAN`: By
+//   default, Resourcing Binding Tier 2 is required for D3D12 support.
+//   However, an application can set this property to true to enable Tier 1
+//   support, if (and only if) the application uses 8 or fewer storage
+//   resources across all shader stages. As of writing, this property is
+//   useful for targeting Intel Haswell and Broadwell GPUs; other hardware
+//   either supports Tier 2 Resource Binding or does not support D3D12 in any
+//   capacity. Defaults to false.
+//
+// With the Vulkan backend:
+//
+// - `SDL_PROP_GPU_DEVICE_CREATE_VULKAN_REQUIRE_HARDWARE_ACCELERATION_BOOLEAN`:
+//   By default, Vulkan device enumeration includes drivers of all types,
+//   including software renderers (for example, the Lavapipe Mesa driver).
+//   This can be useful if your application _requires_ SDL_GPU, but if you can
+//   provide your own fallback renderer (for example, an OpenGL renderer) this
+//   property can be set to true. Defaults to false.
+// - `SDL_PROP_GPU_DEVICE_CREATE_VULKAN_OPTIONS_POINTER`: a pointer to an
+//   SDL_GPUVulkanOptions structure to be processed during device creation.
+//   This allows configuring a variety of Vulkan-specific options such as
+//   increasing the API version and opting into extensions aside from the
+//   minimal set SDL requires.
 //
 // `props` props the properties to use.
 // returns a GPU context on success or NULL on failure; call SDL_GetError()
@@ -1405,7 +1675,17 @@ pub const prop_gpu_device_create_debugmode_boolean = &char(C.SDL_PROP_GPU_DEVICE
 
 pub const prop_gpu_device_create_preferlowpower_boolean = &char(C.SDL_PROP_GPU_DEVICE_CREATE_PREFERLOWPOWER_BOOLEAN) // 'SDL.gpu.device.create.preferlowpower'
 
+pub const prop_gpu_device_create_verbose_boolean = &char(C.SDL_PROP_GPU_DEVICE_CREATE_VERBOSE_BOOLEAN) // 'SDL.gpu.device.create.verbose'
+
 pub const prop_gpu_device_create_name_string = &char(C.SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING) // 'SDL.gpu.device.create.name'
+
+pub const prop_gpu_device_create_feature_clip_distance_boolean = &char(C.SDL_PROP_GPU_DEVICE_CREATE_FEATURE_CLIP_DISTANCE_BOOLEAN) // 'SDL.gpu.device.create.feature.clip_distance'
+
+pub const prop_gpu_device_create_feature_depth_clamping_boolean = &char(C.SDL_PROP_GPU_DEVICE_CREATE_FEATURE_DEPTH_CLAMPING_BOOLEAN) // 'SDL.gpu.device.create.feature.depth_clamping'
+
+pub const prop_gpu_device_create_feature_indirect_draw_first_instance_boolean = &char(C.SDL_PROP_GPU_DEVICE_CREATE_FEATURE_INDIRECT_DRAW_FIRST_INSTANCE_BOOLEAN) // 'SDL.gpu.device.create.feature.indirect_draw_first_instance'
+
+pub const prop_gpu_device_create_feature_anisotropy_boolean = &char(C.SDL_PROP_GPU_DEVICE_CREATE_FEATURE_ANISOTROPY_BOOLEAN) // 'SDL.gpu.device.create.feature.anisotropy'
 
 pub const prop_gpu_device_create_shaders_private_boolean = &char(C.SDL_PROP_GPU_DEVICE_CREATE_SHADERS_PRIVATE_BOOLEAN) // 'SDL.gpu.device.create.shaders.private'
 
@@ -1419,7 +1699,43 @@ pub const prop_gpu_device_create_shaders_msl_boolean = &char(C.SDL_PROP_GPU_DEVI
 
 pub const prop_gpu_device_create_shaders_metallib_boolean = &char(C.SDL_PROP_GPU_DEVICE_CREATE_SHADERS_METALLIB_BOOLEAN) // 'SDL.gpu.device.create.shaders.metallib'
 
+pub const prop_gpu_device_create_d3d12_allow_fewer_resource_slots_boolean = &char(C.SDL_PROP_GPU_DEVICE_CREATE_D3D12_ALLOW_FEWER_RESOURCE_SLOTS_BOOLEAN) // 'SDL.gpu.device.create.d3d12.allowtier1resourcebinding'
+
 pub const prop_gpu_device_create_d3d12_semantic_name_string = &char(C.SDL_PROP_GPU_DEVICE_CREATE_D3D12_SEMANTIC_NAME_STRING) // 'SDL.gpu.device.create.d3d12.semantic'
+
+pub const prop_gpu_device_create_vulkan_require_hardware_acceleration_boolean = &char(C.SDL_PROP_GPU_DEVICE_CREATE_VULKAN_REQUIRE_HARDWARE_ACCELERATION_BOOLEAN) // 'SDL.gpu.device.create.vulkan.requirehardwareacceleration'
+
+pub const prop_gpu_device_create_vulkan_options_pointer = &char(C.SDL_PROP_GPU_DEVICE_CREATE_VULKAN_OPTIONS_POINTER) // 'SDL.gpu.device.create.vulkan.options'
+
+@[typedef]
+pub struct C.SDL_GPUVulkanOptions {
+pub mut:
+	vulkan_api_version                 u32     // The Vulkan API version to request for the instance. Use Vulkan's VK_MAKE_VERSION or VK_MAKE_API_VERSION.
+	feature_list                       voidptr // Pointer to the first element of a chain of Vulkan feature structs. (Requires API version 1.1 or higher.)
+	vulkan_10_physical_device_features voidptr // Pointer to a VkPhysicalDeviceFeatures struct to enable additional Vulkan 1.0 features.
+	device_extension_count             u32     // Number of additional device extensions to require.
+	device_extension_names             &&char = unsafe { nil } // Pointer to a list of additional device extensions to require.
+	instance_extension_count           u32 // Number of additional instance extensions to require.
+	instance_extension_names           &&char = unsafe { nil } // Pointer to a list of additional instance extensions to require.
+}
+
+// GPUVulkanOptions
+//
+// A structure specifying additional options when using Vulkan.
+//
+// When no such structure is provided, SDL will use Vulkan API version 1.0 and
+// a minimal set of features. The requested API version influences how the
+// feature_list is processed by SDL. When requesting API version 1.0, the
+// feature_list is ignored. Only the vulkan_10_physical_device_features and
+// the extension lists are used. When requesting API version 1.1, the
+// feature_list is scanned for feature structures introduced in Vulkan 1.1.
+// When requesting Vulkan 1.2 or higher, the feature_list is additionally
+// scanned for compound feature structs such as
+// VkPhysicalDeviceVulkan11Features. The device and instance extension lists,
+// as well as vulkan_10_physical_device_features, are always processed.
+//
+// NOTE: This struct is available since SDL 3.4.0.
+pub type GPUVulkanOptions = C.SDL_GPUVulkanOptions
 
 // C.SDL_DestroyGPUDevice [official documentation](https://wiki.libsdl.org/SDL3/SDL_DestroyGPUDevice)
 fn C.SDL_DestroyGPUDevice(device &GPUDevice)
@@ -1485,7 +1801,7 @@ pub fn get_gpu_device_driver(device &GPUDevice) &char {
 }
 
 // C.SDL_GetGPUShaderFormats [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGPUShaderFormats)
-fn C.SDL_GetGPUShaderFormats(device &GPUDevice) GpuShaderFormat
+fn C.SDL_GetGPUShaderFormats(device &GPUDevice) GPUShaderFormat
 
 // get_gpu_shader_formats returns the supported shader formats for this GPU context.
 //
@@ -1494,9 +1810,124 @@ fn C.SDL_GetGPUShaderFormats(device &GPUDevice) GpuShaderFormat
 //          consume.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn get_gpu_shader_formats(device &GPUDevice) GpuShaderFormat {
+pub fn get_gpu_shader_formats(device &GPUDevice) GPUShaderFormat {
 	return C.SDL_GetGPUShaderFormats(device)
 }
+
+// C.SDL_GetGPUDeviceProperties [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGPUDeviceProperties)
+fn C.SDL_GetGPUDeviceProperties(device &GPUDevice) PropertiesID
+
+// get_gpu_device_properties gets the properties associated with a GPU device.
+//
+// All properties are optional and may differ between GPU backends and SDL
+// versions.
+//
+// The following properties are provided by SDL:
+//
+// `SDL_PROP_GPU_DEVICE_NAME_STRING`: Contains the name of the underlying
+// device as reported by the system driver. This string has no standardized
+// format, is highly inconsistent between hardware devices and drivers, and is
+// able to change at any time. Do not attempt to parse this string as it is
+// bound to fail at some point in the future when system drivers are updated,
+// new hardware devices are introduced, or when SDL adds new GPU backends or
+// modifies existing ones.
+//
+// Strings that have been found in the wild include:
+//
+// - GTX 970
+// - GeForce GTX 970
+// - NVIDIA GeForce GTX 970
+// - Microsoft Direct3D12 (NVIDIA GeForce GTX 970)
+// - NVIDIA Graphics Device
+// - GeForce GPU
+// - P106-100
+// - AMD 15D8:C9
+// - AMD Custom GPU 0405
+// - AMD Radeon (TM) Graphics
+// - ASUS Radeon RX 470 Series
+// - Intel(R) Arc(tm) A380 Graphics (DG2)
+// - Virtio-GPU Venus (NVIDIA TITAN V)
+// - SwiftShader Device (LLVM 16.0.0)
+// - llvmpipe (LLVM 15.0.4, 256 bits)
+// - Microsoft Basic Render Driver
+// - unknown device
+//
+// The above list shows that the same device can have different formats, the
+// vendor name may or may not appear in the string, the included vendor name
+// may not be the vendor of the chipset on the device, some manufacturers
+// include pseudo-legal marks while others don't, some devices may not use a
+// marketing name in the string, the device string may be wrapped by the name
+// of a translation interface, the device may be emulated in software, or the
+// string may contain generic text that does not identify the device at all.
+//
+// `SDL_PROP_GPU_DEVICE_DRIVER_NAME_STRING`: Contains the self-reported name
+// of the underlying system driver.
+//
+// Strings that have been found in the wild include:
+//
+// - Intel Corporation
+// - Intel open-source Mesa driver
+// - Qualcomm Technologies Inc. Adreno Vulkan Driver
+// - MoltenVK
+// - Mali-G715
+// - venus
+//
+// `SDL_PROP_GPU_DEVICE_DRIVER_VERSION_STRING`: Contains the self-reported
+// version of the underlying system driver. This is a relatively short version
+// string in an unspecified format. If SDL_PROP_GPU_DEVICE_DRIVER_INFO_STRING
+// is available then that property should be preferred over this one as it may
+// contain additional information that is useful for identifying the exact
+// driver version used.
+//
+// Strings that have been found in the wild include:
+//
+// - 53.0.0
+// - 0.405.2463
+// - 32.0.15.6614
+//
+// `SDL_PROP_GPU_DEVICE_DRIVER_INFO_STRING`: Contains the detailed version
+// information of the underlying system driver as reported by the driver. This
+// is an arbitrary string with no standardized format and it may contain
+// newlines. This property should be preferred over
+// SDL_PROP_GPU_DEVICE_DRIVER_VERSION_STRING if it is available as it usually
+// contains the same information but in a format that is easier to read.
+//
+// Strings that have been found in the wild include:
+//
+// - 101.6559
+// - 1.2.11
+// - Mesa 21.2.2 (LLVM 12.0.1)
+// - Mesa 22.2.0-devel (git-f226222 2022-04-14 impish-oibaf-ppa)
+// - v1.r53p0-00eac0.824c4f31403fb1fbf8ee1042422c2129
+//
+// This string has also been observed to be a multiline string (which has a
+// trailing newline):
+//
+// ```
+// Driver Build: 85da404, I46ff5fc46f, 1606794520
+// Date: 11/30/20
+// Compiler Version: EV031.31.04.01
+// Driver Branch: promo490_3_Google
+// ```
+//
+// `device` device a GPU context to query.
+// returns a valid property ID on success or 0 on failure; call
+//          SDL_GetError() for more information.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
+// NOTE: This function is available since SDL 3.4.0.
+pub fn get_gpu_device_properties(device &GPUDevice) PropertiesID {
+	return C.SDL_GetGPUDeviceProperties(device)
+}
+
+pub const prop_gpu_device_name_string = &char(C.SDL_PROP_GPU_DEVICE_NAME_STRING) // 'SDL.gpu.device.name'
+
+pub const prop_gpu_device_driver_name_string = &char(C.SDL_PROP_GPU_DEVICE_DRIVER_NAME_STRING) // 'SDL.gpu.device.driver_name'
+
+pub const prop_gpu_device_driver_version_string = &char(C.SDL_PROP_GPU_DEVICE_DRIVER_VERSION_STRING) // 'SDL.gpu.device.driver_version'
+
+pub const prop_gpu_device_driver_info_string = &char(C.SDL_PROP_GPU_DEVICE_DRIVER_INFO_STRING) // 'SDL.gpu.device.driver_info'
 
 // C.SDL_CreateGPUComputePipeline [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreateGPUComputePipeline)
 fn C.SDL_CreateGPUComputePipeline(device &GPUDevice, const_createinfo &GPUComputePipelineCreateInfo) &GPUComputePipeline
@@ -1692,7 +2123,8 @@ fn C.SDL_CreateGPUTexture(device &GPUDevice, const_createinfo &GPUTextureCreateI
 // create_gpu_texture creates a texture object to be used in graphics or compute workflows.
 //
 // The contents of this texture are undefined until data is written to the
-// texture.
+// texture, either via SDL_UploadToGPUTexture or by performing a render or
+// compute pass with this texture as a target.
 //
 // Note that certain combinations of usage flags are invalid. For example, a
 // texture cannot have both the SAMPLER and GRAPHICS_STORAGE_READ flags.
@@ -1734,6 +2166,8 @@ fn C.SDL_CreateGPUTexture(device &GPUDevice, const_createinfo &GPUTextureCreateI
 //
 // See also: upload_to_gpu_texture (SDL_UploadToGPUTexture)
 // See also: download_from_gpu_texture (SDL_DownloadFromGPUTexture)
+// See also: begin_gpu_render_pass (SDL_BeginGPURenderPass)
+// See also: begin_gpu_compute_pass (SDL_BeginGPUComputePass)
 // See also: bind_gpu_vertex_samplers (SDL_BindGPUVertexSamplers)
 // See also: bind_gpu_vertex_storage_textures (SDL_BindGPUVertexStorageTextures)
 // See also: bind_gpu_fragment_samplers (SDL_BindGPUFragmentSamplers)
@@ -1756,10 +2190,9 @@ pub const prop_gpu_texture_create_d3d12_clear_a_float = &char(C.SDL_PROP_GPU_TEX
 
 pub const prop_gpu_texture_create_d3d12_clear_depth_float = &char(C.SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_DEPTH_FLOAT) // 'SDL.gpu.texture.create.d3d12.clear.depth'
 
-pub const prop_gpu_texture_create_d3d12_clear_stencil_uint8 = &char(C.SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_UINT8) // 'SDL.gpu.texture.create.d3d12.clear.stencil'
+pub const prop_gpu_texture_create_d3d12_clear_stencil_number = &char(C.SDL_PROP_GPU_TEXTURE_CREATE_D3D12_CLEAR_STENCIL_NUMBER) // 'SDL.gpu.texture.create.d3d12.clear.stencil'
 
 pub const prop_gpu_texture_create_name_string = &char(C.SDL_PROP_GPU_TEXTURE_CREATE_NAME_STRING) // 'SDL.gpu.texture.create.name'
-
 // C.SDL_CreateGPUBuffer [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreateGPUBuffer)
 fn C.SDL_CreateGPUBuffer(device &GPUDevice, const_createinfo &GPUBufferCreateInfo) &GPUBuffer
 
@@ -1893,6 +2326,12 @@ fn C.SDL_InsertGPUDebugLabel(command_buffer &GPUCommandBuffer, const_text &char)
 //
 // Useful for debugging.
 //
+// On Direct3D 12, using SDL_InsertGPUDebugLabel requires
+// WinPixEventRuntime.dll to be in your PATH or in the same directory as your
+// executable. See
+// [here](https://devblogs.microsoft.com/pix/winpixeventruntime/)
+// for instructions on how to obtain it.
+//
 // `command_buffer` command_buffer a command buffer.
 // `text` text a UTF-8 string constant to insert as the label.
 //
@@ -1911,6 +2350,11 @@ fn C.SDL_PushGPUDebugGroup(command_buffer &GPUCommandBuffer, const_name &char)
 //
 // Each call to SDL_PushGPUDebugGroup must have a corresponding call to
 // SDL_PopGPUDebugGroup.
+//
+// On Direct3D 12, using SDL_PushGPUDebugGroup requires WinPixEventRuntime.dll
+// to be in your PATH or in the same directory as your executable. See
+// [here](https://devblogs.microsoft.com/pix/winpixeventruntime/)
+// for instructions on how to obtain it.
 //
 // On some backends (e.g. Metal), pushing a debug group during a
 // render/blit/compute pass will create a group that is scoped to the native
@@ -1931,6 +2375,11 @@ pub fn push_gpu_debug_group(command_buffer &GPUCommandBuffer, const_name &char) 
 fn C.SDL_PopGPUDebugGroup(command_buffer &GPUCommandBuffer)
 
 // pop_gpu_debug_group ends the most-recently pushed debug group.
+//
+// On Direct3D 12, using SDL_PopGPUDebugGroup requires WinPixEventRuntime.dll
+// to be in your PATH or in the same directory as your executable. See
+// [here](https://devblogs.microsoft.com/pix/winpixeventruntime/)
+// for instructions on how to obtain it.
 //
 // `command_buffer` command_buffer a command buffer.
 //
@@ -2080,7 +2529,14 @@ fn C.SDL_PushGPUVertexUniformData(command_buffer &GPUCommandBuffer, slot_index u
 
 // push_gpu_vertex_uniform_data pushes data to a vertex uniform slot on the command buffer.
 //
-// Subsequent draw calls will use this uniform data.
+// Subsequent draw calls in this command buffer will use this uniform data.
+//
+// The data being pushed must respect std140 layout conventions. In practical
+// terms this means you must ensure that vec3 and vec4 fields are 16-byte
+// aligned.
+//
+// For detailed information about accessing uniform data from a shader, please
+// refer to SDL_CreateGPUShader.
 //
 // `command_buffer` command_buffer a command buffer.
 // `slot_index` slot_index the vertex uniform slot to push data to.
@@ -2097,7 +2553,11 @@ fn C.SDL_PushGPUFragmentUniformData(command_buffer &GPUCommandBuffer, slot_index
 
 // push_gpu_fragment_uniform_data pushes data to a fragment uniform slot on the command buffer.
 //
-// Subsequent draw calls will use this uniform data.
+// Subsequent draw calls in this command buffer will use this uniform data.
+//
+// The data being pushed must respect std140 layout conventions. In practical
+// terms this means you must ensure that vec3 and vec4 fields are 16-byte
+// aligned.
 //
 // `command_buffer` command_buffer a command buffer.
 // `slot_index` slot_index the fragment uniform slot to push data to.
@@ -2114,7 +2574,11 @@ fn C.SDL_PushGPUComputeUniformData(command_buffer &GPUCommandBuffer, slot_index 
 
 // push_gpu_compute_uniform_data pushes data to a uniform slot on the command buffer.
 //
-// Subsequent draw calls will use this uniform data.
+// Subsequent draw calls in this command buffer will use this uniform data.
+//
+// The data being pushed must respect std140 layout conventions. In practical
+// terms this means you must ensure that vec3 and vec4 fields are 16-byte
+// aligned.
 //
 // `command_buffer` command_buffer a command buffer.
 // `slot_index` slot_index the uniform slot to push data to.
@@ -2138,6 +2602,14 @@ fn C.SDL_BeginGPURenderPass(command_buffer &GPUCommandBuffer, const_color_target
 // pass. A default viewport and scissor state are automatically set when this
 // is called. You cannot begin another render pass, or begin a compute pass or
 // copy pass until you have ended the render pass.
+//
+// Using SDL_GPU_LOADOP_LOAD before any contents have been written to the
+// texture subresource will result in undefined behavior. SDL_GPU_LOADOP_CLEAR
+// will set the contents of the texture subresource to a single value before
+// any rendering is performed. It's fine to do an empty render pass using
+// SDL_GPU_STOREOP_STORE to clear a texture, but in general it's better to
+// think of clearing not as an independent operation but as something that's
+// done as the beginning of a render pass.
 //
 // `command_buffer` command_buffer a command buffer.
 // `color_target_infos` color_target_infos an array of texture subresources with
@@ -2550,6 +3022,9 @@ fn C.SDL_BindGPUComputeSamplers(compute_pass &GPUComputePass, first_slot u32, co
 //
 // The textures must have been created with SDL_GPU_TEXTUREUSAGE_SAMPLER.
 //
+// Be sure your shader is set up according to the requirements documented in
+// SDL_CreateGPUComputePipeline().
+//
 // `compute_pass` compute_pass a compute pass handle.
 // `first_slot` first_slot the compute sampler slot to begin binding from.
 // `texture_sampler_bindings` texture_sampler_bindings an array of texture-sampler binding
@@ -2558,6 +3033,8 @@ fn C.SDL_BindGPUComputeSamplers(compute_pass &GPUComputePass, first_slot u32, co
 //                     array.
 //
 // NOTE: This function is available since SDL 3.2.0.
+//
+// See also: create_gpu_compute_pipeline (SDL_CreateGPUComputePipeline)
 pub fn bind_gpu_compute_samplers(compute_pass &GPUComputePass, first_slot u32, const_texture_sampler_bindings &GPUTextureSamplerBinding, num_bindings u32) {
 	C.SDL_BindGPUComputeSamplers(compute_pass, first_slot, const_texture_sampler_bindings,
 		num_bindings)
@@ -2571,12 +3048,17 @@ fn C.SDL_BindGPUComputeStorageTextures(compute_pass &GPUComputePass, first_slot 
 // These textures must have been created with
 // SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_READ.
 //
+// Be sure your shader is set up according to the requirements documented in
+// SDL_CreateGPUComputePipeline().
+//
 // `compute_pass` compute_pass a compute pass handle.
 // `first_slot` first_slot the compute storage texture slot to begin binding from.
 // `storage_textures` storage_textures an array of storage textures.
 // `num_bindings` num_bindings the number of storage textures to bind from the array.
 //
 // NOTE: This function is available since SDL 3.2.0.
+//
+// See also: create_gpu_compute_pipeline (SDL_CreateGPUComputePipeline)
 pub fn bind_gpu_compute_storage_textures(compute_pass &GPUComputePass, first_slot u32, const_storage_textures &&C.SDL_GPUTexture, num_bindings u32) {
 	C.SDL_BindGPUComputeStorageTextures(compute_pass, first_slot, const_storage_textures,
 		num_bindings)
@@ -2590,12 +3072,17 @@ fn C.SDL_BindGPUComputeStorageBuffers(compute_pass &GPUComputePass, first_slot u
 // These buffers must have been created with
 // SDL_GPU_BUFFERUSAGE_COMPUTE_STORAGE_READ.
 //
+// Be sure your shader is set up according to the requirements documented in
+// SDL_CreateGPUComputePipeline().
+//
 // `compute_pass` compute_pass a compute pass handle.
 // `first_slot` first_slot the compute storage buffer slot to begin binding from.
 // `storage_buffers` storage_buffers an array of storage buffer binding structs.
 // `num_bindings` num_bindings the number of storage buffers to bind from the array.
 //
 // NOTE: This function is available since SDL 3.2.0.
+//
+// See also: create_gpu_compute_pipeline (SDL_CreateGPUComputePipeline)
 pub fn bind_gpu_compute_storage_buffers(compute_pass &GPUComputePass, first_slot u32, const_storage_buffers &&C.SDL_GPUBuffer, num_bindings u32) {
 	C.SDL_BindGPUComputeStorageBuffers(compute_pass, first_slot, const_storage_buffers,
 		num_bindings)
@@ -2708,6 +3195,8 @@ fn C.SDL_BeginGPUCopyPass(command_buffer &GPUCommandBuffer) &GPUCopyPass
 // returns a copy pass handle.
 //
 // NOTE: This function is available since SDL 3.2.0.
+//
+// See also: end_gpu_copy_pass (SDL_EndGPUCopyPass)
 pub fn begin_gpu_copy_pass(command_buffer &GPUCommandBuffer) &GPUCopyPass {
 	return C.SDL_BeginGPUCopyPass(command_buffer)
 }
@@ -2760,6 +3249,10 @@ fn C.SDL_CopyGPUTextureToTexture(copy_pass &GPUCopyPass, const_source &GPUTextur
 //
 // This copy occurs on the GPU timeline. You may assume the copy has finished
 // in subsequent commands.
+//
+// This function does not support copying between depth and color textures.
+// For those, copy the texture to a buffer and then to the destination
+// texture.
 //
 // `copy_pass` copy_pass a copy pass handle.
 // `source` source a source texture region.
@@ -2968,7 +3461,7 @@ fn C.SDL_SetGPUSwapchainParameters(device &GPUDevice, window &Window, swapchain_
 // supported via SDL_WindowSupportsGPUPresentMode /
 // SDL_WindowSupportsGPUSwapchainComposition prior to calling this function.
 //
-// SDL_GPU_PRESENTMODE_VSYNC and SDL_GPU_SWAPCHAINCOMPOSITION_SDR are always
+// SDL_GPU_PRESENTMODE_VSYNC with SDL_GPU_SWAPCHAINCOMPOSITION_SDR is always
 // supported.
 //
 // `device` device a GPU context.
@@ -3043,7 +3536,9 @@ fn C.SDL_AcquireGPUSwapchainTexture(command_buffer &GPUCommandBuffer, window &Wi
 // buffer used to acquire it.
 //
 // This function will fill the swapchain texture handle with NULL if too many
-// frames are in flight. This is not an error.
+// frames are in flight. This is not an error. This NULL pointer should not be
+// passed back into SDL. Instead, it should be considered as an indication to
+// wait until the swapchain is available.
 //
 // If you use this function, it is possible to create a situation where many
 // command buffers are allocated while the rendering context waits for the GPU
@@ -3316,7 +3811,7 @@ pub fn gpu_texture_format_texel_block_size(format GPUTextureFormat) u32 {
 }
 
 // C.SDL_GPUTextureSupportsFormat [official documentation](https://wiki.libsdl.org/SDL3/SDL_GPUTextureSupportsFormat)
-fn C.SDL_GPUTextureSupportsFormat(device &GPUDevice, format GPUTextureFormat, typ GPUTextureType, usage GpuTextureUsageFlags) bool
+fn C.SDL_GPUTextureSupportsFormat(device &GPUDevice, format GPUTextureFormat, typ GPUTextureType, usage GPUTextureUsageFlags) bool
 
 // gpu_texture_supports_format determines whether a texture format is supported for a given type and
 // usage.
@@ -3328,7 +3823,7 @@ fn C.SDL_GPUTextureSupportsFormat(device &GPUDevice, format GPUTextureFormat, ty
 // returns whether the texture format is supported for this type and usage.
 //
 // NOTE: This function is available since SDL 3.2.0.
-pub fn gpu_texture_supports_format(device &GPUDevice, format GPUTextureFormat, typ GPUTextureType, usage GpuTextureUsageFlags) bool {
+pub fn gpu_texture_supports_format(device &GPUDevice, format GPUTextureFormat, typ GPUTextureType, usage GPUTextureUsageFlags) bool {
 	return C.SDL_GPUTextureSupportsFormat(device, format, typ, usage)
 }
 
@@ -3361,6 +3856,35 @@ fn C.SDL_CalculateGPUTextureFormatSize(format GPUTextureFormat, width u32, heigh
 // NOTE: This function is available since SDL 3.2.0.
 pub fn calculate_gpu_texture_format_size(format GPUTextureFormat, width u32, height u32, depth_or_layer_count u32) u32 {
 	return C.SDL_CalculateGPUTextureFormatSize(format, width, height, depth_or_layer_count)
+}
+
+// C.SDL_GetPixelFormatFromGPUTextureFormat [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetPixelFormatFromGPUTextureFormat)
+fn C.SDL_GetPixelFormatFromGPUTextureFormat(format GPUTextureFormat) PixelFormat
+
+// get_pixel_format_from_gpu_texture_format gets the SDL pixel format corresponding to a GPU texture format.
+//
+// `format` format a texture format.
+// returns the corresponding pixel format, or SDL_PIXELFORMAT_UNKNOWN if
+//          there is no corresponding pixel format.
+//
+// NOTE: This function is available since SDL 3.4.0.
+pub fn get_pixel_format_from_gpu_texture_format(format GPUTextureFormat) PixelFormat {
+	return C.SDL_GetPixelFormatFromGPUTextureFormat(format)
+}
+
+// C.SDL_GetGPUTextureFormatFromPixelFormat [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGPUTextureFormatFromPixelFormat)
+fn C.SDL_GetGPUTextureFormatFromPixelFormat(format PixelFormat) GPUTextureFormat
+
+// get_gpu_texture_format_from_pixel_format gets the GPU texture format corresponding to an SDL pixel format.
+//
+// `format` format a pixel format.
+// returns the corresponding GPU texture format, or
+//          SDL_GPU_TEXTUREFORMAT_INVALID if there is no corresponding GPU
+//          texture format.
+//
+// NOTE: This function is available since SDL 3.4.0.
+pub fn get_gpu_texture_format_from_pixel_format(format PixelFormat) GPUTextureFormat {
+	return C.SDL_GetGPUTextureFormatFromPixelFormat(format)
 }
 
 // $if XBox GDK

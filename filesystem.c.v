@@ -58,6 +58,9 @@ fn C.SDL_GetBasePath() &char
 // - `parent`: the containing directory of the bundle. For example:
 //   `/Applications/SDLApp/`
 //
+// **Android Specific Functionality**: This function returns "./", which
+// allows filesystem operations to use internal storage and the asset system.
+//
 // **Nintendo 3DS Specific Functionality**: This function returns "romfs"
 // directory of the application as it is uncommon to store resources outside
 // the executable. As such it is not a writable directory.
@@ -69,6 +72,8 @@ fn C.SDL_GetBasePath() &char
 //          directory. NULL will be returned on error or when the platform
 //          doesn't implement this functionality, call SDL_GetError() for more
 //          information.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -118,6 +123,12 @@ fn C.SDL_GetPrefPath(const_org &char, const_app &char) &char
 // - ...only use letters, numbers, and spaces. Avoid punctuation like "Game
 //   Name 2: Bad Guy's Revenge!" ... "Game Name 2" is sufficient.
 //
+// Due to historical mistakes, `org` is allowed to be NULL or "". In such
+// cases, SDL will omit the org subdirectory, including on platforms where it
+// shouldn't, and including on platforms where this would make your app fail
+// certification for an app store. New apps should definitely specify a real
+// string for `org`.
+//
 // The returned path is guaranteed to end with a path separator ('\\' on
 // Windows, '/' on most other platforms).
 //
@@ -127,6 +138,8 @@ fn C.SDL_GetPrefPath(const_org &char, const_app &char) &char
 //          notation. NULL if there's a problem (creating directory failed,
 //          etc.). This should be freed with SDL_free() when it is no longer
 //          needed.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -174,6 +187,8 @@ fn C.SDL_GetUserFolder(folder Folder) &char
 // returns either a null-terminated C string containing the full path to the
 //          folder, or NULL if an error happened.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_user_folder(folder Folder) &char {
 	return &char(C.SDL_GetUserFolder(folder))
@@ -214,6 +229,8 @@ fn C.SDL_CreateDirectory(const_path &char) bool
 // `path` path the path of the directory to create.
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn create_directory(const_path &char) bool {
@@ -274,6 +291,8 @@ fn C.SDL_EnumerateDirectory(const_path &char, callback EnumerateDirectoryCallbac
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 pub fn enumerate_directory(const_path &char, callback EnumerateDirectoryCallback, userdata voidptr) bool {
 	return C.SDL_EnumerateDirectory(const_path, callback, userdata)
@@ -291,6 +310,8 @@ fn C.SDL_RemovePath(const_path &char) bool
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 pub fn remove_path(const_path &char) bool {
 	return C.SDL_RemovePath(const_path)
@@ -301,7 +322,7 @@ fn C.SDL_RenamePath(const_oldpath &char, const_newpath &char) bool
 
 // rename_path renames a file or directory.
 //
-// If the file at `newpath` already exists, it will replaced.
+// If the file at `newpath` already exists, it will be replaced.
 //
 // Note that this will not copy files across filesystems/drives/volumes, as
 // that is a much more complicated (and possibly time-consuming) operation.
@@ -316,6 +337,8 @@ fn C.SDL_RenamePath(const_oldpath &char, const_newpath &char) bool
 // `newpath` newpath the new path.
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn rename_path(const_oldpath &char, const_newpath &char) bool {
@@ -360,6 +383,10 @@ fn C.SDL_CopyFile(const_oldpath &char, const_newpath &char) bool
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread, but this
+//               operation is not atomic, so the app might need to protect
+//               access to specific paths from other threads if appropriate.
+//
 // NOTE: This function is available since SDL 3.2.0.
 pub fn copy_file(const_oldpath &char, const_newpath &char) bool {
 	return C.SDL_CopyFile(const_oldpath, const_newpath)
@@ -376,6 +403,8 @@ fn C.SDL_GetPathInfo(const_path &char, info &PathInfo) bool
 // returns true on success or false if the file doesn't exist, or another
 //          failure; call SDL_GetError() for more information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_path_info(const_path &char, info &PathInfo) bool {
 	return C.SDL_GetPathInfo(const_path, info)
@@ -387,10 +416,10 @@ fn C.SDL_GlobDirectory(const_path &char, const_pattern &char, flags GlobFlags, c
 // glob_directory enumerates a directory tree, filtered by pattern, and return a list.
 //
 // Files are filtered out if they don't match the string in `pattern`, which
-// may contain wildcard characters '\*' (match everything) and '?' (match one
+// may contain wildcard characters `*` (match everything) and `?` (match one
 // character). If pattern is NULL, no filtering is done and all results are
 // returned. Subdirectories are permitted, and are specified with a path
-// separator of '/'. Wildcard characters '\*' and '?' never match a path
+// separator of `/`. Wildcard characters `*` and `?` never match a path
 // separator.
 //
 // `flags` may be set to SDL_GLOB_CASEINSENSITIVE to make the pattern matching
@@ -435,6 +464,9 @@ fn C.SDL_GetCurrentDirectory() &char
 // returns a UTF-8 string of the current working directory in
 //          platform-dependent notation. NULL if there's a problem. This
 //          should be freed with SDL_free() when it is no longer needed.
+//
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_current_directory() &char {

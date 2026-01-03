@@ -76,12 +76,14 @@ pub enum EventType {
 	display_desktop_mode_changed  = C.SDL_EVENT_DISPLAY_DESKTOP_MODE_CHANGED  // `display_desktop_mode_changed` Display has changed desktop mode
 	display_current_mode_changed  = C.SDL_EVENT_DISPLAY_CURRENT_MODE_CHANGED  // `display_current_mode_changed` Display has changed current mode
 	display_content_scale_changed = C.SDL_EVENT_DISPLAY_CONTENT_SCALE_CHANGED // `display_content_scale_changed` Display has changed content scale
+	display_usable_bounds_changed = C.SDL_EVENT_DISPLAY_USABLE_BOUNDS_CHANGED // `display_usable_bounds_changed` Display has changed usable bounds
 	// TODO: `display_first`, `display_last` trigger C compile errors: `error: duplicate case value` even if `@[_allow_multiple_values]` is used.
 	// display_first                = C.SDL_EVENT_DISPLAY_FIRST                // SDL_EVENT_DISPLAY_ORIENTATION,
-	// display_last                 = C.SDL_EVENT_DISPLAY_LAST                 // SDL_EVENT_DISPLAY_CONTENT_SCALE_CHANGED,
-	window_shown                 = C.SDL_EVENT_WINDOW_SHOWN                 // 0x202, Window has been shown
-	window_hidden                = C.SDL_EVENT_WINDOW_HIDDEN                // `window_hidden` Window has been hidden
-	window_exposed               = C.SDL_EVENT_WINDOW_EXPOSED               // `window_exposed` Window has been exposed and should be redrawn, and can be redrawn directly from event watchers for this event
+	// display_last                 = C.SDL_EVENT_DISPLAY_LAST                 // SDL_EVENT_DISPLAY_USABLE_BOUNDS_CHANGED,
+	window_shown   = C.SDL_EVENT_WINDOW_SHOWN   // 0x202, Window has been shown
+	window_hidden  = C.SDL_EVENT_WINDOW_HIDDEN  // `window_hidden` Window has been hidden
+	window_exposed = C.SDL_EVENT_WINDOW_EXPOSED // `window_exposed` Window has been exposed and should be redrawn, and can be redrawn directly from event watchers for this event.
+	// data1 is 1 for live-resize expose events, 0 otherwise.
 	window_moved                 = C.SDL_EVENT_WINDOW_MOVED                 // `window_moved` Window has been moved to data1, data2
 	window_resized               = C.SDL_EVENT_WINDOW_RESIZED               // `window_resized` Window has been resized to data1xdata2
 	window_pixel_size_changed    = C.SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED    // `window_pixel_size_changed` The pixel size of the window has changed to data1xdata2
@@ -103,6 +105,7 @@ pub enum EventType {
 	window_enter_fullscreen      = C.SDL_EVENT_WINDOW_ENTER_FULLSCREEN      // `window_enter_fullscreen` The window has entered fullscreen mode
 	window_leave_fullscreen      = C.SDL_EVENT_WINDOW_LEAVE_FULLSCREEN      // `window_leave_fullscreen` The window has left fullscreen mode
 	window_destroyed             = C.SDL_EVENT_WINDOW_DESTROYED             // `window_destroyed` The window with the associated ID is being or has been destroyed. If this message is being handled
+
 	// in an event watcher, the window handle is still valid and can still be used to retrieve any properties
 	// associated with the window. Otherwise, the handle has already been destroyed and all resources
 	// associated with it are invalid
@@ -119,6 +122,8 @@ pub enum EventType {
 	keyboard_added               = C.SDL_EVENT_KEYBOARD_ADDED               // `keyboard_added` A new keyboard has been inserted into the system
 	keyboard_removed             = C.SDL_EVENT_KEYBOARD_REMOVED             // `keyboard_removed` A keyboard has been removed
 	text_editing_candidates      = C.SDL_EVENT_TEXT_EDITING_CANDIDATES      // `text_editing_candidates` Keyboard text editing candidates
+	screen_keyboard_shown        = C.SDL_EVENT_SCREEN_KEYBOARD_SHOWN        // `screen_keyboard_shown` The on-screen keyboard has been shown
+	screen_keyboard_hidden       = C.SDL_EVENT_SCREEN_KEYBOARD_HIDDEN       // `screen_keyboard_hidden` The on-screen keyboard has been hidden
 	mouse_motion                 = C.SDL_EVENT_MOUSE_MOTION                 // 0x400, Mouse moved
 	mouse_button_down            = C.SDL_EVENT_MOUSE_BUTTON_DOWN            // `mouse_button_down` Mouse button pressed
 	mouse_button_up              = C.SDL_EVENT_MOUSE_BUTTON_UP              // `mouse_button_up` Mouse button released
@@ -151,7 +156,10 @@ pub enum EventType {
 	finger_up                   = C.SDL_EVENT_FINGER_UP
 	finger_motion               = C.SDL_EVENT_FINGER_MOTION
 	finger_canceled             = C.SDL_EVENT_FINGER_CANCELED
-	clipboard_update            = C.SDL_EVENT_CLIPBOARD_UPDATE            // 0x900, The clipboard or primary selection changed
+	pinch_begin                 = C.SDL_EVENT_PINCH_BEGIN                 // 0x710, *< Pinch gesture started
+	pinch_update                = C.SDL_EVENT_PINCH_UPDATE                // `pinch_update` Pinch gesture updated
+	pinch_end                   = C.SDL_EVENT_PINCH_END                   // `pinch_end` Pinch gesture ended
+	clipboard_update            = C.SDL_EVENT_CLIPBOARD_UPDATE            // 0x900, *< The clipboard changed
 	drop_file                   = C.SDL_EVENT_DROP_FILE                   // 0x1000, The system requests a file open
 	drop_text                   = C.SDL_EVENT_DROP_TEXT                   // `drop_text` text/plain drag-and-drop event
 	drop_begin                  = C.SDL_EVENT_DROP_BEGIN                  // `drop_begin` A new set of drops is beginning (NULL filename)
@@ -202,12 +210,17 @@ pub mut:
 	timestamp u64 // In nanoseconds, populated using SDL_GetTicksNS()
 }
 
+// CommonEvent
+//
+// Fields shared by every event
+//
+// NOTE: This struct is available since SDL 3.2.0.
 pub type CommonEvent = C.SDL_CommonEvent
 
 @[typedef]
 pub struct C.SDL_DisplayEvent {
 pub mut:
-	type      EventType // SDL_DISPLAYEVENT_*
+	type      EventType // SDL_EVENT_DISPLAY_*
 	reserved  u32
 	timestamp u64       // In nanoseconds, populated using SDL_GetTicksNS()
 	displayID DisplayID // The associated display
@@ -215,6 +228,11 @@ pub mut:
 	data2     i32       // event dependent data
 }
 
+// DisplayEvent
+//
+// Display state change event data (event.display.*)
+//
+// NOTE: This struct is available since SDL 3.2.0.
 pub type DisplayEvent = C.SDL_DisplayEvent
 
 @[typedef]
@@ -228,6 +246,11 @@ pub mut:
 	data2     i32      // event dependent data
 }
 
+// WindowEvent
+//
+// Window state change event data (event.window.*)
+//
+// NOTE: This struct is available since SDL 3.2.0.
 pub type WindowEvent = C.SDL_WindowEvent
 
 @[typedef]
@@ -239,6 +262,11 @@ pub mut:
 	which     KeyboardID // The keyboard instance id
 }
 
+// KeyboardDeviceEvent
+//
+// Keyboard device event structure (event.kdevice.*)
+//
+// NOTE: This struct is available since SDL 3.2.0.
 pub type KeyboardDeviceEvent = C.SDL_KeyboardDeviceEvent
 
 @[typedef]
@@ -257,6 +285,20 @@ pub mut:
 	repeat    bool       // true if this is a key repeat
 }
 
+// KeyboardEvent
+//
+//  Keyboard button event structure (event.key.*)
+//
+// The `key` is the base SDL_Keycode generated by pressing the `scancode`
+// using the current keyboard layout, applying any options specified in
+// SDL_HINT_KEYCODE_OPTIONS. You can get the SDL_Keycode corresponding to the
+// event scancode and modifiers directly from the keyboard layout, bypassing
+// SDL_HINT_KEYCODE_OPTIONS, by calling SDL_GetKeyFromScancode().
+//
+// NOTE: This struct is available since SDL 3.2.0.
+//
+// See also: SDL_GetKeyFromScancode
+// See also: SDL_HINT_KEYCODE_OPTIONS
 pub type KeyboardEvent = C.SDL_KeyboardEvent
 
 @[typedef]
@@ -271,6 +313,15 @@ pub mut:
 	length    i32 // The length of selected editing text, or -1 if not set
 }
 
+// TextEditingEvent
+//
+// Keyboard text editing event structure (event.edit.*)
+//
+// The start cursor is the position, in UTF-8 characters, where new typing
+// will be inserted into the editing text. The length is the number of UTF-8
+// characters that will be replaced by new typing.
+//
+// NOTE: This struct is available since SDL 3.2.0.
 pub type TextEditingEvent = C.SDL_TextEditingEvent
 
 @[typedef]
@@ -289,6 +340,11 @@ pub mut:
 	padding3           u8
 }
 
+// TextEditingCandidatesEvent
+//
+//  Keyboard IME candidates event structure (event.edit_candidates.*)
+//
+// NOTE: This struct is available since SDL 3.2.0.
 pub type TextEditingCandidatesEvent = C.SDL_TextEditingCandidatesEvent
 
 @[typedef]
@@ -301,6 +357,17 @@ pub mut:
 	text      &char = unsafe { nil } // The input text, UTF-8 encoded
 }
 
+// TextInputEvent
+//
+// Keyboard text input event structure (event.text.*)
+//
+// This event will never be delivered unless text input is enabled by calling
+// SDL_StartTextInput(). Text input is disabled by default!
+//
+// NOTE: This struct is available since SDL 3.2.0.
+//
+// See also: SDL_StartTextInput
+// See also: SDL_StopTextInput
 pub type TextInputEvent = C.SDL_TextInputEvent
 
 @[typedef]
@@ -312,6 +379,11 @@ pub mut:
 	which     MouseID // The mouse instance id
 }
 
+// MouseDeviceEvent
+//
+// Mouse device event structure (event.mdevice.*)
+//
+// NOTE: This struct is available since SDL 3.2.0.
 pub type MouseDeviceEvent = C.SDL_MouseDeviceEvent
 
 @[typedef]
@@ -329,6 +401,11 @@ pub mut:
 	yrel      f32              // The relative motion in the Y direction
 }
 
+// MouseMotionEvent
+//
+// Mouse motion event structure (event.motion.*)
+//
+// NOTE: This struct is available since SDL 3.2.0.
 pub type MouseMotionEvent = C.SDL_MouseMotionEvent
 
 @[typedef]
@@ -347,6 +424,11 @@ pub mut:
 	y         f32 // Y coordinate, relative to window
 }
 
+// MouseButtonEvent
+//
+// Mouse button event structure (event.button.*)
+//
+// NOTE: This struct is available since SDL 3.2.0.
 pub type MouseButtonEvent = C.SDL_MouseButtonEvent
 
 @[typedef]
@@ -364,6 +446,10 @@ pub mut:
 	mouse_y   f32                 // Y coordinate, relative to window
 }
 
+// MouseWheelEvent
+//
+// Mouse wheel event structure (event.wheel.*)
+// NOTE: This struct is available since SDL 3.2.0.
 pub type MouseWheelEvent = C.SDL_MouseWheelEvent
 
 @[typedef]
@@ -381,6 +467,11 @@ pub mut:
 	padding4  u16
 }
 
+// JoyAxisEvent
+//
+// Joystick axis motion event structure (event.jaxis.*)
+//
+// NOTE: This struct is available since SDL 3.2.0.
 pub type JoyAxisEvent = C.SDL_JoyAxisEvent
 
 @[typedef]
@@ -398,6 +489,11 @@ pub mut:
 	yrel      i16 // The relative motion in the Y direction
 }
 
+// JoyBallEvent
+//
+// Joystick trackball motion event structure (event.jball.*)
+//
+// NOTE: This struct is available since SDL 3.2.0.
 pub type JoyBallEvent = C.SDL_JoyBallEvent
 
 @[typedef]
@@ -418,6 +514,11 @@ pub mut:
 	padding2 u8
 }
 
+// JoyHatEvent
+//
+// Joystick hat position change event structure (event.jhat.*)
+//
+// NOTE: This struct is available since SDL 3.2.0.
 pub type JoyHatEvent = C.SDL_JoyHatEvent
 
 @[typedef]
@@ -433,6 +534,11 @@ pub mut:
 	padding2  u8
 }
 
+// JoyButtonEvent
+//
+// Joystick button event structure (event.jbutton.*)
+//
+// NOTE: This struct is available since SDL 3.2.0.
 pub type JoyButtonEvent = C.SDL_JoyButtonEvent
 
 @[typedef]
@@ -444,6 +550,16 @@ pub mut:
 	which     JoystickID // The joystick instance id
 }
 
+// JoyDeviceEvent
+//
+// Joystick device event structure (event.jdevice.*)
+//
+// SDL will send JOYSTICK_ADDED events for devices that are already plugged in
+// during SDL_Init.
+//
+// NOTE: This struct is available since SDL 3.2.0.
+//
+// See also: SDL_GamepadDeviceEvent
 pub type JoyDeviceEvent = C.SDL_JoyDeviceEvent
 
 @[typedef]
@@ -457,6 +573,11 @@ pub mut:
 	percent   int        // The joystick battery percent charge remaining
 }
 
+// JoyBatteryEvent
+//
+// Joystick battery level change event structure (event.jbattery.*)
+//
+// NOTE: This struct is available since SDL 3.2.0.
 pub type JoyBatteryEvent = C.SDL_JoyBatteryEvent
 
 @[typedef]
@@ -545,6 +666,15 @@ pub mut:
 	padding3  u8
 }
 
+// AudioDeviceEvent
+//
+// Audio device event structure (event.adevice.*)
+//
+// Note that SDL will send a SDL_EVENT_AUDIO_DEVICE_ADDED event for every
+// device it discovers during initialization. After that, this event will only
+// arrive when a device is hotplugged during the program's run.
+//
+// NOTE: This struct is available since SDL 3.2.0.
 pub type AudioDeviceEvent = C.SDL_AudioDeviceEvent
 
 @[typedef]
@@ -588,6 +718,21 @@ pub mut:
 pub type TouchFingerEvent = C.SDL_TouchFingerEvent
 
 @[typedef]
+pub struct C.SDL_PinchFingerEvent {
+pub mut:
+	type      EventType // ::SDL_EVENT_PINCH_BEGIN or ::SDL_EVENT_PINCH_UPDATE or ::SDL_EVENT_PINCH_END
+	reserved  u32
+	timestamp u64      // In nanoseconds, populated using SDL_GetTicksNS()
+	scale     f32      // The scale change since the last SDL_EVENT_PINCH_UPDATE. Scale < 1 is "zoom out". Scale > 1 is "zoom in".
+	windowID  WindowID // The window underneath the finger, if any
+}
+
+// PinchFingerEvent
+//
+// Pinch event structure (event.pinch.*)
+pub type PinchFingerEvent = C.SDL_PinchFingerEvent
+
+@[typedef]
 pub struct C.SDL_PenProximityEvent {
 pub mut:
 	type      EventType // SDL_EVENT_PEN_PROXIMITY_IN or SDL_EVENT_PEN_PROXIMITY_OUT
@@ -597,6 +742,24 @@ pub mut:
 	which     PenID    // The pen instance id
 }
 
+// PenProximityEvent
+//
+// Pressure-sensitive pen proximity event structure (event.pproximity.*)
+//
+// When a pen becomes visible to the system (it is close enough to a tablet,
+// etc), SDL will send an SDL_EVENT_PEN_PROXIMITY_IN event with the new pen's
+// ID. This ID is valid until the pen leaves proximity again (has been removed
+// from the tablet's area, the tablet has been unplugged, etc). If the same
+// pen reenters proximity again, it will be given a new ID.
+//
+// Note that "proximity" means "close enough for the tablet to know the tool
+// is there." The pen touching and lifting off from the tablet while not
+// leaving the area are handled by SDL_EVENT_PEN_DOWN and SDL_EVENT_PEN_UP.
+//
+// Not all platforms have a window associated with the pen during proximity
+// events. Some wait until motion/button/etc events to offer this info.
+//
+// NOTE: This struct is available since SDL 3.2.0.
 pub type PenProximityEvent = C.SDL_PenProximityEvent
 
 @[typedef]
@@ -719,7 +882,7 @@ pub type QuitEvent = C.SDL_QuitEvent
 @[typedef]
 pub struct C.SDL_UserEvent {
 pub mut:
-	type      u32 // SDL_EVENT_USER through SDL_EVENT_LAST-1, Uint32 because these are not in the SDL_EventType enumeration
+	type      u32 // SDL_EVENT_USER through SDL_EVENT_LAST, Uint32 because these are not in the SDL_EventType enumeration
 	reserved  u32
 	timestamp u64      // In nanoseconds, populated using SDL_GetTicksNS()
 	windowID  WindowID // The associated window if any
@@ -728,6 +891,17 @@ pub mut:
 	data2     voidptr  // User defined data pointer
 }
 
+// UserEvent
+//
+// A user-defined event type (event.user.*)
+//
+// This event is unique; it is never created by SDL, but only by the
+// application. The event can be pushed onto the event queue using
+// SDL_PushEvent(). The contents of the structure members are completely up to
+// the programmer; the only requirement is that '''type''' is a value obtained
+// from SDL_RegisterEvents().
+//
+// NOTE: This struct is available since SDL 3.2.0.
 pub type UserEvent = C.SDL_UserEvent
 
 @[typedef]
@@ -763,6 +937,7 @@ pub mut:
 	quit            QuitEvent                  // Quit request event data
 	user            UserEvent                  // Custom event data
 	tfinger         TouchFingerEvent           // Touch finger event data
+	pinch           PinchFingerEvent           // Pinch event data
 	pproximity      PenProximityEvent          // Pen proximity event data
 	ptouch          PenTouchEvent              // Pen tip touching event data
 	pmotion         PenMotionEvent             // Pen motion event data
@@ -1006,6 +1181,13 @@ fn C.SDL_PollEvent(event &Event) bool
 //     // update game state, draw the current frame
 // }
 // ```
+
+// Note that Windows (and possibly other platforms) has a quirk about how it
+// handles events while dragging/resizing a window, which can cause this
+// function to block for significant amounts of time. Technical explanations
+// and solutions are discussed on the wiki:
+//
+// https://wiki.libsdl.org/SDL3/AppFreezeDuringDrag
 //
 // `event` event the SDL_Event structure to be filled with the next event from
 //              the queue, or NULL.
@@ -1155,7 +1337,10 @@ fn C.SDL_SetEventFilter(filter EventFilter, userdata voidptr)
 // allows selective filtering of dynamically arriving events.
 //
 // **WARNING**: Be very careful of what you do in the event filter function,
-// as it may run in a different thread!
+// as it may run in a different thread! The exception is handling of
+// SDL_EVENT_WINDOW_EXPOSED, which is guaranteed to be sent from the OS on the
+// main thread and you are expected to redraw your window in response to this
+// event.
 //
 // On platforms that support it, if the quit event is generated by an
 // interrupt signal (e.g. pressing Ctrl-C), it will be delivered to the
@@ -1168,7 +1353,7 @@ fn C.SDL_SetEventFilter(filter EventFilter, userdata voidptr)
 // the event filter, but events pushed onto the queue with SDL_PeepEvents() do
 // not.
 //
-// `filter` filter an SDL_EventFilter function to call when an event happens.
+// `filter` filter a function to call when an event happens.
 // `userdata` userdata a pointer that is passed to `filter`.
 //
 // NOTE: (thread safety) It is safe to call this function from any thread.
@@ -1354,4 +1539,39 @@ fn C.SDL_GetWindowFromEvent(const_event &Event) &Window
 // See also: wait_event_timeout (SDL_WaitEventTimeout)
 pub fn get_window_from_event(const_event &Event) &Window {
 	return C.SDL_GetWindowFromEvent(const_event)
+}
+
+// C.SDL_GetEventDescription [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetEventDescription)
+fn C.SDL_GetEventDescription(const_event &Event, buf &char, buflen int) int
+
+// get_event_description generates an English description of an event.
+//
+// This will fill `buf` with a null-terminated string that might look
+// something like this:
+//
+// ```
+// SDL_EVENT_MOUSE_MOTION (timestamp=1140256324 windowid=2 which=0 state=0 x=492.99 y=139.09 xrel=52 yrel=6)
+// ```
+//
+// The exact format of the string is not guaranteed; it is intended for
+// logging purposes, to be read by a human, and not parsed by a computer.
+//
+// The returned value follows the same rules as SDL_snprintf(): `buf` will
+// always be NULL-terminated (unless `buflen` is zero), and will be truncated
+// if `buflen` is too small. The return code is the number of bytes needed for
+// the complete string, not counting the NULL-terminator, whether the string
+// was truncated or not. Unlike SDL_snprintf(), though, this function never
+// returns -1.
+//
+// `event` event an event to describe. May be NULL.
+// `buf` buf the buffer to fill with the description string. May be NULL.
+// `buflen` buflen the maximum bytes that can be written to `buf`.
+// returns number of bytes needed for the full string, not counting the
+//          null-terminator byte.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
+// NOTE: This function is available since SDL 3.4.0.
+pub fn get_event_description(const_event &Event, buf &char, buflen int) int {
+	return C.SDL_GetEventDescription(const_event, buf, buflen)
 }

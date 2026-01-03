@@ -29,9 +29,11 @@ module sdl
 //
 // Properties can be removed from a group by using SDL_ClearProperty.
 
-// SDL properties ID
+// PropertiesID; ans ID that represents a properties set.
 //
 // NOTE: This datatype is available since SDL 3.2.0.
+//
+// [Official documentation](https://wiki.libsdl.org/SDL3/SDL_PropertiesID)
 pub type PropertiesID = u32
 
 // PropertyType is C.SDL_PropertyType
@@ -43,6 +45,29 @@ pub enum PropertyType {
 	float   = C.SDL_PROPERTY_TYPE_FLOAT
 	boolean = C.SDL_PROPERTY_TYPE_BOOLEAN
 }
+
+// A generic property for naming things.
+//
+// This property is intended to be added to any SDL_PropertiesID that needs a
+// generic name associated with the property set. It is not guaranteed that
+// any property set will include this key, but it is convenient to have a
+// standard key that any piece of code could reasonably agree to use.
+//
+// For example, the properties associated with an SDL_Texture might have a
+// name string of "player sprites", or an SDL_AudioStream might have
+// "background music", etc. This might also be useful for an SDL_IOStream to
+// list the path to its asset.
+//
+// There is no format for the value set with this key; it is expected to be
+// human-readable and informational in nature, possibly for logging or
+// debugging purposes.
+//
+// SDL does not currently set this property on any objects it creates, but
+// this may change in later versions; it is currently expected that apps and
+// external libraries will take advantage of it, when appropriate.
+//
+// NOTE: This macro is available since SDL 3.4.0.
+pub const prop_name_string = &char(C.SDL_PROP_NAME_STRING) // 'SDL.name'
 
 // C.SDL_GetGlobalProperties [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetGlobalProperties)
 fn C.SDL_GetGlobalProperties() PropertiesID
@@ -91,7 +116,9 @@ fn C.SDL_CopyProperties(src PropertiesID, dst PropertiesID) bool
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
-// NOTE: (thread safety) It is safe to call this function from any thread.
+// NOTE: (thread safety) It is safe to call this function from any thread. This
+//               function acquires simultaneous mutex locks on both the source
+//               and destination property sets.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn copy_properties(src PropertiesID, dst PropertiesID) bool {

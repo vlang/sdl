@@ -114,6 +114,11 @@ pub struct C.SDL_Haptic {
 
 pub type Haptic = C.SDL_Haptic
 
+// HapticEffectType; types of haptic effect.
+//
+// [Official documentation](https://wiki.libsdl.org/SDL3/SDL_HapticEffectType)
+pub type HapticEffectType = u16
+
 pub const haptic_constant = C.SDL_HAPTIC_CONSTANT // (1u<<0)
 
 pub const haptic_sine = C.SDL_HAPTIC_SINE // (1u<<1)
@@ -154,6 +159,11 @@ pub const haptic_status = C.SDL_HAPTIC_STATUS // (1u<<18)
 
 pub const haptic_pause = C.SDL_HAPTIC_PAUSE // (1u<<19)
 
+// HapticDirectionType; types of coordinates used for haptic direction.
+//
+// [Official documentation](https://wiki.libsdl.org/SDL3/SDL_HapticDirectionType)
+pub type HapticDirectionType = u8
+
 // Uses polar coordinates for the direction.
 //
 // NOTE: This macro is available since SDL 3.2.0.
@@ -187,13 +197,127 @@ pub const haptic_steering_axis = C.SDL_HAPTIC_STEERING_AXIS // 3
 
 pub const haptic_infinity = C.SDL_HAPTIC_INFINITY // 4294967295U
 
+// HapticEffectID; ids for haptic effects.
+//
+// This is -1 if the ID is invalid.
+//
+// See also: create_haptic_effect (SDL_CreateHapticEffect)
+//
+// [Official documentation](https://wiki.libsdl.org/SDL3/SDL_HapticEffectID)
+pub type HapticEffectID = int
+
 @[typedef]
 pub struct C.SDL_HapticDirection {
 pub mut:
-	type u8     // The type of encoding.
-	dir  [3]i32 // The encoded direction.
+	type HapticDirectionType // The type of encoding.
+	dir  [3]i32              // The encoded direction.
 }
 
+// HapticDirection
+//
+// Structure that represents a haptic direction.
+//
+// This is the direction where the force comes from, instead of the direction
+// in which the force is exerted.
+//
+// Directions can be specified by:
+//
+// - SDL_HAPTIC_POLAR : Specified by polar coordinates.
+// - SDL_HAPTIC_CARTESIAN : Specified by cartesian coordinates.
+// - SDL_HAPTIC_SPHERICAL : Specified by spherical coordinates.
+//
+// Cardinal directions of the haptic device are relative to the positioning of
+// the device. North is considered to be away from the user.
+//
+// The following diagram represents the cardinal directions:
+//
+// ```
+// .--.
+// |__| .-------.
+// |=.| |.-----.|
+// |--| ||||
+// || |'-----'|
+// |__|~')_____('
+//[ COMPUTER ]
+//
+//
+// North (0,-1)
+//^
+//|
+//|
+//(-1,0)West <----[ HAPTIC ]----> East (1,0)
+//|
+//|
+// v
+// South (0,1)
+//
+//
+//[ USER ]
+//\|||
+//(o o)
+//---ooO-(_)-Ooo---
+// ```
+//
+// If type is SDL_HAPTIC_POLAR, direction is encoded by hundredths of a degree
+// starting north and turning clockwise. SDL_HAPTIC_POLAR only uses the first
+// `dir` parameter. The cardinal directions would be:
+//
+// - North: 0 (0 degrees)
+// - East: 9000 (90 degrees)
+// - South: 18000 (180 degrees)
+// - West: 27000 (270 degrees)
+//
+// If type is SDL_HAPTIC_CARTESIAN, direction is encoded by three positions (X
+// axis, Y axis and Z axis (with 3 axes)). SDL_HAPTIC_CARTESIAN uses the first
+// three `dir` parameters. The cardinal directions would be:
+//
+// - North: 0,-1, 0
+// - East: 1, 0, 0
+// - South: 0, 1, 0
+// - West: -1, 0, 0
+//
+// The Z axis represents the height of the effect if supported, otherwise it's
+// unused. In cartesian encoding (1, 2) would be the same as (2, 4), you can
+// use any multiple you want, only the direction matters.
+//
+// If type is SDL_HAPTIC_SPHERICAL, direction is encoded by two rotations. The
+// first two `dir` parameters are used. The `dir` parameters are as follows
+// (all values are in hundredths of degrees):
+//
+// - Degrees from (1, 0) rotated towards (0, 1).
+// - Degrees towards (0, 0, 1) (device needs at least 3 axes).
+//
+// Example of force coming from the south with all encodings (force coming
+// from the south means the user will have to pull the stick to counteract):
+//
+// ```c
+// SDL_HapticDirection direction;
+//
+//// Cartesian directions
+// direction.type = SDL_HAPTIC_CARTESIAN; // Using cartesian direction encoding.
+// direction.dir[0] = 0; // X position
+// direction.dir[1] = 1; // Y position
+//// Assuming the device has 2 axes, we don't need to specify third parameter.
+//
+//// Polar directions
+// direction.type = SDL_HAPTIC_POLAR; // We'll be using polar direction encoding.
+// direction.dir[0] = 18000; // Polar only uses first parameter
+//
+//// Spherical coordinates
+// direction.type = SDL_HAPTIC_SPHERICAL; // Spherical encoding
+// direction.dir[0] = 9000; // Since we only have two axes we don't need more parameters.
+// ```
+//
+// \since This struct is available since SDL 3.2.0.
+//
+// \sa SDL_HAPTIC_POLAR
+// \sa SDL_HAPTIC_CARTESIAN
+// \sa SDL_HAPTIC_SPHERICAL
+// \sa SDL_HAPTIC_STEERING_AXIS
+// \sa SDL_HapticEffect
+// \sa SDL_GetNumHapticAxes
+//
+// HapticDirection is C.SDL_HapticDirection
 pub type HapticDirection = C.SDL_HapticDirection
 
 // C.SDL_HapticConstant [official documentation](https://wiki.libsdl.org/SDL3/SDL_HapticConstant)
@@ -201,8 +325,8 @@ pub type HapticDirection = C.SDL_HapticDirection
 pub struct C.SDL_HapticConstant {
 pub mut:
 	// Header
-	type      u16             // SDL_HAPTIC_CONSTANT
-	direction HapticDirection // Direction of the effect.
+	type      HapticEffectType // SDL_HAPTIC_CONSTANT
+	direction HapticDirection  // Direction of the effect.
 	// Replay
 	length u32 // Duration of the effect.
 	delay  u16 // Delay before starting the effect.
@@ -236,8 +360,8 @@ pub type HapticConstant = C.SDL_HapticConstant
 pub struct C.SDL_HapticPeriodic {
 pub mut:
 	// Header
-	type      u16             // SDL_HAPTIC_SINE, SDL_HAPTIC_SQUARE SDL_HAPTIC_TRIANGLE, SDL_HAPTIC_SAWTOOTHUP or SDL_HAPTIC_SAWTOOTHDOWN
-	direction HapticDirection // Direction of the effect.
+	type      HapticEffectType // SDL_HAPTIC_SINE, SDL_HAPTIC_SQUARE SDL_HAPTIC_TRIANGLE, SDL_HAPTIC_SAWTOOTHUP or SDL_HAPTIC_SAWTOOTHDOWN
+	direction HapticDirection  // Direction of the effect.
 	// Replay
 	length u32 // Duration of the effect.
 	delay  u16 // Delay before starting the effect.
@@ -322,8 +446,8 @@ pub type HapticPeriodic = C.SDL_HapticPeriodic
 pub struct C.SDL_HapticCondition {
 pub mut:
 	// Header
-	type      u16             // SDL_HAPTIC_SPRING, SDL_HAPTIC_DAMPER, SDL_HAPTIC_INERTIA or SDL_HAPTIC_FRICTION
-	direction HapticDirection // Direction of the effect.
+	type      HapticEffectType // SDL_HAPTIC_SPRING, SDL_HAPTIC_DAMPER, SDL_HAPTIC_INERTIA or SDL_HAPTIC_FRICTION
+	direction HapticDirection  // Direction of the effect.
 	// Replay
 	length u32 // Duration of the effect.
 	delay  u16 // Delay before starting the effect.
@@ -370,8 +494,8 @@ pub type HapticCondition = C.SDL_HapticCondition
 pub struct C.SDL_HapticRamp {
 pub mut:
 	// Header
-	type      u16             // SDL_HAPTIC_RAMP
-	direction HapticDirection // Direction of the effect.
+	type      HapticEffectType // SDL_HAPTIC_RAMP
+	direction HapticDirection  // Direction of the effect.
 	// Replay
 
 	length u32 // Duration of the effect.
@@ -398,7 +522,7 @@ pub type HapticRamp = C.SDL_HapticRamp
 pub struct C.SDL_HapticLeftRight {
 pub mut:
 	// Header
-	type u16 // SDL_HAPTIC_LEFTRIGHT
+	type HapticEffectType // SDL_HAPTIC_LEFTRIGHT
 	// Replay
 
 	length u32 // Duration of the effect in milliseconds.
@@ -414,8 +538,8 @@ pub type HapticLeftRight = C.SDL_HapticLeftRight
 pub struct C.SDL_HapticCustom {
 pub mut:
 	// Header
-	type      u16             // SDL_HAPTIC_CUSTOM
-	direction HapticDirection // Direction of the effect.
+	type      HapticEffectType // SDL_HAPTIC_CUSTOM
+	direction HapticDirection  // Direction of the effect.
 	// Replay
 
 	length u32 // Duration of the effect.
@@ -444,13 +568,13 @@ pub type HapticCustom = C.SDL_HapticCustom
 pub union C.SDL_HapticEffect {
 pub mut:
 	// Common for all force feedback effects
-	type      u16             // Effect type.
-	constant  HapticConstant  // Constant effect.
-	periodic  HapticPeriodic  // Periodic effect.
-	condition HapticCondition // Condition effect.
-	ramp      HapticRamp      // Ramp effect.
-	leftright HapticLeftRight // Left/Right effect.
-	custom    HapticCustom    // Custom effect.
+	type      HapticEffectType // Effect type.
+	constant  HapticConstant   // Constant effect.
+	periodic  HapticPeriodic   // Periodic effect.
+	condition HapticCondition  // Condition effect.
+	ramp      HapticRamp       // Ramp effect.
+	leftright HapticLeftRight  // Left/Right effect.
+	custom    HapticCustom     // Custom effect.
 }
 
 pub type HapticEffect = C.SDL_HapticEffect
@@ -742,7 +866,7 @@ pub fn haptic_effect_supported(haptic &Haptic, const_effect &HapticEffect) bool 
 }
 
 // C.SDL_CreateHapticEffect [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreateHapticEffect)
-fn C.SDL_CreateHapticEffect(haptic &Haptic, const_effect &HapticEffect) int
+fn C.SDL_CreateHapticEffect(haptic &Haptic, const_effect &HapticEffect) HapticEffectID
 
 // create_haptic_effect creates a new haptic effect on a specified device.
 //
@@ -757,12 +881,12 @@ fn C.SDL_CreateHapticEffect(haptic &Haptic, const_effect &HapticEffect) int
 // See also: destroy_haptic_effect (SDL_DestroyHapticEffect)
 // See also: run_haptic_effect (SDL_RunHapticEffect)
 // See also: update_haptic_effect (SDL_UpdateHapticEffect)
-pub fn create_haptic_effect(haptic &Haptic, const_effect &HapticEffect) int {
+pub fn create_haptic_effect(haptic &Haptic, const_effect &HapticEffect) HapticEffectID {
 	return C.SDL_CreateHapticEffect(haptic, const_effect)
 }
 
 // C.SDL_UpdateHapticEffect [official documentation](https://wiki.libsdl.org/SDL3/SDL_UpdateHapticEffect)
-fn C.SDL_UpdateHapticEffect(haptic &Haptic, effect int, const_data &HapticEffect) bool
+fn C.SDL_UpdateHapticEffect(haptic &Haptic, effect HapticEffectID, const_data &HapticEffect) bool
 
 // update_haptic_effect updates the properties of an effect.
 //
@@ -782,12 +906,12 @@ fn C.SDL_UpdateHapticEffect(haptic &Haptic, effect int, const_data &HapticEffect
 //
 // See also: create_haptic_effect (SDL_CreateHapticEffect)
 // See also: run_haptic_effect (SDL_RunHapticEffect)
-pub fn update_haptic_effect(haptic &Haptic, effect int, const_data &HapticEffect) bool {
+pub fn update_haptic_effect(haptic &Haptic, effect HapticEffectID, const_data &HapticEffect) bool {
 	return C.SDL_UpdateHapticEffect(haptic, effect, const_data)
 }
 
 // C.SDL_RunHapticEffect [official documentation](https://wiki.libsdl.org/SDL3/SDL_RunHapticEffect)
-fn C.SDL_RunHapticEffect(haptic &Haptic, effect int, iterations u32) bool
+fn C.SDL_RunHapticEffect(haptic &Haptic, effect HapticEffectID, iterations u32) bool
 
 // run_haptic_effect runs the haptic effect on its associated haptic device.
 //
@@ -809,12 +933,12 @@ fn C.SDL_RunHapticEffect(haptic &Haptic, effect int, iterations u32) bool
 // See also: get_haptic_effect_status (SDL_GetHapticEffectStatus)
 // See also: stop_haptic_effect (SDL_StopHapticEffect)
 // See also: stop_haptic_effects (SDL_StopHapticEffects)
-pub fn run_haptic_effect(haptic &Haptic, effect int, iterations u32) bool {
+pub fn run_haptic_effect(haptic &Haptic, effect HapticEffectID, iterations u32) bool {
 	return C.SDL_RunHapticEffect(haptic, effect, iterations)
 }
 
 // C.SDL_StopHapticEffect [official documentation](https://wiki.libsdl.org/SDL3/SDL_StopHapticEffect)
-fn C.SDL_StopHapticEffect(haptic &Haptic, effect int) bool
+fn C.SDL_StopHapticEffect(haptic &Haptic, effect HapticEffectID) bool
 
 // stop_haptic_effect stops the haptic effect on its associated haptic device.
 //
@@ -827,12 +951,12 @@ fn C.SDL_StopHapticEffect(haptic &Haptic, effect int) bool
 //
 // See also: run_haptic_effect (SDL_RunHapticEffect)
 // See also: stop_haptic_effects (SDL_StopHapticEffects)
-pub fn stop_haptic_effect(haptic &Haptic, effect int) bool {
+pub fn stop_haptic_effect(haptic &Haptic, effect HapticEffectID) bool {
 	return C.SDL_StopHapticEffect(haptic, effect)
 }
 
 // C.SDL_DestroyHapticEffect [official documentation](https://wiki.libsdl.org/SDL3/SDL_DestroyHapticEffect)
-fn C.SDL_DestroyHapticEffect(haptic &Haptic, effect int)
+fn C.SDL_DestroyHapticEffect(haptic &Haptic, effect HapticEffectID)
 
 // destroy_haptic_effect destroys a haptic effect on the device.
 //
@@ -845,12 +969,12 @@ fn C.SDL_DestroyHapticEffect(haptic &Haptic, effect int)
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: create_haptic_effect (SDL_CreateHapticEffect)
-pub fn destroy_haptic_effect(haptic &Haptic, effect int) {
+pub fn destroy_haptic_effect(haptic &Haptic, effect HapticEffectID) {
 	C.SDL_DestroyHapticEffect(haptic, effect)
 }
 
 // C.SDL_GetHapticEffectStatus [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetHapticEffectStatus)
-fn C.SDL_GetHapticEffectStatus(haptic &Haptic, effect int) bool
+fn C.SDL_GetHapticEffectStatus(haptic &Haptic, effect HapticEffectID) bool
 
 // get_haptic_effect_status gets the status of the current effect on the specified haptic device.
 //
@@ -864,7 +988,7 @@ fn C.SDL_GetHapticEffectStatus(haptic &Haptic, effect int) bool
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: get_haptic_features (SDL_GetHapticFeatures)
-pub fn get_haptic_effect_status(haptic &Haptic, effect int) bool {
+pub fn get_haptic_effect_status(haptic &Haptic, effect HapticEffectID) bool {
 	return C.SDL_GetHapticEffectStatus(haptic, effect)
 }
 

@@ -14,7 +14,7 @@ module sdl
 //
 // https://wiki.libsdl.org/SDL3/BestKeyboardPractices
 
-// The SDL virtual key representation.
+// Keycode; thes SDL virtual key representation.
 //
 // Values of this type are used to represent keyboard keys using the current
 // layout of the keyboard. These values include Unicode values representing
@@ -22,12 +22,18 @@ module sdl
 // `SDLK_*` constant for those keys that do not generate characters.
 //
 // A special exception is the number keys at the top of the keyboard which map
-// to SDLK_0...SDLK_9 on AZERTY layouts.
+// by default to SDLK_0...SDLK_9 on AZERTY layouts.
 //
 // Keys with the `SDLK_EXTENDED_MASK` bit set do not map to a scancode or
-// unicode code point.
+// Unicode code point.
+//
+// Many common keycodes are listed below, but this list is not exhaustive.
 //
 // NOTE: This datatype is available since SDL 3.2.0.
+//
+// See also: hintkeycodeoptions (SDL_HINT_KEYCODE_OPTIONS)
+//
+// [Official documentation](https://wiki.libsdl.org/SDL3/SDL_Keycode)
 pub type Keycode = u32
 
 // Valid key modifiers (possibly OR'd together).

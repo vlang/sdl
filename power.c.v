@@ -46,13 +46,17 @@ fn C.SDL_GetPowerInfo(seconds &int, percent &int) PowerState
 // It's possible a platform can only report battery percentage or time left
 // but not both.
 //
+// On some platforms, retrieving power supply details might be expensive. If
+// you want to display continuous status you could call this function every
+// minute or so.
+//
 // `seconds` seconds a pointer filled in with the seconds of battery life left,
 //                or NULL to ignore. This will be filled in with -1 if we
 //                can't determine a value or there is no battery.
 // `percent` percent a pointer filled in with the percentage of battery life
 //                left, between 0 and 100, or NULL to ignore. This will be
-//                filled in with -1 we can't determine a value or there is no
-//                battery.
+//                filled in with -1 when we can't determine a value or there
+//                is no battery.
 // returns the current battery state or `SDL_POWERSTATE_ERROR` on failure;
 //          call SDL_GetError() for more information.
 //

@@ -60,6 +60,27 @@ pub const init_sensor = u32(C.SDL_INIT_SENSOR) // 0x00008000u
 
 pub const init_camera = u32(C.SDL_INIT_CAMERA) // 0x00010000u
 
+// AppResult
+//
+// Return values for optional main callbacks.
+//
+// Returning SDL_APP_SUCCESS or SDL_APP_FAILURE from SDL_AppInit,
+// SDL_AppEvent, or SDL_AppIterate will terminate the program and report
+// success/failure to the operating system. What that means is
+// platform-dependent. On Unix, for example, on success, the process error
+// code will be zero, and on failure it will be 1. This interface doesn't
+// allow you to return specific exit codes, just whether there was an error
+// generally or not.
+//
+// Returning SDL_APP_CONTINUE from these functions will let the app continue
+// to run.
+//
+// See
+// [Main callbacks in SDL3](https://wiki.libsdl.org/SDL3/README-main-functions#main-callbacks-in-sdl3)
+// for complete details.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
 // AppResult is C.SDL_AppResult
 pub enum AppResult {
 	continue = C.SDL_APP_CONTINUE // `continue` Value that requests that the app continue from the main callbacks.

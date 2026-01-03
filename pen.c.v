@@ -20,15 +20,22 @@ module sdl
 // Pens may provide more than simple touch input; they might have other axes,
 // such as pressure, tilt, rotation, etc.
 
-// SDL pen instance IDs.
+// PenID; sdls pen instance IDs.
 //
 // Zero is used to signify an invalid/null device.
 //
 // These show up in pen events when SDL sees input from them. They remain
 // consistent as long as SDL can recognize a tool to be the same pen; but if a
-// pen physically leaves the area and returns, it might get a new ID.
+// pen's digitizer table is physically detached from the computer, it might
+// get a new ID when reconnected, as SDL won't know it's the same device.
+//
+// These IDs are only stable within a single run of a program; the next time a
+// program is run, the pen's ID will likely be different, even if the hardware
+// hasn't been disconnected, etc.
 //
 // NOTE: This datatype is available since SDL 3.2.0.
+//
+// [Official documentation](https://wiki.libsdl.org/SDL3/SDL_PenID)
 pub type PenID = u32
 
 pub const pen_mouseid = u32(C.SDL_PEN_MOUSEID) // ((SDL_MouseID)-2)
@@ -54,6 +61,8 @@ pub const pen_input_button_5 = u32(C.SDL_PEN_INPUT_BUTTON_5) // (1u << 5)
 
 pub const pen_input_eraser_tip = u32(C.SDL_PEN_INPUT_ERASER_TIP) // (1u << 30)
 
+pub const pen_input_in_proximity = u32(C.SDL_PEN_INPUT_IN_PROXIMITY) // (1u << 31)
+
 // Pen axis indices.
 //
 // These are the valid values for the `axis` field in SDL_PenAxisEvent. All
@@ -77,4 +86,47 @@ pub enum PenAxis {
 	slider              = C.SDL_PEN_AXIS_SLIDER              // `slider` Pen finger wheel or slider (e.g., Airbrush Pen).Unidirectional: 0 to 1.0
 	tangential_pressure = C.SDL_PEN_AXIS_TANGENTIAL_PRESSURE // `tangential_pressure` Pressure from squeezing the pen ("barrel pressure").
 	count               = C.SDL_PEN_AXIS_COUNT               // `count` Total known pen axis types in this version of SDL. This number may grow in future releases!
+}
+
+// PenDeviceType
+//
+// An enum that describes the type of a pen device.
+//
+// A "direct" device is a pen that touches a graphic display (like an Apple
+// Pencil on an iPad's screen). "Indirect" devices touch an external tablet
+// surface that is connected to the machine but is not a display (like a
+// lower-end Wacom tablet connected over USB).
+//
+// Apps may use this information to decide if they should draw a cursor; if
+// the pen is touching the screen directly, a cursor doesn't make sense and
+// can be in the way, but becomes necessary for indirect devices to know where
+// on the display they are interacting.
+//
+// NOTE: This enum is available since SDL 3.4.0.
+//
+// PenDeviceType is C.SDL_PenDeviceType
+pub enum PenDeviceType {
+	invalid  = C.SDL_PEN_DEVICE_TYPE_INVALID  // -1, *< Not a valid pen device.
+	unknown  = C.SDL_PEN_DEVICE_TYPE_UNKNOWN  // `unknown` Don't know specifics of this pen.
+	direct   = C.SDL_PEN_DEVICE_TYPE_DIRECT   // `direct` Pen touches display.
+	indirect = C.SDL_PEN_DEVICE_TYPE_INDIRECT // `indirect` Pen touches something that isn't the display.
+}
+
+// C.SDL_GetPenDeviceType [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetPenDeviceType)
+fn C.SDL_GetPenDeviceType(instance_id PenID) PenDeviceType
+
+// get_pen_device_type gets the device type of the given pen.
+//
+// Many platforms do not supply this information, so an app must always be
+// prepared to get an SDL_PEN_DEVICE_TYPE_UNKNOWN result.
+//
+// `instance_id` instance_id the pen instance ID.
+// returns the device type of the given pen, or SDL_PEN_DEVICE_TYPE_INVALID
+//          on failure; call SDL_GetError() for more information.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
+// NOTE: This function is available since SDL 3.4.0.
+pub fn get_pen_device_type(instance_id PenID) PenDeviceType {
+	return C.SDL_GetPenDeviceType(instance_id)
 }

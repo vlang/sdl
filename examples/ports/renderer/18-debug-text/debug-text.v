@@ -71,17 +71,17 @@ pub fn app_iterate(appstate voidptr) sdl.AppResult {
 	sdl.render_clear(app.renderer) // start with a blank canvas.
 
 	sdl.set_render_draw_color(app.renderer, 255, 255, 255, sdl.alpha_opaque) // white, full alpha
-	sdl.render_debug_text(app.renderer, 272, 100, 'Hello world!'.str)
-	sdl.render_debug_text(app.renderer, 224, 150, 'This is some debug text.'.str)
+	sdl.render_debug_text(app.renderer, 272, 100, c'Hello world!')
+	sdl.render_debug_text(app.renderer, 224, 150, c'This is some debug text.')
 
 	sdl.set_render_draw_color(app.renderer, 51, 102, 255, sdl.alpha_opaque) // light blue, full alpha
-	sdl.render_debug_text(app.renderer, 184, 200, 'You can do it in different colors.'.str)
+	sdl.render_debug_text(app.renderer, 184, 200, c'You can do it in different colors.')
 	sdl.set_render_draw_color(app.renderer, 255, 255, 255, sdl.alpha_opaque) // white, full alpha
 
 	sdl.set_render_scale(app.renderer, 4.0, 4.0)
-	sdl.render_debug_text(app.renderer, 14, 65, 'It can be scaled.'.str)
+	sdl.render_debug_text(app.renderer, 14, 65, c'It can be scaled.')
 	sdl.set_render_scale(app.renderer, 1.0, 1.0)
-	sdl.render_debug_text(app.renderer, 64, 350, "This only does ASCII chars. So this laughing emoji won't draw: 🤣".str)
+	sdl.render_debug_text(app.renderer, 64, 350, c"This only does ASCII chars. So this laughing emoji won't draw: 🤣")
 
 	// sdl.render_debug_text_format(app.renderer, f32((window_width - (charsize * 46)) / 2), 400, "(This program has been running for %" sdl.priu64 " seconds.)", sdl.get_ticks() / 1000)
 	// NOTE: Some SDL functions use variadic C arguments which V currently only has limited support for so

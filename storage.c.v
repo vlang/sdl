@@ -256,6 +256,10 @@ fn C.SDL_OpenTitleStorage(const_override &char, props PropertiesID) &Storage
 
 // open_title_storage opens up a read-only container for the application's filesystem.
 //
+// By default, SDL_OpenTitleStorage uses the generic storage implementation.
+// When the path override is not provided, the generic implementation will use
+// the output of SDL_GetBasePath as the base path.
+//
 // `override` override a path to override the backend's default title root.
 // `props` props a property list that may contain backend-specific information.
 // returns a title storage container on success or NULL on failure; call

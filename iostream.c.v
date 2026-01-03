@@ -42,13 +42,13 @@ pub mut:
 	// SDL_IO_SEEK_SET, SDL_IO_SEEK_CUR, SDL_IO_SEEK_END
 	// returns the final offset in the data stream, or -1 on error.
 	seek fn (userdata voidptr, offset i64, whence IOWhence) i64
-	// read reads up to `size` bytes from the data stream to the area pointed at by `ptr`.
+	// read reads up to `size` bytes from the data stream to the area pointed at by `ptr`. `size` will always be > 0.
 	// On an incomplete read, you should set `*status` to a value from the
 	// SDL_IOStatus enum. You do not have to explicitly set this on
 	// a complete, successful read.
 	// returns the number of bytes read.
 	read fn (userdata voidptr, ptr voidptr, size usize, status &IOStatus) usize
-	// write writes exactly `size` bytes from the area pointed at by `ptr` to data stream.
+	// write writes exactly `size` bytes from the area pointed at by `ptr` to data stream. `size` will always be > 0.
 	// On an incomplete write, you should set `*status` to a value from the SDL_IOStatus enum.
 	// You do not have to explicitly set SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTERis on a complete, successful write.
 	// returns the number of bytes written.
@@ -88,6 +88,8 @@ fn C.SDL_IOFromFile(const_file &char, const_mode &char) &IOStream
 // - "w": Create an empty file for writing. If a file with the same name
 //   already exists its content is erased and the file is treated as a new
 //   empty file.
+// - "wx": Create an empty file for writing. If a file with the same name
+//   already exists, the call fails.
 // - "a": Append to a file. Writing operations append data at the end of the
 //   file. The file is created if it does not exist.
 // - "r+": Open a file for update both reading and writing. The file must
@@ -95,6 +97,8 @@ fn C.SDL_IOFromFile(const_file &char, const_mode &char) &IOStream
 // - "w+": Create an empty file for both reading and writing. If a file with
 //   the same name already exists its content is erased and the file is
 //   treated as a new empty file.
+// - "w+x": Create an empty file for both reading and writing. If a file with
+//   the same name already exists, the call fails.
 // - "a+": Open a file for reading and appending. All writing operations are
 //   performed at the end of the file, protecting the previous content to be
 //   overwritten. You can reposition (fseek, rewind) the internal pointer to
@@ -145,7 +149,7 @@ fn C.SDL_IOFromFile(const_file &char, const_mode &char) &IOStream
 // returns a pointer to the SDL_IOStream structure that is created or NULL on
 //          failure; call SDL_GetError() for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -177,8 +181,7 @@ fn C.SDL_IOFromMem(mem voidptr, size usize) &IOStream
 // certain size, for both read and write access.
 //
 // This memory buffer is not copied by the SDL_IOStream; the pointer you
-// provide must remain valid until you close the stream. Closing the stream
-// will not free the original buffer.
+// provide must remain valid until you close the stream.
 //
 // If you need to make sure the SDL_IOStream never writes to the memory
 // buffer, you should use SDL_IOFromConstMem() with a read-only buffer of
@@ -190,6 +193,13 @@ fn C.SDL_IOFromMem(mem voidptr, size usize) &IOStream
 //   was passed to this function.
 // - `SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER`: this will be the `size` parameter
 //   that was passed to this function.
+//
+// Additionally, the following properties are recognized:
+//
+// - `SDL_PROP_IOSTREAM_MEMORY_FREE_FUNC_POINTER`: if this property is set to
+//   a non-NULL value it will be interpreted as a function of SDL_free_func
+//   type and called with the passed `mem` pointer when closing the stream. By
+//   default it is unset, i.e., the memory will not be freed.
 //
 // `mem` mem a pointer to a buffer to feed an SDL_IOStream stream.
 // `size` size the buffer size, in bytes.
@@ -215,6 +225,8 @@ pub const prop_iostream_memory_pointer = &char(C.SDL_PROP_IOSTREAM_MEMORY_POINTE
 
 pub const prop_iostream_memory_size_number = &char(C.SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER) // 'SDL.iostream.memory.size'
 
+pub const prop_iostream_memory_free_func_pointer = &char(C.SDL_PROP_IOSTREAM_MEMORY_FREE_FUNC_POINTER) // 'SDL.iostream.memory.free'
+
 // C.SDL_IOFromConstMem [official documentation](https://wiki.libsdl.org/SDL3/SDL_IOFromConstMem)
 fn C.SDL_IOFromConstMem(const_mem voidptr, size usize) &IOStream
 
@@ -228,8 +240,7 @@ fn C.SDL_IOFromConstMem(const_mem voidptr, size usize) &IOStream
 // without writing to the memory buffer.
 //
 // This memory buffer is not copied by the SDL_IOStream; the pointer you
-// provide must remain valid until you close the stream. Closing the stream
-// will not free the original buffer.
+// provide must remain valid until you close the stream.
 //
 // If you need to write to a memory buffer, you should use SDL_IOFromMem()
 // with a writable buffer of memory instead.
@@ -240,6 +251,13 @@ fn C.SDL_IOFromConstMem(const_mem voidptr, size usize) &IOStream
 //   was passed to this function.
 // - `SDL_PROP_IOSTREAM_MEMORY_SIZE_NUMBER`: this will be the `size` parameter
 //   that was passed to this function.
+//
+// Additionally, the following properties are recognized:
+//
+// - `SDL_PROP_IOSTREAM_MEMORY_FREE_FUNC_POINTER`: if this property is set to
+//   a non-NULL value it will be interpreted as a function of SDL_free_func
+//   type and called with the passed `mem` pointer when closing the stream. By
+//   default it is unset, i.e., the memory will not be freed.
 //
 // `mem` mem a pointer to a read-only buffer to feed an SDL_IOStream stream.
 // `size` size the buffer size, in bytes.
@@ -354,7 +372,7 @@ fn C.SDL_CloseIO(context &IOStream) bool
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -372,7 +390,7 @@ fn C.SDL_GetIOProperties(context &IOStream) PropertiesID
 // returns a valid property ID on success or 0 on failure; call
 //          SDL_GetError() for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_io_properties(context &IOStream) PropertiesID {
@@ -395,7 +413,7 @@ fn C.SDL_GetIOStatus(context &IOStream) IOStatus
 // `context` context the SDL_IOStream to query.
 // returns an SDL_IOStatus enum with the current state.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_io_status(context &IOStream) IOStatus {
@@ -412,7 +430,7 @@ fn C.SDL_GetIOSize(context &IOStream) i64
 //          negative error code on failure; call SDL_GetError() for more
 //          information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_io_size(context &IOStream) i64 {
@@ -442,7 +460,7 @@ fn C.SDL_SeekIO(context &IOStream, offset i64, whence IOWhence) i64
 // returns the final offset in the data stream after the seek or -1 on
 //          failure; call SDL_GetError() for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -465,7 +483,7 @@ fn C.SDL_TellIO(context &IOStream) i64
 // returns the current offset in the stream, or -1 if the information can not
 //          be determined.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -487,13 +505,17 @@ fn C.SDL_ReadIO(context &IOStream, ptr voidptr, size usize) usize
 // the stream is not at EOF, SDL_GetIOStatus() will return a different error
 // value and SDL_GetError() will offer a human-readable message.
 //
+// A request for zero bytes on a valid stream will return zero immediately
+// without accessing the stream, so the stream status (EOF, err, etc) will not
+// change.
+//
 // `context` context a pointer to an SDL_IOStream structure.
 // `ptr` ptr a pointer to a buffer to read data into.
 // `size` size the number of bytes to read from the data source.
 // returns the number of bytes read, or 0 on end of file or other failure;
 //          call SDL_GetError() for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -519,13 +541,17 @@ fn C.SDL_WriteIO(context &IOStream, const_ptr voidptr, size usize) usize
 // recoverable, such as a non-blocking write that can simply be retried later,
 // or a fatal error.
 //
+// A request for zero bytes on a valid stream will return zero immediately
+// without accessing the stream, so the stream status (EOF, err, etc) will not
+// change.
+//
 // `context` context a pointer to an SDL_IOStream structure.
 // `ptr` ptr a pointer to a buffer containing data to write.
 // `size` size the number of bytes to write.
 // returns the number of bytes written, which will be less than `size` on
 //          failure; call SDL_GetError() for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -551,7 +577,7 @@ pub fn write_io(context &IOStream, const_ptr voidptr, size usize) usize {
 // returns the number of bytes written or 0 on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -572,7 +598,7 @@ pub fn write_io(context &IOStream, const_ptr voidptr, size usize) usize {
 // returns the number of bytes written or 0 on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -594,7 +620,7 @@ fn C.SDL_FlushIO(context &IOStream) bool
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -623,7 +649,7 @@ fn C.SDL_LoadFile_IO(src &IOStream, datasize &usize, closeio bool) voidptr
 // returns the data or NULL on failure; call SDL_GetError() for more
 //          information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -649,7 +675,7 @@ fn C.SDL_LoadFile(const_file &char, datasize &usize) voidptr
 // returns the data or NULL on failure; call SDL_GetError() for more
 //          information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -673,7 +699,7 @@ fn C.SDL_SaveFile_IO(src &IOStream, const_data voidptr, datasize usize, closeio 
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -695,7 +721,7 @@ fn C.SDL_SaveFile(const_file &char, const_data voidptr, datasize usize) bool
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -720,7 +746,7 @@ fn C.SDL_ReadU8(src &IOStream, value &u8) bool
 // returns true on success or false on failure or EOF; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn read_u8(src &IOStream, value &u8) bool {
@@ -742,7 +768,7 @@ fn C.SDL_ReadS8(src &IOStream, value &i8) bool
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn read_s8(src &IOStream, value &i8) bool {
@@ -765,10 +791,10 @@ fn C.SDL_ReadU16LE(src &IOStream, value &u16) bool
 //
 // `src` src the stream from which to read data.
 // `value` value a pointer filled in with the data read.
-// returns true on successful write or false on failure; call SDL_GetError()
+// returns true on successful read or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn read_u16_le(src &IOStream, value &u16) bool {
@@ -791,10 +817,10 @@ fn C.SDL_ReadS16LE(src &IOStream, value &i16) bool
 //
 // `src` src the stream from which to read data.
 // `value` value a pointer filled in with the data read.
-// returns true on successful write or false on failure; call SDL_GetError()
+// returns true on successful read or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn read_s16_le(src &IOStream, value &i16) bool {
@@ -817,10 +843,10 @@ fn C.SDL_ReadU16BE(src &IOStream, value &u16) bool
 //
 // `src` src the stream from which to read data.
 // `value` value a pointer filled in with the data read.
-// returns true on successful write or false on failure; call SDL_GetError()
+// returns true on successful read or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn read_u16_be(src &IOStream, value &u16) bool {
@@ -843,10 +869,10 @@ fn C.SDL_ReadS16BE(src &IOStream, value &i16) bool
 //
 // `src` src the stream from which to read data.
 // `value` value a pointer filled in with the data read.
-// returns true on successful write or false on failure; call SDL_GetError()
+// returns true on successful read or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn read_s16_be(src &IOStream, value &i16) bool {
@@ -869,10 +895,10 @@ fn C.SDL_ReadU32LE(src &IOStream, value &u32) bool
 //
 // `src` src the stream from which to read data.
 // `value` value a pointer filled in with the data read.
-// returns true on successful write or false on failure; call SDL_GetError()
+// returns true on successful read or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn read_u32_le(src &IOStream, value &u32) bool {
@@ -895,10 +921,10 @@ fn C.SDL_ReadS32LE(src &IOStream, value &i32) bool
 //
 // `src` src the stream from which to read data.
 // `value` value a pointer filled in with the data read.
-// returns true on successful write or false on failure; call SDL_GetError()
+// returns true on successful read or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn read_s32_le(src &IOStream, value &i32) bool {
@@ -921,10 +947,10 @@ fn C.SDL_ReadU32BE(src &IOStream, value &u32) bool
 //
 // `src` src the stream from which to read data.
 // `value` value a pointer filled in with the data read.
-// returns true on successful write or false on failure; call SDL_GetError()
+// returns true on successful read or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn read_u32_be(src &IOStream, value &u32) bool {
@@ -947,10 +973,10 @@ fn C.SDL_ReadS32BE(src &IOStream, value &i32) bool
 //
 // `src` src the stream from which to read data.
 // `value` value a pointer filled in with the data read.
-// returns true on successful write or false on failure; call SDL_GetError()
+// returns true on successful read or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn read_s32_be(src &IOStream, value &i32) bool {
@@ -973,10 +999,10 @@ fn C.SDL_ReadU64LE(src &IOStream, value &u64) bool
 //
 // `src` src the stream from which to read data.
 // `value` value a pointer filled in with the data read.
-// returns true on successful write or false on failure; call SDL_GetError()
+// returns true on successful read or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn read_u64_le(src &IOStream, value &u64) bool {
@@ -999,10 +1025,10 @@ fn C.SDL_ReadS64LE(src &IOStream, value &i64) bool
 //
 // `src` src the stream from which to read data.
 // `value` value a pointer filled in with the data read.
-// returns true on successful write or false on failure; call SDL_GetError()
+// returns true on successful read or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn read_s64_le(src &IOStream, value &i64) bool {
@@ -1025,10 +1051,10 @@ fn C.SDL_ReadU64BE(src &IOStream, value &u64) bool
 //
 // `src` src the stream from which to read data.
 // `value` value a pointer filled in with the data read.
-// returns true on successful write or false on failure; call SDL_GetError()
+// returns true on successful read or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn read_u64_be(src &IOStream, value &u64) bool {
@@ -1051,10 +1077,10 @@ fn C.SDL_ReadS64BE(src &IOStream, value &i64) bool
 //
 // `src` src the stream from which to read data.
 // `value` value a pointer filled in with the data read.
-// returns true on successful write or false on failure; call SDL_GetError()
+// returns true on successful read or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn read_s64_be(src &IOStream, value &i64) bool {
@@ -1071,7 +1097,7 @@ fn C.SDL_WriteU8(dst &IOStream, value u8) bool
 // returns true on successful write or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn write_u8(dst &IOStream, value u8) bool {
@@ -1088,7 +1114,7 @@ fn C.SDL_WriteS8(dst &IOStream, value i8) bool
 // returns true on successful write or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn write_s8(dst &IOStream, value i8) bool {
@@ -1110,7 +1136,7 @@ fn C.SDL_WriteU16LE(dst &IOStream, value u16) bool
 // returns true on successful write or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn write_u16_le(dst &IOStream, value u16) bool {
@@ -1132,7 +1158,7 @@ fn C.SDL_WriteS16LE(dst &IOStream, value i16) bool
 // returns true on successful write or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn write_s16_le(dst &IOStream, value i16) bool {
@@ -1153,7 +1179,7 @@ fn C.SDL_WriteU16BE(dst &IOStream, value u16) bool
 // returns true on successful write or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn write_u16_be(dst &IOStream, value u16) bool {
@@ -1174,7 +1200,7 @@ fn C.SDL_WriteS16BE(dst &IOStream, value i16) bool
 // returns true on successful write or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn write_s16_be(dst &IOStream, value i16) bool {
@@ -1196,7 +1222,7 @@ fn C.SDL_WriteU32LE(dst &IOStream, value u32) bool
 // returns true on successful write or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn write_u32_le(dst &IOStream, value u32) bool {
@@ -1218,7 +1244,7 @@ fn C.SDL_WriteS32LE(dst &IOStream, value i32) bool
 // returns true on successful write or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn write_s32_le(dst &IOStream, value i32) bool {
@@ -1239,7 +1265,7 @@ fn C.SDL_WriteU32BE(dst &IOStream, value u32) bool
 // returns true on successful write or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn write_u32_be(dst &IOStream, value u32) bool {
@@ -1260,7 +1286,7 @@ fn C.SDL_WriteS32BE(dst &IOStream, value i32) bool
 // returns true on successful write or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn write_s32_be(dst &IOStream, value i32) bool {
@@ -1282,7 +1308,7 @@ fn C.SDL_WriteU64LE(dst &IOStream, value u64) bool
 // returns true on successful write or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn write_u64_le(dst &IOStream, value u64) bool {
@@ -1304,7 +1330,7 @@ fn C.SDL_WriteS64LE(dst &IOStream, value i64) bool
 // returns true on successful write or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn write_s64_le(dst &IOStream, value i64) bool {
@@ -1325,7 +1351,7 @@ fn C.SDL_WriteU64BE(dst &IOStream, value u64) bool
 // returns true on successful write or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn write_u64_be(dst &IOStream, value u64) bool {
@@ -1346,7 +1372,7 @@ fn C.SDL_WriteS64BE(dst &IOStream, value i64) bool
 // returns true on successful write or false on failure; call SDL_GetError()
 //          for more information.
 //
-// NOTE: (thread safety) This function is not thread safe.
+// NOTE: (thread safety) Do not use the same SDL_IOStream from two threads at once.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn write_s64_be(dst &IOStream, value i64) bool {

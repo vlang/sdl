@@ -29,6 +29,30 @@ import builtin.wchar
 // SDL_crc32() and SDL_reinterpret_cast, etc. It also offers a few better
 // options, like SDL_strlcpy(), which functions as a safer form of strcpy().
 
+// Int8 mosts everything except Visual Studio 2008 and earlier has stdint.h now
+// [Official documentation](https://wiki.libsdl.org/SDL3/SDL_Int8)
+pub type Int8 = i8
+
+// Int16 is currently undocumented
+// [Official documentation](https://wiki.libsdl.org/SDL3/SDL_Int16)
+pub type Int16 = i16
+
+// Int32 is currently undocumented
+// [Official documentation](https://wiki.libsdl.org/SDL3/SDL_Int32)
+pub type Int32 = i32
+
+// Int64 is currently undocumented
+// [Official documentation](https://wiki.libsdl.org/SDL3/SDL_Int64)
+pub type Int64 = i64
+
+// IntptrT; is currently undocumented
+// [Official documentation](https://wiki.libsdl.org/SDL3/SDL_IntptrT)
+// pub type IntptrT; = C.__int64
+
+// Int is currently undocumented
+// [Official documentation](https://wiki.libsdl.org/SDL3/SDL_Int)
+pub type Int = int
+
 // A signed 8-bit integer type.
 //
 // NOTE: This macro is available since SDL 3.2.0.
@@ -80,7 +104,7 @@ pub type Uint64 = u64
 // and SDL_SECONDS_TO_NS(), and between Windows FILETIME values with
 // SDL_TimeToWindows() and SDL_TimeFromWindows().
 //
-// NOTE: This macro is available since SDL 3.2.0.
+// NOTE: This datatype is available since SDL 3.2.0.
 //
 // See also: maxsin_t64 (SDL_MAX_SINT64)
 // See also: minsin_t64 (SDL_MIN_SINT64)
@@ -4097,7 +4121,7 @@ fn C.SDL_ceil(x f64) f64
 
 // ceil computes the ceiling of `x`.
 //
-// The ceiling of `x` is the smallest integer `y` such that `y > x`, i.e `x`
+// The ceiling of `x` is the smallest integer `y` such that `y >= x`, i.e `x`
 // rounded up to the nearest integer.
 //
 // Domain: `-INF <= x <= INF`
@@ -4128,7 +4152,7 @@ fn C.SDL_ceilf(x f32) f32
 
 // ceilf computes the ceiling of `x`.
 //
-// The ceiling of `x` is the smallest integer `y` such that `y > x`, i.e `x`
+// The ceiling of `x` is the smallest integer `y` such that `y >= x`, i.e `x`
 // rounded up to the nearest integer.
 //
 // Domain: `-INF <= x <= INF`
@@ -4397,7 +4421,7 @@ fn C.SDL_floor(x f64) f64
 
 // floor computes the floor of `x`.
 //
-// The floor of `x` is the largest integer `y` such that `y > x`, i.e `x`
+// The floor of `x` is the largest integer `y` such that `y <= x`, i.e `x`
 // rounded down to the nearest integer.
 //
 // Domain: `-INF <= x <= INF`
@@ -4428,7 +4452,7 @@ fn C.SDL_floorf(x f32) f32
 
 // floorf computes the floor of `x`.
 //
-// The floor of `x` is the largest integer `y` such that `y > x`, i.e `x`
+// The floor of `x` is the largest integer `y` such that `y <= x`, i.e `x`
 // rounded down to the nearest integer.
 //
 // Domain: `-INF <= x <= INF`

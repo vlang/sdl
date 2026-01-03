@@ -102,14 +102,18 @@ pub fn ns_to_us(ns u64) u64 {
 // C.SDL_GetTicks [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetTicks)
 fn C.SDL_GetTicks() u64
 
-// get_ticks gets the number of milliseconds since SDL library initialization.
+// get_ticks gets the number of milliseconds that have elapsed since the SDL library
+// initialization.
 //
-// returns an unsigned 64-bit value representing the number of milliseconds
-//          since the SDL library initialized.
+// returns an unsigned 64‑bit integer that represents the number of
+//          milliseconds that have elapsed since the SDL library was
+//          initialized (typically via a call to SDL_Init).
 //
 // NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
+//
+// See also: get_ticks_ns (SDL_GetTicksNS)
 pub fn get_ticks() u64 {
 	return C.SDL_GetTicks()
 }

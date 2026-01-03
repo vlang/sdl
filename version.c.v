@@ -38,7 +38,7 @@ pub const major_version = C.SDL_MAJOR_VERSION // 3
 // If this were SDL version 3.2.1, this value would be 2.
 //
 // NOTE: This macro is available since SDL 3.2.0.
-pub const minor_version = C.SDL_MINOR_VERSION // 2
+pub const minor_version = C.SDL_MINOR_VERSION // 4
 
 // The current micro (or patchlevel) version of the SDL headers.
 //
@@ -152,13 +152,14 @@ pub fn get_version() int {
 // C.SDL_GetRevision [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetRevision)
 fn C.SDL_GetRevision() &char
 
-// get_revision gets the code revision of SDL that is linked against your program.
+// get_revision gets the code revision of the SDL library that is linked against your
+// program.
 //
-// This value is the revision of the code you are linked with and may be
+// This value is the revision of the code you are linking against and may be
 // different from the code you are compiling with, which is found in the
-// constant SDL_REVISION.
+// constant SDL_REVISION if you explicitly include SDL_revision.h
 //
-// The revision is arbitrary string (a hash value) uniquely identifying the
+// The revision is an arbitrary string (a hash value) uniquely identifying the
 // exact revision of the SDL library in use, and is only useful in comparing
 // against other revisions. It is NOT an incrementing number.
 //

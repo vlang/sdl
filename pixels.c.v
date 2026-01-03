@@ -171,6 +171,44 @@ pub enum PackedLayout {
 
 // TODO: Function: #define SDL_ISPIXELFORMAT_FOURCC(format)
 
+// PixelFormat
+//
+// Pixel format.
+//
+// SDL's pixel formats have the following naming convention:
+//
+// - Names with a list of components and a single bit count, such as RGB24 and
+// ABGR32, define a platform-independent encoding into bytes in the order
+// specified. For example, in RGB24 data, each pixel is encoded in 3 bytes
+// (red, green, blue) in that order, and in ABGR32 data, each pixel is
+// encoded in 4 bytes (alpha, blue, green, red) in that order. Use these
+// names if the property of a format that is important to you is the order
+// of the bytes in memory or on disk.
+// - Names with a bit count per component, such as ARGB8888 and XRGB1555, are
+// "packed" into an appropriately-sized integer in the platform's native
+// endianness. For example, ARGB8888 is a sequence of 32-bit integers; in
+// each integer, the most significant bits are alpha, and the least
+// significant bits are blue. On a little-endian CPU such as x86, the least
+// significant bits of each integer are arranged first in memory, but on a
+// big-endian CPU such as s390x, the most significant bits are arranged
+// first. Use these names if the property of a format that is important to
+// you is the meaning of each bit position within a native-endianness
+// integer.
+// - In indexed formats such as INDEX4LSB, each pixel is represented by
+// encoding an index into the palette into the indicated number of bits,
+// with multiple pixels packed into each byte if appropriate. In LSB
+// formats, the first (leftmost) pixel is stored in the least-significant
+// bits of the byte; in MSB formats, it's stored in the most-significant
+// bits. INDEX8 does not need LSB/MSB variants, because each pixel exactly
+// fills one byte.
+//
+// The 32-bit byte-array encodings such as RGBA32 are aliases for the
+// appropriate 8888 encoding for the current platform. For example, RGBA32 is
+// an alias for ABGR8888 on little-endian CPUs like x86, or an alias for
+// RGBA8888 on big-endian CPUs.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
 // PixelFormat is C.SDL_PixelFormat
 pub enum PixelFormat {
 	unknown   = C.SDL_PIXELFORMAT_UNKNOWN   // 0,
@@ -420,7 +458,7 @@ pub enum Colorspace {
 	bt2020_limited = C.SDL_COLORSPACE_BT2020_LIMITED // 0x21102609u, Equivalent to DXGI_COLOR_SPACE_YCBCR_STUDIO_G22_LEFT_P2020
 	bt2020_full    = C.SDL_COLORSPACE_BT2020_FULL    // 0x22102609u, Equivalent to DXGI_COLOR_SPACE_YCBCR_FULL_G22_LEFT_P2020
 	rgb_default    = C.SDL_COLORSPACE_RGB_DEFAULT    // SDL_COLORSPACE_SRGB, The default colorspace for RGB surfaces if no colorspace is specified
-	yuv_default    = C.SDL_COLORSPACE_YUV_DEFAULT    // SDL_COLORSPACE_JPEG, The default colorspace for YUV surfaces if no colorspace is specified
+	yuv_default    = C.SDL_COLORSPACE_YUV_DEFAULT    // SDL_COLORSPACE_BT601_LIMITED, *< The default colorspace for YUV surfaces if no colorspace is specified
 }
 
 @[typedef]
@@ -707,7 +745,7 @@ pub fn map_rgba(const_format &PixelFormatDetails, const_palette &Palette, r u8, 
 }
 
 // C.SDL_GetRGB [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetRGB)
-fn C.SDL_GetRGB(pixel u32, const_format &PixelFormatDetails, const_palette &Palette, r &u8, g &u8, b &u8)
+fn C.SDL_GetRGB(pixelvalue u32, const_format &PixelFormatDetails, const_palette &Palette, r &u8, g &u8, b &u8)
 
 // get_rgb gets RGB values from a pixel in the specified format.
 //
@@ -716,7 +754,7 @@ fn C.SDL_GetRGB(pixel u32, const_format &PixelFormatDetails, const_palette &Pale
 // (e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,
 // 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).
 //
-// `pixel` pixel a pixel value.
+// `pixelvalue` pixel a pixel value.
 // `format` format a pointer to SDL_PixelFormatDetails describing the pixel
 //               format.
 // `palette` palette an optional palette for indexed formats, may be NULL.
@@ -733,12 +771,12 @@ fn C.SDL_GetRGB(pixel u32, const_format &PixelFormatDetails, const_palette &Pale
 // See also: get_rgba (SDL_GetRGBA)
 // See also: map_rgb (SDL_MapRGB)
 // See also: map_rgba (SDL_MapRGBA)
-pub fn get_rgb(pixel u32, const_format &PixelFormatDetails, const_palette &Palette, r &u8, g &u8, b &u8) {
-	C.SDL_GetRGB(pixel, const_format, const_palette, r, g, b)
+pub fn get_rgb(pixelvalue u32, const_format &PixelFormatDetails, const_palette &Palette, r &u8, g &u8, b &u8) {
+	C.SDL_GetRGB(pixelvalue, const_format, const_palette, r, g, b)
 }
 
 // C.SDL_GetRGBA [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetRGBA)
-fn C.SDL_GetRGBA(pixel u32, const_format &PixelFormatDetails, const_palette &Palette, r &u8, g &u8, b &u8, a &u8)
+fn C.SDL_GetRGBA(pixelvalue u32, const_format &PixelFormatDetails, const_palette &Palette, r &u8, g &u8, b &u8, a &u8)
 
 // get_rgba gets RGBA values from a pixel in the specified format.
 //
@@ -750,7 +788,7 @@ fn C.SDL_GetRGBA(pixel u32, const_format &PixelFormatDetails, const_palette &Pal
 // If the surface has no alpha component, the alpha will be returned as 0xff
 // (100% opaque).
 //
-// `pixel` pixel a pixel value.
+// `pixelvalue` pixel a pixel value.
 // `format` format a pointer to SDL_PixelFormatDetails describing the pixel
 //               format.
 // `palette` palette an optional palette for indexed formats, may be NULL.
@@ -768,6 +806,6 @@ fn C.SDL_GetRGBA(pixel u32, const_format &PixelFormatDetails, const_palette &Pal
 // See also: get_rgb (SDL_GetRGB)
 // See also: map_rgb (SDL_MapRGB)
 // See also: map_rgba (SDL_MapRGBA)
-pub fn get_rgba(pixel u32, const_format &PixelFormatDetails, const_palette &Palette, r &u8, g &u8, b &u8, a &u8) {
-	C.SDL_GetRGBA(pixel, const_format, const_palette, r, g, b, a)
+pub fn get_rgba(pixelvalue u32, const_format &PixelFormatDetails, const_palette &Palette, r &u8, g &u8, b &u8, a &u8) {
+	C.SDL_GetRGBA(pixelvalue, const_format, const_palette, r, g, b, a)
 }

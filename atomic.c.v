@@ -380,6 +380,27 @@ pub fn get_atomic_u32(a &AtomicU32) u32 {
 	return C.SDL_GetAtomicU32(a)
 }
 
+// C.SDL_AddAtomicU32 [official documentation](https://wiki.libsdl.org/SDL3/SDL_AddAtomicU32)
+fn C.SDL_AddAtomicU32(a &AtomicU32, v int) u32
+
+// add_atomic_u32 adds to an atomic variable.
+//
+// This function also acts as a full memory barrier.
+//
+// ***NOTE: If you don't know what this function is for, you shouldn't use
+// it!***
+//
+// `a` a a pointer to an SDL_AtomicU32 variable to be modified.
+// `v` v the desired value to add or subtract.
+// returns the previous value of the atomic variable.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
+// NOTE: This function is available since SDL 3.4.0.
+pub fn add_atomic_u32(a &AtomicU32, v int) u32 {
+	return C.SDL_AddAtomicU32(a, v)
+}
+
 // C.SDL_CompareAndSwapAtomicPointer [official documentation](https://wiki.libsdl.org/SDL3/SDL_CompareAndSwapAtomicPointer)
 fn C.SDL_CompareAndSwapAtomicPointer(a &voidptr, oldval voidptr, newval voidptr) bool
 

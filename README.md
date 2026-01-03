@@ -172,7 +172,7 @@ This will create a directory called "thirdparty" which will be used to download 
 extract the required libraries. To successfully run a provided example or your own projects,
 the sdl dlls must be copied to the main application directory. e.g.:
 ```bash
-copy thirdparty\SDL3-3.2.0\lib\x64\SDL3.dll examples\basic_window\
+copy thirdparty\SDL3-3.4.0\lib\x64\SDL3.dll examples\basic_window\
 cd ..
 v run sdl\examples\basic_window\main.v
 ```

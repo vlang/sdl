@@ -176,6 +176,9 @@ fn C.SDL_SetLogPriorityPrefix(priority LogPriority, const_prefix &char) bool
 // SDL_LOG_PRIORITY_WARN and higher have a prefix showing their priority, e.g.
 // "WARNING: ".
 //
+// This function makes a copy of its string argument, **prefix**, so it is not
+// necessary to keep the value of **prefix** alive after the call returns.
+//
 // `priority` priority the SDL_LogPriority to modify.
 // `prefix` prefix the prefix to use for that log priority, or NULL to use no
 //               prefix.
@@ -236,7 +239,6 @@ pub fn set_log_priority_prefix(priority LogPriority, const_prefix &char) bool {
 // See also: log_info (SDL_LogInfo)
 // See also: log_message (SDL_LogMessage)
 // See also: log_message_v (SDL_LogMessageV)
-// See also: log_trace (SDL_LogTrace)
 // See also: log_verbose (SDL_LogVerbose)
 // See also: log_warn (SDL_LogWarn)
 //

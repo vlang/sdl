@@ -733,6 +733,64 @@ pub mut:
 	reserved voidptr
 }
 
+// InitState
+//
+// A structure used for thread-safe initialization and shutdown.
+//
+// Here is an example of using this:
+//
+// ```c
+// static SDL_InitState init;
+//
+// bool InitSystem(void)
+// {
+// if (!SDL_ShouldInit(&init)) {
+// // The system is initialized
+// return true;
+//}
+//
+// // At this point, you should not leave this function without calling SDL_SetInitialized()
+//
+// bool initialized = DoInitTasks();
+// SDL_SetInitialized(&init, initialized);
+// return initialized;
+// }
+//
+// bool UseSubsystem(void)
+// {
+// if (SDL_ShouldInit(&init)) {
+// // Error, the subsystem isn't initialized
+// SDL_SetInitialized(&init, false);
+// return false;
+//}
+//
+//// Do work using the initialized subsystem
+//
+// return true;
+// }
+//
+// void QuitSystem(void)
+// {
+// if (!SDL_ShouldQuit(&init)) {
+// // The system is not initialized
+// return;
+//}
+//
+// // At this point, you should not leave this function without calling SDL_SetInitialized()
+//
+// DoQuitTasks();
+// SDL_SetInitialized(&init, false);
+// }
+// ```
+//
+// Note that this doesn't protect any resources created during initialization,
+// or guarantee that nobody is using those resources during cleanup. You
+// should use other mechanisms to protect those, if that's a concern for your
+// code.
+//
+// NOTE: This struct is available since SDL 3.2.0.
+//
+// InitState is C.SDL_InitState
 pub type InitState = C.SDL_InitState
 
 // C.SDL_ShouldInit [official documentation](https://wiki.libsdl.org/SDL3/SDL_ShouldInit)

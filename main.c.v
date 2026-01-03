@@ -38,7 +38,7 @@ module sdl
 // proper entry point for the platform, and all the other magic details
 // needed, like manually calling SDL_SetMainReady.
 //
-// Please see [README/main-functions](README/main-functions), (or
+// Please see [README-main-functions](README-main-functions), (or
 // docs/README-main-functions.md in the source tree) for a more detailed
 // explanation.
 //
@@ -53,7 +53,7 @@ module sdl
 // SDL_AppQuit. The app should not provide a `main` function in this case, and
 // doing so will likely cause the build to fail.
 //
-// Please see [README/main-functions](README/main-functions), (or
+// Please see [README-main-functions](README-main-functions), (or
 // docs/README-main-functions.md in the source tree) for a more detailed
 // explanation.
 //
@@ -313,6 +313,9 @@ fn C.SDL_RunApp(argc int, argv voidptr, main_function MainFunc, reserved voidptr
 // You can use this if you want to use your own main() implementation without
 // using SDL_main (like when using SDL_MAIN_HANDLED). When using this, you do
 // *not* need SDL_SetMainReady().
+//
+// If `argv` is NULL, SDL will provide command line arguments, either by
+// querying the OS for them if possible, or supplying a filler array if not.
 //
 // `argc` argc the argc parameter from the application's main() function, or 0
 //             if the platform's main-equivalent has no argc.

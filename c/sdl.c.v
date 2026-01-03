@@ -21,12 +21,12 @@ $if !windows {
 }
 
 $if x64 {
-	#flag windows -L @VMODROOT/thirdparty/SDL3-3.2.0/lib/x64
+	#flag windows -L @VMODROOT/thirdparty/SDL3-3.4.0/lib/x64
 } $else {
-	#flag windows -L @VMODROOT/thirdparty/SDL3-3.2.0/lib/x86
+	#flag windows -L @VMODROOT/thirdparty/SDL3-3.4.0/lib/x86
 }
 
-#flag windows -I @VMODROOT/thirdparty/SDL3-3.2.0/include
+#flag windows -I @VMODROOT/thirdparty/SDL3-3.4.0/include
 #flag windows -lSDL3
 
 // NOTE::

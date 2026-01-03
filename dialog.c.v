@@ -95,10 +95,12 @@ fn C.SDL_ShowOpenFileDialog(callback DialogFileCallback, userdata voidptr, windo
 //                 it will be invoked.
 // `window` window the window that the dialog should be modal for, may be NULL.
 //               Not all platforms support this option.
-// `filters` filters a list of filters, may be NULL. Not all platforms support
-//                this option, and platforms that do support it may allow the
-//                user to ignore the filters. If non-NULL, it must remain
-//                valid at least until the callback is invoked.
+// `filters` filters a list of filters, may be NULL. See the
+//                [`SDL_DialogFileFilter`](SDL_DialogFileFilter#code-examples)
+//                documentation for examples]. Not all platforms support this
+//                option, and platforms that do support it may allow the user
+//                to ignore the filters. If non-NULL, it must remain valid at
+//                least until the callback is invoked.
 // `nfilters` nfilters the number of filters. Ignored if filters is NULL.
 // `default_location` default_location the default folder or file to start the dialog at,
 //                         may be NULL. Not all platforms support this option.

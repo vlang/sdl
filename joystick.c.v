@@ -34,14 +34,18 @@ module sdl
 // the background, you should set the following hint before calling
 // SDL_Init(): SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS
 
-// This is a unique ID for a joystick for the time it is connected to the
+// JoystickID; this is a unique ID for a joystick for the time it is connected to the
 // system, and is never reused for the lifetime of the application.
 //
 // If the joystick is disconnected and reconnected, it will get a new ID.
 //
 // The value 0 is an invalid ID.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This datatype is available since SDL 3.2.0.
+//
+// [Official documentation](https://wiki.libsdl.org/SDL3/SDL_JoystickID)
 pub type JoystickID = u32
 
 @[noinit; typedef]
@@ -51,6 +55,25 @@ pub struct C.SDL_Joystick {
 
 pub type Joystick = C.SDL_Joystick
 
+// JoystickType
+//
+// An enum of some common joystick types.
+//
+// In some cases, SDL can identify a low-level joystick as being a certain
+// type of device, and will report it through SDL_GetJoystickType (or
+// SDL_GetJoystickTypeForID).
+//
+// This is by no means a complete list of everything that can be plugged into
+// a computer.
+//
+// You may refer to
+// [XInput Controller Types](https://learn.microsoft.com/en-us/windows/win32/xinput/xinput-and-controller-subtypes)
+// table for a general understanding of each joystick type.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
 // JoystickType is C.SDL_JoystickType
 pub enum JoystickType {
 	unknown      = C.SDL_JOYSTICK_TYPE_UNKNOWN
@@ -66,6 +89,17 @@ pub enum JoystickType {
 	count        = C.SDL_JOYSTICK_TYPE_COUNT
 }
 
+// JoystickConnectionState
+//
+// Possible connection states for a joystick device.
+//
+// This is used by SDL_GetJoystickConnectionState to report how a device is
+// connected to the system.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
 // JoystickConnectionState is C.SDL_JoystickConnectionState
 pub enum JoystickConnectionState {
 	invalid  = C.SDL_JOYSTICK_CONNECTION_INVALID // -1,
@@ -76,6 +110,8 @@ pub enum JoystickConnectionState {
 
 // The largest value an SDL_Joystick's axis can report.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This macro is available since SDL 3.2.0.
 //
 // See also: SDL_JOYSTICK_AXIS_MIN
@@ -84,6 +120,8 @@ pub const joystick_axis_max = C.SDL_JOYSTICK_AXIS_MAX // 32767
 // The smallest value an SDL_Joystick's axis can report.
 //
 // This is a negative number!
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This macro is available since SDL 3.2.0.
 //
@@ -99,6 +137,8 @@ fn C.SDL_LockJoysticks()
 // joysticks while processing to guarantee that the joystick list won't change
 // and joystick and gamepad events will not be delivered.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 pub fn lock_joysticks() {
 	C.SDL_LockJoysticks()
@@ -108,6 +148,9 @@ pub fn lock_joysticks() {
 fn C.SDL_UnlockJoysticks()
 
 // unlock_joysticks unlockings for atomic access to the joystick API.
+//
+// NOTE: (thread safety) This should be called from the same thread that called
+//               SDL_LockJoysticks().
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn unlock_joysticks() {
@@ -120,6 +163,8 @@ fn C.SDL_HasJoystick() bool
 // has_joystick returns whether a joystick is currently connected.
 //
 // returns true if a joystick is connected, false otherwise.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -138,6 +183,8 @@ fn C.SDL_GetJoysticks(count &int) &JoystickID
 // returns a 0 terminated array of joystick instance IDs or NULL on failure;
 //          call SDL_GetError() for more information. This should be freed
 //          with SDL_free() when it is no longer needed.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -158,6 +205,8 @@ fn C.SDL_GetJoystickNameForID(instance_id JoystickID) &char
 // returns the name of the selected joystick. If no name can be found, this
 //          function returns NULL; call SDL_GetError() for more information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: get_joystick_name (SDL_GetJoystickName)
@@ -177,6 +226,8 @@ fn C.SDL_GetJoystickPathForID(instance_id JoystickID) &char
 // returns the path of the selected joystick. If no path can be found, this
 //          function returns NULL; call SDL_GetError() for more information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: get_joystick_path (SDL_GetJoystickPath)
@@ -194,6 +245,8 @@ fn C.SDL_GetJoystickPlayerIndexForID(instance_id JoystickID) int
 //
 // `instance_id` instance_id the joystick instance ID.
 // returns the player index of a joystick, or -1 if it's not available.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -213,6 +266,8 @@ fn C.SDL_GetJoystickGUIDForID(instance_id JoystickID) GUID
 // `instance_id` instance_id the joystick instance ID.
 // returns the GUID of the selected joystick. If called with an invalid
 //          instance_id, this function returns a zero GUID.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -234,6 +289,8 @@ fn C.SDL_GetJoystickVendorForID(instance_id JoystickID) u16
 // returns the USB vendor ID of the selected joystick. If called with an
 //          invalid instance_id, this function returns 0.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: get_joystick_vendor (SDL_GetJoystickVendor)
@@ -253,6 +310,8 @@ fn C.SDL_GetJoystickProductForID(instance_id JoystickID) u16
 // `instance_id` instance_id the joystick instance ID.
 // returns the USB product ID of the selected joystick. If called with an
 //          invalid instance_id, this function returns 0.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -274,6 +333,8 @@ fn C.SDL_GetJoystickProductVersionForID(instance_id JoystickID) u16
 // returns the product version of the selected joystick. If called with an
 //          invalid instance_id, this function returns 0.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: get_joystick_product_version (SDL_GetJoystickProductVersion)
@@ -293,6 +354,8 @@ fn C.SDL_GetJoystickTypeForID(instance_id JoystickID) JoystickType
 // returns the SDL_JoystickType of the selected joystick. If called with an
 //          invalid instance_id, this function returns
 //          `SDL_JOYSTICK_TYPE_UNKNOWN`.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -314,6 +377,8 @@ fn C.SDL_OpenJoystick(instance_id JoystickID) &Joystick
 // returns a joystick identifier or NULL on failure; call SDL_GetError() for
 //          more information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: close_joystick (SDL_CloseJoystick)
@@ -330,6 +395,8 @@ fn C.SDL_GetJoystickFromID(instance_id JoystickID) &Joystick
 // returns an SDL_Joystick on success or NULL on failure or if it hasn't been
 //          opened yet; call SDL_GetError() for more information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_joystick_from_id(instance_id JoystickID) &Joystick {
 	return C.SDL_GetJoystickFromID(instance_id)
@@ -343,6 +410,8 @@ fn C.SDL_GetJoystickFromPlayerIndex(player_index int) &Joystick
 // `player_index` player_index the player index to get the SDL_Joystick for.
 // returns an SDL_Joystick on success or NULL on failure; call SDL_GetError()
 //          for more information.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -408,13 +477,33 @@ fn C.SDL_AttachVirtualJoystick(const_desc &VirtualJoystickDesc) JoystickID
 
 // attach_virtual_joystick attachs a new virtual joystick.
 //
+// Apps can create virtual joysticks, that exist without hardware directly
+// backing them, and have program-supplied inputs. Once attached, a virtual
+// joystick looks like any other joystick that SDL can access. These can be
+// used to make other things look like joysticks, or provide pre-recorded
+// input, etc.
+//
+// Once attached, the app can send joystick inputs to the new virtual joystick
+// using SDL_SetJoystickVirtualAxis(), etc.
+//
+// When no longer needed, the virtual joystick can be removed by calling
+// SDL_DetachVirtualJoystick().
+//
 // `desc` desc joystick description, initialized using SDL_INIT_INTERFACE().
 // returns the joystick instance ID, or 0 on failure; call SDL_GetError() for
 //          more information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: detach_virtual_joystick (SDL_DetachVirtualJoystick)
+// See also: set_joystick_virtual_axis (SDL_SetJoystickVirtualAxis)
+// See also: set_joystick_virtual_button (SDL_SetJoystickVirtualButton)
+// See also: set_joystick_virtual_ball (SDL_SetJoystickVirtualBall)
+// See also: set_joystick_virtual_hat (SDL_SetJoystickVirtualHat)
+// See also: set_joystick_virtual_touchpad (SDL_SetJoystickVirtualTouchpad)
+// See also: set_joystick_virtual_sensor_data (SDL_SetJoystickVirtualSensorData)
 pub fn attach_virtual_joystick(const_desc &VirtualJoystickDesc) JoystickID {
 	return C.SDL_AttachVirtualJoystick(const_desc)
 }
@@ -428,6 +517,8 @@ fn C.SDL_DetachVirtualJoystick(instance_id JoystickID) bool
 //                    SDL_AttachVirtualJoystick().
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -443,6 +534,8 @@ fn C.SDL_IsJoystickVirtual(instance_id JoystickID) bool
 //
 // `instance_id` instance_id the joystick instance ID.
 // returns true if the joystick is virtual, false otherwise.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn is_joystick_virtual(instance_id JoystickID) bool {
@@ -470,7 +563,15 @@ fn C.SDL_SetJoystickVirtualAxis(joystick &Joystick, axis int, value i16) bool
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
+//
+// See also: set_joystick_virtual_button (SDL_SetJoystickVirtualButton)
+// See also: set_joystick_virtual_ball (SDL_SetJoystickVirtualBall)
+// See also: set_joystick_virtual_hat (SDL_SetJoystickVirtualHat)
+// See also: set_joystick_virtual_touchpad (SDL_SetJoystickVirtualTouchpad)
+// See also: set_joystick_virtual_sensor_data (SDL_SetJoystickVirtualSensorData)
 pub fn set_joystick_virtual_axis(joystick &Joystick, axis int, value i16) bool {
 	return C.SDL_SetJoystickVirtualAxis(joystick, axis, value)
 }
@@ -493,7 +594,15 @@ fn C.SDL_SetJoystickVirtualBall(joystick &Joystick, ball int, xrel i16, yrel i16
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
+//
+// See also: set_joystick_virtual_axis (SDL_SetJoystickVirtualAxis)
+// See also: set_joystick_virtual_button (SDL_SetJoystickVirtualButton)
+// See also: set_joystick_virtual_hat (SDL_SetJoystickVirtualHat)
+// See also: set_joystick_virtual_touchpad (SDL_SetJoystickVirtualTouchpad)
+// See also: set_joystick_virtual_sensor_data (SDL_SetJoystickVirtualSensorData)
 pub fn set_joystick_virtual_ball(joystick &Joystick, ball int, xrel i16, yrel i16) bool {
 	return C.SDL_SetJoystickVirtualBall(joystick, ball, xrel, yrel)
 }
@@ -515,7 +624,15 @@ fn C.SDL_SetJoystickVirtualButton(joystick &Joystick, button int, down bool) boo
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
+//
+// See also: set_joystick_virtual_axis (SDL_SetJoystickVirtualAxis)
+// See also: set_joystick_virtual_ball (SDL_SetJoystickVirtualBall)
+// See also: set_joystick_virtual_hat (SDL_SetJoystickVirtualHat)
+// See also: set_joystick_virtual_touchpad (SDL_SetJoystickVirtualTouchpad)
+// See also: set_joystick_virtual_sensor_data (SDL_SetJoystickVirtualSensorData)
 pub fn set_joystick_virtual_button(joystick &Joystick, button int, down bool) bool {
 	return C.SDL_SetJoystickVirtualButton(joystick, button, down)
 }
@@ -537,7 +654,15 @@ fn C.SDL_SetJoystickVirtualHat(joystick &Joystick, hat int, value u8) bool
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
+//
+// See also: set_joystick_virtual_axis (SDL_SetJoystickVirtualAxis)
+// See also: set_joystick_virtual_button (SDL_SetJoystickVirtualButton)
+// See also: set_joystick_virtual_ball (SDL_SetJoystickVirtualBall)
+// See also: set_joystick_virtual_touchpad (SDL_SetJoystickVirtualTouchpad)
+// See also: set_joystick_virtual_sensor_data (SDL_SetJoystickVirtualSensorData
 pub fn set_joystick_virtual_hat(joystick &Joystick, hat int, value u8) bool {
 	return C.SDL_SetJoystickVirtualHat(joystick, hat, value)
 }
@@ -566,7 +691,15 @@ fn C.SDL_SetJoystickVirtualTouchpad(joystick &Joystick, touchpad int, finger int
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
+//
+// See also: set_joystick_virtual_axis (SDL_SetJoystickVirtualAxis)
+// See also: set_joystick_virtual_button (SDL_SetJoystickVirtualButton)
+// See also: set_joystick_virtual_ball (SDL_SetJoystickVirtualBall)
+// See also: set_joystick_virtual_hat (SDL_SetJoystickVirtualHat)
+// See also: set_joystick_virtual_sensor_data (SDL_SetJoystickVirtualSensorData)
 pub fn set_joystick_virtual_touchpad(joystick &Joystick, touchpad int, finger int, down bool, x f32, y f32, pressure f32) bool {
 	return C.SDL_SetJoystickVirtualTouchpad(joystick, touchpad, finger, down, x, y, pressure)
 }
@@ -591,7 +724,15 @@ fn C.SDL_SendJoystickVirtualSensorData(joystick &Joystick, typ SensorType, senso
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
+//
+// See also: set_joystick_virtual_axis (SDL_SetJoystickVirtualAxis)
+// See also: set_joystick_virtual_button (SDL_SetJoystickVirtualButton)
+// See also: set_joystick_virtual_ball (SDL_SetJoystickVirtualBall)
+// See also: set_joystick_virtual_hat (SDL_SetJoystickVirtualHat)
+// See also: set_joystick_virtual_touchpad (SDL_SetJoystickVirtualTouchpad)
 pub fn send_joystick_virtual_sensor_data(joystick &Joystick, typ SensorType, sensor_timestamp u64, const_data &f32, num_values int) bool {
 	return C.SDL_SendJoystickVirtualSensorData(joystick, typ, sensor_timestamp, const_data,
 		num_values)
@@ -619,6 +760,8 @@ fn C.SDL_GetJoystickProperties(joystick &Joystick) PropertiesID
 // returns a valid property ID on success or 0 on failure; call
 //          SDL_GetError() for more information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_joystick_properties(joystick &Joystick) PropertiesID {
 	return C.SDL_GetJoystickProperties(joystick)
@@ -643,6 +786,8 @@ fn C.SDL_GetJoystickName(joystick &Joystick) &char
 // returns the name of the selected joystick. If no name can be found, this
 //          function returns NULL; call SDL_GetError() for more information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: get_joystick_name_for_id (SDL_GetJoystickNameForID)
@@ -658,6 +803,8 @@ fn C.SDL_GetJoystickPath(joystick &Joystick) &char
 // `joystick` joystick the SDL_Joystick obtained from SDL_OpenJoystick().
 // returns the path of the selected joystick. If no path can be found, this
 //          function returns NULL; call SDL_GetError() for more information.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -677,6 +824,8 @@ fn C.SDL_GetJoystickPlayerIndex(joystick &Joystick) int
 // `joystick` joystick the SDL_Joystick obtained from SDL_OpenJoystick().
 // returns the player index, or -1 if it's not available.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: set_joystick_player_index (SDL_SetJoystickPlayerIndex)
@@ -694,6 +843,8 @@ fn C.SDL_SetJoystickPlayerIndex(joystick &Joystick, player_index int) bool
 //                     the player index and turn off player LEDs.
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -714,6 +865,8 @@ fn C.SDL_GetJoystickGUID(joystick &Joystick) GUID
 //          this function returns a zero GUID; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: get_joystick_guid_for_id (SDL_GetJoystickGUIDForID)
@@ -732,6 +885,8 @@ fn C.SDL_GetJoystickVendor(joystick &Joystick) u16
 // `joystick` joystick the SDL_Joystick obtained from SDL_OpenJoystick().
 // returns the USB vendor ID of the selected joystick, or 0 if unavailable.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: get_joystick_vendor_for_id (SDL_GetJoystickVendorForID)
@@ -749,6 +904,8 @@ fn C.SDL_GetJoystickProduct(joystick &Joystick) u16
 // `joystick` joystick the SDL_Joystick obtained from SDL_OpenJoystick().
 // returns the USB product ID of the selected joystick, or 0 if unavailable.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: get_joystick_product_for_id (SDL_GetJoystickProductForID)
@@ -765,6 +922,8 @@ fn C.SDL_GetJoystickProductVersion(joystick &Joystick) u16
 //
 // `joystick` joystick the SDL_Joystick obtained from SDL_OpenJoystick().
 // returns the product version of the selected joystick, or 0 if unavailable.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -784,6 +943,8 @@ fn C.SDL_GetJoystickFirmwareVersion(joystick &Joystick) u16
 // returns the firmware version of the selected joystick, or 0 if
 //          unavailable.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_joystick_firmware_version(joystick &Joystick) u16 {
 	return C.SDL_GetJoystickFirmwareVersion(joystick)
@@ -800,6 +961,8 @@ fn C.SDL_GetJoystickSerial(joystick &Joystick) &char
 // returns the serial number of the selected joystick, or NULL if
 //          unavailable.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_joystick_serial(joystick &Joystick) &char {
 	return &char(C.SDL_GetJoystickSerial(joystick))
@@ -812,6 +975,8 @@ fn C.SDL_GetJoystickType(joystick &Joystick) JoystickType
 //
 // `joystick` joystick the SDL_Joystick obtained from SDL_OpenJoystick().
 // returns the SDL_JoystickType of the selected joystick.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -835,6 +1000,8 @@ fn C.SDL_GetJoystickGUIDInfo(guid GUID, vendor &u16, product &u16, version &u16,
 // `crc16` crc16 a pointer filled in with a CRC used to distinguish different
 //              products with the same VID/PID, or 0 if not available.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: get_joystick_guid_for_id (SDL_GetJoystickGUIDForID)
@@ -851,6 +1018,8 @@ fn C.SDL_JoystickConnected(joystick &Joystick) bool
 // returns true if the joystick has been opened, false if it has not; call
 //          SDL_GetError() for more information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 pub fn joystick_connected(joystick &Joystick) bool {
 	return C.SDL_JoystickConnected(joystick)
@@ -864,6 +1033,8 @@ fn C.SDL_GetJoystickID(joystick &Joystick) JoystickID
 // `joystick` joystick an SDL_Joystick structure containing joystick information.
 // returns the instance ID of the specified joystick on success or 0 on
 //          failure; call SDL_GetError() for more information.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_joystick_id(joystick &Joystick) JoystickID {
@@ -882,6 +1053,8 @@ fn C.SDL_GetNumJoystickAxes(joystick &Joystick) int
 // `joystick` joystick an SDL_Joystick structure containing joystick information.
 // returns the number of axis controls/number of axes on success or -1 on
 //          failure; call SDL_GetError() for more information.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -907,6 +1080,8 @@ fn C.SDL_GetNumJoystickBalls(joystick &Joystick) int
 // returns the number of trackballs on success or -1 on failure; call
 //          SDL_GetError() for more information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: get_joystick_ball (SDL_GetJoystickBall)
@@ -926,6 +1101,8 @@ fn C.SDL_GetNumJoystickHats(joystick &Joystick) int
 // returns the number of POV hats on success or -1 on failure; call
 //          SDL_GetError() for more information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: get_joystick_hat (SDL_GetJoystickHat)
@@ -944,6 +1121,8 @@ fn C.SDL_GetNumJoystickButtons(joystick &Joystick) int
 // `joystick` joystick an SDL_Joystick structure containing joystick information.
 // returns the number of buttons on success or -1 on failure; call
 //          SDL_GetError() for more information.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -966,6 +1145,8 @@ fn C.SDL_SetJoystickEventsEnabled(enabled bool)
 //
 // `enabled` enabled whether to process joystick events or not.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: joystick_events_enabled (SDL_JoystickEventsEnabled)
@@ -985,6 +1166,8 @@ fn C.SDL_JoystickEventsEnabled() bool
 //
 // returns true if joystick events are being processed, false otherwise.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: set_joystick_events_enabled (SDL_SetJoystickEventsEnabled)
@@ -999,6 +1182,8 @@ fn C.SDL_UpdateJoysticks()
 //
 // This is called automatically by the event loop if any joystick events are
 // enabled.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn update_joysticks() {
@@ -1025,6 +1210,8 @@ fn C.SDL_GetJoystickAxis(joystick &Joystick, axis int) i16
 // returns a 16-bit signed integer representing the current position of the
 //          axis or 0 on failure; call SDL_GetError() for more information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: get_num_joystick_axes (SDL_GetNumJoystickAxes)
@@ -1045,6 +1232,8 @@ fn C.SDL_GetJoystickAxisInitialState(joystick &Joystick, axis int, state &i16) b
 // `axis` axis the axis to query; the axis indices start at index 0.
 // `state` state upon return, the initial value is supplied here.
 // returns true if this axis has any initial value, or false if not.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_joystick_axis_initial_state(joystick &Joystick, axis int, state &i16) bool {
@@ -1068,6 +1257,8 @@ fn C.SDL_GetJoystickBall(joystick &Joystick, ball int, dx &int, dy &int) bool
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: get_num_joystick_balls (SDL_GetNumJoystickBalls)
@@ -1085,6 +1276,8 @@ fn C.SDL_GetJoystickHat(joystick &Joystick, hat int) u8
 // `joystick` joystick an SDL_Joystick structure containing joystick information.
 // `hat` hat the hat index to get the state from; indices start at index 0.
 // returns the current hat position.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -1121,6 +1314,8 @@ fn C.SDL_GetJoystickButton(joystick &Joystick, button int) bool
 //               index 0.
 // returns true if the button is pressed, false otherwise.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: get_num_joystick_buttons (SDL_GetNumJoystickButtons)
@@ -1146,6 +1341,8 @@ fn C.SDL_RumbleJoystick(joystick &Joystick, low_frequency_rumble u16, high_frequ
 //                              rumble motor, from 0 to 0xFFFF.
 // `duration_ms` duration_ms the duration of the rumble effect, in milliseconds.
 // returns true, or false if rumble isn't supported on this joystick.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn rumble_joystick(joystick &Joystick, low_frequency_rumble u16, high_frequency_rumble u16, duration_ms u32) bool {
@@ -1178,6 +1375,8 @@ fn C.SDL_RumbleJoystickTriggers(joystick &Joystick, left_rumble u16, right_rumbl
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: rumble_joystick (SDL_RumbleJoystick)
@@ -1203,6 +1402,8 @@ fn C.SDL_SetJoystickLED(joystick &Joystick, red u8, green u8, blue u8) bool
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 pub fn set_joystick_led(joystick &Joystick, red u8, green u8, blue u8) bool {
 	return C.SDL_SetJoystickLED(joystick, red, green, blue)
@@ -1219,6 +1420,8 @@ fn C.SDL_SendJoystickEffect(joystick &Joystick, const_data voidptr, size int) bo
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
 // NOTE: This function is available since SDL 3.2.0.
 pub fn send_joystick_effect(joystick &Joystick, const_data voidptr, size int) bool {
 	return C.SDL_SendJoystickEffect(joystick, const_data, size)
@@ -1230,6 +1433,8 @@ fn C.SDL_CloseJoystick(joystick &Joystick)
 // close_joystick closes a joystick previously opened with SDL_OpenJoystick().
 //
 // `joystick` joystick the joystick device to close.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -1247,6 +1452,8 @@ fn C.SDL_GetJoystickConnectionState(joystick &Joystick) JoystickConnectionState
 // returns the connection state on success or
 //          `SDL_JOYSTICK_CONNECTION_INVALID` on failure; call SDL_GetError()
 //          for more information.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_joystick_connection_state(joystick &Joystick) JoystickConnectionState {
@@ -1271,6 +1478,8 @@ fn C.SDL_GetJoystickPowerInfo(joystick &Joystick, percent &int) PowerState
 //                battery.
 // returns the current battery state or `SDL_POWERSTATE_ERROR` on failure;
 //          call SDL_GetError() for more information.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_joystick_power_info(joystick &Joystick, percent &int) PowerState {

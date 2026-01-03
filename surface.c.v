@@ -40,15 +40,17 @@ pub const surface_simd_aligned = C.SDL_SURFACE_SIMD_ALIGNED // 0x00000008u
 
 // ScaleMode is C.SDL_ScaleMode
 pub enum ScaleMode {
-	nearest = C.SDL_SCALEMODE_NEAREST // `nearest` nearest pixel sampling
-	linear  = C.SDL_SCALEMODE_LINEAR  // `linear` linear filtering
+	nearest  = C.SDL_SCALEMODE_NEAREST  // `nearest` nearest pixel sampling
+	linear   = C.SDL_SCALEMODE_LINEAR   // `linear` linear filtering
+	pixelart = C.SDL_SCALEMODE_PIXELART // `pixelart` nearest pixel sampling with improved scaling for pixel art, available since SDL 3.4.0
 }
 
 // FlipMode is C.SDL_FlipMode
 pub enum FlipMode {
-	none       = C.SDL_FLIP_NONE       // `none` Do not flip
-	horizontal = C.SDL_FLIP_HORIZONTAL // `horizontal` flip horizontally
-	vertical   = C.SDL_FLIP_VERTICAL   // `vertical` flip vertically
+	none                    = C.SDL_FLIP_NONE                    // `none` Do not flip
+	horizontal              = C.SDL_FLIP_HORIZONTAL              // `horizontal` flip horizontally
+	vertical                = C.SDL_FLIP_VERTICAL                // `vertical` flip vertically
+	horizontal_and_vertical = C.SDL_FLIP_HORIZONTAL_AND_VERTICAL // (SDL_FLIP_HORIZONTAL | SDL_FLIP_VERTICAL), flip horizontally and vertically (not a diagonal flip)
 }
 
 // A collection of pixels used in software blitting.
@@ -181,10 +183,22 @@ fn C.SDL_GetSurfaceProperties(surface &Surface) PropertiesID
 //   the same tone mapping that Chrome uses for HDR content, the form "*=N",
 //   where N is a floating point scale factor applied in linear space, and
 //   "none", which disables tone mapping. This defaults to "chrome".
+// - `SDL_PROP_SURFACE_HOTSPOT_X_NUMBER`: the hotspot pixel offset from the
+//   left edge of the image, if this surface is being used as a cursor.
+// - `SDL_PROP_SURFACE_HOTSPOT_Y_NUMBER`: the hotspot pixel offset from the
+//   top edge of the image, if this surface is being used as a cursor.
+// - `SDL_PROP_SURFACE_ROTATION_FLOAT`: the number of degrees a surface's data
+//   is meant to be rotated clockwise to make the image right-side up. Default
+//   0. This is used by the camera API, if a mobile device is oriented
+//   differently than what its camera provides (i.e. - the camera always
+//   provides portrait images but the phone is being held in landscape
+//   orientation). Since SDL 3.4.0.
 //
 // `surface` surface the SDL_Surface structure to query.
 // returns a valid property ID on success or 0 on failure; call
 //          SDL_GetError() for more information.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn get_surface_properties(surface &Surface) PropertiesID {
@@ -196,6 +210,12 @@ pub const prop_surface_sdr_white_point_float = &char(C.SDL_PROP_SURFACE_SDR_WHIT
 pub const prop_surface_hdr_headroom_float = &char(C.SDL_PROP_SURFACE_HDR_HEADROOM_FLOAT) // 'SDL.surface.HDR_headroom'
 
 pub const prop_surface_tonemap_operator_string = &char(C.SDL_PROP_SURFACE_TONEMAP_OPERATOR_STRING) // 'SDL.surface.tonemap'
+
+pub const prop_surface_hotspot_x_number = &char(C.SDL_PROP_SURFACE_HOTSPOT_X_NUMBER) // 'SDL.surface.hotspot.x'
+
+pub const prop_surface_hotspot_y_number = &char(C.SDL_PROP_SURFACE_HOTSPOT_Y_NUMBER) // 'SDL.surface.hotspot.y'
+
+pub const prop_surface_rotation_float = &char(C.SDL_PROP_SURFACE_ROTATION_FLOAT) // 'SDL.surface.rotation'
 
 // C.SDL_SetSurfaceColorspace [official documentation](https://wiki.libsdl.org/SDL3/SDL_SetSurfaceColorspace)
 fn C.SDL_SetSurfaceColorspace(surface &Surface, colorspace Colorspace) bool
@@ -210,6 +230,9 @@ fn C.SDL_SetSurfaceColorspace(surface &Surface, colorspace Colorspace) bool
 //                   colorspace.
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
+//
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -230,6 +253,9 @@ fn C.SDL_GetSurfaceColorspace(surface &Surface) Colorspace
 // `surface` surface the SDL_Surface structure to query.
 // returns the colorspace used by the surface, or SDL_COLORSPACE_UNKNOWN if
 //          the surface is NULL.
+//
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -262,6 +288,9 @@ fn C.SDL_CreateSurfacePalette(surface &Surface) &Palette
 //          the surface didn't have an index format); call SDL_GetError() for
 //          more information.
 //
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: set_palette_colors (SDL_SetPaletteColors)
@@ -274,12 +303,18 @@ fn C.SDL_SetSurfacePalette(surface &Surface, palette &Palette) bool
 
 // set_surface_palette sets the palette used by a surface.
 //
+// Setting the palette keeps an internal reference to the palette, which can
+// be safely destroyed afterwards.
+//
 // A single palette can be shared with many surfaces.
 //
 // `surface` surface the SDL_Surface structure to update.
 // `palette` palette the SDL_Palette structure to use.
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
+//
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -323,6 +358,9 @@ fn C.SDL_AddSurfaceAlternateImage(surface &Surface, image &Surface) bool
 //              surface.
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
+//
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -369,6 +407,9 @@ fn C.SDL_GetSurfaceImages(surface &Surface, count &int) &&C.SDL_Surface
 //          failure; call SDL_GetError() for more information. This should be
 //          freed with SDL_free() when it is no longer needed.
 //
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: add_surface_alternate_image (SDL_AddSurfaceAlternateImage)
@@ -387,6 +428,9 @@ fn C.SDL_RemoveSurfaceAlternateImages(surface &Surface)
 // destroying them if this is the last reference to them.
 //
 // `surface` surface the SDL_Surface structure to update.
+//
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -415,6 +459,11 @@ fn C.SDL_LockSurface(surface &Surface) bool
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces. The locking referred to by this function
+//               is making the pixels available for direct access, not
+//               thread-safe locking.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: mustlock (SDL_MUSTLOCK)
@@ -435,6 +484,52 @@ fn C.SDL_UnlockSurface(surface &Surface)
 // See also: lock_surface (SDL_LockSurface)
 pub fn unlock_surface(surface &Surface) {
 	C.SDL_UnlockSurface(surface)
+}
+
+// C.SDL_LoadSurface_IO [official documentation](https://wiki.libsdl.org/SDL3/SDL_LoadSurface_IO)
+fn C.SDL_LoadSurface_IO(src &IOStream, closeio bool) &Surface
+
+// load_surface_io loads a BMP or PNG image from a seekable SDL data stream.
+//
+// The new surface should be freed with SDL_DestroySurface(). Not doing so
+// will result in a memory leak.
+//
+// `src` src the data stream for the surface.
+// `closeio` closeio if true, calls SDL_CloseIO() on `src` before returning, even
+//                in the case of an error.
+// returns a pointer to a new SDL_Surface structure or NULL on failure; call
+//          SDL_GetError() for more information.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
+// NOTE: This function is available since SDL 3.4.0.
+//
+// See also: destroy_surface (SDL_DestroySurface)
+// See also: load_surface (SDL_LoadSurface)
+pub fn load_surface_io(src &IOStream, closeio bool) &Surface {
+	return C.SDL_LoadSurface_IO(src, closeio)
+}
+
+// C.SDL_LoadSurface [official documentation](https://wiki.libsdl.org/SDL3/SDL_LoadSurface)
+fn C.SDL_LoadSurface(const_file &char) &Surface
+
+// load_surface loads a BMP or PNG image from a file.
+//
+// The new surface should be freed with SDL_DestroySurface(). Not doing so
+// will result in a memory leak.
+//
+// `file` file the file to load.
+// returns a pointer to a new SDL_Surface structure or NULL on failure; call
+//          SDL_GetError() for more information.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
+// NOTE: This function is available since SDL 3.4.0.
+//
+// See also: destroy_surface (SDL_DestroySurface)
+// See also: load_surface_io (SDL_LoadSurface_IO)
+pub fn load_surface(const_file &char) &Surface {
+	return C.SDL_LoadSurface(const_file)
 }
 
 // C.SDL_LoadBMP_IO [official documentation](https://wiki.libsdl.org/SDL3/SDL_LoadBMP_IO)
@@ -499,6 +594,9 @@ fn C.SDL_SaveBMP_IO(surface &Surface, dst &IOStream, closeio bool) bool
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: load_bmpio (SDL_LoadBMP_IO)
@@ -510,7 +608,7 @@ pub fn save_bmpio(surface &Surface, dst &IOStream, closeio bool) bool {
 // C.SDL_SaveBMP [official documentation](https://wiki.libsdl.org/SDL3/SDL_SaveBMP)
 fn C.SDL_SaveBMP(surface &Surface, const_file &char) bool
 
-// save_bmp saves a surface to a file.
+// save_bmp saves a surface to a file in BMP format.
 //
 // Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the
 // BMP directly. Other RGB formats with 8-bit or higher get converted to a
@@ -523,12 +621,115 @@ fn C.SDL_SaveBMP(surface &Surface, const_file &char) bool
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: load_bmp (SDL_LoadBMP)
 // See also: save_bmpio (SDL_SaveBMP_IO)
 pub fn save_bmp(surface &Surface, const_file &char) bool {
 	return C.SDL_SaveBMP(surface, const_file)
+}
+
+// C.SDL_LoadPNG_IO [official documentation](https://wiki.libsdl.org/SDL3/SDL_LoadPNG_IO)
+fn C.SDL_LoadPNG_IO(src &IOStream, closeio bool) &Surface
+
+// load_pngio loads a PNG image from a seekable SDL data stream.
+//
+// This is intended as a convenience function for loading images from trusted
+// sources. If you want to load arbitrary images you should use libpng or
+// another image loading library designed with security in mind.
+//
+// The new surface should be freed with SDL_DestroySurface(). Not doing so
+// will result in a memory leak.
+//
+// `src` src the data stream for the surface.
+// `closeio` closeio if true, calls SDL_CloseIO() on `src` before returning, even
+//                in the case of an error.
+// returns a pointer to a new SDL_Surface structure or NULL on failure; call
+//          SDL_GetError() for more information.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
+// NOTE: This function is available since SDL 3.4.0.
+//
+// See also: destroy_surface (SDL_DestroySurface)
+// See also: load_png (SDL_LoadPNG)
+// See also: save_pngio (SDL_SavePNG_IO)
+pub fn load_pngio(src &IOStream, closeio bool) &Surface {
+	return C.SDL_LoadPNG_IO(src, closeio)
+}
+
+// C.SDL_LoadPNG [official documentation](https://wiki.libsdl.org/SDL3/SDL_LoadPNG)
+fn C.SDL_LoadPNG(const_file &char) &Surface
+
+// load_png loads a PNG image from a file.
+//
+// This is intended as a convenience function for loading images from trusted
+// sources. If you want to load arbitrary images you should use libpng or
+// another image loading library designed with security in mind.
+//
+// The new surface should be freed with SDL_DestroySurface(). Not doing so
+// will result in a memory leak.
+//
+// `file` file the PNG file to load.
+// returns a pointer to a new SDL_Surface structure or NULL on failure; call
+//          SDL_GetError() for more information.
+//
+// NOTE: (thread safety) It is safe to call this function from any thread.
+//
+// NOTE: This function is available since SDL 3.4.0.
+//
+// See also: destroy_surface (SDL_DestroySurface)
+// See also: load_pngio (SDL_LoadPNG_IO)
+// See also: save_png (SDL_SavePNG)
+pub fn load_png(const_file &char) &Surface {
+	return C.SDL_LoadPNG(const_file)
+}
+
+// C.SDL_SavePNG_IO [official documentation](https://wiki.libsdl.org/SDL3/SDL_SavePNG_IO)
+fn C.SDL_SavePNG_IO(surface &Surface, dst &IOStream, closeio bool) bool
+
+// save_pngio saves a surface to a seekable SDL data stream in PNG format.
+//
+// `surface` surface the SDL_Surface structure containing the image to be saved.
+// `dst` dst a data stream to save to.
+// `closeio` closeio if true, calls SDL_CloseIO() on `dst` before returning, even
+//                in the case of an error.
+// returns true on success or false on failure; call SDL_GetError() for more
+//          information.
+//
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
+//
+// NOTE: This function is available since SDL 3.4.0.
+//
+// See also: load_pngio (SDL_LoadPNG_IO)
+// See also: save_png (SDL_SavePNG)
+pub fn save_pngio(surface &Surface, dst &IOStream, closeio bool) bool {
+	return C.SDL_SavePNG_IO(surface, dst, closeio)
+}
+
+// C.SDL_SavePNG [official documentation](https://wiki.libsdl.org/SDL3/SDL_SavePNG)
+fn C.SDL_SavePNG(surface &Surface, const_file &char) bool
+
+// save_png saves a surface to a file in PNG format.
+//
+// `surface` surface the SDL_Surface structure containing the image to be saved.
+// `file` file a file to save to.
+// returns true on success or false on failure; call SDL_GetError() for more
+//          information.
+//
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
+//
+// NOTE: This function is available since SDL 3.4.0.
+//
+// See also: load_png (SDL_LoadPNG)
+// See also: save_pngio (SDL_SavePNG_IO)
+pub fn save_png(surface &Surface, const_file &char) bool {
+	return C.SDL_SavePNG(surface, const_file)
 }
 
 // C.SDL_SetSurfaceRLE [official documentation](https://wiki.libsdl.org/SDL3/SDL_SetSurfaceRLE)
@@ -543,6 +744,9 @@ fn C.SDL_SetSurfaceRLE(surface &Surface, enabled bool) bool
 // `enabled` enabled true to enable RLE acceleration, false to disable it.
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
+//
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -587,6 +791,9 @@ fn C.SDL_SetSurfaceColorKey(surface &Surface, enabled bool, key u32) bool
 // `key` key the transparent pixel.
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
+//
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -656,6 +863,9 @@ fn C.SDL_SetSurfaceColorMod(surface &Surface, r u8, g u8, b u8) bool
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: get_surface_color_mod (SDL_GetSurfaceColorMod)
@@ -675,6 +885,9 @@ fn C.SDL_GetSurfaceColorMod(surface &Surface, r &u8, g &u8, b &u8) bool
 // `b` b a pointer filled in with the current blue color value.
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
+//
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -698,6 +911,9 @@ fn C.SDL_SetSurfaceAlphaMod(surface &Surface, alpha u8) bool
 // `alpha` alpha the alpha value multiplied into blit operations.
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
+//
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -738,6 +954,9 @@ fn C.SDL_SetSurfaceBlendMode(surface &Surface, blend_mode BlendMode) bool
 // `blend_mode` blendMode the SDL_BlendMode to use for blit blending.
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
+//
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -780,6 +999,9 @@ fn C.SDL_SetSurfaceClipRect(surface &Surface, const_rect &Rect) bool
 // returns true if the rectangle intersects the surface, otherwise false and
 //          blits will be completely clipped.
 //
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: get_surface_clip_rect (SDL_GetSurfaceClipRect)
@@ -802,6 +1024,9 @@ fn C.SDL_GetSurfaceClipRect(surface &Surface, rect &Rect) bool
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: set_surface_clip_rect (SDL_SetSurfaceClipRect)
@@ -819,9 +1044,44 @@ fn C.SDL_FlipSurface(surface &Surface, flip FlipMode) bool
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
+//
 // NOTE: This function is available since SDL 3.2.0.
 pub fn flip_surface(surface &Surface, flip FlipMode) bool {
 	return C.SDL_FlipSurface(surface, flip)
+}
+
+// C.SDL_RotateSurface [official documentation](https://wiki.libsdl.org/SDL3/SDL_RotateSurface)
+fn C.SDL_RotateSurface(surface &Surface, angle f32) &Surface
+
+// rotate_surface returns a copy of a surface rotated clockwise a number of degrees.
+//
+// The angle of rotation can be negative for counter-clockwise rotation.
+//
+// When the rotation isn't a multiple of 90 degrees, the resulting surface is
+// larger than the original, with the background filled in with the colorkey,
+// if available, or RGBA 255/255/255/0 if not.
+//
+// If `surface` has the SDL_PROP_SURFACE_ROTATION_FLOAT property set on it,
+// the new copy will have the adjusted value set: if the rotation property is
+// 90 and `angle` was 30, the new surface will have a property value of 60
+// (that is: to be upright vs gravity, this surface needs to rotate 60 more
+// degrees). However, note that further rotations on the new surface in this
+// example will produce unexpected results, since the image will have resized
+// and padded to accommodate the not-90 degree angle.
+//
+// `surface` surface the surface to rotate.
+// `angle` angle the rotation angle, in degrees.
+// returns a rotated copy of the surface or NULL on failure; call
+//          SDL_GetError() for more information.
+//
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
+//
+// NOTE: This function is available since SDL 3.4.0.
+pub fn rotate_surface(surface &Surface, angle f32) &Surface {
+	return C.SDL_RotateSurface(surface, angle)
 }
 
 // C.SDL_DuplicateSurface [official documentation](https://wiki.libsdl.org/SDL3/SDL_DuplicateSurface)
@@ -837,6 +1097,9 @@ fn C.SDL_DuplicateSurface(surface &Surface) &Surface
 // `surface` surface the surface to duplicate.
 // returns a copy of the surface or NULL on failure; call SDL_GetError() for
 //          more information.
+//
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -859,6 +1122,9 @@ fn C.SDL_ScaleSurface(surface &Surface, width int, height int, scale_mode ScaleM
 // `scale_mode` scaleMode the SDL_ScaleMode to be used.
 // returns a copy of the surface or NULL on failure; call SDL_GetError() for
 //          more information.
+//
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -888,6 +1154,9 @@ fn C.SDL_ConvertSurface(surface &Surface, format PixelFormat) &Surface
 // returns the new SDL_Surface structure that is created or NULL on failure;
 //          call SDL_GetError() for more information.
 //
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: convert_surface_and_colorspace (SDL_ConvertSurfaceAndColorspace)
@@ -916,6 +1185,9 @@ fn C.SDL_ConvertSurfaceAndColorspace(surface &Surface, format PixelFormat, palet
 // `props` props an SDL_PropertiesID with additional color properties, or 0.
 // returns the new SDL_Surface structure that is created or NULL on failure;
 //          call SDL_GetError() for more information.
+//
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -1022,6 +1294,9 @@ fn C.SDL_PremultiplySurfaceAlpha(surface &Surface, linear bool) bool
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
+//
 // NOTE: This function is available since SDL 3.2.0.
 pub fn premultiply_surface_alpha(surface &Surface, linear bool) bool {
 	return C.SDL_PremultiplySurfaceAlpha(surface, linear)
@@ -1035,7 +1310,7 @@ fn C.SDL_ClearSurface(surface &Surface, r f32, g f32, b f32, a f32) bool
 // This function handles all surface formats, and ignores any clip rectangle.
 //
 // If the surface is YUV, the color is assumed to be in the sRGB colorspace,
-// otherwise the color is assumed to be in the colorspace of the suface.
+// otherwise the color is assumed to be in the colorspace of the surface.
 //
 // `surface` surface the SDL_Surface to clear.
 // `r` r the red component of the pixel, normally in the range 0-1.
@@ -1044,6 +1319,9 @@ fn C.SDL_ClearSurface(surface &Surface, r f32, g f32, b f32, a f32) bool
 // `a` a the alpha component of the pixel, normally in the range 0-1.
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
+//
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn clear_surface(surface &Surface, r f32, g f32, b f32, a f32) bool {
@@ -1070,6 +1348,9 @@ fn C.SDL_FillSurfaceRect(dst &Surface, const_rect &Rect, color u32) bool
 // `color` color the color to fill with.
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
+//
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -1098,6 +1379,9 @@ fn C.SDL_FillSurfaceRects(dst &Surface, const_rects &Rect, count int, color u32)
 // `color` color the color to fill with.
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
+//
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
@@ -1401,6 +1685,9 @@ fn C.SDL_MapSurfaceRGB(surface &Surface, r u8, g u8, b u8) u32
 // `b` b the blue component of the pixel in the range 0-255.
 // returns a pixel value.
 //
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: map_surface_rgba (SDL_MapSurfaceRGBA)
@@ -1435,6 +1722,9 @@ fn C.SDL_MapSurfaceRGBA(surface &Surface, r u8, g u8, b u8, a u8) u32
 // `a` a the alpha component of the pixel in the range 0-255.
 // returns a pixel value.
 //
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
+//
 // NOTE: This function is available since SDL 3.2.0.
 //
 // See also: map_surface_rgb (SDL_MapSurfaceRGB)
@@ -1467,6 +1757,9 @@ fn C.SDL_ReadSurfacePixel(surface &Surface, x int, y int, r &u8, g &u8, b &u8, a
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
+//
 // NOTE: This function is available since SDL 3.2.0.
 pub fn read_surface_pixel(surface &Surface, x int, y int, r &u8, g &u8, b &u8, a &u8) bool {
 	return C.SDL_ReadSurfacePixel(surface, x, y, r, g, b, a)
@@ -1494,6 +1787,9 @@ fn C.SDL_ReadSurfacePixelFloat(surface &Surface, x int, y int, r &f32, g &f32, b
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
+//
 // NOTE: This function is available since SDL 3.2.0.
 pub fn read_surface_pixel_float(surface &Surface, x int, y int, r &f32, g &f32, b &f32, a &f32) bool {
 	return C.SDL_ReadSurfacePixelFloat(surface, x, y, r, g, b, a)
@@ -1520,6 +1816,9 @@ fn C.SDL_WriteSurfacePixel(surface &Surface, x int, y int, r u8, g u8, b u8, a u
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
 //
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
+//
 // NOTE: This function is available since SDL 3.2.0.
 pub fn write_surface_pixel(surface &Surface, x int, y int, r u8, g u8, b u8, a u8) bool {
 	return C.SDL_WriteSurfacePixel(surface, x, y, r, g, b, a)
@@ -1542,6 +1841,9 @@ fn C.SDL_WriteSurfacePixelFloat(surface &Surface, x int, y int, r f32, g f32, b 
 // `a` a the alpha channel value, normally in the range 0-1.
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
+//
+// NOTE: (thread safety) This function can be called on different threads with
+//               different surfaces.
 //
 // NOTE: This function is available since SDL 3.2.0.
 pub fn write_surface_pixel_float(surface &Surface, x int, y int, r f32, g f32, b f32, a f32) bool {

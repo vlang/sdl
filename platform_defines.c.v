@@ -80,14 +80,14 @@ module sdl
 // See also: SDL_PLATFORM_APPLE
 // pub const platform_tvos = C.SDL_PLATFORM_TVOS // 1
 
-// A preprocessor macro that is only defined if compiling for VisionOS.
+// A preprocessor macro that is only defined if compiling for visionOS.
 //
 // NOTE: This macro is available since SDL 3.2.0.
 //
 // See also: SDL_PLATFORM_APPLE
 // pub const platform_visionos = C.SDL_PLATFORM_VISIONOS // 1
 
-// A preprocessor macro that is only defined if compiling for iOS.
+// A preprocessor macro that is only defined if compiling for iOS or visionOS.
 //
 // NOTE: This macro is available since SDL 3.2.0.
 //
@@ -213,3 +213,14 @@ module sdl
 //
 // NOTE: This macro is available since SDL 3.2.0.
 // pub const platform_3ds = C.SDL_PLATFORM_3DS // 1
+
+// A preprocessor macro that is only defined if compiling for the Nokia
+// N-Gage.
+//
+// NOTE: This macro is available since SDL 3.4.0.
+// pub const platform_ngage = C.SDL_PLATFORM_NGAGE // 1
+
+// A preprocessor macro that is only defined if compiling for GNU/Hurd.
+//
+// NOTE: This macro is available since SDL 3.4.0.
+// pub const platform_hurd = C.SDL_PLATFORM_HURD // 1

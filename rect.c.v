@@ -10,12 +10,6 @@ module sdl
 // Some helper functions for managing rectangles and 2D points, in both
 // integer and floating point versions.
 
-// The structure that defines a point (using integers).
-//
-// NOTE: This struct is available since SDL 3.2.0.
-//
-// See also: SDL_GetRectEnclosingPoints
-// See also: SDL_PointInRect
 @[typedef]
 pub struct C.SDL_Point {
 pub mut:
@@ -23,14 +17,14 @@ pub mut:
 	y int
 }
 
-pub type Point = C.SDL_Point
-
-// The structure that defines a point (using floating point values).
+// The structure that defines a point (using integers).
 //
 // NOTE: This struct is available since SDL 3.2.0.
 //
-// See also: SDL_GetRectEnclosingPointsFloat
-// See also: SDL_PointInRectFloat
+// See also: SDL_GetRectEnclosingPoints
+// See also: SDL_PointInRect
+pub type Point = C.SDL_Point
+
 @[typedef]
 pub struct C.SDL_FPoint {
 pub mut:
@@ -38,9 +32,30 @@ pub mut:
 	y f32
 }
 
+// The structure that defines a point (using floating point values).
+//
+// NOTE: This struct is available since SDL 3.2.0.
+//
+// See also: SDL_GetRectEnclosingPointsFloat
+// See also: SDL_PointInRectFloat
 pub type FPoint = C.SDL_FPoint
 
-// A rectangle, with the origin at the upper left (using integers).
+@[typedef]
+pub struct C.SDL_Rect {
+pub mut:
+	x int
+	y int
+	w int
+	h int
+}
+
+// Rect
+//
+// A rectangle stored using floating point values.
+//
+// The origin of the coordinate space is in the top-left, with increasing
+// values moving down and right. The properties `x` and `y` represent the
+// coordinates of the top-left corner of the rectangle.
 //
 // NOTE: This struct is available since SDL 3.2.0.
 //
@@ -51,16 +66,16 @@ pub type FPoint = C.SDL_FPoint
 // See also: SDL_GetRectAndLineIntersection
 // See also: SDL_GetRectUnion
 // See also: SDL_GetRectEnclosingPoints
-@[typedef]
-pub struct C.SDL_Rect {
-pub mut:
-	x int
-	y int
-	w int
-	h int
-}
-
 pub type Rect = C.SDL_Rect
+
+@[typedef]
+pub struct C.SDL_FRect {
+pub mut:
+	x f32
+	y f32
+	w f32
+	h f32
+}
 
 // A rectangle, with the origin at the upper left (using floating point
 // values).
@@ -76,15 +91,6 @@ pub type Rect = C.SDL_Rect
 // See also: SDL_GetRectUnionFloat
 // See also: SDL_GetRectEnclosingPointsFloat
 // See also: SDL_PointInRectFloat
-@[typedef]
-pub struct C.SDL_FRect {
-pub mut:
-	x f32
-	y f32
-	w f32
-	h f32
-}
-
 pub type FRect = C.SDL_FRect
 
 // C.SDL_HasRectIntersection [official documentation](https://wiki.libsdl.org/SDL3/SDL_HasRectIntersection)

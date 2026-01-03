@@ -48,7 +48,21 @@ module sdl
 // NOTE: This datatype is available since SDL 3.2.0.
 pub type MouseID = u32
 
-// A bitmask of pressed mouse buttons, as reported by SDL_GetMouseState, etc.
+@[typedef]
+pub struct C.SDL_CursorFrameInfo {
+pub mut:
+	surface  &Surface = unsafe { nil } // The surface data for this frame
+	duration u32 // The frame duration in milliseconds (a duration of 0 is infinite)
+}
+
+// CursorFrameInfo
+//
+// Animated cursor frame info.
+//
+// NOTE: This struct is available since SDL 3.4.0.
+pub type CursorFrameInfo = C.SDL_CursorFrameInfo
+
+// MouseButtonFlags; as bitmask of pressed mouse buttons, as reported by SDL_GetMouseState, etc.
 //
 // - Button 1: Left mouse button
 // - Button 2: Middle mouse button
@@ -61,6 +75,8 @@ pub type MouseID = u32
 // See also: get_mouse_state (SDL_GetMouseState)
 // See also: get_global_mouse_state (SDL_GetGlobalMouseState)
 // See also: get_relative_mouse_state (SDL_GetRelativeMouseState)
+//
+// [Official documentation](https://wiki.libsdl.org/SDL3/SDL_MouseButtonFlags)
 pub type MouseButtonFlags = u32
 
 @[noinit; typedef]
@@ -122,6 +138,39 @@ pub const button_rmask = C.SDL_BUTTON_RMASK // SDL_BUTTON_MASK(SDL_BUTTON_RIGHT)
 pub const button_x1mask = C.SDL_BUTTON_X1MASK // SDL_BUTTON_MASK(SDL_BUTTON_X1)
 
 pub const button_x2mask = C.SDL_BUTTON_X2MASK // SDL_BUTTON_MASK(SDL_BUTTON_X2)
+
+// MouseMotionTransformCallback
+//
+// A callback used to transform mouse motion delta from raw values.
+//
+// This is called during SDL's handling of platform mouse events to scale the
+// values of the resulting motion delta.
+//
+// `userdata` what was passed as `userdata` to
+//                 SDL_SetRelativeMouseTransform().
+// `timestamp` the associated time at which this mouse motion event was
+//                  received.
+// `window` the associated window to which this mouse motion event was
+//               addressed.
+// `mouse_id` the associated mouse from which this mouse motion event was
+//                emitted.
+// `x` pointer to a variable that will be treated as the resulting x-axis
+//          motion.
+// `y` pointer to a variable that will be treated as the resulting y-axis
+//          motion.
+//
+// NOTE: (threadsafety) This callback is called by SDL's internal mouse input
+//               processing procedure, which may be a thread separate from the
+//               main event loop that is run at realtime priority. Stalling
+//               this thread with too much work in the callback can therefore
+//               potentially freeze the entire system. Care should be taken
+//               with proper synchronization practices when adding other side
+//               effects beyond mutation of the x and y values.
+//
+// NOTE: This datatype is available since SDL 3.4.0.
+//
+// See also: set_relative_mouse_transform (SDL_SetRelativeMouseTransform)
+pub type MouseMotionTransformCallback = fn (userdata voidptr, timestamp u64, window &Window, mouse_id MouseID, x &f32, y &f32)
 
 // C.SDL_HasMouse [official documentation](https://wiki.libsdl.org/SDL3/SDL_HasMouse)
 fn C.SDL_HasMouse() bool
@@ -366,6 +415,27 @@ pub fn warp_mouse_global(x f32, y f32) bool {
 	return C.SDL_WarpMouseGlobal(x, y)
 }
 
+// C.SDL_SetRelativeMouseTransform [official documentation](https://wiki.libsdl.org/SDL3/SDL_SetRelativeMouseTransform)
+fn C.SDL_SetRelativeMouseTransform(callback MouseMotionTransformCallback, userdata voidptr) bool
+
+// set_relative_mouse_transform sets a user-defined function by which to transform relative mouse inputs.
+//
+// This overrides the relative system scale and relative speed scale hints.
+// Should be called prior to enabling relative mouse mode, fails otherwise.
+//
+// `callback` callback a callback used to transform relative mouse motion, or NULL
+//                 for default behavior.
+// `userdata` userdata a pointer that will be passed to `callback`.
+// returns true on success or false on failure; call SDL_GetError() for more
+//          information.
+//
+// NOTE: (thread safety) This function should only be called on the main thread.
+//
+// NOTE: This function is available since SDL 3.4.0.
+pub fn set_relative_mouse_transform(callback MouseMotionTransformCallback, userdata voidptr) bool {
+	return C.SDL_SetRelativeMouseTransform(callback, userdata)
+}
+
 // C.SDL_SetWindowRelativeMouseMode [official documentation](https://wiki.libsdl.org/SDL3/SDL_SetWindowRelativeMouseMode)
 fn C.SDL_SetWindowRelativeMouseMode(window &Window, enabled bool) bool
 
@@ -506,6 +576,7 @@ fn C.SDL_CreateCursor(const_data &u8, const_mask &u8, w int, h int, hot_x int, h
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
+// See also: create_animated_cursor (SDL_CreateAnimatedCursor)
 // See also: create_color_cursor (SDL_CreateColorCursor)
 // See also: create_system_cursor (SDL_CreateSystemCursor)
 // See also: destroy_cursor (SDL_DestroyCursor)
@@ -519,15 +590,17 @@ fn C.SDL_CreateColorCursor(surface &Surface, hot_x int, hot_y int) &Cursor
 
 // create_color_cursor creates a color cursor.
 //
-// If this function is passed a surface with alternate representations, the
-// surface will be interpreted as the content to be used for 100% display
-// scale, and the alternate representations will be used for high DPI
-// situations. For example, if the original surface is 32x32, then on a 2x
-// macOS display or 200% display scale on Windows, a 64x64 version of the
-// image will be used, if available. If a matching version of the image isn't
-// available, the closest larger size image will be downscaled to the
-// appropriate size and be used instead, if available. Otherwise, the closest
-// smaller image will be upscaled and be used instead.
+// If this function is passed a surface with alternate representations added
+// with SDL_AddSurfaceAlternateImage(), the surface will be interpreted as the
+// content to be used for 100% display scale, and the alternate
+// representations will be used for high DPI situations if
+// SDL_HINT_MOUSE_DPI_SCALE_CURSORS is enabled. For example, if the original
+// surface is 32x32, then on a 2x macOS display or 200% display scale on
+// Windows, a 64x64 version of the image will be used, if available. If a
+// matching version of the image isn't available, the closest larger size
+// image will be downscaled to the appropriate size and be used instead, if
+// available. Otherwise, the closest smaller image will be upscaled and be
+// used instead.
 //
 // `surface` surface an SDL_Surface structure representing the cursor image.
 // `hot_x` hot_x the x position of the cursor hot spot.
@@ -539,12 +612,65 @@ fn C.SDL_CreateColorCursor(surface &Surface, hot_x int, hot_y int) &Cursor
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
+// See also: add_surface_alternate_image (SDL_AddSurfaceAlternateImage)
+// See also: create_animated_cursor (SDL_CreateAnimatedCursor)
 // See also: create_cursor (SDL_CreateCursor)
 // See also: create_system_cursor (SDL_CreateSystemCursor)
 // See also: destroy_cursor (SDL_DestroyCursor)
 // See also: set_cursor (SDL_SetCursor)
 pub fn create_color_cursor(surface &Surface, hot_x int, hot_y int) &Cursor {
 	return C.SDL_CreateColorCursor(surface, hot_x, hot_y)
+}
+
+// C.SDL_CreateAnimatedCursor [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreateAnimatedCursor)
+fn C.SDL_CreateAnimatedCursor(frames &CursorFrameInfo, frame_count int, hot_x int, hot_y int) &Cursor
+
+// create_animated_cursor creates an animated color cursor.
+//
+// Animated cursors are composed of a sequential array of frames, specified as
+// surfaces and durations in an array of SDL_CursorFrameInfo structs. The hot
+// spot coordinates are universal to all frames, and all frames must have the
+// same dimensions.
+//
+// Frame durations are specified in milliseconds. A duration of 0 implies an
+// infinite frame time, and the animation will stop on that frame. To create a
+// one-shot animation, set the duration of the last frame in the sequence to
+// 0.
+//
+// If this function is passed surfaces with alternate representations added
+// with SDL_AddSurfaceAlternateImage(), the surfaces will be interpreted as
+// the content to be used for 100% display scale, and the alternate
+// representations will be used for high DPI situations. For example, if the
+// original surfaces are 32x32, then on a 2x macOS display or 200% display
+// scale on Windows, a 64x64 version of the image will be used, if available.
+// If a matching version of the image isn't available, the closest larger size
+// image will be downscaled to the appropriate size and be used instead, if
+// available. Otherwise, the closest smaller image will be upscaled and be
+// used instead.
+//
+// If the underlying platform does not support animated cursors, this function
+// will fall back to creating a static color cursor using the first frame in
+// the sequence.
+//
+// `frames` frames an array of cursor images composing the animation.
+// `frame_count` frame_count the number of frames in the sequence.
+// `hot_x` hot_x the x position of the cursor hot spot.
+// `hot_y` hot_y the y position of the cursor hot spot.
+// returns the new cursor on success or NULL on failure; call SDL_GetError()
+//          for more information.
+//
+// NOTE: (thread safety) This function should only be called on the main thread.
+//
+// NOTE: This function is available since SDL 3.4.0.
+//
+// See also: add_surface_alternate_image (SDL_AddSurfaceAlternateImage)
+// See also: create_cursor (SDL_CreateCursor)
+// See also: create_color_cursor (SDL_CreateColorCursor)
+// See also: create_system_cursor (SDL_CreateSystemCursor)
+// See also: destroy_cursor (SDL_DestroyCursor)
+// See also: set_cursor (SDL_SetCursor)
+pub fn create_animated_cursor(frames &CursorFrameInfo, frame_count int, hot_x int, hot_y int) &Cursor {
+	return C.SDL_CreateAnimatedCursor(frames, frame_count, hot_x, hot_y)
 }
 
 // C.SDL_CreateSystemCursor [official documentation](https://wiki.libsdl.org/SDL3/SDL_CreateSystemCursor)
@@ -615,7 +741,7 @@ fn C.SDL_GetDefaultCursor() &Cursor
 // You do not have to call SDL_DestroyCursor() on the return value, but it is
 // safe to do so.
 //
-// returns the default cursor on success or NULL on failuree; call
+// returns the default cursor on success or NULL on failure; call
 //          SDL_GetError() for more information.
 //
 // NOTE: (thread safety) This function should only be called on the main thread.
@@ -639,6 +765,7 @@ fn C.SDL_DestroyCursor(cursor &Cursor)
 //
 // NOTE: This function is available since SDL 3.2.0.
 //
+// See also: create_animated_cursor (SDL_CreateAnimatedCursor)
 // See also: create_color_cursor (SDL_CreateColorCursor)
 // See also: create_cursor (SDL_CreateCursor)
 // See also: create_system_cursor (SDL_CreateSystemCursor)

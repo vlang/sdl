@@ -79,13 +79,47 @@ pub mut:
 	framerate_denominator int         // Frame rate demoninator ((num / denom) == FPS, (denom / num) == duration in seconds)
 }
 
+// CameraSpec
+//
+// The details of an output format for a camera device.
+//
+// Cameras often support multiple formats; each one will be encapsulated in
+// this struct.
+//
+//  NOTE: This struct is available since SDL 3.2.0.
+//
+// See also: SDL_GetCameraSupportedFormats
+// See also: SDL_GetCameraFormat
 pub type CameraSpec = C.SDL_CameraSpec
 
+// CameraPosition
+//
+// The position of camera in relation to system device.
+//
+// NOTE: This enum is available since SDL 3.2.0.
+//
+// See also: SDL_GetCameraPosition
+//
 // CameraPosition is C.SDL_CameraPosition
 pub enum CameraPosition {
 	unknown      = C.SDL_CAMERA_POSITION_UNKNOWN
 	front_facing = C.SDL_CAMERA_POSITION_FRONT_FACING
 	back_facing  = C.SDL_CAMERA_POSITION_BACK_FACING
+}
+
+// CameraPermissionState
+//
+// The current state of a request for camera access.
+//
+// NOTE: This enum is available since SDL 3.4.0.
+//
+// See also: SDL_GetCameraPermissionState
+//
+// CameraPermissionState is C.SDL_CameraPermissionState
+pub enum CameraPermissionState {
+	denied   = C.SDL_CAMERA_PERMISSION_STATE_DENIED // -1,
+	pending  = C.SDL_CAMERA_PERMISSION_STATE_PENDING
+	approved = C.SDL_CAMERA_PERMISSION_STATE_APPROVED
 }
 
 // C.SDL_GetNumCameraDrivers [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetNumCameraDrivers)
@@ -313,7 +347,7 @@ pub fn open_camera(instance_id CameraID, const_spec &CameraSpec) &Camera {
 }
 
 // C.SDL_GetCameraPermissionState [official documentation](https://wiki.libsdl.org/SDL3/SDL_GetCameraPermissionState)
-fn C.SDL_GetCameraPermissionState(camera &Camera) int
+fn C.SDL_GetCameraPermissionState(camera &Camera) CameraPermissionState
 
 // get_camera_permission_state querys if camera access has been approved by the user.
 //
@@ -323,8 +357,9 @@ fn C.SDL_GetCameraPermissionState(camera &Camera) int
 // on others the approval might be implicit and not alert the user at all.
 //
 // This function can be used to check the status of that approval. It will
-// return 0 if still waiting for user response, 1 if the camera is approved
-// for use, and -1 if the user denied access.
+// return SDL_CAMERA_PERMISSION_STATE_PENDING if waiting for user response,
+// SDL_CAMERA_PERMISSION_STATE_APPROVED if the camera is approved for use, and
+// SDL_CAMERA_PERMISSION_STATE_DENIED if the user denied access.
 //
 // Instead of polling with this function, you can wait for a
 // SDL_EVENT_CAMERA_DEVICE_APPROVED (or SDL_EVENT_CAMERA_DEVICE_DENIED) event
@@ -335,8 +370,9 @@ fn C.SDL_GetCameraPermissionState(camera &Camera) int
 // SDL_CloseCamera() to dispose of it.
 //
 // `camera` camera the opened camera device to query.
-// returns -1 if user denied access to the camera, 1 if user approved access,
-//          0 if no decision has been made yet.
+// returns an SDL_CameraPermissionState value indicating if access is
+//          granted, or `SDL_CAMERA_PERMISSION_STATE_PENDING` if the decision
+//          is still pending.
 //
 // NOTE: (thread safety) It is safe to call this function from any thread.
 //
@@ -344,7 +380,7 @@ fn C.SDL_GetCameraPermissionState(camera &Camera) int
 //
 // See also: open_camera (SDL_OpenCamera)
 // See also: close_camera (SDL_CloseCamera)
-pub fn get_camera_permission_state(camera &Camera) int {
+pub fn get_camera_permission_state(camera &Camera) CameraPermissionState {
 	return C.SDL_GetCameraPermissionState(camera)
 }
 

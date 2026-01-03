@@ -198,8 +198,8 @@ pub fn has_primary_selection_text() bool {
 // [Official documentation](https://wiki.libsdl.org/SDL3/SDL_ClipboardDataCallback)
 pub type ClipboardDataCallback = fn (userdata voidptr, const_mime_type &char, size &usize) voidptr
 
-// ClipboardCleanupCallback callbacks function that will be called when the clipboard is cleared, or new
-// data is set.
+// ClipboardCleanupCallback callbacks function that will be called when the clipboard is cleared, or
+// when new data is set.
 //
 // `userdata` userdata a pointer to provided user data.
 //
@@ -229,7 +229,8 @@ fn C.SDL_SetClipboardData(callback ClipboardDataCallback, cleanup ClipboardClean
 // `cleanup` cleanup a function pointer to the function that cleans up the
 //                clipboard data.
 // `userdata` userdata an opaque pointer that will be forwarded to the callbacks.
-// `mime_types` mime_types a list of mime-types that are being offered.
+// `mime_types` mime_types a list of mime-types that are being offered. SDL copies
+//                   the given list.
 // `num_mime_types` num_mime_types the number of mime-types in the mime_types list.
 // returns true on success or false on failure; call SDL_GetError() for more
 //          information.
