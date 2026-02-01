@@ -200,7 +200,7 @@ v run ~/.vmodules/sdl/examples/ports/template.v
 > [!NOTE]  
 > If you do not have emscripten && SDL3 installed already, you can run
 > [install_latest_emsdk_and_sdl3.sh](install_latest_emsdk_and_sdl3.sh),
-> which will download both EMSDK and SDL3, in ~/code/emsdk and ~/code/SDL3-3.2.4/ ,
+> which will download both EMSDK and SDL3, in ~/code/emsdk and ~/code/SDL3-3.4.0/ ,
 > and then show you how to use them with V.
 > If you already do have EMSDK/emcc, or if you want to install them manually, read on.
 
