@@ -119,6 +119,9 @@ jobs:
     env:
       VFLAGS: -cc tcc -no-retry-compilation -no-skip-unused
       SDL3_VERSION: 3.4.0
+      SDL3_TTF_VERSION: 3.2.2
+      SDL3_MIXER_VERSION: 3.1.2
+      SDL3_IMAGE_VERSION: 3.4.0
     steps:
       - name: Install dependencies
         run: |
