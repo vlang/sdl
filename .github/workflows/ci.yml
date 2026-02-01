@@ -15,6 +15,9 @@ jobs:
     env:
       VFLAGS: -cc tcc -no-retry-compilation
       SDL3_VERSION: 3.4.0
+      SDL3_TTF_VERSION: 3.2.2
+      SDL3_MIXER_VERSION: 3.1.2
+      SDL3_IMAGE_VERSION: 3.4.0
     steps:
       - name: Install dependencies
         run: |
@@ -26,12 +29,41 @@ jobs:
           libxkbcommon-dev libdrm-dev libgbm-dev libgl1-mesa-dev libgles2-mesa-dev \
           libegl1-mesa-dev libdbus-1-dev libibus-1.0-dev libudev-dev fcitx-libs-dev \
           libpipewire-0.3-dev libwayland-dev libdecor-0-dev liburing-dev
+      - name: Download and unpack source versions of the SDL3 libs
+        run: |
           curl -L https://www.libsdl.org/release/SDL3-${SDL3_VERSION}.tar.gz -o SDL3.tar.gz
+          curl -L https://www.libsdl.org/projects/SDL_ttf/release/SDL3_ttf-${SDL3_TTF_VERSION}.tar.gz -o SDL3_ttf.tar.gz
+          curl -L https://www.libsdl.org/projects/SDL_mixer/release/SDL3_mixer-${SDL3_MIXER_VERSION}.tar.gz -o SDL3_mixer.tar.gz
+          curl -L https://www.libsdl.org/projects/SDL_image/release/SDL3_image-${SDL3_IMAGE_VERSION}.tar.gz -o SDL3_image.tar.gz
           tar -zxvf SDL3.tar.gz
+          tar -zxvf SDL3_ttf.tar.gz
+          tar -zxvf SDL3_mixer.tar.gz
+          tar -zxvf SDL3_image.tar.gz
 
-      - name: Build SDL
+      - name: Build SDL3
         run: |
           cd SDL3-${SDL3_VERSION}
+          cmake -S . -B build
+          cmake --build build
+          sudo cmake --install build
+
+      - name: Build SDL3_TTF
+        run: |
+          cd SDL3_${SDL3_TTF_VERSION}
+          cmake -S . -B build
+          cmake --build build
+          sudo cmake --install build
+
+      - name: Build SDL3_MIXER
+        run: |
+          cd SDL3_${SDL3_MIXER_VERSION}
+          cmake -S . -B build
+          cmake --build build
+          sudo cmake --install build
+
+      - name: Build SDL3_IMAGE
+        run: |
+          cd SDL3_${SDL3_IMAGE_VERSION}
           cmake -S . -B build
           cmake --build build
           sudo cmake --install build
@@ -98,12 +130,42 @@ jobs:
           libxkbcommon-dev libdrm-dev libgbm-dev libgl1-mesa-dev libgles2-mesa-dev \
           libegl1-mesa-dev libdbus-1-dev libibus-1.0-dev libudev-dev fcitx-libs-dev \
           libpipewire-0.3-dev libwayland-dev libdecor-0-dev liburing-dev
+
+      - name: Download and unpack source versions of the SDL3 libs
+        run: |
           curl -L https://www.libsdl.org/release/SDL3-${SDL3_VERSION}.tar.gz -o SDL3.tar.gz
+          curl -L https://www.libsdl.org/projects/SDL_ttf/release/SDL3_ttf-${SDL3_TTF_VERSION}.tar.gz -o SDL3_ttf.tar.gz
+          curl -L https://www.libsdl.org/projects/SDL_mixer/release/SDL3_mixer-${SDL3_MIXER_VERSION}.tar.gz -o SDL3_mixer.tar.gz
+          curl -L https://www.libsdl.org/projects/SDL_image/release/SDL3_image-${SDL3_IMAGE_VERSION}.tar.gz -o SDL3_image.tar.gz
           tar -zxvf SDL3.tar.gz
+          tar -zxvf SDL3_ttf.tar.gz
+          tar -zxvf SDL3_mixer.tar.gz
+          tar -zxvf SDL3_image.tar.gz
 
       - name: Build SDL
         run: |
           cd SDL3-${SDL3_VERSION}
+          cmake -S . -B build
+          cmake --build build
+          sudo cmake --install build
+
+      - name: Build SDL3_TTF
+        run: |
+          cd SDL3_${SDL3_TTF_VERSION}
+          cmake -S . -B build
+          cmake --build build
+          sudo cmake --install build
+
+      - name: Build SDL3_MIXER
+        run: |
+          cd SDL3_${SDL3_MIXER_VERSION}
+          cmake -S . -B build
+          cmake --build build
+          sudo cmake --install build
+
+      - name: Build SDL3_IMAGE
+        run: |
+          cd SDL3_${SDL3_IMAGE_VERSION}
           cmake -S . -B build
           cmake --build build
           sudo cmake --install build
