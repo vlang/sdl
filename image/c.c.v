@@ -8,7 +8,7 @@ $if !windows {
 		// This is especially useful when building/linking against a
 		// custom compiled version of the libs on *nix.
 		$if !sdl_no_compile_flags ? {
-			#flag -lSDL2_image
+			#flag -lSDL3_image
 		}
 	}
 }
@@ -21,4 +21,4 @@ $if x64 {
 #flag windows -I @VMODROOT/thirdparty/SDL3_image-3.4.0/include
 #flag windows -lSDL3_image
 
-#include <SDL_image.h>
+#include <SDL3_image/SDL_image.h>

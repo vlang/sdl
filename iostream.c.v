@@ -72,6 +72,9 @@ pub struct C.SDL_IOStream {
 
 pub type IOStream = C.SDL_IOStream
 
+// RWops is kept for SDL2-era APIs and maps to SDL_IOStream in SDL3.
+pub type RWops = C.SDL_IOStream
+
 // C.SDL_IOFromFile [official documentation](https://wiki.libsdl.org/SDL3/SDL_IOFromFile)
 fn C.SDL_IOFromFile(const_file &char, const_mode &char) &IOStream
 
