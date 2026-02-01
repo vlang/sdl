@@ -235,8 +235,7 @@ fn (mut sdlc SdlContext) set_sdl_context(w int, h int, titl string) {
 	C.atexit(sdl.quit)
 	ttf.init()
 	C.atexit(ttf.quit)
-	sdl.create_window_and_renderer(titl.str, w, h, sdl.WindowFlags(0), &sdlc.window,
-		&sdlc.renderer)
+	sdl.create_window_and_renderer(titl.str, w, h, sdl.WindowFlags(0), &sdlc.window, &sdlc.renderer)
 	sdlc.w = w
 	sdlc.h = h
 	sdlc.screen = sdl.create_surface(w, h, .argb8888)
@@ -257,7 +256,8 @@ fn (mut sdlc SdlContext) set_sdl_context(w int, h int, titl string) {
 			error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 			println('failed to load music: ${error_msg}')
 			println('opening fallback music ${music_fallback_name}')
-			sdlc.actx.music = mix.load_audio(sdlc.actx.mixer, music_fallback_name.str, true)
+			sdlc.actx.music = mix.load_audio(sdlc.actx.mixer, music_fallback_name.str,
+				true)
 		}
 		sdlc.actx.waves[0] = mix.load_audio(sdlc.actx.mixer, snd_block_name.str, true)
 		sdlc.actx.waves[1] = mix.load_audio(sdlc.actx.mixer, snd_line_name.str, true)
