@@ -11,7 +11,7 @@ pushd $PWD
 
 notrace ilog 'Cleanup potential remains from previous runs:'
 rm -rf ~/code/emsdk/
-rm -rf ~/code/SDL3-3.2.4/
+rm -rf ~/code/SDL3-3.4.0/
 
 notrace ilog 'Install latest emsdk in ~/code/emsdk:'
 git clone https://github.com/emscripten-core/emsdk ~/code/emsdk
@@ -27,15 +27,15 @@ emcc --version
 notrace ilog 'The command below should show something like "EMSDK=~/code/emsdk"'
 env|grep EMSDK
 
-notrace ilog 'Download an archive of SDL3-3.2.4'
-wget https://github.com/libsdl-org/SDL/releases/download/release-3.2.4/SDL3-3.2.4.tar.gz
-notrace ilog 'Extract it to ~/code/SDL3-3.2.4 ...'
-tar -xf SDL3-3.2.4.tar.gz
-mv SDL3-3.2.4 ~/code/SDL3-3.2.4
-rm -rf SDL3-3.2.4.tar.gz
+notrace ilog 'Download an archive of SDL3-3.4.0'
+wget https://github.com/libsdl-org/SDL/releases/download/release-3.4.0/SDL3-3.4.0.tar.gz
+notrace ilog 'Extract it to ~/code/SDL3-3.4.0 ...'
+tar -xf SDL3-3.4.0.tar.gz
+mv SDL3-3.4.0 ~/code/SDL3-3.4.0
+rm -rf SDL3-3.4.0.tar.gz
 notrace ilog 'Build it for emscripten ...'
-mkdir -p ~/code/SDL3-3.2.4/emscripten_build/
-cd ~/code/SDL3-3.2.4/emscripten_build/
+mkdir -p ~/code/SDL3-3.4.0/emscripten_build/
+cd ~/code/SDL3-3.4.0/emscripten_build/
 emcmake cmake ..
 notrace ilog 'Install the static libSDL3.a library, the .pc file,'
 notrace ilog 'and the headers to an emcc specific location,'
