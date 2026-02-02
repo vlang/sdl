@@ -28,7 +28,12 @@ jobs:
           libxrandr-dev libxcursor-dev libxfixes-dev libxi-dev libxss-dev \
           libxkbcommon-dev libdrm-dev libgbm-dev libgl1-mesa-dev libgles2-mesa-dev \
           libegl1-mesa-dev libdbus-1-dev libibus-1.0-dev libudev-dev fcitx-libs-dev \
-          libpipewire-0.3-dev libwayland-dev libdecor-0-dev liburing-dev
+          libpipewire-0.3-dev libwayland-dev libdecor-0-dev liburing-dev \
+          libharfbuzz-dev libfreetype6-dev \
+          libflac-dev libfluidsynth-dev libgme-dev libmpg123-dev \
+          libogg-dev libopus-dev libopusfile-dev libvorbis-dev libwavpack-dev \
+          libxmp-dev \
+          libavif-dev libjxl-dev libjpeg-dev libpng-dev libtiff-dev libwebp-dev
       - name: Download and unpack source versions of the SDL3 libs
         run: |
           curl -L "https://www.libsdl.org/release/SDL3-${SDL3_VERSION}.tar.gz" -o SDL3.tar.gz
@@ -132,7 +137,12 @@ jobs:
           libxrandr-dev libxcursor-dev libxfixes-dev libxi-dev libxss-dev \
           libxkbcommon-dev libdrm-dev libgbm-dev libgl1-mesa-dev libgles2-mesa-dev \
           libegl1-mesa-dev libdbus-1-dev libibus-1.0-dev libudev-dev fcitx-libs-dev \
-          libpipewire-0.3-dev libwayland-dev libdecor-0-dev liburing-dev
+          libpipewire-0.3-dev libwayland-dev libdecor-0-dev liburing-dev \
+          libharfbuzz-dev libfreetype6-dev \
+          libflac-dev libfluidsynth-dev libgme-dev libmpg123-dev \
+          libogg-dev libopus-dev libopusfile-dev libvorbis-dev libwavpack-dev \
+          libxmp-dev \
+          libavif-dev libjxl-dev libjpeg-dev libpng-dev libtiff-dev libwebp-dev
 
       - name: Download and unpack source versions of the SDL3 libs
         run: |
