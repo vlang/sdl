@@ -2,7 +2,7 @@ module c
 
 // When the Boehm collector is used, it is better to replace SDL's memory allocation functions, with versions
 // that Boehm will later know how to process. The callbacks here provide such versions:
-fn cb_malloc_func(size usize) voidptr {
+fn cb_malloc_func(size uint) voidptr {
 	mut res := unsafe { nil }
 	$if sdl_use_gc ? {
 		res = unsafe { malloc(int(size)) }
@@ -15,10 +15,10 @@ fn cb_malloc_func(size usize) voidptr {
 	return res
 }
 
-fn cb_calloc_func(nmemb usize, size usize) voidptr {
+fn cb_calloc_func(nmemb uint, size uint) voidptr {
 	mut res := unsafe { nil }
 	$if sdl_use_gc ? {
-		res = unsafe { vcalloc(isize(nmemb) * isize(size)) }
+		res = unsafe { vcalloc(int(nmemb) * int(size)) }
 	} $else {
 		res = unsafe { C.calloc(int(nmemb), int(size)) }
 	}
@@ -29,10 +29,10 @@ fn cb_calloc_func(nmemb usize, size usize) voidptr {
 	return res
 }
 
-fn cb_realloc_func(mem voidptr, size usize) voidptr {
+fn cb_realloc_func(mem voidptr, size uint) voidptr {
 	mut res := unsafe { nil }
 	$if sdl_use_gc ? {
-		res = unsafe { v_realloc(&u8(mem), isize(size)) }
+		res = unsafe { v_realloc(&u8(mem), int(size)) }
 	} $else {
 		res = unsafe { C.realloc(&u8(mem), int(size)) }
 	}
@@ -54,11 +54,11 @@ fn cb_free_func(mem voidptr) {
 	}
 }
 
-pub type MallocFunc = fn (size usize) voidptr // fn(size usize) voidptr
+pub type MallocFunc = fn (size uint) voidptr // fn(size uint) voidptr
 
-pub type CallocFunc = fn (nmemb usize, size usize) voidptr // fn(nmemb usize, size usize) voidptr
+pub type CallocFunc = fn (nmemb uint, size uint) voidptr // fn(nmemb uint, size uint) voidptr
 
-pub type ReallocFunc = fn (mem voidptr, size usize) voidptr // fn(mem voidptr, size usize) voidptr
+pub type ReallocFunc = fn (mem voidptr, size uint) voidptr // fn(mem voidptr, size uint) voidptr
 
 pub type FreeFunc = fn (mem voidptr) // fn(mem voidptr)
 

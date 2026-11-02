@@ -72,28 +72,28 @@ pub type Window = C.SDL_Window
 //
 // WindowFlags is C.SDL_WindowFlags
 pub enum WindowFlags {
-	fullscreen         = C.SDL_WINDOW_FULLSCREEN         // 0x00000001 fullscreen window
-	opengl             = C.SDL_WINDOW_OPENGL             // 0x00000002 window usable with OpenGL context
-	shown              = C.SDL_WINDOW_SHOWN              // 0x00000004 window is visible
-	hidden             = C.SDL_WINDOW_HIDDEN             // 0x00000008 window is not visible
-	borderless         = C.SDL_WINDOW_BORDERLESS         // 0x00000010 no window decoration
-	resizable          = C.SDL_WINDOW_RESIZABLE          // 0x00000020 window can be resized
-	minimized          = C.SDL_WINDOW_MINIMIZED          // 0x00000040 window is minimized
-	maximized          = C.SDL_WINDOW_MAXIMIZED          // 0x00000080 window is maximized
-	mouse_grabbed      = C.SDL_WINDOW_MOUSE_GRABBED      // 0x00000100 window has grabbed mouse input
-	input_focus        = C.SDL_WINDOW_INPUT_FOCUS        // 0x00000200 window has input focus
-	mouse_focus        = C.SDL_WINDOW_MOUSE_FOCUS        // 0x00000400 window has mouse focus
+	fullscreen         = C.SDL_WINDOW_FULLSCREEN // 0x00000001 fullscreen window
+	opengl             = C.SDL_WINDOW_OPENGL // 0x00000002 window usable with OpenGL context
+	shown              = C.SDL_WINDOW_SHOWN // 0x00000004 window is visible
+	hidden             = C.SDL_WINDOW_HIDDEN // 0x00000008 window is not visible
+	borderless         = C.SDL_WINDOW_BORDERLESS // 0x00000010 no window decoration
+	resizable          = C.SDL_WINDOW_RESIZABLE // 0x00000020 window can be resized
+	minimized          = C.SDL_WINDOW_MINIMIZED // 0x00000040 window is minimized
+	maximized          = C.SDL_WINDOW_MAXIMIZED // 0x00000080 window is maximized
+	mouse_grabbed      = C.SDL_WINDOW_MOUSE_GRABBED // 0x00000100 window has grabbed mouse input
+	input_focus        = C.SDL_WINDOW_INPUT_FOCUS // 0x00000200 window has input focus
+	mouse_focus        = C.SDL_WINDOW_MOUSE_FOCUS // 0x00000400 window has mouse focus
 	fullscreen_desktop = C.SDL_WINDOW_FULLSCREEN_DESKTOP // ( SDL_WINDOW_FULLSCREEN | 0x00001000 )
-	foreign            = C.SDL_WINDOW_FOREIGN            // 0x00000800 window not created by SDL
-	allow_highdpi      = C.SDL_WINDOW_ALLOW_HIGHDPI      // 0x00002000 window should be created in high-DPI mode if supported. On macOS NSHighResolutionCapable must be set true in the application's Info.plist for this to have any effect.
-	mouse_capture      = C.SDL_WINDOW_MOUSE_CAPTURE      // 0x00004000 window has mouse captured (unrelated to MOUSE_GRABBED)
-	always_on_top      = C.SDL_WINDOW_ALWAYS_ON_TOP      // 0x00008000 window should always be above others
-	skip_taskbar       = C.SDL_WINDOW_SKIP_TASKBAR       // 0x00010000 window should not be added to the taskbar
-	utility            = C.SDL_WINDOW_UTILITY            // 0x00020000 window should be treated as a utility window
-	tooltip            = C.SDL_WINDOW_TOOLTIP            // 0x00040000 window should be treated as a tooltip
-	popup_menu         = C.SDL_WINDOW_POPUP_MENU         // 0x00080000 window should be treated as a popup menu
-	vulkan             = C.SDL_WINDOW_VULKAN             // 0x10000000 window usable for Vulkan surface
-	metal              = C.SDL_WINDOW_METAL              // 0x20000000 window usable for Metal view
+	foreign            = C.SDL_WINDOW_FOREIGN // 0x00000800 window not created by SDL
+	allow_highdpi      = C.SDL_WINDOW_ALLOW_HIGHDPI // 0x00002000 window should be created in high-DPI mode if supported. On macOS NSHighResolutionCapable must be set true in the application's Info.plist for this to have any effect.
+	mouse_capture      = C.SDL_WINDOW_MOUSE_CAPTURE // 0x00004000 window has mouse captured (unrelated to MOUSE_GRABBED)
+	always_on_top      = C.SDL_WINDOW_ALWAYS_ON_TOP // 0x00008000 window should always be above others
+	skip_taskbar       = C.SDL_WINDOW_SKIP_TASKBAR // 0x00010000 window should not be added to the taskbar
+	utility            = C.SDL_WINDOW_UTILITY // 0x00020000 window should be treated as a utility window
+	tooltip            = C.SDL_WINDOW_TOOLTIP // 0x00040000 window should be treated as a tooltip
+	popup_menu         = C.SDL_WINDOW_POPUP_MENU // 0x00080000 window should be treated as a popup menu
+	vulkan             = C.SDL_WINDOW_VULKAN // 0x10000000 window usable for Vulkan surface
+	metal              = C.SDL_WINDOW_METAL // 0x20000000 window usable for Metal view
 	//
 	input_grabbed = C.SDL_WINDOW_MOUSE_GRABBED // equivalent to SDL_WINDOW_MOUSE_GRABBED for compatibility
 }
@@ -104,11 +104,13 @@ pub const windowpos_undefined_mask = C.SDL_WINDOWPOS_UNDEFINED_MASK //   0x1FFF0
 pub const windowpos_undefined = C.SDL_WINDOWPOS_UNDEFINED //
 
 fn C.SDL_WINDOWPOS_ISUNDEFINED(x u32) bool
+
 pub fn windowpos_isundefined(x u32) bool {
 	return C.SDL_WINDOWPOS_ISUNDEFINED(x)
 }
 
 fn C.SDL_WINDOWPOS_UNDEFINED_DISPLAY(x u32) u32
+
 pub fn windowpos_undefined_display(x u32) u32 {
 	return C.SDL_WINDOWPOS_UNDEFINED_DISPLAY(x)
 }
@@ -119,11 +121,13 @@ pub const windowpos_centered_mask = C.SDL_WINDOWPOS_CENTERED_MASK // 0x2FFF0000u
 pub const windowpos_centered = C.SDL_WINDOWPOS_CENTERED
 
 fn C.SDL_WINDOWPOS_CENTERED_DISPLAY(x u32) u32
+
 pub fn windowpos_centered_display(x u32) u32 {
 	return C.SDL_WINDOWPOS_CENTERED_DISPLAY(x)
 }
 
 fn C.SDL_WINDOWPOS_ISCENTERED(x u32) bool
+
 pub fn windowpos_iscentered(x u32) bool {
 	return C.SDL_WINDOWPOS_ISCENTERED(x)
 }
@@ -132,23 +136,23 @@ pub fn windowpos_iscentered(x u32) bool {
 //
 // WindowEventID is C.SDL_WindowEventID
 pub enum WindowEventID {
-	@none           = C.SDL_WINDOWEVENT_NONE            // Never used
-	shown           = C.SDL_WINDOWEVENT_SHOWN           // Window has been shown
-	hidden          = C.SDL_WINDOWEVENT_HIDDEN          // Window has been hidden
-	exposed         = C.SDL_WINDOWEVENT_EXPOSED         // Window has been exposed and should be redrawn
-	moved           = C.SDL_WINDOWEVENT_MOVED           // Window has been moved to data1, data2
-	resized         = C.SDL_WINDOWEVENT_RESIZED         // Window has been resized to data1xdata2
-	size_changed    = C.SDL_WINDOWEVENT_SIZE_CHANGED    // The window size has changed, either as a result of an API call or through the system or user changing the window size.
-	minimized       = C.SDL_WINDOWEVENT_MINIMIZED       // Window has been minimized
-	maximized       = C.SDL_WINDOWEVENT_MAXIMIZED       // Window has been maximized
-	restored        = C.SDL_WINDOWEVENT_RESTORED        // Window has been restored to normal size and position
-	enter           = C.SDL_WINDOWEVENT_ENTER           // Window has gained mouse focus
-	leave           = C.SDL_WINDOWEVENT_LEAVE           // Window has lost mouse focus
-	focus_gained    = C.SDL_WINDOWEVENT_FOCUS_GAINED    // Window has gained keyboard focus
-	focus_lost      = C.SDL_WINDOWEVENT_FOCUS_LOST      // Window has lost keyboard focus
-	close           = C.SDL_WINDOWEVENT_CLOSE           // The window manager requests that the window be closed
-	take_focus      = C.SDL_WINDOWEVENT_TAKE_FOCUS      // Window is being offered a focus (should SetWindowInputFocus() on itself or a subwindow, or ignore)
-	hit_test        = C.SDL_WINDOWEVENT_HIT_TEST        // Window had a hit test that wasn't SDL_HITTEST_NORMAL.
+	@none           = C.SDL_WINDOWEVENT_NONE // Never used
+	shown           = C.SDL_WINDOWEVENT_SHOWN // Window has been shown
+	hidden          = C.SDL_WINDOWEVENT_HIDDEN // Window has been hidden
+	exposed         = C.SDL_WINDOWEVENT_EXPOSED // Window has been exposed and should be redrawn
+	moved           = C.SDL_WINDOWEVENT_MOVED // Window has been moved to data1, data2
+	resized         = C.SDL_WINDOWEVENT_RESIZED // Window has been resized to data1xdata2
+	size_changed    = C.SDL_WINDOWEVENT_SIZE_CHANGED // The window size has changed, either as a result of an API call or through the system or user changing the window size.
+	minimized       = C.SDL_WINDOWEVENT_MINIMIZED // Window has been minimized
+	maximized       = C.SDL_WINDOWEVENT_MAXIMIZED // Window has been maximized
+	restored        = C.SDL_WINDOWEVENT_RESTORED // Window has been restored to normal size and position
+	enter           = C.SDL_WINDOWEVENT_ENTER // Window has gained mouse focus
+	leave           = C.SDL_WINDOWEVENT_LEAVE // Window has lost mouse focus
+	focus_gained    = C.SDL_WINDOWEVENT_FOCUS_GAINED // Window has gained keyboard focus
+	focus_lost      = C.SDL_WINDOWEVENT_FOCUS_LOST // Window has lost keyboard focus
+	close           = C.SDL_WINDOWEVENT_CLOSE // The window manager requests that the window be closed
+	take_focus      = C.SDL_WINDOWEVENT_TAKE_FOCUS // Window is being offered a focus (should SetWindowInputFocus() on itself or a subwindow, or ignore)
+	hit_test        = C.SDL_WINDOWEVENT_HIT_TEST // Window had a hit test that wasn't SDL_HITTEST_NORMAL.
 	iccprof_changed = C.SDL_WINDOWEVENT_ICCPROF_CHANGED // The ICC profile of the window's display has changed.
 	display_changed = C.SDL_WINDOWEVENT_DISPLAY_CHANGED // Window has been moved to display data1.
 }
@@ -156,28 +160,28 @@ pub enum WindowEventID {
 // DisplayEventID is an event subtype for display events
 // DisplayEventID is C.SDL_DisplayEventID
 pub enum DisplayEventID {
-	@none        = C.SDL_DISPLAYEVENT_NONE         // Never used
-	orientation  = C.SDL_DISPLAYEVENT_ORIENTATION  // Display orientation has changed to data1
-	connected    = C.SDL_DISPLAYEVENT_CONNECTED    // Display has been added to the system
+	@none        = C.SDL_DISPLAYEVENT_NONE // Never used
+	orientation  = C.SDL_DISPLAYEVENT_ORIENTATION // Display orientation has changed to data1
+	connected    = C.SDL_DISPLAYEVENT_CONNECTED // Display has been added to the system
 	disconnected = C.SDL_DISPLAYEVENT_DISCONNECTED // Display has been removed from the system
-	moved        = C.SDL_DISPLAYEVENT_MOVED        // Display has changed position
+	moved        = C.SDL_DISPLAYEVENT_MOVED // Display has changed position
 }
 
 // Display orientation
 // DisplayOrientation is C.SDL_DisplayOrientation
 pub enum DisplayOrientation {
-	unknown           = C.SDL_ORIENTATION_UNKNOWN           // The display orientation can't be determined
-	landscape         = C.SDL_ORIENTATION_LANDSCAPE         // The display is in landscape mode, with the right side up, relative to portrait mode
+	unknown           = C.SDL_ORIENTATION_UNKNOWN // The display orientation can't be determined
+	landscape         = C.SDL_ORIENTATION_LANDSCAPE // The display is in landscape mode, with the right side up, relative to portrait mode
 	landscape_flipped = C.SDL_ORIENTATION_LANDSCAPE_FLIPPED // The display is in landscape mode, with the left side up, relative to portrait mode
-	portrait          = C.SDL_ORIENTATION_PORTRAIT          // The display is in portrait mode
-	portrait_flipped  = C.SDL_ORIENTATION_PORTRAIT_FLIPPED  // The display is in portrait mode, upside down
+	portrait          = C.SDL_ORIENTATION_PORTRAIT // The display is in portrait mode
+	portrait_flipped  = C.SDL_ORIENTATION_PORTRAIT_FLIPPED // The display is in portrait mode, upside down
 }
 
 // Window flash operation
 // FlashOperation is SDL_FlashOperation
 pub enum FlashOperation {
-	cancel        = C.SDL_FLASH_CANCEL        // Cancel any window flash state
-	briefly       = C.SDL_FLASH_BRIEFLY       // Flash the window briefly to get attention
+	cancel        = C.SDL_FLASH_CANCEL // Cancel any window flash state
+	briefly       = C.SDL_FLASH_BRIEFLY // Flash the window briefly to get attention
 	until_focused = C.SDL_FLASH_UNTIL_FOCUSED // Flash the window until it gets focus
 }
 
@@ -222,29 +226,29 @@ pub enum GLattr {
 
 // GLprofile is C.SDL_GLprofile
 pub enum GLprofile {
-	core          = C.SDL_GL_CONTEXT_PROFILE_CORE          // 0x0001
+	core          = C.SDL_GL_CONTEXT_PROFILE_CORE // 0x0001
 	compatibility = C.SDL_GL_CONTEXT_PROFILE_COMPATIBILITY // 0x0002
-	es            = C.SDL_GL_CONTEXT_PROFILE_ES            // 0x0004,  GLX_CONTEXT_ES2_PROFILE_BIT_EXT
+	es            = C.SDL_GL_CONTEXT_PROFILE_ES // 0x0004,  GLX_CONTEXT_ES2_PROFILE_BIT_EXT
 }
 
 // GLcontextFlag is C.SDL_GLcontextFlag
 pub enum GLcontextFlag {
-	debug_flag              = C.SDL_GL_CONTEXT_DEBUG_FLAG              // 0x0001
+	debug_flag              = C.SDL_GL_CONTEXT_DEBUG_FLAG // 0x0001
 	forward_compatible_flag = C.SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG // 0x0002
-	robust_access_flag      = C.SDL_GL_CONTEXT_ROBUST_ACCESS_FLAG      // 0x0004
-	reset_isolation_flag    = C.SDL_GL_CONTEXT_RESET_ISOLATION_FLAG    // 0x0008
+	robust_access_flag      = C.SDL_GL_CONTEXT_ROBUST_ACCESS_FLAG // 0x0004
+	reset_isolation_flag    = C.SDL_GL_CONTEXT_RESET_ISOLATION_FLAG // 0x0008
 }
 
 // GLcontextReleaseFlag is C.SDL_GLcontextReleaseFlag
 pub enum GLcontextReleaseFlag {
-	@none = C.SDL_GL_CONTEXT_RELEASE_BEHAVIOR_NONE  // 0x0000
+	@none = C.SDL_GL_CONTEXT_RELEASE_BEHAVIOR_NONE // 0x0000
 	flush = C.SDL_GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH // 0x0001
 }
 
 // GLContextResetNotification is C.SDL_GLContextResetNotification
 pub enum GLContextResetNotification {
 	no_notification = C.SDL_GL_CONTEXT_RESET_NO_NOTIFICATION // 0x0000
-	lose_context    = C.SDL_GL_CONTEXT_RESET_LOSE_CONTEXT    // 0x0001
+	lose_context    = C.SDL_GL_CONTEXT_RESET_LOSE_CONTEXT // 0x0001
 }
 
 // HitTestResult are possible return values from the SDL_HitTest callback.
@@ -253,7 +257,7 @@ pub enum GLContextResetNotification {
 //
 // HitTestResult is C.SDL_HitTestResult
 pub enum HitTestResult {
-	normal             = C.SDL_HITTEST_NORMAL    // Region is normal. No special properties.
+	normal             = C.SDL_HITTEST_NORMAL // Region is normal. No special properties.
 	draggable          = C.SDL_HITTEST_DRAGGABLE // Region can drag entire window.
 	resize_topleft     = C.SDL_HITTEST_RESIZE_TOPLEFT
 	resize_top         = C.SDL_HITTEST_RESIZE_TOP
@@ -717,7 +721,7 @@ pub fn get_window_display_mode(window &Window, mode &DisplayMode) int {
 	return C.SDL_GetWindowDisplayMode(window, mode)
 }
 
-fn C.SDL_GetWindowICCProfile(window &C.SDL_Window, size &usize) voidptr
+fn C.SDL_GetWindowICCProfile(window &C.SDL_Window, size &uint) voidptr
 
 // get_window_icc_profile gets the raw ICC profile data for the screen the window is currently on.
 //
@@ -729,7 +733,7 @@ fn C.SDL_GetWindowICCProfile(window &C.SDL_Window, size &usize) voidptr
 //          SDL_GetError() for more information.
 //
 // NOTE This function is available since SDL 2.0.18.
-pub fn get_window_icc_profile(window &Window, size &usize) voidptr {
+pub fn get_window_icc_profile(window &Window, size &uint) voidptr {
 	return C.SDL_GetWindowICCProfile(window, size)
 }
 
@@ -1817,7 +1821,7 @@ pub fn get_window_gamma_ramp(window &Window, red &u16, green &u16, blue &u16) in
 	return C.SDL_GetWindowGammaRamp(window, red, green, blue)
 }
 
-fn C.SDL_SetWindowHitTest(window &C.SDL_Window, callback C.SDL_HitTest, callback_data voidptr) int
+fn C.SDL_SetWindowHitTest(window &C.SDL_Window, callback HitTest, callback_data voidptr) int
 
 // set_window_hit_test provides a callback that decides if a window region has special properties.
 //
@@ -1858,7 +1862,7 @@ fn C.SDL_SetWindowHitTest(window &C.SDL_Window, callback C.SDL_HitTest, callback
 //
 // NOTE This function is available since SDL 2.0.4.
 pub fn set_window_hit_test(window &Window, callback HitTest, callback_data voidptr) int {
-	return C.SDL_SetWindowHitTest(window, C.SDL_HitTest(callback), callback_data)
+	return C.SDL_SetWindowHitTest(window, callback, callback_data)
 }
 
 fn C.SDL_FlashWindow(window &C.SDL_Window, operation C.SDL_FlashOperation) int
@@ -2134,7 +2138,7 @@ pub fn gl_create_context(window &Window) GLContext {
 	return GLContext(voidptr(C.SDL_GL_CreateContext(window)))
 }
 
-fn C.SDL_GL_MakeCurrent(window &C.SDL_Window, context C.SDL_GLContext) int
+fn C.SDL_GL_MakeCurrent(window &C.SDL_Window, context GLContext) int
 
 // gl_make_current sets up an OpenGL context for rendering into an OpenGL window.
 //
@@ -2270,7 +2274,7 @@ pub fn gl_swap_window(window &Window) {
 	C.SDL_GL_SwapWindow(window)
 }
 
-fn C.SDL_GL_DeleteContext(context C.SDL_GLContext)
+fn C.SDL_GL_DeleteContext(context GLContext)
 
 // gl_delete_context deletes an OpenGL context.
 //

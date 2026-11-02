@@ -46,7 +46,7 @@ pub enum ThreadPriority {
 // returns a value that can be reported through SDL_WaitThread().
 //
 // `typedef int (SDLCALL * SDL_ThreadFunction) (void *data);`
-pub type ThreadFunction = fn (data voidptr) int
+pub type ThreadFunction = fn (data voidptr) i32
 
 /*
 // TODO win32 & OS2 ???
@@ -58,8 +58,8 @@ pub fn create_thread(func C.SDL_ThreadFunction, name &char, data voidptr, pfn_be
 }
 
 // extern DECLSPEC SDL_Thread *SDLCALL SDL_CreateThreadWithStackSize(SDL_ThreadFunction fn,                 const char *name, const size_t stacksize, void *data,                 pfnSDL_CurrentBeginThread pfnBeginThread,                 pfnSDL_CurrentEndThread pfnEndThread)
-fn C.SDL_CreateThreadWithStackSize(func C.SDL_ThreadFunction, const_name &char, const_stacksize usize, data voidptr, pfn_begin_thread C.pfnSDL_CurrentBeginThread, pfn_end_thread C.pfnSDL_CurrentEndThread) &C.SDL_Thread
-pub fn create_thread_with_stack_size(func C.SDL_ThreadFunction, const_name &char, const_stacksize usize, data voidptr, pfn_begin_thread C.pfnSDL_CurrentBeginThread, pfn_end_thread C.pfnSDL_CurrentEndThread) &C.SDL_Thread{
+fn C.SDL_CreateThreadWithStackSize(func C.SDL_ThreadFunction, const_name &char, const_stacksize uint, data voidptr, pfn_begin_thread C.pfnSDL_CurrentBeginThread, pfn_end_thread C.pfnSDL_CurrentEndThread) &C.SDL_Thread
+pub fn create_thread_with_stack_size(func C.SDL_ThreadFunction, const_name &char, const_stacksize uint, data voidptr, pfn_begin_thread C.pfnSDL_CurrentBeginThread, pfn_end_thread C.pfnSDL_CurrentEndThread) &C.SDL_Thread{
 	return C.SDL_CreateThreadWithStackSize(func, const_name, const_stacksize, data, pfn_begin_thread, pfn_end_thread)
 }
 
@@ -97,7 +97,7 @@ pub fn create_thread(func ThreadFunction, const_name &char, data voidptr) &Threa
 	return C.SDL_CreateThread(func, const_name, data)
 }
 
-fn C.SDL_CreateThreadWithStackSize(func ThreadFunction, const_name &char, const_stacksize usize, data voidptr) &C.SDL_Thread
+fn C.SDL_CreateThreadWithStackSize(func ThreadFunction, const_name &char, const_stacksize uint, data voidptr) &C.SDL_Thread
 
 // create_thread_with_stack_size creates a new thread with a specific stack size.
 //
@@ -140,7 +140,7 @@ fn C.SDL_CreateThreadWithStackSize(func ThreadFunction, const_name &char, const_
 // NOTE This function is available since SDL 2.0.9.
 //
 // See also: SDL_WaitThread
-pub fn create_thread_with_stack_size(func ThreadFunction, const_name &char, const_stacksize usize, data voidptr) &Thread {
+pub fn create_thread_with_stack_size(func ThreadFunction, const_name &char, const_stacksize uint, data voidptr) &Thread {
 	$if !windows {
 		return C.SDL_CreateThreadWithStackSize(func, const_name, const_stacksize, data)
 	} $else {
@@ -223,7 +223,7 @@ pub fn set_thread_priority(priority ThreadPriority) int {
 	return C.SDL_SetThreadPriority(C.SDL_ThreadPriority(priority))
 }
 
-fn C.SDL_WaitThread(thrd &C.SDL_Thread, status &int)
+fn C.SDL_WaitThread(thrd &C.SDL_Thread, status &i32)
 
 // wait_thread waits for a thread to finish.
 //
@@ -257,7 +257,12 @@ fn C.SDL_WaitThread(thrd &C.SDL_Thread, status &int)
 // See also: SDL_CreateThread
 // See also: SDL_DetachThread
 pub fn wait_thread(thrd &Thread, status &int) {
-	C.SDL_WaitThread(thrd, status)
+	mut c_status := i32(0)
+	C.SDL_WaitThread(thrd, &c_status)
+	if !isnil(status) {
+		// SDL writes a C int; widen it before storing in the V int output.
+		unsafe { *status = int(c_status) }
+	}
 }
 
 fn C.SDL_DetachThread(thrd &C.SDL_Thread)

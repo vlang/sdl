@@ -11,7 +11,7 @@ pub const max_log_message = C.SDL_MAX_LOG_MESSAGE // 4096
 // LogOutputFunction is the prototype for the log output function
 // C.SDL_LogOutputFunction
 // `typedef void (SDLCALL *SDL_LogOutputFunction)(void *userdata, int category, SDL_LogPriority priority, const char *message);`
-pub type LogOutputFunction = fn (userdata voidptr, category int, priority LogPriority, const_message &char)
+pub type LogOutputFunction = fn (userdata voidptr, category i32, priority LogPriority, const_message &char)
 
 // LogCategory is the predefined log categories
 //

@@ -35,7 +35,7 @@ pub fn metal_create_view(window &Window) MetalView {
 	return MetalView(voidptr(C.SDL_Metal_CreateView(window)))
 }
 
-fn C.SDL_Metal_DestroyView(view C.SDL_MetalView)
+fn C.SDL_Metal_DestroyView(view MetalView)
 
 // metal_destroy_view destroys an existing SDL_MetalView object.
 //
@@ -49,7 +49,7 @@ pub fn metal_destroy_view(view MetalView) {
 	C.SDL_Metal_DestroyView(voidptr(view))
 }
 
-fn C.SDL_Metal_GetLayer(view C.SDL_MetalView) voidptr
+fn C.SDL_Metal_GetLayer(view MetalView) voidptr
 
 // metal_get_layer gets a pointer to the backing CAMetalLayer for the given view.
 //
