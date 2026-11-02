@@ -165,17 +165,17 @@ pub fn setenv(const_name &char, const_value &char, overwrite int) int {
 }
 
 // int (*compare) (const void *, const void *)
-pub type QSortCompare = fn (const_a voidptr, const_b voidptr) int
+pub type QSortCompare = fn (const_a voidptr, const_b voidptr) i32
 
 fn C.SDL_qsort(base voidptr, nmemb usize, size usize, compare QSortCompare)
 pub fn qsort(base voidptr, nmemb usize, size usize, compare QSortCompare) {
 	C.SDL_qsort(base, nmemb, size, compare)
 }
 
-fn C.SDL_bsearch(const_key voidptr, const_base voidptr, nmemb usize, size usize, compare fn (voidptr, voidptr)) voidptr
+fn C.SDL_bsearch(const_key voidptr, const_base voidptr, nmemb usize, size usize, compare QSortCompare) voidptr
 
 // bsearch gets the number of outstanding (unfreed) allocations
-pub fn bsearch(const_key voidptr, const_base voidptr, nmemb usize, size usize, compare fn (voidptr, voidptr)) voidptr {
+pub fn bsearch(const_key voidptr, const_base voidptr, nmemb usize, size usize, compare QSortCompare) voidptr {
 	return C.SDL_bsearch(const_key, const_base, nmemb, size, compare)
 }
 

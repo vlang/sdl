@@ -1817,7 +1817,7 @@ pub fn get_window_gamma_ramp(window &Window, red &u16, green &u16, blue &u16) in
 	return C.SDL_GetWindowGammaRamp(window, red, green, blue)
 }
 
-fn C.SDL_SetWindowHitTest(window &C.SDL_Window, callback C.SDL_HitTest, callback_data voidptr) int
+fn C.SDL_SetWindowHitTest(window &C.SDL_Window, callback HitTest, callback_data voidptr) int
 
 // set_window_hit_test provides a callback that decides if a window region has special properties.
 //
@@ -1858,7 +1858,7 @@ fn C.SDL_SetWindowHitTest(window &C.SDL_Window, callback C.SDL_HitTest, callback
 //
 // NOTE This function is available since SDL 2.0.4.
 pub fn set_window_hit_test(window &Window, callback HitTest, callback_data voidptr) int {
-	return C.SDL_SetWindowHitTest(window, C.SDL_HitTest(callback), callback_data)
+	return C.SDL_SetWindowHitTest(window, callback, callback_data)
 }
 
 fn C.SDL_FlashWindow(window &C.SDL_Window, operation C.SDL_FlashOperation) int
@@ -2134,7 +2134,7 @@ pub fn gl_create_context(window &Window) GLContext {
 	return GLContext(voidptr(C.SDL_GL_CreateContext(window)))
 }
 
-fn C.SDL_GL_MakeCurrent(window &C.SDL_Window, context C.SDL_GLContext) int
+fn C.SDL_GL_MakeCurrent(window &C.SDL_Window, context GLContext) int
 
 // gl_make_current sets up an OpenGL context for rendering into an OpenGL window.
 //
@@ -2270,7 +2270,7 @@ pub fn gl_swap_window(window &Window) {
 	C.SDL_GL_SwapWindow(window)
 }
 
-fn C.SDL_GL_DeleteContext(context C.SDL_GLContext)
+fn C.SDL_GL_DeleteContext(context GLContext)
 
 // gl_delete_context deletes an OpenGL context.
 //

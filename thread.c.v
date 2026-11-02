@@ -46,7 +46,7 @@ pub enum ThreadPriority {
 // returns a value that can be reported through SDL_WaitThread().
 //
 // `typedef int (SDLCALL * SDL_ThreadFunction) (void *data);`
-pub type ThreadFunction = fn (data voidptr) int
+pub type ThreadFunction = fn (data voidptr) i32
 
 /*
 // TODO win32 & OS2 ???
@@ -223,7 +223,7 @@ pub fn set_thread_priority(priority ThreadPriority) int {
 	return C.SDL_SetThreadPriority(C.SDL_ThreadPriority(priority))
 }
 
-fn C.SDL_WaitThread(thrd &C.SDL_Thread, status &int)
+fn C.SDL_WaitThread(thrd &C.SDL_Thread, status &i32)
 
 // wait_thread waits for a thread to finish.
 //
@@ -257,7 +257,15 @@ fn C.SDL_WaitThread(thrd &C.SDL_Thread, status &int)
 // See also: SDL_CreateThread
 // See also: SDL_DetachThread
 pub fn wait_thread(thrd &Thread, status &int) {
-	C.SDL_WaitThread(thrd, status)
+	if isnil(thrd) {
+		return
+	}
+	mut c_status := i32(0)
+	C.SDL_WaitThread(thrd, &c_status)
+	if !isnil(status) {
+		// SDL writes a C int; widen it before storing in the V int output.
+		unsafe { *status = int(c_status) }
+	}
 }
 
 fn C.SDL_DetachThread(thrd &C.SDL_Thread)
