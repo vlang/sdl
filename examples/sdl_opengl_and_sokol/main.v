@@ -88,7 +88,7 @@ fn main() {
 	sdl.gl_set_attribute(.stencil_size, 8)
 
 	mut window_flags := u32(sdl.WindowFlags.opengl)
-	window := sdl.create_window('Hello SDL2 + Sokol (OpenGL)'.str, 300, 300, win_width,
+	window := sdl.create_window(c'Hello SDL2 + Sokol (OpenGL)', 300, 300, win_width,
 		win_height, window_flags)
 	if window == sdl.null {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
@@ -127,7 +127,7 @@ fn main() {
 	}
 	unsafe { vmemset(&vertex_buffer_desc, 0, int(sizeof(vertex_buffer_desc))) }
 
-	vertex_buffer_desc.size = usize(vertices.len * int(sizeof(Vertex_t)))
+	vertex_buffer_desc.size = uint(vertices.len * int(sizeof(Vertex_t)))
 	vertex_buffer_desc.data = gfx.Range{
 		ptr:  vertices.data
 		size: vertex_buffer_desc.size

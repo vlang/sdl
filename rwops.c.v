@@ -109,7 +109,7 @@ pub fn rw_tell(context &RWops) i64 {
 	return C.SDL_RWtell(context)
 }
 
-fn C.SDL_RWread(context &C.SDL_RWops, ptr voidptr, size usize, maxnum usize) usize
+fn C.SDL_RWread(context &C.SDL_RWops, ptr voidptr, size uint, maxnum uint) uint
 
 // rw_read reads from a data source.
 //
@@ -139,11 +139,11 @@ fn C.SDL_RWread(context &C.SDL_RWops, ptr voidptr, size usize, maxnum usize) usi
 // See also: SDL_RWFromMem
 // See also: SDL_RWseek
 // See also: SDL_RWwrite
-pub fn rw_read(context &RWops, ptr voidptr, size usize, maxnum usize) usize {
+pub fn rw_read(context &RWops, ptr voidptr, size uint, maxnum uint) uint {
 	return C.SDL_RWread(context, ptr, size, maxnum)
 }
 
-fn C.SDL_RWwrite(context &C.SDL_RWops, ptr voidptr, size usize, num usize) usize
+fn C.SDL_RWwrite(context &C.SDL_RWops, ptr voidptr, size uint, num uint) uint
 
 // rw_write writes to an SDL_RWops data stream.
 //
@@ -173,7 +173,7 @@ fn C.SDL_RWwrite(context &C.SDL_RWops, ptr voidptr, size usize, num usize) usize
 // See also: SDL_RWFromMem
 // See also: SDL_RWread
 // See also: SDL_RWseek
-pub fn rw_write(context &RWops, ptr voidptr, size usize, num usize) usize {
+pub fn rw_write(context &RWops, ptr voidptr, size uint, num uint) uint {
 	return C.SDL_RWwrite(context, ptr, size, num)
 }
 
@@ -226,13 +226,13 @@ pub:
 	//
 	// returns the number of objects read, or 0 at error or end of file.
 	// `size_t (SDLCALL * read) (struct SDL_RWops * context, void *ptr, size_t size, size_t maxnum);`
-	read fn (context &C.SDL_RWops, ptr voidptr, size usize, maxnum usize) usize
+	read fn (context &C.SDL_RWops, ptr voidptr, size uint, maxnum uint) uint
 	// Writes exactly `num` objects each of size `size` from the area
 	// pointed at by `ptr` to data stream.
 	//
 	// returns the number of objects written, or 0 at error or end of file.
 	// `size_t (SDLCALL * write) (struct SDL_RWops * context, const void *ptr, size_t size, size_t num);`
-	write fn (context &C.SDL_RWops, const_ptr voidptr, size usize, num usize) usize
+	write fn (context &C.SDL_RWops, const_ptr voidptr, size uint, num uint) uint
 	// Closes and frees an allocated SDL_RWops structure.
 	//
 	// returns 0 if successful or -1 on write error when flushing data.
@@ -261,7 +261,7 @@ pub fn (rwo &RWops) seek(offset i64, whence int) i64 {
 // stream to the area pointed at by `ptr`.
 //
 // returns the number of objects read, or 0 at error or end of file.
-pub fn (rwo &RWops) read(ptr voidptr, size usize, maxnum usize) usize {
+pub fn (rwo &RWops) read(ptr voidptr, size uint, maxnum uint) uint {
 	return C.SDL_RWread(rwo, ptr, size, maxnum)
 }
 
@@ -270,7 +270,7 @@ pub fn (rwo &RWops) read(ptr voidptr, size usize, maxnum usize) usize {
 //
 // returns the number of objects written, or 0 at error or end of file.
 // `size_t (SDLCALL * write) (struct SDL_RWops * context, const void *ptr, size_t size, size_t num);`
-pub fn (rwo &RWops) write(ptr voidptr, size usize, num usize) usize {
+pub fn (rwo &RWops) write(ptr voidptr, size uint, num uint) uint {
 	return C.SDL_RWwrite(rwo, ptr, size, num)
 }
 
@@ -547,7 +547,7 @@ pub fn free_rw(area &RWops) {
 	C.SDL_FreeRW(area)
 }
 
-fn C.SDL_LoadFile_RW(src &C.SDL_RWops, datasize &usize, freesrc int) voidptr
+fn C.SDL_LoadFile_RW(src &C.SDL_RWops, datasize &uint, freesrc int) voidptr
 
 // load_file_rw loads all the data from an SDL data stream.
 //
@@ -563,11 +563,11 @@ fn C.SDL_LoadFile_RW(src &C.SDL_RWops, datasize &usize, freesrc int) voidptr
 // returns the data, or NULL if there was an error.
 //
 // NOTE This function is available since SDL 2.0.6.
-pub fn load_file_rw(src &RWops, datasize &usize, freesrc int) voidptr {
+pub fn load_file_rw(src &RWops, datasize &uint, freesrc int) voidptr {
 	return C.SDL_LoadFile_RW(src, datasize, freesrc)
 }
 
-fn C.SDL_LoadFile(file &char, datasize &usize) voidptr
+fn C.SDL_LoadFile(file &char, datasize &uint) voidptr
 
 // load_file loads all the data from a file path.
 //
@@ -585,7 +585,7 @@ fn C.SDL_LoadFile(file &char, datasize &usize) voidptr
 // returns the data, or NULL if there was an error.
 //
 // NOTE This function is available since SDL 2.0.10.
-pub fn load_file(file &char, datasize &usize) voidptr {
+pub fn load_file(file &char, datasize &uint) voidptr {
 	return C.SDL_LoadFile(file, datasize)
 }
 
@@ -718,7 +718,7 @@ pub fn read_be64(src &RWops) u64 {
 // Write endian functions
 //
 // Write an item of native format to the specified endianness.
-fn C.SDL_WriteU8(dst &C.SDL_RWops, value u8) usize
+fn C.SDL_WriteU8(dst &C.SDL_RWops, value u8) uint
 
 // write_u8 writes a byte to an SDL_RWops.
 //
@@ -730,11 +730,11 @@ fn C.SDL_WriteU8(dst &C.SDL_RWops, value u8) usize
 // NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_ReadU8
-pub fn write_u8(dst &RWops, value u8) usize {
+pub fn write_u8(dst &RWops, value u8) uint {
 	return C.SDL_WriteU8(dst, value)
 }
 
-fn C.SDL_WriteLE16(dst &C.SDL_RWops, value u16) usize
+fn C.SDL_WriteLE16(dst &C.SDL_RWops, value u16) uint
 
 // write_le16 uses this function to write 16 bits in native format to a SDL_RWops as
 // little-endian data.
@@ -750,11 +750,11 @@ fn C.SDL_WriteLE16(dst &C.SDL_RWops, value u16) usize
 // NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_WriteBE16
-pub fn write_le16(dst &RWops, value u16) usize {
+pub fn write_le16(dst &RWops, value u16) uint {
 	return C.SDL_WriteLE16(dst, value)
 }
 
-fn C.SDL_WriteBE16(dst &C.SDL_RWops, value u16) usize
+fn C.SDL_WriteBE16(dst &C.SDL_RWops, value u16) uint
 
 // write_be16 writes 16 bits in native format to a SDL_RWops as
 // big-endian data.
@@ -769,11 +769,11 @@ fn C.SDL_WriteBE16(dst &C.SDL_RWops, value u16) usize
 // NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_WriteLE16
-pub fn write_be16(dst &RWops, value u16) usize {
+pub fn write_be16(dst &RWops, value u16) uint {
 	return C.SDL_WriteBE16(dst, value)
 }
 
-fn C.SDL_WriteLE32(dst &C.SDL_RWops, value u32) usize
+fn C.SDL_WriteLE32(dst &C.SDL_RWops, value u32) uint
 
 // write_le32 writes 32 bits in native format to a SDL_RWops as
 // little-endian data.
@@ -789,11 +789,11 @@ fn C.SDL_WriteLE32(dst &C.SDL_RWops, value u32) usize
 // NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_WriteBE32
-pub fn write_le32(dst &RWops, value u32) usize {
+pub fn write_le32(dst &RWops, value u32) uint {
 	return C.SDL_WriteLE32(dst, value)
 }
 
-fn C.SDL_WriteBE32(dst &C.SDL_RWops, value u32) usize
+fn C.SDL_WriteBE32(dst &C.SDL_RWops, value u32) uint
 
 // write_be32 writes 32 bits in native format to a SDL_RWops as
 // big-endian data.
@@ -808,11 +808,11 @@ fn C.SDL_WriteBE32(dst &C.SDL_RWops, value u32) usize
 // NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_WriteLE32
-pub fn write_be32(dst &RWops, value u32) usize {
+pub fn write_be32(dst &RWops, value u32) uint {
 	return C.SDL_WriteBE32(dst, value)
 }
 
-fn C.SDL_WriteLE64(dst &C.SDL_RWops, value u64) usize
+fn C.SDL_WriteLE64(dst &C.SDL_RWops, value u64) uint
 
 // write_le64 writes 64 bits in native format to a SDL_RWops as
 // little-endian data.
@@ -828,11 +828,11 @@ fn C.SDL_WriteLE64(dst &C.SDL_RWops, value u64) usize
 // NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_WriteBE64
-pub fn write_le64(dst &RWops, value u64) usize {
+pub fn write_le64(dst &RWops, value u64) uint {
 	return C.SDL_WriteLE64(dst, value)
 }
 
-fn C.SDL_WriteBE64(dst &C.SDL_RWops, value u64) usize
+fn C.SDL_WriteBE64(dst &C.SDL_RWops, value u64) uint
 
 // write_be64 writes 64 bits in native format to a SDL_RWops as
 // big-endian data.
@@ -847,6 +847,6 @@ fn C.SDL_WriteBE64(dst &C.SDL_RWops, value u64) usize
 // NOTE This function is available since SDL 2.0.0.
 //
 // See also: SDL_WriteLE64
-pub fn write_be64(dst &RWops, value u64) usize {
+pub fn write_be64(dst &RWops, value u64) uint {
 	return C.SDL_WriteBE64(dst, value)
 }

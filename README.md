@@ -182,3 +182,7 @@ v run sdl\examples\basic_window\main.v
 - spytheman
 - adlesh
 - Larpon
+
+Callbacks that cross the SDL C ABI use `i32` for C `int` parameters and return values.
+Declare log categories and thread/comparison callback results as `i32`; the timer and
+hit-test APIs accept their V callback aliases directly. GL and Metal handles remain opaque.

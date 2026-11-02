@@ -385,7 +385,7 @@ pub fn get_system_ram() int {
 	return C.SDL_GetSystemRAM()
 }
 
-fn C.SDL_SIMDGetAlignment() usize
+fn C.SDL_SIMDGetAlignment() uint
 
 // simd_get_alignment reports the alignment this system needs for SIMD allocations.
 //
@@ -402,11 +402,11 @@ fn C.SDL_SIMDGetAlignment() usize
 //         instructions.
 //
 // NOTE This function is available since SDL 2.0.10.
-pub fn simd_get_alignment() usize {
+pub fn simd_get_alignment() uint {
 	return C.SDL_SIMDGetAlignment()
 }
 
-fn C.SDL_SIMDAlloc(len usize) voidptr
+fn C.SDL_SIMDAlloc(len uint) voidptr
 
 // simd_alloc allocates memory in a SIMD-friendly way.
 //
@@ -443,11 +443,11 @@ fn C.SDL_SIMDAlloc(len usize) voidptr
 // See also: SDL_SIMDGetAlignment
 // See also: SDL_SIMDRealloc
 // See also: SDL_SIMDFree
-pub fn simd_alloc(len usize) voidptr {
+pub fn simd_alloc(len uint) voidptr {
 	return C.SDL_SIMDAlloc(len)
 }
 
-fn C.SDL_SIMDRealloc(mem voidptr, len usize) voidptr
+fn C.SDL_SIMDRealloc(mem voidptr, len uint) voidptr
 
 // simd_realloc reallocates memory obtained from SDL_SIMDAlloc
 //
@@ -469,7 +469,7 @@ fn C.SDL_SIMDRealloc(mem voidptr, len usize) voidptr
 // See also: SDL_SIMDGetAlignment
 // See also: SDL_SIMDAlloc
 // See also: SDL_SIMDFree
-pub fn simd_realloc(mem voidptr, len usize) voidptr {
+pub fn simd_realloc(mem voidptr, len uint) voidptr {
 	return C.SDL_SIMDRealloc(mem, len)
 }
 
