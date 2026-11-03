@@ -52,9 +52,9 @@ pub type BlitCall = fn (src &Surface, srcrect &Rect, dst &Surface, dstrect &Rect
 // YUVConversionMode is the formula used for converting between YUV and RGB
 // YUVConversionMode is C.SDL_YUV_CONVERSION_MODE
 pub enum YUVConversionMode {
-	jpeg      = C.SDL_YUV_CONVERSION_JPEG      // Full range JPEG
-	bt601     = C.SDL_YUV_CONVERSION_BT601     // BT.601 (the default)
-	bt709     = C.SDL_YUV_CONVERSION_BT709     // BT.709
+	jpeg      = C.SDL_YUV_CONVERSION_JPEG // Full range JPEG
+	bt601     = C.SDL_YUV_CONVERSION_BT601 // BT.601 (the default)
+	bt709     = C.SDL_YUV_CONVERSION_BT709 // BT.709
 	automatic = C.SDL_YUV_CONVERSION_AUTOMATIC // BT.601 for SD content, BT.709 for HD content
 }
 
@@ -895,6 +895,7 @@ pub fn soft_stretch_linear(src &Surface, const_srcrect &Rect, dst &Surface, cons
 }
 
 fn C.SDL_BlitScaled(src &C.SDL_Surface, srcrect &C.SDL_Rect, dst &C.SDL_Surface, dstrect &C.SDL_Rect) int
+
 pub fn blit_scaled(src &Surface, srcrect &Rect, dst &Surface, dstrect &Rect) int {
 	return C.SDL_UpperBlitScaled(src, srcrect, dst, dstrect)
 }

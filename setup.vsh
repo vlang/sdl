@@ -28,8 +28,7 @@ if remotes.exit_code != 0 {
 	println('git is missing. Giving up')
 	exit(1)
 }
-supported_versions := remotes.output.split_into_lines().map(it.trim_space()).filter(
-	it.starts_with('origin/2') || it.starts_with('origin/3')).map(it.all_after('origin/'))
+supported_versions := remotes.output.split_into_lines().map(it.trim_space()).filter(it.starts_with('origin/2') || it.starts_with('origin/3')).map(it.all_after('origin/'))
 println('The SDL module officially supports these versions of SDL:\n   ${supported_versions}')
 
 if system_version in supported_versions {

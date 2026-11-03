@@ -132,11 +132,13 @@ pub fn atomic_unlock(lock_ &SpinLock) {
 //
 // NOTE This function is available since SDL 2.0.6.
 fn C.SDL_MemoryBarrierReleaseFunction()
+
 pub fn memory_barrier_release_function() {
 	C.SDL_MemoryBarrierReleaseFunction()
 }
 
 fn C.SDL_MemoryBarrierAcquireFunction()
+
 pub fn memory_barrier_acquire_function() {
 	C.SDL_MemoryBarrierAcquireFunction()
 }
