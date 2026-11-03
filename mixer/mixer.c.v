@@ -48,10 +48,10 @@ pub fn linked_version() &sdl.Version {
 // InitFlags is C.MIX_InitFlags
 pub enum InitFlags {
 	flac = C.MIX_INIT_FLAC // 0x00000001
-	mod  = C.MIX_INIT_MOD  // 0x00000002
-	mp3  = C.MIX_INIT_MP3  // 0x00000008
-	ogg  = C.MIX_INIT_OGG  // 0x00000010
-	mid  = C.MIX_INIT_MID  // 0x00000020
+	mod  = C.MIX_INIT_MOD // 0x00000002
+	mp3  = C.MIX_INIT_MP3 // 0x00000008
+	ogg  = C.MIX_INIT_OGG // 0x00000010
+	mid  = C.MIX_INIT_MID // 0x00000020
 	opus = C.MIX_INIT_OPUS // 0x00000040
 }
 
@@ -171,6 +171,7 @@ pub fn load_wav_rw(src &sdl.RWops, freesrc int) &Chunk {
 }
 
 fn C.Mix_LoadWAV(file &char) &C.Mix_Chunk
+
 pub fn load_wav(path &char) &Chunk {
 	return C.Mix_LoadWAV(path)
 }
@@ -191,6 +192,7 @@ pub fn load_mus_rw(src &sdl.RWops, freesrc int) &Music {
 }
 
 fn C.Mix_LoadMUSType_RW(src &C.SDL_RWops, @type C.Mix_MusicType, freesrc int) &C.Mix_Music
+
 pub fn load_mus_type_rw(src &sdl.RWops, @type MusicType, freesrc int) &Music {
 	return C.Mix_LoadMUSType_RW(src, C.Mix_MusicType(@type), freesrc)
 }
@@ -217,6 +219,7 @@ pub fn free_chunk(chunk &Chunk) {
 }
 
 fn C.Mix_FreeMusic(music &C.Mix_Music)
+
 pub fn free_music(music &Music) {
 	C.Mix_FreeMusic(music)
 }
@@ -249,21 +252,25 @@ pub fn get_num_chunk_decoders() int {
 }
 
 fn C.Mix_GetChunkDecoder(index int) &char
+
 pub fn get_chunk_decoder(index int) &char {
 	return C.Mix_GetChunkDecoder(index)
 }
 
 fn C.Mix_HasChunkDecoder(name &char) bool
+
 pub fn has_chunk_decoder(name &char) bool {
 	return C.Mix_HasChunkDecoder(name)
 }
 
 fn C.Mix_GetNumMusicDecoders() int
+
 pub fn get_num_music_decoders() int {
 	return C.Mix_GetNumMusicDecoders()
 }
 
 fn C.Mix_GetMusicDecoder(index int) &char
+
 pub fn get_music_decoder(index int) &char {
 	return C.Mix_GetMusicDecoder(index)
 }
@@ -302,6 +309,7 @@ pub fn set_post_mix(mix_func MixFunc, arg voidptr) {
 // hook_music adds your own music player or additional mixer function.
 // If 'mix_func' is NULL, the default music player is re-enabled.
 fn C.Mix_HookMusic(mix_func MixFunc, arg voidptr)
+
 pub fn hook_music(mix_func MixFunc, arg voidptr) {
 	C.Mix_HookMusic(mix_func, arg)
 }
@@ -309,6 +317,7 @@ pub fn hook_music(mix_func MixFunc, arg voidptr) {
 // hook_music_finished adds your own callback for when the music has finished playing or when it is
 // stopped from a call to Mix_HaltMusic.
 fn C.Mix_HookMusicFinished(finished MusicFinished)
+
 pub fn hook_music_finished(finished MusicFinished) {
 	C.Mix_HookMusicFinished(finished)
 }
@@ -425,6 +434,7 @@ pub fn register_effect(channel int, f MixEffectFunc, d MixEffectDone, arg voidpt
 // returns zero if error (no such channel or effect), nonzero if removed.
 // Error messages can be retrieved from Mix_GetError().
 fn C.Mix_UnregisterEffect(channel int, f MixEffectFunc) int
+
 pub fn unregister_effect(channel int, f MixEffectFunc) int {
 	return C.Mix_UnregisterEffect(channel, f)
 }
@@ -440,6 +450,7 @@ pub fn unregister_effect(channel int, f MixEffectFunc) int {
 // returns zero if error (no such channel), nonzero if all effects removed.
 // Error messages can be retrieved from Mix_GetError().
 fn C.Mix_UnregisterAllEffects(channel int) int
+
 pub fn unregister_all_effects(channel int) int {
 	return C.Mix_UnregisterAllEffects(channel)
 }
@@ -657,6 +668,7 @@ pub fn play_channel_timed(channel int, chunk &Chunk, loops int, ticks int) int {
 }
 
 fn C.Mix_PlayMusic(music &C.Mix_Music, loops int) int
+
 pub fn play_music(music &Music, loops int) int {
 	return C.Mix_PlayMusic(music, loops)
 }
@@ -669,16 +681,19 @@ pub fn fade_in_music(music &Music, loops int, ms int) int {
 }
 
 fn C.Mix_FadeInMusicPos(music &C.Mix_Music, loops int, ms int, position f64) int
+
 pub fn fade_in_music_pos(music &Music, loops int, ms int, position f64) int {
 	return C.Mix_FadeInMusicPos(music, loops, ms, position)
 }
 
 fn C.Mix_FadeInChannel(channel int, chunk &C.Mix_Chunk, loops int, ms int) int
+
 pub fn fade_in_channel(channel int, chunk &Chunk, loops int, ms int) int {
 	return C.Mix_FadeInChannel(channel, chunk, loops, ms)
 }
 
 fn C.Mix_FadeInChannelTimed(channel int, chunk &C.Mix_Chunk, loops int, ms int, ticks int) int
+
 pub fn fade_in_channel_timed(channel int, chunk &Chunk, loops int, ms int, ticks int) int {
 	return C.Mix_FadeInChannelTimed(channel, chunk, loops, ms, ticks)
 }
@@ -694,11 +709,13 @@ pub fn volume(channel int, volume int) int {
 }
 
 fn C.Mix_VolumeChunk(chunk &C.Mix_Chunk, volume int) int
+
 pub fn volume_chunk(chunk &C.Mix_Chunk, volume int) int {
 	return C.Mix_VolumeChunk(chunk, volume)
 }
 
 fn C.Mix_VolumeMusic(volume int) int
+
 pub fn volume_music(volume int) int {
 	return C.Mix_VolumeMusic(volume)
 }
@@ -711,11 +728,13 @@ pub fn halt_channel(channel int) int {
 }
 
 fn C.Mix_HaltGroup(tag int) int
+
 pub fn halt_group(tag int) int {
 	return C.Mix_HaltGroup(tag)
 }
 
 fn C.Mix_HaltMusic() int
+
 pub fn halt_music() int {
 	return C.Mix_HaltMusic()
 }
@@ -739,11 +758,13 @@ pub fn fade_out_channel(which int, ms int) int {
 }
 
 fn C.Mix_FadeOutGroup(tag int, ms int) int
+
 pub fn fade_out_group(tag int, ms int) int {
 	return C.Mix_FadeOutGroup(tag, ms)
 }
 
 fn C.Mix_FadeOutMusic(ms int) int
+
 pub fn fade_out_music(ms int) int {
 	return C.Mix_FadeOutMusic(ms)
 }
@@ -756,6 +777,7 @@ pub fn fading_music() Fading {
 }
 
 fn C.Mix_FadingChannel(which int) Fading
+
 pub fn fading_channel(which int) Fading {
 	return Fading(C.Mix_FadingChannel(which))
 }
@@ -775,27 +797,32 @@ pub fn resume(channel int) {
 }
 
 fn C.Mix_Paused(channel int) int
+
 pub fn paused(channel int) int {
 	return C.Mix_Paused(channel)
 }
 
 // Pause/Resume the music stream
 fn C.Mix_PauseMusic()
+
 pub fn pause_music() {
 	C.Mix_PauseMusic()
 }
 
 fn C.Mix_ResumeMusic()
+
 pub fn resume_music() {
 	C.Mix_ResumeMusic()
 }
 
 fn C.Mix_RewindMusic()
+
 pub fn rewind_music() {
 	C.Mix_RewindMusic()
 }
 
 fn C.Mix_PausedMusic() int
+
 pub fn paused_music() int {
 	return C.Mix_PausedMusic()
 }
@@ -820,6 +847,7 @@ pub fn playing(channel int) int {
 }
 
 fn C.Mix_PlayingMusic() int
+
 pub fn playing_music() int {
 	return C.Mix_PlayingMusic()
 }
@@ -839,6 +867,7 @@ pub fn set_synchro_value(value int) int {
 }
 
 fn C.Mix_GetSynchroValue() int
+
 pub fn get_synchro_value() int {
 	return C.Mix_GetSynchroValue()
 }
@@ -851,6 +880,7 @@ pub fn set_sound_fonts(paths &char) int {
 }
 
 fn C.Mix_GetSoundFonts() &char
+
 pub fn get_sound_fonts() &char {
 	return C.Mix_GetSoundFonts()
 }
@@ -859,6 +889,7 @@ pub fn get_sound_fonts() &char {
 pub type Func = fn (const_a &char, b voidptr) int
 
 fn C.Mix_EachSoundFont(f Func, data voidptr) int
+
 pub fn each_sound_font(f Func, data voidptr) int {
 	return C.Mix_EachSoundFont(f, data)
 }

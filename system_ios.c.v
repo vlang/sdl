@@ -12,6 +12,7 @@ module sdl
 pub type IOSAnimationCallback = fn (params voidptr)
 
 fn C.SDL_iOSSetAnimationCallback(window &C.SDL_Window, interval int, callback IOSAnimationCallback, callbackParam voidptr) int
+
 pub fn ios_set_animation_callback(window &Window, interval int, callback IOSAnimationCallback, callback_param voidptr) int {
 	return C.SDL_iOSSetAnimationCallback(window, interval, callback, callback_param)
 }
@@ -53,6 +54,7 @@ pub fn iphone_set_animation_callback(window &Window, interval int, callback IOSA
 }
 
 fn C.SDL_iOSSetEventPump(enabled)
+
 pub fn ios_set_event_pump(enabled bool) {
 	C.SDL_iOSSetEventPump(enabled)
 }
@@ -76,6 +78,7 @@ pub fn iphone_set_event_pump(enabled bool) {
 }
 
 fn C.SDL_OnApplicationDidChangeStatusBarOrientation()
+
 pub fn on_application_did_change_status_bar_orientation() {
 	C.SDL_OnApplicationDidChangeStatusBarOrientation()
 }
