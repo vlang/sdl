@@ -39,7 +39,7 @@ pub fn (l Lattice) total_rho() f64 {
 
 // clear the Lattice : File fields with zeros.
 pub fn (mut l Lattice) clear() {
-	unsafe { vmemset(l.m.data, 0, u32(l.m.len) * sizeof(Cell)) }
+	unsafe { vmemset(l.m.data, 0, l.m.len * int(sizeof(Cell))) }
 }
 
 // add_flow create an artificial flow of i intensity in v direction
