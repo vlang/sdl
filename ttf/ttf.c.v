@@ -39,6 +39,7 @@ pub fn ttf_version_atleast(x int, y int, z int) bool {
 }
 
 fn C.TTF_Linked_Version() &C.SDL_version
+
 pub fn linked_version() &sdl.Version {
 	return C.TTF_Linked_Version()
 }
@@ -83,16 +84,19 @@ pub fn open_font(file &char, ptsize int) &Font {
 }
 
 fn C.TTF_OpenFontIndex(file &char, ptsize int, index int) &C.TTF_Font
+
 pub fn open_font_index(file &char, ptsize int, index int) &Font {
 	return C.TTF_OpenFontIndex(file, ptsize, index)
 }
 
 fn C.TTF_OpenFontRW(src &C.SDL_RWops, freesrc int, ptsize int) &C.TTF_Font
+
 pub fn open_font_rw(src &sdl.RWops, freesrc int, ptsize int) &Font {
 	return C.TTF_OpenFontRW(src, freesrc, ptsize)
 }
 
 fn C.TTF_OpenFontIndexRW(src &C.SDL_RWops, freesrc int, ptsize int, index int) &C.TTF_Font
+
 pub fn open_font_index_rw(src &sdl.RWops, freesrc int, ptsize int, index int) &Font {
 	return C.TTF_OpenFontIndexRW(src, freesrc, ptsize, index)
 }
@@ -109,21 +113,25 @@ pub const style_underline = C.TTF_STYLE_UNDERLINE // 0x04
 pub const style_strikethrough = C.TTF_STYLE_STRIKETHROUGH // 0x08
 
 fn C.TTF_GetFontStyle(font &C.TTF_Font) int
+
 pub fn get_font_style(font &Font) int {
 	return C.TTF_GetFontStyle(font)
 }
 
 fn C.TTF_SetFontStyle(font &C.TTF_Font, style int)
+
 pub fn set_font_style(font &Font, style int) {
 	C.TTF_SetFontStyle(font, style)
 }
 
 fn C.TTF_GetFontOutline(font &C.TTF_Font) int
+
 pub fn get_font_outline(font &Font) int {
 	return C.TTF_GetFontOutline(font)
 }
 
 fn C.TTF_SetFontOutline(font &C.TTF_Font, outline int)
+
 pub fn set_font_outline(font &Font, outline int) {
 	C.TTF_SetFontOutline(font, outline)
 }
@@ -138,11 +146,13 @@ pub const hinting_mono = C.TTF_HINTING_MONO // 2
 pub const hinting_none = C.TTF_HINTING_NONE // 3
 
 fn C.TTF_GetFontHinting(font &C.TTF_Font) int
+
 pub fn get_font_hinting(font &Font) int {
 	return C.TTF_GetFontHinting(font)
 }
 
 fn C.TTF_SetFontHinting(font &C.TTF_Font, hinting int)
+
 pub fn set_font_hinting(font &Font, hinting int) {
 	C.TTF_SetFontHinting(font, hinting)
 }
@@ -206,11 +216,13 @@ pub fn font_face_is_fixed_width(font &Font) int {
 }
 
 fn C.TTF_FontFaceFamilyName(font &C.TTF_Font) &char
+
 pub fn font_face_family_name(font &Font) &char {
 	return C.TTF_FontFaceFamilyName(font)
 }
 
 fn C.TTF_FontFaceStyleName(font &C.TTF_Font) &char
+
 pub fn font_face_style_name(font &Font) &char {
 	return C.TTF_FontFaceStyleName(font)
 }
@@ -239,11 +251,13 @@ pub fn size_text(font &Font, const_text &char, w &int, h &int) int {
 }
 
 fn C.TTF_SizeUTF8(font &C.TTF_Font, const_text &char, w &int, h &int) int
+
 pub fn size_utf8(font &Font, const_text &char, w &int, h &int) int {
 	return C.TTF_SizeUTF8(font, const_text, w, h)
 }
 
 fn C.TTF_SizeUNICODE(font &Font, const_text &u16, w &int, h &int) int
+
 pub fn size_unicode(font &C.TTF_Font, const_text &u16, w &int, h &int) int {
 	return C.TTF_SizeUNICODE(font, const_text, w, h)
 }
@@ -260,11 +274,13 @@ pub fn render_text_solid(font &Font, const_text &char, fg sdl.Color) &sdl.Surfac
 }
 
 fn C.TTF_RenderUTF8_Solid(font &C.TTF_Font, const_text &char, fg C.SDL_Color) &C.SDL_Surface
+
 pub fn render_utf8_solid(font &Font, const_text &char, fg sdl.Color) &sdl.Surface {
 	return C.TTF_RenderUTF8_Solid(font, const_text, fg)
 }
 
 fn C.TTF_RenderUNICODE_Solid(font &C.TTF_Font, const_text &u16, fg C.SDL_Color) &C.SDL_Surface
+
 pub fn render_unicode_solid(font &Font, const_text &u16, fg sdl.Color) &sdl.Surface {
 	return C.TTF_RenderUNICODE_Solid(font, const_text, fg)
 }
@@ -292,11 +308,13 @@ pub fn render_text_shaded(font &C.TTF_Font, const_text &char, fg sdl.Color, bg s
 }
 
 fn C.TTF_RenderUTF8_Shaded(font &C.TTF_Font, const_text &char, fg C.SDL_Color, bg C.SDL_Color) &C.SDL_Surface
+
 pub fn render_utf8_shaded(font &Font, const_text &char, fg sdl.Color, bg sdl.Color) &sdl.Surface {
 	return C.TTF_RenderUTF8_Shaded(font, const_text, fg, bg)
 }
 
 fn C.TTF_RenderUNICODE_Shaded(font &C.TTF_Font, const_text &u16, fg C.SDL_Color, bg C.SDL_Color) &C.SDL_Surface
+
 pub fn render_unicode_shaded(font &Font, const_text &u16, fg sdl.Color, bg sdl.Color) &sdl.Surface {
 	return C.TTF_RenderUNICODE_Shaded(font, const_text, fg, bg)
 }
@@ -323,11 +341,13 @@ pub fn render_text_blended(font &Font, const_text &char, fg sdl.Color) &sdl.Surf
 }
 
 fn C.TTF_RenderUTF8_Blended(font &C.TTF_Font, const_text &char, fg C.SDL_Color) &C.SDL_Surface
+
 pub fn render_utf8_blended(font &Font, const_text &char, fg sdl.Color) &sdl.Surface {
 	return C.TTF_RenderUTF8_Blended(font, const_text, fg)
 }
 
 fn C.TTF_RenderUNICODE_Blended(font &C.TTF_Font, const_text &u16, fg C.SDL_Color) &C.SDL_Surface
+
 pub fn render_unicode_blended(font &Font, const_text &u16, fg sdl.Color) &sdl.Surface {
 	return C.TTF_RenderUNICODE_Blended(font, const_text, fg)
 }
@@ -344,11 +364,13 @@ pub fn render_text_blended_wrapped(font &Font, const_text &char, fg sdl.Color, w
 }
 
 fn C.TTF_RenderUTF8_Blended_Wrapped(font &C.TTF_Font, const_text &char, fg C.SDL_Color, wrap_length u32) &C.SDL_Surface
+
 pub fn render_utf8_blended_wrapped(font &Font, const_text &char, fg sdl.Color, wrap_length u32) &sdl.Surface {
 	return C.TTF_RenderUTF8_Blended_Wrapped(font, const_text, fg, wrap_length)
 }
 
 fn C.TTF_RenderUNICODE_Blended_Wrapped(font &C.TTF_Font, const_text &u16, fg C.SDL_Color, wrap_length u32) &C.SDL_Surface
+
 pub fn render_unicode_blended_wrapped(font &Font, const_text &u16, fg sdl.Color, wrap_length u32) &sdl.Surface {
 	return C.TTF_RenderUNICODE_Blended_Wrapped(font, const_text, fg, wrap_length)
 }

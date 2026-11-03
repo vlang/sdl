@@ -76,7 +76,7 @@ fn get_asset_path(path string) string {
 
 fn load_wav(path string) !&mixer.Chunk {
 	asset_path := get_asset_path(path)
-	rw := sdl.rw_from_file(asset_path.str, 'rb'.str)
+	rw := sdl.rw_from_file(asset_path.str, c'rb')
 	if rw == sdl.null {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		return error('Could not create wav "${path}" RW from mem data: ${error_msg}')
@@ -91,7 +91,7 @@ fn load_wav(path string) !&mixer.Chunk {
 
 fn load_mus(path string) !&mixer.Music {
 	asset_path := get_asset_path(path)
-	rw := sdl.rw_from_file(asset_path.str, 'rb'.str)
+	rw := sdl.rw_from_file(asset_path.str, c'rb')
 	if rw == sdl.null {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		return error('Could not create music "${path}" RW from mem data: ${error_msg}')
@@ -134,7 +134,7 @@ fn main() {
 		panic('Could not initialize SDL mixer: ${error_msg}')
 	}
 
-	window := sdl.create_window('Hello SDL2_mixer (Press SPACE to pause/play)'.str, 300,
+	window := sdl.create_window(c'Hello SDL2_mixer (Press SPACE to pause/play)', 300,
 		300, 500, 300, 0)
 	if window == sdl.null {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
