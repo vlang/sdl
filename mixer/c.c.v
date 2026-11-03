@@ -21,6 +21,7 @@ $if x64 {
 } $else {
 	#flag windows -L @VMODROOT/thirdparty/SDL2_mixer-2.0.4/lib/x86
 }
+
 #flag windows -I @VMODROOT/thirdparty/SDL2_mixer-2.0.4/include
 #flag windows -lSDL2_mixer
 

@@ -25,7 +25,7 @@ fn get_asset_path(path string) string {
 
 fn load_image(path string) !&sdl.Surface {
 	asset_path := get_asset_path(path)
-	rw := sdl.rw_from_file(asset_path.str, 'rb'.str)
+	rw := sdl.rw_from_file(asset_path.str, c'rb')
 	if rw == sdl.null {
 		error_msg := unsafe { cstring_to_vstring(sdl.get_error()) }
 		return error('Could not load image "${path}" RW from mem data: ${error_msg}')
@@ -51,7 +51,7 @@ fn main() {
 		sdl.log_set_all_priority(sdl.LogPriority.verbose)
 	}
 	sdl.init(sdl.init_video)
-	window := sdl.create_window('Hello SDL2_image'.str, 300, 300, 500, 300, 0)
+	window := sdl.create_window(c'Hello SDL2_image', 300, 300, 500, 300, 0)
 	renderer := sdl.create_renderer(window, -1, u32(sdl.RendererFlags.accelerated) | u32(sdl.RendererFlags.presentvsync))
 
 	flags := int(image.InitFlags.png)
@@ -65,7 +65,7 @@ fn main() {
 	// Hint the render, before creating textures, that we want
 	// as high a scale quality as possible. This improves the
 	// view quality of most textures when they are scaled down.
-	sdl.set_hint(sdl.hint_render_scale_quality.str, '2'.str)
+	sdl.set_hint(sdl.hint_render_scale_quality.str, c'2')
 
 	mut image_textures := []&sdl.Texture{}
 	for image in images {

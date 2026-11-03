@@ -18,6 +18,7 @@ $if x64 {
 } $else {
 	#flag windows -L @VMODROOT/thirdparty/SDL2_image-2.0.5/lib/x86
 }
+
 #flag windows -I @VMODROOT/thirdparty/SDL2_image-2.0.5/include
 #flag windows -lSDL2_image
 
